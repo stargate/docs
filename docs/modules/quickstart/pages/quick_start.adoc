@@ -1,0 +1,3 @@
+= 5-minute quick start guide for Stagate
+
+== Prerequisites

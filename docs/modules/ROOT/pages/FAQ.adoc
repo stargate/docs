@@ -1,0 +1,6 @@
+= Frequently asked questions
+
+== What should I do if I find a bug?
+
+Feel free to post a repo on the https://discord.gg/YJ7vheE[Discord channel] or if you are feeling ambitious file an https://github.com/stargate/docs/issues[issue] with steps for reproduction and we'll get to it as soon as possible. 
+Please remember to include a full stack trace (if any) and the versions of Stargate and Cassandra that you are using.

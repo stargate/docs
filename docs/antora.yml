@@ -1,0 +1,13 @@
+name: docs
+title: Stargate
+version: '0.1'
+display_version: 0.1
+prerelease: -beta
+asciidoc:
+  attributes:
+    sectanchors: ''
+    sectlinks: ''
+nav:
+- modules/quickstart/nav.adoc
+# - modules/developers-guide/nav.adoc
+- modules/ROOT/nav.adoc
