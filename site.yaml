@@ -1,11 +1,10 @@
 site:
   title: Stargate documentation
-  url: /docs/
+  url: /docs
 
 content:
   sources:
-    - url: ../
-      start_path: docs
+    - url: .
       branches: HEAD
 
 ui:
