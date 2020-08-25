@@ -44,8 +44,6 @@ Go to our https://discord.gg/YJ7vheE[Discord channel] to discuss Stargate with t
 
 == Contributing
 
-== Testing
-
 == License
 
 This project uses the https://github.com/stargate/docs/blob/master/LICENSE[Apache 2.0 license].
