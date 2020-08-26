@@ -1,0 +1,30 @@
+= Stargate documentation
+
+This repo contains the source files for the Stargate documentation.
+
+The docs are written in asciidoc and use Antora to generate the output.
+
+The Stargate docs are organized into three Antora modules:
+
+* The ROOT module, with general project infomation.
+* A quickstart module, with basic documentation to get new users started.
+* The developers-guide module with more extensive topics on all the features of Stargate.
+
+== Generating and viewing HTML output
+
+The current development version of the docs are at https://stagate.github.io/docs/.
+
+A GitHub action will generate and publish the docs on pushes to the master branch.
+
+To generate the docs locally during development:
+
+[source,bash]
+----
+antora --stacktrace --clean site.yaml
+----
+
+Open the files in a web browser to view the output.
+
+== Reporting bugs
+
+File a https://github.com/stargate/docs/issues[GitHub issue] or let us know on our https://discord.gg/YJ7vheE[Discord] channel.
