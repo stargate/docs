@@ -17,7 +17,7 @@ https://discord.gg/YJ7vheE[Discord]
 [cols=",,,,,",options="header",]
 |===
 |Stargate |Cassandra |DSE
-|0.1 |4.0 |6.8
+|0.1 |4.0, 3.x |6.8
 |===
 
 == Download
