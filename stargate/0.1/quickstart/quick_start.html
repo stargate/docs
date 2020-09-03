@@ -103,10 +103,169 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">5-minute quick start guide for Stagate</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Stargate is a flexible framework for interacting with data stored in Apache Cassandra. Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster. Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.</p>
+</div>
+<div class="paragraph">
+<p>Stargate by default provides a CQL and REST interface to Cassandra data, with additional plugins available for GraphQL and document store interfaces.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><a class="link" href="#_prerequisites">Prerequisites</a></h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>To use Stargate you need:
+  * A local instance of Apache Cassandra
+  <strong> (optional) Docker if you need to install Cassandra locally on Linux
+  </strong> (optional) <a href="https://github.com/riptano/ccm">ccm</a> if you need to install Cassandra locally on OS X
+  * JDK 8 or later
+  * Git
+  * (optional) <code>cURL</code> to run REST queries</p>
+</div>
+<div class="sect2">
+<h3 id="_installing_apache_cassandra_locally_using_docker"><a class="anchor" href="#_installing_apache_cassandra_locally_using_docker"></a><a class="link" href="#_installing_apache_cassandra_locally_using_docker">Installing Apache Cassandra locally using Docker</a></h3>
+<div class="paragraph">
+<p>Install a local Cassandra instance using Docker.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --name local-cassandra \
+--net=host \
+-e CASSANDRA_CLUSTER_NAME=stargate \
+-d cassandra:3.11.6</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Docker for Mac does not work when installing <code>local-cassandra</code> on OS X. Use ccm on OS X.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installing_apache_cassandra_locally_using_ccm"><a class="anchor" href="#_installing_apache_cassandra_locally_using_ccm"></a><a class="link" href="#_installing_apache_cassandra_locally_using_ccm">Installing Apache Cassandra locally using ccm</a></h3>
+<div class="paragraph">
+<p>Install a local Cassandra instance using <code>ccm</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ccm create -v 3.11.6 -b -n 1:0 -i 127.0.0 stargate &amp;&amp; ccm start</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building_stargate"><a class="anchor" href="#_building_stargate"></a><a class="link" href="#_building_stargate">Building Stargate</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a terminal:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone the <a href="https://github.com/stargate/stargate" class="bare">https://github.com/stargate/stargate</a> repository:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/stargate/stargate</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <code>stargate</code> directory.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd stargate</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build Stargate using the <code>mvnw</code> command.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_starting_stargate"><a class="anchor" href="#_starting_stargate"></a><a class="link" href="#_starting_stargate">Starting Stargate</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are using Stargate on OS X, add an additional loopback interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo ifconfig lo0 alias 127.0.0.2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start a local Stargate instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./starctl --cluster-name stargate --cluster-seed 127.0.0.1 --cluster-version 3.11 --listen 127.0.0.2 --simple-snitch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also start Stargate with Docker.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker build -t stargate . &amp;&amp; docker run -i -t stargate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_cqlsh_to_run_cql_commands"><a class="anchor" href="#_using_cqlsh_to_run_cql_commands"></a><a class="link" href="#_using_cqlsh_to_run_cql_commands">Using <code>cqlsh</code> to run CQL commands</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connect to the Stargate instance running on 127.0.0.2 on port 9042:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cqlsh 127.0.0.2 9042</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_the_stargate_rest_interface"><a class="anchor" href="#_using_the_stargate_rest_interface"></a><a class="link" href="#_using_the_stargate_rest_interface">Using the Stargate REST interface</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use <code>cURL</code> to access the REST interface.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v1/health' \
+--header 'accept: application/json' \
+--header 'content-type: application/json'</code></pre>
+</div>
+</div>
 </div>
 </div>
 </article>
