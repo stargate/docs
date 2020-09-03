@@ -12,7 +12,7 @@ The Stargate docs are organized into three Antora modules:
 
 == Generating and viewing HTML output
 
-The current development version of the docs are at https://stagate.github.io/docs/.
+The current development version of the docs are at https://stargate.github.io/docs/.
 
 A GitHub action will generate and publish the docs on pushes to the master branch.
 
