@@ -119,8 +119,8 @@
 <div class="paragraph">
 <p>To use Stargate you need:
   * A local instance of Apache Cassandra
-  <strong> (optional) Docker if you need to install Cassandra locally on Linux
-  </strong> (optional) <a href="https://github.com/riptano/ccm">ccm</a> if you need to install Cassandra locally on OS X
+  ** (optional) <a href="https://github.com/riptano/ccm">ccm</a> if you need to install Cassandra locally on OS X
+  * Docker
   * JDK 8 or later
   * Git
   * (optional) <code>cURL</code> to run REST queries</p>
@@ -165,50 +165,6 @@ Docker for Mac does not work when installing <code>local-cassandra</code> on OS 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_building_stargate"><a class="anchor" href="#_building_stargate"></a><a class="link" href="#_building_stargate">Building Stargate</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In a terminal:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Clone the <a href="https://github.com/stargate/stargate" class="bare">https://github.com/stargate/stargate</a> repository:</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/stargate/stargate</code></pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Navigate to the <code>stargate</code> directory.</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd stargate</code></pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Build Stargate using the <code>mvnw</code> command.</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_starting_stargate"><a class="anchor" href="#_starting_stargate"></a><a class="link" href="#_starting_stargate">Starting Stargate</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -220,19 +176,11 @@ Docker for Mac does not work when installing <code>local-cassandra</code> on OS 
 </div>
 </div>
 <div class="paragraph">
-<p>Start a local Stargate instance:</p>
+<p>Start a local Stargate instance using Docker:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./starctl --cluster-name stargate --cluster-seed 127.0.0.1 --cluster-version 3.11 --listen 127.0.0.2 --simple-snitch</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also start Stargate with Docker.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker build -t stargate . &amp;&amp; docker run -i -t stargate</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run -i -t stargate</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -241,29 +189,76 @@ Docker for Mac does not work when installing <code>local-cassandra</code> on OS 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_cqlsh_to_run_cql_commands"><a class="anchor" href="#_using_cqlsh_to_run_cql_commands"></a><a class="link" href="#_using_cqlsh_to_run_cql_commands">Using <code>cqlsh</code> to run CQL commands</a></h2>
+<h2 id="_using_the_stargate_rest_api"><a class="anchor" href="#_using_the_stargate_rest_api"></a><a class="link" href="#_using_the_stargate_rest_api">Using the Stargate REST API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Connect to the Stargate instance running on 127.0.0.2 on port 9042:</p>
+<p>Use <code>cURL</code> to access the REST interface. The REST API responds to requests at <code>{stargate host}:8082/v1</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cqlsh 127.0.0.2 9042</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using_the_stargate_rest_interface"><a class="anchor" href="#_using_the_stargate_rest_interface"></a><a class="link" href="#_using_the_stargate_rest_interface">Using the Stargate REST interface</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Use <code>cURL</code> to access the REST interface.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v1/health' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
 --header 'accept: application/json' \
 --header 'content-type: application/json'</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_keyspace_using_the_rest_api"><a class="anchor" href="#_creating_a_keyspace_using_the_rest_api"></a><a class="link" href="#_creating_a_keyspace_using_the_rest_api">Creating a keyspace using the REST API</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces' \
+  --header 'accept: */*' \
+  --header 'content-type: application/json' \
+  --data '{"name": "betterbotz", "replicas": "2"}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_table_using_the_rest_api"><a class="anchor" href="#_creating_a_table_using_the_rest_api"></a><a class="link" href="#_creating_a_table_using_the_rest_api">Creating a table using the REST API</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables' \
+  --header 'accept: */*' \
+  --header 'content-type: application/json' \
+  --data '{"name":"products","ifNotExists":true,"columnDefinitions": [ {"name":"id","typeDefinition":"uuid","static":false}, {"name":"name","typeDefinition":"text","static":false}, {"name":"description","typeDefinition":"text","static":false}, {"name":"price","typeDefinition":"decimal","static":false}, {"name":"created","typeDefinition":"timestamp","static":false}],"primaryKey": {"partitionKey":["id"]},"tableOptions":{"defaultTimeToLive":0}}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_and_modifying_data_using_the_rest_api"><a class="anchor" href="#_adding_and_modifying_data_using_the_rest_api"></a><a class="link" href="#_adding_and_modifying_data_using_the_rest_api">Adding and modifying data using the REST API</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows'
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"4199.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request GET \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --header 'accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"9999.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request DELETE \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json'</code></pre>
+</div>
 </div>
 </div>
 </div>
