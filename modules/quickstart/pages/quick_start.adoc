@@ -8,8 +8,8 @@ Stargate by default provides a CQL and REST interface to Cassandra data, with ad
 
 To use Stargate you need:
   * A local instance of Apache Cassandra
-  ** (optional) Docker if you need to install Cassandra locally on Linux
   ** (optional) https://github.com/riptano/ccm[ccm] if you need to install Cassandra locally on OS X
+  * Docker
   * JDK 8 or later
   * Git
   * (optional) `cURL` to run REST queries
@@ -37,30 +37,30 @@ Install a local Cassandra instance using `ccm`:
 ccm create -v 3.11.6 -b -n 1:0 -i 127.0.0 stargate && ccm start
 ----
 
-== Building Stargate
-
-In a terminal:
-
-. Clone the https://github.com/stargate/stargate repository:
-
-[source,bash]
-----
-git clone https://github.com/stargate/stargate
-----
-
-. Navigate to the `stargate` directory.
-
-[source,bash]
-----
-cd stargate
-----
-
-. Build Stargate using the `mvnw` command.
-
-[source,bash]
-----
-./mvnw clean package
-----
+// == Building Stargate
+//
+// In a terminal:
+//
+// . Clone the https://github.com/stargate/stargate repository:
+//
+// [source,bash]
+// ----
+// git clone https://github.com/stargate/stargate
+// ----
+//
+// . Navigate to the `stargate` directory.
+//
+// [source,bash]
+// ----
+// cd stargate
+// ----
+//
+// . Build Stargate using the `mvnw` command.
+//
+// [source,bash]
+// ----
+// ./mvnw clean package
+// ----
 
 == Starting Stargate
 
@@ -71,38 +71,95 @@ If you are using Stargate on OS X, add an additional loopback interface:
 sudo ifconfig lo0 alias 127.0.0.2
 ----
 
-Start a local Stargate instance:
+Start a local Stargate instance using Docker:
+
+// [source,bash]
+// ----
+// ./starctl --cluster-name stargate --cluster-seed 127.0.0.1 --cluster-version 3.11 --listen 127.0.0.2 --simple-snitch
+// ----
+//
+// You can also start Stargate with Docker.
 
 [source,bash]
 ----
-./starctl --cluster-name stargate --cluster-seed 127.0.0.1 --cluster-version 3.11 --listen 127.0.0.2 --simple-snitch
-----
-
-You can also start Stargate with Docker.
-
-[source,bash]
-----
-docker build -t stargate . && docker run -i -t stargate
+docker run -i -t stargate
 ----
 
 By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.
 
-== Using `cqlsh` to run CQL commands
+// == Using `cqlsh` to run CQL commands
+//
+// Connect to the Stargate instance running on 127.0.0.2 on port 9042:
+//
+// [source,bash]
+// ----
+// cqlsh 127.0.0.2 9042
+// ----
 
-Connect to the Stargate instance running on 127.0.0.2 on port 9042:
+== Using the Stargate REST API
+
+Use `cURL` to access the REST interface. The REST API responds to requests at `{stargate host}:8082/v1`.
 
 [source,bash]
 ----
-cqlsh 127.0.0.2 9042
-----
-
-== Using the Stargate REST interface
-
-Use `cURL` to access the REST interface.
-
-[source,bash]
-----
-curl -L -X GET 'localhost:8082/v1/health' \
+curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
 --header 'accept: application/json' \
 --header 'content-type: application/json'
+----
+
+=== Creating a keyspace using the REST API
+
+[source,bash]
+----
+curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces' \
+  --header 'accept: */*' \
+  --header 'content-type: application/json' \
+  --data '{"name": "betterbotz", "replicas": "2"}'
+----
+
+=== Creating a table using the REST API
+
+[source,bash]
+----
+curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables' \
+  --header 'accept: */*' \
+  --header 'content-type: application/json' \
+  --data '{"name":"products","ifNotExists":true,"columnDefinitions": [ {"name":"id","typeDefinition":"uuid","static":false}, {"name":"name","typeDefinition":"text","static":false}, {"name":"description","typeDefinition":"text","static":false}, {"name":"price","typeDefinition":"decimal","static":false}, {"name":"created","typeDefinition":"timestamp","static":false}],"primaryKey": {"partitionKey":["id"]},"tableOptions":{"defaultTimeToLive":0}}'
+----
+
+=== Adding and modifying data using the REST API
+
+[source,bash]
+----
+curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows'
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"4199.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
+----
+
+[source,bash]
+----
+curl --request GET \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --header 'accept: application/json'
+----
+
+[source,bash]
+----
+curl --request POST \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"9999.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
+----
+
+[source,bash]
+----
+curl --request DELETE \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json'
 ----
