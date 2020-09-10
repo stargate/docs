@@ -2,7 +2,7 @@
 
 == What should I do if I find a bug?
 
-Feel free to post a repo on the https://discord.gg/YJ7vheE[Discord channel] or if you are feeling ambitious file an https://github.com/stargate/docs/issues[issue] with steps for reproduction and we'll get to it as soon as possible.
+Feel free to post a repo on the https://groups.google.com/a/lists.stargate.io/g/stargate-users[Google group] or if you are feeling ambitious file an https://github.com/stargate/docs/issues[issue] with steps for reproduction and we'll get to it as soon as possible.
 Please remember to include a full stack trace (if any) and the versions of Stargate and Cassandra that you are using.
 
 == Why should I use Stargate when I already have a Cassandra cluster?

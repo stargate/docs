@@ -27,4 +27,4 @@ Open the files in a web browser to view the output.
 
 == Reporting bugs
 
-File a https://github.com/stargate/docs/issues[GitHub issue] or let us know on our https://discord.gg/YJ7vheE[Discord] channel.
+File a https://github.com/stargate/docs/issues[GitHub issue] or let us know in our https://groups.google.com/a/lists.stargate.io/g/stargate-users[Google group].
