@@ -1,7 +1,7 @@
 site:
   title: Stargate documentation
-  url: /docs/stargate/
-  start_page: stargate::index.adoc
+  url: https://stargate.io/docs
+  start_page: ROOT::index.adoc
 
 content:
   sources:

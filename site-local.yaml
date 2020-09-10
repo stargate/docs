@@ -1,0 +1,21 @@
+site:
+  title: Stargate documentation
+  url: /docs/stargate/
+  start_page: stargate::index.adoc
+
+content:
+  sources:
+    - url: .
+      branches: HEAD
+
+ui:
+  bundle:
+    url: https://github.com/ianjevans/antora-ui-datastax/releases/download/v0.1/ui-bundle.zip
+  supplemental_files: ./supplemental-ui
+
+asciidoc:
+  attributes:
+    source-highlighter: highlightjs
+
+  extensions:
+    - asciidoctorj-tabbed-code-extension
