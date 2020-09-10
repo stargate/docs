@@ -109,6 +109,8 @@ curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
 
 === Creating a keyspace using the REST API
 
+Send a `POST` request to `/v2/schemas/keyspaces`, setting `name` to the name of the keyspace, and `replicas` to the Cassandra replication factor.
+
 [source,bash]
 ----
 curl --request POST \
@@ -119,6 +121,8 @@ curl --request POST \
 ----
 
 === Creating a table using the REST API
+
+Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table. Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
@@ -131,6 +135,8 @@ curl --request POST \
 
 === Adding and modifying data using the REST API
 
+Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows` to add data to the table. Set the column data as name/value pairs in the JSON body.
+
 [source,bash]
 ----
 curl --request POST \
@@ -140,12 +146,25 @@ curl --request POST \
   --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"4199.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
 ----
 
+Send a `GET` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}` to retrieve a particular row from the table.
+
 [source,bash]
 ----
 curl --request GET \
   --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
   --header 'accept: application/json'
 ----
+
+To retrieve all the rows in a table, send a `GET` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows`.
+
+[source,bash]
+----
+curl --request GET \
+  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
+  --header 'accept: application/json'
+----
+
+To update a row, send a `POST request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows`. Set the column data as name/value pairs in the JSON body.
 
 [source,bash]
 ----
@@ -155,6 +174,10 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"9999.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
 ----
+
+NOTE: Updates are upserts. If the row doesn't exist, it will be created. If it does exist, it will be udpated with the new row data.
+
+To delete a row, send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}`.
 
 [source,bash]
 ----
