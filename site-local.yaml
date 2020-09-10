@@ -16,6 +16,3 @@ ui:
 asciidoc:
   attributes:
     source-highlighter: highlightjs
-
-  extensions:
-    - asciidoctorj-tabbed-code-extension
