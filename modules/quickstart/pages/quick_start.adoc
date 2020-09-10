@@ -23,7 +23,7 @@ Install a local Cassandra instance using Docker.
 docker run --name local-cassandra \
 --net=host \
 -e CASSANDRA_CLUSTER_NAME=stargate \
--d cassandra:3.11.6
+-d cassandra:3.11.7
 ----
 
 WARNING: Docker for Mac does not work when installing `local-cassandra` on OS X. Use ccm on OS X.
@@ -34,7 +34,7 @@ Install a local Cassandra instance using `ccm`:
 
 [source,bash]
 ----
-ccm create -v 3.11.6 -b -n 1:0 -i 127.0.0 stargate && ccm start
+ccm create -v 3.11.7 -b -n 1:0 -i 127.0.0 stargate && ccm start
 ----
 
 // == Building Stargate
