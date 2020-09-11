@@ -51,3 +51,4 @@ jobs:
           publish_branch: 'gh-pages'
           publish_dir: "${{ env.SITE_DIR }}"
           destination_dir: docs
+          disable_nojekyll: true
