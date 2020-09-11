@@ -14,13 +14,15 @@ The Stargate docs are organized into three Antora modules:
 
 The current development version of the docs are at https://stargate.github.io/docs/.
 
-A GitHub action will generate and publish the docs on pushes to the master branch.
+A GitHub action will generate and publish the development docs on pushes to the master branch. Development docs use the `site-local.yaml` Antora site configuration file.
+
+Pushing a tag starting with `v` will trigger a publish action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. Live docs use the `site-publish.yaml` Anotra site configuration file. 
 
 To generate the docs locally during development:
 
 [source,bash]
 ----
-antora --stacktrace --clean site.yaml
+antora --stacktrace --clean site-local.yaml
 ----
 
 Open the files in a web browser to view the output.
