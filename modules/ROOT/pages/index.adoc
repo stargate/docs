@@ -13,7 +13,7 @@
 
 == Version Compatibility
 
-[cols=",,,,,",options="header",]
+[options="header"]
 |===
 |Stargate |Cassandra |DSE
 |0.1 |4.0, 3.x |6.8
