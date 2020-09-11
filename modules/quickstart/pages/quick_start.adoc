@@ -8,35 +8,10 @@ Stargate by default provides a CQL and REST interface to Cassandra data, with ad
 
 To use Stargate you need:
 
-* A local instance of Apache Cassandra
-** (optional) https://github.com/riptano/ccm[ccm] if you need to install Cassandra locally on OS X
 * Docker
 * JDK 8 or later
 * Git
 * `cURL` to run REST queries
-
-=== Installing Apache Cassandra locally using Docker
-
-Install a local Cassandra instance using Docker.
-
-[source,bash]
-----
-docker run --name local-cassandra \
---net=host \
--e CASSANDRA_CLUSTER_NAME=stargate \
--d cassandra:3.11.7
-----
-
-WARNING: Docker for Mac does not work when installing `local-cassandra` on OS X. Use ccm on OS X.
-
-=== Installing Apache Cassandra locally using ccm
-
-Install a local Cassandra instance using `ccm`:
-
-[source,bash]
-----
-ccm create -v 3.11.7 -b -n 1:0 -i 127.0.0 stargate && ccm start
-----
 
 // == Building Stargate
 //
@@ -63,39 +38,30 @@ ccm create -v 3.11.7 -b -n 1:0 -i 127.0.0 stargate && ccm start
 // ./mvnw clean package
 // ----
 
+== Getting the Stargate Docker image
+
+Pull the Stargate Docker image:
+
+[source,bash,subs="attributes+"]
+----
+docker pull stargateio/stargate-3_11:{stargate-docker-tag}
+----
+
 == Starting Stargate
 
-If you are using Stargate on OS X, add an additional loopback interface:
+Start the Docker image in developer mode:
 
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-sudo ifconfig lo0 alias 127.0.0.2
-----
-
-Start a local Stargate instance using Docker:
-
-// [source,bash]
-// ----
-// ./starctl --cluster-name stargate --cluster-seed 127.0.0.1 --cluster-version 3.11 --listen 127.0.0.2 --simple-snitch
-// ----
-//
-// You can also start Stargate with Docker.
-
-[source,bash]
-----
-docker run -i -t stargate
+docker run -d \
+  --name stargate -p 8081:8081 -p 8082:8082 \
+  stargateio/stargate-3_11:{stargate-docker-tag} \
+  --cluster-name stargate \
+  --cluster-version 3.11 \
+  --developer-mode
 ----
 
 By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.
-
-// == Using `cqlsh` to run CQL commands
-//
-// Connect to the Stargate instance running on 127.0.0.2 on port 9042:
-//
-// [source,bash]
-// ----
-// cqlsh 127.0.0.2 9042
-// ----
 
 == Using the Stargate REST API
 
