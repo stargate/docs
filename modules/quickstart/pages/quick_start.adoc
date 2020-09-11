@@ -7,12 +7,13 @@ Stargate by default provides a CQL and REST interface to Cassandra data, with ad
 == Prerequisites
 
 To use Stargate you need:
-  * A local instance of Apache Cassandra
-  ** (optional) https://github.com/riptano/ccm[ccm] if you need to install Cassandra locally on OS X
-  * Docker
-  * JDK 8 or later
-  * Git
-  * (optional) `cURL` to run REST queries
+
+* A local instance of Apache Cassandra
+** (optional) https://github.com/riptano/ccm[ccm] if you need to install Cassandra locally on OS X
+* Docker
+* JDK 8 or later
+* Git
+* `cURL` to run REST queries
 
 === Installing Apache Cassandra locally using Docker
 
