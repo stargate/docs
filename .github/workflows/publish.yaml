@@ -48,6 +48,6 @@ jobs:
        with:
           personal_token: "${{ github.token}}"
           external_repository: stargate/website
-          publish_branch: 'master'
+          publish_branch: 'gh-pages'
           publish_dir: "${{ env.SITE_DIR }}"
           destination_dir: docs
