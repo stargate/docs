@@ -16,7 +16,7 @@ The current development version of the docs are at https://stargate.github.io/do
 
 A GitHub action will generate and publish the development docs on pushes to the master branch. Development docs use the `site-local.yaml` Antora site configuration file.
 
-Pushing a tag starting with `v` will trigger a publish action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. Live docs use the `site-publish.yaml` Anotra site configuration file. 
+Pushing a tag starting with `v` will trigger a publish action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. Live docs use the `site-publish.yaml` Anotra site configuration file.
 
 To generate the docs locally during development:
 
@@ -26,6 +26,18 @@ antora --stacktrace --clean site-local.yaml
 ----
 
 Open the files in a web browser to view the output.
+
+== Publishing to the Stargate website
+
+When you push a tag that begin with `v` the actions in `publish.yaml` are executed.
+This will build the site and publish it to https://github.com/stargate/website in the `gh-pages` branch, putting the output in the `docs` directory.
+
+The Deploy to GitHub Pages action uses a repo secret in order to push the changes to stargate/website.
+To use a different secret:
+
+. https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line#creating-a-token[Create a personal access token].
+. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#creating-encrypted-secrets[Add it to stargate/docs as a repo secret].
+. Update the name of the secret in `publish.yaml`.
 
 == Reporting bugs
 
