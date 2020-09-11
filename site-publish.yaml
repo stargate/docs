@@ -1,7 +1,7 @@
 site:
   title: Stargate documentation
   url: https://stargate.io/docs
-  start_page: ROOT::index.adoc
+  start_page: stargate:quickstart:quick_start.adoc
 
 content:
   sources:
@@ -10,5 +10,5 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/ianjevans/antora-ui-datastax/releases/download/v0.1/ui-bundle.zip
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.1/ui-bundle.zip
   supplemental_files: ./supplemental-ui
