@@ -106,7 +106,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stargate is a flexible framework for interacting with data stored in Apache Cassandra. Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster. Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.</p>
+<p>Stargate is a flexible framework for interacting with data stored in Apache Cassandra<sup>&#8482;</sup>.
+Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster.
+Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.</p>
 </div>
 <div class="paragraph">
 <p>Stargate by default provides a CQL and REST interface to Cassandra data, with additional plugins available for GraphQL and document store interfaces.</p>
@@ -144,6 +146,9 @@
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.3</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra 3.11 backend.</p>
 </div>
 </div>
 </div>
@@ -303,7 +308,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users?pretty' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'</code></pre>
