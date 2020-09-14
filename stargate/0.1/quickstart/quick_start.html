@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>5-minute quick start guide for Stargate :: Stargate documentation</title>
+    <title>Stargate quickstart :: Stargate documentation</title>
     <meta name="generator" content="Antora 2.3.3">
     <link rel="stylesheet" href="../../../assets/css/site.css">
   </head>
@@ -102,16 +102,16 @@
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">5-minute quick start guide for Stargate</h1>
+<h1 class="page">Stargate quickstart</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stargate is a flexible framework for interacting with data stored in Apache Cassandra<sup>&#8482;</sup>.
-Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster.
-Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.</p>
+<p><strong>time to complete: 5 minutes</strong></p>
 </div>
 <div class="paragraph">
-<p>Stargate by default provides a CQL and REST interface to Cassandra data, with additional plugins available for GraphQL and document store interfaces.</p>
+<p>Stargate is a data gateway deployed between client applications and a database.
+In this quickstart, you&#8217;ll be up and running on your local machine with the REST API
+plugin that exposes CRUD access to data stored in Cassandra tables.</p>
 </div>
 </div>
 </div>
@@ -127,9 +127,6 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 <p>Docker installed and running</p>
 </li>
 <li>
-<p>JDK 8 or later</p>
-</li>
-<li>
 <p><code>cURL</code> to run REST queries</p>
 </li>
 </ul>
@@ -137,26 +134,24 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 </div>
 </div>
 <div class="sect1">
-<h2 id="_getting_the_stargate_docker_image"><a class="anchor" href="#_getting_the_stargate_docker_image"></a><a class="link" href="#_getting_the_stargate_docker_image">Getting the Stargate Docker image</a></h2>
+<h2 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Pull the Stargate Docker image:</p>
+<p>This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.3</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra 3.11 backend.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_starting_stargate_using_docker"><a class="anchor" href="#_starting_stargate_using_docker"></a><a class="link" href="#_starting_stargate_using_docker">Starting Stargate using Docker</a></h2>
+<h2 id="_start_the_stargate_container"><a class="anchor" href="#_start_the_stargate_container"></a><a class="link" href="#_start_the_stargate_container">Start the Stargate container</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Start the Docker image in developer mode:</p>
+<p>Start the Stargate container in developer mode.
+Developer mode removes the need to set up a separate Cassandra instance and is meant for development and testing only.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -172,7 +167,9 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 </div>
 </div>
 <div class="paragraph">
-<p>By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.</p>
+<p>By default, Stargate starts a CQL service on port 9042,
+a REST auth service for generating tokens on 8081,
+and a REST interface for CRUD on port 8082.</p>
 </div>
 </div>
 </div>
@@ -180,18 +177,28 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 <h2 id="_using_the_stargate_rest_api"><a class="anchor" href="#_using_the_stargate_rest_api"></a><a class="link" href="#_using_the_stargate_rest_api">Using the Stargate REST API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use <code>cURL</code> to access the REST interface. The REST API responds to requests at <code>{stargate host}:8082/v1</code> and <code>{stargate host}:8082/v2</code>.</p>
+<p>If you prefer, you can use Postman as a client interface for exploring REST APIs (<a href="https://www.postman.com/downloads/">download here</a>).
+We&#8217;ve provided a <a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json">Stargate REST API Postman Collection</a> that you can import in Postman to play with the examples shown in this walkthrough.</p>
 </div>
 <div class="paragraph">
-<p>Generate an authorization token by calling <code>/v1/auth</code> and logging in with the default <code>cassandra</code> user.</p>
+<p>The steps below use <code>cURL</code> to access the REST interface.</p>
+</div>
+<div class="sect2">
+<h3 id="_generate_an_auth_token"><a class="anchor" href="#_generate_an_auth_token"></a><a class="link" href="#_generate_an_auth_token">Generate an auth token</a></h3>
+<div class="paragraph">
+<p>First generate an auth token that is required in each subsequent request
+in the <code>X-Cassandra-Token</code> header.</p>
+</div>
+<div class="paragraph">
+<p>Note the port for the auth service is 8081.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X POST 'http://localhost:8081/v1/auth' \
   -H 'Content-Type: application/json' \
   --data-raw '{
-  "username": "cassandra",
-  "password": "cassandra"
+    "username": "cassandra",
+    "password": "cassandra"
 }'</code></pre>
 </div>
 </div>
@@ -204,7 +211,7 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 </div>
 </div>
 <div class="paragraph">
-<p>Store the authorization token in an environment variable to make it easy to use with <code>cURL</code>.</p>
+<p>Store the auth token in an environment variable to make it easy to use with <code>cURL</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -212,37 +219,32 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 </div>
 </div>
 <div class="paragraph">
-<p>Now you can use the REST API.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request GET 'localhost:8082/v2/keyspaces' \
-  --header "X-Cassandra-Token: $AUTH_TOKEN" \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json'</code></pre>
+<p>Now you&#8217;re ready to use the REST API for CRUD operations.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_creating_a_keyspace_using_the_rest_api"><a class="anchor" href="#_creating_a_keyspace_using_the_rest_api"></a><a class="link" href="#_creating_a_keyspace_using_the_rest_api">Creating a keyspace using the REST API</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/keyspaces</code>, setting <code>name</code> to the name of the keyspace, and <code>replicas</code> to the Cassandra replication factor.</p>
+<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces</code>.
+In this example we use <code>users_keyspace</code> for the <code>name</code>,
+and <code>1</code> for the number of data <code>replicas</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/schemas/keyspaces' \
-  --header "X-Cassandra-Token: $AUTH_TOKEN" \
-  --header 'Content-Type: application/json' \
-  --data-raw '{
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{
     "name": "users_keyspace",
-    "replicas": 1
-}'</code></pre>
+    "replicas": 1</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_creating_a_table_using_the_rest_api"><a class="anchor" href="#_creating_a_table_using_the_rest_api"></a><a class="link" href="#_creating_a_table_using_the_rest_api">Creating a table using the REST API</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/tables</code> to create a table. Set the table name and column definitions in the JSON body.</p>
+<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables</code> to create a table.
+Set the table name and column definitions in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -250,45 +252,46 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "users",
-    "columnDefinitions":
-      [
+	"name": "users",
+	"columnDefinitions":
+	  [
         {
-          "name": "firstname",
-          "typeDefinition": "text"
-        },
+	      "name": "firstname",
+	      "typeDefinition": "text"
+	    },
         {
-          "name": "lastname",
-          "typeDefinition": "text"
-        },
+	      "name": "lastname",
+	      "typeDefinition": "text"
+	    },
+	    {
+	      "name": "email",
+	      "typeDefinition": "text"
+	    },
         {
-          "name": "email",
-          "typeDefinition": "text"
-        },
-        {
-          "name": "favorite color",
-          "typeDefinition": "text"
-        }
-      ],
-    "primaryKey":
-      {
-        "partitionKey": ["firstname"],
-        "clusteringKey": ["lastname"]
-      },
-    "tableOptions":
-      {
-        "defaultTimeToLive": 0,
-        "clusteringExpression":
-          [{ "column": "lastname", "order": "ASC" }]
-      }
+	      "name": "favorite color",
+	      "typeDefinition": "text"
+	    }
+	  ],
+	"primaryKey":
+	  {
+	    "partitionKey": ["firstname"],
+	    "clusteringKey": ["lastname"]
+	  },
+	"tableOptions":
+	  {
+	    "defaultTimeToLive": 0,
+	    "clusteringExpression":
+	      [{ "column": "lastname", "order": "ASC" }]
+	  }
 }'</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_adding_and_modifying_data_using_the_rest_api"><a class="anchor" href="#_adding_and_modifying_data_using_the_rest_api"></a><a class="link" href="#_adding_and_modifying_data_using_the_rest_api">Adding and modifying data using the REST API</a></h3>
+<h3 id="_write_data"><a class="anchor" href="#_write_data"></a><a class="link" href="#_write_data">Write data</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code> to add data to the table. Set the column data as name/value pairs in the JSON body.</p>
+<p>Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code> to add data to the table.
+The column name/value pairs are passed in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -303,42 +306,37 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 }'</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_read_data"><a class="anchor" href="#_read_data"></a><a class="link" href="#_read_data">Read data</a></h3>
 <div class="paragraph">
-<p>Send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code> and filter on the partition key to retrieve a particular row from the table.</p>
+<p>Send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>
+to retrieve a row using the primary key of the table in the <code>where</code> params.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -G --location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_update_data"><a class="anchor" href="#_update_data"></a><a class="link" href="#_update_data">Update data</a></h3>
 <div class="paragraph">
-<p>To retrieve all the rows in a table, send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>.</p>
+<p>To update a row, send a <code>PUT</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}/{path}</code>.
+The <code>{path}</code> is comprised of the primary key values.
+In this example the partition key is <code>firstname</code> "Mookie" and the clustering key is <code>lastname</code> "Betts"
+so we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our request.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request GET \
-  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
-  --header "X-Cassandra-Token: $AUTH_TOKEN" \
-  --header 'accept: application/json'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To update a row, send a <code>POST request to `/v2/keyspaces/{keyspace_name}/{table_name}</code>. Set the column data as name/value pairs in the JSON body.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
---url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'content-type: application/json' \
+--header 'Content-Type: application/json' \
 --data-raw '{
-    "firstname": "Mookie",
-    "lastname": "Betts",
-    "email": "mookie.betts@gmail.com",
-    "favorite color": "red"
+    "email": "mookie.betts.new-email@email.com"
 }'</code></pre>
 </div>
 </div>
@@ -349,22 +347,28 @@ Developers can focus on the Stargate data interfaces, and let Stargate manage an
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Updates are upserts. If the row doesn&#8217;t exist, it will be created. If it does exist, it will be udpated with the new row data.
+Updates are upserts. If the row doesn&#8217;t exist, it will be created.
+If it does exist, it will be udpated with the new row data.
 </td>
 </tr>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_delete_data"><a class="anchor" href="#_delete_data"></a><a class="link" href="#_delete_data">Delete data</a></h3>
 <div class="paragraph">
-<p>To delete a row, send a <code>DELETE</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>.</p>
+<p>To delete a row, send a <code>DELETE</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}/{path}</code>.
+In this request we delete all data with the primary key <code>firstname</code> of <code>Mookie</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request DELETE \
-  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
-  --header "X-Cassandra-Token: $AUTH_TOKEN" \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Voila! For more information on the REST API, see the full reference in the REST API section of the docs.</p>
 </div>
 </div>
 </div>
