@@ -1,4 +1,4 @@
-= Stargate Quickstart
+= Stargate quickstart
 
 *time to complete: 5 minutes*
 
@@ -43,7 +43,7 @@ To use Stargate you need:
 // tag::getDockerImage[]
 == Pull the Docker image
 
-This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra(R) 3.11 backend.
+This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra^(TM)^ 3.11 backend.
 
 [source,bash,subs="attributes+"]
 ----
@@ -55,7 +55,7 @@ docker pull stargateio/stargate-3_11:{stargate-docker-tag}
 == Start the Stargate container
 
 Start the Stargate container in developer mode.
-Developer mode removes the need to set up a separate Cassandra instance and is meant for dev/testing only.
+Developer mode removes the need to set up a separate Cassandra instance and is meant for development and testing only.
 
 [source,bash,subs="attributes+"]
 ----
@@ -125,7 +125,7 @@ and `1` for the number of data `replicas`.
 [source,bash]
 ----
 curl --location --request POST 'localhost:8082/schemas/keyspaces' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name": "users_keyspace",
@@ -140,7 +140,7 @@ Set the table name and column definitions in the JSON body.
 [source,bash]
 ----
 curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
 	"name": "users",
@@ -180,12 +180,12 @@ curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/
 === Write data
 
 Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table.
-The column name / value pairs are passed in the JSON body.
+The column name/value pairs are passed in the JSON body.
 
 [source,bash]
 ----
 curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "firstname": "Mookie",
@@ -203,7 +203,7 @@ to retrieve a row using the primary key of the table in the `where` params.
 [source,bash]
 ----
 curl -G --location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
 ----
@@ -218,7 +218,7 @@ so we use `/Mookie/Betts` as the `{path}` in our request.
 [source,bash]
 ----
 curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "mookie.betts.new-email@email.com"
@@ -235,7 +235,7 @@ In this request we delete all data with the primary key `firstname` of `Mookie`
 [source,bash]
 ----
 curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
 
