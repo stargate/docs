@@ -155,12 +155,15 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run -d \
-  --name stargate -p 8081:8081 -p 8082:8082 \
-  stargateio/stargate-3_11:v0.0.3 \
-  --cluster-name stargate \
-  --cluster-version 3.11 \
-  --developer-mode</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --name stargate \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION=3.11 \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-3_11:v0.0.3</code></pre>
 </div>
 </div>
 <div class="paragraph">
