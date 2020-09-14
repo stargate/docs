@@ -1,6 +1,6 @@
 = 5-minute quick start guide for Stargate
 
-Stargate is a flexible framework for interacting with data stored in Apache Cassandra (C).
+Stargate is a flexible framework for interacting with data stored in Apache Cassandra^(TM)^.
 Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster.
 Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.
 
