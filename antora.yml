@@ -10,5 +10,5 @@ asciidoc:
     stargate-docker-tag: v0.0.3
 nav:
 - modules/quickstart/nav.adoc
-# - modules/developers-guide/nav.adoc
+- modules/developers-guide/nav.adoc
 - modules/ROOT/nav.adoc

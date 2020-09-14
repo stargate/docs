@@ -1,8 +1,9 @@
 .Stargate basics
 * xref:docker.adoc[Starting Stargate with Docker images]
+* xref:cql.adoc[Using the CQL API]
 
-.Building and running
-* TODO
-
-.Developing applications
-* TODO
+// .Building and running
+// * TODO
+//
+// .Developing applications
+// * TODO
