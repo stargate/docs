@@ -12,8 +12,9 @@ To use Stargate you need:
 
 // tag::prereqsList[]
 * Docker installed and running
-* `cURL` to run REST queries
+* JDK 8 or higher
 // end::prereqsList[]
+* `cURL` to run REST queries
 
 // == Building Stargate
 //

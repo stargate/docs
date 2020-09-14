@@ -1,0 +1,24 @@
+= Installing Stargate with an existing Cassandra cluster
+
+Stargate can be installed alongside an existing Cassandra cluster.
+
+== Using Stargate with Cassandra 3.11
+
+include::quickstart:page$quick_start.adoc[tag=getDockerImage]
+
+=== Starting Stargate with Cassandra 3.11
+
+To join a running Cassandra 3.11 cluster:
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -d stargateio/stargate-3_11:{stargate-docker-tag} \
+  --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch
+----
+
+The `cluster-seed` option is set to the IP address of a running Cassandra node. The `cluster-version` must match the version of Cassandra. The `listen-address` option is the address on which Stargate will listen. The `simple-snitch` option sets the snitch on the Stargate node.
