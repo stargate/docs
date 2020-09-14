@@ -1,9 +1,10 @@
-.Stargate basics
-* xref:docker.adoc[Starting Stargate with Docker images]
+//.Stargate basics
+* xref:docker.adoc[Installing Stargate]
 * xref:cql.adoc[Using the CQL API]
+** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
 
 // .Building and running
-// * TODO
+* xref:building.adoc[Building Stargate from source]
 //
 // .Developing applications
 // * TODO
