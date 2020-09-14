@@ -137,6 +137,7 @@ Stargate can be used with any of the Cassandra drivers:
 * https://github.com/datastax/cpp-driver[C++]
 * https://github.com/datastax/python-driver[Python]
 * https://github.com/datastax/nodejs-driver[Node.js]
+* https://github.com/gocql/gocql[Go]
 
 For example, to connect to Stargate running on your local machine using the Python driver:
 
