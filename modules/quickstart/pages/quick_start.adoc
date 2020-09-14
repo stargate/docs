@@ -193,7 +193,7 @@ In this example the partition key is `firstname` "Mookie" and the clustering key
 [source,bash]
 ----
 curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header 'X-Cassandra-Token: ' \
+--header 'X-Cassandra-Token: {auth-token-here}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "mookie.betts.new-email@email.com"
@@ -209,7 +209,7 @@ To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{tabl
 [source,bash]
 ----
 curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
---header 'X-Cassandra-Token: ' \
+--header 'X-Cassandra-Token: {auth-token-here}' \
 --header 'Content-Type: application/json'
 ----
 
