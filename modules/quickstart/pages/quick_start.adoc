@@ -1,6 +1,8 @@
 = 5-minute quick start guide for Stargate
 
-Stargate is a flexible framework for interacting with data stored in Apache Cassandra. Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster. Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.
+Stargate is a flexible framework for interacting with data stored in Apache Cassandra^(TM)^.
+Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster.
+Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.
 
 Stargate by default provides a CQL and REST interface to Cassandra data, with additional plugins available for GraphQL and document store interfaces.
 
@@ -48,6 +50,8 @@ Pull the Stargate Docker image:
 ----
 docker pull stargateio/stargate-3_11:{stargate-docker-tag}
 ----
+
+This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra 3.11 backend.
 
 // end::getDockerImage[]
 
@@ -193,7 +197,7 @@ Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}` and filter 
 
 [source,bash]
 ----
-curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users?pretty' \
+curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
