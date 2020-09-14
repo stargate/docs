@@ -122,13 +122,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Docker</p>
+<p>Docker installed and running</p>
 </li>
 <li>
 <p>JDK 8 or later</p>
-</li>
-<li>
-<p>Git</p>
 </li>
 <li>
 <p><code>cURL</code> to run REST queries</p>
@@ -151,7 +148,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_starting_stargate"><a class="anchor" href="#_starting_stargate"></a><a class="link" href="#_starting_stargate">Starting Stargate</a></h2>
+<h2 id="_starting_stargate_using_docker"><a class="anchor" href="#_starting_stargate_using_docker"></a><a class="link" href="#_starting_stargate_using_docker">Starting Stargate using Docker</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Start the Docker image in developer mode:</p>
@@ -175,89 +172,166 @@
 <h2 id="_using_the_stargate_rest_api"><a class="anchor" href="#_using_the_stargate_rest_api"></a><a class="link" href="#_using_the_stargate_rest_api">Using the Stargate REST API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use <code>cURL</code> to access the REST interface. The REST API responds to requests at <code>{stargate host}:8082/v1</code>.</p>
+<p>Use <code>cURL</code> to access the REST interface. The REST API responds to requests at <code>{stargate host}:8082/v1</code> and <code>{stargate host}:8082/v2</code>.</p>
+</div>
+<div class="paragraph">
+<p>Generate an authorization token by calling <code>/v1/auth</code> and logging in with the default <code>cassandra</code> user.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X POST 'http://localhost:8081/v1/auth' \
+  -H 'Content-Type: application/json' \
+  --data-raw '{
+  "username": "cassandra",
+  "password": "cassandra"
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should receive a token in the response.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"authToken":"{auth-token}"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Store the authorization token in an environment variable to make it easy to use with <code>cURL</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AUTH_TOKEN={auth-token}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can use the REST API.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request GET 'localhost:8082/v2/keyspaces' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json'</code></pre>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_creating_a_keyspace_using_the_rest_api"><a class="anchor" href="#_creating_a_keyspace_using_the_rest_api"></a><a class="link" href="#_creating_a_keyspace_using_the_rest_api">Creating a keyspace using the REST API</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces</code>, setting <code>name</code> to the name of the keyspace, and <code>replicas</code> to the Cassandra replication factor.</p>
+<p>Send a <code>POST</code> request to <code>/v2/keyspaces</code>, setting <code>name</code> to the name of the keyspace, and <code>replicas</code> to the Cassandra replication factor.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces' \
-  --header 'accept: */*' \
-  --header 'content-type: application/json' \
-  --data '{"name": "betterbotz", "replicas": "2"}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/schemas/keyspaces' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    "name": "users_keyspace",
+    "replicas": 1
+}'</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_creating_a_table_using_the_rest_api"><a class="anchor" href="#_creating_a_table_using_the_rest_api"></a><a class="link" href="#_creating_a_table_using_the_rest_api">Creating a table using the REST API</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables</code> to create a table. Set the table name and column definitions in the JSON body.</p>
+<p>Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/tables</code> to create a table. Set the table name and column definitions in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables' \
-  --header 'accept: */*' \
-  --header 'content-type: application/json' \
-  --data '{"name":"products","ifNotExists":true,"columnDefinitions": [ {"name":"id","typeDefinition":"uuid","static":false}, {"name":"name","typeDefinition":"text","static":false}, {"name":"description","typeDefinition":"text","static":false}, {"name":"price","typeDefinition":"decimal","static":false}, {"name":"created","typeDefinition":"timestamp","static":false}],"primaryKey": {"partitionKey":["id"]},"tableOptions":{"defaultTimeToLive":0}}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "users",
+    "columnDefinitions":
+      [
+        {
+          "name": "firstname",
+          "typeDefinition": "text"
+        },
+        {
+          "name": "lastname",
+          "typeDefinition": "text"
+        },
+        {
+          "name": "email",
+          "typeDefinition": "text"
+        },
+        {
+          "name": "favorite color",
+          "typeDefinition": "text"
+        }
+      ],
+    "primaryKey":
+      {
+        "partitionKey": ["firstname"],
+        "clusteringKey": ["lastname"]
+      },
+    "tableOptions":
+      {
+        "defaultTimeToLive": 0,
+        "clusteringExpression":
+          [{ "column": "lastname", "order": "ASC" }]
+      }
+}'</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_adding_and_modifying_data_using_the_rest_api"><a class="anchor" href="#_adding_and_modifying_data_using_the_rest_api"></a><a class="link" href="#_adding_and_modifying_data_using_the_rest_api">Adding and modifying data using the REST API</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows</code> to add data to the table. Set the column data as name/value pairs in the JSON body.</p>
+<p>Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code> to add data to the table. Set the column data as name/value pairs in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows'
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"4199.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "blue"
+}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Send a <code>GET</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}</code> to retrieve a particular row from the table.</p>
+<p>Send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code> and filter on the partition key to retrieve a particular row from the table.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users?pretty' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To retrieve all the rows in a table, send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request GET \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
   --header 'accept: application/json'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To retrieve all the rows in a table, send a <code>GET</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request GET \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
-  --header 'accept: application/json'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To update a row, send a <code>POST request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows</code>. Set the column data as name/value pairs in the JSON body.</p>
+<p>To update a row, send a <code>POST request to `/v2/keyspaces/{keyspace_name}/{table_name}</code>. Set the column data as name/value pairs in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"9999.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'</code></pre>
+--url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'content-type: application/json' \
+--data-raw '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "red"
+}'</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -273,12 +347,13 @@ Updates are upserts. If the row doesn&#8217;t exist, it will be created. If it d
 </table>
 </div>
 <div class="paragraph">
-<p>To delete a row, send a <code>DELETE</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}</code>.</p>
+<p>To delete a row, send a <code>DELETE</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --request DELETE \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
   --header 'accept: application/json' \
   --header 'content-type: application/json'</code></pre>
 </div>
