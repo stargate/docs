@@ -1,15 +1,17 @@
 = 5-minute quick start guide for Stargate
 
-Stargate is a data gateway deployed between client applications and a database.
-In this quickstart, you'll be up and running on your local machine with the REST API
-plugin that exposes CRUD access to data stored in Cassandra tables.
+Stargate is a flexible framework for interacting with data stored in Apache Cassandra (C).
+Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster.
+Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.
+
+Stargate by default provides a CQL and REST interface to Cassandra data, with additional plugins available for GraphQL and document store interfaces.
 
 == Prerequisites
 
 To use Stargate you need:
 
 // tag::prereqsList[]
-* Docker
+* Docker installed and running
 * JDK 8 or later
 * `cURL` to run REST queries
 // end::prereqsList[]
@@ -40,22 +42,23 @@ To use Stargate you need:
 // ----
 
 // tag::getDockerImage[]
-== Pull the Docker image
+== Getting the Stargate Docker image
 
-This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra(R) 3.11 backend.
+Pull the Stargate Docker image:
 
 [source,bash,subs="attributes+"]
 ----
 docker pull stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
+This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra 3.11 backend.
+
 // end::getDockerImage[]
 
 // tag::startDocker[]
-== Start the container
+== Starting Stargate using Docker
 
-Start the Stargate container in developer mode.
-Developer mode removes the need to set up a separate Cassandra instance and is meant for dev/testing only.
+Start the Docker image in developer mode:
 
 [source,bash,subs="attributes+"]
 ----
@@ -70,38 +73,29 @@ docker run --name stargate \
   stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
-By default, Stargate starts a CQL service on port 9042,
-a REST auth service for generating tokens on 8081,
-and a REST interface for CRUD on port 8082.
+By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.
 
 // end::startDocker[]
 
 == Using the Stargate REST API
 
-If you prefer, you can use Postman as a client interface for exploring REST APIs (https://www.postman.com/downloads/[download here]).
-We've provided a https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+Use `cURL` to access the REST interface. The REST API responds to requests at `{stargate host}:8082/v1` and `{stargate host}:8082/v2`.
 
-The steps below use `cURL` to access the REST interface.
-
-=== Generate an auth token
-
-First generate an auth token that is required in each subsequent request
-in the `X-Cassandra-Token` header.
-
-NOTE: The port for the authorization service is 8081.
+Generate an authorization token by calling `/v1/auth` and logging in with the default `cassandra` user.
 
 [source,bash]
 ----
 curl -L -X POST 'http://localhost:8081/v1/auth' \
   -H 'Content-Type: application/json' \
   --data-raw '{
-    "username": "cassandra",
-    "password": "cassandra"
+  "username": "cassandra",
+  "password": "cassandra"
 }'
 ----
 
-Expected output:
-[source,bash]
+You should receive a token in the response.
+
+[source,json]
 ----
 {"authToken":"{auth-token}"}
 ----
@@ -118,16 +112,14 @@ Now you can use the REST API.
 [source,bash]
 ----
 curl --location --request GET 'localhost:8082/v2/keyspaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'accept: application/json' \
---header 'content-type: application/json'
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json'
 ----
 
 === Creating a keyspace using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces`,
-in this example we use `users_keyspace` for the `name`,
-and `1` for the number of data `replicas`.
+Send a `POST` request to `/v2/keyspaces`, setting `name` to the name of the keyspace, and `replicas` to the Cassandra replication factor.
 
 [source,bash]
 ----
@@ -142,7 +134,7 @@ curl --location --request POST 'localhost:8082/schemas/keyspaces' \
 
 === Creating a table using the REST API
 
-Send a `POST` request to `/v2/schmeas/keyspaces/{keyspace_name}/tables` to create a table. Set the table name and column definitions in the JSON body.
+Send a `POST` request to `/v2/keyspaces/{keyspace_name}/tables` to create a table. Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
@@ -184,9 +176,9 @@ curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/
 }'
 ----
 
-=== Write data
+=== Adding and modifying data using the REST API
 
-Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table. The column name/value pairs are passed in the JSON body.
+Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table. Set the column data as name/value pairs in the JSON body.
 
 [source,bash]
 ----
@@ -201,7 +193,7 @@ curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users
 }'
 ----
 
-Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to retrieve a row using the primary key of the table row.
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}` and filter on the partition key to retrieve a particular row from the table.
 
 [source,bash]
 ----
@@ -211,35 +203,42 @@ curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keysp
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
 ----
 
-=== Update data
-
-To update a row, send a `PUT` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
-The `{path}` is the primary key values.
-In this example the partition key is `firstname` "Mookie" and the clustering key is `lastname` "Betts".
+To retrieve all the rows in a table, send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`.
 
 [source,bash]
 ----
-curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+curl --request GET \
+  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
+  --header 'accept: application/json'
+----
+
+To update a row, send a `POST request to `/v2/keyspaces/{keyspace_name}/{table_name}`. Set the column data as name/value pairs in the JSON body.
+
+[source,bash]
+----
+curl --request POST \
+--url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'content-type: application/json' \
 --data-raw '{
-"email": "mookie.betts.new-email@gmail.com",
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "red"
 }'
 
 ----
 
 NOTE: Updates are upserts. If the row doesn't exist, it will be created. If it does exist, it will be udpated with the new row data.
 
-=== Delete data
-
-To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{table_name}`.
 
 [source,bash]
 ----
-curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
+curl --request DELETE \
+  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
   --header "X-Cassandra-Token: $AUTH_TOKEN" \
   --header 'accept: application/json' \
   --header 'content-type: application/json'
 ----
-
-Voila! For more information on the REST API, see the full reference in the REST API section of the docs.
