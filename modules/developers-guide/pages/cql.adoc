@@ -1,5 +1,25 @@
 = Using the CQL API
 
+To use Stargate's Cassandra Query Language (CQL) API you can use the same CQL syntax, tools and native language drivers that you would with a normal Cassandra deployment.
+
+Popular Cassandra drivers are:
+
+* https://github.com/datastax/java-driver[Java]
+* https://github.com/datastax/csharp-driver[C#]
+* https://github.com/datastax/cpp-driver[C++]
+* https://github.com/datastax/python-driver[Python]
+* https://github.com/datastax/nodejs-driver[Node.js]
+* https://github.com/gocql/gocql[Go]
+* https://spring.io/projects/spring-data-cassandra[Spring Data Cassandra]
+
+[NOTE]
+====
+When using Cassandra drivers with Stargate you must:
+
+. Use the addresses of the Stargate instances as contact points rather than the addresses of the Cassandra storage instances.
+. Use the Round Robin policy in the driver for the https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Load Balancing Policy] rather than the Token Aware Policy.
+====
+
 == Prerequisites
 
 To use the CQL API you need:
@@ -126,18 +146,7 @@ DELETE FROM users_keyspace.users WHERE firstname = 'Mookie' AND lastname = 'Bett
 
 == Using the CQL API with Cassandra drivers
 
-Use the Stargate node as the connection host when connecting using Cassandra drivers.
-
-CAUTION: Do not use the Cassandra nodes as the connection host, only use Stargate nodes.
-
-Stargate can be used with any of the Cassandra drivers:
-
-* https://github.com/datastax/java-driver[Java]
-* https://github.com/datastax/csharp-driver[C#]
-* https://github.com/datastax/cpp-driver[C++]
-* https://github.com/datastax/python-driver[Python]
-* https://github.com/datastax/nodejs-driver[Node.js]
-* https://github.com/gocql/gocql[Go]
+Stargate can be used with any of the Cassandra drivers. Use the Stargate node as the contact point when connecting using Cassandra drivers, and use the https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Round Robin load balancing policy].
 
 For example, to connect to Stargate running on your local machine using the Python driver:
 
