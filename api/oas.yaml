@@ -1,0 +1,369 @@
+openapi: 3.0.1
+info:
+  title: Stargate REST
+  description: ""
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.0
+externalDocs:
+  description: Reference Document
+  url: http://shorturl.at/hnqIQ
+servers:
+  - url: https://api.stargate.io/rest/v2
+tags:
+  - name: health
+    description: "Health checks"
+  - name: schemas
+    description: "Interact with keyspaces and tables in your database"
+  - name: data
+    description: "Add, update, and delete rows in your database"
+paths:
+  /keyspaces/{keyspace-id}/{table-id}:
+    get:
+      tags:
+        - data
+      summary: search a table
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/where"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/page-size"
+        - $ref: "#/components/parameters/page-state"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    {
+                      "count": 1,
+                      "pageState": "2f4acd34",
+                      "data":
+                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
+                    }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - keyspaces
+      summary: Add rows
+      description: "Add rows to a table in your database. If the new row has the same primary key as that of an existing row, the database processes it as an update to the existing row."
+      operationId: addRow
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        description: row
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RowAdd"
+            examples:
+              default:
+                value:
+                  {
+                    "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7",
+                    "title": "Hello World",
+                    "author": "CRW",
+                  }
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              examples:
+                default:
+                  value: { "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /keyspaces/{keyspace-id}/{table-id}/{primary-key}:
+    get:
+      tags:
+        - data
+      summary: get a row(s)
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/page-size"
+        - $ref: "#/components/parameters/page-state"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    {
+                      "count": 1,
+                      "pageState": "2f4acd34",
+                      "data":
+                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
+                    }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - keyspaces
+      summary: replace a row(s)
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              default:
+                value: { "title": "New Title" }
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    { "rowsModified": 208, "data": { "title": "New Title" } }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    patch:
+      tags:
+        - keyspaces
+      summary: update part of a row(s)
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              default:
+                value: { "title": "New Title", "author": null }
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    { "rowsModified": 208, "data": { "title": "New Title" } }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - keyspaces
+      summary: delete a row(s)
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              examples:
+                default:
+                  value: {}
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /schemas/keyspaces:
+    get:
+      tags:
+        - schemas
+      summary: Return all keyspaces
+      description: "Retrieve all available keyspaces in the specific database."
+      operationId: getKeyspaces
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    {
+                      "data":
+                        [
+                          {
+                            "name": "killrvideo",
+                            "datacenters":
+                              [
+                                { "name": "dc1", "replicas": 3 },
+                                { "name": "dc2", "replicas": 3 },
+                              ],
+                          },
+                        ],
+                    }
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - schemas
+      summary: create a keyspace
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              simple strategy:
+                value: { "name": "killrvideo" }
+              datacenters:
+                value:
+                  {
+                    "name": "killrvideo",
+                    "datacenters":
+                      [
+                        { "name": "dc1", "replicas": 3 },
+                        { "name": "dc2", "replicas": 3 },
+                      ],
+                  }
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              examples:
+                default:
+                  value: { "name": "killrvideo" }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /schemas/keyspaces/{keyspace-id}:
+    get:
+      tags:
+        - schemas
+      summary: get a keyspace
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    {
+                      "data":
+                        {
+                          "name": "killrvideo",
+                          "datacenters":
+                            [
+                              { "name": "dc1", "replicas": 3 },
+                              { "name": "dc2", "replicas": 3 },
+                            ],
+                        },
+                    }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - schemas
+      summary: delete a keyspace
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              examples:
+                default:
+                  value: {}
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /schemas/keyspaces/{keyspace-id}/tables:
+    get:
+      tags:
+        - schemas
+      summary: list tables
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/j...
