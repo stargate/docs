@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Stargate concepts :: Stargate documentation</title>
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../assets/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="https://stargate.io"><img src="../../../assets/img/logos/stargate-logo-horizontal.svg" style="height:40px" /></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://stargate.io">Stargate</a>
+        <!-- <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">API docs</div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="">0.1</a>
+          </div>
+        </div> -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Community</div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/stargate/docs/issues">File a bug</a>
+            <a class="navbar-item" href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">Ask a question</a>
+            <a class="navbar-item" href="https://twitter.com/stargateio">Follow us on Twitter</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="https://github.com/stargate/">Stargate GitHub</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="stargate" data-version="0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Stargate</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quick_start.html">Quick start</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="concepts.html">Concepts</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../FAQ.html">FAQ</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Stargate</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Stargate</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Stargate</a></li>
+    <li><a href="concepts.html">Concepts</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/concepts/pages/concepts.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Stargate concepts</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Stargate is a framework used to customize all aspects of data access.
+It is deployed between client applications and a database to provide an abstraction layer that can be used to shape your data access to fit your application&#8217;s needs.</p>
+</div>
+<div class="paragraph">
+<p>To understand the vision of this project, see the high-level architecture diagram below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://github.com/stargate/stargate/blob/master/assets/stargate-arch-high-level.png?raw=true" alt="Stargate High-Level Architecture">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_project_architecture"><a class="anchor" href="#_project_architecture"></a><a class="link" href="#_project_architecture">Project architecture</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Stargate is broken up into modules that fit into three broad categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API extensions</p>
+</li>
+<li>
+<p>Persistence extensions</p>
+</li>
+<li>
+<p>Authentication extensions.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The diagram below shows how these modules fit together.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://github.com/stargate/stargate/blob/master/assets/stargate-modules-preview-version.png?raw=true" alt="Stargate High-Level Architecture">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_api_extensions"><a class="anchor" href="#_api_extensions"></a><a class="link" href="#_api_extensions">API extensions</a></h3>
+<div class="paragraph">
+<p>API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.</p>
+</div>
+<div class="paragraph">
+<p>There are currently extensions for the Cassandra Query Language (CQL) and a REST API for CRUD access to data in tables with many more coming soon.
+These extensions use both the Authentication Extensions and the Persistence Extensions.</p>
+</div>
+<div class="paragraph">
+<p>The REST API for example uses the <a href="https://github.com/stargate/stargate/tree/master/auth-api">auth-api</a> to handle token access to the endpoints that are exposed by the Jetty-based Web Server.
+The <a href="https://github.com/stargate/stargate/tree/master/persistence-api">persistence-api</a> is used to dispatch converted requests to the underlying storage engine.
+In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/resources/v2/RowsResource.java">RowsResource</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_persistence_extensions"><a class="anchor" href="#_persistence_extensions"></a><a class="link" href="#_persistence_extensions">Persistence extensions</a></h3>
+<div class="paragraph">
+<p>Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.</p>
+</div>
+<div class="paragraph">
+<p>The Persistence extensions are currently Cassandra-centric as Cassandra is the first database we chose to implement.
+The extensions for Cassandra 3.11 and 4.0 use Cassandra&#8217;s coordinator concept and code to do the majority of the work.</p>
+</div>
+<div class="paragraph">
+<p>Specifically, when using Stargate with one of Cassandra extensions Stargate nodes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>join the Cassandra ring as a <a href="https://cassandra.apache.org/doc/latest/architecture/dynamo.html">coordinator node</a>, a node that does not store data.</p>
+</li>
+<li>
+<p>mock Cassandra system tables for native driver integration.</p>
+</li>
+<li>
+<p>execute requests with Cassandra storage instances using Cassandra&#8217;s internal <code>QueryHandler</code> and <code>QueryProcessor</code>.</p>
+</li>
+<li>
+<p>convert internal Cassandra objects and <code>ResultSets</code> to Stargate Datastore objects.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_authentication_extensions"><a class="anchor" href="#_authentication_extensions"></a><a class="link" href="#_authentication_extensions">Authentication extensions</a></h3>
+<div class="paragraph">
+<p>Authentication extensions are responsible for access control to Stargate&#8217;s APIs.</p>
+</div>
+<div class="paragraph">
+<p>Currently there&#8217;s only an <a href="https://github.com/stargate/stargate/tree/master/auth-table-based-service">auth table-based service</a> which stores generated access tokens in the database.</p>
+</div>
+<div class="paragraph">
+<p>These extensions are used by the API Extensions to federate access.
+You can see an example of this in the <a href="https://github.com/stargate/stargate/tree/master/restapi">REST API</a> which requires a token to be passed to requests using the <code>X-Cassandra-Token</code> header.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../assets/js/site.js"></script>
+<script async src="../../../assets/js/vendor/highlight.js"></script>
+  </body>
+</html>
