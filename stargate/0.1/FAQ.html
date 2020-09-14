@@ -106,17 +106,38 @@
 <div class="sect1">
 <h2 id="_what_should_i_do_if_i_find_a_bug"><a class="anchor" href="#_what_should_i_do_if_i_find_a_bug"></a><a class="link" href="#_what_should_i_do_if_i_find_a_bug">What should I do if I find a bug?</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Feel free to post a repo on the <a href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">Google group</a> or if you are feeling ambitious file an <a href="https://github.com/stargate/docs/issues">issue</a> with steps for reproduction and we&#8217;ll get to it as soon as possible.
-Please remember to include a full stack trace (if any) and the versions of Stargate and Cassandra that you are using.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you&#8217;ve found an issue while using Stargate, please file a bug in the <a href="https://github.com/stargate/stargate">Stargate repo</a> and use the bug label. It&#8217;s also helpful to include the full stack trace and the Stargate and database version that you are using so that we can efficiently debug.</p>
+</li>
+<li>
+<p>If you&#8217;ve found an issue with the documentation, please file an issue in the <a href="https://github.com/stargate/docs">Stargate docs repo</a>. Pull requests are also accepted!</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_why_should_i_use_stargate_when_i_already_have_a_cassandra_cluster"><a class="anchor" href="#_why_should_i_use_stargate_when_i_already_have_a_cassandra_cluster"></a><a class="link" href="#_why_should_i_use_stargate_when_i_already_have_a_cassandra_cluster">Why should I use Stargate when I already have a Cassandra cluster?</a></h2>
+<h2 id="_why_should_i_use_stargate_when_i_already_have_an_existing_database"><a class="anchor" href="#_why_should_i_use_stargate_when_i_already_have_an_existing_database"></a><a class="link" href="#_why_should_i_use_stargate_when_i_already_have_an_existing_database">Why should I use Stargate when I already have an existing database?</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stargate provides APIs and data types that go beyond traditional CQL workloads. You can interact with your Cassandra cluster using REST or GraphQL, and let Stargate optimize the underlying queries and schema changes. Stargate simplifies access to your Cassandra data, while also expanding the ways you can interact with that data.</p>
+<p>Stargate provides APIs, data types and access methods that bring new capabilities to existing databases.
+Currently Stargate adds a REST API for CRUD access to data stored in Apache Cassandra&#174; and there are many more APIs coming soon.
+Separating compute and storage also has benefits for maximizing resource consumption in cloud environments.
+When using Stargate with Cassandra, you can offload the request coordination overhead from your storage instances onto Stargate instances
+which has shown latency improvements in preliminary testing (results coming soon).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_can_i_get_involved"><a class="anchor" href="#_how_can_i_get_involved"></a><a class="link" href="#_how_can_i_get_involved">How can I get involved?</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get started building a new API extension, have a look at the existing <a href="https://github.com/stargate/stargate/tree/master/restapi">REST API implementation</a> in the Stargate repo first. To get started building a new storage extension, check out the <a href="https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11">persistence-cassandra-3.11 implementation</a>. Once you have an idea of what you want to build, shoot us a note on the <a href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">mailing list</a> to discuss.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong> that the internal APIs are under active development and they are likely to change before the first version is released.</p>
 </div>
 </div>
 </div>
