@@ -58,12 +58,15 @@ Start the Docker image in developer mode:
 
 [source,bash,subs="attributes+"]
 ----
-docker run -d \
-  --name stargate -p 8081:8081 -p 8082:8082 \
-  stargateio/stargate-3_11:{stargate-docker-tag} \
-  --cluster-name stargate \
-  --cluster-version 3.11 \
-  --developer-mode
+docker run --name stargate \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION=3.11 \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
 By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.
