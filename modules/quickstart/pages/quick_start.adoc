@@ -38,7 +38,7 @@ To use Stargate you need:
 
 == Pull the Docker image
 
-This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra 3.11 backend.
+This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra(R) 3.11 backend.
 
 [source,bash,subs="attributes+"]
 ----
@@ -178,7 +178,7 @@ Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to retrieve
 
 [source,bash]
 ----
-curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
+curl -G --location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header 'X-Cassandra-Token: {auth-token-here}' \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
