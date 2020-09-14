@@ -8,10 +8,11 @@ Stargate by default provides a CQL and REST interface to Cassandra data, with ad
 
 To use Stargate you need:
 
-* Docker
+// tag::prereqsList[]
+* Docker installed and running
 * JDK 8 or later
-* Git
 * `cURL` to run REST queries
+// end::prereqsList[]
 
 // == Building Stargate
 //
@@ -38,6 +39,7 @@ To use Stargate you need:
 // ./mvnw clean package
 // ----
 
+// tag::getDockerImage[]
 == Getting the Stargate Docker image
 
 Pull the Stargate Docker image:
@@ -47,7 +49,10 @@ Pull the Stargate Docker image:
 docker pull stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
-== Starting Stargate
+// end::getDockerImage[]
+
+// tag::startDocker[]
+== Starting Stargate using Docker
 
 Start the Docker image in developer mode:
 
@@ -63,93 +68,170 @@ docker run -d \
 
 By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.
 
+// end::startDocker[]
+
 == Using the Stargate REST API
 
-Use `cURL` to access the REST interface. The REST API responds to requests at `{stargate host}:8082/v1`.
+Use `cURL` to access the REST interface. The REST API responds to requests at `{stargate host}:8082/v1` and `{stargate host}:8082/v2`.
+
+Generate an authorization token by calling `/v1/auth` and logging in with the default `cassandra` user.
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json'
+curl -L -X POST 'http://localhost:8081/v1/auth' \
+  -H 'Content-Type: application/json' \
+  --data-raw '{
+  "username": "cassandra",
+  "password": "cassandra"
+}'
+----
+
+You should receive a token in the response.
+
+[source,json]
+----
+{"authToken":"{auth-token}"}
+----
+
+Store the authorization token in an environment variable to make it easy to use with `cURL`.
+
+[source,bash]
+----
+export AUTH_TOKEN={auth-token}
+----
+
+Now you can use the REST API.
+
+[source,bash]
+----
+curl --location --request GET 'localhost:8082/v2/keyspaces' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json'
 ----
 
 === Creating a keyspace using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces`, setting `name` to the name of the keyspace, and `replicas` to the Cassandra replication factor.
+Send a `POST` request to `/v2/keyspaces`, setting `name` to the name of the keyspace, and `replicas` to the Cassandra replication factor.
 
 [source,bash]
 ----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces' \
-  --header 'accept: */*' \
-  --header 'content-type: application/json' \
-  --data '{"name": "betterbotz", "replicas": "2"}'
+curl --location --request POST 'localhost:8082/schemas/keyspaces' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    "name": "users_keyspace",
+    "replicas": 1
+}'
 ----
 
 === Creating a table using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table. Set the table name and column definitions in the JSON body.
+Send a `POST` request to `/v2/keyspaces/{keyspace_name}/tables` to create a table. Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables' \
-  --header 'accept: */*' \
-  --header 'content-type: application/json' \
-  --data '{"name":"products","ifNotExists":true,"columnDefinitions": [ {"name":"id","typeDefinition":"uuid","static":false}, {"name":"name","typeDefinition":"text","static":false}, {"name":"description","typeDefinition":"text","static":false}, {"name":"price","typeDefinition":"decimal","static":false}, {"name":"created","typeDefinition":"timestamp","static":false}],"primaryKey": {"partitionKey":["id"]},"tableOptions":{"defaultTimeToLive":0}}'
+curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "users",
+    "columnDefinitions":
+      [
+        {
+          "name": "firstname",
+          "typeDefinition": "text"
+        },
+        {
+          "name": "lastname",
+          "typeDefinition": "text"
+        },
+        {
+          "name": "email",
+          "typeDefinition": "text"
+        },
+        {
+          "name": "favorite color",
+          "typeDefinition": "text"
+        }
+      ],
+    "primaryKey":
+      {
+        "partitionKey": ["firstname"],
+        "clusteringKey": ["lastname"]
+      },
+    "tableOptions":
+      {
+        "defaultTimeToLive": 0,
+        "clusteringExpression":
+          [{ "column": "lastname", "order": "ASC" }]
+      }
+}'
 ----
 
 === Adding and modifying data using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows` to add data to the table. Set the column data as name/value pairs in the JSON body.
+Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table. Set the column data as name/value pairs in the JSON body.
 
 [source,bash]
 ----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows'
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"4199.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
+curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "blue"
+}'
 ----
 
-Send a `GET` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}` to retrieve a particular row from the table.
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}` and filter on the partition key to retrieve a particular row from the table.
+
+[source,bash]
+----
+curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users?pretty' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
+----
+
+To retrieve all the rows in a table, send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`.
 
 [source,bash]
 ----
 curl --request GET \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
   --header 'accept: application/json'
 ----
 
-To retrieve all the rows in a table, send a `GET` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows`.
-
-[source,bash]
-----
-curl --request GET \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
-  --header 'accept: application/json'
-----
-
-To update a row, send a `POST request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows`. Set the column data as name/value pairs in the JSON body.
+To update a row, send a `POST request to `/v2/keyspaces/{keyspace_name}/{table_name}`. Set the column data as name/value pairs in the JSON body.
 
 [source,bash]
 ----
 curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"9999.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
+--url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'content-type: application/json' \
+--data-raw '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "red"
+}'
+
 ----
 
 NOTE: Updates are upserts. If the row doesn't exist, it will be created. If it does exist, it will be udpated with the new row data.
 
-To delete a row, send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}`.
+To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{table_name}`.
 
 [source,bash]
 ----
 curl --request DELETE \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
+  --url 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+  --header "X-Cassandra-Token: $AUTH_TOKEN" \
   --header 'accept: application/json' \
   --header 'content-type: application/json'
 ----

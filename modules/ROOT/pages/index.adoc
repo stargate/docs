@@ -9,7 +9,7 @@
 
 |===
 
-== Features
+// == Features
 
 == Version Compatibility
 
@@ -19,7 +19,7 @@
 |0.1 |4.0, 3.x |6.8
 |===
 
-== Download
+// == Download
 
 // == Building
 //
@@ -41,8 +41,8 @@ New issues may be reported using https://github.com/stargate/docs/issues[GitHub 
 
 Go to our https://groups.google.com/a/lists.stargate.io/g/stargate-users[Google group] to discuss Stargate with the community.
 
-== Contributing
-
-== License
-
-This project uses the https://github.com/stargate/docs/blob/master/LICENSE[Apache 2.0 license].
+// == Contributing
+//
+// == License
+//
+// This project uses the https://github.com/stargate/docs/blob/master/LICENSE[Apache 2.0 license].
