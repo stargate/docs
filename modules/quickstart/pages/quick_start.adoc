@@ -1,16 +1,14 @@
 = 5-minute quick start guide for Stargate
 
-Stargate is a flexible framework for interacting with data stored in Apache Cassandra. Stargate clusters provide different data interfaces above an underlying Cassandra cluster, allowing you to separate your computation needs, represented by the Stargate cluster, from your storage needs, represented by the Cassandra cluster. Developers can focus on the Stargate data interfaces, and let Stargate manage and optimize the connection to the underlying storage.
-
-Stargate by default provides a CQL and REST interface to Cassandra data, with additional plugins available for GraphQL and document store interfaces.
+Stargate is a data gateway deployed between client applications and a database.
+In this quickstart, you'll be up and running on your local machine with the REST API
+plugin that exposes CRUD access to data stored in Cassandra tables.
 
 == Prerequisites
 
 To use Stargate you need:
 
 * Docker
-* JDK 8 or later
-* Git
 * `cURL` to run REST queries
 
 // == Building Stargate
@@ -38,118 +36,181 @@ To use Stargate you need:
 // ./mvnw clean package
 // ----
 
-== Getting the Stargate Docker image
+== Pull the Docker image
 
-Pull the Stargate Docker image:
+This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra 3.11 backend.
 
 [source,bash,subs="attributes+"]
 ----
 docker pull stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
-== Starting Stargate
+== Start the container
 
-Start the Docker image in developer mode:
+Start the Stargate container in developer mode.
+Developer mode removes the need to set up a separate Cassandra instance and is meant for dev/testing only.
 
 [source,bash,subs="attributes+"]
 ----
-docker run -d \
-  --name stargate -p 8081:8081 -p 8082:8082 \
-  stargateio/stargate-3_11:{stargate-docker-tag} \
-  --cluster-name stargate \
-  --cluster-version 3.11 \
-  --developer-mode
+docker run --name stargate \
+ -p 8081:8081 -p 8082:8082 -p 127.0.0.1:9042:9042 \
+ -d -e CLUSTER_NAME=stargate -e CLUSTER_VERSION=3.11 -e DEVELOPER_MODE=true \
+ stargateio/stargate-3_11:v0.0.3
 ----
 
-By default Stargate starts a CQL service on port 9042 and a REST interface on port 8082.
+By default, Stargate starts a CQL service on port 9042,
+a REST auth service for generating tokens on 8081,
+and a REST interface for CRUD on port 8082.
 
 == Using the Stargate REST API
 
-Use `cURL` to access the REST interface. The REST API responds to requests at `{stargate host}:8082/v1`.
+If you prefer, you can use Postman as a client interface for exploring REST APIs (https://www.postman.com/downloads/[download here]).
+We've provided a https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+
+The steps below use `cURL` to access the REST interface.
+
+=== Generate an auth token
+
+First generate an auth token that is required in each subsequent request
+in the `X-Cassandra-Token` header.
+
+Note the port for the auth service is 8081.
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json'
+curl -L -X POST 'http://localhost:8081/v1/auth' \
+  -H 'Content-Type: application/json' \
+  --data-raw '{
+    "username": "cassandra",
+    "password": "cassandra"
+}'
+----
+
+Expected output:
+[source,bash]
+----
+{"authToken":"{auth-token-here}"}
 ----
 
 === Creating a keyspace using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces`, setting `name` to the name of the keyspace, and `replicas` to the Cassandra replication factor.
+Send a `POST` request to `/v2/schemas/keyspaces`,
+in this example we use `users_keyspace` for the `name`,
+and `1` for the number of data `replicas`.
 
 [source,bash]
 ----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces' \
-  --header 'accept: */*' \
-  --header 'content-type: application/json' \
-  --data '{"name": "betterbotz", "replicas": "2"}'
+curl --location --request POST 'localhost:8082/schemas/keyspaces' \
+--header 'X-Cassandra-Token: {auth-token-here}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "users_keyspace",
+    "replicas": 1
+}'
 ----
 
 === Creating a table using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table. Set the table name and column definitions in the JSON body.
+Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
+Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables' \
-  --header 'accept: */*' \
-  --header 'content-type: application/json' \
-  --data '{"name":"products","ifNotExists":true,"columnDefinitions": [ {"name":"id","typeDefinition":"uuid","static":false}, {"name":"name","typeDefinition":"text","static":false}, {"name":"description","typeDefinition":"text","static":false}, {"name":"price","typeDefinition":"decimal","static":false}, {"name":"created","typeDefinition":"timestamp","static":false}],"primaryKey": {"partitionKey":["id"]},"tableOptions":{"defaultTimeToLive":0}}'
+curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
+--header 'X-Cassandra-Token: {auth-token-here}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"name": "users",
+	"columnDefinitions":
+	  [
+        {
+	      "name": "firstname",
+	      "typeDefinition": "text"
+	    },
+        {
+	      "name": "lastname",
+	      "typeDefinition": "text"
+	    },
+	    {
+	      "name": "email",
+	      "typeDefinition": "text"
+	    },
+        {
+	      "name": "favorite color",
+	      "typeDefinition": "text"
+	    }
+	  ],
+	"primaryKey":
+	  {
+	    "partitionKey": ["firstname"],
+	    "clusteringKey": ["lastname"]
+	  },
+	"tableOptions":
+	  {
+	    "defaultTimeToLive": 0,
+	    "clusteringExpression":
+	      [{ "column": "lastname", "order": "ASC" }]
+	  }
+}'
 ----
 
-=== Adding and modifying data using the REST API
+=== Write data
 
-Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows` to add data to the table. Set the column data as name/value pairs in the JSON body.
+Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table.
+The column name / value pairs are passed in the JSON body.
 
 [source,bash]
 ----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows'
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"4199.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
+curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header 'X-Cassandra-Token: {auth-token-here}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "blue"
+}'
 ----
 
-Send a `GET` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}` to retrieve a particular row from the table.
+=== Read data
 
-[source,bash]
-----
-curl --request GET \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
-  --header 'accept: application/json'
-----
-
-To retrieve all the rows in a table, send a `GET` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows`.
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to retrieve a row using the primary key of the table.
 
 [source,bash]
 ----
-curl --request GET \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
-  --header 'accept: application/json'
+curl -G --location --request GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header 'X-Cassandra-Token: {auth-token-here}' \
+--header 'Content-Type: application/json' \
+--data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
 ----
 
-To update a row, send a `POST request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows`. Set the column data as name/value pairs in the JSON body.
+=== Update data
 
-[source,bash]
-----
-curl --request POST \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows' \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{"columns":[{"name":"id","value":"e9b6c02d-0604-4bab-a3ea-6a7984654631"},{"name":"name","value":"Heavy Lift Arms"},{"name":"description","value":"Heavy lift arms capable of lifting 1,250 lbs of weight per arm. Sold as a set."},{"name":"price","value":"9999.99"},{"name":"created","value":"2019-01-10 09:48:31.020+0040"}]}'
-----
-
-NOTE: Updates are upserts. If the row doesn't exist, it will be created. If it does exist, it will be udpated with the new row data.
-
-To delete a row, send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/rows/{primary_key}`.
+To update a row, send a `PUT` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+The `{path}` is the primary key values.
+In this example the partition key is `firstname` "Mookie" and the clustering key is `lastname` "Betts".
 
 [source,bash]
 ----
-curl --request DELETE \
-  --url 'localhost:8082/v2/schemas/keyspaces/betterbotz/tables/products/rows/e9b6c02d-0604-4bab-a3ea-6a7984654631' \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json'
+curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+--header 'X-Cassandra-Token: ' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "mookie.betts.new-email@email.com"
+}'
 ----
+
+NOTE: Updates are upserts. If the row doesn't exist, it will be created.
+If it does exist, it will be udpated with the new row data.
+
+=== Delete data
+To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+
+[source,bash]
+----
+curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
+--header 'X-Cassandra-Token: ' \
+--header 'Content-Type: application/json'
+----
+
+Voila! For more information on the REST API, see the full reference in the REST API section of the docs.
