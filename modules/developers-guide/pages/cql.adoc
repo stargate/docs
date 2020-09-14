@@ -41,7 +41,7 @@ docker run --rm -it nuvo/docker-cqlsh cqlsh localhost --cqlversion=3.4.5
 //
 // [source,bash]
 // ----
-// cqlsh -u cassandra -p cassandra --cqlversion=3.4.5 localhost 9042
+// cqlsh --cqlversion=3.4.5 localhost 9042
 // ----
 
 === Create a keyspace
