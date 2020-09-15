@@ -5,9 +5,9 @@ team@openapitools.org
 :numbered:
 :toclevels: 3
 :source-highlighter: highlightjs
-:keywords: openapi, rest, Stargate REST API reference 
-:specDir: 
-:snippetDir: 
+:keywords: openapi, rest, Stargate REST API reference
+:specDir:
+:snippetDir:
 :generator-template: v1 2019-12-20
 :info-url: https://openapi-generator.tech
 :app-name: Stargate REST API reference
@@ -30,12 +30,12 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 
 [.createToken]
 ==== createToken
-    
+
 `POST /v1/auth`
 
 Create an auth token
 
-===== Description 
+===== Description
 
 
 
@@ -47,19 +47,19 @@ Create an auth token
 ===== Parameters
 
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| Credentials 
-|  <<Credentials>> 
-| X 
-|  
-|  
+| Credentials
+|  <<Credentials>>
+| X
+|
+|
 
-|===         
+|===
 
 
 
@@ -79,8 +79,8 @@ Create an auth token
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -102,9 +102,9 @@ Create an auth token
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
@@ -132,12 +132,12 @@ endif::internal-generation[]
 
 [.addRows]
 ==== addRows
-    
+
 `POST /v2/keyspaces/{keyspace-id}/{table-id}`
 
 Add rows
 
-===== Description 
+===== Description
 
 
 
@@ -151,65 +151,65 @@ Add rows
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| request_body 
-|  <<string>> 
-| X 
-|  
-|  
+| request_body
+|  <<string>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -227,13 +227,13 @@ Add rows
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
 | resource created
-| Map[<<string>>] 
+| Map[<<string>>]
 
 
 | 400
@@ -255,9 +255,9 @@ Add rows
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
@@ -281,12 +281,12 @@ endif::internal-generation[]
 
 [.deleteRows]
 ==== deleteRows
-    
+
 `DELETE /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 delete a row(s)
 
-===== Description 
+===== Description
 
 
 
@@ -300,58 +300,58 @@ delete a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -368,8 +368,8 @@ delete a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -386,9 +386,9 @@ delete a row(s)
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
@@ -412,12 +412,12 @@ endif::internal-generation[]
 
 [.getRows]
 ==== getRows
-    
+
 `GET /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 get a row(s)
 
-===== Description 
+===== Description
 
 
 
@@ -431,88 +431,88 @@ get a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| page-size 
-| restrict the number of returned items  
-| - 
-| null 
-|  
+| page-size
+| restrict the number of returned items
+| -
+| null
+|
 
-| page-state 
-| move the cursor to a particular result  
-| - 
-| null 
-|  
+| page-state
+| move the cursor to a particular result
+| -
+| null
+|
 
-| sort 
-| keys to sort by <<String>> 
-| - 
-| null 
-|  
+| sort
+| keys to sort by <<String>>
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -529,12 +529,12 @@ get a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<inline_response_200_3>>
 
 
@@ -552,9 +552,9 @@ get a row(s)
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
@@ -578,12 +578,12 @@ endif::internal-generation[]
 
 [.replaceRows]
 ==== replaceRows
-    
+
 `PUT /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 replace a row(s)
 
-===== Description 
+===== Description
 
 
 
@@ -597,77 +597,77 @@ replace a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| request_body 
-| document <<string>> 
-| X 
-|  
-|  
+| request_body
+| document <<string>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -684,8 +684,8 @@ replace a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -707,9 +707,9 @@ replace a row(s)
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
@@ -733,12 +733,12 @@ endif::internal-generation[]
 
 [.searchTable]
 ==== searchTable
-    
+
 `GET /v2/keyspaces/{keyspace-id}/{table-id}`
 
 search a table
 
-===== Description 
+===== Description
 
 
 
@@ -752,50 +752,50 @@ search a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3a,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
 | where
 | URL escaped JSON query using the following keys:
@@ -845,37 +845,37 @@ search a table
 |
 |
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| page-size 
-| restrict the number of returned items  
-| - 
-| null 
-|  
+| page-size
+| restrict the number of returned items
+| -
+| null
+|
 
-| page-state 
-| move the cursor to a particular result  
-| - 
-| null 
-|  
+| page-state
+| move the cursor to a particular result
+| -
+| null
+|
 
-| sort 
-| keys to sort by <<String>> 
-| - 
-| null 
-|  
+| sort
+| keys to sort by <<String>>
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -892,12 +892,12 @@ search a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<inline_response_200_3>>
 
 
@@ -915,9 +915,9 @@ search a table
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -941,12 +941,12 @@ endif::internal-generation[]
 
 [.updateRows]
 ==== updateRows
-    
+
 `PATCH /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 update part of a row(s)
 
-===== Description 
+===== Description
 
 
 
@@ -960,77 +960,77 @@ update part of a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| request_body 
-| document <<string>> 
-| X 
-|  
-|  
+| request_body
+| document <<string>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1047,8 +1047,8 @@ update part of a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -1070,9 +1070,9 @@ update part of a row(s)
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
@@ -1100,12 +1100,12 @@ endif::internal-generation[]
 
 [.createColumn]
 ==== createColumn
-    
+
 `POST /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
 
 create a column
 
-===== Description 
+===== Description
 
 
 
@@ -1119,65 +1119,65 @@ create a column
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| ColumnDefinition 
-|  <<ColumnDefinition>> 
-| X 
-|  
-|  
+| ColumnDefinition
+|  <<ColumnDefinition>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1194,8 +1194,8 @@ create a column
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -1222,9 +1222,9 @@ create a column
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
@@ -1248,12 +1248,12 @@ endif::internal-generation[]
 
 [.createKeyspace]
 ==== createKeyspace
-    
+
 `POST /v2/schemas/keyspaces`
 
 create a keyspace
 
-===== Description 
+===== Description
 
 
 
@@ -1265,48 +1265,48 @@ create a keyspace
 ===== Parameters
 
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| Keyspace 
-|  <<Keyspace>> 
-| X 
-|  
-|  
+| Keyspace
+|  <<Keyspace>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1323,8 +1323,8 @@ create a keyspace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -1351,9 +1351,9 @@ create a keyspace
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
@@ -1377,12 +1377,12 @@ endif::internal-generation[]
 
 [.createTable]
 ==== createTable
-    
+
 `POST /v2/schemas/keyspaces/{keyspace-id}/tables`
 
 create a table
 
-===== Description 
+===== Description
 
 
 
@@ -1396,59 +1396,59 @@ create a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| TableAdd 
-|  <<TableAdd>> 
-| X 
-|  
-|  
+| TableAdd
+|  <<TableAdd>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1465,8 +1465,8 @@ create a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -1493,9 +1493,9 @@ create a table
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
@@ -1519,12 +1519,12 @@ endif::internal-generation[]
 
 [.deleteColumn]
 ==== deleteColumn
-    
+
 `DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
 
 delete a column
 
-===== Description 
+===== Description
 
 
 
@@ -1538,58 +1538,58 @@ delete a column
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| column-id 
-| column name  
-| X 
-| null 
-|  
+| column-id
+| column name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1606,8 +1606,8 @@ delete a column
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -1624,9 +1624,9 @@ delete a column
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1650,12 +1650,12 @@ endif::internal-generation[]
 
 [.deleteKeyspace]
 ==== deleteKeyspace
-    
+
 `DELETE /v2/schemas/keyspaces/{keyspace-id}`
 
 delete a keyspace
 
-===== Description 
+===== Description
 
 
 
@@ -1669,32 +1669,32 @@ delete a keyspace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 
 
@@ -1712,8 +1712,8 @@ delete a keyspace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -1730,9 +1730,9 @@ delete a keyspace
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1756,12 +1756,12 @@ endif::internal-generation[]
 
 [.deleteTable]
 ==== deleteTable
-    
+
 `DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
 
 delete a table
 
-===== Description 
+===== Description
 
 
 
@@ -1775,52 +1775,52 @@ delete a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1837,8 +1837,8 @@ delete a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -1855,9 +1855,9 @@ delete a table
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1881,12 +1881,12 @@ endif::internal-generation[]
 
 [.getColumn]
 ==== getColumn
-    
+
 `GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
 
 get a column
 
-===== Description 
+===== Description
 
 
 
@@ -1900,64 +1900,64 @@ get a column
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| column-id 
-| column name  
-| X 
-| null 
-|  
+| column-id
+| column name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1974,12 +1974,12 @@ get a column
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<ColumnDefinition>>
 
 
@@ -1997,9 +1997,9 @@ get a column
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
@@ -2023,12 +2023,12 @@ endif::internal-generation[]
 
 [.getColumns]
 ==== getColumns
-    
+
 `GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
 
 list columns
 
-===== Description 
+===== Description
 
 
 
@@ -2042,58 +2042,58 @@ list columns
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2110,12 +2110,12 @@ list columns
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<inline_response_200_2>>
 
 
@@ -2133,9 +2133,9 @@ list columns
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
@@ -2159,12 +2159,12 @@ endif::internal-generation[]
 
 [.getKeyspace]
 ==== getKeyspace
-    
+
 `GET /v2/schemas/keyspaces/{keyspace-id}`
 
 get a keyspace
 
-===== Description 
+===== Description
 
 
 
@@ -2178,52 +2178,52 @@ get a keyspace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2240,12 +2240,12 @@ get a keyspace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<Keyspace>>
 
 
@@ -2268,9 +2268,9 @@ get a keyspace
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
@@ -2294,12 +2294,12 @@ endif::internal-generation[]
 
 [.getKeyspaces]
 ==== getKeyspaces
-    
+
 `GET /v2/schemas/keyspaces`
 
 Return all keyspaces
 
-===== Description 
+===== Description
 
 Retrieve all available keyspaces in the specific database.
 
@@ -2316,36 +2316,36 @@ Retrieve all available keyspaces in the specific database.
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2362,12 +2362,12 @@ Retrieve all available keyspaces in the specific database.
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<inline_response_200>>
 
 
@@ -2380,9 +2380,9 @@ Retrieve all available keyspaces in the specific database.
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
@@ -2406,12 +2406,12 @@ endif::internal-generation[]
 
 [.getTable]
 ==== getTable
-    
+
 `GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
 
 get a table
 
-===== Description 
+===== Description
 
 
 
@@ -2425,58 +2425,58 @@ get a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2493,12 +2493,12 @@ get a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<Table>>
 
 
@@ -2516,9 +2516,9 @@ get a table
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -2542,12 +2542,12 @@ endif::internal-generation[]
 
 [.getTables]
 ==== getTables
-    
+
 `GET /v2/schemas/keyspaces/{keyspace-id}/tables`
 
 list tables
 
-===== Description 
+===== Description
 
 
 
@@ -2561,52 +2561,52 @@ list tables
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-| raw 
-| unwrap results  
-| - 
-| false 
-|  
+| raw
+| unwrap results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2623,12 +2623,12 @@ list tables
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<inline_response_200_1>>
 
 
@@ -2646,9 +2646,9 @@ list tables
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
@@ -2672,12 +2672,12 @@ endif::internal-generation[]
 
 [.replaceColumn]
 ==== replaceColumn
-    
+
 `PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
 
 replace a column definition
 
-===== Description 
+===== Description
 
 
 
@@ -2691,71 +2691,71 @@ replace a column definition
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| column-id 
-| column name  
-| X 
-| null 
-|  
+| column-id
+| column name
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| ColumnDefinition 
-|  <<ColumnDefinition>> 
-| X 
-|  
-|  
+| ColumnDefinition
+|  <<ColumnDefinition>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2772,8 +2772,8 @@ replace a column definition
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -2805,9 +2805,9 @@ replace a column definition
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
@@ -2831,12 +2831,12 @@ endif::internal-generation[]
 
 [.replaceTable]
 ==== replaceTable
-    
+
 `PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
 
 replace a table definition, except for columns
 
-===== Description 
+===== Description
 
 
 
@@ -2850,65 +2850,65 @@ replace a table definition, except for columns
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-|===         
+|===
 
-====== Body Parameter
+===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| TableAdd 
-|  <<TableAdd>> 
-| X 
-|  
-|  
+| TableAdd
+|  <<TableAdd>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request.
+| X
+| null
+|
 
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| false 
-|  
+| pretty
+| format results
+| -
+| false
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2925,8 +2925,8 @@ replace a table definition, except for columns
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -2958,9 +2958,9 @@ replace a table definition, except for columns
 | Internal server error
 |  <<Error>>
 
-|===         
+|===
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
@@ -2987,433 +2987,431 @@ endif::internal-generation[]
 
 
 [#AuthTokenResponse]
-=== _AuthTokenResponse_ 
+=== _AuthTokenResponse_
 
 
 
 [.fields-AuthTokenResponse]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| authToken 
-|  
-| String  
-| 
-|  
+| authToken
+|
+| String
+|
+|
 
 |===
 
 
 [#ClusteringExpression]
-=== _ClusteringExpression_ 
+=== _ClusteringExpression_
 
 Order rows storage to make use of the on-disk sorting of columns. Specifying order can make query results more efficient.
 
 [.fields-ClusteringExpression]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| column 
-| X 
-| String  
-| 
-|  
+| column
+| X
+| String
+|
+|
 
-| order 
-| X 
-| String  
-| 
-|  _Enum:_ ASC, DESC, 
+| order
+| X
+| String
+|
+|  _Enum:_ ASC, DESC,
 
 |===
 
 
 [#ColumnDefinition]
-=== _ColumnDefinition_ 
+=== _ColumnDefinition_
 
 
 
 [.fields-ColumnDefinition]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| name 
-| X 
-| String  
+| name
+| X
+| String
 | Name for the column, which must be unique.
-|  
+|
 
-| typeDefinition 
-| X 
-| String  
+| typeDefinition
+| X
+| String
 | The type of data allowed in the column.
-|  _Enum:_ ascii, text, varchar, tinyint, smallint, int, bigint, varint, decimal, float, double, date, DateRangeType, duration, time, timestamp, uuid, timeuuid, blob, boolean, counter, inet, PointType, LineStringType, PolygonType, frozen, list, map, set, tuple, 
+|  _Enum:_ ascii, text, varchar, tinyint, smallint, int, bigint, varint, decimal, float, double, date, DateRangeType, duration, time, timestamp, uuid, timeuuid, blob, boolean, counter, inet, PointType, LineStringType, PolygonType, frozen, list, map, set, tuple,
 
-| static 
-|  
-| Boolean  
+| static
+|
+| Boolean
 | Denotes whether the column is shared by all rows of a partition.
-|  
+|
 
 |===
 
 
 [#Credentials]
-=== _Credentials_ 
+=== _Credentials_
 
 User credentials for authenticating
 
 [.fields-Credentials]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| username 
-| X 
-| String  
+| username
+| X
+| String
 | Username
-|  
+|
 
-| password 
-| X 
-| String  
+| password
+| X
+| String
 | Password
-|  
+|
 
 |===
 
 
 [#Datacenter]
-=== _Datacenter_ 
+=== _Datacenter_
 
 
 
 [.fields-Datacenter]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| name 
-| X 
-| String  
-| 
-|  
+| name
+| X
+| String
+|
+|
 
-| replicas 
-| X 
-| Integer  
-| 
-|  
+| replicas
+| X
+| Integer
+|
+|
 
 |===
 
 
 [#Error]
-=== _Error_ 
+=== _Error_
 
 A description of an error state
 
 [.fields-Error]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| description 
-|  
-| String  
+| description
+|
+| String
 | A human readable description of the error state
-|  
+|
 
-| code 
-|  
-| Integer  
+| code
+|
+| Integer
 | The code referencing the error state
-|  
+|
 
 |===
 
 
 [#InlineResponse200]
-=== _InlineResponse200_ 
+=== _InlineResponse200_
 
 
 
 [.fields-InlineResponse200]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| data 
-|  
-| List  of <<Keyspace>> 
-| 
-|  
+| data
+|
+| List  of <<Keyspace>>
+|
+|
 
 |===
 
 
 [#InlineResponse2001]
-=== _InlineResponse2001_ 
+=== _InlineResponse2001_
 
 
 
 [.fields-InlineResponse2001]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| data 
-|  
-| List  of <<Table>> 
-| 
-|  
+| data
+|
+| List  of <<Table>>
+|
+|
 
 |===
 
 
 [#InlineResponse2002]
-=== _InlineResponse2002_ 
+=== _InlineResponse2002_
 
 
 
 [.fields-InlineResponse2002]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| data 
-|  
-| List  of <<ColumnDefinition>> 
-| 
-|  
+| data
+|
+| List  of <<ColumnDefinition>>
+|
+|
 
 |===
 
 
 [#InlineResponse2003]
-=== _InlineResponse2003_ 
+=== _InlineResponse2003_
 
 
 
 [.fields-InlineResponse2003]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| data 
-|  
-| List  of <<map>> 
-| 
-|  
+| data
+|
+| List  of <<map>>
+|
+|
 
-| count 
-|  
-| Integer  
-| 
-|  
+| count
+|
+| Integer
+|
+|
 
 |===
 
 
 [#InlineResponse2004]
-=== _InlineResponse2004_ 
+=== _InlineResponse2004_
 
 
 
 [.fields-InlineResponse2004]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| data 
-|  
-| Map  of <<string>> 
-| 
-|  
+| data
+|
+| Map  of <<string>>
+|
+|
 
 |===
 
 
 [#InlineResponse201]
-=== _InlineResponse201_ 
+=== _InlineResponse201_
 
 
 
 [.fields-InlineResponse201]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| name 
-|  
-| String  
-| 
-|  
+| name
+|
+| String
+|
+|
 
 |===
 
 
 [#Keyspace]
-=== _Keyspace_ 
+=== _Keyspace_
 
 
 
 [.fields-Keyspace]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| name 
-| X 
-| String  
-| 
-|  
+| name
+| X
+| String
+|
+|
 
-| datacenters 
-|  
-| List  of <<Datacenter>> 
-| 
-|  
+| datacenters
+|
+| List  of <<Datacenter>>
+|
+|
 
 |===
 
 
 [#PrimaryKey]
-=== _PrimaryKey_ 
+=== _PrimaryKey_
 
 Defines a column list for the primary key. Can be either a single column, compound primary key, or composite partition key. Provide multiple columns for the partition key to define a composite partition key.
 
 [.fields-PrimaryKey]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| partitionKey 
-| X 
-| List  of <<string>> 
+| partitionKey
+| X
+| List  of <<string>>
 | Name of the column or columns that constitute the partition key.
-|  
+|
 
-| clusteringKey 
-|  
-| List  of <<string>> 
+| clusteringKey
+|
+| List  of <<string>>
 | Name of the column or columns that constitute the clustering key.
-|  
+|
 
 |===
 
 
 [#Table]
-=== _Table_ 
+=== _Table_
 
 
 
 [.fields-Table]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| name 
-|  
-| String  
-| 
-|  
+| name
+|
+| String
+|
+|
 
-| keyspace 
-|  
-| String  
-| 
-|  
+| keyspace
+|
+| String
+|
+|
 
-| columnDefinitions 
-|  
-| List  of <<ColumnDefinition>> 
-| 
-|  
+| columnDefinitions
+|
+| List  of <<ColumnDefinition>>
+|
+|
 
-| primaryKey 
-|  
-| PrimaryKey  
-| 
-|  
+| primaryKey
+|
+| PrimaryKey
+|
+|
 
-| tableOptions 
-|  
-| TableOptions  
-| 
-|  
+| tableOptions
+|
+| TableOptions
+|
+|
 
 |===
 
 
 [#TableAdd]
-=== _TableAdd_ 
+=== _TableAdd_
 
 
 
 [.fields-TableAdd]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| name 
-| X 
-| String  
-| 
-|  
+| name
+| X
+| String
+|
+|
 
-| ifNotExists 
-|  
-| Boolean  
+| ifNotExists
+|
+| Boolean
 | Determines whether to create a new table if a table with the same name exists. Attempting to create an existing table returns an error unless this option is true.
-|  
+|
 
-| columnDefinitions 
-| X 
-| List  of <<ColumnDefinition>> 
-| 
-|  
+| columnDefinitions
+| X
+| List  of <<ColumnDefinition>>
+|
+|
 
-| primaryKey 
-| X 
-| PrimaryKey  
-| 
-|  
+| primaryKey
+| X
+| PrimaryKey
+|
+|
 
-| tableOptions 
-|  
-| TableOptions  
-| 
-|  
+| tableOptions
+|
+| TableOptions
+|
+|
 
 |===
 
 
 [#TableOptions]
-=== _TableOptions_ 
+=== _TableOptions_
 
 
 
 [.fields-TableOptions]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| defaultTimeToLive 
-|  
-| Integer  
+| defaultTimeToLive
+|
+| Integer
 | Defines the Time To Live (TTL), which determines the time period (in seconds) to expire data. If the value is &gt;0, TTL is enabled for the entire table and an expiration timestamp is added to each column. The maximum value is 630720000 (20 years). A new TTL timestamp is calculated each time the data is updated and the row is removed after the data expires.
-|  
+|
 
-| clusteringExpression 
-|  
-| List  of <<ClusteringExpression>> 
-| 
-|  
+| clusteringExpression
+|
+| List  of <<ClusteringExpression>>
+|
+|
 
 |===
-
-
