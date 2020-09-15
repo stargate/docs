@@ -22,13 +22,13 @@ starctl --cluster-name stargate \
 | `--cluster-name`
 | `_cluster name_`
 |
-| Name of database cluster.
+| Name of the database cluster to connect to.
 | `stargate`
 
 | `--cluster-seed`
-| `_seed node IP address_`
+| `_IP address_`
 |
-| The IP address of the seed node of the cluster.
+| The IP address of a seed node in the database cluster. The value must be a valid IP address.
 | `192.168.0.1`
 
 
@@ -39,75 +39,68 @@ starctl --cluster-name stargate \
 | `3.11`
 
 | `--listen`
-| `_listen IP address_`
+| `_IP address_`
 | 127.0.0.1
-| IP address Stargate services should listen on. This options value must match the regular expression
-`^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$`. Must be a valid IP address.
+| IP address Stargate services should listen on. The value must be a valid IP address.
 | `192.168.0.1`
 
 | `--seed-port`
 | `_port number_`
 | 7000
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| Port number that seed nodes are listening on. The value of this option must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
 | `7001`
 
 | `--dc`
 | `_datacenter name_`
 |
-| Datacenter name of this node. This must match the database backend.
+| Datacenter name of this node. This value must be one of the datacenters defined in the database cluster.
 | `dc1`
 
 | `--rack`
 | `_rack name_`
 |
-| Rack name of this node. This must match the database backend.
+| Rack name of this node. This value must be one of the racks defined in the database cluster.
 | `rack1`
 
 | `--simple-snitch`
 |
 |
-| Set this option if the backend cluster uses `SimpleSnitch` as the `endpoint_snitch`.
+| Set this option if the database cluster uses `SimpleSnitch` as the `endpoint_snitch`. Use this option if the link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch] setting in the cluster is set to *SimpleSnitch*. If the cluster uses a different `endpoint_snitch` use the `--dc` and `--rack` options to define the topology of the node.
 |
 
 | `--dse`
 |
 |
-| Set if the backend is DSE. Do not set this option if the backed is Cassandra.
+| Set this option if the database cluster is DSE. Do not set this option if the database cluster is Cassandra.
 |
 
 | `--cql-port`
 | `_port number_`
 | 9042
-| Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| Port number on which the CQL API service listens. The value of this option must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
 | `9043`
 
 | `--enable-auth`
 |
 |
-| Set to enable `PasswordAuthenticator` in the cluster.
+| Set this option to enable `PasswordAuthenticator` in the cluster.
 |
 
 | `--use-proxy-protocol`
 |
 |
-| Use proxy protocol to determine the public address and port of CQL requests.
-|
-
-| `--emulate-dbaas-defaults`
-|
-|
-| Updated defaults reflect those of DataStax Astra at the time of the currently used DSE release.
+| Set this option to use proxy protocol to determine the public address and port of CQL requests.
 |
 
 | `--developer-mode`
 |
 |
-| Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.
+| Enables developer mode. In this mode the Stargate node behaves as a regular Cassandra node. It will join the ring with tokens assigned in order to facilitate getting started quickly. This is useful as no additional nodes or existing cluster are required. This mode is unsuitable for production use.
 |
 
 |`--bind-to-listen-address`
 |
 |
-| If set bind the web services to the listen address only.
+| Set this option to bind the web services to the listen address only.
 |
 |===
