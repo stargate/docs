@@ -1,0 +1,3567 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Stargate REST API reference :: Stargate documentation</title>
+    <meta name="keywords" content="openapi, rest, Stargate REST API reference">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../assets/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="https://stargate.io"><img src="../../../assets/img/logos/stargate-logo-horizontal.svg" style="height:40px" /></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://stargate.io">Stargate</a>
+        <!-- <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">API docs</div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="">0.1</a>
+          </div>
+        </div> -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Community</div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/stargate/docs/issues">File a bug</a>
+            <a class="navbar-item" href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">Ask a question</a>
+            <a class="navbar-item" href="https://twitter.com/stargateio">Follow us on Twitter</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="https://github.com/stargate/">Stargate GitHub</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="stargate" data-version="0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Stargate</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quick_start.html">Quick start</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../concepts/concepts.html">Concepts</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="docker.html">Installing Stargate</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="cql.html">Using the CQL API</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="building.html">Building Stargate from source</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../FAQ.html">FAQ</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Stargate</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Stargate</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Stargate</a></li>
+    <li><a href="openapi_rest_ref.html">REST API reference</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/openapi_rest_ref.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Stargate REST API reference</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_endpoints">1. Endpoints</a>
+<ul class="sectlevel2">
+<li><a href="#_auth">1.1. Auth</a>
+<ul class="sectlevel3">
+<li><a href="#_createtoken">1.1.1. createToken</a></li>
+</ul>
+</li>
+<li><a href="#_data">1.2. Data</a>
+<ul class="sectlevel3">
+<li><a href="#_addrows">1.2.1. addRows</a></li>
+<li><a href="#_deleterows">1.2.2. deleteRows</a></li>
+<li><a href="#_getrows">1.2.3. getRows</a></li>
+<li><a href="#_replacerows">1.2.4. replaceRows</a></li>
+<li><a href="#_searchtable">1.2.5. searchTable</a></li>
+<li><a href="#_updaterows">1.2.6. updateRows</a></li>
+</ul>
+</li>
+<li><a href="#_schemas">1.3. Schemas</a>
+<ul class="sectlevel3">
+<li><a href="#_createcolumn">1.3.1. createColumn</a></li>
+<li><a href="#_createkeyspace">1.3.2. createKeyspace</a></li>
+<li><a href="#_createtable">1.3.3. createTable</a></li>
+<li><a href="#_deletecolumn">1.3.4. deleteColumn</a></li>
+<li><a href="#_deletekeyspace">1.3.5. deleteKeyspace</a></li>
+<li><a href="#_deletetable">1.3.6. deleteTable</a></li>
+<li><a href="#_getcolumn">1.3.7. getColumn</a></li>
+<li><a href="#_getcolumns">1.3.8. getColumns</a></li>
+<li><a href="#_getkeyspace">1.3.9. getKeyspace</a></li>
+<li><a href="#_getkeyspaces">1.3.10. getKeyspaces</a></li>
+<li><a href="#_gettable">1.3.11. getTable</a></li>
+<li><a href="#_gettables">1.3.12. getTables</a></li>
+<li><a href="#_replacecolumn">1.3.13. replaceColumn</a></li>
+<li><a href="#_replacetable">1.3.14. replaceTable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#models">2. Models</a>
+<ul class="sectlevel2">
+<li><a href="#Credentials">2.1. <em>Credentials</em></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="quoteblock abstract">
+<div class="title">Abstract</div>
+<blockquote>
+The Stargate REST API provides CRUD operations on table data managed by Stargate.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_endpoints"><a class="anchor" href="#_endpoints"></a><a class="link" href="#_endpoints">1. Endpoints</a></h2>
+<div class="sectionbody">
+<div class="sect2 Auth">
+<h3 id="_auth"><a class="anchor" href="#_auth"></a><a class="link" href="#_auth">1.1. Auth</a></h3>
+<div class="sect3 createToken">
+<h4 id="_createtoken"><a class="anchor" href="#_createtoken"></a><a class="link" href="#_createtoken">1.1.1. createToken</a></h4>
+<div class="paragraph">
+<p><code>POST /v1/auth</code></p>
+</div>
+<div class="paragraph">
+<p>Create an auth token</p>
+</div>
+<div class="sect4">
+<h5 id="_description"><a class="anchor" href="#_description"></a><a class="link" href="#_description">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters"><a class="anchor" href="#_parameters"></a><a class="link" href="#_parameters">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_body_parameter"><a class="anchor" href="#_body_parameter"></a><a class="link" href="#_body_parameter">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Credentials</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Credentials"><em>Credentials</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type"><a class="anchor" href="#_return_type"></a><a class="link" href="#_return_type">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type"><a class="anchor" href="#_content_type"></a><a class="link" href="#_content_type">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses"><a class="anchor" href="#_responses"></a><a class="link" href="#_responses">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2 Data">
+<h3 id="_data"><a class="anchor" href="#_data"></a><a class="link" href="#_data">1.2. Data</a></h3>
+<div class="sect3 addRows">
+<h4 id="_addrows"><a class="anchor" href="#_addrows"></a><a class="link" href="#_addrows">1.2.1. addRows</a></h4>
+<div class="paragraph">
+<p><code>POST /v2/keyspaces/{keyspace-id}/{table-id}</code></p>
+</div>
+<div class="paragraph">
+<p>Add rows</p>
+</div>
+<div class="sect4">
+<h5 id="_description_2"><a class="anchor" href="#_description_2"></a><a class="link" href="#_description_2">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_2"><a class="anchor" href="#_parameters_2"></a><a class="link" href="#_parameters_2">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters"><a class="anchor" href="#_path_parameters"></a><a class="link" href="#_path_parameters">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_2"><a class="anchor" href="#_body_parameter_2"></a><a class="link" href="#_body_parameter_2">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters"><a class="anchor" href="#_query_parameters"></a><a class="link" href="#_query_parameters">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_2"><a class="anchor" href="#_return_type_2"></a><a class="link" href="#_return_type_2">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_2"><a class="anchor" href="#_content_type_2"></a><a class="link" href="#_content_type_2">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_2"><a class="anchor" href="#_responses_2"></a><a class="link" href="#_responses_2">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 deleteRows">
+<h4 id="_deleterows"><a class="anchor" href="#_deleterows"></a><a class="link" href="#_deleterows">1.2.2. deleteRows</a></h4>
+<div class="paragraph">
+<p><code>DELETE /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}</code></p>
+</div>
+<div class="paragraph">
+<p>delete a row(s)</p>
+</div>
+<div class="sect4">
+<h5 id="_description_3"><a class="anchor" href="#_description_3"></a><a class="link" href="#_description_3">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_3"><a class="anchor" href="#_parameters_3"></a><a class="link" href="#_parameters_3">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_2"><a class="anchor" href="#_path_parameters_2"></a><a class="link" href="#_path_parameters_2">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">primary-key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2&#8230;&#8203;&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_2"><a class="anchor" href="#_query_parameters_2"></a><a class="link" href="#_query_parameters_2">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_3"><a class="anchor" href="#_return_type_3"></a><a class="link" href="#_return_type_3">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_3"><a class="anchor" href="#_content_type_3"></a><a class="link" href="#_content_type_3">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_3"><a class="anchor" href="#_responses_3"></a><a class="link" href="#_responses_3">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getRows">
+<h4 id="_getrows"><a class="anchor" href="#_getrows"></a><a class="link" href="#_getrows">1.2.3. getRows</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}</code></p>
+</div>
+<div class="paragraph">
+<p>get a row(s)</p>
+</div>
+<div class="sect4">
+<h5 id="_description_4"><a class="anchor" href="#_description_4"></a><a class="link" href="#_description_4">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_4"><a class="anchor" href="#_parameters_4"></a><a class="link" href="#_parameters_4">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_3"><a class="anchor" href="#_path_parameters_3"></a><a class="link" href="#_path_parameters_3">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">primary-key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2&#8230;&#8203;&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_3"><a class="anchor" href="#_query_parameters_3"></a><a class="link" href="#_query_parameters_3">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fields</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL escaped, comma delimited list of keys to include</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">page-size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">restrict the number of returned items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">page-state</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">move the cursor to a particular result</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keys to sort by</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_4"><a class="anchor" href="#_return_type_4"></a><a class="link" href="#_return_type_4">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_4"><a class="anchor" href="#_content_type_4"></a><a class="link" href="#_content_type_4">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_4"><a class="anchor" href="#_responses_4"></a><a class="link" href="#_responses_4">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 replaceRows">
+<h4 id="_replacerows"><a class="anchor" href="#_replacerows"></a><a class="link" href="#_replacerows">1.2.4. replaceRows</a></h4>
+<div class="paragraph">
+<p><code>PUT /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}</code></p>
+</div>
+<div class="paragraph">
+<p>replace a row(s)</p>
+</div>
+<div class="sect4">
+<h5 id="_description_5"><a class="anchor" href="#_description_5"></a><a class="link" href="#_description_5">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_5"><a class="anchor" href="#_parameters_5"></a><a class="link" href="#_parameters_5">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_4"><a class="anchor" href="#_path_parameters_4"></a><a class="link" href="#_path_parameters_4">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">primary-key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2&#8230;&#8203;&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_3"><a class="anchor" href="#_body_parameter_3"></a><a class="link" href="#_body_parameter_3">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">document <a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_4"><a class="anchor" href="#_query_parameters_4"></a><a class="link" href="#_query_parameters_4">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_5"><a class="anchor" href="#_return_type_5"></a><a class="link" href="#_return_type_5">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_5"><a class="anchor" href="#_content_type_5"></a><a class="link" href="#_content_type_5">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_5"><a class="anchor" href="#_responses_5"></a><a class="link" href="#_responses_5">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 searchTable">
+<h4 id="_searchtable"><a class="anchor" href="#_searchtable"></a><a class="link" href="#_searchtable">1.2.5. searchTable</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/keyspaces/{keyspace-id}/{table-id}</code></p>
+</div>
+<div class="paragraph">
+<p>search a table</p>
+</div>
+<div class="sect4">
+<h5 id="_description_6"><a class="anchor" href="#_description_6"></a><a class="link" href="#_description_6">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_6"><a class="anchor" href="#_parameters_6"></a><a class="link" href="#_parameters_6">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_5"><a class="anchor" href="#_path_parameters_5"></a><a class="link" href="#_path_parameters_5">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_5"><a class="anchor" href="#_query_parameters_5"></a><a class="link" href="#_query_parameters_5">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>format results</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">where</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>URL escaped JSON query using the following keys:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$lt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Less Than</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$lte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Less Than Or Equal To</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$gt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Greater Than</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$gte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Greater Than Or Equal To</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$ne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Equal To</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contained In</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$exists</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A value is set for the key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$select</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This matches a value for a key in the result of a different query</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$dontSelect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires that a key’s value not match a value for a key in the result of a different query</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$all</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains all of the given values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$regex</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires that a key’s value match a regular expression</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performs a full text search on indexed fields</p></td>
+</tr>
+</tbody>
+</table></div></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fields</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>URL escaped, comma delimited list of keys to include</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">page-size</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>restrict the number of returned items</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">page-state</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>move the cursor to a particular result</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>keys to sort by</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>unwrap results</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_6"><a class="anchor" href="#_return_type_6"></a><a class="link" href="#_return_type_6">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_6"><a class="anchor" href="#_content_type_6"></a><a class="link" href="#_content_type_6">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_6"><a class="anchor" href="#_responses_6"></a><a class="link" href="#_responses_6">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 updateRows">
+<h4 id="_updaterows"><a class="anchor" href="#_updaterows"></a><a class="link" href="#_updaterows">1.2.6. updateRows</a></h4>
+<div class="paragraph">
+<p><code>PATCH /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}</code></p>
+</div>
+<div class="paragraph">
+<p>update part of a row(s)</p>
+</div>
+<div class="sect4">
+<h5 id="_description_7"><a class="anchor" href="#_description_7"></a><a class="link" href="#_description_7">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_7"><a class="anchor" href="#_parameters_7"></a><a class="link" href="#_parameters_7">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_6"><a class="anchor" href="#_path_parameters_6"></a><a class="link" href="#_path_parameters_6">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">primary-key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2&#8230;&#8203;&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_4"><a class="anchor" href="#_body_parameter_4"></a><a class="link" href="#_body_parameter_4">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">document <a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_6"><a class="anchor" href="#_query_parameters_6"></a><a class="link" href="#_query_parameters_6">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_7"><a class="anchor" href="#_return_type_7"></a><a class="link" href="#_return_type_7">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_7"><a class="anchor" href="#_content_type_7"></a><a class="link" href="#_content_type_7">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_7"><a class="anchor" href="#_responses_7"></a><a class="link" href="#_responses_7">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2 Schemas">
+<h3 id="_schemas"><a class="anchor" href="#_schemas"></a><a class="link" href="#_schemas">1.3. Schemas</a></h3>
+<div class="sect3 createColumn">
+<h4 id="_createcolumn"><a class="anchor" href="#_createcolumn"></a><a class="link" href="#_createcolumn">1.3.1. createColumn</a></h4>
+<div class="paragraph">
+<p><code>POST /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns</code></p>
+</div>
+<div class="paragraph">
+<p>create a column</p>
+</div>
+<div class="sect4">
+<h5 id="_description_8"><a class="anchor" href="#_description_8"></a><a class="link" href="#_description_8">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_8"><a class="anchor" href="#_parameters_8"></a><a class="link" href="#_parameters_8">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_7"><a class="anchor" href="#_path_parameters_7"></a><a class="link" href="#_path_parameters_7">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_5"><a class="anchor" href="#_body_parameter_5"></a><a class="link" href="#_body_parameter_5">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_7"><a class="anchor" href="#_query_parameters_7"></a><a class="link" href="#_query_parameters_7">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_8"><a class="anchor" href="#_return_type_8"></a><a class="link" href="#_return_type_8">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_8"><a class="anchor" href="#_content_type_8"></a><a class="link" href="#_content_type_8">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_8"><a class="anchor" href="#_responses_8"></a><a class="link" href="#_responses_8">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 createKeyspace">
+<h4 id="_createkeyspace"><a class="anchor" href="#_createkeyspace"></a><a class="link" href="#_createkeyspace">1.3.2. createKeyspace</a></h4>
+<div class="paragraph">
+<p><code>POST /v2/schemas/keyspaces</code></p>
+</div>
+<div class="paragraph">
+<p>create a keyspace</p>
+</div>
+<div class="sect4">
+<h5 id="_description_9"><a class="anchor" href="#_description_9"></a><a class="link" href="#_description_9">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_9"><a class="anchor" href="#_parameters_9"></a><a class="link" href="#_parameters_9">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_body_parameter_6"><a class="anchor" href="#_body_parameter_6"></a><a class="link" href="#_body_parameter_6">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_8"><a class="anchor" href="#_query_parameters_8"></a><a class="link" href="#_query_parameters_8">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_9"><a class="anchor" href="#_return_type_9"></a><a class="link" href="#_return_type_9">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_9"><a class="anchor" href="#_content_type_9"></a><a class="link" href="#_content_type_9">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_9"><a class="anchor" href="#_responses_9"></a><a class="link" href="#_responses_9">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 createTable">
+<h4 id="_createtable"><a class="anchor" href="#_createtable"></a><a class="link" href="#_createtable">1.3.3. createTable</a></h4>
+<div class="paragraph">
+<p><code>POST /v2/schemas/keyspaces/{keyspace-id}/tables</code></p>
+</div>
+<div class="paragraph">
+<p>create a table</p>
+</div>
+<div class="sect4">
+<h5 id="_description_10"><a class="anchor" href="#_description_10"></a><a class="link" href="#_description_10">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_10"><a class="anchor" href="#_parameters_10"></a><a class="link" href="#_parameters_10">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_8"><a class="anchor" href="#_path_parameters_8"></a><a class="link" href="#_path_parameters_8">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_7"><a class="anchor" href="#_body_parameter_7"></a><a class="link" href="#_body_parameter_7">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_9"><a class="anchor" href="#_query_parameters_9"></a><a class="link" href="#_query_parameters_9">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_10"><a class="anchor" href="#_return_type_10"></a><a class="link" href="#_return_type_10">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_10"><a class="anchor" href="#_content_type_10"></a><a class="link" href="#_content_type_10">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_10"><a class="anchor" href="#_responses_10"></a><a class="link" href="#_responses_10">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 deleteColumn">
+<h4 id="_deletecolumn"><a class="anchor" href="#_deletecolumn"></a><a class="link" href="#_deletecolumn">1.3.4. deleteColumn</a></h4>
+<div class="paragraph">
+<p><code>DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}</code></p>
+</div>
+<div class="paragraph">
+<p>delete a column</p>
+</div>
+<div class="sect4">
+<h5 id="_description_11"><a class="anchor" href="#_description_11"></a><a class="link" href="#_description_11">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_11"><a class="anchor" href="#_parameters_11"></a><a class="link" href="#_parameters_11">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_9"><a class="anchor" href="#_path_parameters_9"></a><a class="link" href="#_path_parameters_9">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_10"><a class="anchor" href="#_query_parameters_10"></a><a class="link" href="#_query_parameters_10">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_11"><a class="anchor" href="#_return_type_11"></a><a class="link" href="#_return_type_11">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_11"><a class="anchor" href="#_content_type_11"></a><a class="link" href="#_content_type_11">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_11"><a class="anchor" href="#_responses_11"></a><a class="link" href="#_responses_11">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 deleteKeyspace">
+<h4 id="_deletekeyspace"><a class="anchor" href="#_deletekeyspace"></a><a class="link" href="#_deletekeyspace">1.3.5. deleteKeyspace</a></h4>
+<div class="paragraph">
+<p><code>DELETE /v2/schemas/keyspaces/{keyspace-id}</code></p>
+</div>
+<div class="paragraph">
+<p>delete a keyspace</p>
+</div>
+<div class="sect4">
+<h5 id="_description_12"><a class="anchor" href="#_description_12"></a><a class="link" href="#_description_12">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_12"><a class="anchor" href="#_parameters_12"></a><a class="link" href="#_parameters_12">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_10"><a class="anchor" href="#_path_parameters_10"></a><a class="link" href="#_path_parameters_10">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_11"><a class="anchor" href="#_query_parameters_11"></a><a class="link" href="#_query_parameters_11">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_12"><a class="anchor" href="#_return_type_12"></a><a class="link" href="#_return_type_12">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_12"><a class="anchor" href="#_content_type_12"></a><a class="link" href="#_content_type_12">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_12"><a class="anchor" href="#_responses_12"></a><a class="link" href="#_responses_12">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 deleteTable">
+<h4 id="_deletetable"><a class="anchor" href="#_deletetable"></a><a class="link" href="#_deletetable">1.3.6. deleteTable</a></h4>
+<div class="paragraph">
+<p><code>DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}</code></p>
+</div>
+<div class="paragraph">
+<p>delete a table</p>
+</div>
+<div class="sect4">
+<h5 id="_description_13"><a class="anchor" href="#_description_13"></a><a class="link" href="#_description_13">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_13"><a class="anchor" href="#_parameters_13"></a><a class="link" href="#_parameters_13">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_11"><a class="anchor" href="#_path_parameters_11"></a><a class="link" href="#_path_parameters_11">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_12"><a class="anchor" href="#_query_parameters_12"></a><a class="link" href="#_query_parameters_12">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_13"><a class="anchor" href="#_return_type_13"></a><a class="link" href="#_return_type_13">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_13"><a class="anchor" href="#_content_type_13"></a><a class="link" href="#_content_type_13">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_13"><a class="anchor" href="#_responses_13"></a><a class="link" href="#_responses_13">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getColumn">
+<h4 id="_getcolumn"><a class="anchor" href="#_getcolumn"></a><a class="link" href="#_getcolumn">1.3.7. getColumn</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}</code></p>
+</div>
+<div class="paragraph">
+<p>get a column</p>
+</div>
+<div class="sect4">
+<h5 id="_description_14"><a class="anchor" href="#_description_14"></a><a class="link" href="#_description_14">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_14"><a class="anchor" href="#_parameters_14"></a><a class="link" href="#_parameters_14">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_12"><a class="anchor" href="#_path_parameters_12"></a><a class="link" href="#_path_parameters_12">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_13"><a class="anchor" href="#_query_parameters_13"></a><a class="link" href="#_query_parameters_13">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_14"><a class="anchor" href="#_return_type_14"></a><a class="link" href="#_return_type_14">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_14"><a class="anchor" href="#_content_type_14"></a><a class="link" href="#_content_type_14">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_14"><a class="anchor" href="#_responses_14"></a><a class="link" href="#_responses_14">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getColumns">
+<h4 id="_getcolumns"><a class="anchor" href="#_getcolumns"></a><a class="link" href="#_getcolumns">1.3.8. getColumns</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns</code></p>
+</div>
+<div class="paragraph">
+<p>list columns</p>
+</div>
+<div class="sect4">
+<h5 id="_description_15"><a class="anchor" href="#_description_15"></a><a class="link" href="#_description_15">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_15"><a class="anchor" href="#_parameters_15"></a><a class="link" href="#_parameters_15">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_13"><a class="anchor" href="#_path_parameters_13"></a><a class="link" href="#_path_parameters_13">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_14"><a class="anchor" href="#_query_parameters_14"></a><a class="link" href="#_query_parameters_14">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_15"><a class="anchor" href="#_return_type_15"></a><a class="link" href="#_return_type_15">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_15"><a class="anchor" href="#_content_type_15"></a><a class="link" href="#_content_type_15">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_15"><a class="anchor" href="#_responses_15"></a><a class="link" href="#_responses_15">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getKeyspace">
+<h4 id="_getkeyspace"><a class="anchor" href="#_getkeyspace"></a><a class="link" href="#_getkeyspace">1.3.9. getKeyspace</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/schemas/keyspaces/{keyspace-id}</code></p>
+</div>
+<div class="paragraph">
+<p>get a keyspace</p>
+</div>
+<div class="sect4">
+<h5 id="_description_16"><a class="anchor" href="#_description_16"></a><a class="link" href="#_description_16">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_16"><a class="anchor" href="#_parameters_16"></a><a class="link" href="#_parameters_16">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_14"><a class="anchor" href="#_path_parameters_14"></a><a class="link" href="#_path_parameters_14">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_15"><a class="anchor" href="#_query_parameters_15"></a><a class="link" href="#_query_parameters_15">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_16"><a class="anchor" href="#_return_type_16"></a><a class="link" href="#_return_type_16">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_16"><a class="anchor" href="#_content_type_16"></a><a class="link" href="#_content_type_16">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_16"><a class="anchor" href="#_responses_16"></a><a class="link" href="#_responses_16">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getKeyspaces">
+<h4 id="_getkeyspaces"><a class="anchor" href="#_getkeyspaces"></a><a class="link" href="#_getkeyspaces">1.3.10. getKeyspaces</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/schemas/keyspaces</code></p>
+</div>
+<div class="paragraph">
+<p>Return all keyspaces</p>
+</div>
+<div class="sect4">
+<h5 id="_description_17"><a class="anchor" href="#_description_17"></a><a class="link" href="#_description_17">Description</a></h5>
+<div class="paragraph">
+<p>Retrieve all available keyspaces in the specific database.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_parameters_17"><a class="anchor" href="#_parameters_17"></a><a class="link" href="#_parameters_17">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_query_parameters_16"><a class="anchor" href="#_query_parameters_16"></a><a class="link" href="#_query_parameters_16">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_17"><a class="anchor" href="#_return_type_17"></a><a class="link" href="#_return_type_17">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_17"><a class="anchor" href="#_content_type_17"></a><a class="link" href="#_content_type_17">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_17"><a class="anchor" href="#_responses_17"></a><a class="link" href="#_responses_17">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getTable">
+<h4 id="_gettable"><a class="anchor" href="#_gettable"></a><a class="link" href="#_gettable">1.3.11. getTable</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}</code></p>
+</div>
+<div class="paragraph">
+<p>get a table</p>
+</div>
+<div class="sect4">
+<h5 id="_description_18"><a class="anchor" href="#_description_18"></a><a class="link" href="#_description_18">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_18"><a class="anchor" href="#_parameters_18"></a><a class="link" href="#_parameters_18">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_15"><a class="anchor" href="#_path_parameters_15"></a><a class="link" href="#_path_parameters_15">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_17"><a class="anchor" href="#_query_parameters_17"></a><a class="link" href="#_query_parameters_17">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_18"><a class="anchor" href="#_return_type_18"></a><a class="link" href="#_return_type_18">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_18"><a class="anchor" href="#_content_type_18"></a><a class="link" href="#_content_type_18">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_18"><a class="anchor" href="#_responses_18"></a><a class="link" href="#_responses_18">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 18. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 getTables">
+<h4 id="_gettables"><a class="anchor" href="#_gettables"></a><a class="link" href="#_gettables">1.3.12. getTables</a></h4>
+<div class="paragraph">
+<p><code>GET /v2/schemas/keyspaces/{keyspace-id}/tables</code></p>
+</div>
+<div class="paragraph">
+<p>list tables</p>
+</div>
+<div class="sect4">
+<h5 id="_description_19"><a class="anchor" href="#_description_19"></a><a class="link" href="#_description_19">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_19"><a class="anchor" href="#_parameters_19"></a><a class="link" href="#_parameters_19">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_16"><a class="anchor" href="#_path_parameters_16"></a><a class="link" href="#_path_parameters_16">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_18"><a class="anchor" href="#_query_parameters_18"></a><a class="link" href="#_query_parameters_18">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_19"><a class="anchor" href="#_return_type_19"></a><a class="link" href="#_return_type_19">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_19"><a class="anchor" href="#_content_type_19"></a><a class="link" href="#_content_type_19">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_19"><a class="anchor" href="#_responses_19"></a><a class="link" href="#_responses_19">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 replaceColumn">
+<h4 id="_replacecolumn"><a class="anchor" href="#_replacecolumn"></a><a class="link" href="#_replacecolumn">1.3.13. replaceColumn</a></h4>
+<div class="paragraph">
+<p><code>PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}</code></p>
+</div>
+<div class="paragraph">
+<p>replace a column definition</p>
+</div>
+<div class="sect4">
+<h5 id="_description_20"><a class="anchor" href="#_description_20"></a><a class="link" href="#_description_20">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_20"><a class="anchor" href="#_parameters_20"></a><a class="link" href="#_parameters_20">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_17"><a class="anchor" href="#_path_parameters_17"></a><a class="link" href="#_path_parameters_17">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_8"><a class="anchor" href="#_body_parameter_8"></a><a class="link" href="#_body_parameter_8">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_19"><a class="anchor" href="#_query_parameters_19"></a><a class="link" href="#_query_parameters_19">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_20"><a class="anchor" href="#_return_type_20"></a><a class="link" href="#_return_type_20">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_20"><a class="anchor" href="#_content_type_20"></a><a class="link" href="#_content_type_20">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_20"><a class="anchor" href="#_responses_20"></a><a class="link" href="#_responses_20">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 20. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3 replaceTable">
+<h4 id="_replacetable"><a class="anchor" href="#_replacetable"></a><a class="link" href="#_replacetable">1.3.14. replaceTable</a></h4>
+<div class="paragraph">
+<p><code>PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}</code></p>
+</div>
+<div class="paragraph">
+<p>replace a table definition, except for columns</p>
+</div>
+<div class="sect4">
+<h5 id="_description_21"><a class="anchor" href="#_description_21"></a><a class="link" href="#_description_21">Description</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_parameters_21"><a class="anchor" href="#_parameters_21"></a><a class="link" href="#_parameters_21">Parameters</a></h5>
+<div class="sect5">
+<h6 id="_path_parameters_18"><a class="anchor" href="#_path_parameters_18"></a><a class="link" href="#_path_parameters_18">Path Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_body_parameter_9"><a class="anchor" href="#_body_parameter_9"></a><a class="link" href="#_body_parameter_9">Body Parameter</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_20"><a class="anchor" href="#_query_parameters_20"></a><a class="link" href="#_query_parameters_20">Query Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_return_type_21"><a class="anchor" href="#_return_type_21"></a><a class="link" href="#_return_type_21">Return Type</a></h5>
+<div class="paragraph">
+<p><a href="#Object">[Object]</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_content_type_21"><a class="anchor" href="#_content_type_21"></a><a class="link" href="#_content_type_21">Content Type</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses_21"><a class="anchor" href="#_responses_21"></a><a class="link" href="#_responses_21">Responses</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 21. http response codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="models"><a class="anchor" href="#models"></a><a class="link" href="#models">2. Models</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Credentials"><a class="anchor" href="#Credentials"></a><a class="link" href="#Credentials">2.1. <em>Credentials</em></a></h3>
+<div class="paragraph">
+<p>User credentials for authenticating</p>
+</div>
+<table class="tableblock frame-all grid-all stretch fields-Credentials">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Username</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../assets/js/site.js"></script>
+<script async src="../../../assets/js/vendor/highlight.js"></script>
+  </body>
+</html>
