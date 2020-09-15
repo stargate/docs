@@ -67,13 +67,13 @@ Create an auth token
 
 ===== Return Type
 
-
-<<Object>>
+<<AuthTokenResponse>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -85,26 +85,26 @@ Create an auth token
 
 | 201
 | Created
-|  <<Object>>
+|  <<AuthTokenResponse>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
@@ -174,8 +174,8 @@ Add rows
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
+| request_body 
+|  <<string>> 
 | X 
 |  
 |  
@@ -183,6 +183,19 @@ Add rows
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -193,7 +206,7 @@ Add rows
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -202,12 +215,13 @@ Add rows
 ===== Return Type
 
 
-<<Object>>
+<<Map>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -219,31 +233,31 @@ Add rows
 
 | 201
 | resource created
-|  <<Object>>
+| Map[<<string>>] 
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 409
 | Conflict
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
@@ -311,6 +325,19 @@ delete a row(s)
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -321,7 +348,7 @@ delete a row(s)
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -330,12 +357,12 @@ delete a row(s)
 ===== Return Type
 
 
-<<Object>>
 
+-
 
 ===== Content Type
 
-* application/json
+* */*
 
 ===== Responses
 
@@ -346,22 +373,22 @@ delete a row(s)
 
 
 | 204
-| resource deleted
-|  <<Object>>
+| No Content
+|  <<>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
@@ -429,6 +456,19 @@ get a row(s)
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -439,7 +479,7 @@ get a row(s)
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | fields 
@@ -461,7 +501,7 @@ get a row(s)
 |  
 
 | sort 
-| keys to sort by  
+| keys to sort by <<String>> 
 | - 
 | null 
 |  
@@ -469,7 +509,7 @@ get a row(s)
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -477,13 +517,13 @@ get a row(s)
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200_3>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -495,26 +535,26 @@ get a row(s)
 
 | 200
 | 
-|  <<Object>>
+|  <<inline_response_200_3>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
@@ -586,8 +626,8 @@ replace a row(s)
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
+| request_body 
+| document <<string>> 
 | X 
 |  
 |  
@@ -595,6 +635,19 @@ replace a row(s)
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -605,13 +658,13 @@ replace a row(s)
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -619,13 +672,13 @@ replace a row(s)
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200_4>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -637,26 +690,26 @@ replace a row(s)
 
 | 200
 | resource updated
-|  <<Object>>
+|  <<inline_response_200_4>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
@@ -718,66 +771,37 @@ search a table
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
-[cols="2,3a,1,1,1"]
+[cols="2,3,1,1,1"]
 |===         
 |Name| Description| Required| Default| Pattern
 
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
-| where
-| URL escaped JSON query using the following keys:
-
-[cols="1,1"]
-!===
-! Key ! Operation
-
-! $lt
-! Less Than
-
-!$lte
-!Less Than Or Equal To
-
-!$gt
-!Greater Than
-
-!$gte
-!Greater Than Or Equal To
-
-!$ne
-!Not Equal To
-
-!$in
-!Contained In
-
-!$exists
-!A value is set for the key
-
-!$select
-!This matches a value for a key in the result of a different query
-
-!$dontSelect
-!Requires that a key’s value not match a value for a key in the result of a different query
-
-!$all
-!Contains all of the given values
-
-!$regex
-!Requires that a key’s value match a regular expression
-
-!$text
-!Performs a full text search on indexed fields
-
-!===
-|
-|
-|
+| where 
+| URL escaped JSON query using the following keys: | Key | Operation | |-|-| | $lt | Less Than | | $lte | Less Than Or Equal To | | $gt | Greater Than | | $gte | Greater Than Or Equal To | | $ne | Not Equal To | | $in | Contained In | | $exists | A value is set for the key |   
+| - 
+| null 
+|  
 
 | fields 
 | URL escaped, comma delimited list of keys to include  
@@ -798,7 +822,7 @@ search a table
 |  
 
 | sort 
-| keys to sort by  
+| keys to sort by <<String>> 
 | - 
 | null 
 |  
@@ -806,7 +830,7 @@ search a table
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -814,13 +838,13 @@ search a table
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200_3>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -832,26 +856,26 @@ search a table
 
 | 200
 | 
-|  <<Object>>
+|  <<inline_response_200_3>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -923,8 +947,8 @@ update part of a row(s)
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
+| request_body 
+| document <<string>> 
 | X 
 |  
 |  
@@ -932,6 +956,19 @@ update part of a row(s)
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -942,13 +979,13 @@ update part of a row(s)
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -956,13 +993,13 @@ update part of a row(s)
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200_4>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -974,26 +1011,26 @@ update part of a row(s)
 
 | 200
 | resource updated
-|  <<Object>>
+|  <<inline_response_200_4>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
@@ -1063,8 +1100,8 @@ create a column
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
+| ColumnDefinition 
+|  <<ColumnDefinition>> 
 | X 
 |  
 |  
@@ -1072,6 +1109,19 @@ create a column
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1082,7 +1132,7 @@ create a column
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1090,13 +1140,13 @@ create a column
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_201>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -1108,31 +1158,31 @@ create a column
 
 | 201
 | resource created
-|  <<Object>>
+|  <<inline_response_201>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 409
 | Conflict
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
@@ -1179,8 +1229,8 @@ create a keyspace
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
+| Keyspace 
+|  <<Keyspace>> 
 | X 
 |  
 |  
@@ -1188,6 +1238,19 @@ create a keyspace
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1198,7 +1261,7 @@ create a keyspace
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1206,13 +1269,13 @@ create a keyspace
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_201>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -1224,31 +1287,31 @@ create a keyspace
 
 | 201
 | resource created
-|  <<Object>>
+|  <<inline_response_201>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 409
 | Conflict
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
@@ -1308,8 +1371,8 @@ create a table
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
+| TableAdd 
+|  <<TableAdd>> 
 | X 
 |  
 |  
@@ -1317,6 +1380,19 @@ create a table
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1327,7 +1403,7 @@ create a table
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1335,13 +1411,13 @@ create a table
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_201>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -1353,31 +1429,31 @@ create a table
 
 | 201
 | resource created
-|  <<Object>>
+|  <<inline_response_201>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 409
 | Conflict
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
@@ -1445,6 +1521,19 @@ delete a column
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1455,7 +1544,7 @@ delete a column
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1464,12 +1553,12 @@ delete a column
 ===== Return Type
 
 
-<<Object>>
 
+-
 
 ===== Content Type
 
-* application/json
+* */*
 
 ===== Responses
 
@@ -1480,22 +1569,22 @@ delete a column
 
 
 | 204
-| resource deleted
-|  <<Object>>
+| No Content
+|  <<>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1551,31 +1640,31 @@ delete a keyspace
 
 
 
-
-====== Query Parameters
+====== Header Parameters
 
 [cols="2,3,1,1,1"]
 |===         
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
 | null 
 |  
 
 |===         
 
 
+
 ===== Return Type
 
 
-<<Object>>
 
+-
 
 ===== Content Type
 
-* application/json
+* */*
 
 ===== Responses
 
@@ -1586,22 +1675,22 @@ delete a keyspace
 
 
 | 204
-| resource deleted
-|  <<Object>>
+| No Content
+|  <<>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1663,6 +1752,19 @@ delete a table
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1673,7 +1775,7 @@ delete a table
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1682,12 +1784,12 @@ delete a table
 ===== Return Type
 
 
-<<Object>>
 
+-
 
 ===== Content Type
 
-* application/json
+* */*
 
 ===== Responses
 
@@ -1698,22 +1800,22 @@ delete a table
 
 
 | 204
-| resource deleted
-|  <<Object>>
+| No Content
+|  <<>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1781,6 +1883,19 @@ get a column
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1791,13 +1906,13 @@ get a column
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1805,13 +1920,13 @@ get a column
 
 ===== Return Type
 
-
-<<Object>>
+<<ColumnDefinition>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -1823,26 +1938,26 @@ get a column
 
 | 200
 | 
-|  <<Object>>
+|  <<ColumnDefinition>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
@@ -1904,6 +2019,19 @@ list columns
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -1914,13 +2042,13 @@ list columns
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -1928,13 +2056,13 @@ list columns
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200_2>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -1946,26 +2074,26 @@ list columns
 
 | 200
 | 
-|  <<Object>>
+|  <<inline_response_200_2>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
@@ -2021,6 +2149,19 @@ get a keyspace
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -2031,13 +2172,13 @@ get a keyspace
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -2045,13 +2186,13 @@ get a keyspace
 
 ===== Return Type
 
-
-<<Object>>
+<<Keyspace>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -2063,31 +2204,31 @@ get a keyspace
 
 | 200
 | 
-|  <<Object>>
+|  <<Keyspace>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
@@ -2130,6 +2271,19 @@ Retrieve all available keyspaces in the specific database.
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -2140,13 +2294,13 @@ Retrieve all available keyspaces in the specific database.
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -2154,13 +2308,13 @@ Retrieve all available keyspaces in the specific database.
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -2172,21 +2326,21 @@ Retrieve all available keyspaces in the specific database.
 
 | 200
 | 
-|  <<Object>>
+|  <<inline_response_200>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
@@ -2248,6 +2402,19 @@ get a table
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -2258,13 +2425,13 @@ get a table
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -2272,13 +2439,13 @@ get a table
 
 ===== Return Type
 
-
-<<Object>>
+<<Table>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -2290,26 +2457,26 @@ get a table
 
 | 200
 | 
-|  <<Object>>
+|  <<Table>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -2365,6 +2532,19 @@ list tables
 
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -2375,13 +2555,13 @@ list tables
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 | raw 
 | unwrap results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -2389,13 +2569,13 @@ list tables
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_200_1>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -2407,26 +2587,26 @@ list tables
 
 | 200
 | 
-|  <<Object>>
+|  <<inline_response_200_1>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
@@ -2498,8 +2678,8 @@ replace a column definition
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
+| ColumnDefinition 
+|  <<ColumnDefinition>> 
 | X 
 |  
 |  
@@ -2507,6 +2687,19 @@ replace a column definition
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -2517,7 +2710,7 @@ replace a column definition
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -2525,13 +2718,13 @@ replace a column definition
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_201>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -2543,36 +2736,36 @@ replace a column definition
 
 | 200
 | resource updated
-|  <<Object>>
+|  <<inline_response_201>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 409
 | Conflict
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
@@ -2638,8 +2831,8 @@ replace a table definition, except for columns
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
+| TableAdd 
+|  <<TableAdd>> 
 | X 
 |  
 |  
@@ -2647,6 +2840,19 @@ replace a table definition, except for columns
 |===         
 
 
+====== Header Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| X-Cassandra-Token 
+| The token returned from the authorization endpoint. Use this token in each request.  
+| X 
+| null 
+|  
+
+|===         
 
 ====== Query Parameters
 
@@ -2657,7 +2863,7 @@ replace a table definition, except for columns
 | pretty 
 | format results  
 | - 
-| null 
+| false 
 |  
 
 |===         
@@ -2665,13 +2871,13 @@ replace a table definition, except for columns
 
 ===== Return Type
 
-
-<<Object>>
+<<inline_response_201>>
 
 
 ===== Content Type
 
 * application/json
+* */*
 
 ===== Responses
 
@@ -2683,36 +2889,36 @@ replace a table definition, except for columns
 
 | 200
 | resource updated
-|  <<Object>>
+|  <<inline_response_201>>
 
 
 | 400
-| Invalid input
-|  <<Object>>
+| Bad Request
+|  <<Error>>
 
 
 | 401
 | Unauthorized
-|  <<Object>>
+|  <<Error>>
 
 
 | 404
 | Not Found
-|  <<Object>>
+|  <<Error>>
 
 
 | 409
 | Conflict
-|  <<Object>>
+|  <<Error>>
 
 
 | 500
 | Internal server error
-|  <<Object>>
+|  <<Error>>
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
@@ -2738,6 +2944,81 @@ endif::internal-generation[]
 == Models
 
 
+[#AuthTokenResponse]
+=== _AuthTokenResponse_ 
+
+
+
+[.fields-AuthTokenResponse]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| authToken 
+|  
+| String  
+| 
+|  
+
+|===
+
+
+[#ClusteringExpression]
+=== _ClusteringExpression_ 
+
+Order rows storage to make use of the on-disk sorting of columns. Specifying order can make query results more efficient.
+
+[.fields-ClusteringExpression]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| column 
+| X 
+| String  
+| 
+|  
+
+| order 
+| X 
+| String  
+| 
+|  _Enum:_ ASC, DESC, 
+
+|===
+
+
+[#ColumnDefinition]
+=== _ColumnDefinition_ 
+
+
+
+[.fields-ColumnDefinition]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| name 
+| X 
+| String  
+| Name for the column, which must be unique.
+|  
+
+| typeDefinition 
+| X 
+| String  
+| The type of data allowed in the column.
+|  _Enum:_ ascii, text, varchar, tinyint, smallint, int, bigint, varint, decimal, float, double, date, DateRangeType, duration, time, timestamp, uuid, timeuuid, blob, boolean, counter, inet, PointType, LineStringType, PolygonType, frozen, list, map, set, tuple, 
+
+| static 
+|  
+| Boolean  
+| Denotes whether the column is shared by all rows of a partition.
+|  
+
+|===
+
+
 [#Credentials]
 === _Credentials_ 
 
@@ -2758,6 +3039,337 @@ User credentials for authenticating
 | X 
 | String  
 | Password
+|  
+
+|===
+
+
+[#Datacenter]
+=== _Datacenter_ 
+
+
+
+[.fields-Datacenter]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| name 
+| X 
+| String  
+| 
+|  
+
+| replicas 
+| X 
+| Integer  
+| 
+|  
+
+|===
+
+
+[#Error]
+=== _Error_ 
+
+A description of an error state
+
+[.fields-Error]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| description 
+|  
+| String  
+| A human readable description of the error state
+|  
+
+| code 
+|  
+| Integer  
+| The code referencing the error state
+|  
+
+|===
+
+
+[#InlineResponse200]
+=== _InlineResponse200_ 
+
+
+
+[.fields-InlineResponse200]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| data 
+|  
+| List  of <<Keyspace>> 
+| 
+|  
+
+|===
+
+
+[#InlineResponse2001]
+=== _InlineResponse2001_ 
+
+
+
+[.fields-InlineResponse2001]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| data 
+|  
+| List  of <<Table>> 
+| 
+|  
+
+|===
+
+
+[#InlineResponse2002]
+=== _InlineResponse2002_ 
+
+
+
+[.fields-InlineResponse2002]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| data 
+|  
+| List  of <<ColumnDefinition>> 
+| 
+|  
+
+|===
+
+
+[#InlineResponse2003]
+=== _InlineResponse2003_ 
+
+
+
+[.fields-InlineResponse2003]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| data 
+|  
+| List  of <<map>> 
+| 
+|  
+
+| count 
+|  
+| Integer  
+| 
+|  
+
+|===
+
+
+[#InlineResponse2004]
+=== _InlineResponse2004_ 
+
+
+
+[.fields-InlineResponse2004]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| data 
+|  
+| Map  of <<string>> 
+| 
+|  
+
+|===
+
+
+[#InlineResponse201]
+=== _InlineResponse201_ 
+
+
+
+[.fields-InlineResponse201]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| name 
+|  
+| String  
+| 
+|  
+
+|===
+
+
+[#Keyspace]
+=== _Keyspace_ 
+
+
+
+[.fields-Keyspace]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| name 
+| X 
+| String  
+| 
+|  
+
+| datacenters 
+|  
+| List  of <<Datacenter>> 
+| 
+|  
+
+|===
+
+
+[#PrimaryKey]
+=== _PrimaryKey_ 
+
+Defines a column list for the primary key. Can be either a single column, compound primary key, or composite partition key. Provide multiple columns for the partition key to define a composite partition key.
+
+[.fields-PrimaryKey]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| partitionKey 
+| X 
+| List  of <<string>> 
+| Name of the column or columns that constitute the partition key.
+|  
+
+| clusteringKey 
+|  
+| List  of <<string>> 
+| Name of the column or columns that constitute the clustering key.
+|  
+
+|===
+
+
+[#Table]
+=== _Table_ 
+
+
+
+[.fields-Table]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| name 
+|  
+| String  
+| 
+|  
+
+| keyspace 
+|  
+| String  
+| 
+|  
+
+| columnDefinitions 
+|  
+| List  of <<ColumnDefinition>> 
+| 
+|  
+
+| primaryKey 
+|  
+| PrimaryKey  
+| 
+|  
+
+| tableOptions 
+|  
+| TableOptions  
+| 
+|  
+
+|===
+
+
+[#TableAdd]
+=== _TableAdd_ 
+
+
+
+[.fields-TableAdd]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| name 
+| X 
+| String  
+| 
+|  
+
+| ifNotExists 
+|  
+| Boolean  
+| Determines whether to create a new table if a table with the same name exists. Attempting to create an existing table returns an error unless this option is true.
+|  
+
+| columnDefinitions 
+| X 
+| List  of <<ColumnDefinition>> 
+| 
+|  
+
+| primaryKey 
+| X 
+| PrimaryKey  
+| 
+|  
+
+| tableOptions 
+|  
+| TableOptions  
+| 
+|  
+
+|===
+
+
+[#TableOptions]
+=== _TableOptions_ 
+
+
+
+[.fields-TableOptions]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| defaultTimeToLive 
+|  
+| Integer  
+| Defines the Time To Live (TTL), which determines the time period (in seconds) to expire data. If the value is &gt;0, TTL is enabled for the entire table and an expiration timestamp is added to each column. The maximum value is 630720000 (20 years). A new TTL timestamp is calculated each time the data is updated and the row is removed after the data expires.
+|  
+
+| clusteringExpression 
+|  
+| List  of <<ClusteringExpression>> 
+| 
 |  
 
 |===
