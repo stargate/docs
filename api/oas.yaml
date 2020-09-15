@@ -6,222 +6,13 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
-externalDocs:
-  description: Reference Document
-  url: http://shorturl.at/hnqIQ
-servers:
-  - url: https://api.stargate.io/rest/v2
 tags:
-  - name: health
-    description: "Health checks"
   - name: schemas
     description: "Interact with keyspaces and tables in your database"
   - name: data
     description: "Add, update, and delete rows in your database"
 paths:
-  /keyspaces/{keyspace-id}/{table-id}:
-    get:
-      tags:
-        - data
-      summary: search a table
-      parameters:
-        - $ref: "#/components/parameters/pretty"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/where"
-        - $ref: "#/components/parameters/fields"
-        - $ref: "#/components/parameters/page-size"
-        - $ref: "#/components/parameters/page-state"
-        - $ref: "#/components/parameters/sort"
-        - $ref: "#/components/parameters/raw"
-      responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "count": 1,
-                      "pageState": "2f4acd34",
-                      "data":
-                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
-                    }
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-    post:
-      tags:
-        - keyspaces
-      summary: Add rows
-      description: "Add rows to a table in your database. If the new row has the same primary key as that of an existing row, the database processes it as an update to the existing row."
-      operationId: addRow
-      parameters:
-        - $ref: "#/components/parameters/pretty"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-      requestBody:
-        description: row
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RowAdd"
-            examples:
-              default:
-                value:
-                  {
-                    "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7",
-                    "title": "Hello World",
-                    "author": "CRW",
-                  }
-      responses:
-        201:
-          description: resource created
-          content:
-            application/json:
-              examples:
-                default:
-                  value: { "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        409:
-          $ref: "#/components/responses/409"
-        500:
-          $ref: "#/components/responses/500"
-  /keyspaces/{keyspace-id}/{table-id}/{primary-key}:
-    get:
-      tags:
-        - data
-      summary: get a row(s)
-      parameters:
-        - $ref: "#/components/parameters/pretty"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-        - $ref: "#/components/parameters/fields"
-        - $ref: "#/components/parameters/page-size"
-        - $ref: "#/components/parameters/page-state"
-        - $ref: "#/components/parameters/sort"
-        - $ref: "#/components/parameters/raw"
-      responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "count": 1,
-                      "pageState": "2f4acd34",
-                      "data":
-                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
-                    }
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-    put:
-      tags:
-        - keyspaces
-      summary: replace a row(s)
-      parameters:
-        - $ref: "#/components/parameters/pretty"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-        - $ref: "#/components/parameters/raw"
-      requestBody:
-        description: document
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-            examples:
-              default:
-                value: { "title": "New Title" }
-      responses:
-        200:
-          description: resource updated
-          content:
-            application/json:
-              examples:
-                default:
-                  value:
-                    { "rowsModified": 208, "data": { "title": "New Title" } }
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-    patch:
-      tags:
-        - keyspaces
-      summary: update part of a row(s)
-      parameters:
-        - $ref: "#/components/parameters/pretty"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-        - $ref: "#/components/parameters/raw"
-      requestBody:
-        description: document
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-            examples:
-              default:
-                value: { "title": "New Title", "author": null }
-      responses:
-        200:
-          description: resource updated
-          content:
-            application/json:
-              examples:
-                default:
-                  value:
-                    { "rowsModified": 208, "data": { "title": "New Title" } }
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-    delete:
-      tags:
-        - keyspaces
-      summary: delete a row(s)
-      parameters:
-        - $ref: "#/components/parameters/pretty"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-      responses:
-        204:
-          description: resource deleted
-          content:
-            application/json:
-              examples:
-                default:
-                  value: {}
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-  /schemas/keyspaces:
+  /v2/schemas/keyspaces:
     get:
       tags:
         - schemas
@@ -260,6 +51,7 @@ paths:
       tags:
         - schemas
       summary: create a keyspace
+      operationId: createKeyspace
       parameters:
         - $ref: "#/components/parameters/pretty"
       requestBody:
@@ -298,11 +90,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /schemas/keyspaces/{keyspace-id}:
+  /v2/schemas/keyspaces/{keyspace-id}:
     get:
       tags:
         - schemas
       summary: get a keyspace
+      operationId: getKeyspace
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -338,6 +131,7 @@ paths:
       tags:
         - schemas
       summary: delete a keyspace
+      operationId: deleteKeyspace
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -353,11 +147,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /schemas/keyspaces/{keyspace-id}/tables:
+  /v2/schemas/keyspaces/{keyspace-id}/tables:
     get:
       tags:
         - schemas
       summary: list tables
+      operationId: getTables
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -408,6 +203,7 @@ paths:
       tags:
         - schemas
       summary: create a table
+      operationId: createTable
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -460,11 +256,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /schemas/keyspaces/{keyspace-id}/tables/{table-id}:
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}:
     get:
       tags:
         - schemas
       summary: get a table
+      operationId: getTable
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -514,6 +311,7 @@ paths:
       tags:
         - schemas
       summary: replace a table definition, except for columns
+      operationId: replaceTable
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -565,6 +363,7 @@ paths:
       tags:
         - schemas
       summary: delete a table
+      operationId: deleteTable
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -581,11 +380,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
     get:
       tags:
         - schemas
       summary: list columns
+      operationId: getColumns
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -619,6 +419,7 @@ paths:
       tags:
         - schemas
       summary: create a column
+      operationId: createColumn
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -654,11 +455,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
     get:
       tags:
         - schemas
       summary: get a column
+      operationId: getColumn
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -691,6 +493,7 @@ paths:
       tags:
         - schemas
       summary: replace a column definition
+      operationId: replaceColumn
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
@@ -733,11 +536,219 @@ paths:
       tags:
         - schemas
       summary: delete a column
+      operationId: deleteColumn
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/column-id"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              examples:
+                default:
+                  value: {}
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/keyspaces/{keyspace-id}/{table-id}:
+    get:
+      tags:
+        - data
+      summary: search a table
+      operationId: searchTable
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/where"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/page-size"
+        - $ref: "#/components/parameters/page-state"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    {
+                      "count": 1,
+                      "pageState": "2f4acd34",
+                      "data":
+                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
+                    }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - data
+      summary: Add rows
+      description: "Add rows to a table in your database. If the new row has the same primary key as that of an existing row, the database processes it as an update to the existing row."
+      operationId: addRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        description: row
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RowAdd"
+            examples:
+              default:
+                value:
+                  {
+                    "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7",
+                    "title": "Hello World",
+                    "author": "CRW",
+                  }
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              examples:
+                default:
+                  value: { "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}:
+    get:
+      tags:
+        - data
+      summary: get a row(s)
+      operationId: getRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/page-size"
+        - $ref: "#/components/parameters/page-state"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    {
+                      "count": 1,
+                      "pageState": "2f4acd34",
+                      "data":
+                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
+                    }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - data
+      summary: replace a row(s)
+      operationId: replaceRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              default:
+                value: { "title": "New Title" }
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    { "rowsModified": 208, "data": { "title": "New Title" } }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    patch:
+      tags:
+        - data
+      summary: update part of a row(s)
+      operationId: updateRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              default:
+                value: { "title": "New Title", "author": null }
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    { "rowsModified": 208, "data": { "title": "New Title" } }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - data
+      summary: delete a row(s)
+      operationId: deleteRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
       responses:
         204:
           description: resource deleted
@@ -790,9 +801,9 @@ components:
       in: path
       required: true
       description: |
-        Value from the primary key column for the table. Define composite keys by separating values with 
-        slashes (`val1/val2...`) in the order they were defined. </br> For example, if the composite key 
-        was defined as `PRIMARY KEY(race_year, race_name)` then the primary key in the path would be 
+        Value from the primary key column for the table. Define composite keys by separating values with
+        slashes (`val1/val2...`) in the order they were defined. </br> For example, if the composite key
+        was defined as `PRIMARY KEY(race_year, race_name)` then the primary key in the path would be
         `race_year/race_name`
       schema:
         type: string
@@ -838,26 +849,25 @@ components:
       in: query
       description: |
         URL escaped JSON query using the following keys:
-        | Key | Operation | 
+        | Key | Operation |
         |-|-|
-        | $lt | Less Than | 
-        | $lte | Less Than Or Equal To |  
+        | $lt | Less Than |
+        | $lte | Less Than Or Equal To |
         | $gt | Greater Than |
-        | $gte | Greater Than Or Equal To |  
+        | $gte | Greater Than Or Equal To |
         | $ne | Not Equal To |
-        | $in | Contained In |  
-        | $exists | A value is set for the key |  
+        | $in | Contained In |
+        | $exists | A value is set for the key |
         | $select | This matches a value for a key in the result of a different query |
-        | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query |  
+        | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query |
         | $all | Contains all of the given values |
         | $regex | Requires that a key’s value match a regular expression |
         | $text | Performs a full text search on indexed fields |
       schema:
         type: object
       examples:
-        search with or:
+        search:
           value: { "author": { "$eq": "Cliff Wicklow" } }
-  examples: {}
   responses:
     404:
       description: Not Found
@@ -894,4 +904,3 @@ components:
           examples:
             default:
               value: { "code": 500, "description": "Internal server error" }
-  schemas: {}
