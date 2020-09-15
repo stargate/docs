@@ -28,4 +28,4 @@ Where:
 * `--listen-address` is set to the address on which Stargate will listen.
 * `--simple-snitch` sets the snitch on the Stargate node.
 
-NOTE: Use the `simple-snitch` option if the link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch] setting in the cluster is set to *SimpleSnitch*. If the cluster uses a different `endpoint_snitch` use the `--dc` and `--rack` options to define the topology of the node.
+NOTE: Use the `--simple-snitch` option if the link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch] setting in the cluster is set to *SimpleSnitch*. If the cluster uses a different `endpoint_snitch` use the `--dc` and `--rack` options to define the topology of the node.
