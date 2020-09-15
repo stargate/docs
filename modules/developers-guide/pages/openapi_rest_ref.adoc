@@ -24,6 +24,121 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 == Endpoints
 
 
+[.Auth]
+=== Auth
+
+
+[.createToken]
+==== createToken
+    
+`POST /v1/auth`
+
+Create an auth token
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v1/auth/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| Credentials 
+|  <<Credentials>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+
+-
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 201
+| Created
+|  <<>>
+
+
+| 400
+| Invalid input
+|  <<>>
+
+
+| 401
+| Unauthorized
+|  <<>>
+
+
+| 500
+| Internal server error
+|  <<>>
+
+|===         
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v1/auth/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v1/auth/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v1/auth/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
 [.Data]
 === Data
 
@@ -97,7 +212,11 @@ Add rows to a table in your database. If the new row has the same primary key as
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -137,7 +256,7 @@ Add rows to a table in your database. If the new row has the same primary key as
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
@@ -221,7 +340,11 @@ delete a row(s)
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -251,7 +374,7 @@ delete a row(s)
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
@@ -365,7 +488,11 @@ get a row(s)
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -400,7 +527,7 @@ get a row(s)
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
@@ -503,7 +630,11 @@ replace a row(s)
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -538,7 +669,7 @@ replace a row(s)
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
@@ -694,7 +825,11 @@ search a table
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -729,7 +864,7 @@ search a table
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -832,7 +967,11 @@ update part of a row(s)
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -867,7 +1006,7 @@ update part of a row(s)
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
@@ -962,7 +1101,11 @@ create a column
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1002,7 +1145,7 @@ create a column
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
@@ -1074,7 +1217,11 @@ create a keyspace
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1114,7 +1261,7 @@ create a keyspace
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
@@ -1199,7 +1346,11 @@ create a table
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1239,7 +1390,7 @@ create a table
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
@@ -1323,7 +1474,11 @@ delete a column
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1353,7 +1508,7 @@ delete a column
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1425,7 +1580,11 @@ delete a keyspace
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1455,7 +1614,7 @@ delete a keyspace
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1533,7 +1692,11 @@ delete a table
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1563,7 +1726,7 @@ delete a table
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1653,7 +1816,11 @@ get a column
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1688,7 +1855,7 @@ get a column
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
@@ -1772,7 +1939,11 @@ list columns
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1807,7 +1978,7 @@ list columns
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
@@ -1885,7 +2056,11 @@ get a keyspace
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -1925,7 +2100,7 @@ get a keyspace
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
@@ -1990,7 +2165,11 @@ Retrieve all available keyspaces in the specific database.
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -2020,7 +2199,7 @@ Retrieve all available keyspaces in the specific database.
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
@@ -2104,7 +2283,11 @@ get a table
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -2139,7 +2322,7 @@ get a table
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -2217,7 +2400,11 @@ list tables
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -2252,7 +2439,7 @@ list tables
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
@@ -2349,7 +2536,11 @@ replace a column definition
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -2394,7 +2585,7 @@ replace a column definition
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
@@ -2485,7 +2676,11 @@ replace a table definition, except for columns
 |===         
 
 
+===== Return Type
 
+
+
+-
 
 ===== Content Type
 
@@ -2530,7 +2725,7 @@ replace a table definition, except for columns
 
 |===         
 
-
+===== Samples
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
@@ -2550,5 +2745,34 @@ ifdef::internal-generation[]
 
 
 endif::internal-generation[]
+
+
+[#models]
+== Models
+
+
+[#Credentials]
+=== _Credentials_ 
+
+User credentials for authenticating
+
+[.fields-Credentials]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| username 
+| X 
+| String  
+| Username
+|  
+
+| password 
+| X 
+| String  
+| Password
+|  
+
+|===
 
 

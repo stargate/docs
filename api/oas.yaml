@@ -7,11 +7,41 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
 tags:
+  - name: auth
+    description: "Create an authorization token to connect to your database"
   - name: schemas
     description: "Interact with keyspaces and tables in your database"
   - name: data
     description: "Add, update, and delete rows in your database"
 paths:
+  /v1/auth:
+    post:
+      tags:
+        - auth
+      summary: Create an auth token
+      operationId: createToken
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Credentials"
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              examples:
+                default:
+                  value: { "authToken": "string" }
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
   /v2/schemas/keyspaces:
     get:
       tags:
@@ -904,3 +934,17 @@ components:
           examples:
             default:
               value: { "code": 500, "description": "Internal server error" }
+  schemas:
+    Credentials:
+      type: object
+      required:
+        - username
+        - password
+      description: User credentials for authenticating
+      properties:
+        username:
+          type: string
+          description: Username
+        password:
+          type: string
+          description: Password
