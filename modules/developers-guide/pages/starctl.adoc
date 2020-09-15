@@ -1,0 +1,113 @@
+= The starctl command
+
+The `starctl` command controls and configures Stargate nodes.
+
+== Starting Stargate using starctl
+
+[source,bash]
+----
+starctl --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch
+----
+
+== starctl options
+
+.starctl options
+|===
+| Option | Parameter | Default | Description | Example
+
+| `--cluster-name`
+| `_cluster name_`
+|
+| Name of database cluster.
+| `stargate`
+
+| `--cluster-seed`
+| `_seed node IP address_`
+|
+| The IP address of the seed node of the cluster.
+| `192.168.0.1`
+
+
+| `--cluster-version`
+| `_Cassandra version_`
+|
+| The major version of the database cluster.
+| `3.11`
+
+| `--listen`
+| `_listen IP address_`
+| 127.0.0.1
+| IP address Stargate services should listen on. This options value must match the regular expression
+`^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$`. Must be a valid IP address.
+| `192.168.0.1`
+
+| `--seed-port`
+| `_port number_`
+| 7000
+| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| `7001`
+
+| `--dc`
+| `_datacenter name_`
+|
+| Datacenter name of this node. This must match the database backend.
+| `dc1`
+
+| `--rack`
+| `_rack name_`
+|
+| Rack name of this node. This must match the database backend.
+| `rack1`
+
+| `--simple-snitch`
+|
+|
+| Set this option if the backend cluster uses `SimpleSnitch` as the `endpoint_snitch`.
+|
+
+| `--dse`
+|
+|
+| Set if the backend is DSE. Do not set this option if the backed is Cassandra.
+|
+
+| `--cql-port`
+| `_port number_`
+| 9042
+| Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| `9043`
+
+| `--enable-auth`
+|
+|
+| Set to enable `PasswordAuthenticator` in the cluster.
+|
+
+| `--use-proxy-protocol`
+|
+|
+| Use proxy protocol to determine the public address and port of CQL requests.
+|
+
+| `--emulate-dbaas-defaults`
+|
+|
+| Updated defaults reflect those of DataStax Astra at the time of the currently used DSE release.
+|
+
+| `--developer-mode`
+|
+|
+| Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.
+|
+
+|`--bind-to-listen-address`
+|
+|
+| If set bind the web services to the listen address only.
+|
+|===
