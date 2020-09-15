@@ -104,7 +104,7 @@ Create an auth token
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
@@ -257,7 +257,7 @@ Add rows
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
@@ -388,7 +388,7 @@ delete a row(s)
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
@@ -554,7 +554,7 @@ get a row(s)
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
@@ -709,7 +709,7 @@ replace a row(s)
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
@@ -787,7 +787,7 @@ search a table
 
 ====== Query Parameters
 
-[cols="2,3,1,1,1"]
+[cols="2,3a,1,1,1"]
 |===         
 |Name| Description| Required| Default| Pattern
 
@@ -797,11 +797,53 @@ search a table
 | false 
 |  
 
-| where 
-| URL escaped JSON query using the following keys: | Key | Operation | |-|-| | $lt | Less Than | | $lte | Less Than Or Equal To | | $gt | Greater Than | | $gte | Greater Than Or Equal To | | $ne | Not Equal To | | $in | Contained In | | $exists | A value is set for the key |   
-| - 
-| null 
-|  
+| where
+| URL escaped JSON query using the following keys:
+
+[cols="1,1"]
+!===
+! Key ! Operation
+
+! $lt
+! Less Than
+
+!$lte
+!Less Than Or Equal To
+
+!$gt
+!Greater Than
+
+!$gte
+!Greater Than Or Equal To
+
+!$ne
+!Not Equal To
+
+!$in
+!Contained In
+
+!$exists
+!A value is set for the key
+
+!$select
+!This matches a value for a key in the result of a different query
+
+!$dontSelect
+!Requires that a key’s value not match a value for a key in the result of a different query
+
+!$all
+!Contains all of the given values
+
+!$regex
+!Requires that a key’s value match a regular expression
+
+!$text
+!Performs a full text search on indexed fields
+
+!===
+|
+|
+|
 
 | fields 
 | URL escaped, comma delimited list of keys to include  
@@ -875,7 +917,7 @@ search a table
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -1030,7 +1072,7 @@ update part of a row(s)
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
@@ -1182,7 +1224,7 @@ create a column
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
@@ -1311,7 +1353,7 @@ create a keyspace
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
@@ -1453,7 +1495,7 @@ create a table
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
@@ -1584,7 +1626,7 @@ delete a column
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1690,7 +1732,7 @@ delete a keyspace
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1815,7 +1857,7 @@ delete a table
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1957,7 +1999,7 @@ get a column
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
@@ -2093,7 +2135,7 @@ list columns
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
@@ -2228,7 +2270,7 @@ get a keyspace
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
@@ -2340,7 +2382,7 @@ Retrieve all available keyspaces in the specific database.
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
@@ -2476,7 +2518,7 @@ get a table
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -2606,7 +2648,7 @@ list tables
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
@@ -2765,7 +2807,7 @@ replace a column definition
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
@@ -2918,7 +2960,7 @@ replace a table definition, except for columns
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
