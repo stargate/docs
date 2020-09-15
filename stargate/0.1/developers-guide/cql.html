@@ -69,16 +69,31 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="docker.html">Installing Stargate</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="cql.html">Using the CQL API</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference docs</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="starctl.html">The starctl command</a>
   </li>
 </ul>
   </li>
@@ -204,7 +219,7 @@
 <p>Docker installed and running</p>
 </li>
 <li>
-<p><code>cURL</code> to run REST queries</p>
+<p>JDK 8 or higher</p>
 </li>
 <li>
 <p>cqlsh (standalone, or as part of a separate Cassandra installation)</p>

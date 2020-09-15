@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>The starctl command :: Stargate documentation</title>
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../assets/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="https://stargate.io"><img src="../../../assets/img/logos/stargate-logo-horizontal.svg" style="height:40px" /></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://stargate.io">Stargate</a>
+        <!-- <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">API docs</div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="">0.1</a>
+          </div>
+        </div> -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Community</div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/stargate/docs/issues">File a bug</a>
+            <a class="navbar-item" href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">Ask a question</a>
+            <a class="navbar-item" href="https://twitter.com/stargateio">Follow us on Twitter</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="https://github.com/stargate/">Stargate GitHub</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="stargate" data-version="0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Stargate</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quick_start.html">Quick start</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../concepts/concepts.html">Concepts</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="docker.html">Installing Stargate</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="cql.html">Using the CQL API</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="starctl.html">The starctl command</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="building.html">Building Stargate from source</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../FAQ.html">FAQ</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Stargate</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Stargate</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Stargate</a></li>
+    <li>Reference docs</li>
+    <li><a href="starctl.html">The starctl command</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/starctl.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">The starctl command</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>starctl</code> command controls and configures Stargate nodes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_starting_stargate_using_starctl"><a class="anchor" href="#_starting_stargate_using_starctl"></a><a class="link" href="#_starting_stargate_using_starctl">Starting Stargate using starctl</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">starctl --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host&#8217;s network. To run Stargate in a containerized environment, see the <a href="existing_cstar.html" class="page">Installing Stargate with an existing Cassandra cluster</a> documentation.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_starctl_options"><a class="anchor" href="#_starctl_options"></a><a class="link" href="#_starctl_options">starctl options</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. starctl options</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>cluster name</em></code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of database cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stargate</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>seed node IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address of the seed node of the cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>192.168.0.1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>Cassandra version</em></code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The major version of the database cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.11</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>listen IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">127.0.0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address Stargate services should listen on. This options value must match the regular expression
+<code>^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$</code>. Must be a valid IP address.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>192.168.0.1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>7001</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>datacenter name</em></code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datacenter name of this node. This must match the database backend.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dc1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>rack name</em></code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rack name of this node. This must match the database backend.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rack1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--simple-snitch</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set this option if the backend cluster uses <code>SimpleSnitch</code> as the <code>endpoint_snitch</code>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dse</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set if the backend is DSE. Do not set this option if the backend is Cassandra.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>9043</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--enable-auth</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to enable <code>PasswordAuthenticator</code> in the cluster.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--use-proxy-protocol</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use proxy protocol to determine the public address and port of CQL requests.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--developer-mode</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--bind-to-listen-address</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set bind the web services to the listen address only.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../assets/js/site.js"></script>
+<script async src="../../../assets/js/vendor/highlight.js"></script>
+  </body>
+</html>

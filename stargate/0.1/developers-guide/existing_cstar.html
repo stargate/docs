@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Building Stargate from source :: Stargate documentation</title>
+    <title>Installing Stargate with an existing Cassandra cluster :: Stargate documentation</title>
     <meta name="generator" content="Antora 2.3.3">
     <link rel="stylesheet" href="../../../assets/css/site.css">
   </head>
@@ -72,7 +72,7 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="docker.html">Installing Stargate</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
   </li>
 </ul>
@@ -99,7 +99,7 @@
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="building.html">Building Stargate from source</a>
   </li>
 </ul>
@@ -140,44 +140,109 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
-    <li><a href="building.html">Building Stargate from source</a></li>
+    <li><a href="docker.html">Installing Stargate</a></li>
+    <li><a href="existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/building.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/existing_cstar.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Building Stargate from source</h1>
+<h1 class="page">Installing Stargate with an existing Cassandra cluster</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>In a terminal:</p>
+<p>Stargate can be installed alongside an existing Cassandra cluster.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Clone the <a href="https://github.com/stargate/stargate" class="bare">https://github.com/stargate/stargate</a> repository:</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_stargate_with_cassandra_3_11"><a class="anchor" href="#_using_stargate_with_cassandra_3_11"></a><a class="link" href="#_using_stargate_with_cassandra_3_11">Using Stargate with Cassandra 3.11</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h3>
+<div class="paragraph">
+<p>This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/stargate/stargate</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.3</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Navigate to the <code>stargate</code> directory.</p>
+</div>
+<div class="sect2">
+<h3 id="_starting_stargate_with_cassandra_3_11"><a class="anchor" href="#_starting_stargate_with_cassandra_3_11"></a><a class="link" href="#_starting_stargate_with_cassandra_3_11">Starting Stargate with Cassandra 3.11</a></h3>
+<div class="paragraph">
+<p>Stargate can be added to an existing Cassandra 3.11 cluster operating in a containerized environment in the following way:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd stargate</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --name stargate \
+  -d stargateio/stargate-3_11:v0.0.3 \
+  --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--cluster-seed</code> is set to the IP address of a running Cassandra node.</p>
 </li>
 <li>
-<p>Build Stargate using the <code>mvnw</code> command.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package</code></pre>
-</div>
-</div>
+<p><code>--cluster-version</code> is set to the version of Cassandra running in the cluster.</p>
 </li>
-</ol>
+<li>
+<p><code>--listen-address</code> is set to the address on which Stargate will listen.</p>
+</li>
+<li>
+<p><code>--simple-snitch</code> sets the snitch on the Stargate node.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Use the <code>--simple-snitch</code> option if the <a href="https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962">endpoint_snitch</a> setting in the cluster is set to <strong>SimpleSnitch</strong>. If the cluster uses a different <code>endpoint_snitch</code> use the <code>--dc</code> and <code>--rack</code> options to define the topology of the node.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The full set of options are described in <a href="starctl.html" class="page">the <code>starctl</code> documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>--cluster-name</code> option can alternately be set using <code>-e</code> and setting the <code>CLUSTER_NAME</code> environment variable to the name of the cluster.</p>
+</div>
+<div class="paragraph">
+<p>The <code>--cluster-version</code> option can alternately be set using <code>-e</code> and setting the <code>CLUSTER_VERSION</code> environment variable to the version of the cluster.</p>
+</div>
+<div class="paragraph">
+<p>The <code>--developer-mode</code> option can alternately be set using <code>-e</code> and setting the <code>DEVELOPER_MODE</code> environment variable to <code>true</code>.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+When Stargate is launched within a container on Mac OS X as shown above, it will connect only to Cassandra clusters running within the same Docker environment. To run Stargate so that it can connect to a cluster running outside of a containerized environment, see the <a href="starctl.html" class="page">starctl</a> documentation.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
