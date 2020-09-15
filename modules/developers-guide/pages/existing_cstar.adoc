@@ -38,5 +38,4 @@ The `--cluster-version` option can alternately be set using `-e` and setting the
 
 The `--developer-mode` option can alternately be set using `-e` and setting the `DEVELOPER_MODE` environment variable to `true`.
 
-WARNING: When Stargate is launched within a docker container as shown above, it will connect only to Cassandra clusters running within the same docker environment. To run Stargate so that it can connect to a cluster running outside of a containerized environment, see the link:starctl[starctl] documentation.
->>>>>>> Added warning note about clusters stargate can connect to based on its running environment
+CAUTION: When Stargate is launched within a container on Mac OS X as shown above, it will connect only to Cassandra clusters running within the same Docker environment. To run Stargate so that it can connect to a cluster running outside of a containerized environment, see the xref:starctl.adoc[starctl] documentation.
