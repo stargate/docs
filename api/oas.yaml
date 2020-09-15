@@ -790,9 +790,9 @@ components:
       in: path
       required: true
       description: |
-        Value from the primary key column for the table. Define composite keys by separating values with
-        slashes (`val1/val2...`) in the order they were defined. </br> For example, if the composite key
-        was defined as `PRIMARY KEY(race_year, race_name)` then the primary key in the path would be
+        Value from the primary key column for the table. Define composite keys by separating values with 
+        slashes (`val1/val2...`) in the order they were defined. </br> For example, if the composite key 
+        was defined as `PRIMARY KEY(race_year, race_name)` then the primary key in the path would be 
         `race_year/race_name`
       schema:
         type: string
@@ -838,17 +838,17 @@ components:
       in: query
       description: |
         URL escaped JSON query using the following keys:
-        | Key | Operation |
+        | Key | Operation | 
         |-|-|
-        | $lt | Less Than |
-        | $lte | Less Than Or Equal To |
+        | $lt | Less Than | 
+        | $lte | Less Than Or Equal To |  
         | $gt | Greater Than |
-        | $gte | Greater Than Or Equal To |
+        | $gte | Greater Than Or Equal To |  
         | $ne | Not Equal To |
-        | $in | Contained In |
-        | $exists | A value is set for the key |
+        | $in | Contained In |  
+        | $exists | A value is set for the key |  
         | $select | This matches a value for a key in the result of a different query |
-        | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query |
+        | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query |  
         | $all | Contains all of the given values |
         | $regex | Requires that a key’s value match a regular expression |
         | $text | Performs a full text search on indexed fields |
