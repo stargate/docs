@@ -1,0 +1,2765 @@
+= Stargate REST API reference
+team@openapitools.org
+2.0.0
+:toc: left
+:numbered:
+:toclevels: 3
+:source-highlighter: highlightjs
+:keywords: openapi, rest, Stargate REST API reference 
+:specDir: 
+:snippetDir: 
+:generator-template: v1 2019-12-20
+:info-url: https://openapi-generator.tech
+:app-name: Stargate REST API reference
+
+[abstract]
+.Abstract
+The Stargate REST API provides CRUD operations on table data managed by Stargate.
+
+
+// markup not found, no include::{specDir}intro.adoc[opts=optional]
+
+
+
+== Endpoints
+
+
+[.Auth]
+=== Auth
+
+
+[.createToken]
+==== createToken
+    
+`POST /v1/auth`
+
+Create an auth token
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v1/auth/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| Credentials 
+|  <<Credentials>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 201
+| Created
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v1/auth/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v1/auth/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v1/auth/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.Data]
+=== Data
+
+
+[.addRows]
+==== addRows
+    
+`POST /v2/keyspaces/{keyspace-id}/{table-id}`
+
+Add rows
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+|  <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 201
+| resource created
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 409
+| Conflict
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteRows]
+==== deleteRows
+    
+`DELETE /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+
+delete a row(s)
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| primary-key 
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 204
+| resource deleted
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getRows]
+==== getRows
+    
+`GET /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+
+get a row(s)
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| primary-key 
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| fields 
+| URL escaped, comma delimited list of keys to include  
+| - 
+| null 
+|  
+
+| page-size 
+| restrict the number of returned items  
+| - 
+| null 
+|  
+
+| page-state 
+| move the cursor to a particular result  
+| - 
+| null 
+|  
+
+| sort 
+| keys to sort by  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.replaceRows]
+==== replaceRows
+    
+`PUT /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+
+replace a row(s)
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| primary-key 
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+| document <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| resource updated
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.searchTable]
+==== searchTable
+    
+`GET /v2/keyspaces/{keyspace-id}/{table-id}`
+
+search a table
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3a,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| where
+| URL escaped JSON query using the following keys:
+
+[cols="1,1"]
+!===
+! Key ! Operation
+
+! $lt
+! Less Than
+
+!$lte
+!Less Than Or Equal To
+
+!$gt
+!Greater Than
+
+!$gte
+!Greater Than Or Equal To
+
+!$ne
+!Not Equal To
+
+!$in
+!Contained In
+
+!$exists
+!A value is set for the key
+
+!$select
+!This matches a value for a key in the result of a different query
+
+!$dontSelect
+!Requires that a key’s value not match a value for a key in the result of a different query
+
+!$all
+!Contains all of the given values
+
+!$regex
+!Requires that a key’s value match a regular expression
+
+!$text
+!Performs a full text search on indexed fields
+
+!===
+|
+|
+|
+
+| fields 
+| URL escaped, comma delimited list of keys to include  
+| - 
+| null 
+|  
+
+| page-size 
+| restrict the number of returned items  
+| - 
+| null 
+|  
+
+| page-state 
+| move the cursor to a particular result  
+| - 
+| null 
+|  
+
+| sort 
+| keys to sort by  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.updateRows]
+==== updateRows
+    
+`PATCH /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+
+update part of a row(s)
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| primary-key 
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+| document <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| resource updated
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/PATCH/PATCH.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.Schemas]
+=== Schemas
+
+
+[.createColumn]
+==== createColumn
+    
+`POST /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
+
+create a column
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+|  <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 201
+| resource created
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 409
+| Conflict
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.createKeyspace]
+==== createKeyspace
+    
+`POST /v2/schemas/keyspaces`
+
+create a keyspace
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+|  <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 201
+| resource created
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 409
+| Conflict
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.createTable]
+==== createTable
+    
+`POST /v2/schemas/keyspaces/{keyspace-id}/tables`
+
+create a table
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+|  <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 201
+| resource created
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 409
+| Conflict
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteColumn]
+==== deleteColumn
+    
+`DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
+
+delete a column
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| column-id 
+| column name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 204
+| resource deleted
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteKeyspace]
+==== deleteKeyspace
+    
+`DELETE /v2/schemas/keyspaces/{keyspace-id}`
+
+delete a keyspace
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 204
+| resource deleted
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.deleteTable]
+==== deleteTable
+    
+`DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
+
+delete a table
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 204
+| resource deleted
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/DELETE/DELETE.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getColumn]
+==== getColumn
+    
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
+
+get a column
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| column-id 
+| column name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getColumns]
+==== getColumns
+    
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
+
+list columns
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getKeyspace]
+==== getKeyspace
+    
+`GET /v2/schemas/keyspaces/{keyspace-id}`
+
+get a keyspace
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getKeyspaces]
+==== getKeyspaces
+    
+`GET /v2/schemas/keyspaces`
+
+Return all keyspaces
+
+===== Description 
+
+Retrieve all available keyspaces in the specific database.
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getTable]
+==== getTable
+    
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
+
+get a table
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.getTables]
+==== getTables
+    
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables`
+
+list tables
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+|===         
+
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+| raw 
+| unwrap results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| 
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.replaceColumn]
+==== replaceColumn
+    
+`PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
+
+replace a column definition
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+| column-id 
+| column name  
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+|  <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| resource updated
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 409
+| Conflict
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.replaceTable]
+==== replaceTable
+    
+`PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
+
+replace a table definition, except for columns
+
+===== Description 
+
+
+
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| keyspace-id 
+| keyspace name  
+| X 
+| null 
+|  
+
+| table-id 
+| table name  
+| X 
+| null 
+|  
+
+|===         
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| body 
+|  <<object>> 
+| X 
+|  
+|  
+
+|===         
+
+
+
+====== Query Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| pretty 
+| format results  
+| - 
+| null 
+|  
+
+|===         
+
+
+===== Return Type
+
+
+<<Object>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.http response codes
+[cols="2,3,1"]
+|===         
+| Code | Message | Datatype 
+
+
+| 200
+| resource updated
+|  <<Object>>
+
+
+| 400
+| Invalid input
+|  <<Object>>
+
+
+| 401
+| Unauthorized
+|  <<Object>>
+
+
+| 404
+| Not Found
+|  <<Object>>
+
+
+| 409
+| Conflict
+|  <<Object>>
+
+
+| 500
+| Internal server error
+|  <<Object>>
+
+|===         
+
+
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/PUT/PUT.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[#models]
+== Models
+
+
+[#Credentials]
+=== _Credentials_ 
+
+User credentials for authenticating
+
+[.fields-Credentials]
+[cols="2,1,2,4,1"]
+|===         
+| Field Name| Required| Type| Description| Format
+
+| username 
+| X 
+| String  
+| Username
+|  
+
+| password 
+| X 
+| String  
+| Password
+|  
+
+|===
+
+
