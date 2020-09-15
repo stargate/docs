@@ -20,8 +20,6 @@ paths:
         - auth
       summary: Create an auth token
       operationId: createToken
-      parameters:
-        - $ref: "#/components/parameters/pretty"
       requestBody:
         content:
           application/json:
@@ -33,9 +31,8 @@ paths:
           description: Created
           content:
             application/json:
-              examples:
-                default:
-                  value: { "authToken": "string" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -57,22 +54,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "data":
-                        [
-                          {
-                            "name": "killrvideo",
-                            "datacenters":
-                              [
-                                { "name": "dc1", "replicas": 3 },
-                                { "name": "dc2", "replicas": 3 },
-                              ],
-                          },
-                        ],
-                    }
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         500:
@@ -91,27 +74,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              simple strategy:
-                value: { "name": "killrvideo" }
-              datacenters:
-                value:
-                  {
-                    "name": "killrvideo",
-                    "datacenters":
-                      [
-                        { "name": "dc1", "replicas": 3 },
-                        { "name": "dc2", "replicas": 3 },
-                      ],
-                  }
       responses:
         201:
           description: resource created
           content:
             application/json:
-              examples:
-                default:
-                  value: { "name": "killrvideo" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -135,20 +104,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "data":
-                        {
-                          "name": "killrvideo",
-                          "datacenters":
-                            [
-                              { "name": "dc1", "replicas": 3 },
-                              { "name": "dc2", "replicas": 3 },
-                            ],
-                        },
-                    }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -170,9 +127,8 @@ paths:
           description: resource deleted
           content:
             application/json:
-              examples:
-                default:
-                  value: {}
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         500:
@@ -192,37 +148,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "data":
-                        [
-                          {
-                            "name": "string",
-                            "keyspace": "string",
-                            "columnDefinitions":
-                              [
-                                {
-                                  "name": "emailaddress",
-                                  "typeDefinition": "text",
-                                  "static": false,
-                                },
-                              ],
-                            "primaryKey":
-                              {
-                                "partitionKey": ["string"],
-                                "clusteringKey": ["string"],
-                              },
-                            "tableOptions":
-                              {
-                                "defaultTimeToLive": 0,
-                                "clusteringExpression":
-                                  [{ "column": "string", "order": "ASC" }],
-                              },
-                          },
-                        ],
-                    }
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         404:
@@ -244,40 +171,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              default:
-                value:
-                  {
-                    "name": "users",
-                    "ifNotExists": false,
-                    "columnDefinitions":
-                      [
-                        {
-                          "name": "emailaddress",
-                          "typeDefinition": "text",
-                          "static": false,
-                        },
-                      ],
-                    "primaryKey":
-                      {
-                        "partitionKey": ["string"],
-                        "clusteringKey": ["string"],
-                      },
-                    "tableOptions":
-                      {
-                        "defaultTimeToLive": 0,
-                        "clusteringExpression":
-                          [{ "column": "string", "order": "ASC" }],
-                      },
-                  }
       responses:
         201:
           description: resource created
           content:
             application/json:
-              examples:
-                default:
-                  value: { "name": "users" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -302,35 +202,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "data":
-                        {
-                          "name": "string",
-                          "keyspace": "string",
-                          "columnDefinitions":
-                            [
-                              {
-                                "name": "emailaddress",
-                                "typeDefinition": "text",
-                                "static": false,
-                              },
-                            ],
-                          "primaryKey":
-                            {
-                              "partitionKey": ["string"],
-                              "clusteringKey": ["string"],
-                            },
-                          "tableOptions":
-                            {
-                              "defaultTimeToLive": 0,
-                              "clusteringExpression":
-                                [{ "column": "string", "order": "ASC" }],
-                            },
-                        },
-                    }
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         404:
@@ -353,32 +226,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              default:
-                value:
-                  {
-                    "name": "users",
-                    "ifNotExists": false,
-                    "primaryKey":
-                      {
-                        "partitionKey": ["string"],
-                        "clusteringKey": ["string"],
-                      },
-                    "tableOptions":
-                      {
-                        "defaultTimeToLive": 0,
-                        "clusteringExpression":
-                          [{ "column": "string", "order": "ASC" }],
-                      },
-                  }
       responses:
         200:
           description: resource updated
           content:
             application/json:
-              examples:
-                default:
-                  value: { "name": "users" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -403,9 +257,8 @@ paths:
           description: resource deleted
           content:
             application/json:
-              examples:
-                default:
-                  value: {}
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         500:
@@ -426,19 +279,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "data":
-                        [
-                          {
-                            "name": "emailaddress",
-                            "typeDefinition": "text",
-                            "static": false,
-                          },
-                        ],
-                    }
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         404:
@@ -461,22 +303,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              default:
-                value:
-                  {
-                    "name": "emailaddress",
-                    "typeDefinition": "text",
-                    "static": false,
-                  }
       responses:
         201:
           description: resource created
           content:
             application/json:
-              examples:
-                default:
-                  value: { "name": "emailaddress" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -502,17 +335,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "data":
-                        {
-                          "name": "emailaddress",
-                          "typeDefinition": "text",
-                          "static": false,
-                        },
-                    }
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         404:
@@ -536,22 +360,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              default:
-                value:
-                  {
-                    "name": "emailaddressRenamed",
-                    "typeDefinition": "text",
-                    "static": true,
-                  }
       responses:
         200:
           description: resource updated
           content:
             application/json:
-              examples:
-                default:
-                  value: { "name": "users" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -577,9 +392,8 @@ paths:
           description: resource deleted
           content:
             application/json:
-              examples:
-                default:
-                  value: {}
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         500:
@@ -605,15 +419,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "count": 1,
-                      "pageState": "2f4acd34",
-                      "data":
-                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
-                    }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -624,35 +431,24 @@ paths:
       tags:
         - data
       summary: Add rows
-      description: "Add rows to a table in your database. If the new row has the same primary key as that of an existing row, the database processes it as an update to the existing row."
       operationId: addRows
       parameters:
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
       requestBody:
-        description: row
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RowAdd"
-            examples:
-              default:
-                value:
-                  {
-                    "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7",
-                    "title": "Hello World",
-                    "author": "CRW",
-                  }
+              type: object
       responses:
         201:
           description: resource created
           content:
             application/json:
-              examples:
-                default:
-                  value: { "pk": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -682,15 +478,8 @@ paths:
           description: ""
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    {
-                      "count": 1,
-                      "pageState": "2f4acd34",
-                      "data":
-                        [{ "title": "Hello World", "author": "Cliff Wicklow" }],
-                    }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -715,18 +504,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              default:
-                value: { "title": "New Title" }
       responses:
         200:
           description: resource updated
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    { "rowsModified": 208, "data": { "title": "New Title" } }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -751,18 +535,13 @@ paths:
           application/json:
             schema:
               type: object
-            examples:
-              default:
-                value: { "title": "New Title", "author": null }
       responses:
         200:
           description: resource updated
           content:
             application/json:
-              examples:
-                default:
-                  value:
-                    { "rowsModified": 208, "data": { "title": "New Title" } }
+              schema:
+                type: object
         400:
           $ref: "#/components/responses/400"
         401:
@@ -784,9 +563,8 @@ paths:
           description: resource deleted
           content:
             application/json:
-              examples:
-                default:
-                  value: {}
+              schema:
+                type: object
         401:
           $ref: "#/components/responses/401"
         500:
@@ -843,37 +621,25 @@ components:
       description: URL escaped, comma delimited list of keys to include
       schema:
         type: string
-      examples:
-        default:
-          value: "name, email"
     sort:
       name: sort
       in: query
       description: keys to sort by
       schema:
         type: object
-      examples:
-        default:
-          value: { "documentId": "asc", "name": "desc" }
     page-state:
       name: page-state
       in: query
       description: move the cursor to a particular result
       schema:
         type: string
-      examples:
-        default:
-          value: ""
     page-size:
       name: page-size
-      description: restrict the number of returned items (max 100)
+      description: restrict the number of returned items
       in: query
       schema:
         type: integer
         format: int32
-      examples:
-        default:
-          value: 10
     where:
       name: where
       in: query
@@ -888,52 +654,39 @@ components:
         | $ne | Not Equal To |
         | $in | Contained In |
         | $exists | A value is set for the key |
-        | $select | This matches a value for a key in the result of a different query |
-        | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query |
-        | $all | Contains all of the given values |
-        | $regex | Requires that a key’s value match a regular expression |
-        | $text | Performs a full text search on indexed fields |
       schema:
         type: object
-      examples:
-        search:
-          value: { "author": { "$eq": "Cliff Wicklow" } }
   responses:
     404:
       description: Not Found
       content:
         application/json:
-          examples:
-            default:
-              value: { "code": 404, "description": "Not Found" }
+          schema:
+            type: object
     400:
       description: Invalid input
       content:
         application/json:
-          examples:
-            default:
-              value: { "code": 400, "description": "Invalid input" }
+          schema:
+            type: object
     401:
       description: Unauthorized
       content:
         application/json:
-          examples:
-            default:
-              value: { "code": 401, "description": "Unauthorized" }
+          schema:
+            type: object
     409:
       description: Conflict
       content:
         application/json:
-          examples:
-            default:
-              value: { "code": 409, "description": "resource already exists." }
+          schema:
+            type: object
     500:
       description: Internal server error
       content:
         application/json:
-          examples:
-            default:
-              value: { "code": 500, "description": "Internal server error" }
+          schema:
+            type: object
   schemas:
     Credentials:
       type: object

@@ -63,26 +63,13 @@ Create an auth token
 
 
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| pretty 
-| format results  
-| - 
-| null 
-|  
-
-|===         
 
 
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -98,26 +85,26 @@ Create an auth token
 
 | 201
 | Created
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
@@ -152,7 +139,7 @@ Add rows
 
 ===== Description 
 
-Add rows to a table in your database. If the new row has the same primary key as that of an existing row, the database processes it as an update to the existing row.
+
 
 
 // markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/spec.adoc[opts=optional]
@@ -188,7 +175,7 @@ Add rows to a table in your database. If the new row has the same primary key as
 |Name| Description| Required| Default| Pattern
 
 | body 
-| row <<RowAdd>> 
+|  <<object>> 
 | X 
 |  
 |  
@@ -215,8 +202,8 @@ Add rows to a table in your database. If the new row has the same primary key as
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -232,31 +219,31 @@ Add rows to a table in your database. If the new row has the same primary key as
 
 | 201
 | resource created
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 409
 | Conflict
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
@@ -343,8 +330,8 @@ delete a row(s)
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -360,21 +347,21 @@ delete a row(s)
 
 | 204
 | resource deleted
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
@@ -462,7 +449,7 @@ get a row(s)
 |  
 
 | page-size 
-| restrict the number of returned items (max 100)  
+| restrict the number of returned items  
 | - 
 | null 
 |  
@@ -491,8 +478,8 @@ get a row(s)
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -508,26 +495,26 @@ get a row(s)
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
@@ -633,8 +620,8 @@ replace a row(s)
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -650,26 +637,26 @@ replace a row(s)
 
 | 200
 | resource updated
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
@@ -799,7 +786,7 @@ search a table
 |  
 
 | page-size 
-| restrict the number of returned items (max 100)  
+| restrict the number of returned items  
 | - 
 | null 
 |  
@@ -828,8 +815,8 @@ search a table
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -845,26 +832,26 @@ search a table
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -970,8 +957,8 @@ update part of a row(s)
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -987,26 +974,26 @@ update part of a row(s)
 
 | 200
 | resource updated
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
@@ -1104,8 +1091,8 @@ create a column
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1121,31 +1108,31 @@ create a column
 
 | 201
 | resource created
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 409
 | Conflict
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
@@ -1220,8 +1207,8 @@ create a keyspace
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1237,31 +1224,31 @@ create a keyspace
 
 | 201
 | resource created
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 409
 | Conflict
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
@@ -1349,8 +1336,8 @@ create a table
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1366,31 +1353,31 @@ create a table
 
 | 201
 | resource created
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 409
 | Conflict
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
@@ -1477,8 +1464,8 @@ delete a column
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1494,21 +1481,21 @@ delete a column
 
 | 204
 | resource deleted
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1583,8 +1570,8 @@ delete a keyspace
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1600,21 +1587,21 @@ delete a keyspace
 
 | 204
 | resource deleted
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1695,8 +1682,8 @@ delete a table
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1712,21 +1699,21 @@ delete a table
 
 | 204
 | resource deleted
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
@@ -1819,8 +1806,8 @@ get a column
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1836,26 +1823,26 @@ get a column
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
@@ -1942,8 +1929,8 @@ list columns
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -1959,26 +1946,26 @@ list columns
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
@@ -2059,8 +2046,8 @@ get a keyspace
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -2076,31 +2063,31 @@ get a keyspace
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
@@ -2168,8 +2155,8 @@ Retrieve all available keyspaces in the specific database.
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -2185,21 +2172,21 @@ Retrieve all available keyspaces in the specific database.
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
@@ -2286,8 +2273,8 @@ get a table
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -2303,26 +2290,26 @@ get a table
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
@@ -2403,8 +2390,8 @@ list tables
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -2420,26 +2407,26 @@ list tables
 
 | 200
 | 
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
@@ -2539,8 +2526,8 @@ replace a column definition
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -2556,36 +2543,36 @@ replace a column definition
 
 | 200
 | resource updated
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 409
 | Conflict
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
@@ -2679,8 +2666,8 @@ replace a table definition, except for columns
 ===== Return Type
 
 
+<<Object>>
 
--
 
 ===== Content Type
 
@@ -2696,36 +2683,36 @@ replace a table definition, except for columns
 
 | 200
 | resource updated
-|  <<>>
+|  <<Object>>
 
 
 | 400
 | Invalid input
-|  <<>>
+|  <<Object>>
 
 
 | 401
 | Unauthorized
-|  <<>>
+|  <<Object>>
 
 
 | 404
 | Not Found
-|  <<>>
+|  <<Object>>
 
 
 | 409
 | Conflict
-|  <<>>
+|  <<Object>>
 
 
 | 500
 | Internal server error
-|  <<>>
+|  <<Object>>
 
 |===         
 
-===== Samples
+
 
 
 // markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
