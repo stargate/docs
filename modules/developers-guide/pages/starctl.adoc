@@ -105,3 +105,5 @@ starctl --cluster-name stargate \
 | If set bind the web services to the listen address only.
 |
 |===
+
+WARNING: When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host's network. To run Stargate in a containerized environment, see the link:existing_cstar[Installing Stargate with an existing Cassandra cluster] documentation.

@@ -8,7 +8,7 @@ include::quickstart:page$quick_start.adoc[tag=getDockerImage,leveloffset=+1]
 
 === Starting Stargate with Cassandra 3.11
 
-To join a running Cassandra 3.11 cluster:
+Stargate can be added to an existing Cassandra 3.11 cluster operating in a containerized environment in the following way:
 
 [source,bash,subs="attributes+"]
 ----
@@ -37,3 +37,6 @@ The `--cluster-name` option can alternately be set using `-e` and setting the `C
 The `--cluster-version` option can alternately be set using `-e` and setting the `CLUSTER_VERSION` environment variable to the version of the cluster.
 
 The `--developer-mode` option can alternately be set using `-e` and setting the `DEVELOPER_MODE` environment variable to `true`.
+
+WARNING: When Stargate is launched within a docker container as shown above, it will connect only to Cassandra clusters running within the same docker environment. To run Stargate so that it can connect to a cluster running outside of a containerized environment, see the link:starctl[starctl] documentation.
+>>>>>>> Added warning note about clusters stargate can connect to based on its running environment
