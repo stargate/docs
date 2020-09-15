@@ -1,0 +1,703 @@
+openapi: 3.0.1
+info:
+  title: Stargate REST API reference
+  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate."
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.0
+tags:
+  - name: auth
+    description: "Create an authorization token to connect to your database"
+  - name: schemas
+    description: "Interact with keyspaces and tables in your database"
+  - name: data
+    description: "Add, update, and delete rows in your database"
+paths:
+  /v1/auth:
+    post:
+      tags:
+        - auth
+      summary: Create an auth token
+      operationId: createToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Credentials"
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces:
+    get:
+      tags:
+        - schemas
+      summary: Return all keyspaces
+      description: "Retrieve all available keyspaces in the specific database."
+      operationId: getKeyspaces
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - schemas
+      summary: create a keyspace
+      operationId: createKeyspace
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}:
+    get:
+      tags:
+        - schemas
+      summary: get a keyspace
+      operationId: getKeyspace
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - schemas
+      summary: delete a keyspace
+      operationId: deleteKeyspace
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables:
+    get:
+      tags:
+        - schemas
+      summary: list tables
+      operationId: getTables
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - schemas
+      summary: create a table
+      operationId: createTable
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}:
+    get:
+      tags:
+        - schemas
+      summary: get a table
+      operationId: getTable
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - schemas
+      summary: replace a table definition, except for columns
+      operationId: replaceTable
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - schemas
+      summary: delete a table
+      operationId: deleteTable
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
+    get:
+      tags:
+        - schemas
+      summary: list columns
+      operationId: getColumns
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - schemas
+      summary: create a column
+      operationId: createColumn
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
+    get:
+      tags:
+        - schemas
+      summary: get a column
+      operationId: getColumn
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/column-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - schemas
+      summary: replace a column definition
+      operationId: replaceColumn
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/column-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - schemas
+      summary: delete a column
+      operationId: deleteColumn
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/column-id"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/keyspaces/{keyspace-id}/{table-id}:
+    get:
+      tags:
+        - data
+      summary: search a table
+      operationId: searchTable
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/where"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/page-size"
+        - $ref: "#/components/parameters/page-state"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - data
+      summary: Add rows
+      operationId: addRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}:
+    get:
+      tags:
+        - data
+      summary: get a row(s)
+      operationId: getRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/page-size"
+        - $ref: "#/components/parameters/page-state"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - data
+      summary: replace a row(s)
+      operationId: replaceRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    patch:
+      tags:
+        - data
+      summary: update part of a row(s)
+      operationId: updateRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - data
+      summary: delete a row(s)
+      operationId: deleteRows
+      parameters:
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/primary-key"
+      responses:
+        204:
+          description: resource deleted
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+components:
+  parameters:
+    pretty:
+      name: pretty
+      in: query
+      description: format results
+      schema:
+        type: boolean
+    raw:
+      name: raw
+      in: query
+      description: unwrap results
+      schema:
+        type: boolean
+    keyspace-id:
+      name: keyspace-id
+      in: path
+      description: keyspace name
+      required: true
+      schema:
+        type: string
+    table-id:
+      name: table-id
+      in: path
+      description: table name
+      required: true
+      schema:
+        type: string
+    column-id:
+      name: column-id
+      in: path
+      description: column name
+      required: true
+      schema:
+        type: string
+    primary-key:
+      name: primary-key
+      in: path
+      required: true
+      description: |
+        Value from the primary key column for the table. Define composite keys by separating values with
+        slashes (`val1/val2...`) in the order they were defined. </br> For example, if the composite key
+        was defined as `PRIMARY KEY(race_year, race_name)` then the primary key in the path would be
+        `race_year/race_name`
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: URL escaped, comma delimited list of keys to include
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      description: keys to sort by
+      schema:
+        type: object
+    page-state:
+      name: page-state
+      in: query
+      description: move the cursor to a particular result
+      schema:
+        type: string
+    page-size:
+      name: page-size
+      description: restrict the number of returned items
+      in: query
+      schema:
+        type: integer
+        format: int32
+    where:
+      name: where
+      in: query
+      description: |
+        URL escaped JSON query using the following keys:
+        | Key | Operation |
+        |-|-|
+        | $lt | Less Than |
+        | $lte | Less Than Or Equal To |
+        | $gt | Greater Than |
+        | $gte | Greater Than Or Equal To |
+        | $ne | Not Equal To |
+        | $in | Contained In |
+        | $exists | A value is set for the key |
+      schema:
+        type: object
+  responses:
+    404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+    400:
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            type: object
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+    409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            type: object
+    500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+  schemas:
+    Credentials:
+      type: object
+      required:
+        - username
+        - password
+      description: User credentials for authenticating
+      properties:
+        username:
+          type: string
+          description: Username
+        password:
+          type: string
+          description: Password
