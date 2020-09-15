@@ -192,7 +192,23 @@
 </li>
 <li><a href="#models">2. Models</a>
 <ul class="sectlevel2">
-<li><a href="#Credentials">2.1. <em>Credentials</em></a></li>
+<li><a href="#AuthTokenResponse">2.1. <em>AuthTokenResponse</em></a></li>
+<li><a href="#ClusteringExpression">2.2. <em>ClusteringExpression</em></a></li>
+<li><a href="#ColumnDefinition">2.3. <em>ColumnDefinition</em></a></li>
+<li><a href="#Credentials">2.4. <em>Credentials</em></a></li>
+<li><a href="#Datacenter">2.5. <em>Datacenter</em></a></li>
+<li><a href="#Error">2.6. <em>Error</em></a></li>
+<li><a href="#InlineResponse200">2.7. <em>InlineResponse200</em></a></li>
+<li><a href="#InlineResponse2001">2.8. <em>InlineResponse2001</em></a></li>
+<li><a href="#InlineResponse2002">2.9. <em>InlineResponse2002</em></a></li>
+<li><a href="#InlineResponse2003">2.10. <em>InlineResponse2003</em></a></li>
+<li><a href="#InlineResponse2004">2.11. <em>InlineResponse2004</em></a></li>
+<li><a href="#InlineResponse201">2.12. <em>InlineResponse201</em></a></li>
+<li><a href="#Keyspace">2.13. <em>Keyspace</em></a></li>
+<li><a href="#PrimaryKey">2.14. <em>PrimaryKey</em></a></li>
+<li><a href="#Table">2.15. <em>Table</em></a></li>
+<li><a href="#TableAdd">2.16. <em>TableAdd</em></a></li>
+<li><a href="#TableOptions">2.17. <em>TableOptions</em></a></li>
 </ul>
 </li>
 </ul>
@@ -260,7 +276,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type"><a class="anchor" href="#_return_type"></a><a class="link" href="#_return_type">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#AuthTokenResponse"><em>AuthTokenResponse</em></a></p>
 </div>
 </div>
 <div class="sect4">
@@ -269,6 +285,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -293,22 +312,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Created</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#AuthTokenResponse"><em>AuthTokenResponse</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -389,10 +408,40 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">request_body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#string">[string]</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_header_parameters"><a class="anchor" href="#_header_parameters"></a><a class="link" href="#_header_parameters">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -422,7 +471,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -432,7 +481,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_2"><a class="anchor" href="#_return_type_2"></a><a class="link" href="#_return_type_2">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#Map">[Map]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -441,6 +490,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -465,27 +517,27 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map[<a href="#string">[string]</a>]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -550,6 +602,36 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
+<h6 id="_header_parameters_2"><a class="anchor" href="#_header_parameters_2"></a><a class="link" href="#_header_parameters_2">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
 <h6 id="_query_parameters_2"><a class="anchor" href="#_query_parameters_2"></a><a class="link" href="#_query_parameters_2">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -573,7 +655,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -583,7 +665,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_3"><a class="anchor" href="#_return_type_3"></a><a class="link" href="#_return_type_3">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p>-</p>
 </div>
 </div>
 <div class="sect4">
@@ -591,7 +673,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="ulist">
 <ul>
 <li>
-<p>application/json</p>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -615,18 +697,18 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&gt;&gt;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -691,6 +773,36 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
+<h6 id="_header_parameters_3"><a class="anchor" href="#_header_parameters_3"></a><a class="link" href="#_header_parameters_3">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
 <h6 id="_query_parameters_3"><a class="anchor" href="#_query_parameters_3"></a><a class="link" href="#_query_parameters_3">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -714,7 +826,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -740,7 +852,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keys to sort by</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keys to sort by <a href="#String">[String]</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -749,7 +861,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -759,7 +871,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_4"><a class="anchor" href="#_return_type_4"></a><a class="link" href="#_return_type_4">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200_3">[inline_response_200_3]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -768,6 +880,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -792,22 +907,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200_3">[inline_response_200_3]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -892,10 +1007,40 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">document <a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">request_body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">document <a href="#string">[string]</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_header_parameters_4"><a class="anchor" href="#_header_parameters_4"></a><a class="link" href="#_header_parameters_4">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -925,14 +1070,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -942,7 +1087,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_5"><a class="anchor" href="#_return_type_5"></a><a class="link" href="#_return_type_5">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200_4">[inline_response_200_4]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -951,6 +1096,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -975,22 +1123,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200_4">[inline_response_200_4]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1048,6 +1196,36 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
+<h6 id="_header_parameters_5"><a class="anchor" href="#_header_parameters_5"></a><a class="link" href="#_header_parameters_5">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
 <h6 id="_query_parameters_5"><a class="anchor" href="#_query_parameters_5"></a><a class="link" href="#_query_parameters_5">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1073,7 +1251,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <p>format results</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -1177,7 +1355,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>keys to sort by</p>
+<p>keys to sort by <a href="#String">[String]</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
@@ -1189,7 +1367,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <p>unwrap results</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1199,7 +1377,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_6"><a class="anchor" href="#_return_type_6"></a><a class="link" href="#_return_type_6">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200_3">[inline_response_200_3]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -1208,6 +1386,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -1232,22 +1413,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200_3">[inline_response_200_3]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1332,10 +1513,40 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">document <a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">request_body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">document <a href="#string">[string]</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_header_parameters_6"><a class="anchor" href="#_header_parameters_6"></a><a class="link" href="#_header_parameters_6">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1365,14 +1576,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1382,7 +1593,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_7"><a class="anchor" href="#_return_type_7"></a><a class="link" href="#_return_type_7">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200_4">[inline_response_200_4]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -1391,6 +1602,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -1415,22 +1629,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200_4">[inline_response_200_4]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1511,10 +1725,40 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ColumnDefinition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_header_parameters_7"><a class="anchor" href="#_header_parameters_7"></a><a class="link" href="#_header_parameters_7">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1544,7 +1788,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1554,7 +1798,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_8"><a class="anchor" href="#_return_type_8"></a><a class="link" href="#_return_type_8">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_201">[inline_response_201]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -1563,6 +1807,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -1587,27 +1834,27 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_201">[inline_response_201]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1648,10 +1895,40 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keyspace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Keyspace"><em>Keyspace</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_header_parameters_8"><a class="anchor" href="#_header_parameters_8"></a><a class="link" href="#_header_parameters_8">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1681,7 +1958,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1691,7 +1968,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_9"><a class="anchor" href="#_return_type_9"></a><a class="link" href="#_return_type_9">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_201">[inline_response_201]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -1700,6 +1977,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -1724,27 +2004,27 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_201">[inline_response_201]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1815,10 +2095,40 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TableAdd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#TableAdd"><em>TableAdd</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_header_parameters_9"><a class="anchor" href="#_header_parameters_9"></a><a class="link" href="#_header_parameters_9">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1848,7 +2158,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1858,7 +2168,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_10"><a class="anchor" href="#_return_type_10"></a><a class="link" href="#_return_type_10">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_201">[inline_response_201]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -1867,6 +2177,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -1891,27 +2204,27 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource created</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_201">[inline_response_201]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1976,6 +2289,36 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
+<h6 id="_header_parameters_10"><a class="anchor" href="#_header_parameters_10"></a><a class="link" href="#_header_parameters_10">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
 <h6 id="_query_parameters_10"><a class="anchor" href="#_query_parameters_10"></a><a class="link" href="#_query_parameters_10">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1999,7 +2342,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2009,7 +2352,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_11"><a class="anchor" href="#_return_type_11"></a><a class="link" href="#_return_type_11">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p>-</p>
 </div>
 </div>
 <div class="sect4">
@@ -2017,7 +2360,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="ulist">
 <ul>
 <li>
-<p>application/json</p>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2041,18 +2384,18 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&gt;&gt;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2103,7 +2446,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_11"><a class="anchor" href="#_query_parameters_11"></a><a class="link" href="#_query_parameters_11">Query Parameters</a></h6>
+<h6 id="_header_parameters_11"><a class="anchor" href="#_header_parameters_11"></a><a class="link" href="#_header_parameters_11">Header Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2123,9 +2466,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -2136,7 +2479,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_12"><a class="anchor" href="#_return_type_12"></a><a class="link" href="#_return_type_12">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p>-</p>
 </div>
 </div>
 <div class="sect4">
@@ -2144,7 +2487,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="ulist">
 <ul>
 <li>
-<p>application/json</p>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2168,18 +2511,18 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&gt;&gt;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2237,7 +2580,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_12"><a class="anchor" href="#_query_parameters_12"></a><a class="link" href="#_query_parameters_12">Query Parameters</a></h6>
+<h6 id="_header_parameters_12"><a class="anchor" href="#_header_parameters_12"></a><a class="link" href="#_header_parameters_12">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_11"><a class="anchor" href="#_query_parameters_11"></a><a class="link" href="#_query_parameters_11">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2260,7 +2633,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2270,7 +2643,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_13"><a class="anchor" href="#_return_type_13"></a><a class="link" href="#_return_type_13">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p>-</p>
 </div>
 </div>
 <div class="sect4">
@@ -2278,7 +2651,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="ulist">
 <ul>
 <li>
-<p>application/json</p>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2302,18 +2675,18 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">resource deleted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&gt;&gt;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2378,7 +2751,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_13"><a class="anchor" href="#_query_parameters_13"></a><a class="link" href="#_query_parameters_13">Query Parameters</a></h6>
+<h6 id="_header_parameters_13"><a class="anchor" href="#_header_parameters_13"></a><a class="link" href="#_header_parameters_13">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_12"><a class="anchor" href="#_query_parameters_12"></a><a class="link" href="#_query_parameters_12">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2401,14 +2804,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2418,7 +2821,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_14"><a class="anchor" href="#_return_type_14"></a><a class="link" href="#_return_type_14">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p>
 </div>
 </div>
 <div class="sect4">
@@ -2427,6 +2830,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2451,22 +2857,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2524,7 +2930,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_14"><a class="anchor" href="#_query_parameters_14"></a><a class="link" href="#_query_parameters_14">Query Parameters</a></h6>
+<h6 id="_header_parameters_14"><a class="anchor" href="#_header_parameters_14"></a><a class="link" href="#_header_parameters_14">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_13"><a class="anchor" href="#_query_parameters_13"></a><a class="link" href="#_query_parameters_13">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2547,14 +2983,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2564,7 +3000,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_15"><a class="anchor" href="#_return_type_15"></a><a class="link" href="#_return_type_15">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200_2">[inline_response_200_2]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -2573,6 +3009,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2597,22 +3036,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200_2">[inline_response_200_2]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2663,7 +3102,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_15"><a class="anchor" href="#_query_parameters_15"></a><a class="link" href="#_query_parameters_15">Query Parameters</a></h6>
+<h6 id="_header_parameters_15"><a class="anchor" href="#_header_parameters_15"></a><a class="link" href="#_header_parameters_15">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_14"><a class="anchor" href="#_query_parameters_14"></a><a class="link" href="#_query_parameters_14">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2686,14 +3155,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2703,7 +3172,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_16"><a class="anchor" href="#_return_type_16"></a><a class="link" href="#_return_type_16">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#Keyspace"><em>Keyspace</em></a></p>
 </div>
 </div>
 <div class="sect4">
@@ -2712,6 +3181,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2736,27 +3208,27 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Keyspace"><em>Keyspace</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2779,7 +3251,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_parameters_17"><a class="anchor" href="#_parameters_17"></a><a class="link" href="#_parameters_17">Parameters</a></h5>
 <div class="sect5">
-<h6 id="_query_parameters_16"><a class="anchor" href="#_query_parameters_16"></a><a class="link" href="#_query_parameters_16">Query Parameters</a></h6>
+<h6 id="_header_parameters_16"><a class="anchor" href="#_header_parameters_16"></a><a class="link" href="#_header_parameters_16">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_15"><a class="anchor" href="#_query_parameters_15"></a><a class="link" href="#_query_parameters_15">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2802,14 +3304,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2819,7 +3321,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_17"><a class="anchor" href="#_return_type_17"></a><a class="link" href="#_return_type_17">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200">[inline_response_200]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -2828,6 +3330,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2852,17 +3357,17 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200">[inline_response_200]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2920,7 +3425,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_17"><a class="anchor" href="#_query_parameters_17"></a><a class="link" href="#_query_parameters_17">Query Parameters</a></h6>
+<h6 id="_header_parameters_17"><a class="anchor" href="#_header_parameters_17"></a><a class="link" href="#_header_parameters_17">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_16"><a class="anchor" href="#_query_parameters_16"></a><a class="link" href="#_query_parameters_16">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2943,14 +3478,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -2960,7 +3495,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_18"><a class="anchor" href="#_return_type_18"></a><a class="link" href="#_return_type_18">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#Table"><em>Table</em></a></p>
 </div>
 </div>
 <div class="sect4">
@@ -2969,6 +3504,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -2993,22 +3531,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Table"><em>Table</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -3059,7 +3597,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_18"><a class="anchor" href="#_query_parameters_18"></a><a class="link" href="#_query_parameters_18">Query Parameters</a></h6>
+<h6 id="_header_parameters_18"><a class="anchor" href="#_header_parameters_18"></a><a class="link" href="#_header_parameters_18">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_17"><a class="anchor" href="#_query_parameters_17"></a><a class="link" href="#_query_parameters_17">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -3082,14 +3650,14 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -3099,7 +3667,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_19"><a class="anchor" href="#_return_type_19"></a><a class="link" href="#_return_type_19">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_200_1">[inline_response_200_1]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -3108,6 +3676,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -3132,22 +3703,22 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_200_1">[inline_response_200_1]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -3232,8 +3803,8 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ColumnDefinition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -3242,7 +3813,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_19"><a class="anchor" href="#_query_parameters_19"></a><a class="link" href="#_query_parameters_19">Query Parameters</a></h6>
+<h6 id="_header_parameters_19"><a class="anchor" href="#_header_parameters_19"></a><a class="link" href="#_header_parameters_19">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_18"><a class="anchor" href="#_query_parameters_18"></a><a class="link" href="#_query_parameters_18">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -3265,7 +3866,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -3275,7 +3876,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_20"><a class="anchor" href="#_return_type_20"></a><a class="link" href="#_return_type_20">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_201">[inline_response_201]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -3284,6 +3885,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -3308,32 +3912,32 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_201">[inline_response_201]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -3411,8 +4015,8 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#object">[object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TableAdd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#TableAdd"><em>TableAdd</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -3421,7 +4025,37 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 </table>
 </div>
 <div class="sect5">
-<h6 id="_query_parameters_20"><a class="anchor" href="#_query_parameters_20"></a><a class="link" href="#_query_parameters_20">Query Parameters</a></h6>
+<h6 id="_header_parameters_20"><a class="anchor" href="#_header_parameters_20"></a><a class="link" href="#_header_parameters_20">Header Parameters</a></h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-Cassandra-Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The token returned from the authorization endpoint. Use this token in each request.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_query_parameters_19"><a class="anchor" href="#_query_parameters_19"></a><a class="link" href="#_query_parameters_19">Query Parameters</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -3444,7 +4078,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">format results</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -3454,7 +4088,7 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <div class="sect4">
 <h5 id="_return_type_21"><a class="anchor" href="#_return_type_21"></a><a class="link" href="#_return_type_21">Return Type</a></h5>
 <div class="paragraph">
-<p><a href="#Object">[Object]</a></p>
+<p><a href="#inline_response_201">[inline_response_201]</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -3463,6 +4097,9 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <ul>
 <li>
 <p>application/json</p>
+</li>
+<li>
+<p><strong>/</strong></p>
 </li>
 </ul>
 </div>
@@ -3487,32 +4124,32 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resource updated</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#inline_response_201">[inline_response_201]</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conflict</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Object">[Object]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Error"><em>Error</em></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -3525,7 +4162,121 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <h2 id="models"><a class="anchor" href="#models"></a><a class="link" href="#models">2. Models</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Credentials"><a class="anchor" href="#Credentials"></a><a class="link" href="#Credentials">2.1. <em>Credentials</em></a></h3>
+<h3 id="AuthTokenResponse"><a class="anchor" href="#AuthTokenResponse"></a><a class="link" href="#AuthTokenResponse">2.1. <em>AuthTokenResponse</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-AuthTokenResponse">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">authToken</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ClusteringExpression"><a class="anchor" href="#ClusteringExpression"></a><a class="link" href="#ClusteringExpression">2.2. <em>ClusteringExpression</em></a></h3>
+<div class="paragraph">
+<p>Order rows storage to make use of the on-disk sorting of columns. Specifying order can make query results more efficient.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch fields-ClusteringExpression">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Enum:</em> ASC, DESC,</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ColumnDefinition"><a class="anchor" href="#ColumnDefinition"></a><a class="link" href="#ColumnDefinition">2.3. <em>ColumnDefinition</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-ColumnDefinition">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name for the column, which must be unique.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">typeDefinition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of data allowed in the column.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Enum:</em> ascii, text, varchar, tinyint, smallint, int, bigint, varint, decimal, float, double, date, DateRangeType, duration, time, timestamp, uuid, timeuuid, blob, boolean, counter, inet, PointType, LineStringType, PolygonType, frozen, list, map, set, tuple,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">static</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Denotes whether the column is shared by all rows of a partition.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Credentials"><a class="anchor" href="#Credentials"></a><a class="link" href="#Credentials">2.4. <em>Credentials</em></a></h3>
 <div class="paragraph">
 <p>User credentials for authenticating</p>
 </div>
@@ -3559,6 +4310,500 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Password</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Datacenter"><a class="anchor" href="#Datacenter"></a><a class="link" href="#Datacenter">2.5. <em>Datacenter</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-Datacenter">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">replicas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Error"><a class="anchor" href="#Error"></a><a class="link" href="#Error">2.6. <em>Error</em></a></h3>
+<div class="paragraph">
+<p>A description of an error state</p>
+</div>
+<table class="tableblock frame-all grid-all stretch fields-Error">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A human readable description of the error state</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The code referencing the error state</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="InlineResponse200"><a class="anchor" href="#InlineResponse200"></a><a class="link" href="#InlineResponse200">2.7. <em>InlineResponse200</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-InlineResponse200">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#Keyspace"><em>Keyspace</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="InlineResponse2001"><a class="anchor" href="#InlineResponse2001"></a><a class="link" href="#InlineResponse2001">2.8. <em>InlineResponse2001</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-InlineResponse2001">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#Table"><em>Table</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="InlineResponse2002"><a class="anchor" href="#InlineResponse2002"></a><a class="link" href="#InlineResponse2002">2.9. <em>InlineResponse2002</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-InlineResponse2002">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="InlineResponse2003"><a class="anchor" href="#InlineResponse2003"></a><a class="link" href="#InlineResponse2003">2.10. <em>InlineResponse2003</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-InlineResponse2003">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#map">[map]</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="InlineResponse2004"><a class="anchor" href="#InlineResponse2004"></a><a class="link" href="#InlineResponse2004">2.11. <em>InlineResponse2004</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-InlineResponse2004">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map  of <a href="#string">[string]</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="InlineResponse201"><a class="anchor" href="#InlineResponse201"></a><a class="link" href="#InlineResponse201">2.12. <em>InlineResponse201</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-InlineResponse201">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Keyspace"><a class="anchor" href="#Keyspace"></a><a class="link" href="#Keyspace">2.13. <em>Keyspace</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-Keyspace">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">datacenters</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#Datacenter"><em>Datacenter</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="PrimaryKey"><a class="anchor" href="#PrimaryKey"></a><a class="link" href="#PrimaryKey">2.14. <em>PrimaryKey</em></a></h3>
+<div class="paragraph">
+<p>Defines a column list for the primary key. Can be either a single column, compound primary key, or composite partition key. Provide multiple columns for the partition key to define a composite partition key.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch fields-PrimaryKey">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partitionKey</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#string">[string]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the column or columns that constitute the partition key.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clusteringKey</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#string">[string]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the column or columns that constitute the clustering key.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Table"><a class="anchor" href="#Table"></a><a class="link" href="#Table">2.15. <em>Table</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-Table">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keyspace</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">columnDefinitions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">primaryKey</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PrimaryKey</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tableOptions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TableOptions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="TableAdd"><a class="anchor" href="#TableAdd"></a><a class="link" href="#TableAdd">2.16. <em>TableAdd</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-TableAdd">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ifNotExists</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determines whether to create a new table if a table with the same name exists. Attempting to create an existing table returns an error unless this option is true.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">columnDefinitions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#ColumnDefinition"><em>ColumnDefinition</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">primaryKey</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PrimaryKey</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tableOptions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TableOptions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="TableOptions"><a class="anchor" href="#TableOptions"></a><a class="link" href="#TableOptions">2.17. <em>TableOptions</em></a></h3>
+<table class="tableblock frame-all grid-all stretch fields-TableOptions">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultTimeToLive</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the Time To Live (TTL), which determines the time period (in seconds) to expire data. If the value is &gt;0, TTL is enabled for the entire table and an expiration timestamp is added to each column. The maximum value is 630720000 (20 years). A new TTL timestamp is calculated each time the data is updated and the row is removed after the data expires.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clusteringExpression</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List  of <a href="#ClusteringExpression"><em>ClusteringExpression</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
