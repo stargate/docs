@@ -31,3 +31,9 @@ Where:
 NOTE: Use the `--simple-snitch` option if the link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch] setting in the cluster is set to *SimpleSnitch*. If the cluster uses a different `endpoint_snitch` use the `--dc` and `--rack` options to define the topology of the node.
 
 The full set of options are described in xref:starctl.adoc[the `starctl` documentation].
+
+The `--cluster-name` option can alternately be set using `-e` and setting the `CLUSTER_NAME` environment variable to the name of the cluster.
+
+The `--cluster-version` option can alternately be set using `-e` and setting the `CLUSTER_VERSION` environment variable to the version of the cluster.
+
+The `--developer-mode` option can alternately be set using `-e` and setting the `DEVELOPER_MODE` environment variable to `true`.
