@@ -48,7 +48,6 @@ paths:
       operationId: getKeyspaces
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/raw"
       responses:
         200:
@@ -73,7 +72,6 @@ paths:
       operationId: createKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
       requestBody:
         description: ""
         required: true
@@ -107,7 +105,6 @@ paths:
       operationId: getKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/raw"
       responses:
@@ -148,7 +145,6 @@ paths:
       operationId: getTables
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/raw"
       responses:
@@ -176,7 +172,6 @@ paths:
       operationId: createTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
       requestBody:
         description: ""
@@ -211,7 +206,6 @@ paths:
       operationId: getTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/raw"
@@ -235,7 +229,6 @@ paths:
       operationId: replaceTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
       requestBody:
@@ -272,7 +265,6 @@ paths:
       operationId: deleteTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
       responses:
@@ -290,7 +282,6 @@ paths:
       operationId: getColumns
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/raw"
@@ -319,7 +310,6 @@ paths:
       operationId: createColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
       requestBody:
@@ -355,7 +345,6 @@ paths:
       operationId: getColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/column-id"
@@ -380,7 +369,6 @@ paths:
       operationId: replaceColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/column-id"
@@ -418,7 +406,6 @@ paths:
       operationId: deleteColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/column-id"
@@ -437,7 +424,6 @@ paths:
       operationId: searchTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/where"
@@ -475,7 +461,6 @@ paths:
       operationId: addRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
       requestBody:
@@ -517,7 +502,6 @@ paths:
       operationId: getRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/primary-key"
@@ -555,7 +539,6 @@ paths:
       operationId: replaceRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/primary-key"
@@ -602,7 +585,6 @@ paths:
       operationId: updateRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/primary-key"
@@ -649,7 +631,6 @@ paths:
       operationId: deleteRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/keyspace-id"
         - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/primary-key"
@@ -669,14 +650,6 @@ components:
       description: "The token returned from the authorization endpoint. Use this token in each request."
       schema:
         type: string
-    pretty:
-      name: pretty
-      in: query
-      description: format results
-      required: false
-      schema:
-        type: boolean
-        default: false
     raw:
       name: raw
       in: query
