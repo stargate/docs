@@ -197,19 +197,6 @@ Add rows
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -339,19 +326,6 @@ delete a row(s)
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -475,12 +449,6 @@ get a row(s)
 [cols="2,3,1,1,1"]
 |===
 |Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
 
 | fields
 | URL escaped, comma delimited list of keys to include
@@ -655,12 +623,6 @@ replace a row(s)
 |===
 |Name| Description| Required| Default| Pattern
 
-| pretty
-| format results
-| -
-| false
-|
-
 | raw
 | unwrap results
 | -
@@ -790,12 +752,6 @@ search a table
 [cols="2,3a,1,1,1"]
 |===
 |Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
 
 | where
 | URL escaped JSON query using the following keys:
@@ -1018,12 +974,6 @@ update part of a row(s)
 |===
 |Name| Description| Required| Default| Pattern
 
-| pretty
-| format results
-| -
-| false
-|
-
 | raw
 | unwrap results
 | -
@@ -1165,19 +1115,6 @@ create a column
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -1294,19 +1231,6 @@ create a keyspace
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -1436,19 +1360,6 @@ create a table
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -1577,19 +1488,6 @@ delete a column
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -1808,19 +1706,6 @@ delete a table
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -1944,12 +1829,6 @@ get a column
 [cols="2,3,1,1,1"]
 |===
 |Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
 
 | raw
 | unwrap results
@@ -2081,12 +1960,6 @@ list columns
 |===
 |Name| Description| Required| Default| Pattern
 
-| pretty
-| format results
-| -
-| false
-|
-
 | raw
 | unwrap results
 | -
@@ -2211,12 +2084,6 @@ get a keyspace
 |===
 |Name| Description| Required| Default| Pattern
 
-| pretty
-| format results
-| -
-| false
-|
-
 | raw
 | unwrap results
 | -
@@ -2332,12 +2199,6 @@ Retrieve all available keyspaces in the specific database.
 [cols="2,3,1,1,1"]
 |===
 |Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
 
 | raw
 | unwrap results
@@ -2464,12 +2325,6 @@ get a table
 |===
 |Name| Description| Required| Default| Pattern
 
-| pretty
-| format results
-| -
-| false
-|
-
 | raw
 | unwrap results
 | -
@@ -2593,12 +2448,6 @@ list tables
 [cols="2,3,1,1,1"]
 |===
 |Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
 
 | raw
 | unwrap results
@@ -2743,19 +2592,6 @@ replace a column definition
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
@@ -2896,19 +2732,6 @@ replace a table definition, except for columns
 
 |===
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-|Name| Description| Required| Default| Pattern
-
-| pretty
-| format results
-| -
-| false
-|
-
-|===
 
 
 ===== Return Type
