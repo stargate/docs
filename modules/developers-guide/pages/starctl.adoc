@@ -19,91 +19,91 @@ CAUTION: When Stargate is launched on a host as shown above, it will connect onl
 
 .starctl options
 |===
-| Option | Parameter | Default | Description | Example
+| Option | Environment Variable | Default | Description | Example
 
-| `--cluster-name`
-| `_cluster name_`
+| `--cluster-name _cluster name_`
+| `CLUSTER_NAME`
 |
 | Name of database cluster.
-| `stargate`
+| `--cluster-name stargate`
 
-| `--cluster-seed`
-| `_seed node IP address_`
+| `--cluster-seed _seed node IP address_`
+| `SEED`
 |
 | The IP address of the seed node of the cluster.
-| `192.168.0.1`
+| `--cluster-seed 192.168.0.1`
 
 
-| `--cluster-version`
-| `_Cassandra version_`
+| `--cluster-version _Cassandra version_`
+| `CLUSTER_VERSION`
 |
 | The major version of the database cluster.
-| `3.11`
+| `--cluster-version 3.11`
 
-| `--listen`
-| `_listen IP address_`
+| `--listen _listen IP address_`
+| `LISTEN`
 | 127.0.0.1
 | IP address Stargate services should listen on. This options value must match the regular expression
 `^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$`. Must be a valid IP address.
-| `192.168.0.1`
+| `--listen-address 192.168.0.1`
 
-| `--seed-port`
-| `_port number_`
+| `--seed-port _port number_`
+| `SEED_PORT`
 | 7000
 | Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `7001`
+| `--seed-port 7001`
 
-| `--dc`
-| `_datacenter name_`
+| `--dc _datacenter name_`
+| `DATACENTER_NAME`
 |
 | Datacenter name of this node. This must match the database backend.
-| `dc1`
+| `--dc dc1`
 
-| `--rack`
-| `_rack name_`
+| `--rack _rack name_`
+| `RACK_NAME`
 |
 | Rack name of this node. This must match the database backend.
-| `rack1`
+| `--rack rack1`
 
 | `--simple-snitch`
-|
-|
+| `SIMPLE_SNITCH`
+| unset, or false
 | Set this option if the backend cluster uses `SimpleSnitch` as the `endpoint_snitch`.
-|
+| `export SIMPLE_SNITCH=true`
 
 | `--dse`
-|
-|
+| `DSE`
+| unset, or false
 | Set if the backend is DSE. Do not set this option if the backend is Cassandra.
-|
+| `export DSE=true`
 
-| `--cql-port`
-| `_port number_`
+| `--cql-port _port number_`
+| `CQL_PORT`
 | 9042
 | Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `9043`
+| `--cql-port 9043`
 
 | `--enable-auth`
-|
-|
+| `ENABLE_AUTH`
+| unset, or false
 | Set to enable `PasswordAuthenticator` in the cluster.
-|
+| `export ENABLE_AUTH=true`
 
 | `--use-proxy-protocol`
-|
-|
+| `USE_PROXY_PROTOCOL`
+| unset, or false
 | Use proxy protocol to determine the public address and port of CQL requests.
-|
+| `export USE_PROXY_PROTOCOL=true`
 
 | `--developer-mode`
-|
-|
+| `DEVELOPER_MODE`
+| unset, or false
 | Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.
-|
+| `export DEVELOPER_MODE=true`
 
 |`--bind-to-listen-address`
-|
-|
+| `BIND_TO_LISTEN_ADDRESS`
+| unset, or false
 | If set bind the web services to the listen address only.
-|
+| `export BIND_TO_LISTEN_ADDRESS=true`
 |===
