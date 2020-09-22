@@ -280,7 +280,7 @@ When Stargate is launched on a host as shown above, it will connect only to Cass
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Option</th>
-<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Environment Variable</th>
 <th class="tableblock halign-left valign-top">Default</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Example</th>
@@ -288,103 +288,103 @@ When Stargate is launched on a host as shown above, it will connect only to Cass
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>cluster name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name <em>cluster name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLUSTER_NAME</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name of database cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stargate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name stargate</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>seed node IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed <em>seed node IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEED</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The IP address of the seed node of the cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>192.168.0.1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed 192.168.0.1</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>Cassandra version</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version <em>Cassandra version</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLUSTER_VERSION</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The major version of the database cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.11</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version 3.11</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>listen IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen <em>listen IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LISTEN</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">127.0.0.1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IP address Stargate services should listen on. This options value must match the regular expression
 <code>^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$</code>. Must be a valid IP address.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>192.168.0.1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen-address 192.168.0.1</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port <em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEED_PORT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7000</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>7001</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port 7001</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>datacenter name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc <em>datacenter name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATACENTER_NAME</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Datacenter name of this node. This must match the database backend.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dc1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc dc1</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>rack name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack <em>rack name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RACK_NAME</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Rack name of this node. This must match the database backend.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rack1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack rack1</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--simple-snitch</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SIMPLE_SNITCH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set this option if the backend cluster uses <code>SimpleSnitch</code> as the <code>endpoint_snitch</code>.</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export SIMPLE_SNITCH=true</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dse</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set if the backend is DSE. Do not set this option if the backend is Cassandra.</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DSE=true</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port <em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CQL_PORT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>9043</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port 9043</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--enable-auth</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENABLE_AUTH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set to enable <code>PasswordAuthenticator</code> in the cluster.</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export ENABLE_AUTH=true</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--use-proxy-protocol</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>USE_PROXY_PROTOCOL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use proxy protocol to determine the public address and port of CQL requests.</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export USE_PROXY_PROTOCOL=true</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--developer-mode</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DEVELOPER_MODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DEVELOPER_MODE=true</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--bind-to-listen-address</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BIND_TO_LISTEN_ADDRESS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If set bind the web services to the listen address only.</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export BIND_TO_LISTEN_ADDRESS=true</code></p></td>
 </tr>
 </tbody>
 </table>
