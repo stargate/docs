@@ -126,25 +126,29 @@
   <nav class="nav-menu">
     <h3 class="title"><a href="../index.html">Stargate</a></h3>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="0">
+  <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../quickstart/quick_start.html">Quick start</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
+  <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../concepts/concepts.html">Concepts</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
+  <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
+  <li class="nav-item toggler" data-depth="1">
     <a class="nav-link" href="docker.html">Installing Stargate</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
@@ -156,9 +160,13 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
+  <li class="nav-item toggler" data-depth="0">
     <span class="nav-text">Reference docs</span>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
@@ -171,14 +179,14 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
+  <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="building.html">Building Stargate from source</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
+  <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../FAQ.html">FAQ</a>
@@ -208,9 +216,10 @@
   </aside>
 </div>
 <main class="article">
-<div class="toolbar" role="navigation">
+  <div class="content">
+    <div class="content-inner">
+      <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
@@ -219,8 +228,8 @@
 </nav>
   <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/cql.adoc">Edit this Page</a></div>
   </div>
-  <div class="content">
-<article class="doc">
+
+      <article class="doc">
 <h1 class="page">Using the CQL API</h1>
 <div id="preamble">
 <div class="sectionbody">
@@ -481,17 +490,60 @@ for user_row in rows:
 </div>
 </div>
 </article>
-<aside class="toc sidebar" data-title="Contents" data-levels="2">
+    </div>
+    <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
   </div>
-</main>
-</div>
+</main></div>
 <footer class="footer">
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-</footer>
-<script src="../../../assets/js/site.js"></script>
+  <div class="footer-row">
+    <p>© 2020 Stargate Project Authors</p>
+
+    <div class="footer-social-links">
+      <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"
+        class="footer-social-link">
+        <svg width="1em" height="1em" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16.5 0C7.3873 0 0 7.3873 0 16.5V17.5C0 26.6127 7.3873 34 16.5 34H17.5C26.6127 34 34 26.6127 34 17.5V16.5C34 7.3873 26.6127 0 17.5 0H16.5ZM25.952 14.534C25.952 19.8909 21.824 26.0786 14.28 26.0786C11.968 26.0786 9.808 25.4061 8 24.2666C8.32 24.3062 8.648 24.322 8.976 24.322C10.896 24.322 12.664 23.6732 14.072 22.5812C12.28 22.5496 10.76 21.3785 10.24 19.7643C10.488 19.8118 10.744 19.8355 11.008 19.8355C11.384 19.8355 11.744 19.788 12.088 19.6931C10.216 19.3212 8.8 17.6753 8.8 15.713V15.6576C9.352 15.9583 9.984 16.1403 10.656 16.164C9.56 15.436 8.832 14.1937 8.832 12.7853C8.832 12.0415 9.032 11.3452 9.384 10.7438C11.408 13.1967 14.432 14.8188 17.84 14.985C17.776 14.6843 17.736 14.3757 17.736 14.0592C17.736 11.8199 19.576 10 21.84 10C23.016 10 24.08 10.4906 24.832 11.2819C25.768 11.0999 26.648 10.7675 27.44 10.3007C27.128 11.2502 26.48 12.0494 25.632 12.5479C26.464 12.445 27.256 12.2314 27.992 11.907C27.44 12.722 26.744 13.442 25.944 14.0117C25.952 14.1858 25.952 14.3599 25.952 14.534Z"
+            fill="currentColor" />
+        </svg>
+      </a>
+      <a href="https://groups.google.com/a/lists.stargate.io/g/stargate-users" target="_blank" rel="noopener noreferrer"
+        class="footer-social-link">
+        <svg width="1em" height="1em" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Group" fill="currentColor">
+              <path
+                d="M17,0 C26.3888,0 34,7.61116 34,17 C34,26.3888 26.3888,34 17,34 C7.61116,34 0,26.3888 0,17 C0,7.61116 7.61116,0 17,0 Z M25,9 L9,9 C7.9,9 7,9.9 7,11 L7,11 L7,23 C7,24.1 7.9,25 9,25 L9,25 L25,25 C26.1,25 27,24.1 27,23 L27,23 L27,11 C27,9.9 26.1,9 25,9 L25,9 Z M27,11 L17,18 L7,11 L27,11 Z" />
+            </g>
+          </g>
+        </svg>
+      </a>
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+        class="footer-social-link">
+        <svg width="1em" height="1em" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0)">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M16.402 0C7.34542 0 -0.000488281 7.34591 -0.000488281 16.4025C-0.000488281 23.6478 4.72907 29.7862 11.1693 32C11.9743 32.1006 12.2762 31.5975 12.2762 31.195C12.2762 30.7925 12.2762 29.7862 12.2762 28.3774C7.74794 29.3836 6.74165 26.1635 6.74165 26.1635C6.03724 24.2516 4.93033 23.7484 4.93033 23.7484C3.42089 22.7421 5.03096 22.7421 5.03096 22.7421C6.64102 22.8428 7.54668 24.4528 7.54668 24.4528C9.05611 26.9686 11.3706 26.2642 12.2762 25.8616C12.3769 24.7547 12.88 24.0503 13.2825 23.6478C9.65988 23.2453 5.83599 21.8365 5.83599 15.4969C5.83599 13.6855 6.43976 12.2767 7.54668 11.0692C7.44605 10.7673 6.84228 9.0566 7.74794 6.84277C7.74794 6.84277 9.15674 6.44025 12.2762 8.55346C13.5844 8.15094 14.9932 8.05031 16.402 8.05031C17.8108 8.05031 19.2196 8.25157 20.5278 8.55346C23.6473 6.44025 25.0561 6.84277 25.0561 6.84277C25.9618 9.0566 25.358 10.7673 25.2574 11.1698C26.2637 12.2767 26.9681 13.7862 26.9681 15.5975C26.9681 21.9371 23.1442 23.2453 19.5215 23.6478C20.1253 24.1509 20.6284 25.1572 20.6284 26.6667C20.6284 28.8805 20.6284 30.5912 20.6284 31.195C20.6284 31.5975 20.9303 32.1006 21.7354 32C28.2762 29.7862 32.9052 23.6478 32.9052 16.4025C32.8045 7.34591 25.4586 0 16.402 0Z"
+              fill="currentColor" />
+          </g>
+          <defs>
+            <clipPath id="clip0">
+              <rect width="32.805" height="32" fill="currentColor" transform="translate(-0.000488281)" />
+            </clipPath>
+          </defs>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <p>Stargate is an open source project and all source code is distributed under the <a
+        href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" rel="noopener noreferrer">Apache v2.0
+        license</a></p>
+  </div>
+</footer><script src="../../../assets/js/site.js"></script>
 <script async src="../../../assets/js/vendor/highlight.js"></script>
   </body>
 </html>
