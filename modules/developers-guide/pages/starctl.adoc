@@ -67,15 +67,15 @@ CAUTION: When Stargate is launched on a host as shown above, it will connect onl
 
 | `--simple-snitch`
 | `SIMPLE_SNITCH`
-|
+| unset, or false
 | Set this option if the backend cluster uses `SimpleSnitch` as the `endpoint_snitch`.
 | `export SIMPLE_SNITCH=true`
 
 | `--dse`
 | `DSE`
-|
+| unset, or false
 | Set if the backend is DSE. Do not set this option if the backend is Cassandra.
-| `export DSE=tru`
+| `export DSE=true`
 
 | `--cql-port _port number_`
 | `CQL_PORT`
@@ -85,25 +85,25 @@ CAUTION: When Stargate is launched on a host as shown above, it will connect onl
 
 | `--enable-auth`
 | `ENABLE_AUTH`
-|
+| unset, or false
 | Set to enable `PasswordAuthenticator` in the cluster.
 | `export ENABLE_AUTH=true`
 
 | `--use-proxy-protocol`
 | `USE_PROXY_PROTOCOL`
-|
+| unset, or false
 | Use proxy protocol to determine the public address and port of CQL requests.
 | `export USE_PROXY_PROTOCOL=true`
 
 | `--developer-mode`
 | `DEVELOPER_MODE`
-|
+| unset, or false
 | Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.
 | `export DEVELOPER_MODE=true`
 
 |`--bind-to-listen-address`
 | `BIND_TO_LISTEN_ADDRESS`
-|
+| unset, or false
 | If set bind the web services to the listen address only.
 | `export BIND_TO_LISTEN_ADDRESS=true`
 |===
