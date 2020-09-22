@@ -19,13 +19,13 @@ Antora requires NodeJS, install it and then install the project dependencies:
 npm install
 ----
 
-== Generating and viewing HTML output
+== Viewing the current HTML output
 
-The current development version of the docs are at https://stargate.github.io/docs/.
+The current development version of the docs are generated and published at https://stargate.github.io/docs/.
 
-A GitHub action will generate and publish the development docs on pushes to the master branch. Development docs use the `site-local.yaml` Antora site configuration file.
+The `.github/workflows/antora.yml` GitHub action will generate and publish the development docs on pushes to the master branch. Development docs use the `site-local.yaml` Antora site configuration file.
 
-Pushing a tag starting with `v` will trigger a publish action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. Live docs use the `site-publish.yaml` Anotra site configuration file.
+== Generating and viewing the HTML output locally
 
 To generate the docs locally during development:
 
@@ -34,12 +34,11 @@ To generate the docs locally during development:
 npm run build:dev
 ----
 
-Open the files in a web browser to view the output.
+Open `build/site/index.html` a web browser to view the output.
 
 == Publishing to the Stargate website
 
-When you push a tag that begin with `v` the actions in `publish.yaml` are executed.
-This will build the site and publish it to https://github.com/stargate/website in the `gh-pages` branch, putting the output in the `docs` directory.
+Pushing a tag starting with `v` will trigger the `.github/workflows/publish.yaml` action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. The output will be put in the `docs` directory. Live docs use the `site-publish.yaml` Anotra site configuration file.
 
 The Deploy to GitHub Pages action uses a repo secret in order to push the changes to stargate/website.
 To use a different secret:
