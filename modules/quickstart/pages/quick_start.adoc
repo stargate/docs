@@ -1,4 +1,4 @@
-= Stargate quick start
+= Stargate quickstart
 
 *time to complete: 5 minutes*
 
@@ -15,6 +15,31 @@ To use Stargate you need:
 * JDK 8 or higher
 // end::prereqsList[]
 * `cURL` to run REST queries
+
+// == Building Stargate
+//
+// In a terminal:
+//
+// . Clone the https://github.com/stargate/stargate repository:
+//
+// [source,bash]
+// ----
+// git clone https://github.com/stargate/stargate
+// ----
+//
+// . Navigate to the `stargate` directory.
+//
+// [source,bash]
+// ----
+// cd stargate
+// ----
+//
+// . Build Stargate using the `mvnw` command.
+//
+// [source,bash]
+// ----
+// ./mvnw clean package
+// ----
 
 // tag::getDockerImage[]
 == Pull the Docker image
@@ -46,7 +71,9 @@ docker run --name stargate \
   stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
-By default, Stargate starts a CQL service on port 9042, a REST auth service for generating tokens on 8081, and a REST interface for CRUD on port 8082.
+By default, Stargate starts a CQL service on port 9042,
+a REST auth service for generating tokens on 8081,
+and a REST interface for CRUD on port 8082.
 
 // end::startDocker[]
 
@@ -104,7 +131,6 @@ curl --location --request POST 'localhost:8082/schemas/keyspaces' \
 --data-raw '{
     "name": "users_keyspace",
     "replicas": 1
-}'
 ----
 
 === Creating a table using the REST API
