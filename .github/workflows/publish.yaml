@@ -46,7 +46,7 @@ jobs:
      - name: Deploy to GitHub Pages
        uses: peaceiris/actions-gh-pages@v3.7.0-8
        with:
-          personal_token: "${{ secrets.IAN_PUBLISH_STARGATE_DOCS }}"
+          personal_token: "${{ secrets.PUBLISH_STARGATE_DOCS }}"
           external_repository: stargate/website
           publish_branch: 'gh-pages'
           publish_dir: "${{ env.SITE_DIR }}"
