@@ -110,6 +110,11 @@ Worth noting is that one mutation is used to create two tables. Information abou
 partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 
+////
+=== Data types
+Need to add data types!!
+////
+
 === Checking that keyspaces and tables exist
 
 To check if a keyspace or tables exist, GraphQL queries can be executed:
@@ -499,3 +504,8 @@ mutation deleteABook {
   }
 }
 ----
+
+////
+I'll need a section that shows how connecting to an existing C* cluster will automatically
+create the graphql endpoints!
+////
