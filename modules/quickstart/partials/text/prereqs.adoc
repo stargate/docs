@@ -1,0 +1,3 @@
+* Docker installed and running
+* JDK 8 or higher
+* `cURL` to run REST queries

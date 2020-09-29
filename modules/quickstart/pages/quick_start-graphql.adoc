@@ -132,13 +132,7 @@ and create a keyspace by executing the following mutation:
 
 [source, plaintext]
 ----
-mutation {
-  createKeyspace(
-    name:"library", # The name of your keyspace
-    # Controls how your data is replicated,
-    dcs: { name:"dc1", replicas: 1 }  # Use at least 3 replicas in production
-  )
-}
+include::example$graphql/createKeyspace.graphql
 ----
 For each keyspace created in your Cassandra schema, a new path is created under
 the `graphql-path` root (default is: `/graphql`). For example, the mutation just
@@ -461,8 +455,10 @@ Some important facts about these mutations are:
 exist, unless the `ifNotExists` is set to true.
 * `updateBooks()` is also an **upsert** operation, and will create a new book if
 it doesn't exist, unless `ifNotExists` is set to true.
-* Using the `ifNotExists` or `ifCondition` options will cause the mutation to
-use a lightweight transaction (LWT) with significant overhead.
+* Using the `ifNotExists` or `ifCondition` options affects the performance of
+operations because of the compare-and-set execution path in Cassandra. Under
+the hood these operations are using a feature in Cassandra called lightweight
+transactions (LWTs).
 
 As more tables are added to a keyspace, additional GraphQL fields will add
 query and mutation types that can be used to interact with the table data.
@@ -558,7 +554,7 @@ ISBN value:
 
 [source,plaintext]
 ----
-mutation updateBooks {
+mutation updateABook {
   moby: updateBooks(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
     value {
       title
@@ -577,15 +573,24 @@ If it does exist, it will be updated with the new row data.
 After adding the book "Pride and Prejudice" with an `insertBooks()`, I can delete
 the book using `deleteBooks()` to illustrate deleting data:
 
+////
+The insertion is:
+mutation insertAnotherBook {
+  PaP: insertBooks(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+    value {
+      title
+    }
+  }
+}
+////
+
 [source,plaintext]
 ----
-mutation deleteBooks {
-  pap: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
+mutation deleteABook {
+  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
     value {
       title
     }
   }
 }
 ----
-
-Voila! For more information on the REST API, see the full reference in the REST API section of the docs.
