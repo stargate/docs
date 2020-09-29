@@ -24,12 +24,12 @@ When using Cassandra drivers with Stargate you must:
 
 To use the CQL API you need:
 
-include::quickstart:page$quick_start.adoc[tag=prereqsList]
+include::quickstart:page$quick_start-rest.adoc[tag=prereqsList]
 * cqlsh (standalone, or as part of a separate Cassandra installation)
 
-include::quickstart:page$quick_start.adoc[tag=getDockerImage]
+include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage]
 
-include::quickstart:page$quick_start.adoc[tag=startDocker]
+include::quickstart:page$quick_start-rest.adoc[tag=startDocker]
 
 === Installing standalone cqlsh using Docker
 
