@@ -1,3 +1,7 @@
+== Prerequisites
+
+To use Stargate you need:
+
 * Docker installed and running
 * JDK 8 or higher
 * `cURL` to run REST queries

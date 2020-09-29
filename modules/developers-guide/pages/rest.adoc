@@ -1,0 +1,3 @@
+= REST API
+
+The REST API is implemented in stargate with... 

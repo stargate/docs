@@ -20,10 +20,6 @@ When using Cassandra drivers with Stargate you must:
 . Use the Round Robin policy in the driver for the https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Load Balancing Policy] rather than the Token Aware Policy.
 ====
 
-== Prerequisites
-
-To use the CQL API you need:
-
 include::quickstart:page$quick_start-rest.adoc[tag=prereqsList]
 * cqlsh (standalone, or as part of a separate Cassandra installation)
 
@@ -70,7 +66,9 @@ Create a keyspace called `users_keyspace`.
 
 [source,sql]
 ----
-CREATE KEYSPACE users_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
+CREATE KEYSPACE users_keyspace
+  WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}
+  AND durable_writes = true;
 ----
 
 === Create a table

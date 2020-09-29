@@ -7,8 +7,9 @@
 * xref:rest.adoc[REST API]
 ** xref:openapi_rest_ref.adoc[REST API reference]
 * xref:graphql.adoc[GraphQL API]
+** xref:graphql-using.adoc[Using the GraphQL API]
 * xref:cql.adoc[CQL API]
-** xref:cql.adoc[Using the CQL API]
+** xref:cql-using.adoc[Using the CQL API]
 ** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
 
 // .Building and running

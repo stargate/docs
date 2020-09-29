@@ -1,0 +1,3 @@
+= CQL API
+
+The CQL API is implemented in stargate with... 
