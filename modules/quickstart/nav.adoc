@@ -1,1 +1,2 @@
-* xref:quick_start.adoc[Quick start]
+* xref:quick_start-rest.adoc[REST API QuickStart]
+* xref:quick_start-graphql.adoc[GraphQL API QuickStart]
