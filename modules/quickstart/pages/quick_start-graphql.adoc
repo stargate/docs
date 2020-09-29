@@ -6,61 +6,16 @@ Stargate is a data gateway deployed between client applications and a database.
 In this QuickStart, you'll be up and running on your local machine with the
 GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-== Prerequisites
-
-To use Stargate you need:
-
 // tag::prereqsList[]
-* Docker installed and running
-* JDK 8 or higher
+include::partial$text/prereqs.adoc[]
 // end::prereqsList[]
-* `cURL` to run REST queries to generate authorization token
 
 // tag::getDockerImage[]
-== Pull the Docker image
-
-This image contains the Cassandra Query Language (CQL), REST and GraphQL APIs,
-and GraphQL Playground along with an Apache Cassandra^(TM)^ 3.11 backend.
-
-[source,bash,subs="attributes+"]
-----
-docker pull stargateio/stargate-3_11:{stargate-docker-tag}
-----
+include::partial$bash/docker_pull.sh[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-== Start the Stargate container
-
-Start the Stargate container in developer mode.
-Developer mode removes the need to set up a separate Cassandra instance and is
-meant for development and testing only.
-
-[source,bash,subs="attributes+"]
-----
-docker run --name stargate \
-  -p 8080:8080 \
-  -p 8081:8081 \
-  -p 8082:8082 \
-  -p 127.0.0.1:9042:9042 \
-  -d \
-  -e CLUSTER_NAME=stargate \
-  -e CLUSTER_VERSION=3.11 \
-  -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:{stargate-docker-tag}
-----
-
-The ports align to the following services and interfaces:
-
-.Default port assignments for Stargate
-|===
-| Port | Service/Interface
-
-| Port 8080 | GraphQL interface for CRUD
-| Port 8081 | REST authorization service for generating tokens
-| Port 8082 | REST interface for CRUD
-| Port 9042 | CQL service
-|===
-
+include::partial$bash/docker_run.sh[]
 // end::startDocker[]
 
 == Using the Stargate GraphQL API
@@ -68,37 +23,15 @@ The ports align to the following services and interfaces:
 In order to use the Stargate GraphQL API, an authorization token must be generated
 to access the interface. A REST API token is used for this purpose.
 
-The step below uses `cURL` to access the REST interface to generate the needed
-token.
-
-=== Generate an auth token
-
-First generate an auth token that is required in each subsequent request
-in the `X-Cassandra-Token` header.
-
-Note the port for the auth service is 8081.
-
-[source,bash]
-----
-curl -L -X POST 'http://localhost:8081/v1/auth' \
-  -H 'Content-Type: application/json' \
-  --data-raw '{
-    "username": "cassandra",
-    "password": "cassandra"
-}'
-----
-
-You should receive a token in the response.
-
-[source,bash,subs="attributes+"]
-----
-{"authToken":"{auth-token}"}
-----
+// tag::startGenAuthToken[]
+include::partial$bash/gen_auth_token.sh[]
+// tag::endGenAuthToken[]
 
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
-=== Using the GraphQL Playground
+// tag:startUsingGraphqlPlayground[]
+== Using the GraphQL Playground
 
 The easiest way to get started is to use the built-in GraphQL playground that is
 included in the `stargate` docker container. It can be accessed at
@@ -117,9 +50,11 @@ such as `CREATE KEYSPACE`, `CREATE TABLE1`, or `DROP TABLE`.
 ** An API for querying and modifying your Cassandra tables using GraphQL fields.
 
 We'll start the playground with `/graphql-schema` to create some schema.
+// tag:endUsingGraphqlPlayground[]
 
 == Creating schema
 
+// tag::startCreateKS[]
 === Creating a keyspace using the GraphQL API
 
 Before you can start using the GraphQL API, you must first create a Cassandra
@@ -132,7 +67,7 @@ and create a keyspace by executing the following mutation:
 
 [source, plaintext]
 ----
-include::example$graphql/createKeyspace.graphql
+include::quickstart:partial$graphql/createKeyspace.graphql[]
 ----
 For each keyspace created in your Cassandra schema, a new path is created under
 the `graphql-path` root (default is: `/graphql`). For example, the mutation just
@@ -148,8 +83,11 @@ Add the auth token to the HTTP Headers box in the lower lefthand corner:
 }
 ----
 
-IMPORTANT: Notice that the key for this JSON token is different than the value that the
+[IMPORTANT]
+====
+Notice that the key for this JSON token is different than the value that the
 generate token has. It is `x-cassandra-token`, not `auth-token`.
+====
 
 Now run the mutation to create the keyspace. You should see a return value of:
 
@@ -157,7 +95,9 @@ Now run the mutation to create the keyspace. You should see a return value of:
 ----
 NEED THE VALUE AFTER createKeyspace is VALID
 ----
+// tag::endCreateKS[]
 
+// tag::startCreateTables[]
 === Creating a table using the GraphQL API
 
 After the keyspace exists, you can create two tables by executing the following
@@ -204,6 +144,9 @@ returns
 Worth noting is that one mutation is used to create two tables. Information about
 partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
+// tag::endCreateTables[]
+
+// tag::startCheckKSTables[]
 
 === Checking that keyspaces and tables exist
 
@@ -256,170 +199,16 @@ Because these queries are named, the GraphQL playground will allow you to select
 which query to run. The first query will return information about the keyspace
 `library` and the tables within it. The second query will return just information
 about the tables in that keyspace.
-
-=== Adding columns to table schema
-
-If you need to add more attributes to something you are storing in a table, you
-can add a column:
-
-[source, plaintext]
-----
-mutation {
-  alterTableAdd(
-    keyspaceName:"library",
-    tableName:"books",
-    toAdd:[{
-      name: "isbn",
-      type: {
-        basic: TEXT
-      }
-    }]
-  )
-}
-----
-
-=== Removing columns from table schema
-
-If you find an attribute is no longer required in a table, you
-can remove a column:
-
-[source, plaintext]
-----
-mutation {
-    alterTableDrop(
-    keyspaceName:"library",
-    tableName:"books",
-    toDrop:["isbn"]
-  )
-}
-----
-
-=== Dropping table schema
-
-You can also drop an entire table and its data:
-
-[source, plaintext]
-----
-mutation {
-  dropTable(keyspaceName:"library",
-    tableName:"books")
-}
-----
+// tag::startCheckKSTables[]
 
 == Interacting with tables
 
+// tag::startAPIGeneration[]
 === API generation
 
 Once schema is created, the GraphQL API generates mutations and queries can be
 used. In the GraphQL playground, expand the tabs on the righthand side labelled
 "DOCS" or "SCHEMA", to discover the items available and the syntax to use.
-
-////
-For the future, to put in a collapsible section, the portable query is:name: value
-query IntrospectionQuery {
-      __schema {
-        queryType {
-          name
-          fields {
-            name
-            description
-          }
-        }
-        mutationType {
-          name
-          fields {
-            name
-            description
-          }
-        }
-        subscriptionType { name }
-        types {
-          ...FullType
-        }
-        directives {
-          name
-          description
-          locations
-          args {
-            ...InputValue
-          }
-        }
-      }
-    }
-​
-    fragment FullType on __Type {
-      kind
-      name
-      description
-      fields(includeDeprecated: true) {
-        name
-        description
-        args {
-          ...InputValue
-        }
-        type {
-          ...TypeRef
-        }
-        isDeprecated
-        deprecationReason
-      }
-      inputFields {
-        ...InputValue
-      }
-      interfaces {
-        ...TypeRef
-      }
-      enumValues(includeDeprecated: true) {
-        name
-        description
-        isDeprecated
-        deprecationReason
-      }
-      possibleTypes {
-        ...TypeRef
-      }
-    }
-​
-    fragment InputValue on __InputValue {
-      name
-      description
-      type { ...TypeRef }
-      defaultValue
-    }
-​
-    fragment TypeRef on __Type {
-      kind
-      name
-      ofType {
-        kind
-        name
-        ofType {
-          kind
-          name
-          ofType {
-            kind
-            name
-            ofType {
-              kind
-              name
-              ofType {
-                kind
-                name
-                ofType {
-                  kind
-                  name
-                  ofType {
-                    kind
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-////
 
 For each table in the Cassandra schema that we just created, several GraphQL
 fields are created for
@@ -462,7 +251,9 @@ transactions (LWTs).
 
 As more tables are added to a keyspace, additional GraphQL fields will add
 query and mutation types that can be used to interact with the table data.
+// tag::endAPIGeneration[]
 
+// tag::startWriteData[]
 === Write data
 
 Any of the created APIs can be used to interact with the GraphQL data, to write
@@ -510,7 +301,9 @@ returns
 ----
 
 If we want to read all the data for a book, we can use a query.
+// tag::endWriteData[]
 
+// tag::startReadData[]
 === Read data
 
 The following query, looking at the location
@@ -546,7 +339,9 @@ returns
   }
 }
 ----
+// tag::endReadData[]
 
+// tag::startUpdateData[]
 === Update data
 
 Using the column that we added earlier, the data for a book is updated with the
@@ -568,6 +363,9 @@ mutation updateABook {
 NOTE: Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
 
+// tag::endUpdateData[]
+
+// tag::startDeleteData[]
 === Delete data
 
 After adding the book "Pride and Prejudice" with an `insertBooks()`, I can delete
@@ -594,3 +392,6 @@ mutation deleteABook {
   }
 }
 ----
+// tag::endDeleteData[]
+
+For more information on the GraphQL API, see xref:developers-guide/graphql-using.adoc[Using the GraphQL API] in the Data API section.
