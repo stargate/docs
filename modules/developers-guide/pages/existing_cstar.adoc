@@ -21,7 +21,7 @@ docker run --name stargate \
   --simple-snitch
 ----
 
-Where:
+where:
 
 * `--cluster-seed` is set to the IP address of a running Cassandra node.
 * `--cluster-version` is set to the version of Cassandra running in the cluster.

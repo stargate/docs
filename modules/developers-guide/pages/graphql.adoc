@@ -1,3 +1,6 @@
 = GraphQL API
 
-The GraphQL API is implemented in stargate with... 
+The Stargate GraphQL API is implemented to use GraphQL mutations and queries with any Cassandra deployment.
+
+* xref::quickstart:quickstart-graphql.adoc[GraphQL QuickStart]
+* xref:graphql-using.adoc[Using the GraphQL API]

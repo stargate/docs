@@ -1,6 +1,8 @@
 = Using the CQL API
 
-To use Stargate's Cassandra Query Language (CQL) API you can use the same CQL syntax, tools and native language drivers that you would with a normal Cassandra deployment.
+To use Stargate's Cassandra Query Language (CQL) API you can use the same CQL
+syntax, tools and native language drivers that you would with a normal
+Cassandra deployment.
 
 Popular Cassandra drivers are:
 
@@ -16,11 +18,15 @@ Popular Cassandra drivers are:
 ====
 When using Cassandra drivers with Stargate you must:
 
-. Use the addresses of the Stargate instances as contact points rather than the addresses of the Cassandra storage instances.
-. Use the Round Robin policy in the driver for the https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Load Balancing Policy] rather than the Token Aware Policy.
+. Use the addresses of the Stargate instances as contact points rather than the
+addresses of the Cassandra storage instances.
+. Use the Round Robin policy in the driver for the
+https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Load Balancing Policy]
+rather than the Token Aware Policy.
 ====
 
 include::quickstart:page$quick_start-rest.adoc[tag=prereqsList]
+
 * cqlsh (standalone, or as part of a separate Cassandra installation)
 
 include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage]

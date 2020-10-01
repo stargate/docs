@@ -56,7 +56,7 @@ Add the auth token to the HTTP Headers box in the lower lefthand corner:
 IMPORTANT: Notice that the key for this JSON token is different than the value that the
 generate token has. It is `x-cassandra-token`, not `auth-token`.
 
-Now run the mutation to create the keyspace. You should see a return value of:
+You should see a return value of:
 
 [source, plaintext]
 ----
@@ -456,6 +456,14 @@ returns
   }
 }
 ----
+
+////
+Add a section on using filters to read data
+The filters available in this first release are eq (equal), notEq (not equal),
+gt (greater than), gte (greater than or equal to), lt (less than),
+lte (less than or equal to), and in (within) operators. Note that these can
+only be used with primary key columns just like in Cassandra.
+////
 
 === Update data
 
