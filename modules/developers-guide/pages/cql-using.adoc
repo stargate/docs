@@ -35,28 +35,25 @@ include::quickstart:page$quick_start-rest.adoc[tag=startDocker]
 
 == Accessing the CQL API using cqlsh
 
-=== Using the Stargate docker image cqlsh
+=== Installing a standalone cqlsh using Docker
 
-Run `cqlsh` from the Docker image.
+Install a standalone cqlsh docker image to access Stargate. First, pull the
+following docker image:
 
 [source,bash]
 ----
-docker run --rm -it nuvo/docker-cqlsh cqlsh localhost --cqlversion=3.4.5
+docker pull nuvo/docker-cqlsh
 ----
-
-=== Installing a standalone cqlsh using Docker
-
-Alternatively, you can install a standalone CQL shell using a docker image.
 Get the IP address of your Stargate docker container (assuming the Stargate
  container name is "stargate"):
 
 [source,bash]
 ----
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' stargate
-docker pull nuvo/docker-cqlsh --cqlversion=3.4.5
 ----
 
-Connect to your Stargate container using `cqlsh`:
+Connect to your Stargate container using `cqlsh` using the IP address from the
+last command:
 
 [source,bash]
 ----
