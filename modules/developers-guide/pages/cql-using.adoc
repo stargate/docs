@@ -33,24 +33,9 @@ include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage]
 
 include::quickstart:page$quick_start-rest.adoc[tag=startDocker]
 
-=== Installing standalone cqlsh using Docker
-
-[source,bash]
-----
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' stargate
-docker pull nuvo/docker-cqlsh
-----
-
-// Use `pip` to install the standalone cqlsh tool.
-//
-// NOTE: cqlsh requires Python 2.7, and won't work with Python 3.
-//
-// [source,bash]
-// ----
-// pip install cqlsh
-// ----
-
 == Using the CQL API using cqlsh
+
+=== Using the Stargate docker image cqlsh
 
 Run `cqlsh` from the Docker image.
 
@@ -64,6 +49,33 @@ docker run --rm -it nuvo/docker-cqlsh cqlsh localhost --cqlversion=3.4.5
 // [source,bash]
 // ----
 // cqlsh --cqlversion=3.4.5 localhost 9042
+// ----
+
+=== Installing a standalone cqlsh using Docker
+
+Get the IP address of your Stargate docker container (assuming the Stargate
+ container name is "stargate"):
+
+[source,bash]
+----
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' stargate
+docker pull nuvo/docker-cqlsh {ip-address} --cqlversion=3.4.5
+----
+
+Connect to your Stargate container using `cqlsh`:
+
+[source,bash]
+----
+docker pull nuvo/docker-cqlsh {ip-address} --cqlversion=3.4.5
+----
+
+// Use `pip` to install the standalone cqlsh tool.
+//
+// NOTE: cqlsh requires Python 2.7, and won't work with Python 3.
+//
+// [source,bash]
+// ----
+// pip install cqlsh
 // ----
 
 === Create a keyspace
