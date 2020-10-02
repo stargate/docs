@@ -128,8 +128,21 @@
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../quickstart/quick_start.html">Quick start</a>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Stargate QuickStarts</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../quickstart/quick_start-rest.html">REST API QuickStart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../quickstart/quick_start-graphql.html">GraphQL API QuickStart</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -141,6 +154,12 @@
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
+    <span class="nav-text">Installing Stargate</span>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="1">
     <a class="nav-link" href="docker.html">Installing Stargate</a>
@@ -156,26 +175,59 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="cql.html">Using the CQL API</a>
+    <a class="nav-link" href="starctl.html">The starctl command</a>
   </li>
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
-    <span class="nav-text">Reference docs</span>
+    <span class="nav-text">Data APIs</span>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="rest.html">REST API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="graphql.html">GraphQL API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="graphql-using.html">Using the GraphQL API</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="cql.html">CQL API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="cql-using.html">Using the CQL API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="starctl.html">The starctl command</a>
+</ul>
   </li>
 </ul>
   </li>
@@ -223,6 +275,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
+    <li>Installing Stargate</li>
     <li><a href="docker.html">Installing Stargate</a></li>
     <li><a href="existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a></li>
   </ul>
@@ -245,11 +298,12 @@
 <div class="sect2">
 <h3 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h3>
 <div class="paragraph">
-<p>This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
+<p>This image contains the Cassandra Query Language (CQL), REST and GraphQL APIs,
+and GraphQL Playground along with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.3</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.6</code></pre>
 </div>
 </div>
 </div>
@@ -261,7 +315,7 @@
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --name stargate \
-  -d stargateio/stargate-3_11:v0.0.3 \
+  -d stargateio/stargate-3_11:v0.0.6 \
   --cluster-name stargate \
   --cluster-seed 127.0.0.1 \
   --cluster-version 3.11 \
@@ -270,7 +324,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Where:</p>
+<p>where:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -295,7 +349,10 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Use the <code>--simple-snitch</code> option if the <a href="https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962">endpoint_snitch</a> setting in the cluster is set to <strong>SimpleSnitch</strong>. If the cluster uses a different <code>endpoint_snitch</code> use the <code>--dc</code> and <code>--rack</code> options to define the topology of the node.
+Use the <code>--simple-snitch</code> option if the
+<a href="https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962">endpoint_snitch</a>
+setting in the cluster is set to <strong>SimpleSnitch</strong>. If the cluster uses a different
+<code>endpoint_snitch</code> use the <code>--dc</code> and <code>--rack</code> options to define the topology of the node.
 </td>
 </tr>
 </table>
@@ -304,13 +361,16 @@ Use the <code>--simple-snitch</code> option if the <a href="https://github.com/a
 <p>The full set of options are described in <a href="starctl.html" class="page">the <code>starctl</code> documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>--cluster-name</code> option can alternately be set using <code>-e</code> and setting the <code>CLUSTER_NAME</code> environment variable to the name of the cluster.</p>
+<p>The <code>--cluster-name</code> option can alternately be set using <code>-e</code> and setting the
+<code>CLUSTER_NAME</code> environment variable to the name of the cluster.</p>
 </div>
 <div class="paragraph">
-<p>The <code>--cluster-version</code> option can alternately be set using <code>-e</code> and setting the <code>CLUSTER_VERSION</code> environment variable to the version of the cluster.</p>
+<p>The <code>--cluster-version</code> option can alternately be set using <code>-e</code> and setting the
+<code>CLUSTER_VERSION</code> environment variable to the version of the cluster.</p>
 </div>
 <div class="paragraph">
-<p>The <code>--developer-mode</code> option can alternately be set using <code>-e</code> and setting the <code>DEVELOPER_MODE</code> environment variable to <code>true</code>.</p>
+<p>The <code>--developer-mode</code> option can alternately be set using <code>-e</code> and setting the
+<code>DEVELOPER_MODE</code> environment variable to <code>true</code>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -319,7 +379,10 @@ Use the <code>--simple-snitch</code> option if the <a href="https://github.com/a
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-When Stargate is launched within a container on Mac OS X as shown above, it will connect only to Cassandra clusters running within the same Docker environment. To run Stargate so that it can connect to a cluster running outside of a containerized environment, see the <a href="starctl.html" class="page">starctl</a> documentation.
+When Stargate is launched within a container on Mac OS X as shown above,
+it will connect only to Cassandra clusters running within the same Docker
+environment. To run Stargate so that it can connect to a cluster running outside
+of a containerized environment, see the <a href="starctl.html" class="page">starctl</a> documentation.
 </td>
 </tr>
 </table>

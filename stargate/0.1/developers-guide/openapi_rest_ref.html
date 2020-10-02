@@ -129,8 +129,21 @@
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../quickstart/quick_start.html">Quick start</a>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Stargate QuickStarts</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../quickstart/quick_start-rest.html">REST API QuickStart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../quickstart/quick_start-graphql.html">GraphQL API QuickStart</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -142,6 +155,12 @@
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
+    <span class="nav-text">Installing Stargate</span>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="1">
     <a class="nav-link" href="docker.html">Installing Stargate</a>
@@ -157,26 +176,59 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="cql.html">Using the CQL API</a>
+    <a class="nav-link" href="starctl.html">The starctl command</a>
   </li>
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
-    <span class="nav-text">Reference docs</span>
+    <span class="nav-text">Data APIs</span>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="rest.html">REST API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="graphql.html">GraphQL API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="graphql-using.html">Using the GraphQL API</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="cql.html">CQL API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="cql-using.html">Using the CQL API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="starctl.html">The starctl command</a>
+</ul>
   </li>
 </ul>
   </li>
@@ -224,7 +276,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
-    <li>Reference docs</li>
+    <li>Data APIs</li>
+    <li><a href="rest.html">REST API</a></li>
     <li><a href="openapi_rest_ref.html">REST API reference</a></li>
   </ul>
 </nav>

@@ -128,8 +128,21 @@
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="quickstart/quick_start.html">Quick start</a>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="quickstart/quickstart.html">Stargate QuickStarts</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quickstart/quick_start-rest.html">REST API QuickStart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quickstart/quick_start-graphql.html">GraphQL API QuickStart</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -141,6 +154,12 @@
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
+    <span class="nav-text">Installing Stargate</span>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="1">
     <a class="nav-link" href="developers-guide/docker.html">Installing Stargate</a>
@@ -156,26 +175,59 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="developers-guide/cql.html">Using the CQL API</a>
+    <a class="nav-link" href="developers-guide/starctl.html">The starctl command</a>
   </li>
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
-    <span class="nav-text">Reference docs</span>
+    <span class="nav-text">Data APIs</span>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="developers-guide/rest.html">REST API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="developers-guide/openapi_rest_ref.html">REST API reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="developers-guide/graphql.html">GraphQL API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developers-guide/graphql-using.html">Using the GraphQL API</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="developers-guide/cql.html">CQL API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developers-guide/cql-using.html">Using the CQL API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="developers-guide/starctl.html">The starctl command</a>
+</ul>
   </li>
 </ul>
   </li>
@@ -237,10 +289,15 @@
 <div class="ulist">
 <ul>
 <li>
-<p>If you&#8217;ve found an issue while using Stargate, please file a bug in the <a href="https://github.com/stargate/stargate">Stargate repo</a> and use the bug label. It&#8217;s also helpful to include the full stack trace and the Stargate and database version that you are using so that we can efficiently debug.</p>
+<p>If you&#8217;ve found an issue while using Stargate, please file a bug in the
+<a href="https://github.com/stargate/stargate">Stargate repo</a> and use the bug label.
+It&#8217;s also helpful to include the full stack trace and the Stargate and database
+version that you are using so that we can efficiently debug.</p>
 </li>
 <li>
-<p>If you&#8217;ve found an issue with the documentation, please file an issue in the <a href="https://github.com/stargate/docs">Stargate docs repo</a>. Pull requests are also accepted!</p>
+<p>If you&#8217;ve found an issue with the documentation, please file an issue in the
+<a href="https://github.com/stargate/docs">Stargate docs repo</a>. Pull requests are also
+accepted!</p>
 </li>
 </ul>
 </div>
@@ -250,10 +307,14 @@
 <h2 id="_why_should_i_use_stargate_when_i_already_have_an_existing_database"><a class="anchor" href="#_why_should_i_use_stargate_when_i_already_have_an_existing_database"></a><a class="link" href="#_why_should_i_use_stargate_when_i_already_have_an_existing_database">Why should I use Stargate when I already have an existing database?</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stargate provides APIs, data types and access methods that bring new capabilities to existing databases.
-Currently Stargate adds a REST API for CRUD access to data stored in Apache Cassandra&#174; and there are many more APIs coming soon.
-Separating compute and storage also has benefits for maximizing resource consumption in cloud environments.
-When using Stargate with Cassandra, you can offload the request coordination overhead from your storage instances onto Stargate instances
+<p>Stargate provides APIs, data types and access methods that bring new capabilities
+to existing databases.
+Currently Stargate adds both REST and GraphQL APIs for CRUD access to data stored
+in Apache Cassandra&#174; and there are many more APIs coming soon.
+Separating compute and storage also has benefits for maximizing resource
+consumption in cloud environments.
+When using Stargate with Cassandra, you can offload the request coordination
+overhead from your storage instances onto Stargate instances
 which has shown latency improvements in preliminary testing (results coming soon).</p>
 </div>
 </div>
@@ -262,10 +323,18 @@ which has shown latency improvements in preliminary testing (results coming soon
 <h2 id="_how_can_i_get_involved"><a class="anchor" href="#_how_can_i_get_involved"></a><a class="link" href="#_how_can_i_get_involved">How can I get involved?</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get started building a new API extension, have a look at the existing <a href="https://github.com/stargate/stargate/tree/master/restapi">REST API implementation</a> in the Stargate repo first. To get started building a new storage extension, check out the <a href="https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11">persistence-cassandra-3.11 implementation</a>. Once you have an idea of what you want to build, shoot us a note on the <a href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">mailing list</a> to discuss.</p>
+<p>To get started building a new API extension, have a look at the existing
+<a href="https://github.com/stargate/stargate/tree/master/restapi">REST API implementation</a>
+or the <a href="https://github.com/stargate/stargate/tree/master/graphqlapi">GraphQL API implementation</a>
+in the Stargate repo first. To get started building a new storage extension,
+check out the
+<a href="https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11">persistence-cassandra-3.11 implementation</a>.
+Once you have an idea of what you want to build, shoot us a note on the
+<a href="https://groups.google.com/a/lists.stargate.io/g/stargate-users">mailing list</a> to discuss.</p>
 </div>
 <div class="paragraph">
-<p><strong>Note</strong> that the internal APIs are under active development and they are likely to change before the first version is released.</p>
+<p><strong>Note</strong> that the internal APIs are under active development and they are
+likely to change before the first version is released.</p>
 </div>
 </div>
 </div>
