@@ -45,7 +45,8 @@ following docker image:
 docker pull nuvo/docker-cqlsh
 ----
 Get the IP address of your Stargate docker container (assuming the Stargate
- container name is "stargate"):
+ container name is "stargate"). This command assumes the stargate docker
+ container is running:
 
 [source,bash]
 ----
@@ -59,6 +60,8 @@ last command:
 ----
 docker run --rm -it nuvo/docker-cqlsh cqlsh {ip-address} --cqlversion=3.4.5
 ----
+
+Now you are ready to interact with Cassandra!
 
 === Create a keyspace
 
