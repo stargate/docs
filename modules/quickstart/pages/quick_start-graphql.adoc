@@ -93,7 +93,11 @@ Now run the mutation to create the keyspace. You should see a return value of:
 
 [source, plaintext]
 ----
-NEED THE VALUE AFTER createKeyspace is VALID
+{
+  "data": {
+    "createKeyspace": true
+  }
+}
 ----
 // tag::endCreateKS[]
 
