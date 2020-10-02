@@ -1,0 +1,7 @@
+mutation {
+  createKeyspace(
+    name:"library", # The name of your keyspace
+    # Controls how your data is replicated,
+    dcs: { name:"dc1", replicas: 1 }  # Use at least 3 replicas in production
+  )
+}

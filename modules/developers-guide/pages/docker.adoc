@@ -1,5 +1,5 @@
 = Starting Stargate with Docker images
 
-include::quickstart:page$quick_start.adoc[tag=getDockerImage]
+include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage]
 
-include::quickstart:page$quick_start.adoc[tag=startDocker]
+include::quickstart:page$quick_start-rest.adoc[tag=startDocker]

@@ -1,95 +1,54 @@
-= Stargate quick start
+= Stargate REST API QuickStart
 
-*time to complete: 5 minutes*
+*Time to complete: 5 minutes*
 
 Stargate is a data gateway deployed between client applications and a database.
-In this quickstart, you'll be up and running on your local machine with the REST API
+In this QuickStart, you'll be up and running on your local machine with the REST API
 plugin that exposes CRUD access to data stored in Cassandra tables.
 
-== Prerequisites
-
-To use Stargate you need:
-
 // tag::prereqsList[]
-* Docker installed and running
-* JDK 8 or higher
+include::partial$text/prereqs.adoc[]
 // end::prereqsList[]
-* `cURL` to run REST queries
 
 // tag::getDockerImage[]
-== Pull the Docker image
-
-This image contains the Cassandra Query Language (CQL) and REST APIs with an Apache Cassandra^(TM)^ 3.11 backend.
-
-[source,bash,subs="attributes+"]
-----
-docker pull stargateio/stargate-3_11:{stargate-docker-tag}
-----
+include::partial$bash/docker_pull.sh[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-== Start the Stargate container
-
-Start the Stargate container in developer mode.
-Developer mode removes the need to set up a separate Cassandra instance and is meant for development and testing only.
-
-[source,bash,subs="attributes+"]
-----
-docker run --name stargate \
-  -p 8081:8081 \
-  -p 8082:8082 \
-  -p 127.0.0.1:9042:9042 \
-  -d \
-  -e CLUSTER_NAME=stargate \
-  -e CLUSTER_VERSION=3.11 \
-  -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:{stargate-docker-tag}
-----
-
-By default, Stargate starts a CQL service on port 9042, a REST auth service for generating tokens on 8081, and a REST interface for CRUD on port 8082.
-
+include::partial$bash/docker_run.sh[]
 // end::startDocker[]
 
 == Using the Stargate REST API
 
-If you prefer, you can use Postman as a client interface for exploring REST APIs (https://www.postman.com/downloads/[download here]).
-We've provided a https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+In order to use the Stargate REST API, an authorization token must be generated
+to access the interface.
 
-The steps below use `cURL` to access the REST interface.
+// tag::startGenAuthToken[]
+include::partial$bash/gen_auth_token.sh[]
+// tag::endGenAuthToken[]
 
-=== Generate an auth token
-
-First generate an auth token that is required in each subsequent request
-in the `X-Cassandra-Token` header.
-
-Note the port for the auth service is 8081.
-
-[source,bash]
-----
-curl -L -X POST 'http://localhost:8081/v1/auth' \
-  -H 'Content-Type: application/json' \
-  --data-raw '{
-    "username": "cassandra",
-    "password": "cassandra"
-}'
-----
-
-You should receive a token in the response.
-
-[source,json]
-----
-{"authToken":"{auth-token}"}
-----
-
+// tag::startUseAuthToken[]
 Store the auth token in an environment variable to make it easy to use with `cURL`.
 
 [source,bash]
 ----
 export AUTH_TOKEN={auth-token}
 ----
+// tag::endUseAuthToken[]
+
+// tag::startUsingPostman[]
+== Using Postman
+
+If you prefer, you can use Postman as a client interface for exploring REST APIs
+(https://www.postman.com/downloads/[download here]).
+We've provided a
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the REST API for CRUD operations.
+// tag::endUsingPostman[]
 
+== Creating schema
+// tag::startCreateKS[]
 === Creating a keyspace using the REST API
 
 Send a `POST` request to `/v2/schemas/keyspaces`.
@@ -106,7 +65,9 @@ curl --location --request POST 'localhost:8082/schemas/keyspaces' \
     "replicas": 1
 }'
 ----
+// tag::endCreateKS[]
 
+// tag::startCreateTable[]
 === Creating a table using the REST API
 
 Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
@@ -151,7 +112,49 @@ curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/
 	  }
 }'
 ----
+// tag::endCreateTable[]
 
+// tag::startCheckKSTables[]
+=== Checking that keyspaces and tables exist
+
+To check if a keyspace or tables exist, execute the REST query with `cURL`:
+
+[source,bash]
+----
+curl -L -X GET 'localhost:8082/v1/keyspaces' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+----
+
+returns
+
+[source, plaintext]
+----
+["data_endpoint_auth","users_keyspace","stargate_system","system","system_auth","system_distributed","system_schema","system_traces"]
+----
+
+For tables:
+
+[source,bash]
+----
+curl -L -X GET 'localhost:8082/v1/keyspaces/'users_keyspace'/tables' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+----
+
+returns
+
+[source, plaintext]
+----
+["users"]
+----
+
+// tag::endCheckKSTables[]
+
+== Interacting with tables
+// tag::startWriteData[]
 === Write data
 
 Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table.
@@ -169,7 +172,9 @@ curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users
     "favorite color": "blue"
 }'
 ----
+// tag::endWriteData[]
 
+// tag::startReadData[]
 === Read data
 
 Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
@@ -182,7 +187,9 @@ curl -G --location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
 ----
+// tag::endReadData[]
 
+// tag::startUpdateData[]
 === Update data
 
 To update a row, send a `PUT` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
@@ -203,6 +210,9 @@ curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/
 NOTE: Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be udpated with the new row data.
 
+// tag::endUpdateData[]
+
+// tag::startDeleteData[]
 === Delete data
 To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
 In this request we delete all data with the primary key `firstname` of `Mookie`
@@ -213,5 +223,5 @@ curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/use
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
-
-Voila! For more information on the REST API, see the full reference in the REST API section of the docs.
+// tag::endDeleteData[]
+Voila! For more information on the REST API, see the xref:developers-guide/openapi_rest_ref.adoc[REST API] in the Data API section.

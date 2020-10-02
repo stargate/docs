@@ -4,7 +4,7 @@ Stargate can be installed alongside an existing Cassandra cluster.
 
 == Using Stargate with Cassandra 3.11
 
-include::quickstart:page$quick_start.adoc[tag=getDockerImage,leveloffset=+1]
+include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage,leveloffset=+1]
 
 === Starting Stargate with Cassandra 3.11
 
@@ -21,21 +21,30 @@ docker run --name stargate \
   --simple-snitch
 ----
 
-Where:
+where:
 
 * `--cluster-seed` is set to the IP address of a running Cassandra node.
 * `--cluster-version` is set to the version of Cassandra running in the cluster.
 * `--listen-address` is set to the address on which Stargate will listen.
 * `--simple-snitch` sets the snitch on the Stargate node.
 
-NOTE: Use the `--simple-snitch` option if the link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch] setting in the cluster is set to *SimpleSnitch*. If the cluster uses a different `endpoint_snitch` use the `--dc` and `--rack` options to define the topology of the node.
+NOTE: Use the `--simple-snitch` option if the
+link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch]
+setting in the cluster is set to *SimpleSnitch*. If the cluster uses a different
+`endpoint_snitch` use the `--dc` and `--rack` options to define the topology of the node.
 
 The full set of options are described in xref:starctl.adoc[the `starctl` documentation].
 
-The `--cluster-name` option can alternately be set using `-e` and setting the `CLUSTER_NAME` environment variable to the name of the cluster.
+The `--cluster-name` option can alternately be set using `-e` and setting the
+`CLUSTER_NAME` environment variable to the name of the cluster.
 
-The `--cluster-version` option can alternately be set using `-e` and setting the `CLUSTER_VERSION` environment variable to the version of the cluster.
+The `--cluster-version` option can alternately be set using `-e` and setting the
+`CLUSTER_VERSION` environment variable to the version of the cluster.
 
-The `--developer-mode` option can alternately be set using `-e` and setting the `DEVELOPER_MODE` environment variable to `true`.
+The `--developer-mode` option can alternately be set using `-e` and setting the
+`DEVELOPER_MODE` environment variable to `true`.
 
-CAUTION: When Stargate is launched within a container on Mac OS X as shown above, it will connect only to Cassandra clusters running within the same Docker environment. To run Stargate so that it can connect to a cluster running outside of a containerized environment, see the xref:starctl.adoc[starctl] documentation.
+CAUTION: When Stargate is launched within a container on Mac OS X as shown above,
+it will connect only to Cassandra clusters running within the same Docker
+environment. To run Stargate so that it can connect to a cluster running outside
+of a containerized environment, see the xref:starctl.adoc[starctl] documentation.

@@ -1,12 +1,16 @@
-//.Stargate basics
+.Installing Stargate
 * xref:docker.adoc[Installing Stargate]
 ** xref:existing_cstar.adoc[Installing Stargate with an existing Cassandra cluster]
-* xref:cql.adoc[Using the CQL API]
-
-.Reference docs
-* xref:openapi_rest_ref.adoc[REST API reference]
-* https://cassandra.apache.org/doc/latest/cql/[CQL reference]
 * xref:starctl.adoc[The starctl command]
+
+.Data APIs
+* xref:rest.adoc[REST API]
+** xref:openapi_rest_ref.adoc[REST API reference]
+* xref:graphql.adoc[GraphQL API]
+** xref:graphql-using.adoc[Using the GraphQL API]
+* xref:cql.adoc[CQL API]
+** xref:cql-using.adoc[Using the CQL API]
+** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
 
 // .Building and running
 * xref:building.adoc[Building Stargate from source]

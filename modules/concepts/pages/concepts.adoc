@@ -17,16 +17,17 @@ Stargate is broken up into modules that fit into three broad categories:
 
 The diagram below shows how these modules fit together.
 
-image::https://github.com/stargate/stargate/blob/master/assets/stargate-modules-preview-version.png?raw=true[Stargate High-Level Architecture]
+image::https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true[Stargate High-Level Architecture]
 
 === API extensions
 
 API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.
 
-There are currently extensions for the Cassandra Query Language (CQL) and a REST API for CRUD access to data in tables with many more coming soon.
+There are currently extensions for the Cassandra Query Language (CQL), and REST and GraphQL APIs for CRUD access to data in tables with many more coming soon.
 These extensions use both the Authentication Extensions and the Persistence Extensions.
 
-The REST API for example uses the https://github.com/stargate/stargate/tree/master/auth-api[auth-api] to handle token access to the endpoints that are exposed by the Jetty-based Web Server.
+The REST API uses the https://github.com/stargate/stargate/tree/master/auth-api[auth-api] to handle token access to the endpoints that are exposed by the Jetty-based Web Server. The GraphQL API also uses the token created with REST in
+the GrahpQL http header request to access the endpoints.
 The https://github.com/stargate/stargate/tree/master/persistence-api[persistence-api] is used to dispatch converted requests to the underlying storage engine.
 In the case of the REST API, you can see what this looks like in the https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/resources/v2/RowsResource.java[RowsResource].
 
@@ -52,4 +53,4 @@ Authentication extensions are responsible for access control to Stargate's APIs.
 Currently there's only an https://github.com/stargate/stargate/tree/master/auth-table-based-service[auth table-based service] which stores generated access tokens in the database.
 
 These extensions are used by the API Extensions to federate access.
-You can see an example of this in the https://github.com/stargate/stargate/tree/master/restapi[REST API] which requires a token to be passed to requests using the `X-Cassandra-Token` header.
+You can see an example of this in the https://github.com/stargate/stargate/tree/master/restapi[REST API] which requires a token to be passed to requests using the `X-Cassandra-Token` header. The https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API] uses the same token.
