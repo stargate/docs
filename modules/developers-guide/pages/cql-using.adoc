@@ -27,7 +27,7 @@ rather than the Token Aware Policy.
 
 include::quickstart:page$quick_start-rest.adoc[tag=prereqsList]
 
-* cqlsh (standalone, or as part of a separate Cassandra installation)
+* cqlsh (CQL shell) (standalone, or as part of a separate Cassandra installation)
 
 include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage]
 
@@ -53,6 +53,7 @@ docker run --rm -it nuvo/docker-cqlsh cqlsh localhost --cqlversion=3.4.5
 
 === Installing a standalone cqlsh using Docker
 
+Alternatively, you can install a standalone CQL shell using a docker image.
 Get the IP address of your Stargate docker container (assuming the Stargate
  container name is "stargate"):
 
