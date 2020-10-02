@@ -53,13 +53,14 @@ Get the IP address of your Stargate docker container (assuming the Stargate
 [source,bash]
 ----
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' stargate
+docker pull nuvo/docker-cqlsh --cqlversion=3.4.5
 ----
 
 Connect to your Stargate container using `cqlsh`:
 
 [source,bash]
 ----
-docker pull nuvo/docker-cqlsh {ip-address} --cqlversion=3.4.5
+docker run --rm -it nuvo/docker-cqlsh cqlsh {ip-address} --cqlversion=3.4.5
 ----
 
 === Create a keyspace
