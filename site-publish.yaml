@@ -1,7 +1,7 @@
 site:
   title: Stargate documentation
   url: https://stargate.io/docs
-  start_page: stargate:quickstart:quick_start.adoc
+  start_page: stargate:quickstart:quickstart.adoc
 
 content:
   sources:
