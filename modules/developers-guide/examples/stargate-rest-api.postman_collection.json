@@ -54,12 +54,13 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:8082/schemas/keyspaces",
+					"raw": "localhost:8082/v2/schemas/keyspaces",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
+						"v2",
 						"schemas",
 						"keyspaces"
 					]
@@ -89,17 +90,50 @@
 					"raw": "{\n    \"name\": \"users_keyspace\",\n    \"replicas\": 1\n}"
 				},
 				"url": {
-					"raw": "localhost:8082/schemas/keyspaces",
+					"raw": "localhost:8082/v2/schemas/keyspaces",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
+						"v2",
 						"schemas",
 						"keyspaces"
 					]
 				},
 				"description": "Create a new keyspace"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a keyspace",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8082/v2/schemas/keyspaces/users_keyspace",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"v2",
+						"schemas",
+						"keyspaces",
+						"users_keyspace"
+					]
+				}
 			},
 			"response": []
 		},
@@ -124,12 +158,13 @@
 					"raw": "{\n\t\"name\": \"users\",\n\t\"columnDefinitions\":\n\t  [\n        {\n\t      \"name\": \"firstname\",\n\t      \"typeDefinition\": \"text\"\n\t    },\n        {\n\t      \"name\": \"lastname\",\n\t      \"typeDefinition\": \"text\"\n\t    },\n\t    {\n\t      \"name\": \"email\",\n\t      \"typeDefinition\": \"text\"\n\t    },\n        {\n\t      \"name\": \"favorite color\",\n\t      \"typeDefinition\": \"text\"\n\t    }\n\t  ],\n\t\"primaryKey\":\n\t  {\n\t    \"partitionKey\": [\"firstname\"],\n\t    \"clusteringKey\": [\"lastname\"]\n\t  },\n\t\"tableOptions\":\n\t  {\n\t    \"defaultTimeToLive\": 0,\n\t    \"clusteringExpression\":\n\t      [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n\t  }\n}"
 				},
 				"url": {
-					"raw": "localhost:8082/schemas/keyspaces/users_keyspace/tables",
+					"raw": "localhost:8082/v2/schemas/keyspaces/users_keyspace/tables",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
+						"v2",
 						"schemas",
 						"keyspaces",
 						"users_keyspace",
@@ -157,12 +192,13 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:8082/schemas/keyspaces/users_keyspace/tables/users",
+					"raw": "localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
+						"v2",
 						"schemas",
 						"keyspaces",
 						"users_keyspace",
@@ -353,17 +389,17 @@
 	],
 	"variable": [
 		{
-			"id": "dcf51247-acf2-4b02-a1c0-13b7f8d70ce5",
+			"id": "eff22c48-51a7-489f-b83f-406e14762cb5",
 			"key": "username",
 			"value": ""
 		},
 		{
-			"id": "50f6377c-ee17-434c-a893-626dc0750d50",
+			"id": "9337c24a-3b4b-4fe1-993d-469c92789db9",
 			"key": "password",
 			"value": ""
 		},
 		{
-			"id": "4105db6c-b0bd-47d2-ad47-678519bee908",
+			"id": "62c60e7c-6e30-4a44-9ad7-b702fe44f973",
 			"key": "token",
 			"value": ""
 		}
