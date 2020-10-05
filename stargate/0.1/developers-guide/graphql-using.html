@@ -355,12 +355,8 @@ and create a keyspace by executing the following mutation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mutation {
-  createKeyspace(
-    name:"library", # The name of your keyspace
-    # Controls how your data is replicated,
-    dcs: { name:"dc1", replicas: 1 }  # Use at least 3 replicas in production
-  )
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mutation createKeyspaceLibrary {
+  createKeyspace(name:"library", replicas: 1)
 }</code></pre>
 </div>
 </div>
