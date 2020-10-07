@@ -1,16 +1,16 @@
 openapi: 3.0.1
 info:
   title: Stargate REST on Astra
-  description: ""
+    description: "The Stargate REST API provides CRUD operations on table data managed by Stargate."
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
-servers:
-  - url: https://{databaseId}-{region}.apps.astra.datastax.com
-externalDocs:
-  description: Reference Document
-  url: http://shorturl.at/hnqIQ
+#servers:
+#  - url: https://{databaseId}-{region}.apps.astra.datastax.com
+#externalDocs:
+#  description: Reference Document
+#  url: http://shorturl.at/hnqIQ
 tags:
   - name: auth
     description: auth
