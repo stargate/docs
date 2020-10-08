@@ -57,10 +57,10 @@ and `1` for the number of data `replicas`.
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/schemas/keyspaces' \
+curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "name": "users_keyspace",
     "replicas": 1
 }'
@@ -75,10 +75,10 @@ Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
+curl --location --request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
 	"name": "users",
 	"columnDefinitions":
 	  [
@@ -121,7 +121,7 @@ To check if a keyspace or tables exist, execute the REST query with `cURL`:
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v1/keyspaces' \
+curl -L -X GET 'localhost:8082/v2/keyspaces' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'
@@ -138,7 +138,7 @@ For tables:
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v1/keyspaces/'users_keyspace'/tables' \
+curl -L -X GET 'localhost:8082/v2/keyspaces/'users_keyspace'/tables' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'
@@ -165,7 +165,7 @@ The column name/value pairs are passed in the JSON body.
 curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "firstname": "Mookie",
     "lastname": "Betts",
     "email": "mookie.betts@gmail.com",
@@ -202,7 +202,7 @@ so we use `/Mookie/Betts` as the `{path}` in our request.
 curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "email": "mookie.betts.new-email@email.com"
 }'
 ----
