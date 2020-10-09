@@ -40,11 +40,11 @@ export AUTH_TOKEN={auth-token}
 // tag::startUsingPostman[]
 == Using Postman
 
-If you prefer, you can use Postman as a client interface for exploring REST
-Document APIs (https://www.postman.com/downloads/[download here]).
+If you prefer, you can use Postman as a client interface for exploring the
+Document API (https://www.postman.com/downloads/[download here]).
 // LLP: NEED TO REPLACE THIS
 We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate Document API Postman Collection]
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection]
 that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the Document API for CRUD operations.
