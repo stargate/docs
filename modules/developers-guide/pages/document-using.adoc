@@ -4,7 +4,38 @@ Stargate is a data gateway deployed between client applications and a database.
 The Document API plugin that exposes CRUD access to data stored as JSON
 documents in collections.
 
-// tag::startUsingPostman[]
+// tag::prereqsList[]
+include::quickstart:partial$text/prereqs.adoc[]
+// end::prereqsList[]
+
+// tag::getDockerImage[]
+include::quickstart:partial$bash/docker_pull.sh[]
+// end::getDockerImage[]
+
+// tag::startDocker[]
+include::quickstart:partial$bash/docker_run.sh[]
+// end::startDocker[]
+
+== Using the Auth API to generate an auth token
+
+// tag::GenAuthToken[]
+In order to use the Stargate Document API, an authorization token must be
+generated to access the interface.
+
+include::quickstart:partial$bash/gen_auth_token.sh[]
+// end::GenAuthToken[]
+
+// tag::UseAuthToken[]
+=== Use the auth token
+Store the auth token in an environment variable to make it easy to use with `cURL`.
+
+[source,bash]
+----
+export AUTH_TOKEN={auth-token}
+----
+// end::UseAuthToken[]
+
+// tag::UsingPostman[]
 == Using Postman
 
 If you prefer, you can use Postman as a client interface for exploring REST APIs
@@ -15,7 +46,7 @@ https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/s
 can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the Document API for CRUD operations.
-// tag::endUsingPostman[]
+// end::UsingPostman[]
 
 == Creating or dropping schema
 
@@ -26,7 +57,7 @@ Collections consist of unstructured JSON documents. Documents can themselves
 hold multiple documents. Multiple collections are contained
 in a namespace, but a collection cannot be contained in multiple namespaces.
 
-// tag::startCreateNS[]
+// tag::CreateNS[]
 === Creating a namespace
 
 Before you can start using the Document API, you must first create a
@@ -36,6 +67,8 @@ namespace and at least collection in your database.
 If you are connecting to a
 Cassandra database with existing schema, you can skip this step.
 
+// LLP:   need to change this to something that is better. Need to take this out and
+// put it in Auth API and call there.
 Note that you must create an xref:quickstart:quick_start-rest.adoc#genAuthToken[auth token] first.
 
 Send a `POST` request to `/v2/schemas/namespaces`.
@@ -52,9 +85,9 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
     "replicas": 1
 }'
 ----
-// tag::endCreateNS[]
+// end::CreateNS[]
 
-// tag::startCreateColl[]
+// tag::CreateColl[]
 === Creating a collection
 
 Send a `POST` request to `/v2/schemas/namespaces/{namespace_name}/collections` to create a table.
@@ -77,15 +110,14 @@ curl --location \
   "validationAction": "warn"
 }'
 ----
-
-// tag::endCreateColl[]
+// end::CreateColl[]
 
 ////
 ==== Data types
 Need to add data types!!
 ////
 
-// tag::startCheckNSColls[]
+// tag::CheckNSColls[]
 == Checking namespace and collection existence
 
 To check if a namespace or collection exists, execute a
@@ -155,10 +187,11 @@ curl -L \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'
 ----
-// tag::endCheckNSColls[]
+// end::CheckNSColls[]
 
 == Drop namespaces or collections
 
+// tag::deleteNS[]
 === Dropping a namespace
 
 Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}` to delete
@@ -172,7 +205,9 @@ curl --location \
 --header 'X-Cassandra-Token: $AUTH_TOKEN' \
 --header 'Content-Type: application/json'
 ----
+// end::deleteNS[]
 
+// tag::deleteColl[]
 === Dropping a collection
 
 Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}/collections/{collection_name}`
@@ -185,8 +220,10 @@ curl --location \
 --header 'X-Cassandra-Token: $AUTH_TOKEN' \
 --header 'Content-Type: application/json'
 ----
+// end::deleteColl[]
 
-=== Update or replace a collection
+// tag:updateColl[]
+== Update or replace a collection
 
 If you find a collection must be updated or replaced, send a `PUT` request to
 `/v2/schemas/namespaces/{namespace_name}/collections/{collection_name}` with
@@ -200,10 +237,11 @@ curl --location
 --header 'Content-Type: application/json'
 // LLP: PUT IN INFO HERE???
 ----
+// end:updateColl[]
 
 == Interacting with data stored in collections
 
-// tag::startWriteData[]
+// tag::WriteData[]
 === Write data
 
 First, let's add a document to the `fitness` collection that you created.
@@ -226,9 +264,9 @@ curl --location --request POST 'localhost:8082/v2/namespaces/myworld/collections
 ----
 
 // LLP: NEED PUT/PATCH sub-document by path
-// tag::endWriteData[]
+// end::WriteData[]
 
-// tag::startReadData[]
+// tag::ReadData[]
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
@@ -267,9 +305,9 @@ curl GET \
   }
 }'
 ----
-// tag::endReadData[]
+// end::ReadData[]
 
-// tag::startUpdateData[]
+// tag::UpdateData[]
 === Update data
 
 Data changes, so often it is necessary to update an entire document.
@@ -298,7 +336,7 @@ curl PUT \
 NOTE: Updates are upserts. If the document doesn't exist, it will be created.
 If it does exist, it will be updated with the new document data.
 
-// tag::endUpdateData[]
+// end::UpdateData[]
 
 It is also possible to update only part of a document. To partially update, send
 a `PATCH` request to
@@ -325,7 +363,7 @@ curl PATCH \
 }'
 ----
 
-// tag::startDeleteData[]
+// tag::DeleteData[]
 === Delete data
 To delete a document, send a `DELETE` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
@@ -337,4 +375,4 @@ curl DELETE \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 ----
-// tag::endDeleteData[]
+// end::DeleteData[]

@@ -3,7 +3,29 @@
 Stargate is a data gateway deployed between client applications and a database.
 The REST API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-// tag::startUsingPostman[]
+// tag::prereqsList[]
+include::quickstart:partial$text/prereqs.adoc[]
+// end::prereqsList[]
+
+// tag::getDockerImage[]
+include::quickstart:partial$bash/docker_pull.sh[]
+// end::getDockerImage[]
+
+// tag::startDocker[]
+include::quickstart:partial$bash/docker_run.sh[]
+// end::startDocker[]
+
+== Using the Auth API to generate an auth token
+In order to use the Stargate Document API, an authorization token must be
+generated to access the interface.
+
+// generate the auth token
+include::quickstart:partial$bash/gen_auth_token.sh[]
+
+// using the auth token
+include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
+
+// tag::UsingPostman[]
 == Using Postman
 
 If you prefer, you can use Postman as a client interface for exploring REST APIs
@@ -12,7 +34,7 @@ We've provided a
 https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the REST API for CRUD operations.
-// tag::endUsingPostman[]
+// end::UsingPostman[]
 
 == Creating or dropping schema
 
@@ -22,7 +44,7 @@ tables that will store the data. A keyspace is a container for which a
 Tables consist of columns that have a defined data type. Multiple tables are contained
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
-// tag::startCreateKS[]
+// tag::CreateKS[]
 === Creating a keyspace
 
 Before you can start using the REST API, you must first create a Cassandra
@@ -45,9 +67,9 @@ curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
     "replicas": 1
 }'
 ----
-// tag::endCreateKS[]
+// end::CreateKS[]
 
-// tag::startCreateTable[]
+// tag::CreateTable[]
 === Creating a table
 
 Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
@@ -96,13 +118,14 @@ curl --location \
 
 Information about partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
-// tag::endCreateTable[]
+// end::CreateTable[]
 
 ////
 ==== Data types
 Need to add data types!!
 ////
 
+// tag: AddColumn[]
 === Adding columns to table schema
 
 If you need to add an attribute to something you are storing in a table, you
@@ -131,8 +154,9 @@ curl --location
 	"typeDefinition": "text"
 }'
 ----
+// end: AddColumn[]
 
-// tag::startCheckKSTables[]
+// tag::CheckKSTables[]
 == Checking keyspace, table, and column existence
 
 To check if a keyspace, tables, or particular table columns exist, execute a
@@ -248,10 +272,11 @@ returns
 ["users"]
 ----
 
-// tag::endCheckKSTables[]
+// end::CheckKSTables[]
 
 == Drop keyspaces, tables or columns
 
+// tag::DropKS[]
 === Dropping a keyspace
 
 Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}` to delete
@@ -265,7 +290,9 @@ curl --location \
 --header 'X-Cassandra-Token: $AUTH_TOKEN' \
 --header 'Content-Type: application/json'
 ----
+// end::DropKS[]
 
+// tag::DropTable[]
 === Dropping a table
 
 Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}`
@@ -278,7 +305,9 @@ curl --location \
 --header 'X-Cassandra-Token: $AUTH_TOKEN' \
 --header 'Content-Type: application/json'
 ----
+// end::DropTable[]
 
+// tag::RemoveColumn[]
 === Removing columns from table schema
 
 If you find an attribute is no longer required in a table, you
@@ -292,10 +321,16 @@ curl --location
 --header 'X-Cassandra-Token: $AUTH_TOKEN'
 --header 'Content-Type: application/json'
 ----
+// end::RemoveColumn[]
+
+== Modifying schema
+
+//LLP: need to add "replace a table definition, except for columns"
+// which can be used to change table options, like clustering order and TTL
 
 == Interacting with data stored in tables
 
-// tag::startWriteData[]
+// tag::WriteData[]
 === Write data
 
 First, let's add some data to the `users` table that you created.
@@ -324,9 +359,9 @@ curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users
     "favorite color": "grey"
 }'
 ----
-// tag::endWriteData[]
+// end::WriteData[]
 
-// tag::startReadData[]
+// tag::ReadData[]
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
@@ -354,9 +389,9 @@ curl GET \
 --header 'Content-Type: application/json' \
 --data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
 ----
-// tag::endReadData[]
+// end::ReadData[]
 
-// tag::startUpdateData[]
+// tag::UpdateData[]
 === Update data
 
 Data changes, so often it is necessary to update an entire row.
@@ -380,7 +415,7 @@ curl --location \
 NOTE: Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
 
-// tag::endUpdateData[]
+// end::UpdateData[]
 
 It is also possible to update only part of a row. To partially update, send
 a `PATCH` request to   `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
@@ -398,7 +433,7 @@ curl --location \
 }'
 ----
 
-// tag::startDeleteData[]
+// tag::DeleteData[]
 === Delete data
 To delete a row, send a `DELETE` request to
 `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
@@ -411,4 +446,4 @@ curl --location \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
-// tag::endDeleteData[]
+// end::DeleteData[]
