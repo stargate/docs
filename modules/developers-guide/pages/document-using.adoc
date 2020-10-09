@@ -36,7 +36,7 @@ namespace and at least collection in your database.
 If you are connecting to a
 Cassandra database with existing schema, you can skip this step.
 
-Note that you must create an xref:quickstart/quick_start-rest.adoc#genAuthToken[auth token] first.
+Note that you must create an xref:quickstart:quick_start-rest.adoc#genAuthToken[auth token] first.
 
 Send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`,
