@@ -1,8 +1,7 @@
-= REST API
+= Document API
 
-The Stargate REST API is implemented to use REST queries with any Cassandra
-deployment.
+The Stargate Document API is implemented to use schemaless document REST queries
+ with any Cassandra deployment.
 
-* xref:quickstart:quick_start-rest.adoc[REST QuickStart]
-* xref:rest-using.adoc[Using the REST API]
-* xref:openapi_rest_ref.adoc[REST API reference]
+* xref:quickstart:quick_start-document.adoc[Document API QuickStart]
+* xref:document-using.adoc[Using the Document API]
