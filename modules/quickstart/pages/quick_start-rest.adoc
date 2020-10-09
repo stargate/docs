@@ -18,23 +18,15 @@ include::partial$bash/docker_pull.sh[]
 include::partial$bash/docker_run.sh[]
 // end::startDocker[]
 
-== Using the Stargate REST API
+== Using the Auth API to generate an auth token
+In order to use the Stargate Document API, an authorization token must be
+generated to access the interface.
 
-In order to use the Stargate REST API, an authorization token must be generated
-to access the interface.
-
-// tag::startGenAuthToken[]
+// generate the auth token
 include::partial$bash/gen_auth_token.sh[]
-// tag::endGenAuthToken[]
 
-// tag::startUseAuthToken[]
-Store the auth token in an environment variable to make it easy to use with `cURL`.
-
-[source,bash]
-----
-export AUTH_TOKEN={auth-token}
-----
-// tag::endUseAuthToken[]
+// using the auth token
+include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
 
 // tag::startUsingPostman[]
 == Using Postman
@@ -48,180 +40,34 @@ Now you're ready to use the REST API for CRUD operations.
 // tag::endUsingPostman[]
 
 == Creating schema
-// tag::startCreateKS[]
-=== Creating a keyspace using the REST API
 
-Send a `POST` request to `/v2/schemas/keyspaces`.
-In this example we use `users_keyspace` for the `name`,
-and `1` for the number of data `replicas`.
+In order to use the REST API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.
 
-[source,bash]
-----
-curl --location --request POST 'localhost:8082/schemas/keyspaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "users_keyspace",
-    "replicas": 1
-}'
-----
-// tag::endCreateKS[]
+// create namespace
+include::developers-guide:page$rest-using.adoc[tag=CreateKS]
 
-// tag::startCreateTable[]
-=== Creating a table using the REST API
+// create collection
+include::developers-guide:page$rest-using.adoc[tag=CreateTable]
 
-Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
-Set the table name and column definitions in the JSON body.
+// check NS and collections exist
+include::developers-guide:page$rest-using.adoc[tag=CheckKSTables]
 
-[source,bash]
-----
-curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-raw '{
-	"name": "users",
-	"columnDefinitions":
-	  [
-        {
-	      "name": "firstname",
-	      "typeDefinition": "text"
-	    },
-        {
-	      "name": "lastname",
-	      "typeDefinition": "text"
-	    },
-	    {
-	      "name": "email",
-	      "typeDefinition": "text"
-	    },
-        {
-	      "name": "favorite color",
-	      "typeDefinition": "text"
-	    }
-	  ],
-	"primaryKey":
-	  {
-	    "partitionKey": ["firstname"],
-	    "clusteringKey": ["lastname"]
-	  },
-	"tableOptions":
-	  {
-	    "defaultTimeToLive": 0,
-	    "clusteringExpression":
-	      [{ "column": "lastname", "order": "ASC" }]
-	  }
-}'
-----
-// tag::endCreateTable[]
+== Interacting with data stored in tables
 
-// tag::startCheckKSTables[]
-=== Checking that keyspaces and tables exist
+// write document data
+include::developers-guide:page$rest-using.adoc[tag=WriteData]
 
-To check if a keyspace or tables exist, execute the REST query with `cURL`:
+// read document data
+include::developers-guide:page$rest-using.adoc[tag=ReadData]
 
-[source,bash]
-----
-curl -L -X GET 'localhost:8082/v1/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
+// update document data
+include::developers-guide:page$rest-using.adoc[tag=UpdateData]
 
-returns
+// delete document data
+include::developers-guide:page$rest-using.adoc[tag=DeleteData]
 
-[source, plaintext]
-----
-["data_endpoint_auth","users_keyspace","stargate_system","system","system_auth","system_distributed","system_schema","system_traces"]
-----
-
-For tables:
-
-[source,bash]
-----
-curl -L -X GET 'localhost:8082/v1/keyspaces/'users_keyspace'/tables' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-["users"]
-----
-
-// tag::endCheckKSTables[]
-
-== Interacting with tables
-// tag::startWriteData[]
-=== Write data
-
-Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}` to add data to the table.
-The column name/value pairs are passed in the JSON body.
-
-[source,bash]
-----
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-raw '{
-    "firstname": "Mookie",
-    "lastname": "Betts",
-    "email": "mookie.betts@gmail.com",
-    "favorite color": "blue"
-}'
-----
-// tag::endWriteData[]
-
-// tag::startReadData[]
-=== Read data
-
-Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
-to retrieve a row using the primary key of the table in the `where` params.
-
-[source,bash]
-----
-curl -G --location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
-----
-// tag::endReadData[]
-
-// tag::startUpdateData[]
-=== Update data
-
-To update a row, send a `PUT` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
-The `{path}` is comprised of the primary key values.
-In this example the partition key is `firstname` "Mookie" and the clustering key is `lastname` "Betts"
-so we use `/Mookie/Betts` as the `{path}` in our request.
-
-[source,bash]
-----
-curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-raw '{
-    "email": "mookie.betts.new-email@email.com"
-}'
-----
-
-NOTE: Updates are upserts. If the row doesn't exist, it will be created.
-If it does exist, it will be udpated with the new row data.
-
-// tag::endUpdateData[]
-
-// tag::startDeleteData[]
-=== Delete data
-To delete a row, send a `DELETE` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
-In this request we delete all data with the primary key `firstname` of `Mookie`
-
-[source,bash]
-----
-curl --location --request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-----
-// tag::endDeleteData[]
 Voila! For more information on the REST API, see the xref:developers-guide/openapi_rest_ref.adoc[REST API] in the Data API section.

@@ -55,7 +55,7 @@ We'll start the playground with `/graphql-schema` to create some schema.
 == Creating schema
 
 // tag::startCreateKS[]
-=== Creating a keyspace using the GraphQL API
+=== Creating a keyspace
 
 Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace and at least one table in your database. If you are connecting to a
@@ -102,7 +102,7 @@ Now run the mutation to create the keyspace. You should see a return value of:
 // tag::endCreateKS[]
 
 // tag::startCreateTables[]
-=== Creating a table using the GraphQL API
+=== Creating a table
 
 After the keyspace exists, you can create two tables by executing the following
 mutation:

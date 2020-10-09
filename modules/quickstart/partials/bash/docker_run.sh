@@ -1,4 +1,4 @@
-== Start the Stargate container
+=== Start the Stargate container
 
 Start the Stargate container in developer mode.
 Developer mode removes the need to set up a separate Cassandra instance and is

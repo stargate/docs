@@ -1,3 +1,4 @@
+
 The step below uses `cURL` to access the REST interface to generate the needed
 token.
 
