@@ -1,0 +1,340 @@
+= Using the Stargate Document API
+
+Stargate is a data gateway deployed between client applications and a database.
+The Document API plugin that exposes CRUD access to data stored as JSON
+documents in collections.
+
+// tag::startUsingPostman[]
+== Using Postman
+
+If you prefer, you can use Postman as a client interface for exploring REST APIs
+(https://www.postman.com/downloads/[download here]).
+We've provided a
+// LLP: NEED TO CREATE THIS FILE!!
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection] that you
+can import in Postman to play with the examples shown in this walkthrough.
+
+Now you're ready to use the Document API for CRUD operations.
+// tag::endUsingPostman[]
+
+== Creating or dropping schema
+
+In order to use the Document API, you must create schema that defines the namespace
+and collections that will store the data. A namespace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Collections consist of unstructured JSON documents. Documents can themselves
+hold multiple documents. Multiple collections are contained
+in a namespace, but a collection cannot be contained in multiple namespaces.
+
+// tag::startCreateNS[]
+=== Creating a namespace
+
+Before you can start using the Document API, you must first create a
+namespace and at least collection in your database.
+
+// LLP: IS THIS TRUE?
+If you are connecting to a
+Cassandra database with existing schema, you can skip this step.
+
+Note that you must create an xref:quickstart/quick_start-rest.adoc#genAuthToken[auth token] first.
+
+Send a `POST` request to `/v2/schemas/namespaces`.
+In this example we use `myworld` for the `name`,
+and `1` for the number of data `replicas`.
+
+[source,bash]
+----
+curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "myworld",
+    "replicas": 1
+}'
+----
+// tag::endCreateNS[]
+
+// tag::startCreateColl[]
+=== Creating a collection
+
+Send a `POST` request to `/v2/schemas/namespaces/{namespace_name}/collections` to create a table.
+Set the collection name `fitness` in the JSON body.
+
+[source,bash]
+----
+curl --location \
+--request POST 'localhost:8082/v2/schemas/namespaces/myworld/collections' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+ "name": "fitness",
+  "fields": {
+    "name": {
+      "type": "String",
+      "index": true
+    }
+  },
+  "validationAction": "warn"
+}'
+----
+
+// tag::endCreateColl[]
+
+////
+==== Data types
+Need to add data types!!
+////
+
+// tag::startCheckNSColls[]
+== Checking namespace and collection existence
+
+To check if a namespace or collection exists, execute a
+Document API query with `cURL`:
+
+For namespaces:
+
+[source,bash]
+----
+curl -L -X GET 'localhost:8082/v2/schemas/namespaces' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+----
+
+returns
+
+[source, plaintext]
+----
+// LLP: GET THE RETURN RESULT
+
+----
+
+To get a particular namespace:
+
+[source,bash]
+----
+curl -L -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+----
+
+returns
+
+[source, plaintext]
+----
+// LLP: GET THE RETURN RESULT
+----
+
+For collections:
+
+[source,bash]
+----
+curl -L \
+-X GET 'localhost:8082/v2/schemas/namespaces/'myworld'/collections' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+----
+
+returns
+
+[source, plaintext]
+----
+// LLP: GET THE RETURN RESULT
+["collections/fitness"]
+----
+
+To get a particular collection:
+
+[source,bash]
+----
+curl -L \
+-X GET 'localhost:8082/v2/schemas/namespaces/'myworld'/collections/fitness' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+----
+// tag::endCheckNSColls[]
+
+== Drop namespaces or collections
+
+=== Dropping a namespace
+
+Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}` to delete
+a namespace. All data and all collection schema will be deleted along with the
+namespace scheam.
+
+[source, bash]
+----
+curl --location \
+--request DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header 'Content-Type: application/json'
+----
+
+=== Dropping a collection
+
+Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}/collections/{collection_name}`
+to delete a collection. All data will be deleted along with the collection schema.
+
+[source, bash]
+----
+curl --location \
+--request DELETE 'localhost:8082/v2/schemas/namespaces/myworld/collections/fitness' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header 'Content-Type: application/json'
+----
+
+=== Update or replace a collection
+
+If you find a collection must be updated or replaced, send a `PUT` request to
+`/v2/schemas/namespaces/{namespace_name}/collections/{collection_name}` with
+the information to change:
+
+[source, bash]
+----
+curl --location
+--request PUT 'localhost:8082/v2/schemas/namespaces/myworld/collections/fitness'
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+--header 'Content-Type: application/json'
+// LLP: PUT IN INFO HERE???
+----
+
+== Interacting with data stored in collections
+
+// tag::startWriteData[]
+=== Write data
+
+First, let's add a document to the `fitness` collection that you created.
+Send a `POST` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}`
+to add data to the collection.
+The data is passed in the JSON body.
+
+[source,bash]
+----
+curl --location --request POST 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+// LLP: NEED TO FIX THIS!!
+--data '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "blue"
+}'
+----
+
+// LLP: NEED PUT/PATCH sub-document by path
+// tag::endWriteData[]
+
+// tag::startReadData[]
+=== Read data
+
+Let's check that the data was inserted. Send a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
+all the documents:
+
+[source,bash]
+----
+curl GET \
+--location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+----
+
+Now let's search for a particular document using a `path` clause.
+Send a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
+to retrieve the document for `LLP-weightlifting`:
+
+// LLP: FIX THIS!!
+[source,bash]
+----
+curl GET \
+--location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-urlencode '{
+  "data": {
+    "documentId": "my-first-lift01012020",
+    "type": "weightlifting",
+    "lift": {
+      "name": "bench press",
+      "reps": 12,
+      "weight": 140
+    }
+  }
+}'
+----
+// tag::endReadData[]
+
+// tag::startUpdateData[]
+=== Update data
+
+Data changes, so often it is necessary to update an entire document.
+To update a document, send a `PUT` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}`.
+
+[source,bash]
+----
+curl PUT \
+--location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-urlencode '{
+  "data": {
+    "documentId": "my-first-lift01012020",
+    "type": "weightlifting",
+    "lift": {
+      "name": "bench press",
+      "reps": 12,
+      "weight": 150
+    }
+  }
+}'
+----
+
+NOTE: Updates are upserts. If the document doesn't exist, it will be created.
+If it does exist, it will be updated with the new document data.
+
+// tag::endUpdateData[]
+
+It is also possible to update only part of a document. To partially update, send
+a `PATCH` request to
+ `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
+In this example, we realize we should not have changed the weight, and
+we want to only change that one item:
+
+[source,bash]
+----
+curl PATCH \
+--location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-urlencode '{
+  "data": {
+    "documentId": "my-first-lift01012020",
+    "type": "weightlifting",
+    "lift": {
+      "name": "bench press",
+      "reps": 12,
+      "weight": 150
+    }
+  }
+}'
+----
+
+// tag::startDeleteData[]
+=== Delete data
+To delete a document, send a `DELETE` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
+
+[source,bash]
+----
+curl DELETE \
+--location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/my-first-lift01012020' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+----
+// tag::endDeleteData[]

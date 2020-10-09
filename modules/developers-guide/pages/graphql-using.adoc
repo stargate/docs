@@ -23,9 +23,16 @@ such as `CREATE KEYSPACE`, `CREATE TABLE1`, or `DROP TABLE`.
 
 We'll start the playground with `/graphql-schema` to create some schema.
 
-== Creating schema
+== Creating or dropping schema
 
-=== Creating a keyspace using the GraphQL API
+In order to use the GraphQL API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.
+
+// tag::startCreateKS[]
+=== Creating a keyspace
 
 Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace and at least one table in your database. If you are connecting to a
@@ -66,8 +73,10 @@ You should see a return value of:
   }
 }
 ----
+// tag::endCreateKS[]
 
-=== Creating a table using the GraphQL API
+// tag::startCreateTable[]
+=== Creating a table
 
 After the keyspace exists, you can create two tables by executing the following
 mutation:
@@ -113,15 +122,41 @@ returns
 Worth noting is that one mutation is used to create two tables. Information about
 partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
+// tag::endCreateTable[]
 
 ////
 === Data types
 Need to add data types!!
 ////
 
+=== Adding columns to table schema
+
+If you need to add more attributes to something you are storing in a table, you
+can add a column:
+
+[source, plaintext]
+----
+mutation {
+  alterTableAdd(
+    keyspaceName:"library",
+    tableName:"books",
+    toAdd:[{
+      name: "isbn",
+      type: {
+        basic: TEXT
+      }
+    }]
+  )
+}
+----
+
+// tag::startCheckKSTables[]
 === Checking that keyspaces and tables exist
 
-To check if a keyspace or tables exist, GraphQL queries can be executed:
+To check if a keyspace, tables, or particular table columns exist, execute a
+GraphQL query:
+
+For keyspaces and tables:
 
 [source, plaintext]
 ----
@@ -171,31 +206,40 @@ which query to run. The first query will return information about the keyspace
 `library` and the tables within it. The second query will return just information
 about the tables in that keyspace.
 
-=== Adding columns to table schema
+// LLP: What about "columns"?
 
-If you need to add more attributes to something you are storing in a table, you
-can add a column:
+// tag::endCheckKSTables[]
+
+== Drop keyspaces, tables or columns
+
+=== Dropping a keyspace
+
+You can delete a keyspace. All tables and table data will be deleted along with
+the keyspace schema.
 
 [source, plaintext]
 ----
 mutation {
-  alterTableAdd(
-    keyspaceName:"library",
-    tableName:"books",
-    toAdd:[{
-      name: "isbn",
-      type: {
-        basic: TEXT
-      }
-    }]
-  )
+  dropKeyspace(keyspaceName:"library"
+}
+----
+
+=== Dropping a table
+
+You can delete a table. All data will be deleted along with the table schema.
+
+[source, plaintext]
+----
+mutation {
+  dropTable(keyspaceName:"library",
+    tableName:"books")
 }
 ----
 
 === Removing columns from table schema
 
 If you find an attribute is no longer required in a table, you
-can remove a column:
+can remove a column.  Allcolumn data will be deleted along with the column schema.
 
 [source, plaintext]
 ----
@@ -208,19 +252,7 @@ mutation {
 }
 ----
 
-=== Dropping table schema
-
-You can also drop an entire table and its data:
-
-[source, plaintext]
-----
-mutation {
-  dropTable(keyspaceName:"library",
-    tableName:"books")
-}
-----
-
-== Interacting with tables
+== Interacting with data stored in tables
 
 === API generation
 
@@ -423,13 +455,20 @@ returns
 }
 ----
 
-If we want to read all the data for a book, we can use a query.
-
+// tag::startReadData[]
 === Read data
 
+Let's check that the data was inserted.
+
+// LLP: Get all book data - add a query
+
+Now let's search for a particular record using a `WHERE` clause. The primary
+key of the table can be used in the `WHERE` clause, but non-primary key columns
+cannot be used.
 The following query, looking at the location
 http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
-will get both the `title` and the `author` for the specified book:
+will get both the `title` and the `author` for the specified book `WHERE
+title:"Moby Dick"`:
 
 [source,plaintext]
 ----
@@ -468,7 +507,9 @@ gt (greater than), gte (greater than or equal to), lt (less than),
 lte (less than or equal to), and in (within) operators. Note that these can
 only be used with primary key columns just like in Cassandra.
 ////
+// tag::endReadData[]
 
+// tag::startUpdateData[]
 === Update data
 
 Using the column that we added earlier, the data for a book is updated with the
@@ -490,6 +531,9 @@ mutation updateABook {
 NOTE: Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
 
+// tag::endUpdateData[]
+
+// tag::startDeleteData[]
 === Delete data
 
 After adding the book "Pride and Prejudice" with an `insertBooks()`, I can delete
@@ -516,6 +560,7 @@ mutation deleteABook {
   }
 }
 ----
+// tag::endDeleteData[]
 
 ////
 I'll need a section that shows how connecting to an existing C* cluster will automatically
