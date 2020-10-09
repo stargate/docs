@@ -4,7 +4,10 @@
 * xref:starctl.adoc[The starctl command]
 
 .Data APIs
+* xref:document.adoc[Document API]
+** xref:document-using.adoc[Using the Document API]
 * xref:rest.adoc[REST API]
+** xref:rest-using.adoc[Using the REST API]
 ** xref:openapi_rest_ref.adoc[REST API reference]
 * xref:graphql.adoc[GraphQL API]
 ** xref:graphql-using.adoc[Using the GraphQL API]

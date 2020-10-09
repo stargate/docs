@@ -1,0 +1,8 @@
+= REST API
+
+The Stargate REST API is implemented to use REST queries with any Cassandra
+deployment.
+
+* xref:quickstart:quick_start-rest.adoc[REST QuickStart]
+* xref:rest-using.adoc[Using the REST API]
+* xref:openapi_rest_ref.adoc[REST API reference]
