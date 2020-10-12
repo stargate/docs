@@ -121,7 +121,7 @@ To check if a keyspace or tables exist, execute the REST query with `cURL`:
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v2/keyspaces' \
+curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'
@@ -138,7 +138,7 @@ For tables:
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v2/keyspaces/'users_keyspace'/tables' \
+curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'
