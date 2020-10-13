@@ -52,7 +52,7 @@ include::developers-guide:page$document-using.adoc[tag=CreateNS]
 include::developers-guide:page$document-using.adoc[tag=CreateColl]
 
 // check NS and collections exist
-include::developers-guide:page$document-using.adoc[tag=CheckNSColls]
+include::developers-guide:page$document-using.adoc[tag=CheckNS]
 
 
 == Interacting with data stored in collections
