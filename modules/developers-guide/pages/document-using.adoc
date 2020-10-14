@@ -89,22 +89,26 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
     "replicas": 1
 }'
 ----
+
+The authorization token and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+
+The specified name and replication factor for the namespace are passed as JSON
+data using `--data`.
 // end::CreateNS[]
 
 // tag::CheckNS[]
 === Checking namespace existence
 
-To check if a namespace or collection exists, execute a
-Document API query with `cURL`:
-
-For namespaces:
+To check if a namespaces exist, execute a
+Document API query with `cURL` to find all the namespaces:
 
 [source,bash]
 ----
 curl -L -X GET 'localhost:8082/v2/schemas/namespaces' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header "X-Cassandra-Token: $AUTH_TOKEN"
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
 ----
 
 returns
@@ -114,14 +118,15 @@ returns
 {"data":[{"name":"system_distributed"},{"name":"system"},{"name":"data_endpoint_auth"},{"name":"users_keyspace"},{"name":"system_schema"},{"name":"myworld"},{"name":"stargate_system"},{"name":"system_auth"},{"name":"system_traces"}]}
 ----
 
-To get a particular namespace:
+For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.
+`
+To get a particular namespace, specify the namespace in the URL:
 
 [source,bash]
 ----
-curl -L -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header "X-Cassandra-Token: $AUTH_TOKEN"
+curl -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
 ----
 
 returns
@@ -143,8 +148,7 @@ namespace schema.
 
 [source, bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
+curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
@@ -179,14 +183,14 @@ curl --location \
 //--request PUT 'localhost:8082/v2/schemas/namespaces/myworld/collections/fitness'
 //--header "X-Cassandra-Token: $AUTH_TOKEN"
 //--header 'Content-Type: application/json'
-// LLP: PUT IN INFO HERE???
+// LLP: PUT IN INFO HERE
 //----
 // end:updateColl[]
 
 == Interacting with data stored in collections
 
 // tag::WriteData[]
-=== Write data
+=== Write documents
 
 First, let's add a document to a specified collection.
 Send a `POST` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}`
@@ -224,8 +228,7 @@ The data is passed in the JSON body.
 
 [source,bash]
 ----
-curl --location \
---request PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/some-stuff' \
+curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/some-stuff' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -248,13 +251,12 @@ collection.
 You can also insert documents that have nested values, or sub-documents.
 Send a `PUT` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
-to add data to the collection.
+to add data to the existing collection.
 The data is passed in the JSON body.
 
 [source,bash]
 ----
-curl --location \
---request PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
+curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -275,8 +277,34 @@ returns
 {"documentId":"350041bd-5e41-421b-9b3b-f021921851ce"}
 ----
 
+//Finally, data can replace data at a path in a document. Send a `PUT` request to
+//`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+//to add data to the existing collection at the designated path.
 
-// LLP: NEED PUT/PATCH sub-document by path
+//[source,bash]
+//----
+//curl -L \
+//-X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/{document-path}' \
+//--header "X-Cassandra-Token: $AUTH_TOKEN" \
+//--header 'Content-Type: application/json' \
+//--data '{
+//    "firstname": "Joey",
+//    "lastname": "Doe",
+//    "weights": {
+//      "type": "squat",
+//      "weight": 350,
+//      "reps": 10
+//  }
+//}'
+//----
+
+//returns
+
+//[source, plaintext]
+//----
+
+//----
+
 // end::WriteData[]
 
 
@@ -286,18 +314,17 @@ Need to add data types!!
 ////
 
 // tag::ReadData[]
-=== Read data
+=== Read documents
 
-Let's check that the data was inserted. Send a `GET` request to
+Let's check that the document was inserted. Send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
 all the documents:
 
 [source,bash]
 ----
-curl GET \
---location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
+curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
+--header 'Content-Type: application/json'
 ----
 
 returns
@@ -313,15 +340,17 @@ returns
 }
 ----
 
-The `page-size` parameter is included to get all the documents, rather than the last inserted document.
+The `page-size` parameter is included to get all the documents, rather than the
+last inserted document.
+The `pageState` is useful for pagination of the results in queries.
 
+Let's check that the data was inserted for a particular document.
+Send a `GET` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
+to retrieve the document:
 
-Let's check that the data was inserted. Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}/{docment-id}` to
-retrieve the document:
 [source, bash]
 ----
-curl --location --request  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/020a40e9-1bb7-4e05-9bde-72c88ce5711c' \
+curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/020a40e9-1bb7-4e05-9bde-72c88ce5711c' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'accept: application/json' \
 --header 'content-type: application/json'
@@ -336,19 +365,20 @@ returns
 
 Now let's search for a particular document using a `where` clause.
 Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
+`/v2/namespaces/{namespace_name}/collections/{collections_name}`
 to retrieve the document for `Janet`:
 
 // LLP: FIX THIS!!
+// localhost:8082/v2/namespaces/myworld/collections/fitness?where={"firstname": { "$eq" : "Janet"} }
+
+
 [source, bash]
 ----
-curl -X --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
+curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---header 'accept: application/json' \
---data-urlencode 'where={
-        "firstname": "Janet"
-      }'
+--data-urlencode  where = '{"firstname": {"$eq" : "Janet"} }'
+
 ----
 
 returns
@@ -358,11 +388,38 @@ returns
 {"data":{"1c338f67-4bff-443d-b2d2-f21d8291bdb8":{"email":"janet.doe@gmail.com","favorite color":"grey","firstname":"Janet","lastname":"Doe"}},"pageState":"JDFjMzM4ZjY3LTRiZmYtNDQzZC1iMmQyLWYyMWQ4MjkxYmRiOBv/VVVVVVVVVVQIbGFzdG5hbWX/VVVVVVVVVVXwf///+vB////6"}
 ----
 
-The `pageState` is useful for pagination of the results in queries.
+You can also use the `where` clause to search for documents based on sub-document
+information:
+
+[source, bash]
+----
+curl -X --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--header 'accept: application/json' \
+--data-urlencode 'where={
+        "weights.type": "bench press"
+      }'
+----
+
+returns
+
+[source, plaintext]
+----
+----
+
+//LLP: FINISH!!
+curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/weights' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+RETURNS:
+
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce","data":{"reps":15,"type":"bench press","weight":150}}
 // end::ReadData[]
 
 // tag::UpdateData[]
-=== Update data
+=== Update documents
 
 Data changes, so often it is necessary to update an entire document.
 To update a document, send a `PUT` request to
@@ -418,15 +475,17 @@ curl PATCH \
 ----
 
 // tag::DeleteData[]
-=== Delete data
+=== Delete documents
 To delete a document, send a `DELETE` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
 
 [source,bash]
 ----
-curl DELETE \
---location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/my-first-lift01012020' \
+curl -L -X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/some-stuff' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
+--header 'Content-Type: application/json'
 ----
+
+To delete a document, based on a document path, send a `DELETE` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 // end::DeleteData[]
