@@ -1,7 +1,7 @@
 = Using the Stargate Document API
 
 Stargate is a data gateway deployed between client applications and a database.
-The Document API plugin that exposes CRUD access to data stored as JSON
+The Document API plugin that exposes CRUD access to data stored as unstructured JSON
 documents in collections.
 
 // tag::prereqsList[]
@@ -15,6 +15,13 @@ include::quickstart:partial$bash/docker_pull.sh[]
 // tag::startDocker[]
 include::quickstart:partial$bash/docker_run.sh[]
 // end::startDocker[]
+
+// tag:swaggerUI[]
+=== Swagger UI for the Document API
+
+Once you have started the docker container, you can access the Document API
+in a browser at `localhost:8082/swagger-ui`.
+// end:swaggerUI[]
 
 == Using the Auth API to generate an auth token
 
@@ -38,44 +45,42 @@ export AUTH_TOKEN={auth-token}
 // tag::UsingPostman[]
 == Using Postman
 
-If you prefer, you can use Postman as a client interface for exploring REST APIs
+If you prefer, you can use Postman as a client interface for exploring the Document API
 (https://www.postman.com/downloads/[download here]).
-We've provided a
 // LLP: NEED TO CREATE THIS FILE!!
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection] that you
-can import in Postman to play with the examples shown in this walkthrough.
+//We've provided a
+//https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection] that you
+//can import in Postman to play with the examples shown in this walkthrough.
 
-Now you're ready to use the Document API for CRUD operations.
 // end::UsingPostman[]
 
-== Creating or dropping a namespace
-
-In order to use the Document API, you must create the namespace
-that will store the data. A namespace is a container for which a
-`replicas` defines the number of data replicas the database will store.
-If no replica is defined, then for a namespace in a single datacenter cluster,
-the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
-datacenter.
-
-Namespaces contain collections that consist of unstructured JSON documents.
-Documents can themselves hold multiple documents. Multiple collections are contained
-in a namespace, but a collection cannot be contained in multiple namespaces.
-
-Only namespaces need schema created. Collections are specified when a document
-is inserted.
-
-// tag::CreateNS[]
-=== Creating a namespace
-
-Before you can start using the Document API, you must first create a
-namespace to hold collections of documents in your database.
-
+Now you're ready to use the Document API for CRUD operations.
 // LLP:   need to change this to something that is better. Need to take this out and
 // put it in Auth API and call there.
 Note that you must create an xref:document-using.adoc#GenAuthToken[auth token] first.
 
+// tag::CreateNS[]
+== Creating or dropping a namespace
+
+In order to use the Document API, you must create the namespace as a container
+that will store collections, which in turn store documents.
+Documents can themselves hold multiple documents.
+Multiple collections are contained in a namespace, but a collection cannot be
+contained in multiple namespaces.
+
+Only namespaces need to specifically created. Collections are specified when a document
+is inserted. A optional setting, `replicas`, defines
+the number of data replicas the database will store for the namespace.
+If no replica is defined, then for a namespace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.
+
+=== Creating a namespace
+
+==== Simple namespace
+
 Send a `POST` request to `/v2/schemas/namespaces`.
-In this example we use `myworld` for the `name`, and no`replicas` setting, to default to 1.
+In this example we use `myworld` for the `name`, and no `replicas` setting, to default to 1.
 
 [source,bash]
 ----
@@ -90,12 +95,13 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
 The authorization token and the content type are passed with  `--header`. The
 token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
 and its value.
-
 The specified name and replicas for the namespace are passed as JSON
 data using `--data`.
 // end::CreateNS[]
 
 // tag:CreateNSextra[]
+==== Set replicas in simple namespace
+
 To set the replicas, send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`,
 and `2` for the number of data `replicas`.
@@ -110,6 +116,8 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
     "replicas": 2
 }'
 ----
+
+==== Namespace for multiple datacenters
 
 For a multiple-datacenter cluster, a namespace is defined `datacenters`.
 Send a `POST` request to `/v2/schemas/namespaces`.
@@ -141,15 +149,23 @@ curl -L -X GET 'localhost:8082/v2/schemas/namespaces' \
 --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
-{"data":[{"name":"system_distributed"},{"name":"system"},{"name":"data_endpoint_auth"},{"name":"users_keyspace"},{"name":"system_schema"},{"name":"myworld"},{"name":"stargate_system"},{"name":"system_auth"},{"name":"system_traces"}]}
+{"data":[
+    {"name":"myworld"},
+    {"name":"system_distributed"},
+    {"name":"system"},
+    {"name":"data_endpoint_auth"},
+    {"name":"system_schema"},
+    {"name":"stargate_system"},
+    {"name":"system_auth"},
+    {"name":"system_traces"}
+  ]
+}
 ----
 
-For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.
-`
 To get a particular namespace, specify the namespace in the URL:
 
 [source,bash]
@@ -159,12 +175,14 @@ curl -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
 --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
 {"data":{"name":"myworld"}}
 ----
+
+For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.`
 // end::CheckNS[]
 
 //== Drop namespaces or collections
@@ -173,8 +191,8 @@ returns
 === Dropping a namespace
 
 Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}` to delete
-a namespace. All data and all collection schema will be deleted along with the
-namespace schema.
+a namespace. All collections and documents will be deleted along with the
+namespace.
 
 [source, bash]
 ----
@@ -219,7 +237,7 @@ curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 
 == Interacting with data stored in collections
 
-// tag::WriteData[]
+// tag::WriteBasicData[]
 === Writing documents
 
 ==== Specifying a collection name
@@ -230,7 +248,8 @@ The data is passed in the JSON body.
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
+curl --location \
+--request POST 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -241,7 +260,7 @@ curl --location --request POST 'localhost:8082/v2/namespaces/myworld/collections
 }'
 ----
 
-returns
+returns:
 
 [source,plaintext]
 ----
@@ -249,7 +268,9 @@ returns
 ----
 
 Notice that the `document-id` returned is a UUID if not specified.
+// end:WriteBasicData[]
 
+// tag:WriteAdvData[]
 ==== Specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
 Send a `PUT` request to
@@ -269,7 +290,7 @@ curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/some-st
 }'
 ----
 
-returns
+returns:
 
 [source,plaintext]
 ----
@@ -303,13 +324,13 @@ curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041b
 }'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
 {"documentId":"350041bd-5e41-421b-9b3b-f021921851ce"}
 ----
-// end::WriteData[]
+// end::WriteAdvData[]
 
 
 ////
@@ -332,7 +353,7 @@ curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/
 --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
@@ -362,7 +383,7 @@ curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/020a40e
 --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
@@ -386,7 +407,7 @@ curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=
 --header 'Content-Type: application/json'
 ----
 
- returns
+ returns:
 
 [source, plaintext]
 ----
@@ -412,7 +433,7 @@ curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041
 --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
@@ -429,7 +450,7 @@ curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/
 --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
@@ -465,7 +486,7 @@ curl -L \
 }'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
@@ -481,7 +502,7 @@ curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041b
  --header 'Content-Type: application/json'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----
@@ -508,7 +529,7 @@ curl -L -X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/35004
 -d '{"firstname": "Jane"}'
 ----
 
-returns
+returns:
 
 [source, plaintext]
 ----

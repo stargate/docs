@@ -19,6 +19,8 @@ include::partial$bash/docker_pull.sh[]
 include::partial$bash/docker_run.sh[]
 // end::startDocker[]
 
+// using the Document API Swagger UI
+include::developers-guide:page$document-using.adoc[tag=swaggerUI]
 
 == Using the Auth API to generate an auth token
 In order to use the Stargate Document API, an authorization token must be
@@ -48,12 +50,12 @@ in a namespace, but a collection cannot be contained in multiple namespaces.
 // create namespace
 include::developers-guide:page$document-using.adoc[tag=CreateNS]
 
+// Doesn't exist yet
 // create collection
-include::developers-guide:page$document-using.adoc[tag=CreateColl]
+//include::developers-guide:page$document-using.adoc[tag=CreateColl]
 
 // check NS and collections exist
 include::developers-guide:page$document-using.adoc[tag=CheckNS]
-
 
 == Interacting with data stored in collections
 
