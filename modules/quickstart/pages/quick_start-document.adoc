@@ -58,16 +58,16 @@ include::developers-guide:page$document-using.adoc[tag=CheckNS]
 == Interacting with data stored in collections
 
 // write document data
-include::developers-guide:page$document-using.adoc[tag=WriteData]
+include::developers-guide:page$document-using.adoc[tag=WriteBasicData]
 
 // read document data
-include::developers-guide:page$document-using.adoc[tag=ReadData]
+include::developers-guide:page$document-using.adoc[tag=ReadBasicData]
 
 // update document data
-include::developers-guide:page$document-using.adoc[tag=UpdateData]
+include::developers-guide:page$document-using.adoc[tag=UpdateBasicData]
 
 // delete document data
-include::developers-guide:page$document-using.adoc[tag=DeleteData]
+include::developers-guide:page$document-using.adoc[tag=DeleteBasicData]
 
 // LLP: change the url
 Voila! For more information on the Document API, see the xref:developers-guide/openapi_rest_ref.adoc[Document API] in the Data API section.

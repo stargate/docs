@@ -48,11 +48,14 @@ can import in Postman to play with the examples shown in this walkthrough.
 Now you're ready to use the Document API for CRUD operations.
 // end::UsingPostman[]
 
-== Creating or dropping schema
+== Creating or dropping a namespace
 
-In order to use the Document API, you must create schema that defines the namespace
+In order to use the Document API, you must create the namespace
 that will store the data. A namespace is a container for which a
-`replication factor` defines the number of data replicas the database will store.
+`replicas` defines the number of data replicas the database will store.
+If no replica is defined, then for a namespace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.
 
 Namespaces contain collections that consist of unstructured JSON documents.
 Documents can themselves hold multiple documents. Multiple collections are contained
@@ -67,17 +70,35 @@ is inserted.
 Before you can start using the Document API, you must first create a
 namespace to hold collections of documents in your database.
 
-// LLP: IS THIS TRUE?
-If you are connecting to a
-Cassandra database with existing schema, you can skip this step.
-
 // LLP:   need to change this to something that is better. Need to take this out and
 // put it in Auth API and call there.
 Note that you must create an xref:document-using.adoc#GenAuthToken[auth token] first.
 
 Send a `POST` request to `/v2/schemas/namespaces`.
+In this example we use `myworld` for the `name`, and no`replicas` setting, to default to 1.
+
+[source,bash]
+----
+curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "myworld"
+}'
+----
+
+The authorization token and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+
+The specified name and replicas for the namespace are passed as JSON
+data using `--data`.
+// end::CreateNS[]
+
+// tag:CreateNSextra[]
+To set the replicas, send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`,
-and `1` for the number of data `replicas`.
+and `2` for the number of data `replicas`.
 
 [source,bash]
 ----
@@ -86,17 +107,26 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
 --header 'Content-Type: application/json' \
 --data '{
     "name": "myworld",
-    "replicas": 1
+    "replicas": 2
 }'
 ----
 
-The authorization token and the content type are passed with  `--header`. The
-token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
-and its value.
+For a multiple-datacenter cluster, a namespace is defined `datacenters`.
+Send a `POST` request to `/v2/schemas/namespaces`.
+In this example we use `myworld-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
+where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
-The specified name and replication factor for the namespace are passed as JSON
-data using `--data`.
-// end::CreateNS[]
+[source,bash]
+----
+curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "myworld-dcs",
+    "datacenters": [ {"name": "dc1"}, {"name": "dc2", "replicas": 5} ]
+}'
+----
+// end:CreateNSextra[]
 
 // tag::CheckNS[]
 === Checking namespace existence
@@ -190,11 +220,12 @@ curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 == Interacting with data stored in collections
 
 // tag::WriteData[]
-=== Write documents
+=== Writing documents
 
+==== Specifying a collection name
 First, let's add a document to a specified collection.
 Send a `POST` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}`
-to add data to the collection.
+to add data to the collection `fitness`.
 The data is passed in the JSON body.
 
 [source,bash]
@@ -219,10 +250,11 @@ returns
 
 Notice that the `document-id` returned is a UUID if not specified.
 
+==== Specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
 Send a `PUT` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
-to add data to the collection.
+to add data to the collection `some-stuff`.
 The `document-id` can be any string.
 The data is passed in the JSON body.
 
@@ -248,6 +280,7 @@ Note the difference between using `POST` and `PUT`. `POST` is used to insert
 documents to an empty collection. `PUT` is used to add a document to an existing
 collection.
 
+==== Inserting a sub-document
 You can also insert documents that have nested values, or sub-documents.
 Send a `PUT` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
@@ -276,35 +309,6 @@ returns
 ----
 {"documentId":"350041bd-5e41-421b-9b3b-f021921851ce"}
 ----
-
-//Finally, data can replace data at a path in a document. Send a `PUT` request to
-//`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
-//to add data to the existing collection at the designated path.
-
-//[source,bash]
-//----
-//curl -L \
-//-X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/{document-path}' \
-//--header "X-Cassandra-Token: $AUTH_TOKEN" \
-//--header 'Content-Type: application/json' \
-//--data '{
-//    "firstname": "Joey",
-//    "lastname": "Doe",
-//    "weights": {
-//      "type": "squat",
-//      "weight": 350,
-//      "reps": 10
-//  }
-//}'
-//----
-
-//returns
-
-//[source, plaintext]
-//----
-
-//----
-
 // end::WriteData[]
 
 
@@ -313,9 +317,10 @@ returns
 Need to add data types!!
 ////
 
-// tag::ReadData[]
-=== Read documents
+// tag::ReadBasicData[]
+=== Reading documents
 
+==== Retrieving all documents
 Let's check that the document was inserted. Send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
 all the documents:
@@ -344,6 +349,7 @@ The `page-size` parameter is included to get all the documents, rather than the
 last inserted document.
 The `pageState` is useful for pagination of the results in queries.
 
+==== Retrieving a specified document
 Let's check that the data was inserted for a particular document.
 Send a `GET` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
 to retrieve the document:
@@ -353,7 +359,7 @@ to retrieve the document:
 curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/020a40e9-1bb7-4e05-9bde-72c88ce5711c' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'accept: application/json' \
---header 'content-type: application/json'
+--header 'Content-Type: application/json'
 ----
 
 returns
@@ -363,118 +369,173 @@ returns
 {"documentId":"020a40e9-1bb7-4e05-9bde-72c88ce5711c","data":{"email":"janet.doe@gmail.com","favorite color":"grey","firstname":"Janet","lastname":"Doe"}}
 ----
 
+It is possible to get a value for a particular field in a document using one of
+two methods, either a `where` clause or a `document-path`. These methods can
+retrieve information from a document or a sub-document.
+
+==== Retrieving a document using a where clause
 Now let's search for a particular document using a `where` clause.
 Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}`
-to retrieve the document for `Janet`:
-
-// LLP: FIX THIS!!
-// localhost:8082/v2/namespaces/myworld/collections/fitness?where={"firstname": { "$eq" : "Janet"} }
-
+`/v2/namespaces/{namespace_name}/collections/{collections_name}?{where-clause}`
+to get the same information:
 
 [source, bash]
 ----
-curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
+curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"bench%20press"\}\}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-urlencode  where = '{"firstname": {"$eq" : "Janet"} }'
+--header 'Content-Type: application/json'
+----
 
+ returns
+
+[source, plaintext]
+----
+{"data":{"350041bd-5e41-421b-9b3b-f021921851ce":{"firstname":"Joey","lastname":"Doe","weights":{"reps":15,"type":"bench press","weight":150}}},"pageState":null}
+----
+Note that the `where` clause must be url encoded, so spaces are replaced with `%20`,
+and curly brackets are escaped with `\`.
+Also, the full document is returned, as opposed to the value of the field specified in the
+`{document-path}` like the next command.
+// end::ReadBasicData[]
+
+// tag::ReadAdvData[]
+==== Retrieving a specific portion of a document with document-path
+
+To find a particular value, send a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+to retrieve the type of weights Joey has done in his workout:
+
+[source, bash]
+----
+curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/weights/type' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
 ----
 
 returns
 
 [source, plaintext]
 ----
-{"data":{"1c338f67-4bff-443d-b2d2-f21d8291bdb8":{"email":"janet.doe@gmail.com","favorite color":"grey","firstname":"Janet","lastname":"Doe"}},"pageState":"JDFjMzM4ZjY3LTRiZmYtNDQzZC1iMmQyLWYyMWQ4MjkxYmRiOBv/VVVVVVVVVVQIbGFzdG5hbWX/VVVVVVVVVVXwf///+vB////6"}
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce","data":"bench press"}
 ----
 
-You can also use the `where` clause to search for documents based on sub-document
-information:
+In this case, the sub-document `weights` that has a field `type` is the
+`document-path` specified to retrieve that data that `bench press` is stored there.
 
 [source, bash]
 ----
-curl -X --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---header 'accept: application/json' \
---data-urlencode 'where={
-        "weights.type": "bench press"
-      }'
-----
-
-returns
-
-[source, plaintext]
-----
-----
-
-//LLP: FINISH!!
 curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/weights' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
+----
 
-RETURNS:
+returns
 
+[source, plaintext]
+----
 {"documentId":"350041bd-5e41-421b-9b3b-f021921851ce","data":{"reps":15,"type":"bench press","weight":150}}
-// end::ReadData[]
+----
+// end::ReadAdvData[]
 
-// tag::UpdateData[]
+// tag::UpdateBasicData[]
 === Update documents
 
 Data changes, so often it is necessary to update an entire document.
-To update a document, send a `PUT` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}`.
+
+==== Replace a document
+
+Send a `PATCH` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
+to replace data to the existing collection. All fields included will be changed.
 
 [source,bash]
 ----
-curl PUT \
---location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+curl -L \
+-X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-urlencode '{
-  "data": {
-    "documentId": "my-first-lift01012020",
-    "type": "weightlifting",
-    "lift": {
-      "name": "bench press",
-      "reps": 12,
-      "weight": 150
-    }
+--data '{
+    "firstname": "Joey",
+    "lastname": "Doe",
+    "weights": {
+      "type": "squat",
+      "weight": 350,
+      "reps": 10
   }
 }'
 ----
 
-NOTE: Updates are upserts. If the document doesn't exist, it will be created.
-If it does exist, it will be updated with the new document data.
+returns
 
-// end::UpdateData[]
+[source, plaintext]
+----
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce"}
+----
+
+A `GET` request will show that the data has been replaced in the document:
+
+[source,bash]
+----
+curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
+ --header "X-Cassandra-Token: $AUTH_TOKEN" \
+ --header 'Content-Type: application/json'
+----
+
+returns
+
+[source, plaintext]
+----
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce","data":{"firstname":"Joey","lastname":"Doe","weights":{"reps":10,"type":"squat","weight":350}}}
+----
+
+NOTE: `PATCH` Updates are upserts. If the document doesn't exist, it will be created.
+If it does exist, it will be updated with the new document data.
+// end::UpdateBasicData[]
+
+// tag:UpdateAdvData[]
+==== Replace part of of a document or sub-document
 
 It is also possible to update only part of a document. To partially update, send
 a `PATCH` request to
  `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
-In this example, we realize we should not have changed the weight, and
-we want to only change that one item:
+In this example, we want to change just the first name of the document:
 
 [source,bash]
 ----
-curl PATCH \
---location 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+curl -L -X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-urlencode '{
-  "data": {
-    "documentId": "my-first-lift01012020",
-    "type": "weightlifting",
-    "lift": {
-      "name": "bench press",
-      "reps": 12,
-      "weight": 150
-    }
-  }
-}'
+-d '{"firstname": "Jane"}'
 ----
 
-// tag::DeleteData[]
+returns
+
+[source, plaintext]
+----
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce"}
+----
+
+and a `GET` will show that only the `firstname` has been changed.
+
+To partially update a sub-document,  send a `PATCH` request to
+ `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+ in the same manner as the last command, but including only sub-document
+ information to change and the `document-path` of the sub-document. Include
+ all fields that you wish to update.
+
+[source,bash]
+----
+curl -L -X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/weights' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "reps": 20,
+    "weight": 250
+}'
+----
+// end::UpdateAdvData[]
+
+// tag::DeleteBasicData[]
 === Delete documents
 To delete a document, send a `DELETE` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
@@ -485,7 +546,9 @@ curl -L -X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitne
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
+// end::DeleteBasicData[]
 
+// tag:DeleteAdvData[]
 To delete a document, based on a document path, send a `DELETE` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
-// end::DeleteData[]
+// end::DeleteAdvData[]
