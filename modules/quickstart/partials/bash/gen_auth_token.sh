@@ -5,9 +5,7 @@ token.
 === Generate an auth token
 
 First generate an auth token that is required in each subsequent request
-in the `X-Cassandra-Token` header.
-
-Note the port for the auth service is 8081.
+in the `X-Cassandra-Token` header. Note the port for the auth service is 8081.
 
 [source,bash]
 ----

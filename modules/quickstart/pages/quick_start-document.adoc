@@ -29,8 +29,9 @@ generated to access the interface.
 // generate the auth token
 include::partial$bash/gen_auth_token.sh[]
 
-// using the auth token
-include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
+
+// tag::UseAuthToken[]
+include::partial$bash/use_auth_token_rest_document.sh[]
 
 // using Postman
 include::developers-guide:page$document-using.adoc[tag=UsingPostman]

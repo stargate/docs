@@ -16,12 +16,12 @@ include::quickstart:partial$bash/docker_pull.sh[]
 include::quickstart:partial$bash/docker_run.sh[]
 // end::startDocker[]
 
-// tag:swaggerUI[]
+// tag::swaggerUI[]
 === Swagger UI for the Document API
 
 Once you have started the docker container, you can access the Document API
 in a browser at `localhost:8082/swagger-ui`.
-// end:swaggerUI[]
+// end::swaggerUI[]
 
 == Using the Auth API to generate an auth token
 
@@ -33,31 +33,22 @@ include::quickstart:partial$bash/gen_auth_token.sh[]
 // end::GenAuthToken[]
 
 // tag::UseAuthToken[]
-=== Use the auth token
-Store the auth token in an environment variable to make it easy to use with `cURL`.
-
-[source,bash]
-----
-export AUTH_TOKEN={auth-token}
-----
+include::quickstart:partial$bash/use_auth_token_rest_document.sh[]
 // end::UseAuthToken[]
 
 // tag::UsingPostman[]
 == Using Postman
 
 If you prefer, you can use Postman as a client interface for exploring the Document API
-(https://www.postman.com/downloads/[download here]).
+(https://www.postman.com/downloads/[download here]). You will need to add the
+auth token to the header, similar to the `X-Cassandra-Token` shown below.
 // LLP: NEED TO CREATE THIS FILE!!
 //We've provided a
 //https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection] that you
 //can import in Postman to play with the examples shown in this walkthrough.
-
 // end::UsingPostman[]
 
 Now you're ready to use the Document API for CRUD operations.
-// LLP:   need to change this to something that is better. Need to take this out and
-// put it in Auth API and call there.
-Note that you must create an xref:document-using.adoc#GenAuthToken[auth token] first.
 
 // tag::CreateNS[]
 == Creating or dropping a namespace
@@ -99,7 +90,7 @@ The specified name and replicas for the namespace are passed as JSON
 data using `--data`.
 // end::CreateNS[]
 
-// tag:CreateNSextra[]
+// tag::CreateNSextra[]
 ==== Set replicas in simple namespace
 
 To set the replicas, send a `POST` request to `/v2/schemas/namespaces`.
@@ -134,7 +125,7 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
     "datacenters": [ {"name": "dc1"}, {"name": "dc2", "replicas": 5} ]
 }'
 ----
-// end:CreateNSextra[]
+// end::CreateNSextra[]
 
 // tag::CheckNS[]
 === Checking namespace existence
@@ -218,7 +209,7 @@ curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 //----
 // end::deleteColl[]
 
-// tag:updateColl[]
+// tag::updateColl[]
 //== Update or replace a collection
 
 //If you find a collection must be updated or replaced, send a `PUT` request to
@@ -233,7 +224,7 @@ curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 //--header 'Content-Type: application/json'
 // LLP: PUT IN INFO HERE
 //----
-// end:updateColl[]
+// end::updateColl[]
 
 == Interacting with data stored in collections
 
@@ -268,9 +259,9 @@ returns:
 ----
 
 Notice that the `document-id` returned is a UUID if not specified.
-// end:WriteBasicData[]
+// end::WriteBasicData[]
 
-// tag:WriteAdvData[]
+// tag::WriteAdvData[]
 ==== Specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
 Send a `PUT` request to
@@ -348,7 +339,8 @@ all the documents:
 
 [source,bash]
 ----
-curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
+curl --location \
+--request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
@@ -359,9 +351,11 @@ returns:
 ----
 {"data":
 {
-  "some-stuff":{"id":"Some stuff","thestuff":"This is a nonsensical message."},
-"1c338f67-4bff-443d-b2d2-f21d8291bdb8":{"email":"janet.doe@gmail.com","favorite color":"grey","firstname":"Janet","lastname":"Doe"},
-"350041bd-5e41-421b-9b3b-f021921851ce":{"firstname":"Joey","lastname":"Doe","weights":{"reps":15,"type":"bench press","weight":150}},
+"some-stuff":{"id":"Some stuff","thestuff":"This is a nonsensical message."},
+"1c338f67-4bff-443d-b2d2-f21d8291bdb8":{
+  "email":"janet.doe@gmail.com","favorite color":"grey","firstname":"Janet","lastname":"Doe"},
+"350041bd-5e41-421b-9b3b-f021921851ce":{
+  "firstname":"Joey","lastname":"Doe","weights":{"reps":15,"type":"bench press","weight":150}},
 "pageState":"JDAyMGE0MGU5LTFiYjctNGUwNS05YmRlLTcyYzg4Y2U1NzExYxv/VVVVVVVVVVQIbGFzdG5hbWX/VVVVVVVVVVXwf///6fB////6"
 }
 ----
@@ -377,7 +371,8 @@ to retrieve the document:
 
 [source, bash]
 ----
-curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/020a40e9-1bb7-4e05-9bde-72c88ce5711c' \
+curl -L \
+-X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/020a40e9-1bb7-4e05-9bde-72c88ce5711c' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'accept: application/json' \
 --header 'Content-Type: application/json'
@@ -387,7 +382,14 @@ returns:
 
 [source, plaintext]
 ----
-{"documentId":"020a40e9-1bb7-4e05-9bde-72c88ce5711c","data":{"email":"janet.doe@gmail.com","favorite color":"grey","firstname":"Janet","lastname":"Doe"}}
+{"documentId":"020a40e9-1bb7-4e05-9bde-72c88ce5711c",
+"data":{
+  "email":"janet.doe@gmail.com",
+  "favorite color":"grey",
+  "firstname":"Janet",
+  "lastname":"Doe"
+ }
+}
 ----
 
 It is possible to get a value for a particular field in a document using one of
@@ -411,7 +413,17 @@ curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=
 
 [source, plaintext]
 ----
-{"data":{"350041bd-5e41-421b-9b3b-f021921851ce":{"firstname":"Joey","lastname":"Doe","weights":{"reps":15,"type":"bench press","weight":150}}},"pageState":null}
+{"data":{"350041bd-5e41-421b-9b3b-f021921851ce":{
+  "firstname":"Joey",
+  "lastname":"Doe",
+  "weights":{
+    "reps":15,
+    "type":"bench press",
+    "weight":150
+  }
+}
+},
+"pageState":null}
 ----
 Note that the `where` clause must be url encoded, so spaces are replaced with `%20`,
 and curly brackets are escaped with `\`.
@@ -454,7 +466,13 @@ returns:
 
 [source, plaintext]
 ----
-{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce","data":{"reps":15,"type":"bench press","weight":150}}
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce",
+ "data":{
+   "reps":15,
+   "type":"bench press",
+   "weight":150
+  }
+}
 ----
 // end::ReadAdvData[]
 
@@ -506,14 +524,25 @@ returns:
 
 [source, plaintext]
 ----
-{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce","data":{"firstname":"Joey","lastname":"Doe","weights":{"reps":10,"type":"squat","weight":350}}}
+{"documentId":"350041bd-5e41-421b-9b3b-f021921851ce",
+ "data":{
+   "firstname":"Joey",
+   "lastname":"Doe",
+   "weights":{
+     "reps":10,
+     "type":"squat",
+     "weight":350
+    }
+  }
+}
 ----
 
 NOTE: `PATCH` Updates are upserts. If the document doesn't exist, it will be created.
 If it does exist, it will be updated with the new document data.
+
 // end::UpdateBasicData[]
 
-// tag:UpdateAdvData[]
+// tag::UpdateAdvData[]
 ==== Replace part of of a document or sub-document
 
 It is also possible to update only part of a document. To partially update, send
@@ -523,7 +552,8 @@ In this example, we want to change just the first name of the document:
 
 [source,bash]
 ----
-curl -L -X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
+curl -L \
+-X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 -d '{"firstname": "Jane"}'
@@ -546,7 +576,8 @@ To partially update a sub-document,  send a `PATCH` request to
 
 [source,bash]
 ----
-curl -L -X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/weights' \
+curl -L \
+-X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/350041bd-5e41-421b-9b3b-f021921851ce/weights' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -563,13 +594,14 @@ To delete a document, send a `DELETE` request to
 
 [source,bash]
 ----
-curl -L -X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/some-stuff' \
+curl -L \
+-X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/some-stuff' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'
 ----
 // end::DeleteBasicData[]
 
-// tag:DeleteAdvData[]
+// tag::DeleteAdvData[]
 To delete a document, based on a document path, send a `DELETE` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 // end::DeleteAdvData[]

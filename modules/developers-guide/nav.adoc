@@ -4,6 +4,7 @@
 * xref:starctl.adoc[The starctl command]
 
 .Data APIs
+* xref:auth.adoc[Auth API]
 * xref:document.adoc[Document API]
 ** xref:document-using.adoc[Using the Document API]
 * xref:rest.adoc[REST API]
