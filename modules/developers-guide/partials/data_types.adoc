@@ -1,5 +1,6 @@
 Put in the data types for rest.
 
+REST API & GraphQL API?
 ascii,
 text,
 varchar,
@@ -30,3 +31,6 @@ list,
 map,
 set,
 tuple,
+
+ONLY DATA TYPES FOR Document API are: text, boolean, and double (which also
+  stores integers - they can be treated as integers for operations, but are stored double)
