@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Stargate REST on Astra
-    description: "The Stargate REST API provides CRUD operations on table data managed by Stargate."
+  title: Stargate Document API reference
+  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate."
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
