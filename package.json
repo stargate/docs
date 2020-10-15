@@ -1,12 +1,12 @@
 {
   "name": "stargate-docs",
   "scripts": {
-    "build:dev": "npm run build:api && npm run build:copy-api && npm run build:local",
+    "build:dev": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:local",
     "build:local": "antora --stacktrace --clean site-local.yaml",
-    "build:api": "openapi-generator generate -g asciidoc -i api/oas.yaml -o build/api --skip-validate-spec",
-    "build:docapi": "openapi-generator generate -g asciidoc -i api/stargate.yaml -o build/api --skip-validate-spec",
+    "build:api": "openapi-generator-cli generate -g asciidoc -i api/oas.yaml -o build/api --skip-validate-spec",
+    "build:docapi": "openapi-generator-cli generate -g asciidoc -i api/stargate.yaml -o build/api --skip-validate-spec",
     "build:copy-api": "cp build/api/index.adoc modules/developers-guide/pages/openapi_rest_ref.adoc",
-    "build:copy-docapi": "cp build/api/sg-index.adoc modules/developers-guide/pages/openapi_document_ref.adoc"
+    "build:copy-docapi": "cp build/api/index.adoc modules/developers-guide/pages/openapi_document_ref.adoc"
   },
   "repository": {
     "type": "git",
