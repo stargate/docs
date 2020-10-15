@@ -461,10 +461,10 @@ and <code>1</code> for the number of data <code>replicas</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/schemas/keyspaces' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "name": "users_keyspace",
     "replicas": 1
 }'</code></pre>
@@ -479,10 +479,10 @@ Set the table name and column definitions in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/schemas/keyspaces/users_keyspace/tables' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
 	"name": "users",
 	"columnDefinitions":
 	  [
@@ -525,7 +525,7 @@ Set the table name and column definitions in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v1/keyspaces' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
@@ -544,7 +544,7 @@ Set the table name and column definitions in the JSON body.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v1/keyspaces/'users_keyspace'/tables' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
 --header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
@@ -575,7 +575,7 @@ The column name/value pairs are passed in the JSON body.</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "firstname": "Mookie",
     "lastname": "Betts",
     "email": "mookie.betts@gmail.com",
@@ -612,7 +612,7 @@ so we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our request.<
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "email": "mookie.betts.new-email@email.com"
 }'</code></pre>
 </div>
