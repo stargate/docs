@@ -137,6 +137,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quick_start-document.html">Document API QuickStart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="quick_start-rest.html">REST API QuickStart</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
@@ -187,6 +190,25 @@
       </svg>
     </button>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../developers-guide/auth.html">Auth API</a>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="../developers-guide/document.html">Document API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/document-using.html">Using the Document API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/openapi_document_ref.html">Document API reference</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item toggler" data-depth="1">
     <a class="nav-link" href="../developers-guide/rest.html">REST API</a>
     <button class="nav-item-toggle">
@@ -195,6 +217,9 @@
       </svg>
     </button>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/rest-using.html">Using the REST API</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../developers-guide/openapi_rest_ref.html">REST API reference</a>
   </li>
@@ -312,25 +337,20 @@ GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.<
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h3>
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST and GraphQL APIs,
 and GraphQL Playground along with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.6</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.8</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_start_the_stargate_container"><a class="anchor" href="#_start_the_stargate_container"></a><a class="link" href="#_start_the_stargate_container">Start the Stargate container</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_start_the_stargate_container"><a class="anchor" href="#_start_the_stargate_container"></a><a class="link" href="#_start_the_stargate_container">Start the Stargate container</a></h3>
 <div class="paragraph">
 <p>Start the Stargate container in developer mode.
 Developer mode removes the need to set up a separate Cassandra instance and is
@@ -347,7 +367,7 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v0.0.6</code></pre>
+  stargateio/stargate-3_11:v0.0.8</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -386,12 +406,13 @@ meant for development and testing only.</p>
 </table>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_using_the_stargate_graphql_api"><a class="anchor" href="#_using_the_stargate_graphql_api"></a><a class="link" href="#_using_the_stargate_graphql_api">Using the Stargate GraphQL API</a></h2>
+<h2 id="_using_the_auth_api_to_generate_an_auth_token"><a class="anchor" href="#_using_the_auth_api_to_generate_an_auth_token"></a><a class="link" href="#_using_the_auth_api_to_generate_an_auth_token">Using the Auth API to generate an auth token</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to use the Stargate GraphQL API, an authorization token must be generated
-to access the interface. A REST API token is used for this purpose.</p>
+<p>In order to use the Stargate Document API, an authorization token must be
+generated to access the interface. A REST API token is used for this purpose.</p>
 </div>
 <div class="paragraph">
 <p>The step below uses <code>cURL</code> to access the REST interface to generate the needed
@@ -401,10 +422,7 @@ token.</p>
 <h3 id="_generate_an_auth_token"><a class="anchor" href="#_generate_an_auth_token"></a><a class="link" href="#_generate_an_auth_token">Generate an auth token</a></h3>
 <div class="paragraph">
 <p>First generate an auth token that is required in each subsequent request
-in the <code>X-Cassandra-Token</code> header.</p>
-</div>
-<div class="paragraph">
-<p>Note the port for the auth service is 8081.</p>
+in the <code>X-Cassandra-Token</code> header. Note the port for the auth service is 8081.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -479,8 +497,15 @@ such as <code>CREATE KEYSPACE</code>, <code>CREATE TABLE1</code>, or <code>DROP 
 <div class="sect1">
 <h2 id="_creating_schema"><a class="anchor" href="#_creating_schema"></a><a class="link" href="#_creating_schema">Creating schema</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In order to use the GraphQL API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+<code>replication factor</code> defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.</p>
+</div>
 <div class="sect2">
-<h3 id="_creating_a_keyspace_using_the_graphql_api"><a class="anchor" href="#_creating_a_keyspace_using_the_graphql_api"></a><a class="link" href="#_creating_a_keyspace_using_the_graphql_api">Creating a keyspace using the GraphQL API</a></h3>
+<h3 id="_creating_a_keyspace"><a class="anchor" href="#_creating_a_keyspace"></a><a class="link" href="#_creating_a_keyspace">Creating a keyspace</a></h3>
 <div class="paragraph">
 <p>Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace and at least one table in your database. If you are connecting to a
@@ -543,7 +568,7 @@ generate token has. It is <code>x-cassandra-token</code>, not <code>auth-token</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_table_using_the_graphql_api"><a class="anchor" href="#_creating_a_table_using_the_graphql_api"></a><a class="link" href="#_creating_a_table_using_the_graphql_api">Creating a table using the GraphQL API</a></h3>
+<h3 id="_creating_a_table"><a class="anchor" href="#_creating_a_table"></a><a class="link" href="#_creating_a_table">Creating a table</a></h3>
 <div class="paragraph">
 <p>After the keyspace exists, you can create two tables by executing the following
 mutation:</p>
@@ -596,7 +621,11 @@ partition keys and clustering keys are found in the
 <div class="sect2">
 <h3 id="_checking_that_keyspaces_and_tables_exist"><a class="anchor" href="#_checking_that_keyspaces_and_tables_exist"></a><a class="link" href="#_checking_that_keyspaces_and_tables_exist">Checking that keyspaces and tables exist</a></h3>
 <div class="paragraph">
-<p>To check if a keyspace or tables exist, GraphQL queries can be executed:</p>
+<p>To check if a keyspace, tables, or particular table columns exist, execute a
+GraphQL query:</p>
+</div>
+<div class="paragraph">
+<p>For keyspaces and tables:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -766,16 +795,20 @@ and add a couple of books to the <code>book</code> table:</p>
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>If we want to read all the data for a book, we can use a query.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_read_data"><a class="anchor" href="#_read_data"></a><a class="link" href="#_read_data">Read data</a></h3>
 <div class="paragraph">
-<p>The following query, looking at the location
+<p>Let&#8217;s check that the data was inserted.</p>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s search for a particular record using a <code>WHERE</code> clause. The primary
+key of the table can be used in the <code>WHERE</code> clause, but non-primary key columns
+cannot be used.
+The following query, looking at the location
 <a href="http://localhost:8080/graphql/library">http://localhost:8080/graphql/library</a>
-will get both the <code>title</code> and the <code>author</code> for the specified book:</p>
+will get both the <code>title</code> and the <code>author</code> for the specified book <code>WHERE
+title:"Moby Dick"</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -860,7 +893,9 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For more information on the GraphQL API, see <a href="#developers-guide/graphql-using.adoc" class="page unresolved">Using the GraphQL API</a> in the Data API section.</p>
+<p>For more information on the GraphQL API,
+see <a href="../developers-guide/graphql-using.html" class="page">Using the GraphQL API</a> in the
+Data API section.</p>
 </div>
 </div>
 </div>

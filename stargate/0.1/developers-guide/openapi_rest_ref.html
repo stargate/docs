@@ -138,6 +138,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../quickstart/quick_start-document.html">Document API QuickStart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../quickstart/quick_start-rest.html">REST API QuickStart</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -188,6 +191,25 @@
       </svg>
     </button>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="auth.html">Auth API</a>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="document.html">Document API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="document-using.html">Using the Document API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="openapi_document_ref.html">Document API reference</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item toggler" data-depth="1">
     <a class="nav-link" href="rest.html">REST API</a>
     <button class="nav-item-toggle">
@@ -196,6 +218,9 @@
       </svg>
     </button>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rest-using.html">Using the REST API</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="openapi_rest_ref.html">REST API reference</a>
   </li>
@@ -1330,119 +1355,80 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">where</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>URL escaped JSON query using the following keys:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Key</th>
-<th class="tableblock halign-left valign-top">Operation</th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL escaped JSON query using the following keys:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
-</thead>
-<tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$lt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Less Than</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$lte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Less Than Or Equal To</p></td>
-</tr>
-<tr>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$gt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Greater Than</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Greater Than</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$gte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Greater Than Or Equal To</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$ne</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not Equal To</p></td>
-</tr>
-<tr>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$in</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contained In</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$exists</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A value is set for the key</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">$select</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This matches a value for a key in the result of a different query</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">$dontSelect</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requires that a key’s value not match a value for a key in the result of a different query</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">$all</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contains all of the given values</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">$regex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requires that a key’s value match a regular expression</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">$text</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performs a full text search on indexed fields</p></td>
-</tr>
-</tbody>
-</table></div></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fields</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>URL escaped, comma delimited list of keys to include</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL escaped, comma delimited list of keys to include</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">page-size</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>restrict the number of returned items</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">restrict the number of returned items</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">page-state</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>move the cursor to a particular result</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">move the cursor to a particular result</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>keys to sort by <a href="#String">[String]</a></p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keys to sort by <a href="#String">[String]</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>unwrap results</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unwrap results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 </tbody>
 </table>

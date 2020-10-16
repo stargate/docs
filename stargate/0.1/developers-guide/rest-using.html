@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>The starctl command :: Stargate documentation</title>
+    <title>Using the Stargate REST API :: Stargate documentation</title>
     <meta name="generator" content="Antora 2.3.3">
     <link rel="stylesheet" href="../../../assets/css/site.css">
   </head>
@@ -177,7 +177,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="starctl.html">The starctl command</a>
   </li>
 </ul>
@@ -217,7 +217,7 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="rest-using.html">Using the REST API</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -300,171 +300,617 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
-    <li>Installing Stargate</li>
-    <li><a href="starctl.html">The starctl command</a></li>
+    <li>Data APIs</li>
+    <li><a href="rest.html">REST API</a></li>
+    <li><a href="rest-using.html">Using the REST API</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/starctl.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/rest-using.adoc">Edit this Page</a></div>
   </div>
 
       <article class="doc">
-<h1 class="page">The starctl command</h1>
+<h1 class="page">Using the Stargate REST API</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>starctl</code> command controls and configures Stargate nodes.</p>
+<p>Stargate is a data gateway deployed between client applications and a database.
+The REST API plugin that exposes CRUD access to data stored in Cassandra tables.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_starting_stargate_using_starctl"><a class="anchor" href="#_starting_stargate_using_starctl"></a><a class="link" href="#_starting_stargate_using_starctl">Starting Stargate using starctl</a></h2>
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><a class="link" href="#_prerequisites">Prerequisites</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>To use Stargate you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Docker installed and running</p>
+</li>
+<li>
+<p><code>cURL</code> to run REST queries</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h3>
+<div class="paragraph">
+<p>This image contains the Cassandra Query Language (CQL), REST and GraphQL APIs,
+and GraphQL Playground along with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">starctl --cluster-name stargate \
-  --cluster-seed 127.0.0.1 \
-  --cluster-version 3.11 \
-  --listen 127.0.0.2 \
-  --simple-snitch</code></pre>
-</div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host&#8217;s network. To run Stargate in a containerized environment, see the <a href="existing_cstar.html" class="page">Installing Stargate with an existing Cassandra cluster</a> documentation.
-</td>
-</tr>
-</table>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v0.0.8</code></pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_starctl_options"><a class="anchor" href="#_starctl_options"></a><a class="link" href="#_starctl_options">starctl options</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_start_the_stargate_container"><a class="anchor" href="#_start_the_stargate_container"></a><a class="link" href="#_start_the_stargate_container">Start the Stargate container</a></h3>
+<div class="paragraph">
+<p>Start the Stargate container in developer mode.
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION=3.11 \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-3_11:v0.0.8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The ports align to the following services and interfaces:</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. starctl options</caption>
+<caption class="title">Table 1. Default Port assignments for Stargate</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Option</th>
-<th class="tableblock halign-left valign-top">Environment Variable</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Example</th>
+<th class="tableblock halign-left valign-top">Port</th>
+<th class="tableblock halign-left valign-top">Service/Interface</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name <em>cluster name</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLUSTER_NAME</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of database cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name stargate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed <em>seed node IP address</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEED</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address of the seed node of the cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed 192.168.0.1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating tokens</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version <em>Cassandra version</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLUSTER_VERSION</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The major version of the database cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version 3.11</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8082</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen <em>listen IP address</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LISTEN</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">127.0.0.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IP address Stargate services should listen on. This options value must match the regular expression
-<code>^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$</code>. Must be a valid IP address.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen-address 192.168.0.1</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port <em>port number</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEED_PORT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7000</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port 7001</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc <em>datacenter name</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATACENTER_NAME</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datacenter name of this node. This must match the database backend.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc dc1</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack <em>rack name</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RACK_NAME</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Rack name of this node. This must match the database backend.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack rack1</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--simple-snitch</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SIMPLE_SNITCH</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set this option if the backend cluster uses <code>SimpleSnitch</code> as the <code>endpoint_snitch</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export SIMPLE_SNITCH=true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dse</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DSE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set if the backend is DSE. Do not set this option if the backend is Cassandra.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DSE=true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port <em>port number</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CQL_PORT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port 9043</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--enable-auth</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENABLE_AUTH</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set to enable <code>PasswordAuthenticator</code> in the cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export ENABLE_AUTH=true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--use-proxy-protocol</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>USE_PROXY_PROTOCOL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use proxy protocol to determine the public address and port of CQL requests.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export USE_PROXY_PROTOCOL=true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--developer-mode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DEVELOPER_MODE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DEVELOPER_MODE=true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--bind-to-listen-address</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BIND_TO_LISTEN_ADDRESS</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If set bind the web services to the listen address only.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export BIND_TO_LISTEN_ADDRESS=true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port 9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_the_auth_api_to_generate_an_auth_token"><a class="anchor" href="#_using_the_auth_api_to_generate_an_auth_token"></a><a class="link" href="#_using_the_auth_api_to_generate_an_auth_token">Using the Auth API to generate an auth token</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to use the Stargate Document API, an authorization token must be
+generated to access the interface.</p>
+</div>
+<div class="paragraph">
+<p>The step below uses <code>cURL</code> to access the REST interface to generate the needed
+token.</p>
+</div>
+<div class="sect2">
+<h3 id="_generate_an_auth_token"><a class="anchor" href="#_generate_an_auth_token"></a><a class="link" href="#_generate_an_auth_token">Generate an auth token</a></h3>
+<div class="paragraph">
+<p>First generate an auth token that is required in each subsequent request
+in the <code>X-Cassandra-Token</code> header. Note the port for the auth service is 8081.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X POST 'http://localhost:8081/v1/auth' \
+  -H 'Content-Type: application/json' \
+  --data-raw '{
+    "username": "cassandra",
+    "password": "cassandra"
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should receive a token in the response.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"authToken":"{auth-token}"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_the_auth_token"><a class="anchor" href="#_use_the_auth_token"></a><a class="link" href="#_use_the_auth_token">Use the auth token</a></h3>
+<div class="paragraph">
+<p>Store the auth token in an environment variable to make it easy to use with <code>cURL</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AUTH_TOKEN={auth-token}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_postman"><a class="anchor" href="#_using_postman"></a><a class="link" href="#_using_postman">Using Postman</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you prefer, you can use Postman as a client interface for exploring REST APIs
+(<a href="https://www.postman.com/downloads/">download here</a>).
+We&#8217;ve provided a
+<a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json">Stargate REST API Postman Collection</a> that you can import in Postman to play with the examples shown in this walkthrough.</p>
+</div>
+<div class="paragraph">
+<p>Now you&#8217;re ready to use the REST API for CRUD operations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_or_dropping_schema"><a class="anchor" href="#_creating_or_dropping_schema"></a><a class="link" href="#_creating_or_dropping_schema">Creating or dropping schema</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to use the REST API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+<code>replication factor</code> defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.</p>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_keyspace"><a class="anchor" href="#_creating_a_keyspace"></a><a class="link" href="#_creating_a_keyspace">Creating a keyspace</a></h3>
+<div class="paragraph">
+<p>Before you can start using the REST API, you must first create a Cassandra
+keyspace and at least one table in your database. If you are connecting to a
+Cassandra database with existing schema, you can skip this step.</p>
+</div>
+<div class="paragraph">
+<p>Note that you must create an <a href="#quickstart/quick_start-rest.adoc#genAuthToken" class="page unresolved">auth token</a> first.</p>
+</div>
+<div class="paragraph">
+<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces</code>.
+In this example we use <code>users_keyspace</code> for the <code>name</code>,
+and <code>1</code> for the number of data <code>replicas</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "users_keyspace",
+    "replicas": 1
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_table"><a class="anchor" href="#_creating_a_table"></a><a class="link" href="#_creating_a_table">Creating a table</a></h3>
+<div class="paragraph">
+<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables</code> to create a table.
+Set the table name and column definitions in the JSON body.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+--request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+	"name": "users",
+	"columnDefinitions":
+	  [
+        {
+	      "name": "firstname",
+	      "typeDefinition": "text"
+	    },
+        {
+	      "name": "lastname",
+	      "typeDefinition": "text"
+	    },
+	    {
+	      "name": "email",
+	      "typeDefinition": "text"
+	    },
+        {
+	      "name": "favorite color",
+	      "typeDefinition": "text"
+	    }
+	  ],
+	"primaryKey":
+	  {
+	    "partitionKey": ["firstname"],
+	    "clusteringKey": ["lastname"]
+	  },
+	"tableOptions":
+	  {
+	    "defaultTimeToLive": 0,
+	    "clusteringExpression":
+	      [{ "column": "lastname", "order": "ASC" }]
+	  }
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Information about partition keys and clustering keys are found in the
+<a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_columns_to_table_schema"><a class="anchor" href="#_adding_columns_to_table_schema"></a><a class="link" href="#_adding_columns_to_table_schema">Adding columns to table schema</a></h3>
+<div class="paragraph">
+<p>If you need to add an attribute to something you are storing in a table, you
+can add a column by sending a <code>POST</code> request to add the column.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location
+--request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the name or data type of an existing column, use a similar command, but
+sent a <code>PUT</code> request instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location
+--request PUT 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+--header 'Content-Type: application/json'
+--data '{
+	"name": "email",
+	"typeDefinition": "text"
+}'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checking_keyspace_table_and_column_existence"><a class="anchor" href="#_checking_keyspace_table_and_column_existence"></a><a class="link" href="#_checking_keyspace_table_and_column_existence">Checking keyspace, table, and column existence</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To check if a keyspace, tables, or particular table columns exist, execute a
+REST query with <code>cURL</code>:</p>
+</div>
+<div class="paragraph">
+<p>For keyspaces:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
+["data_endpoint_auth","users_keyspace","stargate_system","system","system_auth","system_distributed","system_schema","system_traces"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get a particular keyspace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For tables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+-X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
+["users"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get a particular table:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+-X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For columns:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+-X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
+["users"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get a particular column:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+-X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns/email' \
+--header 'accept: application/json' \
+--header 'content-type: application/json' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
+["users"]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_drop_keyspaces_tables_or_columns"><a class="anchor" href="#_drop_keyspaces_tables_or_columns"></a><a class="link" href="#_drop_keyspaces_tables_or_columns">Drop keyspaces, tables or columns</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dropping_a_keyspace"><a class="anchor" href="#_dropping_a_keyspace"></a><a class="link" href="#_dropping_a_keyspace">Dropping a keyspace</a></h3>
+<div class="paragraph">
+<p>Send a <code>DELETE</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}</code> to delete
+a keyspace. All data and all table schema will be deleted along with the
+keyspace scheam.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+--request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dropping_a_table"><a class="anchor" href="#_dropping_a_table"></a><a class="link" href="#_dropping_a_table">Dropping a table</a></h3>
+<div class="paragraph">
+<p>Send a <code>DELETE</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}</code>
+to delete a table. All data will be deleted along with the table schema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+--request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_removing_columns_from_table_schema"><a class="anchor" href="#_removing_columns_from_table_schema"></a><a class="link" href="#_removing_columns_from_table_schema">Removing columns from table schema</a></h3>
+<div class="paragraph">
+<p>If you find an attribute is no longer required in a table, you
+can remove a column by sending a <code>DELETE</code> request to delete the column. All
+column data will be deleted along with the column schema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location
+--request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
+--header 'X-Cassandra-Token: $AUTH_TOKEN'
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modifying_schema"><a class="anchor" href="#_modifying_schema"></a><a class="link" href="#_modifying_schema">Modifying schema</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interacting_with_data_stored_in_tables"><a class="anchor" href="#_interacting_with_data_stored_in_tables"></a><a class="link" href="#_interacting_with_data_stored_in_tables">Interacting with data stored in tables</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_write_data"><a class="anchor" href="#_write_data"></a><a class="link" href="#_write_data">Write data</a></h3>
+<div class="paragraph">
+<p>First, let&#8217;s add some data to the <code>users</code> table that you created.
+Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>
+to add data to the table.
+The column name/value pairs are passed in the JSON body.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "firstname": "Mookie",
+    "lastname": "Betts",
+    "email": "mookie.betts@gmail.com",
+    "favorite color": "blue"
+}'
+curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "firstname": "Janesha",
+    "lastname": "Doesha",
+    "email": "janesha.doesha@gmail.com",
+    "favorite color": "grey"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_read_data"><a class="anchor" href="#_read_data"></a><a class="link" href="#_read_data">Read data</a></h3>
+<div class="paragraph">
+<p>Let&#8217;s check that the data was inserted. Send a <code>GET</code> request to
+<code>/v2/keyspaces/{keyspace_name}/{table_name}</code> to retrieve all the data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl GET \
+--location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s search for a particular record using a <code>WHERE</code> clause. The primary
+key of the table can be used in the <code>WHERE</code> clause, but non-primary key columns
+cannot be used.
+Send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>
+to retrieve the row for <code>Mookie</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl GET \
+--location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_data"><a class="anchor" href="#_update_data"></a><a class="link" href="#_update_data">Update data</a></h3>
+<div class="paragraph">
+<p>Data changes, so often it is necessary to update an entire row.
+To update a row, send a <code>PUT</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}/{path}</code>.
+The <code>{path}</code> is comprised of the primary key values.
+In this example, the partition key is <code>firstname</code> "Mookie" and the
+clustering key is <code>lastname</code> "Betts";
+thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our request.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+--request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "email": "mookie.betts.new-email@email.com"
+}'</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Updates are upserts. If the row doesn&#8217;t exist, it will be created.
+If it does exist, it will be updated with the new row data.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It is also possible to update only part of a row. To partially update, send
+a <code>PATCH</code> request to   <code>/v2/keyspaces/{keyspace_name}/{table_name}/{path}</code>.
+In this example, we realize we should not have changed the email address, and
+we want to only change that one column:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+--request PATCH 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "email": "mookie.betts.email@email.com"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_data"><a class="anchor" href="#_delete_data"></a><a class="link" href="#_delete_data">Delete data</a></h3>
+<div class="paragraph">
+<p>To delete a row, send a <code>DELETE</code> request to
+<code>/v2/keyspaces/{keyspace_name}/{table_name}/{path}</code>.
+In this request we delete all data with the primary key <code>firstname</code> of <code>Mookie</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+--request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </article>
