@@ -1,4 +1,5 @@
 = Stargate Document API QuickStart
+:docid : 3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b
 
 *Time to complete: 5 minutes*
 
@@ -51,8 +52,11 @@ include::developers-guide:page$document-using.adoc[tag=CreateNS]
 // create collection
 //include::developers-guide:page$document-using.adoc[tag=CreateColl]
 
-// check NS and collections exist
+// check NS exist
 include::developers-guide:page$document-using.adoc[tag=CheckNS]
+
+// delete NS
+include::developers-guide:page$document-using.adoc[tag=DeleteNS]
 
 == Interacting with data stored in collections
 
@@ -68,4 +72,7 @@ include::developers-guide:page$document-using.adoc[tag=UpdateBasicData]
 // delete document data
 include::developers-guide:page$document-using.adoc[tag=DeleteBasicData]
 
-Voila! For more information on the Document API, see the xref:developers-guide/openapi_document_ref.adoc[Document API] in the Data API section.
+Voila! For more information on the Document API, see the
+xref:developers-guide:document-using.adoc[Using the Document API]
+or the xref:developers-guide:openapi_document_ref.adoc[Document API] in the
+Data API section.

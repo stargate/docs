@@ -66,5 +66,5 @@ include::developers-guide:page$graphql-using.adoc[tag=UpdateData]
 include::developers-guide:page$graphql-using.adoc[tag=DeleteData]
 
 For more information on the GraphQL API,
-see xref:developers-guide/graphql-using.adoc[Using the GraphQL API] in the
+see xref:developers-guide:graphql-using.adoc[Using the GraphQL API] in the
 Data API section.

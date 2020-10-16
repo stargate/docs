@@ -71,4 +71,7 @@ include::developers-guide:page$rest-using.adoc[tag=UpdateData]
 include::developers-guide:page$rest-using.adoc[tag=DeleteData]
 
 
-Voila! For more information on the REST API, see the xref:developers-guide/openapi_rest_ref.adoc[REST API] in the Data API section.
+Voila! For more information on the REST API, see the see the
+xref:developers-guide:rest-using.adoc[Using the REST API]
+or the xref:developers-guide:openapi_rest_ref.adoc[REST API] in the
+Data API section.

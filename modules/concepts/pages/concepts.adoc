@@ -53,4 +53,4 @@ Authentication extensions are responsible for access control to Stargate's APIs.
 Currently there's only an https://github.com/stargate/stargate/tree/master/auth-table-based-service[auth table-based service] which stores generated access tokens in the database.
 
 These extensions are used by the API Extensions to federate access.
-You can see an example of this in the https://github.com/stargate/stargate/tree/master/restapi[REST API] which requires a token to be passed to requests using the `X-Cassandra-Token` header. The https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API] uses the same token.
+You can see an example of this in the https://github.com/stargate/stargate/tree/master/restapi[REST API] which requires a token to be passed to requests using the `X-Cassandra-Token` header. The https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API] and the https://github.com/stargate/stargate/tree/master//restapi/src/main/java/io/stargate/web/docsapi[Document API] use the same token.

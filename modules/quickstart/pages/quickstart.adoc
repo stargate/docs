@@ -4,6 +4,6 @@ Want a quick introduction to how you can use
 https://github.com/stargate/stargate[Stargate] to write applications using APIs?
 Check out the following choices:
 
-* xref:quick_start-document.adoc[REST API]
+* xref:quick_start-document.adoc[Document API]
 * xref:quick_start-rest.adoc[REST API]
 * xref:quick_start-graphql.adoc[GraphQL API]
