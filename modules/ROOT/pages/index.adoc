@@ -27,7 +27,7 @@
 
 == Documentation
 
-* xref:quickstart:quick_start.adoc[Quick-start guide]
+* xref:quickstart:quickstart.adoc[QuickStart guides]
 // * xref:developers-guide:connecting.adoc[Developer's Guide]
 * xref:FAQ.adoc[FAQ]
 
