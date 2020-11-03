@@ -5,4 +5,4 @@ deployment to generate authorization tokens for the REST, GraphQL, and
 Document APIs.
 
 // generate the auth token
-include::quickstart:partial$bash/gen_auth_token.sh[]
+include::partial$bash/gen_auth_token.sh[]

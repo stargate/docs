@@ -5,15 +5,15 @@ The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tabl
 
 
 // tag::prereqsList[]
-include::quickstart:partial$text/prereqs.adoc[]
+include::partial$text/prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::quickstart:partial$bash/docker_pull.sh[]
+include::partial$bash/docker_pull.sh[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::quickstart:partial$bash/docker_run.sh[]
+include::partial$bash/docker_run.sh[]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
@@ -21,7 +21,7 @@ In order to use the Stargate Document API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
 // generate the auth token
-include::quickstart:partial$bash/gen_auth_token.sh[]
+include::partial$bash/gen_auth_token.sh[]
 
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.

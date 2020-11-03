@@ -9,15 +9,15 @@ In this QuickStart, you'll be up and running on your local machine with the
 Document API plugin that exposes CRUD access to data stored in Cassandra tables.
 
 // tag::prereqsList[]
-include::partial$text/prereqs.adoc[]
+include::developers-guide:partial$text/prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::partial$bash/docker_pull.sh[]
+include::developers-guide:partial$bash/docker_pull.sh[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$bash/docker_run.sh[]
+include::developers-guide:partial$bash/docker_run.sh[]
 // end::startDocker[]
 
 // using the Document API Swagger UI
@@ -28,10 +28,10 @@ In order to use the Stargate Document API, an authorization token must be
 generated to access the interface.
 
 // generate the auth token
-include::partial$bash/gen_auth_token.sh[]
+include::developers-guide:partial$bash/gen_auth_token.sh[]
 
 // tag::UseAuthToken[]
-include::partial$bash/use_auth_token_rest_document.sh[]
+include::developers-guide:partial$bash/use_auth_token_rest_document.sh[]
 
 // using Postman
 include::developers-guide:page$document-using.adoc[tag=UsingPostman]

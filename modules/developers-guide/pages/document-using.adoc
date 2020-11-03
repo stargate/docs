@@ -5,15 +5,15 @@ The Document API plugin that exposes CRUD access to data stored as unstructured 
 documents in collections.
 
 // tag::prereqsList[]
-include::quickstart:partial$text/prereqs.adoc[]
+include::partial$text/prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::quickstart:partial$bash/docker_pull.sh[]
+include::partial$bash/docker_pull.sh[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::quickstart:partial$bash/docker_run.sh[]
+include::partial$bash/docker_run.sh[]
 // end::startDocker[]
 
 // tag::swaggerUI[]
@@ -30,11 +30,11 @@ in a browser at `localhost:8082/swagger-ui`.
 In order to use the Stargate Document API, an authorization token must be
 generated to access the interface.
 
-include::quickstart:partial$bash/gen_auth_token.sh[]
+include::partial$bash/gen_auth_token.sh[]
 // end::GenAuthToken[]
 
 // tag::UseAuthToken[]
-include::quickstart:partial$bash/use_auth_token_rest_document.sh[]
+include::partial$bash/use_auth_token_rest_document.sh[]
 // end::UseAuthToken[]
 
 // tag::UsingPostman[]
