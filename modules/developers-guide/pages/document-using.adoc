@@ -117,7 +117,7 @@ include::example$bash/curl_namespace_dcs.sh[]
 To check if a namespaces exist, execute a
 Document API query with `cURL` to find all the namespaces:
 
-[{tabs}]
+[tabs]
 ====
 Command::
 +
@@ -137,22 +137,6 @@ include::example$result/curl_check_ns_exists.result[]
 ----
 --
 ====
-
-[source,bash]
-----
-curl -L -X GET 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-----
-
-returns:
-
-[source, plaintext]
-----
-{"data":[{"name":"system_distributed"},{"name":"system"},
-{"name":"data_endpoint_auth"},{"name":"system_schema"},{"name":"myworld"},
-{"name":"stargate_system"},{"name":"system_auth"},{"name":"system_traces"}]}
-----
 
 To get a particular namespace, specify the namespace in the URL:
 
