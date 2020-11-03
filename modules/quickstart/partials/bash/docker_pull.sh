@@ -1,7 +1,7 @@
 === Pull the Docker image
 
-This image contains the Cassandra Query Language (CQL), REST and GraphQL APIs,
-and GraphQL Playground along with an Apache Cassandra^(TM)^ 3.11 backend.
+This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
+and GraphQL Playground, along with an Apache Cassandra^(TM)^ 3.11 backend.
 
 [source,bash,subs="attributes+"]
 ----
