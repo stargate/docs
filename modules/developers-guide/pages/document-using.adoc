@@ -76,12 +76,7 @@ In this example we use `myworld` for the `name`, and no `replicas` setting, to d
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "myworld"
-}'
+include::example$bash/curl_simple_namespace.sh[]
 ----
 
 The authorization token and the content type are passed with  `--header`. The
@@ -100,13 +95,7 @@ and `2` for the number of data `replicas`.
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "myworld",
-    "replicas": 2
-}'
+include::example$bash/curl_set_namespace_replicas.sh[]
 ----
 
 ==== Namespace for multiple datacenters
@@ -118,13 +107,7 @@ where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "myworld-dcs",
-    "datacenters": [ {"name": "dc1"}, {"name": "dc2", "replicas": 5} ]
-}'
+include::example$bash/curl_namespace_dcs.sh[]
 ----
 // end::CreateNSextra[]
 
@@ -133,6 +116,27 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
 
 To check if a namespaces exist, execute a
 Document API query with `cURL` to find all the namespaces:
+
+[{tabs}]
+====
+Command::
++
+--
+[source,shell]
+----
+include::example$bash/curl_check_ns_exists.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/curl_check_ns_exists.result[]
+----
+--
+====
 
 [source,bash]
 ----

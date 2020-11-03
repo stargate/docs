@@ -1,0 +1,5 @@
+= Starting Stargate with a Docker image
+
+include::developers-guide:partial$docker_pull.adoc[]
+
+include::developers-guide:partial$docker_run.adoc[]
