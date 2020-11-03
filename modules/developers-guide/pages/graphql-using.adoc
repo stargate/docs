@@ -5,15 +5,15 @@ The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tabl
 
 
 // tag::prereqsList[]
-include::partial$text/prereqs.adoc[]
+include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::partial$bash/docker_pull.sh[]
+include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$bash/docker_run.sh[]
+include::partial$docker_run.adoc[]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
@@ -21,7 +21,7 @@ In order to use the Stargate Document API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
 // generate the auth token
-include::partial$bash/gen_auth_token.sh[]
+include::partial$gen_auth_token.adoc[]
 
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
@@ -69,7 +69,7 @@ and create a keyspace by executing the following mutation:
 
 [source, plaintext]
 ----
-include::partial$graphql/createKeyspace.graphql[]
+include::example$graphql/createKeyspace.graphql[]
 ----
 For each keyspace created in your Cassandra schema, a new path is created under
 the `graphql-path` root (default is: `/graphql`). For example, the mutation just

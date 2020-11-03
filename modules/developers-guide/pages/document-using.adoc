@@ -1,19 +1,20 @@
 = Using the Stargate Document API
 :docid : 3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b
+
 Stargate is a data gateway deployed between client applications and a database.
 The Document API plugin that exposes CRUD access to data stored as unstructured JSON
 documents in collections.
 
 // tag::prereqsList[]
-include::partial$text/prereqs.adoc[]
+include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::partial$bash/docker_pull.sh[]
+include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$bash/docker_run.sh[]
+include::partial$docker_run.adoc[]
 // end::startDocker[]
 
 // tag::swaggerUI[]
@@ -23,18 +24,17 @@ Once you have started the docker container, you can access the Document API
 in a browser at `localhost:8082/swagger-ui`.
 // end::swaggerUI[]
 
-
 == Using the Auth API to generate an auth token
 
 // tag::GenAuthToken[]
 In order to use the Stargate Document API, an authorization token must be
 generated to access the interface.
 
-include::partial$bash/gen_auth_token.sh[]
+include::partial$gen_auth_token.adoc[]
 // end::GenAuthToken[]
 
 // tag::UseAuthToken[]
-include::partial$bash/use_auth_token_rest_document.sh[]
+include::partial$use_auth_token_rest_document.adoc[]
 // end::UseAuthToken[]
 
 // tag::UsingPostman[]
