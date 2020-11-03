@@ -59,13 +59,7 @@ and `1` for the number of data `replicas`.
 
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "users_keyspace",
-    "replicas": 1
-}'
+include::example$bash/curl_rest_create_ks.sh[]
 ----
 // end::CreateKS[]
 
@@ -77,43 +71,7 @@ Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
-curl --location \
---request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-	"name": "users",
-	"columnDefinitions":
-	  [
-        {
-	      "name": "firstname",
-	      "typeDefinition": "text"
-	    },
-        {
-	      "name": "lastname",
-	      "typeDefinition": "text"
-	    },
-	    {
-	      "name": "email",
-	      "typeDefinition": "text"
-	    },
-        {
-	      "name": "favorite color",
-	      "typeDefinition": "text"
-	    }
-	  ],
-	"primaryKey":
-	  {
-	    "partitionKey": ["firstname"],
-	    "clusteringKey": ["lastname"]
-	  },
-	"tableOptions":
-	  {
-	    "defaultTimeToLive": 0,
-	    "clusteringExpression":
-	      [{ "column": "lastname", "order": "ASC" }]
-	  }
-}'
+include::example$bash/curl_rest_create_table.sh[]
 ----
 
 Information about partition keys and clustering keys are found in the

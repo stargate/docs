@@ -76,7 +76,7 @@ In this example we use `myworld` for the `name`, and no `replicas` setting, to d
 
 [source,bash]
 ----
-include::example$bash/curl_simple_namespace.sh[]
+include::example$bash/curl_docapi_simple_namespace.sh[]
 ----
 
 The authorization token and the content type are passed with  `--header`. The
@@ -95,7 +95,7 @@ and `2` for the number of data `replicas`.
 
 [source,bash]
 ----
-include::example$bash/curl_set_namespace_replicas.sh[]
+include::example$bash/curl_docapi_set_namespace_replicas.sh[]
 ----
 
 ==== Namespace for multiple datacenters
@@ -107,7 +107,7 @@ where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
 [source,bash]
 ----
-include::example$bash/curl_namespace_dcs.sh[]
+include::example$bash/curl_docapi_namespace_dcs.sh[]
 ----
 // end::CreateNSextra[]
 
@@ -124,7 +124,7 @@ Command::
 --
 [source,shell]
 ----
-include::example$bash/curl_check_ns_exists.sh[]
+include::example$bash/curl_docapi_check_ns_exists.sh[]
 ----
 --
 
@@ -142,9 +142,7 @@ To get a particular namespace, specify the namespace in the URL:
 
 [source,bash]
 ----
-curl -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/curl_docapi_get_particular_ns.sh[]
 ----
 
 returns:
