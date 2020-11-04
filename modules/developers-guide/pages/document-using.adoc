@@ -119,7 +119,7 @@ Document API query with `cURL` to find all the namespaces:
 
 [tabs]
 ====
-Command::
+cURL command::
 +
 --
 [source,shell]
@@ -140,17 +140,26 @@ include::example$result/docapi_curl_check_ns_exists.result[]
 
 To get a particular namespace, specify the namespace in the URL:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/docapi_curl_get_particular_ns.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
 include::example$result/docapi_curl_get_particular_ns.result[]
 ----
+--
+====
 
 For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.`
 // end::CheckNS[]
@@ -217,24 +226,26 @@ Send a `POST` request to `/v2/namespaces/{namespace_name}/collections/{collectio
 to add data to the collection `fitness`.
 The data is passed in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location \
---request POST 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-  "id": "some-stuff",
-  "other": "This is nonsensical stuff."
-}'
+include::example$bash/docapi_curl_post_noDocId.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext, subs="attributes+"]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"{docid}"}
+include::example$result/docapi_curl_post_noDocId.result[]
 ----
+--
+====
 
 Notice that the `document-id` returned is a UUID if not specified.
 // end::WriteBasicData[]
@@ -247,17 +258,26 @@ to add data to the collection `Janet`.
 The `document-id` can be any string.
 The data is passed in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/docapi_curl_put_janet.sh[]
 ----
+--
 
-returns:
-
-[source,plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
 include::example$result/docapi_curl_put_janet.result[]
 ----
+--
+====
 
 Note the difference between using `POST` and `PUT`. The `POST` request
 is used to insert new documents when you want the system to auto-generate the
@@ -275,28 +295,26 @@ Send a `PUT` request to
 to add data to the existing collection.
 The data is passed in the JSON body.
 
-[source, bash, subs="attributes+"]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "Joey",
-    "lastname": "Doe",
-    "weights": {
-      "type": "bench press",
-      "weight": 150,
-      "reps": 15
-  }
-}'
+include::example$bash/docapi_curl_put_joey_subdoc.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Joey"}
+include::example$result/docapi_curl_put_joey_subdoc.result[]
 ----
+--
+====
 // end::WriteAdvData[]
 
 ////
@@ -312,42 +330,26 @@ Let's check that the document was inserted. Send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
 all the documents:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location \
---request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_all_docs.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext, subs="attributes+"]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"data":{
-		"Joey":{
-			"firstname":"Joey",
-			"lastname":"Doe",
-			"weights":{
-				"reps":15,
-				"type":"bench press",
-				"weight":150
-			}
-		},
-		"Janet":{
-			"email":"janet.doe@gmail.com",
-			"favorite color":"grey",
-			"firstname":"Janet",
-			"lastname":"Doe"
-		},
-		"{docid}":{
-			"id":"some-stuff",
-			"other":"This is nonsensical stuff."
-		}
-	}
-}
+include::example$result/docapi_curl_get_all_docs.result[]
 ----
+--
+====
 
 The `page-size` parameter is included to get all the documents, rather than the
 last inserted document.
@@ -358,26 +360,26 @@ Let's check that the data was inserted for a particular document.
 Send a `GET` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
 to retrieve the document:
 
-[source, bash, subs="attributes+"]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/{docid}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_one_doc.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext, subs="attributes+"]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"{docid}",
-	"data":{
-		"id":"some-stuff",
-		"other":"This is nonsensical stuff."
-	}
-}
+include::example$result/docapi_curl_get_one_doc.result[]
 ----
+--
+====
 
 It is possible to get a value for a particular field in a document using one of
 two methods, either a `where` clause or a `document-path`. These methods can
@@ -390,28 +392,26 @@ Send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}?{where-clause}`
 to get the same information:
 
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"Janet"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_doc_where.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"data":{
-		"Janet":{
-			"email":"janet.doe@gmail.com",
-			"favorite color":"grey",
-			"firstname":"Janet",
-			"lastname":"Doe"
-		}
-	}
-}
+include::example$result/docapi_curl_get_doc_where.result[]
 ----
+--
+====
 
 Note that the `where` clause must be url encoded, so curly brackets are escaped
 with `\` and spaces must be replaced with `%20`.
@@ -422,32 +422,26 @@ Also, the full document is returned, as opposed to the value of the field specif
 // tag::ReadAdvData[]
 You can also retrieve documents using a `WHERE` clause that searches sub-documents:
 
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"bench%20press"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_subdoc_where.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"data":{
-		"Joey":{
-			"firstname":"Joey",
-			"lastname":"Doe",
-			"weights":{
-				"reps":15,
-				"type":"bench press",
-				"weight":150
-			}
-		}
-	},
-	"pageState":null
-}
+include::example$result/docapi_curl_get_subdoc_where.result[]
 ----
+--
+====
 
 ==== Retrieving a specific portion of a document with document-path
 
