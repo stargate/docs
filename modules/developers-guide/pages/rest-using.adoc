@@ -59,7 +59,7 @@ and `1` for the number of data `replicas`.
 
 [source,bash]
 ----
-include::example$bash/curl_rest_create_ks.sh[]
+include::example$bash/rest_curl_create_ks.sh[]
 ----
 // end::CreateKS[]
 
@@ -71,7 +71,7 @@ Set the table name and column definitions in the JSON body.
 
 [source,bash]
 ----
-include::example$bash/curl_rest_create_table.sh[]
+include::example$bash/rest_curl_create_table.sh[]
 ----
 
 Information about partition keys and clustering keys are found in the
