@@ -365,7 +365,7 @@ to retrieve the document:
 cURL command::
 +
 --
-[source,shell]
+[source,shell, subs="attributes+"]
 ----
 include::example$bash/docapi_curl_get_one_doc.sh[]
 ----
@@ -449,44 +449,51 @@ To find a particular value, send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
 to retrieve the type of weights Joey has done in his workout:
 
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights/type' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_joey.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Joey","data":"bench press"}
+include::example$result/docapi_curl_get_joey.result[]
 ----
+--
+====
 
 In this case, the sub-document `weights` is the
 `document-path` specified to retrieve that data about the `reps`, `type`, and
 `weight`.
 
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_joey_weights.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"Joey",
-	"data":{
-		"reps":15,
-		"type":"bench press",
-		"weight":150
-	}
-}
+include::example$result/docapi_curl_get_joey_weights.result[]
 ----
+--
+====
 // end::ReadAdvData[]
 
 // tag::UpdateBasicData[]
@@ -500,50 +507,51 @@ Send a `PATCH` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
 to replace data to the existing collection. All fields included will be changed.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "JanetLee",
-    "lastname": "Doe"
-}'
+include::example$bash/docapi_curl_patch_janet.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Janet"}
+include::example$result/docapi_curl_patch_janet.result[]
 ----
+--
+====
 
 A `GET` request will show that the data has been replaced in the document:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
- --header "X-Cassandra-Token: $AUTH_TOKEN" \
- --header 'Content-Type: application/json'
+include::example$bash/docapi_curl_patch_check_janet.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"Janet",
-	"data":{
-		"email":"janet.doe@gmail.com",
-		"favorite color":"grey",
-		"firstname":"JanetLee",
-		"lastname":"Doe"
-	}
-}
+include::example$result/docapi_curl_patch_check_janet.result[]
 ----
+--
+====
 
-NOTE: `PATCH` Updates are upserts. If the document doesn't exist, it will be created.
+NOTE: `PATCH` updates are upserts. If the document doesn't exist, it will be created.
 If it does exist, it will be updated with the new document data.
 
 // end::UpdateBasicData[]
@@ -556,51 +564,49 @@ a `PATCH` request to
  `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 In this example, we want to change just the firstname of the document:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-      "firstname": "Joseph"
-}'
+include::example$bash/docapi_curl_patch_partial.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Joey"}
+include::example$result/docapi_curl_patch_partial.result[]
 ----
+--
+====
 
 and a `GET` will show that only the `weights` has been changed.
 
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_patch_check_partial.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"Joey",
-	"data":{
-		"firstname":"Joseph",
-		"lastname":"Doe",
-		"weights":{
-			"reps":15,
-			"type":"bench press",
-			"weight":150
-		}
-	}
-}
+include::example$result/docapi_curl_patch_check_partial.result[]
 ----
+--
+====
 
 To partially update a sub-document,  send a `PATCH` request to
  `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
@@ -608,18 +614,50 @@ To partially update a sub-document,  send a `PATCH` request to
  information to change and the `document-path` of the sub-document. Include
  all fields that you wish to update.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "reps": 10,
-    "type": "squat",
-    "weight": 350
-}'
+include::example$bash/docapi_curl_patch_subdoc.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_patch_subdoc.result[]
+----
+--
+====
+
+and a `GET` will show that only the `weights` has been changed.
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
+----
+include::example$bash/docapi_curl_patch_check_subdoc.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_patch_check_subdoc.result[]
+----
+--
+====
+
 // end::UpdateAdvData[]
 
 // tag::DeleteBasicData[]
@@ -629,10 +667,7 @@ To delete a document, send a `DELETE` request to
 
 [source,bash, subs="attributes+"]
 ----
-curl -L \
--X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/{docid}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_delete_doc.sh[]
 ----
 // end::DeleteBasicData[]
 
