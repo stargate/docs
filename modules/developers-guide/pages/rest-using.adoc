@@ -43,6 +43,7 @@ https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/s
 Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]
 
+// tag::CreateKS[]
 == Creating or dropping keyspace and table schema
 
 In order to use the REST API, you must create schema that defines at least one
@@ -61,7 +62,6 @@ If no replica is defined, then for a keyspace in a single datacenter cluster,
 the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
 datacenter.
 
-// tag::CreateKS[]
 === Creating a keyspace
 
 ==== Simple keyspace
@@ -69,19 +69,35 @@ datacenter.
 Send a `POST` request to `/v2/schemas/keyspaces`.
 In this example we use `user_keyspace` for the `name`, and no `replicas` setting, to default to 1.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/rest_curl_simple_ks.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_ks.result[]
+----
+--
+====
 
 The authorization token and the content type are passed with  `--header`. The
 token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
 and its value.
 The specified name for the keyspace is passed as JSON data using `--data`.
+// end::CreateKS[]
 
-==== Set replicas in simple namespace
-
-Note that you must create an xref:quickstart/quick_start-rest.adoc#genAuthToken[auth token] first.
+//tag::CreateKSextra[]
+==== Set replicas in simple keyspace
 
 Send a `POST` request to `/v2/schemas/keyspaces`.
 In this example we use `users_keyspace` for the `name`,
@@ -108,12 +124,71 @@ include::example$result/rest_curl_create_ks.result[]
 --
 ====
 
-The authorization token and the content type are passed with  `--header`. The
-token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
-and its value.
-The specified name and replicas for the namespace are passed as JSON
-data using `--data`.
-// end::CreateKS[]
+==== Keyspace for multiple datacenters
+
+For a multiple-datacenter cluster, a keyspace is defined `datacenters`.
+Send a `POST` request to `/v2/schemas/keyspaces`.
+In this example we use `users_keyspace-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
+where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
+
+[source,bash]
+----
+include::example$bash/rest_curl_ks_dcs.sh[]
+----
+// end::CreateKSextra[]
+
+// tag::CheckKS[]
+=== Checking keyspace existence
+
+To check if a keyspaces exist, execute a
+REST API query with `cURL` to find all the keyspaces:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_check_ks_exists.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_check_ks_exists.result[]
+----
+--
+====
+
+To get a particular keyspace, specify the keyspace in the URL:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_get_particular_ks.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_get_particular_ks.result[]
+----
+--
+====
+
+For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.`
+// end::CheckKS[]
 
 // tag::CreateTable[]
 === Creating a table

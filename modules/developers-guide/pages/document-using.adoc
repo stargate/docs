@@ -74,16 +74,31 @@ datacenter.
 Send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`, and no `replicas` setting, to default to 1.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/docapi_curl_simple_ns.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi_curl_create_ns.result[]
+----
+--
+====
 
 The authorization token and the content type are passed with  `--header`. The
 token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
 and its value.
-The specified name and replicas for the namespace are passed as JSON
-data using `--data`.
+The specified name for the namespace is passed as JSON data using `--data`.
 // end::CreateNS[]
 
 // tag::CreateNSextra[]
@@ -93,10 +108,26 @@ To set the replicas, send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`,
 and `2` for the number of data `replicas`.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-include::example$bash/docapi_curl_set_ns_replicas.sh[]
+include::example$bash/docapi_curl_create_ns.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi_curl_create_ns.result[]
+----
+--
+====
 
 ==== Namespace for multiple datacenters
 
