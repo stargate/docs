@@ -2,8 +2,8 @@
 :docid : 3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b
 
 Stargate is a data gateway deployed between client applications and a database.
-The Document API plugin that exposes CRUD access to data stored as unstructured JSON
-documents in collections.
+The Document API plugin that exposes CRUD access to data stored as unstructured
+JSON documents in collections.
 
 // tag::prereqsList[]
 include::partial$prereqs.adoc[]

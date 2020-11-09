@@ -15,8 +15,15 @@ include::partial$docker_pull.adoc[]
 include::partial$docker_run.adoc[]
 // end::startDocker[]
 
+// tag::swaggerUI[]
+=== Swagger UI for the REST API
+
+Once you have started the docker container, you can access the REST API
+in a browser at `localhost:8082/swagger-ui`.
+// end::swaggerUI[]
+
 == Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
+In order to use the Stargate REST API, an authorization token must be
 generated to access the interface.
 
 // generate the auth token
@@ -36,20 +43,43 @@ https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/s
 Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]
 
-== Creating or dropping schema
+== Creating or dropping keyspace and table schema
 
-In order to use the REST API, you must create schema that defines the keyspace and
-tables that will store the data. A keyspace is a container for which a
-`replication factor` defines the number of data replicas the database will store.
-Tables consist of columns that have a defined data type. Multiple tables are contained
-in a keyspace, but a table cannot be contained in multiple keyspaces.
+In order to use the REST API, you must create schema that defines at least one
+keyspace and one table that will store the data.
+A keyspace is a container for which a `replication factor` defines the number of
+data replicas the database will store.
+Tables consist of columns that each have a name and a defined data type.
+Multiple tables are contained in a keyspace, but a table cannot be contained in
+multiple keyspaces.
+If you are connecting to a Cassandra database with existing schema, you can skip
+this step.
+
+For keyspaces, an optional setting, `replicas`, defines
+the number of data replicas the database will store for the keyspace.
+If no replica is defined, then for a keyspace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.
 
 // tag::CreateKS[]
 === Creating a keyspace
 
-Before you can start using the REST API, you must first create a Cassandra
-keyspace and at least one table in your database. If you are connecting to a
-Cassandra database with existing schema, you can skip this step.
+==== Simple keyspace
+
+Send a `POST` request to `/v2/schemas/keyspaces`.
+In this example we use `user_keyspace` for the `name`, and no `replicas` setting, to default to 1.
+
+[source,bash]
+----
+include::example$bash/rest_curl_simple_ks.sh[]
+----
+
+The authorization token and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name for the keyspace is passed as JSON data using `--data`.
+
+==== Set replicas in simple namespace
 
 Note that you must create an xref:quickstart/quick_start-rest.adoc#genAuthToken[auth token] first.
 
@@ -57,10 +87,32 @@ Send a `POST` request to `/v2/schemas/keyspaces`.
 In this example we use `users_keyspace` for the `name`,
 and `1` for the number of data `replicas`.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/rest_curl_create_ks.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_ks.result[]
+----
+--
+====
+
+The authorization token and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name and replicas for the namespace are passed as JSON
+data using `--data`.
 // end::CreateKS[]
 
 // tag::CreateTable[]
@@ -69,10 +121,26 @@ include::example$bash/rest_curl_create_ks.sh[]
 Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
 Set the table name and column definitions in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/rest_curl_create_table.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_table.result[]
+----
+--
+====
 
 Information about partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
@@ -89,13 +157,26 @@ Need to add data types!!
 If you need to add an attribute to something you are storing in a table, you
 can add a column by sending a `POST` request to add the column.
 
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location
---request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
---header 'X-Cassandra-Token: $AUTH_TOKEN'
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_add_column.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_column.result[]
+----
+--
+====
 
 To change the name or data type of an existing column, use a similar command, but
 sent a `PUT` request instead:
@@ -103,10 +184,10 @@ sent a `PUT` request instead:
 // LLP: NEED TO CHECK THIS
 [source, bash]
 ----
-curl --location
---request PUT 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
---header 'X-Cassandra-Token: $AUTH_TOKEN'
---header 'Content-Type: application/json'
+curl --location \
+--request PUT 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email' \
+--header 'X-Cassandra-Token: $AUTH_TOKEN' \
+--header 'Content-Type: application/json' \
 --data '{
 	"name": "email",
 	"typeDefinition": "text"
