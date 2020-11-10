@@ -477,6 +477,12 @@ include::example$result/rest_curl_write_users.result[]
 ----
 --
 ====
+
+[NOTE]
+====
+Notice that, unlike schema creation, data queries do not require `tables` in the
+URI, only the `{tableName}`.
+====
 // end::WriteData[]
 
 // tag::ReadData[]
@@ -565,38 +571,51 @@ include::example$result/rest_curl_update_users.result[]
 --
 ====
 
-NOTE: Updates are upserts. If the row doesn't exist, it will be created.
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
-
+====
 // end::UpdateData[]
 
+
+// LLP: The update PUT and the PATCH do the same thing. I need to figure out
+// the difference.
 It is also possible to update only part of a row. To partially update, send
 a `PATCH` request to   `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
 In this example, we realize we should not have changed the email address, and
 we want to only change that one column:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location \
---request PATCH 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "email": "mookie.betts.email@email.com"
-}'
+include::example$bash/rest_curl_patch_users.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_patch_users.result[]
+----
+--
+====
 
 // tag::DeleteData[]
 === Delete data
 To delete a row, send a `DELETE` request to
-`/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
-In this request we delete all data with the primary key `firstname` of `Mookie`:
+`/v2/keyspaces/{keyspace_name}/{table_name}/{primaryKey}`.
+For this example, the primary key consists of a partition key `firstname` and
+clustering column `lastname`, so we delete all data with `Mookie/Betts`:
 
 [source,bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_delete_row.sh[]
 ----
 // end::DeleteData[]
