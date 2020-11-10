@@ -268,7 +268,10 @@ curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 // tag::WriteBasicData[]
 === Writing documents
 
-==== Specifying a collection name
+All data written with the Document API is stored as JSON documents stored in
+collections.
+
+==== Add document specifying a collection name
 
 First, let's add a document to a specified collection.
 Send a `POST` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}`
@@ -299,7 +302,7 @@ include::example$result/docapi_curl_post_noDocId.result[]
 Notice that the `document-id` returned is a UUID if not specified.
 // end::WriteBasicData[]
 
-==== Specifying collection name and document-id
+==== Add document specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
 Send a `PUT` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`

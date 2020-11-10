@@ -446,6 +446,9 @@ include::example$bash/rest_curl_drop_column.sh[]
 
 == Interacting with data stored in tables
 
+All data written with the REST API is stored in columns in tables that were
+specified with the schema.
+
 // tag::WriteData[]
 === Write data
 
@@ -454,42 +457,54 @@ Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
 to add data to the table.
 The column name/value pairs are passed in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "Mookie",
-    "lastname": "Betts",
-    "email": "mookie.betts@gmail.com",
-    "favorite color": "blue"
-}'
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "Janesha",
-    "lastname": "Doesha",
-    "email": "janesha.doesha@gmail.com",
-    "favorite color": "grey"
-}'
+include::example$bash/rest_curl_write_users.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_write_users.result[]
+----
+--
+====
 // end::WriteData[]
 
 // tag::ReadData[]
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
-`/v2/keyspaces/{keyspace_name}/{table_name}` to retrieve all the data:
+`/v2/keyspaces/{keyspace_name}/tables/{table_name}` to retrieve all the data:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl GET \
---location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
+include::example$bash/rest_curl_get_users.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users.result[]
+----
+--
+====
 
 Now let's search for a particular record using a `WHERE` clause. The primary
 key of the table can be used in the `WHERE` clause, but non-primary key columns
@@ -497,14 +512,26 @@ cannot be used.
 Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
 to retrieve the row for `Mookie`:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl GET \
---location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
+include::example$bash/rest_curl_get_users_where.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_where.result[]
+----
+--
+====
 // end::ReadData[]
 
 // tag::UpdateData[]
@@ -517,16 +544,26 @@ In this example, the partition key is `firstname` "Mookie" and the
 clustering key is `lastname` "Betts";
 thus, we use `/Mookie/Betts` as the `{path}` in our request.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location \
---request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "email": "mookie.betts.new-email@email.com"
-}'
+include::example$bash/rest_curl_update_users.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_update_users.result[]
+----
+--
+====
 
 NOTE: Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
