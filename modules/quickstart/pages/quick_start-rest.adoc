@@ -51,7 +51,7 @@ in a keyspace, but a table cannot be contained in multiple keyspaces.
 include::developers-guide:page$rest-using.adoc[tag=CreateKS]
 
 // check keyspaces exist
-include::developers-guide:page$rest-using.adoc[tag=CheckKSTables]
+include::developers-guide:page$rest-using.adoc[tag=CheckKS]
 
 // create table
 include::developers-guide:page$rest-using.adoc[tag=CreateTable]
