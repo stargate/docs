@@ -20,6 +20,8 @@ include::partial$docker_run.adoc[]
 
 Once you have started the docker container, you can access the REST API
 in a browser at `localhost:8082/swagger-ui`.
+Adding parameter information, you can generate `cURL` commands to execute and
+display results that will return.
 // end::swaggerUI[]
 
 == Using the Auth API to generate an auth token
@@ -94,6 +96,8 @@ The authorization token and the content type are passed with  `--header`. The
 token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
 and its value.
 The specified name for the keyspace is passed as JSON data using `--data`.
+For shorthand, `cURL` can use `-L` for `--location`, `-X` for `--request`, `-H`
+for `--header`, and `-d` for `--data`.
 // end::CreateKS[]
 
 //tag::CreateKSextra[]
@@ -131,6 +135,26 @@ Send a `POST` request to `/v2/schemas/keyspaces`.
 In this example we use `users_keyspace-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
 where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_ks_dcs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_ks_dcs.result[]
+----
+--
+====
 [source,bash]
 ----
 include::example$bash/rest_curl_ks_dcs.sh[]
@@ -186,8 +210,6 @@ include::example$result/rest_curl_get_particular_ks.result[]
 ----
 --
 ====
-
-For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.`
 // end::CheckKS[]
 
 // tag::CreateTable[]
@@ -256,18 +278,27 @@ include::example$result/rest_curl_add_column.result[]
 To change the name or data type of an existing column, use a similar command, but
 sent a `PUT` request instead:
 
-// LLP: NEED TO CHECK THIS
-[source, bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl --location \
---request PUT 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
---header 'Content-Type: application/json' \
---data '{
-	"name": "email",
-	"typeDefinition": "text"
-}'
+include::example$bash/rest_curl_change_column.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_change_column.result[]
+----
+--
+====
+
 // end: AddColumn[]
 
 // tag::CheckKSTables[]

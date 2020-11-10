@@ -22,6 +22,8 @@ include::partial$docker_run.adoc[]
 
 Once you have started the docker container, you can access the Document API
 in a browser at `localhost:8082/swagger-ui`.
+Adding parameter information, you can generate `cURL` commands to execute and
+display results that will return.
 // end::swaggerUI[]
 
 == Using the Auth API to generate an auth token
@@ -99,6 +101,8 @@ The authorization token and the content type are passed with  `--header`. The
 token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
 and its value.
 The specified name for the namespace is passed as JSON data using `--data`.
+For shorthand, `cURL` can use `-L` for `--location`, `-X` for `--request`, `-H`
+for `--header`, and `-d` for `--data`.
 // end::CreateNS[]
 
 // tag::CreateNSextra[]
@@ -136,10 +140,26 @@ Send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
 where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
 include::example$bash/docapi_curl_ns_dcs.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi_curl_ns_dcs.result[]
+----
+--
+====
 // end::CreateNSextra[]
 
 // tag::CheckNS[]
@@ -191,8 +211,6 @@ include::example$result/docapi_curl_get_particular_ns.result[]
 ----
 --
 ====
-
-For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.`
 // end::CheckNS[]
 
 //== Drop namespaces or collections
