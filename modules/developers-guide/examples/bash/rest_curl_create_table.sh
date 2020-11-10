@@ -14,10 +14,6 @@ curl --location \
 	      "name": "lastname",
 	      "typeDefinition": "text"
 	    },
-	    {
-	      "name": "email",
-	      "typeDefinition": "text"
-	    },
         {
 	      "name": "favorite color",
 	      "typeDefinition": "text"
