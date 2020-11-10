@@ -301,8 +301,8 @@ include::example$result/rest_curl_change_column.result[]
 
 // end: AddColumn[]
 
-// tag::CheckKSTables[]
-== Checking table, and column existence
+// tag::CheckTables[]
+== Checking table and column existence
 
 To check if a table exists, execute a
 REST API query with `cURL` to find all the tables:
@@ -350,86 +350,54 @@ include::example$result/rest_curl_get_particular_table.result[]
 ----
 --
 ====
-To check if a table or particular table columns exist, execute a
-REST query with `cURL`:
 
+To check if a column exists, execute a
+REST API query with `cURL` to find all the columns:
 
-For tables:
-
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
+include::example$bash/rest_curl_check_column_exists.sh[]
 ----
+--
 
-returns
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-// LLP: GET THE RETURN RESULT
-["users"]
+include::example$result/rest_curl_check_column_exists.result[]
 ----
+--
+====
 
-To get a particular table:
+To get a particular column, specify the column in the URL:
 
-[source,bash]
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
+include::example$bash/rest_curl_get_particular_column.sh[]
 ----
+--
 
-returns
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-// LLP: GET THE RETURN RESULT
+include::example$result/rest_curl_get_particular_column.result[]
 ----
-
-For columns:
-
-[source,bash]
-----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-// LLP: GET THE RETURN RESULT
-["users"]
-----
-
-To get a particular column:
-
-[source,bash]
-----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns/email' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-// LLP: GET THE RETURN RESULT
-["users"]
-----
-
-// end::CheckKSTables[]
+--
+====
+// end::CheckTables[]
 
 == Drop keyspaces, tables or columns
 
@@ -442,10 +410,7 @@ keyspace scheam.
 
 [source, bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_drop_ks.sh[]
 ----
 // end::DropKS[]
 
@@ -457,10 +422,7 @@ to delete a table. All data will be deleted along with the table schema.
 
 [source, bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_drop_table.sh[]
 ----
 // end::DropTable[]
 
@@ -473,10 +435,7 @@ column data will be deleted along with the column schema.
 
 [source, bash]
 ----
-curl --location
---request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
---header 'X-Cassandra-Token: $AUTH_TOKEN'
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_drop_column.sh[]
 ----
 // end::RemoveColumn[]
 
