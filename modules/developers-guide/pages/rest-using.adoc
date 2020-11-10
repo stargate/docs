@@ -302,45 +302,57 @@ include::example$result/rest_curl_change_column.result[]
 // end: AddColumn[]
 
 // tag::CheckKSTables[]
-== Checking keyspace, table, and column existence
+== Checking table, and column existence
 
-To check if a keyspace, tables, or particular table columns exist, execute a
+To check if a table exists, execute a
+REST API query with `cURL` to find all the tables:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_check_table_exists.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_check_table_exists.result[]
+----
+--
+====
+
+To get a particular table, specify the table in the URL:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_get_particular_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_get_particular_table.result[]
+----
+--
+====
+To check if a table or particular table columns exist, execute a
 REST query with `cURL`:
 
-For keyspaces:
-
-[source,bash]
-----
-curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-// LLP: GET THE RETURN RESULT
-["data_endpoint_auth","users_keyspace","stargate_system","system","system_auth","system_distributed","system_schema","system_traces"]
-----
-
-To get a particular keyspace:
-
-[source,bash]
-----
-curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-// LLP: GET THE RETURN RESULT
-----
 
 For tables:
 
