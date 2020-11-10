@@ -1,3 +1,3 @@
 curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json'

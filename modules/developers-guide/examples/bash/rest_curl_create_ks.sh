@@ -1,7 +1,7 @@
-curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
+curl -L -X POST 'localhost:8082/v2/schemas/keyspaces' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
     "name": "users_keyspace",
     "replicas": 1
 }'
