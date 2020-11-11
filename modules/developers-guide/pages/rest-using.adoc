@@ -514,12 +514,12 @@ include::example$result/rest_curl_get_users.result[]
 ====
 
 This query uses `$in` to find the two users.
-The `WHERE` clause can be used with other valid search terms, such as `$eq`, `$gte`,
-or others.
+The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
+`$lte`, `$gt`, `$gte`, `$ne`, and `$exists`, if applicable.
 The primary key of the table can be used in the `WHERE` clause, but non-primary
 key columns cannot be used.
 Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
-to retrieve the row for `Mookie`:
+to retrieve the row for `Mookie` using `$eq`:
 
 [tabs]
 ====
