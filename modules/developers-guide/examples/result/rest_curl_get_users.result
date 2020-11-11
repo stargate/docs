@@ -1,44 +1,17 @@
 {
-  "data":{
-    "name":"users",
-    "keyspace":"users_keyspace",
-    "columnDefinitions":[
-      {
-        "name":"firstname",
-        "typeDefinition":"varchar",
-        "static":false
-      },
-      {
-        "name":"lastname",
-        "typeDefinition":"varchar",
-        "static":false
-      },
-      {
-        "name":"email",
-        "typeDefinition":"varchar",
-        "static":false
-      },
-      {
-        "name":"favorite color",
-        "typeDefinition":"varchar",
-        "static":false
-      }
-    ],
-    "primaryKey":{
-      "partitionKey":[
-        "firstname"
-      ],
-      "clusteringKey":[
-        "lastname"
-      ]
+  "count":2,
+  "data":[
+    {
+      "firstname":"Janesha",
+      "favorite color":"grey",
+      "email":"janesha.doesha@gmail.com",
+      "lastname":"Doesha"
     },
-    "tableOptions":{
-      "defaultTimeToLive":0,
-      "clusteringExpression":[
-        {
-          "order":"Asc",
-          "column":"lastname"
-        }
-      ]
+    {
+      "firstname":"Mookie",
+      "favorite color":"blue",
+      "email":"mookie.betts@gmail.com",
+      "lastname":"Betts"
     }
-  }
+  ]
+}

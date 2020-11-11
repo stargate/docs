@@ -489,7 +489,8 @@ URI, only the `{tableName}`.
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
-`/v2/keyspaces/{keyspace_name}/tables/{table_name}` to retrieve all the data:
+`/v2/keyspaces/{keyspace_name}/tables/{table_name}` to retrieve the two users
+that were entered:
 
 [tabs]
 ====
@@ -512,9 +513,11 @@ include::example$result/rest_curl_get_users.result[]
 --
 ====
 
-Now let's search for a particular record using a `WHERE` clause. The primary
-key of the table can be used in the `WHERE` clause, but non-primary key columns
-cannot be used.
+This query uses `$in` to find the two users.
+The `WHERE` clause can be used with other valid search terms, such as `$eq`, `$gte`,
+or others.
+The primary key of the table can be used in the `WHERE` clause, but non-primary
+key columns cannot be used.
 Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
 to retrieve the row for `Mookie`:
 
