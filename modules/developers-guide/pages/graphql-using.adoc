@@ -112,7 +112,7 @@ graphQL command::
 --
 [source,shell]
 ----
-include::example$bash/createTables.graphql[]
+include::example$graphql/createTables.graphql[]
 ----
 --
 
@@ -126,7 +126,7 @@ include::example$result/gql_createTables.result[]
 --
 ====
 
-Worth noting is that one mutation is used to create two tables. Information about
+It is worth noting that one mutation is used to create two tables. Information about
 partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateTable[]
