@@ -274,16 +274,26 @@ include::example$result/gql_dropTableBooks.result[]
 If you find an attribute is no longer required in a table, you
 can remove a column.  Allcolumn data will be deleted along with the column schema.
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-mutation {
-    alterTableDrop(
-    keyspaceName:"library",
-    tableName:"books",
-    toDrop:["isbn"]
-  )
-}
+include::example$graphql/dropColumnIsbn.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropColumnIsbn.result[]
+----
+--
+====
 // end::RemoveColumns[]
 
 == Interacting with data stored in tables
@@ -409,21 +419,7 @@ handling queries and mutations. For example, the GraphQL API generated for the
 
 [source, plaintext]
 ----
-schema {
-  query: Query
-  mutation: Mutation
-}
-
-type Query {
-  books(value: BooksInput, filter: BooksFilterInput, orderBy: [BooksOrder], options: QueryOptions): BooksResult
-  booksFilter(filter: BooksFilterInput!, orderBy: [BooksOrder], options: QueryOptions): BooksResult
-}
-
-type Mutation {
-  insertBooks(value: BooksInput!, ifNotExists: Boolean, options: UpdateOptions): BooksMutationResult
-  updateBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
-  deleteBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
-}
+include::example$graphql/generatedApi.graphql[]
 ----
 
 The query `books()` can query book values by equality. If no value argument is
@@ -456,41 +452,26 @@ Change the location to
 http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
 and add a couple of books to the `book` table:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/insertTwoBooks.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation {
-  moby: insertBooks(value: {title:"Moby Dick", author:"Herman Melville"}) {
-    value {
-      title
-    }
-  }
-  catch22: insertBooks(value: {title:"Catch-22", author:"Joseph Heller"}) {
-    value {
-      title
-    }
-  }
-}
+include::example$result/gql_insertTwoBooks.result[]
 ----
-
-returns
-
-[source, plaintext]
-----
-{
-  "data": {
-    "moby": {
-      "value": {
-        "title": "Moby Dick"
-      }
-    },
-    "catch22": {
-      "value": {
-        "title": "Catch-22"
-      }
-    }
-  }
-}
-----
+--
+====
 // end::WriteData[]
 
 // tag::ReadData[]
@@ -508,35 +489,26 @@ http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
 will get both the `title` and the `author` for the specified book `WHERE
 title:"Moby Dick"`:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/readOneBook.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-query oneBook {
-    books (value: {title:"Moby Dick"}) {
-      values {
-      	title
-      	author
-      }
-    }
-}
+include::example$result/gql_readOneBook.result[]
 ----
-
-returns
-
-[source,plaintext]
-----
-{
-  "data": {
-    "books": {
-      "values": [
-        {
-          "title": "Moby Dick",
-          "author": "Herman Melville"
-        }
-      ]
-    }
-  }
-}
-----
+--
+====
 
 ////
 Add a section on using filters to read data
@@ -553,22 +525,32 @@ only be used with primary key columns just like in Cassandra.
 Using the column that we added earlier, the data for a book is updated with the
 ISBN value:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/updateOneBook.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation updateABook {
-  moby: updateBooks(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
-    value {
-      title
-      author
-      isbn
-    }
-  }
-}
+include::example$result/gql_updateOneBook.result[]
 ----
+--
+====
 
-NOTE: Updates are upserts. If the row doesn't exist, it will be created.
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
-
+====
 // end::UpdateData[]
 
 // tag::DeleteData[]
@@ -588,16 +570,27 @@ mutation insertAnotherBook {
 }
 ////
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/deleteOneBook.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation deleteABook {
-  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
-    value {
-      title
-    }
-  }
-}
+include::example$result/gql_deleteOneBook.result[]
 ----
+--
+====
+
 // end::DeleteData[]
 
 ////
