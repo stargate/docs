@@ -1,0 +1,12 @@
+mutation {
+  alterTableAdd(
+    keyspaceName:"library",
+    tableName:"books",
+    toAdd:[{
+      name: "isbn",
+      type: {
+        basic: TEXT
+      }
+    }]
+  )
+}

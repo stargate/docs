@@ -126,8 +126,8 @@ include::example$result/gql_createTables.result[]
 --
 ====
 
-It is worth noting that one mutation is used to create two tables. Information about
-partition keys and clustering keys are found in the
+It is worth noting that one mutation is used to create two tables.
+Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateTable[]
 
@@ -142,21 +142,26 @@ Need to add data types!!
 If you need to add more attributes to something you are storing in a table, you
 can add a column:
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-mutation {
-  alterTableAdd(
-    keyspaceName:"library",
-    tableName:"books",
-    toAdd:[{
-      name: "isbn",
-      type: {
-        basic: TEXT
-      }
-    }]
-  )
-}
+include::example$graphql/alterTableAdd.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_alterTableAdd.result[]
+----
+--
+====
 // end:AddColumns[]
 
 // tag::CheckKSTables[]
@@ -167,49 +172,50 @@ GraphQL query:
 
 For keyspaces and tables:
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-query GetKeyspace {
-  keyspace(name: "library") {
-      name
-      dcs {
-          name
-          replicas
-      }
-      tables {
-          name
-          columns {
-              name
-              kind
-              type {
-                  basic
-                  info {
-                      name
-                  }
-              }
-          }
-      }
-  }
-}
-query GetTables {
-  keyspace(name: "library") {
-      name
-      tables {
-          name
-          columns {
-              name
-              kind
-              type {
-                  basic
-                  info {
-                      name
-                  }
-              }
-          }
-      }
-  }
-}
+include::example$graphql/getKs.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getKs.result[]
+----
+--
+====
+
+And for tables:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/getTables.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getTables.result[]
+----
+--
+====
+
 Because these queries are named, the GraphQL playground will allow you to select
 which query to run. The first query will return information about the keyspace
 `library` and the tables within it. The second query will return just information
@@ -230,7 +236,7 @@ the keyspace schema.
 [source, plaintext]
 ----
 mutation {
-  dropKeyspace(keyspaceName:"library"
+  dropKeyspace(keyspaceName:"library")
 }
 ----
 // end::DropKS[]
@@ -240,13 +246,26 @@ mutation {
 
 You can delete a table. All data will be deleted along with the table schema.
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-mutation {
-  dropTable(keyspaceName:"library",
-    tableName:"books")
-}
+include::example$graphql/dropTableBooks.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableBooks.result[]
+----
+--
+====
 // end::DropTable[]
 
 // tag::RemoveColumns[]
