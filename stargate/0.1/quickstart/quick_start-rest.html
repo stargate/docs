@@ -164,18 +164,11 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item toggler" data-depth="1">
-    <a class="nav-link" href="../developers-guide/docker.html">Installing Stargate</a>
-    <button class="nav-item-toggle">
-      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
-      </svg>
-    </button>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers-guide/existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../developers-guide/install_docker.html">Installing Stargate with Docker</a>
   </li>
-</ul>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../developers-guide/install_existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../developers-guide/starctl.html">The starctl command</a>
@@ -338,8 +331,8 @@ plugin that exposes CRUD access to data stored in Cassandra tables.</p>
 <div class="sect2">
 <h3 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h3>
 <div class="paragraph">
-<p>This image contains the Cassandra Query Language (CQL), REST and GraphQL APIs,
-and GraphQL Playground along with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
+<p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
+and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -478,30 +471,183 @@ tables that will store the data. A keyspace is a container for which a
 Tables consist of columns that have a defined data type. Multiple tables are contained
 in a keyspace, but a table cannot be contained in multiple keyspaces.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_or_dropping_keyspace_and_table_schema"><a class="anchor" href="#_creating_or_dropping_keyspace_and_table_schema"></a><a class="link" href="#_creating_or_dropping_keyspace_and_table_schema">Creating or dropping keyspace and table schema</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to use the REST API, you must create schema that defines at least one
+keyspace and one table that will store the data.
+A keyspace is a container for which a <code>replication factor</code> defines the number of
+data replicas the database will store.
+Tables consist of columns that each have a name and a defined data type.
+Multiple tables are contained in a keyspace, but a table cannot be contained in
+multiple keyspaces.
+If you are connecting to a Cassandra database with existing schema, you can skip
+this step.</p>
+</div>
+<div class="paragraph">
+<p>For keyspaces, an optional setting, <code>replicas</code>, defines
+the number of data replicas the database will store for the keyspace.
+If no replica is defined, then for a keyspace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.</p>
+</div>
 <div class="sect2">
 <h3 id="_creating_a_keyspace"><a class="anchor" href="#_creating_a_keyspace"></a><a class="link" href="#_creating_a_keyspace">Creating a keyspace</a></h3>
-<div class="paragraph">
-<p>Before you can start using the REST API, you must first create a Cassandra
-keyspace and at least one table in your database. If you are connecting to a
-Cassandra database with existing schema, you can skip this step.</p>
-</div>
-<div class="paragraph">
-<p>Note that you must create an <a href="#quickstart/quick_start-rest.adoc#genAuthToken" class="page unresolved">auth token</a> first.</p>
-</div>
+<div class="sect3">
+<h4 id="_simple_keyspace"><a class="anchor" href="#_simple_keyspace"></a><a class="link" href="#_simple_keyspace">Simple keyspace</a></h4>
 <div class="paragraph">
 <p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces</code>.
-In this example we use <code>users_keyspace</code> for the <code>name</code>,
-and <code>1</code> for the number of data <code>replicas</code>.</p>
+In this example we use <code>user_keyspace</code> for the <code>name</code>, and no <code>replicas</code> setting, to default to 1.</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset1_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
-    "name": "users_keyspace",
-    "replicas": 1
+    "name": "users_keyspace"
 }'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"users_keyspace"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The authorization token and the content type are passed with  <code>--header</code>. The
+token must be identified as <code>X-Cassandra-Token</code> so that cluster recognizes the token
+and its value.
+The specified name for the keyspace is passed as JSON data using <code>--data</code>.
+For shorthand, <code>cURL</code> can use <code>-L</code> for <code>--location</code>, <code>-X</code> for <code>--request</code>, <code>-H</code>
+for <code>--header</code>, and <code>-d</code> for <code>--data</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checking_keyspace_existence"><a class="anchor" href="#_checking_keyspace_existence"></a><a class="link" href="#_checking_keyspace_existence">Checking keyspace existence</a></h3>
+<div class="paragraph">
+<p>To check if a keyspaces exist, execute a
+REST API query with <code>cURL</code> to find all the keyspaces:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset2_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data":[
+    {
+      "name":"system_distributed"
+    },
+    {
+      "name":"system"
+    },
+    {
+      "name":"data_endpoint_auth"
+    },
+    {
+      "name":"users_keyspace"
+    },
+    {
+      "name":"system_schema"
+    },
+    {
+      "name":"myworld"
+    },
+    {
+      "name":"stargate_system"
+    },
+    {
+      "name":"library"
+    },
+    {
+      "name":"users_keyspace2"
+    },
+    {
+      "name":"system_auth"
+    },
+    {
+      "name":"system_traces"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To get a particular keyspace, specify the keyspace in the URL:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset3_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"data":{"name":"users_keyspace"}}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -511,9 +657,22 @@ and <code>1</code> for the number of data <code>replicas</code>.</p>
 <p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables</code> to create a table.
 Set the table name and column definitions in the JSON body.</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset4_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
 --request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
@@ -527,10 +686,6 @@ Set the table name and column definitions in the JSON body.</p>
 	    },
         {
 	      "name": "lastname",
-	      "typeDefinition": "text"
-	    },
-	    {
-	      "name": "email",
 	      "typeDefinition": "text"
 	    },
         {
@@ -552,6 +707,16 @@ Set the table name and column definitions in the JSON body.</p>
 }'</code></pre>
 </div>
 </div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"users"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>Information about partition keys and clustering keys are found in the
 <a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
@@ -560,132 +725,264 @@ Set the table name and column definitions in the JSON body.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_checking_keyspace_table_and_column_existence"><a class="anchor" href="#_checking_keyspace_table_and_column_existence"></a><a class="link" href="#_checking_keyspace_table_and_column_existence">Checking keyspace, table, and column existence</a></h2>
+<h2 id="_checking_table_and_column_existence"><a class="anchor" href="#_checking_table_and_column_existence"></a><a class="link" href="#_checking_table_and_column_existence">Checking table and column existence</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To check if a keyspace, tables, or particular table columns exist, execute a
-REST query with <code>cURL</code>:</p>
+<p>To check if a table exists, execute a
+REST API query with <code>cURL</code> to find all the tables:</p>
 </div>
-<div class="paragraph">
-<p>For keyspaces:</p>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset5_result"></a>Result</p>
+</li>
+</ul>
 </div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H "accept: application/json"</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": [
+    {
+      "name": "users",
+      "keyspace": "users_keyspace",
+      "columnDefinitions": [
+        {
+          "name": "firstname",
+          "typeDefinition": "varchar",
+          "static": false
+        },
+        {
+          "name": "lastname",
+          "typeDefinition": "varchar",
+          "static": false
+        },
+        {
+          "name": "email",
+          "typeDefinition": "varchar",
+          "static": false
+        },
+        {
+          "name": "favorite color",
+          "typeDefinition": "varchar",
+          "static": false
+        }
+      ],
+      "primaryKey": {
+        "partitionKey": [
+          "firstname"
+        ],
+        "clusteringKey": [
+          "lastname"
+        ]
+      },
+      "tableOptions": {
+        "defaultTimeToLive": 0,
+        "clusteringExpression": [
+          {
+            "order": "Asc",
+            "column": "lastname"
+          }
+        ]
+      }
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
-<p>returns</p>
+<p>To get a particular table, specify the table in the URL:</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset6_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
-["data_endpoint_auth","users_keyspace","stargate_system","system","system_auth","system_distributed","system_schema","system_traces"]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To get a particular keyspace:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>returns</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For tables:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>returns</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
-["users"]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To get a particular table:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
 -X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H "accept: application/json"</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data":{
+    "name":"users",
+    "keyspace":"users_keyspace",
+    "columnDefinitions":[
+      {
+        "name":"firstname",
+        "typeDefinition":"varchar",
+        "static":false
+      },
+      {
+        "name":"lastname",
+        "typeDefinition":"varchar",
+        "static":false
+      },
+      {
+        "name":"email",
+        "typeDefinition":"varchar",
+        "static":false
+      },
+      {
+        "name":"favorite color",
+        "typeDefinition":"varchar",
+        "static":false
+      }
+    ],
+    "primaryKey":{
+      "partitionKey":[
+        "firstname"
+      ],
+      "clusteringKey":[
+        "lastname"
+      ]
+    },
+    "tableOptions":{
+      "defaultTimeToLive":0,
+      "clusteringExpression":[
+        {
+          "order":"Asc",
+          "column":"lastname"
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
-<p>returns</p>
+<p>To check if a column exists, execute a
+REST API query with <code>cURL</code> to find all the columns:</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset7_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For columns:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
 -X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+-H "accept: application/json" \
+-H "content-type: application/json" \
+-H "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data":[
+    {
+      "name":"firstname",
+      "typeDefinition":"varchar",
+      "static":false
+    },
+    {
+      "name":"lastname",
+      "typeDefinition":"varchar",
+      "static":false
+    },
+    {
+      "name":"email",
+      "typeDefinition":"varchar",
+      "static":false
+    },
+    {
+      "name":"favorite color",
+      "typeDefinition":"varchar",
+      "static":false
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
-<p>returns</p>
+<p>To get a particular column, specify the column in the URL:</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset8_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
-["users"]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To get a particular column:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
 -X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns/email' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'</code></pre>
+-H "accept: application/json" \
+-H "content-type: application/json" \
+-H "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>returns</p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset8_result">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">// LLP: GET THE RETURN RESULT
-["users"]</code></pre>
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data":{
+    "name":"email",
+    "typeDefinition":"varchar",
+    "static":false
+  }
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -701,9 +998,22 @@ Send a <code>POST</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_n
 to add data to the table.
 The column name/value pairs are passed in the JSON body.</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset9_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -724,35 +1034,106 @@ curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users
 </div>
 </div>
 </div>
+<div class="tab-pane" aria-labelledby="tabset9_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Mookie","lastname":"Betts"}
+{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Notice that, unlike schema creation, data queries do not require <code>tables</code> in the
+URI, only the <code>{tableName}</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_read_data"><a class="anchor" href="#_read_data"></a><a class="link" href="#_read_data">Read data</a></h3>
 <div class="paragraph">
 <p>Let&#8217;s check that the data was inserted. Send a <code>GET</code> request to
-<code>/v2/keyspaces/{keyspace_name}/{table_name}</code> to retrieve all the data:</p>
+<code>/v2/keyspaces/{keyspace_name}/{table_name}?where={searchPath}</code> to retrieve the two users
+that were entered:</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset10_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl GET \
---location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$in":\["Janesha","Mookie"\]\}\}' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset10_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "count":2,
+  "data":[
+    {
+      "firstname":"Janesha",
+      "favorite color":"grey",
+      "email":"janesha.doesha@gmail.com",
+      "lastname":"Doesha"
+    },
+    {
+      "firstname":"Mookie",
+      "favorite color":"blue",
+      "email":"mookie.betts@gmail.com",
+      "lastname":"Betts"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
-<p>Now let&#8217;s search for a particular record using a <code>WHERE</code> clause. The primary
-key of the table can be used in the <code>WHERE</code> clause, but non-primary key columns
-cannot be used.
-Send a <code>GET</code> request to <code>/v2/keyspaces/{keyspace_name}/{table_name}</code>
-to retrieve the row for <code>Mookie</code>:</p>
+<p>This query uses <code>$in</code> to find the two users.
+The <code>WHERE</code> clause can be used with other valid search terms: <code>$eq</code>, <code>$lt</code>,
+<code>$lte</code>, <code>$gt</code>, <code>$gte</code>, <code>$ne</code>, and <code>$exists</code>, if applicable.
+The primary key of the table can be used in the <code>WHERE</code> clause, but non-primary
+key columns cannot be used.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl GET \
---location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'</code></pre>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A query for table rows must include a <code>WHERE</code> clause or a primary key to retrieve
+rows.</p>
 </div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -765,15 +1146,37 @@ In this example, the partition key is <code>firstname</code> "Mookie" and the
 clustering key is <code>lastname</code> "Betts";
 thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our request.</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset11_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset11_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
---request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
     "email": "mookie.betts.new-email@email.com"
 }'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset11_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"data":{"email":"mookie.betts.new-email@email.com"}}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -783,8 +1186,10 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Updates are upserts. If the row doesn&#8217;t exist, it will be created.
-If it does exist, it will be updated with the new row data.
+<div class="paragraph">
+<p>Updates are upserts. If the row doesn&#8217;t exist, it will be created.
+If it does exist, it will be updated with the new row data.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -794,15 +1199,15 @@ If it does exist, it will be updated with the new row data.
 <h3 id="_delete_data"><a class="anchor" href="#_delete_data"></a><a class="link" href="#_delete_data">Delete data</a></h3>
 <div class="paragraph">
 <p>To delete a row, send a <code>DELETE</code> request to
-<code>/v2/keyspaces/{keyspace_name}/{table_name}/{path}</code>.
-In this request we delete all data with the primary key <code>firstname</code> of <code>Mookie</code>:</p>
+<code>/v2/keyspaces/{keyspace_name}/{table_name}/{primaryKey}</code>.
+For this example, the primary key consists of a partition key <code>firstname</code> and
+clustering column <code>lastname</code>, so we delete all data with <code>Mookie/Betts</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl --location \
---request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L -X DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json'</code></pre>
 </div>
 </div>
 <div class="paragraph">
