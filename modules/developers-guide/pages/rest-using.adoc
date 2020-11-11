@@ -73,7 +73,7 @@ In this example we use `user_keyspace` for the `name`, and no `replicas` setting
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -109,7 +109,7 @@ and `1` for the number of data `replicas`.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -137,7 +137,7 @@ where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -169,7 +169,7 @@ REST API query with `cURL` to find all the keyspaces:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -192,7 +192,7 @@ To get a particular keyspace, specify the keyspace in the URL:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -220,7 +220,7 @@ Set the table name and column definitions in the JSON body.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -256,7 +256,7 @@ can add a column by sending a `POST` request to add the column.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -280,7 +280,7 @@ sent a `PUT` request instead:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -309,7 +309,7 @@ REST API query with `cURL` to find all the tables:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -332,7 +332,7 @@ To get a particular table, specify the table in the URL:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -356,7 +356,7 @@ REST API query with `cURL` to find all the columns:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -379,7 +379,7 @@ To get a particular column, specify the column in the URL:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -459,7 +459,7 @@ The column name/value pairs are passed in the JSON body.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -489,12 +489,12 @@ URI, only the `{tableName}`.
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
-`/v2/keyspaces/{keyspace_name}/tables/{table_name}` to retrieve the two users
+`/v2/keyspaces/{keyspace_name}/{table_name}?where={searchPath}` to retrieve the two users
 that were entered:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -518,12 +518,21 @@ The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
 `$lte`, `$gt`, `$gte`, `$ne`, and `$exists`, if applicable.
 The primary key of the table can be used in the `WHERE` clause, but non-primary
 key columns cannot be used.
+
+[NOTE]
+====
+A query for table rows must include a `WHERE` clause or a primary key to retrieve
+rows.
+====
+// end::ReadData[]
+
+// tag::ReadAdvData[]
 Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
 to retrieve the row for `Mookie` using `$eq`:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -541,7 +550,30 @@ include::example$result/rest_curl_get_users_where.result[]
 ----
 --
 ====
-// end::ReadData[]
+
+Finally, a primary key can be supplied to retrieve a row:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_get_primKey.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+// end::ReadAdvData[]
 
 // tag::UpdateData[]
 === Update data
@@ -555,7 +587,7 @@ thus, we use `/Mookie/Betts` as the `{path}` in our request.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -585,13 +617,13 @@ If it does exist, it will be updated with the new row data.
 // LLP: The update PUT and the PATCH do the same thing. I need to figure out
 // the difference.
 It is also possible to update only part of a row. To partially update, send
-a `PATCH` request to   `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+a `PATCH` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
 In this example, we realize we should not have changed the email address, and
 we want to only change that one column:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]

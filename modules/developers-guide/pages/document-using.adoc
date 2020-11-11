@@ -78,7 +78,7 @@ In this example we use `myworld` for the `name`, and no `replicas` setting, to d
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -114,7 +114,7 @@ and `2` for the number of data `replicas`.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -142,7 +142,7 @@ where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -170,7 +170,7 @@ Document API query with `cURL` to find all the namespaces:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -193,7 +193,7 @@ To get a particular namespace, specify the namespace in the URL:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -224,9 +224,7 @@ namespace.
 
 [source, bash]
 ----
-curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_drop_ns.sh[]
 ----
 // end::DeleteNS[]
 
@@ -280,7 +278,7 @@ The data is passed in the JSON body.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -312,7 +310,7 @@ The data is passed in the JSON body.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -349,7 +347,7 @@ The data is passed in the JSON body.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -384,7 +382,7 @@ all the documents:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -414,7 +412,7 @@ to retrieve the document:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell, subs="attributes+"]
@@ -446,7 +444,7 @@ to get the same information:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -476,7 +474,7 @@ You can also retrieve documents using a `WHERE` clause that searches sub-documen
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -503,7 +501,7 @@ to retrieve the type of weights Joey has done in his workout:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -528,7 +526,7 @@ In this case, the sub-document `weights` is the
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -561,7 +559,7 @@ to replace data to the existing collection. All fields included will be changed.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -584,7 +582,7 @@ A `GET` request will show that the data has been replaced in the document:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -618,7 +616,7 @@ In this example, we want to change just the firstname of the document:
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -641,7 +639,7 @@ and a `GET` will show that only the `weights` has been changed.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -668,7 +666,7 @@ To partially update a sub-document,  send a `PATCH` request to
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
@@ -691,7 +689,7 @@ and a `GET` will show that only the `weights` has been changed.
 
 [tabs]
 ====
-cURL command::
+cURL command (/v2)::
 +
 --
 [source,shell]
