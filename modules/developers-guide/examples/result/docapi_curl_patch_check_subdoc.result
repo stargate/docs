@@ -1,0 +1,12 @@
+{
+  "documentId":"Joey",
+  "data":{
+    "firstname":"Joseph",
+    "lastname":"Doe",
+    "weights":{
+      "reps":10,
+      "type":"squat",
+      "weight":350
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "data":[
+    {
+      "name":"system_distributed"
+    },
+    {
+      "name":"system"
+    },
+    {
+      "name":"data_endpoint_auth"
+    },
+    {
+      "name":"users_keyspace"
+    },
+    {
+      "name":"system_schema"
+    },
+    {
+      "name":"myworld"
+    },
+    {
+      "name":"stargate_system"
+    },
+    {
+      "name":"library"
+    },
+    {
+      "name":"users_keyspace2"
+    },
+    {
+      "name":"system_auth"
+    },
+    {
+      "name":"system_traces"
+    }
+  ]
+}

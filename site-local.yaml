@@ -18,3 +18,5 @@ ui:
 asciidoc:
   attributes:
     source-highlighter: highlightjs
+  extensions:
+  - ./lib/tabs-block.js

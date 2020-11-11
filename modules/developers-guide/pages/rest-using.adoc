@@ -4,23 +4,32 @@ Stargate is a data gateway deployed between client applications and a database.
 The REST API plugin that exposes CRUD access to data stored in Cassandra tables.
 
 // tag::prereqsList[]
-include::quickstart:partial$text/prereqs.adoc[]
+include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::quickstart:partial$bash/docker_pull.sh[]
+include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::quickstart:partial$bash/docker_run.sh[]
+include::partial$docker_run.adoc[]
 // end::startDocker[]
 
+// tag::swaggerUI[]
+=== Swagger UI for the REST API
+
+Once you have started the docker container, you can access the REST API
+in a browser at `localhost:8082/swagger-ui`.
+Adding parameter information, you can generate `cURL` commands to execute and
+display results that will return.
+// end::swaggerUI[]
+
 == Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
+In order to use the Stargate REST API, an authorization token must be
 generated to access the interface.
 
 // generate the auth token
-include::quickstart:partial$bash/gen_auth_token.sh[]
+include::partial$gen_auth_token.adoc[]
 
 // using the auth token
 include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
@@ -36,38 +45,172 @@ https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/s
 Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]
 
-== Creating or dropping schema
-
-In order to use the REST API, you must create schema that defines the keyspace and
-tables that will store the data. A keyspace is a container for which a
-`replication factor` defines the number of data replicas the database will store.
-Tables consist of columns that have a defined data type. Multiple tables are contained
-in a keyspace, but a table cannot be contained in multiple keyspaces.
-
 // tag::CreateKS[]
+== Creating or dropping keyspace and table schema
+
+In order to use the REST API, you must create schema that defines at least one
+keyspace and one table that will store the data.
+A keyspace is a container for which a `replication factor` defines the number of
+data replicas the database will store.
+Tables consist of columns that each have a name and a defined data type.
+Multiple tables are contained in a keyspace, but a table cannot be contained in
+multiple keyspaces.
+If you are connecting to a Cassandra database with existing schema, you can skip
+this step.
+
+For keyspaces, an optional setting, `replicas`, defines
+the number of data replicas the database will store for the keyspace.
+If no replica is defined, then for a keyspace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.
+
 === Creating a keyspace
 
-Before you can start using the REST API, you must first create a Cassandra
-keyspace and at least one table in your database. If you are connecting to a
-Cassandra database with existing schema, you can skip this step.
+==== Simple keyspace
 
-Note that you must create an xref:quickstart/quick_start-rest.adoc#genAuthToken[auth token] first.
+Send a `POST` request to `/v2/schemas/keyspaces`.
+In this example we use `user_keyspace` for the `name`, and no `replicas` setting, to default to 1.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_simple_ks.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_ks.result[]
+----
+--
+====
+
+The authorization token and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name for the keyspace is passed as JSON data using `--data`.
+For shorthand, `cURL` can use `-L` for `--location`, `-X` for `--request`, `-H`
+for `--header`, and `-d` for `--data`.
+// end::CreateKS[]
+
+//tag::CreateKSextra[]
+==== Set replicas in simple keyspace
 
 Send a `POST` request to `/v2/schemas/keyspaces`.
 In this example we use `users_keyspace` for the `name`,
 and `1` for the number of data `replicas`.
 
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_create_ks.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_ks.result[]
+----
+--
+====
+
+==== Keyspace for multiple datacenters
+
+For a multiple-datacenter cluster, a keyspace is defined `datacenters`.
+Send a `POST` request to `/v2/schemas/keyspaces`.
+In this example we use `users_keyspace-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
+where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_ks_dcs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_ks_dcs.result[]
+----
+--
+====
 [source,bash]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "users_keyspace",
-    "replicas": 1
-}'
+include::example$bash/rest_curl_ks_dcs.sh[]
 ----
-// end::CreateKS[]
+// end::CreateKSextra[]
+
+// tag::CheckKS[]
+=== Checking keyspace existence
+
+To check if a keyspaces exist, execute a
+REST API query with `cURL` to find all the keyspaces:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_check_ks_exists.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_check_ks_exists.result[]
+----
+--
+====
+
+To get a particular keyspace, specify the keyspace in the URL:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_get_particular_ks.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_get_particular_ks.result[]
+----
+--
+====
+// end::CheckKS[]
 
 // tag::CreateTable[]
 === Creating a table
@@ -75,46 +218,26 @@ curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
 Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
 Set the table name and column definitions in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location \
---request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-	"name": "users",
-	"columnDefinitions":
-	  [
-        {
-	      "name": "firstname",
-	      "typeDefinition": "text"
-	    },
-        {
-	      "name": "lastname",
-	      "typeDefinition": "text"
-	    },
-	    {
-	      "name": "email",
-	      "typeDefinition": "text"
-	    },
-        {
-	      "name": "favorite color",
-	      "typeDefinition": "text"
-	    }
-	  ],
-	"primaryKey":
-	  {
-	    "partitionKey": ["firstname"],
-	    "clusteringKey": ["lastname"]
-	  },
-	"tableOptions":
-	  {
-	    "defaultTimeToLive": 0,
-	    "clusteringExpression":
-	      [{ "column": "lastname", "order": "ASC" }]
-	  }
-}'
+include::example$bash/rest_curl_create_table.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_table.result[]
+----
+--
+====
 
 Information about partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
@@ -131,148 +254,150 @@ Need to add data types!!
 If you need to add an attribute to something you are storing in a table, you
 can add a column by sending a `POST` request to add the column.
 
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location
---request POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
---header 'X-Cassandra-Token: $AUTH_TOKEN'
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_add_column.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_column.result[]
+----
+--
+====
 
 To change the name or data type of an existing column, use a similar command, but
 sent a `PUT` request instead:
 
-// LLP: NEED TO CHECK THIS
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location
---request PUT 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
---header 'X-Cassandra-Token: $AUTH_TOKEN'
---header 'Content-Type: application/json'
---data '{
-	"name": "email",
-	"typeDefinition": "text"
-}'
+include::example$bash/rest_curl_change_column.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_change_column.result[]
+----
+--
+====
+
 // end: AddColumn[]
 
-// tag::CheckKSTables[]
-== Checking keyspace, table, and column existence
+// tag::CheckTables[]
+== Checking table and column existence
 
-To check if a keyspace, tables, or particular table columns exist, execute a
-REST query with `cURL`:
+To check if a table exists, execute a
+REST API query with `cURL` to find all the tables:
 
-For keyspaces:
-
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X GET 'localhost:8082/v2/schemas/keyspaces' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
+include::example$bash/rest_curl_check_table_exists.sh[]
 ----
+--
 
-returns
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-// LLP: GET THE RETURN RESULT
-["data_endpoint_auth","users_keyspace","stargate_system","system","system_auth","system_distributed","system_schema","system_traces"]
+include::example$result/rest_curl_check_table_exists.result[]
 ----
+--
+====
 
-To get a particular keyspace:
+To get a particular table, specify the table in the URL:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X GET 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
+include::example$bash/rest_curl_get_particular_table.sh[]
 ----
+--
 
-returns
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-// LLP: GET THE RETURN RESULT
+include::example$result/rest_curl_get_particular_table.result[]
 ----
+--
+====
 
-For tables:
+To check if a column exists, execute a
+REST API query with `cURL` to find all the columns:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
+include::example$bash/rest_curl_check_column_exists.sh[]
 ----
+--
 
-returns
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-// LLP: GET THE RETURN RESULT
-["users"]
+include::example$result/rest_curl_check_column_exists.result[]
 ----
+--
+====
 
-To get a particular table:
+To get a particular column, specify the column in the URL:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
+include::example$bash/rest_curl_get_particular_column.sh[]
 ----
+--
 
-returns
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-// LLP: GET THE RETURN RESULT
+include::example$result/rest_curl_get_particular_column.result[]
 ----
-
-For columns:
-
-[source,bash]
-----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-// LLP: GET THE RETURN RESULT
-["users"]
-----
-
-To get a particular column:
-
-[source,bash]
-----
-curl -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns/email' \
---header 'accept: application/json' \
---header 'content-type: application/json' \
---header 'X-Cassandra-Token: $AUTH_TOKEN'
-----
-
-returns
-
-[source, plaintext]
-----
-// LLP: GET THE RETURN RESULT
-["users"]
-----
-
-// end::CheckKSTables[]
+--
+====
+// end::CheckTables[]
 
 == Drop keyspaces, tables or columns
 
@@ -285,10 +410,7 @@ keyspace scheam.
 
 [source, bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_drop_ks.sh[]
 ----
 // end::DropKS[]
 
@@ -300,10 +422,7 @@ to delete a table. All data will be deleted along with the table schema.
 
 [source, bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users' \
---header 'X-Cassandra-Token: $AUTH_TOKEN' \
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_drop_table.sh[]
 ----
 // end::DropTable[]
 
@@ -316,10 +435,7 @@ column data will be deleted along with the column schema.
 
 [source, bash]
 ----
-curl --location
---request DELETE 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email'
---header 'X-Cassandra-Token: $AUTH_TOKEN'
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_drop_column.sh[]
 ----
 // end::RemoveColumn[]
 
@@ -330,6 +446,9 @@ curl --location
 
 == Interacting with data stored in tables
 
+All data written with the REST API is stored in columns in tables that were
+specified with the schema.
+
 // tag::WriteData[]
 === Write data
 
@@ -338,58 +457,123 @@ Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
 to add data to the table.
 The column name/value pairs are passed in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "Mookie",
-    "lastname": "Betts",
-    "email": "mookie.betts@gmail.com",
-    "favorite color": "blue"
-}'
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "Janesha",
-    "lastname": "Doesha",
-    "email": "janesha.doesha@gmail.com",
-    "favorite color": "grey"
-}'
+include::example$bash/rest_curl_write_users.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_write_users.result[]
+----
+--
+====
+
+[NOTE]
+====
+Notice that, unlike schema creation, data queries do not require `tables` in the
+URI, only the `{tableName}`.
+====
 // end::WriteData[]
 
 // tag::ReadData[]
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
-`/v2/keyspaces/{keyspace_name}/{table_name}` to retrieve all the data:
+`/v2/keyspaces/{keyspace_name}/{table_name}?where={searchPath}` to retrieve the two users
+that were entered:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl GET \
---location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
+include::example$bash/rest_curl_get_users.sh[]
 ----
+--
 
-Now let's search for a particular record using a `WHERE` clause. The primary
-key of the table can be used in the `WHERE` clause, but non-primary key columns
-cannot be used.
-Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
-to retrieve the row for `Mookie`:
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users.result[]
+----
+--
+====
 
-[source,bash]
-----
-curl GET \
---location 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-urlencode 'where={"firstname": {"$eq": "Mookie"}}'
-----
+This query uses `$in` to find the two users.
+The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
+`$lte`, `$gt`, `$gte`, `$ne`, and `$exists`, if applicable.
+The primary key of the table can be used in the `WHERE` clause, but non-primary
+key columns cannot be used.
+
+[NOTE]
+====
+A query for table rows must include a `WHERE` clause or a primary key to retrieve
+rows.
+====
 // end::ReadData[]
+
+// tag::ReadAdvData[]
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+to retrieve the row for `Mookie` using `$eq`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_get_users_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_where.result[]
+----
+--
+====
+
+Finally, a primary key can be supplied to retrieve a row:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/rest_curl_get_primKey.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+// end::ReadAdvData[]
 
 // tag::UpdateData[]
 === Update data
@@ -401,49 +585,72 @@ In this example, the partition key is `firstname` "Mookie" and the
 clustering key is `lastname` "Betts";
 thus, we use `/Mookie/Betts` as the `{path}` in our request.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location \
---request PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "email": "mookie.betts.new-email@email.com"
-}'
+include::example$bash/rest_curl_update_users.sh[]
 ----
+--
 
-NOTE: Updates are upserts. If the row doesn't exist, it will be created.
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_update_users.result[]
+----
+--
+====
+
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
-
+====
 // end::UpdateData[]
 
+
+// LLP: The update PUT and the PATCH do the same thing. I need to figure out
+// the difference.
 It is also possible to update only part of a row. To partially update, send
-a `PATCH` request to   `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+a `PATCH` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
 In this example, we realize we should not have changed the email address, and
 we want to only change that one column:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location \
---request PATCH 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "email": "mookie.betts.email@email.com"
-}'
+include::example$bash/rest_curl_patch_users.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_patch_users.result[]
+----
+--
+====
 
 // tag::DeleteData[]
 === Delete data
 To delete a row, send a `DELETE` request to
-`/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
-In this request we delete all data with the primary key `firstname` of `Mookie`:
+`/v2/keyspaces/{keyspace_name}/{table_name}/{primaryKey}`.
+For this example, the primary key consists of a partition key `firstname` and
+clustering column `lastname`, so we delete all data with `Mookie/Betts`:
 
 [source,bash]
 ----
-curl --location \
---request DELETE 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/rest_curl_delete_row.sh[]
 ----
 // end::DeleteData[]

@@ -1,0 +1,24 @@
+{
+  "data":[
+    {
+      "name":"firstname",
+      "typeDefinition":"varchar",
+      "static":false
+    },
+    {
+      "name":"lastname",
+      "typeDefinition":"varchar",
+      "static":false
+    },
+    {
+      "name":"email",
+      "typeDefinition":"varchar",
+      "static":false
+    },
+    {
+      "name":"favorite color",
+      "typeDefinition":"varchar",
+      "static":false
+    }
+  ]
+}

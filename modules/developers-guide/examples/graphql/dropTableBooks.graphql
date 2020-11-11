@@ -1,0 +1,4 @@
+mutation dropTableBooks {
+  dropTable(keyspaceName:"library",
+    tableName:"books")
+}
