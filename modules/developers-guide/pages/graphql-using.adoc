@@ -95,11 +95,7 @@ Now run the mutation to create the keyspace. You should see a return value of:
 
 [source, plaintext]
 ----
-{
-  "data": {
-    "createKeyspace": true
-  }
-}
+include::example$result/gql_createKeyspace.result[]
 ----
 // end::CreateKS[]
 
@@ -109,43 +105,26 @@ Now run the mutation to create the keyspace. You should see a return value of:
 After the keyspace exists, you can create two tables by executing the following
 mutation:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$bash/createTables.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation {
-  books: createTable(
-    keyspaceName:"library",
-    tableName:"books",
-    partitionKeys: [ # The keys required to access your data
-      { name: "title", type: {basic: TEXT} }
-    ]
-    values: [ # The values associated with the keys
-      { name: "author", type: {basic: TEXT} }
-    ]
-  )
-  authors: createTable(
-    keyspaceName:"library",
-    tableName:"authors",
-    partitionKeys: [
-      { name: "name", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [ # Secondary key used to access values within the partition
-      { name: "title", type: {basic: TEXT}, order: "ASC" }
-  	]
-  )
-}
+include::example$result/gql_createTables.result[]
 ----
-
-returns
-
-[source, plaintext]
-----
-{
-  "data": {
-    "books": true,
-    "authors": true
-  }
-}
-----
+--
+====
 
 Worth noting is that one mutation is used to create two tables. Information about
 partition keys and clustering keys are found in the

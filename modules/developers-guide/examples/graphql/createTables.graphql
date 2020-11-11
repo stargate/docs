@@ -1,0 +1,22 @@
+mutation createTables {
+  books: createTableBooks(
+    keyspaceName:"library",
+    tableName:"books",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    values: [ # The values associated with the keys
+      { name: "author", type: {basic: TEXT} }
+    ]
+  )
+  authors: createTableAuthors(
+    keyspaceName:"library",
+    tableName:"authors",
+    partitionKeys: [
+      { name: "name", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "title", type: {basic: TEXT}, order: "ASC" }
+  	]
+  )
+}
