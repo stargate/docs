@@ -21,14 +21,16 @@
 
 // == Download
 
-// == Building
-//
-// See xref:developers-guide:building_and_artifacts.adoc[Building And Artifacts]
+== Building
+
+See xref:developers-guide:install/building.adoc[Building]
 
 == Documentation
 
 * xref:quickstart:quickstart.adoc[QuickStart guides]
-// * xref:developers-guide:connecting.adoc[Developer's Guide]
+* xref:developers-guide:install/install_docker.adoc[Installing Stargate]
+* xref:developers-guide:devguide.adoc[Developer's Guide]
+* xref:developers-guide:api_ref/apiref.adoc[API reference]
 * xref:FAQ.adoc[FAQ]
 
 == Community
