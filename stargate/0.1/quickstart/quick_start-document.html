@@ -157,6 +157,8 @@
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item toggler" data-depth="1">
     <span class="nav-text">Installing Stargate</span>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,29 +166,29 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../developers-guide/install_docker.html">Installing Stargate with Docker</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/install/install_docker.html">Installing Stargate with Docker</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../developers-guide/install_existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/install/install_existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../developers-guide/starctl.html">The starctl command</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/install/starctl.html">The starctl command</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/install/building.html">Building Stargate from source</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item toggler" data-depth="0">
-    <span class="nav-text">Data APIs</span>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="../developers-guide/devguide.html">Developing with Stargate</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../developers-guide/auth.html">Auth API</a>
-  </li>
-  <li class="nav-item toggler" data-depth="1">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="../developers-guide/document.html">Document API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,15 +196,12 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../developers-guide/document-using.html">Using the Document API</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers-guide/openapi_document_ref.html">Document API reference</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item toggler" data-depth="1">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="../developers-guide/rest.html">REST API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -210,15 +209,12 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../developers-guide/rest-using.html">Using the REST API</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers-guide/openapi_rest_ref.html">REST API reference</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item toggler" data-depth="1">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="../developers-guide/graphql.html">GraphQL API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -226,12 +222,12 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../developers-guide/graphql-using.html">Using the GraphQL API</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item toggler" data-depth="1">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="../developers-guide/cql.html">CQL API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -239,20 +235,34 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../developers-guide/cql-using.html">Using the CQL API</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="1">
+    <a class="nav-link" href="../developers-guide/api_ref/apiref.html">API reference for Stargate</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/auth.html">Auth API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/api_ref/openapi_rest_ref.html">REST API reference</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/api_ref/openapi_document_ref.html">Document API reference</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item toggler" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../developers-guide/building.html">Building Stargate from source</a>
   </li>
 </ul>
   </li>
@@ -987,7 +997,7 @@ If it does exist, it will be updated with the new document data.
 <div class="paragraph">
 <p>Voila! For more information on the Document API, see the
 <a href="../developers-guide/document-using.html" class="page">Using the Document API</a>
-or the <a href="../developers-guide/openapi_document_ref.html" class="page">Document API</a> in the
+or the <a href="#developers-guide:openapi_document_ref.adoc" class="page unresolved">Document API</a> in the
 Data API section.</p>
 </div>
 </div>
