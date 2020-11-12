@@ -1,0 +1,44 @@
+/modules
+  /ROOT
+    /pages
+      index.adoc
+      FAQ.adoc
+  /concepts
+    /pages
+      concepts.adoc
+  /developer-guide
+    /pages
+      auth.adoc
+      cql-using.adoc
+      cql.adoc
+      document-using.adoc
+      document.adoc
+      graphql-using.adoc
+      graphql.adoc
+      rest-using.adoc
+      rest.adoc
+  NEW: /install
+        install_docker.adoc
+        install_existing_cstar.adoc
+        startctl.adoc
+        building.adoc
+  NEW: /api_ref
+        openapi_document_ref.adoc
+        openapi_rest_ref.adoc
+  NEW: /sdk
+      NEW: js_sdk.adoc
+  /quickstart
+    /pages
+      quickstart.adoc
+      quick_start-document.adoc
+      quick_start-graphql.adoc
+      quick_start-rest.adoc
+
+About Stargate
+Concepts
+Installation
+Quickstarts
+Developer Guide
+API Reference
+FAQ
+Contributing
