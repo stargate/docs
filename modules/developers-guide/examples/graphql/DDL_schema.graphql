@@ -1,0 +1,114 @@
+mutation createKsLibrary {
+  createKeyspace(name:"library", replicas: 1)
+}
+
+mutation createTables {
+  books: createTableBooks(
+    keyspaceName:"library",
+    tableName:"books",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    values: [ # The values associated with the keys
+      { name: "author", type: {basic: TEXT} }
+    ]
+  )
+  authors: createTableAuthors(
+    keyspaceName:"library",
+    tableName:"authors",
+    partitionKeys: [
+      { name: "name", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "title", type: {basic: TEXT}, order: "ASC" }
+  	]
+  )
+}
+
+mutation createTableIfNotExists {
+  books: createTable(
+    keyspaceName:"library",
+    tableName:"magazines",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "editor", type: {basic: TEXT} }
+    ]
+  )
+}
+
+mutation alterTableAddIsbn {
+  alterTableAdd(
+    keyspaceName:"library",
+    tableName:"books",
+    toAdd:[{
+      name: "isbn",
+      type: {
+        basic: TEXT
+      }
+    }]
+  )
+}
+
+query GetKeyspace {
+  keyspace(name: "library") {
+      name
+      dcs {
+          name
+          replicas
+      }
+      tables {
+          name
+          columns {
+              name
+              kind
+              type {
+                  basic
+                  info {
+                      name
+                  }
+              }
+          }
+      }
+  }
+}
+
+query GetTables {
+  keyspace(name: "library") {
+      name
+      tables {
+          name
+          columns {
+              name
+              kind
+              type {
+                  basic
+                  info {
+                      name
+                  }
+              }
+          }
+      }
+  }
+}
+
+mutation dropColumnIsbn {
+    alterTableDrop(
+    keyspaceName:"library",
+    tableName:"books",
+    toDrop:["isbn"]
+  )
+}
+
+mutation dropTableBooks {
+  dropTable(keyspaceName:"library",
+    tableName:"books")
+}
+
+mutation dropTableIfExists {
+  dropTable(keyspaceName:"library",
+    tableName:"magazines",
+  ifExists: true)
+}
