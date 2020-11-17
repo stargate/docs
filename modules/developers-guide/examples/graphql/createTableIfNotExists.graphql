@@ -1,0 +1,13 @@
+mutation createTableIfNotExists {
+  books: createTable(
+    keyspaceName:"library",
+    tableName:"magazines",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "editor", type: {basic: TEXT} }
+    ]
+  )
+}

@@ -131,6 +131,38 @@ Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateTable[]
 
+// tag::CreateAdvTable[]
+==== Table options
+
+A table can be created with an option `ifNotExists` that will only create the
+table if it does not already exist:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/createTableIfNotExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createTableIfNotExists.result[]
+----
+--
+====
+
+It is worth noting that one mutation is used to create two tables.
+Information about partition keys and clustering keys can be found in the
+https://cassandra.apache.org/doc/latest/cql/[CQL reference].
+// end::CreateAdvTable[]
+
 ////
 === Data types
 Need to add data types!!
@@ -267,6 +299,34 @@ include::example$result/gql_dropTableBooks.result[]
 --
 ====
 // end::DropTable[]
+
+// tag::DropAdvTable[]
+==== Drop options
+
+You can delete a table after checking that it exists with the `ifExists` option.
+All data will be deleted along with the table schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/dropTableIfExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableIfExists.result[]
+----
+--
+====
+// end::DropAdvTable[]
 
 // tag::RemoveColumns[]
 === Removing columns from table schema
@@ -474,6 +534,42 @@ include::example$result/gql_insertTwoBooks.result[]
 ====
 // end::WriteData[]
 
+// tag::WriteAdvData[]
+==== Insertion options
+
+Three insertion options are configurable during data insertion or updating:
+
+* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigConsistency.html[consistency level]
+* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigSerialConsistency.html[serial consistency level]
+* https://docs.datastax.com/en/dse/6.8/cql/cql/cql_using/useExpire.html[time-to-live (TTL)]
+
+An example insertion that sets the consistency level and TTL:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/insertWithCL.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertWithCL.result[]
+----
+--
+====
+
+The serial consistency can also be set with `serialConsistency` in the options,
+if needed.
+// end::WriteAdvData[]
+
 // tag::ReadData[]
 === Read data
 
@@ -556,7 +652,7 @@ If it does exist, it will be updated with the new row data.
 // tag::DeleteData[]
 === Delete data
 
-After adding the book "Pride and Prejudice" with an `insertBooks()`, I can delete
+After adding the book "Pride and Prejudice" with an `insertBooks()`, you can delete
 the book using `deleteBooks()` to illustrate deleting data:
 
 ////
@@ -591,7 +687,48 @@ include::example$result/gql_deleteOneBook.result[]
 --
 ====
 
+Note the use of `ifExists` to validate that the book exists before deleting it.
 // end::DeleteData[]
+
+// tag::DeleteAdvData[]
+==== Deletion options
+
+Similar to the option `ifExists`, you can delete a book using `consistency`,
+`serialConsistency`, or `ttl`, similar to xref:graphql-using.adoc#WriteAdvData[insertions]:
+
+////
+The insertion is:
+mutation insertAnotherBook {
+  PaP: insertBooks(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+    value {
+      title
+    }
+  }
+}
+////
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/deleteOneBookCL.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_deleteOneBookCl.result[]
+----
+--
+====
+
+// end::DeleteAdvData[]
 
 ////
 I'll need a section that shows how connecting to an existing C* cluster will automatically
