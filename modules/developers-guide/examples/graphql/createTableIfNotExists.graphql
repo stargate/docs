@@ -1,5 +1,5 @@
 mutation createTableIfNotExists {
-  books: createTable(
+  magazines: createTable(
     keyspaceName:"library",
     tableName:"magazines",
     partitionKeys: [ # The keys required to access your data
