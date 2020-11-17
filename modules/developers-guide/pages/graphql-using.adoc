@@ -723,7 +723,7 @@ Result::
 --
 [source,plaintext]
 ----
-include::example$result/gql_deleteOneBookCl.result[]
+include::example$result/gql_deleteOneBookCL.result[]
 ----
 --
 ====
