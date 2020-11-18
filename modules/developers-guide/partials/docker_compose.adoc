@@ -1,0 +1,25 @@
+=== Get the docker-compose file
+
+The `docker-compose` YAML file contains the configuration for pulling the
+required docker images and configuration required for installing.
+It can be used to install:
+
+* 1-3 Apache Cassandra^(TM)^ 3.11 nodes as a cluster (backend-1, backend-2, backend-3)
+* 1 Stargate node (stargate)
+* 1 Prometheus node (prometheus)
+* 1 Grafana node (grafana)
+
+Two companion files are helpful: a script to run the docker-compose file with
+delays between node startup that prevents timing issues, and a text file that
+has the `docker run` commands for running CQLSH in a backend or stargate node,
+respectively.
+
+The files are found at:
+https://github.com/stargate/docker-images/tree/master/examples/stargate-prometheus-grafana[https://github.com/stargate/docker-images/tree/master/examples/stargate-prometheus-grafana]
+
+Run the script after downloading the files:name: value
+
+[source,bash,subs="attributes+"]
+----
+./start_stargate-prometheus-grafana.sh
+----
