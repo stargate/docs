@@ -17,7 +17,7 @@ respectively.
 The files are found at:
 https://github.com/stargate/docker-images/tree/master/examples/stargate-prometheus-grafana[https://github.com/stargate/docker-images/tree/master/examples/stargate-prometheus-grafana]
 
-Run the script after downloading the files:name: value
+Run the script after downloading the files:
 
 [source,bash,subs="attributes+"]
 ----
