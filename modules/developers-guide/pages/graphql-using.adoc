@@ -163,10 +163,34 @@ Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateAdvTable[]
 
-////
-=== Data types
-Need to add data types!!
-////
+
+==== Data types
+
+===== Include collection (set, list, map) columns
+
+Including a collection in a table has a couple of extra parts:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/createCollTable.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createCollTable.result[]
+----
+--
+====
+
 
 // tag:AddColumns[]
 === Adding columns to table schema
@@ -568,6 +592,32 @@ include::example$result/gql_insertWithCL.result[]
 
 The serial consistency can also be set with `serialConsistency` in the options,
 if needed.
+
+==== Insert collections (set, list, map)
+
+Inserting a collection is simple.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/insertOneBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertOneBadge.result[]
+----
+--
+====
+
 // end::WriteAdvData[]
 
 // tag::ReadData[]
