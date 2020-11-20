@@ -27,7 +27,15 @@ The `.github/workflows/antora.yml` GitHub action will generate and publish the d
 
 == Generating and viewing the HTML output locally
 
-To generate the docs locally during development:
+The docs can be generated locally during development, to check work. 
+To generate only the docs (faster if you don't need to check the OpenAPI docs):
+
+[source,bash]
+----
+npm run build:local
+----
+
+To generate the docs and OpenAPI docs:
 
 [source,bash]
 ----
