@@ -12,7 +12,7 @@ mutation insert2Books {
 }
 
 mutation insertWithOption {
-  bb: insertBooks(value: {title:"Black Boy", author:"Richard Wright"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
+  nativeson: insertBooks(value: {title:"Native Son", author:"Richard Wright"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
     value {
       title
     }
@@ -20,7 +20,7 @@ mutation insertWithOption {
 }
 
 query oneBook {
-    books (value: {title:"Black Boy"}) {
+    books (value: {title:"Native Son"}) {
       values {
       	title
       	author
