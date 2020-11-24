@@ -1,5 +1,5 @@
 mutation createTables {
-  books: createTableBooks(
+  books: createTable(
     keyspaceName:"library",
     tableName:"books",
     partitionKeys: [ # The keys required to access your data
@@ -9,7 +9,7 @@ mutation createTables {
       { name: "author", type: {basic: TEXT} }
     ]
   )
-  authors: createTableAuthors(
+  authors: createTable(
     keyspaceName:"library",
     tableName:"authors",
     partitionKeys: [

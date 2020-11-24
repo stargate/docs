@@ -1,0 +1,72 @@
+mutation insert2Books {
+  moby: insertBooks(value: {title:"Moby Dick", author:"Herman Melville"}) {
+    value {
+      title
+    }
+  }
+  catch22: insertBooks(value: {title:"Catch-22", author:"Joseph Heller"}) {
+    value {
+      title
+    }
+  }
+}
+
+mutation insertWithOption {
+  nativeson: insertBooks(value: {title:"Native Son", author:"Richard Wright"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
+    value {
+      title
+    }
+  }
+}
+
+query oneBook {
+    books (value: {title:"Native Son"}) {
+      values {
+      	title
+      	author
+      }
+    }
+}
+
+mutation updateOneBook {
+  moby: updateBooks(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
+    value {
+      title
+      author
+      isbn
+    }
+  }
+
+mutation insertPap {
+  pap: insertBooks(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+    value {
+      title
+    }
+  }
+}
+
+mutation deleteOneBook {
+  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
+    value {
+      title
+    }
+  }
+}
+
+mutation deleteOneBookCL {
+  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true, options: {consistency: LOCAL_ONE }) {
+    value {
+      title
+    }
+  }
+}
+
+mutation insertOneBadge {
+  gold: insertBadges(value: { btype:"Gold", earned: "2020-11-20", category: ["Editor","Writer"] } ) {
+    value {
+      btype
+      earned
+      category
+    }
+  }
+}

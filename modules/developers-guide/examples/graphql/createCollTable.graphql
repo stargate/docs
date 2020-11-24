@@ -1,0 +1,14 @@
+mutation createCollTable {
+  badges: createTable (
+    keyspaceName:"library",
+    tableName: "badges",
+    partitionKeys: [
+      {name: "btype", type: {basic:TEXT}}
+    ],
+    ifNotExists:true,
+    values: [
+      {name: "earned", type:{basic: DATE}},
+      {name: "category", type:{basic:SET, info:{ subTypes: [ { basic: TEXT }]}}}
+    ]
+  )
+}
