@@ -590,7 +590,7 @@ mutation:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation createTables {
-  books: createTableBooks(
+  books: createTable(
     keyspaceName:"library",
     tableName:"books",
     partitionKeys: [ # The keys required to access your data
@@ -600,7 +600,7 @@ mutation:</p>
       { name: "author", type: {basic: TEXT} }
     ]
   )
-  authors: createTableAuthors(
+  authors: createTable(
     keyspaceName:"library",
     tableName:"authors",
     partitionKeys: [
@@ -959,7 +959,7 @@ and add a couple of books to the <code>book</code> table:</p>
 <div class="tab-pane" aria-labelledby="tabset4_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation insert2Books {
   moby: insertBooks(value: {title:"Moby Dick", author:"Herman Melville"}) {
     value {
       title
@@ -1128,7 +1128,7 @@ If it does exist, it will be updated with the new row data.</p>
 <div class="sect2">
 <h3 id="_delete_data"><a class="anchor" href="#_delete_data"></a><a class="link" href="#_delete_data">Delete data</a></h3>
 <div class="paragraph">
-<p>After adding the book "Pride and Prejudice" with an <code>insertBooks()</code>, I can delete
+<p>After adding the book "Pride and Prejudice" with an <code>insertBooks()</code>, you can delete
 the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 <div class="tabset is-loading">
@@ -1172,6 +1172,9 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Note the use of <code>ifExists</code> to validate that the book exists before deleting it.</p>
 </div>
 <div class="paragraph">
 <p>For more information on the GraphQL API,

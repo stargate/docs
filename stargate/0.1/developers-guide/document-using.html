@@ -568,7 +568,7 @@ and <code>2</code> for the number of data <code>replicas</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X POST 'localhost:8082/v2/schemas/namespaces' \
--H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'X-Cassandra-Token: $AUTH_TOKEN' \
 -H 'Content-Type: application/json' \
 -d '{
     "name": "myworld",
@@ -653,7 +653,7 @@ Document API query with <code>cURL</code> to find all the namespaces:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'localhost:8082/v2/schemas/namespaces' \
--H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'X-Cassandra-Token: $AUTH_TOKEN' \
 -H 'Content-Type: application/json'</code></pre>
 </div>
 </div>
