@@ -49,7 +49,7 @@ mutation createCollTable {
     ifNotExists:true,
     values: [
       {name: "earned", type:{basic: DATE}},
-      {name: "category", type:{basic:SET, info:{ subTypes: [ { basic: INT }]}}}
+      {name: "category", type:{basic:SET, info:{ subTypes: [ { basic: TEXT }]}}}
     ]
   )
 }

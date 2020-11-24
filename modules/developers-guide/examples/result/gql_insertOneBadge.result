@@ -5,9 +5,8 @@
         "btype": "Gold",
         "earned": "2020-11-20",
         "category": [
-          1,
-          2,
-          3
+          "Editor",
+          "Writer"
         ]
       }
     }
