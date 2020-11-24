@@ -14,3 +14,9 @@ ui:
   supplemental_files: ./supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
+
+  asciidoc:
+    attributes:
+      source-highlighter: highlightjs
+    extensions:
+    - ./lib/tabs-block.js
