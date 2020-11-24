@@ -16,5 +16,6 @@ ui:
   output_dir: assets
 
   asciidoc:
+    attributes:
     extensions:
     - ./lib/tabs-block.js
