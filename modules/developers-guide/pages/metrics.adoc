@@ -33,8 +33,12 @@ http://localhost:3000/[http://localhost:3000/].
 You'll need to login with the default username and password, `admin/admin`.
 Grafana will require you to create a new password to proceed.
 
-Add Prometheus as a data source. You'll need to edit the HTTP URL field to add
-`http://localhost:9090` and change the HTTP Access field to `Browser`.
+Add Prometheus as a data source by clicking the data source icon on the lefthand side
+editing the form with the following information:
+
+* Edit the HTTP URL field to add `http://localhost:9090`
+* Change the HTTP Access field to `Browser`.
+
 Press "Save & Test" to check that the data source is added.
 Add a new dashboard and choose Prometheus as the data source.
 The Stargate metrics can be selected as a metric to display.
