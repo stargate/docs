@@ -15,8 +15,8 @@ include::partial$docker_compose.adoc[]
 // end::getDockerImage[]
 
 == Access Prometheus
-Once all the images are running, you can access Prometheus in the browser at
-http://localhost:9090/[http://localhost:9090/].
+Once all the images are running, you can access https://prometheus.io/[Prometheus] in the browser at
+http://localhost:9090/[http://localhost:9090].
 
 Note that the default file `/etc/prometheus/prometheus.yml` is replaced with a
 mounted file from the docker-compose repository, to identify the stargate node
