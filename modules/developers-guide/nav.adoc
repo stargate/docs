@@ -14,6 +14,8 @@
 ** xref:cql.adoc[CQL API]
 *** xref:cql-using.adoc[Using the CQL API]
 
+* xref:metrics.adoc[Accessing Stargate metrics with Prometheus and Grafana]
+
 * xref:api_ref/apiref.adoc[API reference for Stargate]
 ** xref:auth.adoc[Auth API]
 ** xref:api_ref/openapi_rest_ref.adoc[REST API reference]

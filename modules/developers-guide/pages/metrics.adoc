@@ -1,0 +1,46 @@
+= Using metrics with Stargate
+
+Stargate is a data gateway deployed between client applications and a database.
+Metrics can be monitored using Prometheus and Grafana. A
+https://github.com/stargate/docker-images/[`docker-compose`
+script] is available to run Apache Cassandra^(TM)^, Stargate, Prometheus, and Grafana
+together to explore the metrics available.
+
+// tag::prereqsList[]
+include::partial$prereqs.adoc[]
+// end::prereqsList[]
+
+// tag::getDockerImage[]
+include::partial$docker_compose.adoc[]
+// end::getDockerImage[]
+
+== Access Prometheus
+Once all the images are running, you can access Prometheus in the browser at
+http://localhost:9090/[http://localhost:9090/].
+
+Note that the default file `/etc/prometheus/prometheus.yml` is replaced with a
+mounted file from the docker-compose repository, to identify the stargate node
+as the target for gathering metrics.
+The default target of `localhost:9090` (the Prometheus node) has been replaced with
+'stargate:8085' (the stargate node's metrics port).
+
+The Stargate metrics are grouped by API, and can accessed as any other metrics are
+accessed in http://prometheus.io[Prometheus].
+
+== Access Grafana
+Once all the images are running, you can access http://grafana.com/oss/grafana[Grafana] in the browser at
+http://localhost:3000/[http://localhost:3000].
+You'll need to login with the default username and password, `admin/admin`.
+Grafana will require you to create a new password to proceed.
+
+Add Prometheus as a data source by clicking the data source icon on the lefthand side
+editing the form with the following information:
+
+* Edit the HTTP URL field to add `http://localhost:9090`
+* Change the HTTP Access field to `Browser`.
+
+Press "Save & Test" to check that the data source is added.
+Add a new dashboard and choose Prometheus as the data source.
+The Stargate metrics can be selected as a metric to display.
+
+For more information on using Grafana, access the https://grafana.com/docs/[Grafana docs].
