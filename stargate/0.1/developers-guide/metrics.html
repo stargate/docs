@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Document API :: Stargate documentation</title>
+    <title>Using metrics with Stargate :: Stargate documentation</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../assets/css/site.css">
   </head>
@@ -188,7 +188,7 @@
       </svg>
     </button>
 <ul class="nav-list">
-  <li class="nav-item toggler is-current-page" data-depth="2">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="document.html">Document API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -242,7 +242,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="metrics.html">Accessing Stargate metrics with Prometheus and Grafana</a>
   </li>
   <li class="nav-item toggler" data-depth="1">
@@ -304,31 +304,137 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
-    <li><a href="devguide.html">Developing with Stargate</a></li>
-    <li><a href="document.html">Document API</a></li>
+    <li><a href="metrics.html">Accessing Stargate metrics with Prometheus and Grafana</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/document.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/edit/master/modules/developers-guide/pages/metrics.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Document API</h1>
+<h1 class="page">Using metrics with Stargate</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The Stargate Document API is implemented to use schemaless document REST queries
- with any Cassandra deployment.</p>
+<p>Stargate is a data gateway deployed between client applications and a database.
+Metrics can be monitored using Prometheus and Grafana. A
+<a href="https://github.com/stargate/docker-images/"><code>docker-compose</code>
+script</a> is available to run Apache Cassandra<sup>&#8482;</sup>, Stargate, Prometheus, and Grafana
+together to explore the metrics available.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><a class="link" href="#_prerequisites">Prerequisites</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use Stargate you need:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../quickstart/quick_start-document.html" class="page">Document API QuickStart</a></p>
+<p>Docker installed and running</p>
 </li>
 <li>
-<p><a href="document-using.html" class="page">Using the Document API</a></p>
-</li>
-<li>
-<p><a href="api_ref/openapi_document_ref.html" class="page">Document API reference</a></p>
+<p><code>cURL</code> to run REST queries</p>
 </li>
 </ul>
+</div>
+<div class="sect2">
+<h3 id="_get_the_docker_compose_file"><a class="anchor" href="#_get_the_docker_compose_file"></a><a class="link" href="#_get_the_docker_compose_file">Get the docker-compose file</a></h3>
+<div class="paragraph">
+<p>The <code>docker-compose</code> YAML file contains the configuration for pulling the
+required docker images and configuration required for installing.
+It can be used to install:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1-3 Apache Cassandra<sup>&#8482;</sup> 3.11 nodes as a cluster (backend-1, backend-2, backend-3)</p>
+</li>
+<li>
+<p>1 Stargate node (stargate)</p>
+</li>
+<li>
+<p>1 Prometheus node (prometheus)</p>
+</li>
+<li>
+<p>1 Grafana node (grafana)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Two companion files are helpful: a script to run the docker-compose file with
+delays between node startup that prevents timing issues, and a text file that
+has the <code>docker run</code> commands for running a CQLSH Docker container to query against either one of the Cassandra nodes or the Stargate node,
+respectively.</p>
+</div>
+<div class="paragraph">
+<p>The files are found at:
+<a href="https://github.com/stargate/docker-images/tree/master/examples/stargate-prometheus-grafana">https://github.com/stargate/docker-images/tree/master/examples/stargate-prometheus-grafana</a></p>
+</div>
+<div class="paragraph">
+<p>Run the script after downloading the files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stargate-prometheus-grafana.sh</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_prometheus"><a class="anchor" href="#_access_prometheus"></a><a class="link" href="#_access_prometheus">Access Prometheus</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once all the images are running, you can access Prometheus in the browser at
+<a href="http://localhost:9090/">http://localhost:9090/</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note that the default file <code>/etc/prometheus/prometheus.yml</code> is replaced with a
+mounted file from the docker-compose repository, to identify the stargate node
+as the target for gathering metrics.
+The default target of <code>localhost:9090</code> (the Prometheus node) has been replaced with
+'stargate:8085' (the stargate node&#8217;s metrics port).</p>
+</div>
+<div class="paragraph">
+<p>The Stargate metrics are grouped by API, and can accessed as any other metrics are
+accessed in <a href="http://prometheus.io">Prometheus</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_grafana"><a class="anchor" href="#_access_grafana"></a><a class="link" href="#_access_grafana">Access Grafana</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once all the images are running, you can access <a href="http://grafana.com/oss/grafana">Grafana</a> in the browser at
+<a href="http://localhost:3000/">http://localhost:3000</a>.
+You&#8217;ll need to login with the default username and password, <code>admin/admin</code>.
+Grafana will require you to create a new password to proceed.</p>
+</div>
+<div class="paragraph">
+<p>Add Prometheus as a data source by clicking the data source icon on the lefthand side
+editing the form with the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Edit the HTTP URL field to add <code><a href="http://localhost:9090" class="bare">http://localhost:9090</a></code></p>
+</li>
+<li>
+<p>Change the HTTP Access field to <code>Browser</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Press "Save &amp; Test" to check that the data source is added.
+Add a new dashboard and choose Prometheus as the data source.
+The Stargate metrics can be selected as a metric to display.</p>
+</div>
+<div class="paragraph">
+<p>For more information on using Grafana, access the <a href="https://grafana.com/docs/">Grafana docs</a>.</p>
+</div>
+</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
