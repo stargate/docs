@@ -6,23 +6,25 @@ containerized environment with the following command:
 [source,bash,subs="attributes+"]
 ----
 docker run --name stargate \
+  --network <network> \
   -p 8080:8080 \
   -p 8081:8081 \
   -p 8082:8082 \
-  -p 127.0.0.1:9042:9042 \
-  -d \
-  -e CLUSTER_NAME=stargate \
-  -e SEED=127.0.0.1 \
+  -p 9049:9042 \
+  -e CLUSTER_NAME=stargate-cluster \
   -e CLUSTER_VERSION=3.11 \
+  -e SEED=<cass_seed_node> \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  stargateio/stargate-3_11:{stargate-docker-tag}
+  -d stargateio/stargate-3_11:{stargate-docker-tag}
 ----
 
 where
-  * `CLUSTER_NAME` identifies the cluster name
-  * `SEED` is set to the IP address of the running Cassandra node
+  * <network> must be replaced with the existing Cassandra cluster network name
+  * the port `9042` should be mapped to an alternative port (example shows `9049`)
+  * `CLUSTER_NAME` identifies the Cassandra cluster name
   * `CLUSTER_VERSION` is set to the version of Cassandra running in the cluster
+  * `SEED` is set to the IP address or docker name of a running Cassandra seed node
   * `SIMPLE_SNITCH` sets the snitch on the Stargate node
   * `ENABLE_AUTH` enables `PasswordAuthenticator` in the cluster
 
