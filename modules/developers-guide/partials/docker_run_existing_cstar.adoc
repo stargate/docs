@@ -65,3 +65,10 @@ The ports align to the following services and interfaces:
 | Port 8082 | REST interface for CRUD
 | Port 9042 | CQL service
 |===
+
+[NOTE]
+====
+Specifying the `LISTEN_ADDRESS` is not required in docker, because the `starctl`
+script will determine the correct port on which to listen. The ports do not need to
+be set if standard ports are used.
+====
