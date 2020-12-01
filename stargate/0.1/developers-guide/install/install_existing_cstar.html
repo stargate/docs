@@ -338,30 +338,51 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 <div class="sect2">
 <h3 id="_starting_stargate_with_existing_cassandra_cluster"><a class="anchor" href="#_starting_stargate_with_existing_cassandra_cluster"></a><a class="link" href="#_starting_stargate_with_existing_cassandra_cluster">Starting Stargate with existing Cassandra cluster</a></h3>
 <div class="paragraph">
-<p>Stargate can be added to an existing Cassandra cluster operating in a
+<p>To illustrate how a Cassandra cluster can be started, and thus exist before a
+Stargate node is added, a single node could be started with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker network create cass-net --driver bridge
+
+docker run --name cass1 \
+--network cass-net \
+-e CASSANDRA_CLUSTER_NAME=stargate-cluster \
+-d cassandra:3.11</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here, a network is created with docker.
+Then a Cassandra node is started on that network, specifying a cluster name.
+Additional Cassandra nodes could be added to the cluster, if desired.</p>
+</div>
+<div class="paragraph">
+<p>Now Stargate can be added to that existing Cassandra cluster operating in a
 containerized environment with the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --name stargate \
+  --network cass-net \
   -p 8080:8080 \
   -p 8081:8081 \
   -p 8082:8082 \
-  -p 127.0.0.1:9042:9042 \
-  -d \
-  -e CLUSTER_NAME=stargate \
-  -e SEED=127.0.0.1 \
+  -p 9049:9042 \
+  -e CLUSTER_NAME=stargate-cluster \
   -e CLUSTER_VERSION=3.11 \
+  -e SEED=cass1 \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  stargateio/stargate-3_11:v0.0.9</code></pre>
+  -d stargateio/stargate-3_11:v0.0.9</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>where
-  * <code>CLUSTER_NAME</code> identifies the cluster name
-  * <code>SEED</code> is set to the IP address of the running Cassandra node
+  * <code>cass-net</code> must be replaced with the existing Cassandra cluster network name
+  * the port <code>9042</code> should be mapped to an alternative port (example shows <code>9049</code>)
+  * <code>CLUSTER_NAME</code> identifies the Cassandra cluster name used at cluster creation
   * <code>CLUSTER_VERSION</code> is set to the version of Cassandra running in the cluster
+  * <code>SEED</code> is set to the IP address or docker name of a running Cassandra seed node (<code>cass1</code>)
   * <code>SIMPLE_SNITCH</code> sets the snitch on the Stargate node
   * <code>ENABLE_AUTH</code> enables <code>PasswordAuthenticator</code> in the cluster</p>
 </div>
@@ -417,6 +438,22 @@ containerized environment with the following command:</p>
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Specifying the <code>LISTEN_ADDRESS</code> is not required in docker, because the <code>starctl</code>
+script will determine the correct port on which to listen. The ports do not need to
+be set if standard ports are used.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The full set of options are described in <a href="#starctl.adoc" class="page unresolved">the <code>starctl</code> documentation</a>.</p>
 </div>
