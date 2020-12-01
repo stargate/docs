@@ -1,0 +1,8 @@
+query oneBook {
+    books (value: {title:"Moby Dick"}) {
+      values {
+      	title
+      	author
+      }
+    }
+}

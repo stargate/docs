@@ -7,15 +7,15 @@ In this QuickStart, you'll be up and running on your local machine with the REST
 plugin that exposes CRUD access to data stored in Cassandra tables.
 
 // tag::prereqsList[]
-include::partial$text/prereqs.adoc[]
+include::developers-guide:partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::partial$bash/docker_pull.sh[]
+include::developers-guide:partial$docker_pull.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$bash/docker_run.sh[]
+include::developers-guide:partial$docker_run.adoc[]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
@@ -23,7 +23,7 @@ In order to use the Stargate Document API, an authorization token must be
 generated to access the interface.
 
 // generate the auth token
-include::partial$bash/gen_auth_token.sh[]
+include::developers-guide:partial$gen_auth_token.adoc[]
 
 // using the auth token
 include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
@@ -47,27 +47,30 @@ tables that will store the data. A keyspace is a container for which a
 Tables consist of columns that have a defined data type. Multiple tables are contained
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
-// create namespace
+// create keyspace
 include::developers-guide:page$rest-using.adoc[tag=CreateKS]
 
-// create collection
+// check keyspaces exist
+include::developers-guide:page$rest-using.adoc[tag=CheckKS]
+
+// create table
 include::developers-guide:page$rest-using.adoc[tag=CreateTable]
 
-// check NS and collections exist
-include::developers-guide:page$rest-using.adoc[tag=CheckKSTables]
+// check tables and columns exist
+include::developers-guide:page$rest-using.adoc[tag=CheckTables]
 
 == Interacting with data stored in tables
 
-// write document data
+// write table data
 include::developers-guide:page$rest-using.adoc[tag=WriteData]
 
-// read document data
+// read table data
 include::developers-guide:page$rest-using.adoc[tag=ReadData]
 
-// update document data
+// update table data
 include::developers-guide:page$rest-using.adoc[tag=UpdateData]
 
-// delete document data
+// delete table data
 include::developers-guide:page$rest-using.adoc[tag=DeleteData]
 
 

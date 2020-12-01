@@ -1,19 +1,20 @@
 = Using the Stargate Document API
 :docid : 3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b
+
 Stargate is a data gateway deployed between client applications and a database.
-The Document API plugin that exposes CRUD access to data stored as unstructured JSON
-documents in collections.
+The Document API plugin that exposes CRUD access to data stored as unstructured
+JSON documents in collections.
 
 // tag::prereqsList[]
-include::quickstart:partial$text/prereqs.adoc[]
+include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::quickstart:partial$bash/docker_pull.sh[]
+include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::quickstart:partial$bash/docker_run.sh[]
+include::partial$docker_run.adoc[]
 // end::startDocker[]
 
 // tag::swaggerUI[]
@@ -21,8 +22,9 @@ include::quickstart:partial$bash/docker_run.sh[]
 
 Once you have started the docker container, you can access the Document API
 in a browser at `localhost:8082/swagger-ui`.
+Adding parameter information, you can generate `cURL` commands to execute and
+display results that will return.
 // end::swaggerUI[]
-
 
 == Using the Auth API to generate an auth token
 
@@ -30,11 +32,11 @@ in a browser at `localhost:8082/swagger-ui`.
 In order to use the Stargate Document API, an authorization token must be
 generated to access the interface.
 
-include::quickstart:partial$bash/gen_auth_token.sh[]
+include::partial$gen_auth_token.adoc[]
 // end::GenAuthToken[]
 
 // tag::UseAuthToken[]
-include::quickstart:partial$bash/use_auth_token_rest_document.sh[]
+include::partial$use_auth_token_rest_document.adoc[]
 // end::UseAuthToken[]
 
 // tag::UsingPostman[]
@@ -74,21 +76,33 @@ datacenter.
 Send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`, and no `replicas` setting, to default to 1.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "myworld"
-}'
+include::example$bash/docapi_curl_simple_ns.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi_curl_create_ns.result[]
+----
+--
+====
 
 The authorization token and the content type are passed with  `--header`. The
 token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
 and its value.
-The specified name and replicas for the namespace are passed as JSON
-data using `--data`.
+The specified name for the namespace is passed as JSON data using `--data`.
+For shorthand, `cURL` can use `-L` for `--location`, `-X` for `--request`, `-H`
+for `--header`, and `-d` for `--data`.
 // end::CreateNS[]
 
 // tag::CreateNSextra[]
@@ -98,16 +112,26 @@ To set the replicas, send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld` for the `name`,
 and `2` for the number of data `replicas`.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "myworld",
-    "replicas": 2
-}'
+include::example$bash/docapi_curl_create_ns.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi_curl_create_ns.result[]
+----
+--
+====
 
 ==== Namespace for multiple datacenters
 
@@ -116,16 +140,26 @@ Send a `POST` request to `/v2/schemas/namespaces`.
 In this example we use `myworld-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
 where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "name": "myworld-dcs",
-    "datacenters": [ {"name": "dc1"}, {"name": "dc2", "replicas": 5} ]
-}'
+include::example$bash/docapi_curl_ns_dcs.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi_curl_ns_dcs.result[]
+----
+--
+====
 // end::CreateNSextra[]
 
 // tag::CheckNS[]
@@ -134,39 +168,49 @@ curl --location --request POST 'localhost:8082/v2/schemas/namespaces' \
 To check if a namespaces exist, execute a
 Document API query with `cURL` to find all the namespaces:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X GET 'localhost:8082/v2/schemas/namespaces' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_check_ns_exists.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-{"data":[{"name":"system_distributed"},{"name":"system"},
-{"name":"data_endpoint_auth"},{"name":"system_schema"},{"name":"myworld"},
-{"name":"stargate_system"},{"name":"system_auth"},{"name":"system_traces"}]}
+include::example$result/docapi_curl_check_ns_exists.result[]
 ----
+--
+====
 
 To get a particular namespace, specify the namespace in the URL:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_particular_ns.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-{"data":{"name":"myworld"}}
+include::example$result/docapi_curl_get_particular_ns.result[]
 ----
-
-For shorthand, `cURL` can use `-L` for `--location` and `-X` for `--request.`
+--
+====
 // end::CheckNS[]
 
 //== Drop namespaces or collections
@@ -180,9 +224,7 @@ namespace.
 
 [source, bash]
 ----
-curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_drop_ns.sh[]
 ----
 // end::DeleteNS[]
 
@@ -224,36 +266,41 @@ curl -L -X DELETE 'localhost:8082/v2/schemas/namespaces/myworld' \
 // tag::WriteBasicData[]
 === Writing documents
 
-==== Specifying a collection name
+All data written with the Document API is stored as JSON documents stored in
+collections.
+
+==== Add document specifying a collection name
 
 First, let's add a document to a specified collection.
 Send a `POST` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}`
 to add data to the collection `fitness`.
 The data is passed in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location \
---request POST 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-  "id": "some-stuff",
-  "other": "This is nonsensical stuff."
-}'
+include::example$bash/docapi_curl_post_noDocId.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext, subs="attributes+"]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"{docid}"}
+include::example$result/docapi_curl_post_noDocId.result[]
 ----
+--
+====
 
 Notice that the `document-id` returned is a UUID if not specified.
 // end::WriteBasicData[]
 
-==== Specifying collection name and document-id
+==== Add document specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
 Send a `PUT` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
@@ -261,25 +308,26 @@ to add data to the collection `Janet`.
 The `document-id` can be any string.
 The data is passed in the JSON body.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-  "firstname": "Janet",
-  "lastname": "Doe",
-  "email": "janet.doe@gmail.com",
-  "favorite color": "grey"
-}'
+include::example$bash/docapi_curl_put_janet.sh[]
 ----
+--
 
-returns:
-
-[source,plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Janet"}
+include::example$result/docapi_curl_put_janet.result[]
 ----
+--
+====
 
 Note the difference between using `POST` and `PUT`. The `POST` request
 is used to insert new documents when you want the system to auto-generate the
@@ -297,28 +345,26 @@ Send a `PUT` request to
 to add data to the existing collection.
 The data is passed in the JSON body.
 
-[source, bash, subs="attributes+"]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "Joey",
-    "lastname": "Doe",
-    "weights": {
-      "type": "bench press",
-      "weight": 150,
-      "reps": 15
-  }
-}'
+include::example$bash/docapi_curl_put_joey_subdoc.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Joey"}
+include::example$result/docapi_curl_put_joey_subdoc.result[]
 ----
+--
+====
 // end::WriteAdvData[]
 
 ////
@@ -334,42 +380,26 @@ Let's check that the document was inserted. Send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
 all the documents:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location \
---request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_all_docs.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext, subs="attributes+"]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"data":{
-		"Joey":{
-			"firstname":"Joey",
-			"lastname":"Doe",
-			"weights":{
-				"reps":15,
-				"type":"bench press",
-				"weight":150
-			}
-		},
-		"Janet":{
-			"email":"janet.doe@gmail.com",
-			"favorite color":"grey",
-			"firstname":"Janet",
-			"lastname":"Doe"
-		},
-		"{docid}":{
-			"id":"some-stuff",
-			"other":"This is nonsensical stuff."
-		}
-	}
-}
+include::example$result/docapi_curl_get_all_docs.result[]
 ----
+--
+====
 
 The `page-size` parameter is included to get all the documents, rather than the
 last inserted document.
@@ -380,26 +410,26 @@ Let's check that the data was inserted for a particular document.
 Send a `GET` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
 to retrieve the document:
 
-[source, bash, subs="attributes+"]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
 ----
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/{docid}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_one_doc.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext, subs="attributes+"]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"{docid}",
-	"data":{
-		"id":"some-stuff",
-		"other":"This is nonsensical stuff."
-	}
-}
+include::example$result/docapi_curl_get_one_doc.result[]
 ----
+--
+====
 
 It is possible to get a value for a particular field in a document using one of
 two methods, either a `where` clause or a `document-path`. These methods can
@@ -412,28 +442,26 @@ Send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}?{where-clause}`
 to get the same information:
 
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"Janet"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_doc_where.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"data":{
-		"Janet":{
-			"email":"janet.doe@gmail.com",
-			"favorite color":"grey",
-			"firstname":"Janet",
-			"lastname":"Doe"
-		}
-	}
-}
+include::example$result/docapi_curl_get_doc_where.result[]
 ----
+--
+====
 
 Note that the `where` clause must be url encoded, so curly brackets are escaped
 with `\` and spaces must be replaced with `%20`.
@@ -444,32 +472,26 @@ Also, the full document is returned, as opposed to the value of the field specif
 // tag::ReadAdvData[]
 You can also retrieve documents using a `WHERE` clause that searches sub-documents:
 
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"bench%20press"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_subdoc_where.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"data":{
-		"Joey":{
-			"firstname":"Joey",
-			"lastname":"Doe",
-			"weights":{
-				"reps":15,
-				"type":"bench press",
-				"weight":150
-			}
-		}
-	},
-	"pageState":null
-}
+include::example$result/docapi_curl_get_subdoc_where.result[]
 ----
+--
+====
 
 ==== Retrieving a specific portion of a document with document-path
 
@@ -477,44 +499,51 @@ To find a particular value, send a `GET` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
 to retrieve the type of weights Joey has done in his workout:
 
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights/type' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_joey.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Joey","data":"bench press"}
+include::example$result/docapi_curl_get_joey.result[]
 ----
+--
+====
 
 In this case, the sub-document `weights` is the
 `document-path` specified to retrieve that data about the `reps`, `type`, and
 `weight`.
 
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_get_joey_weights.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"Joey",
-	"data":{
-		"reps":15,
-		"type":"bench press",
-		"weight":150
-	}
-}
+include::example$result/docapi_curl_get_joey_weights.result[]
 ----
+--
+====
 // end::ReadAdvData[]
 
 // tag::UpdateBasicData[]
@@ -528,50 +557,51 @@ Send a `PATCH` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
 to replace data to the existing collection. All fields included will be changed.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "JanetLee",
-    "lastname": "Doe"
-}'
+include::example$bash/docapi_curl_patch_janet.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Janet"}
+include::example$result/docapi_curl_patch_janet.result[]
 ----
+--
+====
 
 A `GET` request will show that the data has been replaced in the document:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
- --header "X-Cassandra-Token: $AUTH_TOKEN" \
- --header 'Content-Type: application/json'
+include::example$bash/docapi_curl_patch_check_janet.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"Janet",
-	"data":{
-		"email":"janet.doe@gmail.com",
-		"favorite color":"grey",
-		"firstname":"JanetLee",
-		"lastname":"Doe"
-	}
-}
+include::example$result/docapi_curl_patch_check_janet.result[]
 ----
+--
+====
 
-NOTE: `PATCH` Updates are upserts. If the document doesn't exist, it will be created.
+NOTE: `PATCH` updates are upserts. If the document doesn't exist, it will be created.
 If it does exist, it will be updated with the new document data.
 
 // end::UpdateBasicData[]
@@ -584,51 +614,49 @@ a `PATCH` request to
  `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 In this example, we want to change just the firstname of the document:
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-      "firstname": "Joseph"
-}'
+include::example$bash/docapi_curl_patch_partial.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{"documentId":"Joey"}
+include::example$result/docapi_curl_patch_partial.result[]
 ----
+--
+====
 
 and a `GET` will show that only the `weights` has been changed.
 
-[source, bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_patch_check_partial.sh[]
 ----
+--
 
-returns:
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
 ----
-{
-	"documentId":"Joey",
-	"data":{
-		"firstname":"Joseph",
-		"lastname":"Doe",
-		"weights":{
-			"reps":15,
-			"type":"bench press",
-			"weight":150
-		}
-	}
-}
+include::example$result/docapi_curl_patch_check_partial.result[]
 ----
+--
+====
 
 To partially update a sub-document,  send a `PATCH` request to
  `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
@@ -636,18 +664,50 @@ To partially update a sub-document,  send a `PATCH` request to
  information to change and the `document-path` of the sub-document. Include
  all fields that you wish to update.
 
-[source,bash]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
 ----
-curl -L \
--X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "reps": 10,
-    "type": "squat",
-    "weight": 350
-}'
+include::example$bash/docapi_curl_patch_subdoc.sh[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_patch_subdoc.result[]
+----
+--
+====
+
+and a `GET` will show that only the `weights` has been changed.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/docapi_curl_patch_check_subdoc.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_patch_check_subdoc.result[]
+----
+--
+====
+
 // end::UpdateAdvData[]
 
 // tag::DeleteBasicData[]
@@ -657,10 +717,7 @@ To delete a document, send a `DELETE` request to
 
 [source,bash, subs="attributes+"]
 ----
-curl -L \
--X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/{docid}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
+include::example$bash/docapi_curl_delete_doc.sh[]
 ----
 // end::DeleteBasicData[]
 

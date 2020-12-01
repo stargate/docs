@@ -1,0 +1,12 @@
+{
+  "documentId":"Joey",
+  "data":{
+    "firstname":"Joseph",
+    "lastname":"Doe",
+    "weights":{
+      "reps":15,
+      "type":"bench press",
+      "weight":150
+    }
+  }
+}

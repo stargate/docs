@@ -1,0 +1,7 @@
+mutation dropColumnIsbn {
+    alterTableDrop(
+    keyspaceName:"library",
+    tableName:"books",
+    toDrop:["isbn"]
+  )
+}

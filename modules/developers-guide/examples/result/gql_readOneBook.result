@@ -1,0 +1,12 @@
+{
+  "data": {
+    "books": {
+      "values": [
+        {
+          "title": "Moby Dick",
+          "author": "Herman Melville"
+        }
+      ]
+    }
+  }
+}

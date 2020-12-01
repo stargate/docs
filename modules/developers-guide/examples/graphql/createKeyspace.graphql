@@ -1,3 +1,3 @@
-mutation createKeyspaceLibrary {
+mutation createKsLibrary {
   createKeyspace(name:"library", replicas: 1)
 }

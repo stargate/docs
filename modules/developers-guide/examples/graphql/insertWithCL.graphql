@@ -1,0 +1,7 @@
+mutation insertWithOption {
+  moby: insertBooks(value: {title:"Moby Dick", author:"Herman Melville"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
+    value {
+      title
+    }
+  }
+}

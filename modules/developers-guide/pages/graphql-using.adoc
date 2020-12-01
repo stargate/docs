@@ -5,15 +5,15 @@ The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tabl
 
 
 // tag::prereqsList[]
-include::quickstart:partial$text/prereqs.adoc[]
+include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::quickstart:partial$bash/docker_pull.sh[]
+include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::quickstart:partial$bash/docker_run.sh[]
+include::partial$docker_run.adoc[]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
@@ -21,7 +21,7 @@ In order to use the Stargate Document API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
 // generate the auth token
-include::quickstart:partial$bash/gen_auth_token.sh[]
+include::partial$gen_auth_token.adoc[]
 
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
@@ -69,7 +69,7 @@ and create a keyspace by executing the following mutation:
 
 [source, plaintext]
 ----
-include::quickstart:partial$graphql/createKeyspace.graphql[]
+include::example$graphql/createKeyspace.graphql[]
 ----
 For each keyspace created in your Cassandra schema, a new path is created under
 the `graphql-path` root (default is: `/graphql`). For example, the mutation just
@@ -95,11 +95,7 @@ Now run the mutation to create the keyspace. You should see a return value of:
 
 [source, plaintext]
 ----
-{
-  "data": {
-    "createKeyspace": true
-  }
-}
+include::example$result/gql_createKeyspace.result[]
 ----
 // end::CreateKS[]
 
@@ -109,53 +105,92 @@ Now run the mutation to create the keyspace. You should see a return value of:
 After the keyspace exists, you can create two tables by executing the following
 mutation:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/createTables.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation {
-  books: createTable(
-    keyspaceName:"library",
-    tableName:"books",
-    partitionKeys: [ # The keys required to access your data
-      { name: "title", type: {basic: TEXT} }
-    ]
-    values: [ # The values associated with the keys
-      { name: "author", type: {basic: TEXT} }
-    ]
-  )
-  authors: createTable(
-    keyspaceName:"library",
-    tableName:"authors",
-    partitionKeys: [
-      { name: "name", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [ # Secondary key used to access values within the partition
-      { name: "title", type: {basic: TEXT}, order: "ASC" }
-  	]
-  )
-}
+include::example$result/gql_createTables.result[]
 ----
+--
+====
 
-returns
-
-[source, plaintext]
-----
-{
-  "data": {
-    "books": true,
-    "authors": true
-  }
-}
-----
-
-Worth noting is that one mutation is used to create two tables. Information about
-partition keys and clustering keys are found in the
+It is worth noting that one mutation is used to create two tables.
+Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateTable[]
 
-////
-=== Data types
-Need to add data types!!
-////
+// tag::CreateAdvTable[]
+==== Table options
+
+A table can be created with an option `ifNotExists` that will only create the
+table if it does not already exist:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/createTableIfNotExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createTableIfNotExists.result[]
+----
+--
+====
+
+It is worth noting that one mutation is used to create two tables.
+Information about partition keys and clustering keys can be found in the
+https://cassandra.apache.org/doc/latest/cql/[CQL reference].
+// end::CreateAdvTable[]
+
+
+==== Data types
+
+===== Include collection (set, list, map) columns
+
+Including a collection in a table has a couple of extra parts:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/createCollTable.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createCollTable.result[]
+----
+--
+====
+
 
 // tag:AddColumns[]
 === Adding columns to table schema
@@ -163,21 +198,26 @@ Need to add data types!!
 If you need to add more attributes to something you are storing in a table, you
 can add a column:
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-mutation {
-  alterTableAdd(
-    keyspaceName:"library",
-    tableName:"books",
-    toAdd:[{
-      name: "isbn",
-      type: {
-        basic: TEXT
-      }
-    }]
-  )
-}
+include::example$graphql/alterTableAdd.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_alterTableAdd.result[]
+----
+--
+====
 // end:AddColumns[]
 
 // tag::CheckKSTables[]
@@ -188,49 +228,50 @@ GraphQL query:
 
 For keyspaces and tables:
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-query GetKeyspace {
-  keyspace(name: "library") {
-      name
-      dcs {
-          name
-          replicas
-      }
-      tables {
-          name
-          columns {
-              name
-              kind
-              type {
-                  basic
-                  info {
-                      name
-                  }
-              }
-          }
-      }
-  }
-}
-query GetTables {
-  keyspace(name: "library") {
-      name
-      tables {
-          name
-          columns {
-              name
-              kind
-              type {
-                  basic
-                  info {
-                      name
-                  }
-              }
-          }
-      }
-  }
-}
+include::example$graphql/getKs.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getKs.result[]
+----
+--
+====
+
+And for tables:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/getTables.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getTables.result[]
+----
+--
+====
+
 Because these queries are named, the GraphQL playground will allow you to select
 which query to run. The first query will return information about the keyspace
 `library` and the tables within it. The second query will return just information
@@ -251,7 +292,7 @@ the keyspace schema.
 [source, plaintext]
 ----
 mutation {
-  dropKeyspace(keyspaceName:"library"
+  dropKeyspace(keyspaceName:"library")
 }
 ----
 // end::DropKS[]
@@ -261,14 +302,55 @@ mutation {
 
 You can delete a table. All data will be deleted along with the table schema.
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-mutation {
-  dropTable(keyspaceName:"library",
-    tableName:"books")
-}
+include::example$graphql/dropTableBooks.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableBooks.result[]
+----
+--
+====
 // end::DropTable[]
+
+// tag::DropAdvTable[]
+==== Drop options
+
+You can delete a table after checking that it exists with the `ifExists` option.
+All data will be deleted along with the table schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/dropTableIfExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableIfExists.result[]
+----
+--
+====
+// end::DropAdvTable[]
 
 // tag::RemoveColumns[]
 === Removing columns from table schema
@@ -276,16 +358,26 @@ mutation {
 If you find an attribute is no longer required in a table, you
 can remove a column.  Allcolumn data will be deleted along with the column schema.
 
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-mutation {
-    alterTableDrop(
-    keyspaceName:"library",
-    tableName:"books",
-    toDrop:["isbn"]
-  )
-}
+include::example$graphql/dropColumnIsbn.graphql[]
 ----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropColumnIsbn.result[]
+----
+--
+====
 // end::RemoveColumns[]
 
 == Interacting with data stored in tables
@@ -411,21 +503,7 @@ handling queries and mutations. For example, the GraphQL API generated for the
 
 [source, plaintext]
 ----
-schema {
-  query: Query
-  mutation: Mutation
-}
-
-type Query {
-  books(value: BooksInput, filter: BooksFilterInput, orderBy: [BooksOrder], options: QueryOptions): BooksResult
-  booksFilter(filter: BooksFilterInput!, orderBy: [BooksOrder], options: QueryOptions): BooksResult
-}
-
-type Mutation {
-  insertBooks(value: BooksInput!, ifNotExists: Boolean, options: UpdateOptions): BooksMutationResult
-  updateBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
-  deleteBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
-}
+include::example$graphql/generatedApi.graphql[]
 ----
 
 The query `books()` can query book values by equality. If no value argument is
@@ -458,42 +536,89 @@ Change the location to
 http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
 and add a couple of books to the `book` table:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/insertTwoBooks.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation {
-  moby: insertBooks(value: {title:"Moby Dick", author:"Herman Melville"}) {
-    value {
-      title
-    }
-  }
-  catch22: insertBooks(value: {title:"Catch-22", author:"Joseph Heller"}) {
-    value {
-      title
-    }
-  }
-}
+include::example$result/gql_insertTwoBooks.result[]
 ----
-
-returns
-
-[source, plaintext]
-----
-{
-  "data": {
-    "moby": {
-      "value": {
-        "title": "Moby Dick"
-      }
-    },
-    "catch22": {
-      "value": {
-        "title": "Catch-22"
-      }
-    }
-  }
-}
-----
+--
+====
 // end::WriteData[]
+
+// tag::WriteAdvData[]
+==== Insertion options
+
+Three insertion options are configurable during data insertion or updating:
+
+* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigConsistency.html[consistency level]
+* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigSerialConsistency.html[serial consistency level]
+* https://docs.datastax.com/en/dse/6.8/cql/cql/cql_using/useExpire.html[time-to-live (TTL)]
+
+An example insertion that sets the consistency level and TTL:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/insertWithCL.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertWithCL.result[]
+----
+--
+====
+
+The serial consistency can also be set with `serialConsistency` in the options,
+if needed.
+
+==== Insert collections (set, list, map)
+
+Inserting a collection is simple.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/insertOneBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertOneBadge.result[]
+----
+--
+====
+
+// end::WriteAdvData[]
 
 // tag::ReadData[]
 === Read data
@@ -510,35 +635,26 @@ http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
 will get both the `title` and the `author` for the specified book `WHERE
 title:"Moby Dick"`:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/readOneBook.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-query oneBook {
-    books (value: {title:"Moby Dick"}) {
-      values {
-      	title
-      	author
-      }
-    }
-}
+include::example$result/gql_readOneBook.result[]
 ----
-
-returns
-
-[source,plaintext]
-----
-{
-  "data": {
-    "books": {
-      "values": [
-        {
-          "title": "Moby Dick",
-          "author": "Herman Melville"
-        }
-      ]
-    }
-  }
-}
-----
+--
+====
 
 ////
 Add a section on using filters to read data
@@ -555,28 +671,38 @@ only be used with primary key columns just like in Cassandra.
 Using the column that we added earlier, the data for a book is updated with the
 ISBN value:
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/updateOneBook.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation updateABook {
-  moby: updateBooks(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
-    value {
-      title
-      author
-      isbn
-    }
-  }
-}
+include::example$result/gql_updateOneBook.result[]
 ----
+--
+====
 
-NOTE: Updates are upserts. If the row doesn't exist, it will be created.
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
 If it does exist, it will be updated with the new row data.
-
+====
 // end::UpdateData[]
 
 // tag::DeleteData[]
 === Delete data
 
-After adding the book "Pride and Prejudice" with an `insertBooks()`, I can delete
+After adding the book "Pride and Prejudice" with an `insertBooks()`, you can delete
 the book using `deleteBooks()` to illustrate deleting data:
 
 ////
@@ -590,17 +716,69 @@ mutation insertAnotherBook {
 }
 ////
 
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/deleteOneBook.graphql[]
+----
+--
+
+Result::
++
+--
 [source,plaintext]
 ----
-mutation deleteABook {
-  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
+include::example$result/gql_deleteOneBook.result[]
+----
+--
+====
+
+Note the use of `ifExists` to validate that the book exists before deleting it.
+// end::DeleteData[]
+
+// tag::DeleteAdvData[]
+==== Deletion options
+
+Similar to the option `ifExists`, you can delete a book using `consistency`,
+`serialConsistency`, or `ttl`, similar to xref:graphql-using.adoc#WriteAdvData[insertions]:
+
+////
+The insertion is:
+mutation insertAnotherBook {
+  PaP: insertBooks(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
     value {
       title
     }
   }
 }
+////
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-// end::DeleteData[]
+include::example$graphql/deleteOneBookCL.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_deleteOneBookCL.result[]
+----
+--
+====
+
+// end::DeleteAdvData[]
 
 ////
 I'll need a section that shows how connecting to an existing C* cluster will automatically

@@ -1,0 +1,14 @@
+{
+  "data": {
+    "gold": {
+      "value": {
+        "btype": "Gold",
+        "earned": "2020-11-20",
+        "category": [
+          "Editor",
+          "Writer"
+        ]
+      }
+    }
+  }
+}
