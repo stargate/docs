@@ -1,0 +1,29 @@
+= Authentication and Authorization
+
+Systems establish authentication first, with authorization following if implemented.
+
+== What is authentication?
+
+Authentication is the act of validating that users are who they claim to be.
+Two methods of authentication are common:
+
+* Passwords
+** Usernames and passwords are the most common authentication factors.
+** If a user enters the correct data, the system assumes the identity is valid and grants access.
+* Authentication apps
+** Generate security codes via an outside party that grants access.
+
+== What is authorization?
+
+Authorization is the process of giving a user permission to access a specific resource or function.
+Other terms for this functionality are access control or client privilege.
+Users must first prove that their identities are genuine before a system grants them access to the requested resources.
+Authorization is generally controlled by an organization's administrator.
+
+== Methods for accomplishing with SG
+
+* Table-based authentication and authorization
+** Auth API - generate an auth token based on username and password using REST
+** auth-table-based-service uses generated auth token to give stargate queries access to Cassandra
+* JWT - uses a third-party generator, such as Keycloak, to validate a token and pull claims for user authorization
+** auth-jwt-service uses generated claim to give stargate queries access to Cassandra
