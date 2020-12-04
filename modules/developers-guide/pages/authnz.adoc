@@ -269,40 +269,6 @@ curl -L -X POST 'http://localhost:4444/auth/admin/realms/stargate/users' \
 <5> The Cassandra role is identified.
 <6> The keycloak password is identified.
 
-=== DOES STARGATE NEED TO BE RESTARTED AFTER USER IS ADDED TO KEYCLOAK??
-
-****** PUT ALL THIS IN THE STARTUP SCRIPT!!! *******
-
-== Create some data
-
-=== Create a role in Cassandra
-
-[source, cql]
-----
-CREATE ROLE IF NOT EXISTS 'web_user' WITH PASSWORD = 'web_user' AND LOGIN = TRUE;
-----
-
-=== Insert some data into Cassandra
-
-[source, cql]
-----
-CREATE KEYSPACE IF NOT EXISTS store WITH REPLICATION = {'class':'SimpleStrategy', 'replication_factor':'1'};
-
-CREATE TABLE IF NOT EXISTS store.shopping_cart (userid text PRIMARY KEY, item_count int, last_update_timestamp timestamp);
-
-INSERT INTO store.shopping_cart (userid, item_count, last_update_timestamp) VALUES ('9876', 2, toTimeStamp(toDate(now())));
-INSERT INTO store.shopping_cart (userid, item_count, last_update_timestamp) VALUES ('1234', 5, toTimeStamp(toDate(now())));
-----
-
-=== Grant role permissions to the table
-
-[source, cql]
-----
-CREATE ROLE IF NOT EXISTS 'web_user' WITH PASSWORD = 'web_user' AND LOGIN = TRUE;
-GRANT MODIFY ON TABLE store.shopping_cart TO web_user;
-GRANT SELECT ON TABLE store.shopping_cart TO web_user;
-----
-
 == Test the auth/auth
 
 Now let's try some queries to see if the auth/auth is working.
