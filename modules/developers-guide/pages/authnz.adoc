@@ -86,6 +86,24 @@ http://github.com/stargate/docker-images/examples/stargate-jwt-auth[http://githu
 
 === Run the startup script
 
+Clone the repo:
+[source, bash]
+----
+git clone https://github.com/stargate/docker-images.git
+----
+
+Go to the stargate-jwt example:
+[source, bash]
+----
+cd <clone_location/examples/stargate-jwt
+----
+
+Run the startup script:
+[source, bash]
+----
+./start_jwt.sh
+----
+
 The startup script uses docker-compose to start 3 Cassandra nodes, one Stargate node,
 and Keycloak, and insert some data, create a role, and grant permissions.
 
