@@ -95,7 +95,7 @@ git clone https://github.com/stargate/docker-images.git
 Go to the stargate-jwt example:
 [source, bash]
 ----
-cd <clone_location/examples/stargate-jwt
+cd <clone_location>/examples/stargate-jwt
 ----
 
 Run the startup script:
