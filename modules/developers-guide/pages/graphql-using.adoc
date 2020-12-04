@@ -81,14 +81,14 @@ Add the auth token to the HTTP Headers box in the lower lefthand corner:
 [source, plaintext]
 ----
 {
-  "x-cassandra-token":"bff43799-4682-4375-99e8-23c8a9d0f304"
+  "X-Cassandra-Token":"bff43799-4682-4375-99e8-23c8a9d0f304"
 }
 ----
 
 [IMPORTANT]
 ====
 Notice that the key for this JSON token is different than the value that the
-generate token has. It is `x-cassandra-token`, not `auth-token`.
+generate token has. It is `X-Cassandra-Token`, not `auth-token`.
 ====
 
 Now run the mutation to create the keyspace. You should see a return value of:
