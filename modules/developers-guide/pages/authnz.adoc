@@ -87,45 +87,52 @@ http://github.com/stargate/docker-images/examples/stargate-jwt-auth[http://githu
 === Run the startup script
 
 The startup script uses docker-compose to start 3 Cassandra nodes, one Stargate node,
-and Keycloak.
+and Keycloak, and insert some data, create a role, and grant permissions.
 
 [source, bash]
 ----
-1 #!/bin/sh
-2
-3 # Make sure cass-1, the seed node, is up before bringing up other nodes and stargate
-4 docker-compose up -d cass-1 //<1>
-5 # Wait until the seed node is up before bringing up more nodes
-6 (docker-compose logs -f cass-1 &) | grep -q "Created default superuser role" //<2>
-7
-8 # Bring up the 2nd C* node
-9 docker-compose up -d cass-2
-10 (docker-compose logs -f cass-1 &) | grep -q "is now part of the cluster"
-11 # Bring up the 3rd C* node
-12 docker-compose up -d cass-3
-13 (docker-compose logs -f cass-1 &) | grep -q "is now part of the cluster"
-14
-15 # Bring up keycloak for handling JWTs
-16 docker-compose up -d keycloak //<3>
-17
-18 # Bring up the stargate
-19 docker-compose up -d stargate-jwt //<4>
-20 # Wait until stargate is up before bringing up the metrics tools
-21 echo ""
-22 echo "Waiting for stargate to start up..." //<5>
-23 while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8082/health)" != "200" ]]; do
-24     printf '.'
-25     sleep 5
-26 done
+ #!/bin/sh
+
+ # Make sure cass-1, the seed node, is up before bringing up other nodes and stargate
+ docker-compose up -d cass-1 //<1>
+ # Wait until the seed node is up before bringing up more nodes
+ (docker-compose logs -f cass-1 &) | grep -q "Created default superuser role" //<2>
+
+ # Bring up the 2nd C* node
+ docker-compose up -d cass-2
+ (docker-compose logs -f cass-1 &) | grep -q "is now part of the cluster"
+ # Bring up the 3rd C* node
+ docker-compose up -d cass-3
+ (docker-compose logs -f cass-1 &) | grep -q "is now part of the cluster"
+
+ # Bring up keycloak for handling JWTs
+ docker-compose up -d keycloak //<4>
+
+ # Bring up the stargate
+ docker-compose up -d stargate-jwt //<5>
+ # Wait until stargate is up before bringing up the metrics tools
+ echo ""
+ echo "Waiting for stargate to start up..." //<6>
+ while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8082/health)" != "200" ]]; do
+     printf '.'
+     sleep 5
+ done
+
+ # this is where a cql script must be run to insert data and grant permissions
+ docker run --rm -it -v /Users/lorina.poland/CLONES/stargate/docker-images/examples/stargate-jwt-auth/scripts:/scripts  \ //<3>
+ -v /Users/lorina.poland/CLONES/stargate/docker-images/examples/stargate-jwt-auth/cqlshrc:/.cassandra/cqlshrc  \
+ --env CQLSH_HOST=host.docker.internal --env CQLSH_PORT=9045  nuvo/docker-cqlsh
 ----
 <1> Start first Cassandra node.
 <2> Ensure Cassandra is up and running before starting next node.
-<3> Start keycloak before stargate.
-<4> Start stargate node.
-<5> Some logic to monitor stargate progress.
+<3> Use `docker run nuvo/docker-cqlsh` to insert some data into Cassandra
+and create a role and grant permissions.
+<4> Start keycloak before stargate.
+<5> Start stargate node.
+<6> Some logic to monitor stargate progress.
 
 If you have limited memory on the platform where you run this script, you can
-comment out the second and third Cassandra nodes, lines 8-13, to reduce the payload.
+comment out the second and third Cassandra nodes to reduce the payload.
 
 The docker-compose.yml file identifies each node, run as a service, as well as
 the network that all nodes are attached to.
