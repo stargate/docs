@@ -21,11 +21,15 @@ Authorization is generally controlled by an organization's administrator.
 == Methods for accomplishing with Stargate
 
 Stargate currently has two auth/auth methods, table-based and JSON web token (JWT)-based.
+The methods are mutually exclusive in open-source Stargate, so one method must be selected
+and implemented.
+
+TIP: Both methods can be used simultaneously in http:astra.datastax.com[Astra, DataStax's Database-as-a-Service].
 
 == Table-based auth/auth
 
 Table-based authentication and authorization uses the Stargate Auth API to generate
-an auth token based on username and password.
+an auth token based on a https://cassandra.apache.org/doc/4.0-beta4/operating/security.html#authentication[Cassandra username and password].
 The auth-table-based-service uses the generated auth token to allow Stargate
 API queries access to the Cassandra data.
 
@@ -73,20 +77,34 @@ The steps required to enable JWT-based auth/auth involve three steps:
 * Setup a keycloak server using the stargate-realms.json configuration.
 * Add a new user to keycloak to enable a user with a specified role.
 * Start up stargate with authorization and authentication enabled.
-* A Cassandra cluster is assumed to also be running.
+* A Cassandra cluster is assumed to also be running with roles and permissions granted.
 
 Once these steps are completed, queries to Stargate can use the generated token as the
 `X-Cassandra-Token` for either cURL commands using the REST or Document API, or
 for GraphQL mutations.
 
+TIP: http:astra.datastax.com[Astra, DataStax's Database-as-a-Service], is backed
+by Keycloak internally, and roles and permissions can be
+
 You can use your own Keycloak server, but for the purposes of a quickstart,
 here are instructions for setting up a demonstration using docker-compose.
 The files are also found at
 http://github.com/stargate/docker-images/examples/stargate-jwt-auth[http://github.com/stargate/docker-images/examples/stargate-jwt-auth].
+The startup script uses docker-compose to start 3 Cassandra nodes, one Stargate node,
+and Keycloak, and insert some data, create a role, and grant permissions.
+The docker-compose.yml contains the docker image information for starting the images.
+The stargate-realm.json is mounted on the Keycloak image to supply the stargate-specific
+realm used for the demo. A sixth node, docker-cqlsh, is started to complete the CQL
+commands required for the demo, and this image uses two mounted items, a cqlshrc file
+that specifies the Cassandra username and password, and a scripts directory that
+contains the CQL file of commands to execute.
 
 === Run the startup script
 
-Clone the repo:
+Although most of the files will be explained here, for the demo, it is easiest to clone
+the github repository, so that all the required files are available.
+
+To clone the repository:
 [source, bash]
 ----
 git clone https://github.com/stargate/docker-images.git
@@ -98,14 +116,16 @@ Go to the stargate-jwt example:
 cd <clone_location>/examples/stargate-jwt
 ----
 
-Run the startup script:
+IMPORTANT: Before starting the demo, be sure that Docker is running on your platform; for instance,
+install Docker Desktop for Mac or Windows.
+
+To start the demo, run the startup script:
 [source, bash]
 ----
 ./start_jwt.sh
 ----
 
-The startup script uses docker-compose to start 3 Cassandra nodes, one Stargate node,
-and Keycloak, and insert some data, create a role, and grant permissions.
+The script includes the following commands:
 
 [source, bash]
 ----
@@ -124,30 +144,30 @@ and Keycloak, and insert some data, create a role, and grant permissions.
  (docker-compose logs -f cass-1 &) | grep -q "is now part of the cluster"
 
  # Bring up keycloak for handling JWTs
- docker-compose up -d keycloak //<4>
+ docker-compose up -d keycloak //<3>
 
  # Bring up the stargate
- docker-compose up -d stargate-jwt //<5>
+ docker-compose up -d stargate-jwt //<4>
  # Wait until stargate is up before bringing up the metrics tools
  echo ""
- echo "Waiting for stargate to start up..." //<6>
+ echo "Waiting for stargate to start up..." //<5>
  while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8082/health)" != "200" ]]; do
      printf '.'
      sleep 5
  done
 
  # this is where a cql script must be run to insert data and grant permissions
- docker run --rm -it -v /Users/lorina.poland/CLONES/stargate/docker-images/examples/stargate-jwt-auth/scripts:/scripts  \ //<3>
+ docker run --rm -it -v /Users/lorina.poland/CLONES/stargate/docker-images/examples/stargate-jwt-auth/scripts:/scripts  \ //<6>
  -v /Users/lorina.poland/CLONES/stargate/docker-images/examples/stargate-jwt-auth/cqlshrc:/.cassandra/cqlshrc  \
  --env CQLSH_HOST=host.docker.internal --env CQLSH_PORT=9045  nuvo/docker-cqlsh
 ----
 <1> Start first Cassandra node.
 <2> Ensure Cassandra is up and running before starting next node.
-<3> Use `docker run nuvo/docker-cqlsh` to insert some data into Cassandra
+<3> Start keycloak before stargate.
+<4> Start stargate node.
+<5> Some logic to monitor stargate progress.
+<6> Use `docker run nuvo/docker-cqlsh` to insert some data into Cassandra
 and create a role and grant permissions.
-<4> Start keycloak before stargate.
-<5> Start stargate node.
-<6> Some logic to monitor stargate progress.
 
 If you have limited memory on the platform where you run this script, you can
 comment out the second and third Cassandra nodes to reduce the payload.
@@ -253,7 +273,39 @@ which is different than the `localhost:4444` that you can use to access the Keyc
 <9> The environment variables for Keycloak
 <10> A local JSON file mounted on the keycloak docker service to supply specific realm settings
 
-Copy the https://github.com/stargate/docker-images/blob/master/examples/stargate-jwt-auth/stargate-realm.json[`stargate-realm.json`] file to the same directory as the startup script.
+Copy the https://github.com/stargate/docker-images/blob/master/examples/stargate-jwt-auth/stargate-realm.json[`stargate-realm.json`] file to the same directory as the startup script,
+if you are not running the startup script from the git repository.
+
+The CQL creates a role, two keyspaces and three tables, inserts some data, and grants the
+role permission to select or modify the data:
+
+[source, plaintext]
+----
+# create role for demos
+CREATE ROLE IF NOT EXISTS 'web_user' WITH PASSWORD = 'web_user' AND LOGIN = TRUE;
+
+# create REST API example
+CREATE KEYSPACE IF NOT EXISTS store WITH REPLICATION = {'class':'SimpleStrategy', 'replication_factor':'1'};
+
+CREATE TABLE IF NOT EXISTS store.shopping_cart (userid text PRIMARY KEY, item_count int, last_update_timestamp timestamp);
+
+INSERT INTO store.shopping_cart (userid, item_count, last_update_timestamp) VALUES ('9876', 2, toTimeStamp(toDate(now())));
+INSERT INTO store.shopping_cart (userid, item_count, last_update_timestamp) VALUES ('1234', 5, toTimeStamp(toDate(now())));
+
+GRANT MODIFY ON TABLE store.shopping_cart TO web_user;
+GRANT SELECT ON TABLE store.shopping_cart TO web_user;
+
+# create GraphQL example
+CREATE KEYSPACE IF NOT EXISTS library WITH REPLICATION = {'class':'SimpleStrategy', 'replication_factor':'1'};
+
+CREATE TABLE IF NOT EXISTS library.books (title text PRIMARY KEY, author text);
+CREATE TABLE IF NOT EXISTS library.authors (name text PRIMARY KEY, title text);
+
+GRANT MODIFY ON TABLE library.books TO web_user;
+GRANT MODIFY ON TABLE library.authors TO web_user;
+GRANT SELECT ON TABLE library.books TO web_user;
+GRANT SELECT ON TABLE library.authors TO web_user;
+----
 
 === Create a keycloak user
 
@@ -261,27 +313,27 @@ Create a keycloak user, so that the user's JWT can be used to verify authenticat
 
 [source, bash]
 ----
-TOKEN=$(curl -s --data "username=admin&password=admin&grant_type=password&client_id=admin-cli" http://localhost:4444/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token') //<1>
+TOKEN=$(curl -s --data "username=admin&password=admin&grant_type=password&client_id=admin-cli" http://localhost:4444/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token')
 
 curl -L -X POST 'http://localhost:4444/auth/admin/realms/stargate/users' \
 -H "Content-Type: application/json" \
--H "Authorization: bearer $TOKEN" \ //<2>
+-H "Authorization: bearer $TOKEN" \
 --data-raw '{
-    "username": "testuser1", //<3>
+    "username": "testuser1",
     "enabled": true,
     "emailVerified": true,
     "attributes": {
         "userid": [
-            "9876" //<4>
+            "9876"
         ],
         "role": [
-            "web_user" //<5>
+            "web_user"
         ]
     },
     "credentials": [
         {
             "type": "password",
-            "value": "testuser1", //<6>
+            "value": "testuser1",
             "temporary": "false"
         }
     ]
@@ -294,7 +346,10 @@ curl -L -X POST 'http://localhost:4444/auth/admin/realms/stargate/users' \
 <5> The Cassandra role is identified.
 <6> The keycloak password is identified.
 
-== Test the auth/auth
+This sequence of commands access Keycloak as an administrator, to create the information required to
+validate a user and grant access.
+
+== Test the auth/auth with the REST API
 
 Now let's try some queries to see if the auth/auth is working.
 
@@ -336,6 +391,9 @@ Result::
 --
 ====
 
+Note that a `USER_TOKEN` is generated from the Keycloak service and used as the
+`X-Cassandra-Token` in the following REST command.
+
 This next query should fail, because the `userid=1234` that the user `testuser1` should not have access to.
 
 [tabs]
@@ -361,6 +419,63 @@ Result::
   "description": "Role unauthorized for operation: Not allowed to access this resource",
   "code": 401
 }
+----
+--
+====
+
+Note that either REST v1 or REST v2 can be used with the JWT:
+
+[tabs]
+====
+Access is granted::
++
+--
+[source, bash]
+----
+export USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
+
+curl -sL -X GET 'localhost:8082/v2/keyspaces/store/shopping_cart/9876' \
+-H "Content-Type: application/json" \
+-H "X-Cassandra-Token: $USER_TOKEN"
+----
+--
+
+
+Result::
++
+--
+[source, plaintext]
+----
+{"count":1,"data":[{"item_count":2,"userid":"9876","last_update_timestamp":{"nano":0,"epochSecond":1607299200}}]}
+----
+--
+====
+
+For the Document API:
+
+[tabs]
+====
+Access is granted::
++
+--
+[source, bash]
+----
+export USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
+
+curl --location --request GET 'localhost:8082/v2/schemas/namespaces' \
+ --header "X-Cassandra-Token: $USER_TOKEN" \
+ --header 'Content-Type: application/json'
+----
+--
+
+Result::
++
+--
+[source, plaintext]
+----
+ {
+   {"data":[{"name":"system_distributed"},{"name":"system"},{"name":"system_schema"},{"name":"stargate_system"},{"name":"library"},{"name":"system_auth"},{"name":"system_traces"}]}
+ }
 ----
 --
 ====
