@@ -1,5 +1,8 @@
 = Building Stargate from source
 
+In order to build Stargate, you'll need to have https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html[Java 8 (jdk8)] installed.
+
+
 In a terminal:
 
 . Clone the https://github.com/stargate/stargate repository:
