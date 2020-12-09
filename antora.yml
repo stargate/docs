@@ -1,8 +1,7 @@
 name: stargate
 title: Stargate
-version: '0.1'
-display_version: 0.1
-prerelease: -beta
+version: '1.0'
+display_version: 1.0
 asciidoc:
   attributes:
     sectanchors: ''
