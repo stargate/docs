@@ -29,6 +29,8 @@ include::quickstart:page$quick_start-rest.adoc[tag=prereqsList]
 
 * cqlsh (CQL shell) (standalone, or as part of a separate Cassandra installation)
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 include::quickstart:page$quick_start-rest.adoc[tag=getDockerImage]
 
 include::quickstart:page$quick_start-rest.adoc[tag=startDocker]
