@@ -6,11 +6,6 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
-#servers:
-#  - url: https://{databaseId}-{region}.apps.astra.datastax.com
-#externalDocs:
-#  description: Reference Document
-#  url: http://shorturl.at/hnqIQ
 tags:
   - name: auth
     description: auth
@@ -21,15 +16,12 @@ tags:
   - name: schemas
     description: storage configuration
 paths:
-  /api/rest/v1/auth:
+  /v1/auth:
     post:
       tags:
         - auth
       summary: Create an auth token
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
       requestBody:
         content:
@@ -51,15 +43,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}:
+  /v2/namespaces/{namespace-id}/collections/{collection-id}:
     get:
       tags:
         - namespaces
       summary: search for documents in {collection-id}
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -101,9 +90,6 @@ paths:
         - namespaces
       summary: add a new document to {collection-id}
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -144,15 +130,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}:
+  /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}:
     get:
       tags:
         - namespaces
       summary: get a document by id
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -189,9 +172,6 @@ paths:
         - namespaces
       summary: replace a document
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -227,9 +207,6 @@ paths:
         - namespaces
       summary: update part of a document
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -267,9 +244,6 @@ paths:
         - namespaces
       summary: delete a  document
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -287,15 +261,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}:
+  /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}:
     get:
       tags:
         - namespaces
       summary: get a sub document by path
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -329,9 +300,6 @@ paths:
         - namespaces
       summary: replace a sub document
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -369,9 +337,6 @@ paths:
         - namespaces
       summary: update part of a sub document
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -410,9 +375,6 @@ paths:
         - namespaces
       summary: delete a sub document
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -431,15 +393,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/keyspaces/{keyspace-id}/{table-id}:
+  /v2/keyspaces/{keyspace-id}/{table-id}:
     get:
       tags:
         - keyspaces
       summary: search a table
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -475,9 +434,6 @@ paths:
         - keyspaces
       summary: add a new row
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -513,15 +469,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}:
+  /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}:
     get:
       tags:
         - keyspaces
       summary: get a row(s)
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -557,9 +510,6 @@ paths:
         - keyspaces
       summary: replace a row(s)
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -596,9 +546,6 @@ paths:
         - keyspaces
       summary: update part of a row(s)
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -635,9 +582,6 @@ paths:
         - keyspaces
       summary: delete a row(s)
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -655,15 +599,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces:
+  /v2/schemas/keyspaces:
     get:
       tags:
         - schemas
       summary: list keyspaces
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/raw"
@@ -697,9 +638,6 @@ paths:
         - schemas
       summary: create a keyspace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
       requestBody:
@@ -738,15 +676,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}:
+  /v2/schemas/keyspaces/{keyspace-id}:
     get:
       tags:
         - schemas
       summary: get a keyspace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -783,9 +718,6 @@ paths:
         - schemas
       summary: delete a keyspace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -801,15 +733,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables:
+  /v2/schemas/keyspaces/{keyspace-id}/tables:
     get:
       tags:
         - schemas
       summary: list tables
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -861,9 +790,6 @@ paths:
         - schemas
       summary: create a table
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -916,15 +842,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}:
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}:
     get:
       tags:
         - schemas
       summary: get a table
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -975,9 +898,6 @@ paths:
         - schemas
       summary: replace a table definition, except for columns
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1030,9 +950,6 @@ paths:
         - schemas
       summary: delete a table
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1049,15 +966,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
     get:
       tags:
         - schemas
       summary: list columns
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1092,9 +1006,6 @@ paths:
         - schemas
       summary: create a column
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1130,15 +1041,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
     get:
       tags:
         - schemas
       summary: get a column
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1172,9 +1080,6 @@ paths:
         - schemas
       summary: replace a column definition
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1218,9 +1123,6 @@ paths:
         - schemas
       summary: delete a column
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -1238,15 +1140,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/namespaces:
+  /v2/schemas/namespaces:
     get:
       tags:
         - schemas
       summary: list namespaces
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/raw"
@@ -1280,9 +1179,6 @@ paths:
         - schemas
       summary: create a namespace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
       requestBody:
@@ -1321,15 +1217,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/namespaces/{namespace-id}:
+  /v2/schemas/namespaces/{namespace-id}:
     get:
       tags:
         - schemas
       summary: get a namespace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1366,9 +1259,6 @@ paths:
         - schemas
       summary: delete a namespace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1384,15 +1274,12 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/namespaces/{namespace-id}/collections:
+  /v2/schemas/namespaces/{namespace-id}/collections:
     get:
       tags:
         - schemas
       summary: list collections in a namespace
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1425,9 +1312,6 @@ paths:
         - schemas
       summary: create a collection
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1462,15 +1346,12 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}:
+  /v2/schemas/namespaces/{namespace-id}/collections/{collection-id}:
     get:
       tags:
         - schemas
       summary: get a collection
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1504,9 +1385,6 @@ paths:
         - schemas
       summary: update (replace) a collection
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1547,9 +1425,6 @@ paths:
         - schemas
       summary: delete a collection
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Request-Id"
-        - $ref: "#/components/parameters/databaseId"
-        - $ref: "#/components/parameters/region"
         - $ref: "#/components/parameters/pretty"
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/namespace-id"
@@ -1568,20 +1443,6 @@ paths:
           $ref: "#/components/responses/500"
 components:
   parameters:
-    region:
-      name: "region"
-      description: "Cloud region where your database lives. </br> For example, `us-east-1`"
-      in: "path"
-      schema:
-        type: "string"
-      required: true
-    databaseId:
-      name: "databaseId"
-      description: "UUID of your database from the Astra URL. </br> For example, `d341f349-e5db-46d2-9c90-bb9ebaa6f0fc`."
-      in: "path"
-      schema:
-        type: "string"
-      required: true
     X-Cassandra-Token:
       name: X-Cassandra-Token
       in: header
@@ -1589,14 +1450,6 @@ components:
       description: "The token returned from the authorization endpoint. Use this token in each request to the database."
       schema:
         type: string
-    X-Cassandra-Request-Id:
-      name: X-Cassandra-Request-Id
-      in: header
-      required: true
-      description: "Unique identifier (UUID) for the request. Use any valid UUID."
-      schema:
-        type: string
-        format: uuid
     pretty:
       name: pretty
       in: query
