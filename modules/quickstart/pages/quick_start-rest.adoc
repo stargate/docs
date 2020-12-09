@@ -10,6 +10,8 @@ plugin that exposes CRUD access to data stored in Cassandra tables.
 include::developers-guide:partial$prereqs.adoc[]
 // end::prereqsList[]
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 // tag::getDockerImage[]
 include::developers-guide:partial$docker_pull.adoc[]
 // end::getDockerImage[]

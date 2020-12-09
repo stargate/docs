@@ -8,6 +8,8 @@ The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tabl
 include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 // tag::getDockerImage[]
 include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
