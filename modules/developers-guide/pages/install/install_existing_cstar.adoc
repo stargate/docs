@@ -4,6 +4,8 @@ Stargate can be installed alongside an existing Cassandra cluster.
 
 == Using Stargate with Cassandra 3.11
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 include::partial$docker_pull.adoc[]
 
 include::partial$docker_run_existing_cstar.adoc[]

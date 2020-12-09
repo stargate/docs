@@ -9,6 +9,8 @@ JSON documents in collections.
 include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 // tag::getDockerImage[]
 include::partial$docker_pull.adoc[]
 // end::getDockerImage[]
