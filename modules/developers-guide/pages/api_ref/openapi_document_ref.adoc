@@ -5,9 +5,9 @@ team@openapitools.org
 :numbered:
 :toclevels: 3
 :source-highlighter: highlightjs
-:keywords: openapi, rest, Stargate Document API reference 
-:specDir: 
-:snippetDir: 
+:keywords: openapi, rest, Stargate Document API reference
+:specDir:
+:snippetDir:
 :generator-template: v1 2019-12-20
 :info-url: https://openapi-generator.tech
 :app-name: Stargate Document API reference
@@ -28,86 +28,54 @@ The Stargate REST API provides CRUD operations on table data managed by Stargate
 === Auth
 
 
-[.apiRestV1AuthPost]
-==== apiRestV1AuthPost
-    
-`POST /api/rest/v1/auth`
+[.v1AuthPost]
+==== v1AuthPost
+
+`POST /v1/auth`
 
 Create an auth token
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v1/auth/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v1/auth/POST/spec.adoc[opts=optional]
 
 
 
 ===== Parameters
 
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
-
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-|===         
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| Credentials 
-|  <<Credentials>> 
-| X 
-|  
-|  
+| Credentials
+|  <<Credentials>>
+| X
+|
+|
 
-|===         
+|===
 
 
-====== Header Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
-
-|===         
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -124,8 +92,8 @@ Create an auth token
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -147,25 +115,25 @@ Create an auth token
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v1/auth/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v1/auth/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v1/auth/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v1/auth/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v1/auth/POST/POST.json[]
+// file not found, no * wiremock data link :v1/auth/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v1/auth/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v1/auth/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -175,19 +143,19 @@ endif::internal-generation[]
 === Keyspaces
 
 
-[.apiRestV2KeyspacesKeyspaceIdTableIdGet]
-==== apiRestV2KeyspacesKeyspaceIdTableIdGet
-    
-`GET /api/rest/v2/keyspaces/{keyspace-id}/{table-id}`
+[.v2KeyspacesKeyspaceIdTableIdGet]
+==== v2KeyspacesKeyspaceIdTableIdGet
+
+`GET /v2/keyspaces/{keyspace-id}/{table-id}`
 
 search a table
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -196,106 +164,96 @@ search a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| where 
-| URL escaped JSON query using the following keys: | Key | Operation | |-|-| | $lt | Less Than | | $lte | Less Than Or Equal To | | $gt | Greater Than | | $gte | Greater Than Or Equal To | | $ne | Not Equal To | | $in | Contained In | | $exists | A value is set for the key | | $select | This matches a value for a key in the result of a different query | | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query | | $all | Contains all of the given values | | $regex | Requires that a key’s value match a regular expression | | $text | Performs a full text search on indexed fields |   
-| - 
-| null 
-|  
+| where | URL escaped JSON query using the following keys: | Key | Operation | |
+| | $lt | Less Than | |
+| | $lte | Less Than Or Equal To | |
+| | $gt | Greater Than | |
+| | $gte | Greater Than Or Equal To | |
+| | $ne | Not Equal To | |
+| | $in | Contained In | |
+| | $exists | A value is set for the key | |
+| | $select | This matches a value for a key in the result of a different query | |
+| | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query | |
+| | $all | Contains all of the given values | |
+| | $regex | Requires that a key’s value match a regular expression | |
+| | $text | Performs a full text search on indexed fields |
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| page-size 
-| restrict the number of returned items (max 100)  
-| - 
-| null 
-|  
+| page-size
+| restrict the number of returned items (max 100)
+| -
+| null
+|
 
-| page-state 
-| move the cursor to a particular result  
-| - 
-| null 
-|  
+| page-state
+| move the cursor to a particular result
+| -
+| null
+|
 
-| sort 
-| keys to sort by  
-| - 
-| null 
-|  
+| sort
+| keys to sort by
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -312,12 +270,12 @@ search a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -335,43 +293,43 @@ search a table
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/keyspaces/{keyspace-id}/{table-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2KeyspacesKeyspaceIdTableIdPost]
-==== apiRestV2KeyspacesKeyspaceIdTableIdPost
-    
-`POST /api/rest/v2/keyspaces/{keyspace-id}/{table-id}`
+[.v2KeyspacesKeyspaceIdTableIdPost]
+==== v2KeyspacesKeyspaceIdTableIdPost
+
+`POST /v2/keyspaces/{keyspace-id}/{table-id}`
 
 add a new row
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/spec.adoc[opts=optional]
 
 
 
@@ -380,83 +338,65 @@ add a new row
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| row <<object>> 
-| X 
-|  
-|  
+| body
+| row <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -473,8 +413,8 @@ add a new row
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -501,43 +441,43 @@ add a new row
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/keyspaces/{keyspace-id}/{table-id}/POST/POST.json[]
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyDelete]
-==== apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyDelete
-    
-`DELETE /api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+[.v2KeyspacesKeyspaceIdTableIdPrimaryKeyDelete]
+==== v2KeyspacesKeyspaceIdTableIdPrimaryKeyDelete
+
+`DELETE /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 delete a row(s)
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -546,76 +486,58 @@ delete a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -632,8 +554,8 @@ delete a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -650,43 +572,43 @@ delete a row(s)
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyGet]
-==== apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyGet
-    
-`GET /api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+[.v2KeyspacesKeyspaceIdTableIdPrimaryKeyGet]
+==== v2KeyspacesKeyspaceIdTableIdPrimaryKeyGet
+
+`GET /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 get a row(s)
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -695,106 +617,88 @@ get a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| page-size 
-| restrict the number of returned items (max 100)  
-| - 
-| null 
-|  
+| page-size
+| restrict the number of returned items (max 100)
+| -
+| null
+|
 
-| page-state 
-| move the cursor to a particular result  
-| - 
-| null 
-|  
+| page-state
+| move the cursor to a particular result
+| -
+| null
+|
 
-| sort 
-| keys to sort by  
-| - 
-| null 
-|  
+| sort
+| keys to sort by
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -811,12 +715,12 @@ get a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -834,43 +738,43 @@ get a row(s)
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyPatch]
-==== apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyPatch
-    
-`PATCH /api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+[.v2KeyspacesKeyspaceIdTableIdPrimaryKeyPatch]
+==== v2KeyspacesKeyspaceIdTableIdPrimaryKeyPatch
+
+`PATCH /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 update part of a row(s)
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/spec.adoc[opts=optional]
 
 
 
@@ -879,95 +783,77 @@ update part of a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -984,8 +870,8 @@ update part of a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -1007,43 +893,43 @@ update part of a row(s)
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/PATCH/PATCH.json[]
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/PATCH/PATCH.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PATCH/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyPut]
-==== apiRestV2KeyspacesKeyspaceIdTableIdPrimaryKeyPut
-    
-`PUT /api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
+[.v2KeyspacesKeyspaceIdTableIdPrimaryKeyPut]
+==== v2KeyspacesKeyspaceIdTableIdPrimaryKeyPut
+
+`PUT /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}`
 
 replace a row(s)
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -1052,95 +938,77 @@ replace a row(s)
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| primary-key
+| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| primary-key 
-| Value from the primary key column for the table. Define composite keys by separating values with slashes (&#x60;val1/val2...&#x60;) in the order they were defined. &lt;/br&gt; For example, if the composite key was defined as &#x60;PRIMARY KEY(race_year, race_name)&#x60; then the primary key in the path would be &#x60;race_year/race_name&#x60;   
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1157,8 +1025,8 @@ replace a row(s)
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -1180,25 +1048,25 @@ replace a row(s)
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/PUT/PUT.json[]
+// file not found, no * wiremock data link :v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/keyspaces/\{keyspace-id\}/\{table-id\}/\{primary-key\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -1208,19 +1076,19 @@ endif::internal-generation[]
 === Namespaces
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDelete]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDelete
-    
-`DELETE /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDelete]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDelete
+
+`DELETE /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
 
 delete a  document
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -1229,76 +1097,58 @@ delete a  document
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1315,8 +1165,8 @@ delete a  document
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -1333,43 +1183,43 @@ delete a  document
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathDelete]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathDelete
-    
-`DELETE /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathDelete]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathDelete
+
+`DELETE /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
 
 delete a sub document
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -1378,82 +1228,64 @@ delete a sub document
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
+| document-path
+| a JSON path
+| X
+| null
+|
 
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-| document-path 
-| a JSON path  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1470,8 +1302,8 @@ delete a sub document
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -1488,43 +1320,43 @@ delete a sub document
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathGet]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathGet
-    
-`GET /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathGet]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathGet
+
+`GET /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
 
 get a sub document by path
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -1533,94 +1365,76 @@ get a sub document by path
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
+| document-path
+| a JSON path
+| X
+| null
+|
 
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-| document-path 
-| a JSON path  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1637,12 +1451,12 @@ get a sub document by path
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -1665,43 +1479,43 @@ get a sub document by path
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPatch]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPatch
-    
-`PATCH /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPatch]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPatch
+
+`PATCH /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
 
 update part of a sub document
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/spec.adoc[opts=optional]
 
 
 
@@ -1710,95 +1524,77 @@ update part of a sub document
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
+| document-path
+| a JSON path
+| X
+| null
+|
 
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-| document-path 
-| a JSON path  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1815,8 +1611,8 @@ update part of a sub document
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -1843,43 +1639,43 @@ update part of a sub document
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/PATCH/PATCH.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/PATCH/PATCH.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PATCH/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPut]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPut
-    
-`PUT /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPut]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdDocumentPathPut
+
+`PUT /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}`
 
 replace a sub document
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -1888,95 +1684,77 @@ replace a sub document
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
+| document-path
+| a JSON path
+| X
+| null
+|
 
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-| document-path 
-| a JSON path  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -1993,8 +1771,8 @@ replace a sub document
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -2016,43 +1794,43 @@ replace a sub document
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/PUT/PUT.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/\{document-path\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdGet]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdGet
-    
-`GET /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdGet]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdGet
+
+`GET /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
 
 get a document by id
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -2061,88 +1839,70 @@ get a document by id
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2159,12 +1919,12 @@ get a document by id
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -2187,43 +1947,43 @@ get a document by id
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPatch]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPatch
-    
-`PATCH /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPatch]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPatch
+
+`PATCH /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
 
 update part of a document
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/spec.adoc[opts=optional]
 
 
 
@@ -2232,89 +1992,71 @@ update part of a document
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2331,8 +2073,8 @@ update part of a document
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -2359,43 +2101,43 @@ update part of a document
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/PATCH/PATCH.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/PATCH/PATCH.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PATCH/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPut]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPut
-    
-`PUT /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPut]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdDocumentIdPut
+
+`PUT /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}`
 
 replace a document
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -2404,89 +2146,71 @@ replace a document
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
+| document-id
+| the id of the document
+| X
+| null
+|
 
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-| document-id 
-| the id of the document  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2503,8 +2227,8 @@ replace a document
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -2526,43 +2250,43 @@ replace a document
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/PUT/PUT.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/\{document-id\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdGet]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdGet
-    
-`GET /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdGet]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdGet
+
+`GET /v2/namespaces/{namespace-id}/collections/{collection-id}`
 
 search for documents in {collection-id}
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -2571,106 +2295,96 @@ search for documents in {collection-id}
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| where 
-| URL escaped JSON query using the following keys: | Key | Operation | |-|-| | $lt | Less Than | | $lte | Less Than Or Equal To | | $gt | Greater Than | | $gte | Greater Than Or Equal To | | $ne | Not Equal To | | $in | Contained In | | $exists | A value is set for the key | | $select | This matches a value for a key in the result of a different query | | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query | | $all | Contains all of the given values | | $regex | Requires that a key’s value match a regular expression | | $text | Performs a full text search on indexed fields |   
-| - 
-| null 
-|  
+| where | URL escaped JSON query using the following keys: | Key | Operation | |
+| | $lt | Less Than | |
+| | $lte | Less Than Or Equal To | |
+| | $gt | Greater Than | |
+| | $gte | Greater Than Or Equal To | |
+| | $ne | Not Equal To | |
+| | $in | Contained In | |
+| | $exists | A value is set for the key | |
+| | $select | This matches a value for a key in the result of a different query | |
+| | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query | |
+| | $all | Contains all of the given values | |
+| | $regex | Requires that a key’s value match a regular expression | |
+| | $text | Performs a full text search on indexed fields |
 
-| fields 
-| URL escaped, comma delimited list of keys to include  
-| - 
-| null 
-|  
+| fields
+| URL escaped, comma delimited list of keys to include
+| -
+| null
+|
 
-| page-size 
-| restrict the number of returned items (max 100)  
-| - 
-| null 
-|  
+| page-size
+| restrict the number of returned items (max 100)
+| -
+| null
+|
 
-| page-state 
-| move the cursor to a particular result  
-| - 
-| null 
-|  
+| page-state
+| move the cursor to a particular result
+| -
+| null
+|
 
-| sort 
-| keys to sort by  
-| - 
-| null 
-|  
+| sort
+| keys to sort by
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2687,12 +2401,12 @@ search for documents in {collection-id}
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -2710,43 +2424,43 @@ search for documents in {collection-id}
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2NamespacesNamespaceIdCollectionsCollectionIdPost]
-==== apiRestV2NamespacesNamespaceIdCollectionsCollectionIdPost
-    
-`POST /api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}`
+[.v2NamespacesNamespaceIdCollectionsCollectionIdPost]
+==== v2NamespacesNamespaceIdCollectionsCollectionIdPost
+
+`POST /v2/namespaces/{namespace-id}/collections/{collection-id}`
 
 add a new document to {collection-id}
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/spec.adoc[opts=optional]
 
 
 
@@ -2755,83 +2469,65 @@ add a new document to {collection-id}
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-| document <<object>> 
-| X 
-|  
-|  
+| body
+| document <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2848,8 +2544,8 @@ add a new document to {collection-id}
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -2876,25 +2572,25 @@ add a new document to {collection-id}
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/namespaces/{namespace-id}/collections/{collection-id}/POST/POST.json[]
+// file not found, no * wiremock data link :v2/namespaces/{namespace-id}/collections/{collection-id}/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/namespaces/\{namespace-id\}/collections/\{collection-id\}/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -2904,85 +2600,60 @@ endif::internal-generation[]
 === Schemas
 
 
-[.apiRestV2SchemasKeyspacesGet]
-==== apiRestV2SchemasKeyspacesGet
-    
-`GET /api/rest/v2/schemas/keyspaces`
+[.v2SchemasKeyspacesGet]
+==== v2SchemasKeyspacesGet
+
+`GET /v2/schemas/keyspaces`
 
 list keyspaces
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/GET/spec.adoc[opts=optional]
 
 
 
 ===== Parameters
 
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
-
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-|===         
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -2999,12 +2670,12 @@ list keyspaces
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -3017,43 +2688,43 @@ list keyspaces
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdDelete]
-==== apiRestV2SchemasKeyspacesKeyspaceIdDelete
-    
-`DELETE /api/rest/v2/schemas/keyspaces/{keyspace-id}`
+[.v2SchemasKeyspacesKeyspaceIdDelete]
+==== v2SchemasKeyspacesKeyspaceIdDelete
+
+`DELETE /v2/schemas/keyspaces/{keyspace-id}`
 
 delete a keyspace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -3062,64 +2733,46 @@ delete a keyspace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -3136,8 +2789,8 @@ delete a keyspace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -3154,43 +2807,43 @@ delete a keyspace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdGet]
-==== apiRestV2SchemasKeyspacesKeyspaceIdGet
-    
-`GET /api/rest/v2/schemas/keyspaces/{keyspace-id}`
+[.v2SchemasKeyspacesKeyspaceIdGet]
+==== v2SchemasKeyspacesKeyspaceIdGet
+
+`GET /v2/schemas/keyspaces/{keyspace-id}`
 
 get a keyspace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -3199,70 +2852,52 @@ get a keyspace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -3279,12 +2914,12 @@ get a keyspace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -3307,43 +2942,43 @@ get a keyspace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesGet]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesGet
-    
-`GET /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables`
+[.v2SchemasKeyspacesKeyspaceIdTablesGet]
+==== v2SchemasKeyspacesKeyspaceIdTablesGet
+
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables`
 
 list tables
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/spec.adoc[opts=optional]
 
 
 
@@ -3352,70 +2987,52 @@ list tables
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -3432,12 +3049,12 @@ list tables
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -3455,43 +3072,43 @@ list tables
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesPost]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesPost
-    
-`POST /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables`
+[.v2SchemasKeyspacesKeyspaceIdTablesPost]
+==== v2SchemasKeyspacesKeyspaceIdTablesPost
+
+`POST /v2/schemas/keyspaces/{keyspace-id}/tables`
 
 create a table
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/spec.adoc[opts=optional]
 
 
 
@@ -3500,77 +3117,59 @@ create a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -3587,8 +3186,8 @@ create a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -3615,43 +3214,43 @@ create a table
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/POST/POST.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdDelete]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdDelete
-    
-`DELETE /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdDelete]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdDelete
+
+`DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
 
 delete a column
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -3660,76 +3259,58 @@ delete a column
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| column-id
+| column name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| column-id 
-| column name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -3746,8 +3327,8 @@ delete a column
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -3764,43 +3345,43 @@ delete a column
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdGet]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdGet
-    
-`GET /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdGet]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdGet
+
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
 
 get a column
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -3809,82 +3390,64 @@ get a column
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| column-id
+| column name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| column-id 
-| column name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -3901,12 +3464,12 @@ get a column
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -3924,43 +3487,43 @@ get a column
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdPut]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdPut
-    
-`PUT /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdPut]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsColumnIdPut
+
+`PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}`
 
 replace a column definition
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -3969,89 +3532,71 @@ replace a column definition
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
+| column-id
+| column name
+| X
+| null
+|
 
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-| column-id 
-| column name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -4068,8 +3613,8 @@ replace a column definition
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -4101,43 +3646,43 @@ replace a column definition
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/PUT/PUT.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/\{column-id\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsGet]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsGet
-    
-`GET /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsGet]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsGet
+
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
 
 list columns
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/spec.adoc[opts=optional]
 
 
 
@@ -4146,76 +3691,58 @@ list columns
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -4232,12 +3759,12 @@ list columns
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -4255,43 +3782,43 @@ list columns
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsPost]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsPost
-    
-`POST /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsPost]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdColumnsPost
+
+`POST /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns`
 
 create a column
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/spec.adoc[opts=optional]
 
 
 
@@ -4300,83 +3827,65 @@ create a column
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -4393,8 +3902,8 @@ create a column
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -4421,43 +3930,43 @@ create a column
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/POST/POST.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/columns/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdDelete]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdDelete
-    
-`DELETE /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdDelete]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdDelete
+
+`DELETE /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
 
 delete a table
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -4466,70 +3975,52 @@ delete a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -4546,8 +4037,8 @@ delete a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -4564,43 +4055,43 @@ delete a table
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdGet]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdGet
-    
-`GET /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdGet]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdGet
+
+`GET /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
 
 get a table
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -4609,76 +4100,58 @@ get a table
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -4695,12 +4168,12 @@ get a table
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -4718,43 +4191,43 @@ get a table
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdPut]
-==== apiRestV2SchemasKeyspacesKeyspaceIdTablesTableIdPut
-    
-`PUT /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
+[.v2SchemasKeyspacesKeyspaceIdTablesTableIdPut]
+==== v2SchemasKeyspacesKeyspaceIdTablesTableIdPut
+
+`PUT /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}`
 
 replace a table definition, except for columns
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -4763,83 +4236,65 @@ replace a table definition, except for columns
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| keyspace-id
+| keyspace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| table-id
+| table name
+| X
+| null
+|
 
-| keyspace-id 
-| keyspace name  
-| X 
-| null 
-|  
-
-| table-id 
-| table name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -4856,8 +4311,8 @@ replace a table definition, except for columns
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -4889,116 +4344,91 @@ replace a table definition, except for columns
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/PUT/PUT.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/\{keyspace-id\}/tables/\{table-id\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasKeyspacesPost]
-==== apiRestV2SchemasKeyspacesPost
-    
-`POST /api/rest/v2/schemas/keyspaces`
+[.v2SchemasKeyspacesPost]
+==== v2SchemasKeyspacesPost
+
+`POST /v2/schemas/keyspaces`
 
 create a keyspace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/POST/spec.adoc[opts=optional]
 
 
 
 ===== Parameters
 
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
-
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-|===         
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5015,8 +4445,8 @@ create a keyspace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -5043,109 +4473,84 @@ create a keyspace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/keyspaces/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/keyspaces/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/keyspaces/POST/POST.json[]
+// file not found, no * wiremock data link :v2/schemas/keyspaces/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/keyspaces/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/keyspaces/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesGet]
-==== apiRestV2SchemasNamespacesGet
-    
-`GET /api/rest/v2/schemas/namespaces`
+[.v2SchemasNamespacesGet]
+==== v2SchemasNamespacesGet
+
+`GET /v2/schemas/namespaces`
 
 list namespaces
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/GET/spec.adoc[opts=optional]
 
 
 
 ===== Parameters
 
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
-
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-|===         
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5162,12 +4567,12 @@ list namespaces
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -5180,43 +4585,43 @@ list namespaces
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdCollectionsCollectionIdDelete]
-==== apiRestV2SchemasNamespacesNamespaceIdCollectionsCollectionIdDelete
-    
-`DELETE /api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}`
+[.v2SchemasNamespacesNamespaceIdCollectionsCollectionIdDelete]
+==== v2SchemasNamespacesNamespaceIdCollectionsCollectionIdDelete
+
+`DELETE /v2/schemas/namespaces/{namespace-id}/collections/{collection-id}`
 
 delete a collection
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -5225,70 +4630,52 @@ delete a collection
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5305,8 +4692,8 @@ delete a collection
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -5323,43 +4710,43 @@ delete a collection
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/collections/{collection-id}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdCollectionsCollectionIdGet]
-==== apiRestV2SchemasNamespacesNamespaceIdCollectionsCollectionIdGet
-    
-`GET /api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}`
+[.v2SchemasNamespacesNamespaceIdCollectionsCollectionIdGet]
+==== v2SchemasNamespacesNamespaceIdCollectionsCollectionIdGet
+
+`GET /v2/schemas/namespaces/{namespace-id}/collections/{collection-id}`
 
 get a collection
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -5368,76 +4755,58 @@ get a collection
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5454,12 +4823,12 @@ get a collection
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -5472,43 +4841,43 @@ get a collection
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/collections/{collection-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdCollectionsCollectionIdPut]
-==== apiRestV2SchemasNamespacesNamespaceIdCollectionsCollectionIdPut
-    
-`PUT /api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}`
+[.v2SchemasNamespacesNamespaceIdCollectionsCollectionIdPut]
+==== v2SchemasNamespacesNamespaceIdCollectionsCollectionIdPut
+
+`PUT /v2/schemas/namespaces/{namespace-id}/collections/{collection-id}`
 
 update (replace) a collection
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -5517,83 +4886,65 @@ update (replace) a collection
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
+| collection-id
+| name of the document collection
+| X
+| null
+|
 
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-| collection-id 
-| name of the document collection  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5610,8 +4961,8 @@ update (replace) a collection
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
@@ -5638,43 +4989,43 @@ update (replace) a collection
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/collections/{collection-id}/PUT/PUT.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/collections/{collection-id}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/\{collection-id\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdCollectionsGet]
-==== apiRestV2SchemasNamespacesNamespaceIdCollectionsGet
-    
-`GET /api/rest/v2/schemas/namespaces/{namespace-id}/collections`
+[.v2SchemasNamespacesNamespaceIdCollectionsGet]
+==== v2SchemasNamespacesNamespaceIdCollectionsGet
+
+`GET /v2/schemas/namespaces/{namespace-id}/collections`
 
 list collections in a namespace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/GET/spec.adoc[opts=optional]
 
 
 
@@ -5683,70 +5034,52 @@ list collections in a namespace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5763,12 +5096,12 @@ list collections in a namespace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -5781,43 +5114,43 @@ list collections in a namespace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/collections/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/collections/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdCollectionsPost]
-==== apiRestV2SchemasNamespacesNamespaceIdCollectionsPost
-    
-`POST /api/rest/v2/schemas/namespaces/{namespace-id}/collections`
+[.v2SchemasNamespacesNamespaceIdCollectionsPost]
+==== v2SchemasNamespacesNamespaceIdCollectionsPost
+
+`POST /v2/schemas/namespaces/{namespace-id}/collections`
 
 create a collection
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/POST/spec.adoc[opts=optional]
 
 
 
@@ -5826,77 +5159,59 @@ create a collection
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -5913,8 +5228,8 @@ create a collection
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -5941,43 +5256,43 @@ create a collection
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/collections/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/collections/POST/POST.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/collections/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/collections/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/collections/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdDelete]
-==== apiRestV2SchemasNamespacesNamespaceIdDelete
-    
-`DELETE /api/rest/v2/schemas/namespaces/{namespace-id}`
+[.v2SchemasNamespacesNamespaceIdDelete]
+==== v2SchemasNamespacesNamespaceIdDelete
+
+`DELETE /v2/schemas/namespaces/{namespace-id}`
 
 delete a namespace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/DELETE/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/DELETE/spec.adoc[opts=optional]
 
 
 
@@ -5986,64 +5301,46 @@ delete a namespace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -6060,8 +5357,8 @@ delete a namespace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 204
@@ -6078,43 +5375,43 @@ delete a namespace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/DELETE/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/DELETE/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/DELETE/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/DELETE/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/DELETE/DELETE.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/DELETE/DELETE.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/DELETE/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/DELETE/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesNamespaceIdGet]
-==== apiRestV2SchemasNamespacesNamespaceIdGet
-    
-`GET /api/rest/v2/schemas/namespaces/{namespace-id}`
+[.v2SchemasNamespacesNamespaceIdGet]
+==== v2SchemasNamespacesNamespaceIdGet
+
+`GET /v2/schemas/namespaces/{namespace-id}`
 
 get a namespace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -6123,70 +5420,52 @@ get a namespace
 ====== Path Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
+| namespace-id
+| namespace name
+| X
+| null
+|
 
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-| namespace-id 
-| namespace name  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-| raw 
-| unwrap results  
-| - 
-| null 
-|  
+| raw
+| unwrap results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -6203,12 +5482,12 @@ get a namespace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 200
-| 
+|
 |  <<>>
 
 
@@ -6231,116 +5510,91 @@ get a namespace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/\{namespace-id\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/{namespace-id}/GET/GET.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/{namespace-id}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/\{namespace-id\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/\{namespace-id\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
 
 
-[.apiRestV2SchemasNamespacesPost]
-==== apiRestV2SchemasNamespacesPost
-    
-`POST /api/rest/v2/schemas/namespaces`
+[.v2SchemasNamespacesPost]
+==== v2SchemasNamespacesPost
+
+`POST /v2/schemas/namespaces`
 
 create a namespace
 
-===== Description 
+===== Description
 
 
 
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/POST/spec.adoc[opts=optional]
 
 
 
 ===== Parameters
 
-====== Path Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| databaseId 
-| UUID of your database from the Astra URL. &lt;/br&gt; For example, &#x60;d341f349-e5db-46d2-9c90-bb9ebaa6f0fc&#x60;.  
-| X 
-| null 
-|  
-
-| region 
-| Cloud region where your database lives. &lt;/br&gt; For example, &#x60;us-east-1&#x60;  
-| X 
-| null 
-|  
-
-|===         
 
 ===== Body Parameter
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<object>> 
-| X 
-|  
-|  
+| body
+|  <<object>>
+| X
+|
+|
 
-|===         
+|===
 
 
 ====== Header Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| X-Cassandra-Request-Id 
-| Unique identifier (UUID) for the request. Use any valid UUID.  
-| X 
-| null 
-|  
+| X-Cassandra-Token
+| The token returned from the authorization endpoint. Use this token in each request to the database.
+| X
+| null
+|
 
-| X-Cassandra-Token 
-| The token returned from the authorization endpoint. Use this token in each request to the database.  
-| X 
-| null 
-|  
-
-|===         
+|===
 
 ====== Query Parameters
 
 [cols="2,3,1,1,1"]
-|===         
+|===
 |Name| Description| Required| Default| Pattern
 
-| pretty 
-| format results  
-| - 
-| null 
-|  
+| pretty
+| format results
+| -
+| null
+|
 
-|===         
+|===
 
 
 ===== Return Type
@@ -6357,8 +5611,8 @@ create a namespace
 
 .http response codes
 [cols="2,3,1"]
-|===         
-| Code | Message | Datatype 
+|===
+| Code | Message | Datatype
 
 
 | 201
@@ -6385,25 +5639,25 @@ create a namespace
 | Internal server error
 |  <<>>
 
-|===         
+|===
 
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}api/rest/v2/schemas/namespaces/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}v2/schemas/namespaces/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :api/rest/v2/schemas/namespaces/POST/POST.json[]
+// file not found, no * wiremock data link :v2/schemas/namespaces/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}api/rest/v2/schemas/namespaces/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}v2/schemas/namespaces/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -6414,27 +5668,25 @@ endif::internal-generation[]
 
 
 [#Credentials]
-=== _Credentials_ 
+=== _Credentials_
 
 User credentials for authenticating
 
 [.fields-Credentials]
 [cols="2,1,2,4,1"]
-|===         
+|===
 | Field Name| Required| Type| Description| Format
 
-| username 
-| X 
-| String  
+| username
+| X
+| String
 | Username
-|  
+|
 
-| password 
-| X 
-| String  
+| password
+| X
+| String
 | Password
-|  
+|
 
 |===
-
-
