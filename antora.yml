@@ -6,7 +6,7 @@ asciidoc:
   attributes:
     sectanchors: ''
     sectlinks: ''
-    stargate-docker-tag: v0.0.10
+    stargate-docker-tag: v1.0.0
 nav:
 - modules/quickstart/nav.adoc
 - modules/concepts/nav.adoc
