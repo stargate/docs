@@ -1,0 +1,14 @@
+# query the author to see the UDT
+query getReaderWithUDT{
+  reader(value: { name:"Allen Ginsberg" user_id: "e0ed81c3-0826-473e-be05-7de4b4592f64" }) {
+    values {
+      name
+      birthdate
+      addresses {
+        street
+        city
+        zip
+      }
+    }
+  }
+}

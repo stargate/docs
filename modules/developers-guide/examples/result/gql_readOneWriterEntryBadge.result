@@ -1,0 +1,18 @@
+{
+  "data": {
+    "badge": {
+      "values": [
+        {
+          "badge_type": "Gold",
+          "badge_id": 100,
+          "earned": [
+            {
+              "key": "Writer",
+              "value": "2020-11-20"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

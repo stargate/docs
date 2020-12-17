@@ -1,5 +1,5 @@
 mutation deleteOneBook {
-  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
+  PaP: deletebook(value: {title:"Pride and Prejudice"}, ifExists: true ) {
     value {
       title
     }

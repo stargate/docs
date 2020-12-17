@@ -5,28 +5,7 @@
       "dcs": [],
       "tables": [
         {
-          "name": "authors",
-          "columns": [
-            {
-              "name": "name",
-              "kind": "PARTITION",
-              "type": {
-                "basic": "VARCHAR",
-                "info": null
-              }
-            },
-            {
-              "name": "title",
-              "kind": "CLUSTERING",
-              "type": {
-                "basic": "VARCHAR",
-                "info": null
-              }
-            }
-          ]
-        },
-        {
-          "name": "books",
+          "name": "book",
           "columns": [
             {
               "name": "title",
@@ -38,10 +17,30 @@
             },
             {
               "name": "author",
-              "kind": "REGULAR",
+              "kind": "CLUSTERING",
               "type": {
                 "basic": "VARCHAR",
                 "info": null
+              }
+            },
+            {
+              "name": "format",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "SET",
+                "info": {
+                  "name": null
+                }
+              }
+            },
+            {
+              "name": "genre",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "SET",
+                "info": {
+                  "name": null
+                }
               }
             },
             {
@@ -51,10 +50,84 @@
                 "basic": "VARCHAR",
                 "info": null
               }
+            },
+            {
+              "name": "language",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "VARCHAR",
+                "info": null
+              }
+            },
+            {
+              "name": "pub_year",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "INT",
+                "info": null
+              }
+            }
+          ]
+        },
+        {
+          "name": "reader",
+          "columns": [
+            {
+              "name": "name",
+              "kind": "PARTITION",
+              "type": {
+                "basic": "VARCHAR",
+                "info": null
+              }
+            },
+            {
+              "name": "user_id",
+              "kind": "CLUSTERING",
+              "type": {
+                "basic": "UUID",
+                "info": null
+              }
+            },
+            {
+              "name": "addresses",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "LIST",
+                "info": {
+                  "name": null
+                }
+              }
+            },
+            {
+              "name": "birthdate",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "DATE",
+                "info": null
+              }
+            },
+            {
+              "name": "email",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "SET",
+                "info": {
+                  "name": null
+                }
+              }
+            },
+            {
+              "name": "reviews",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "TUPLE",
+                "info": {
+                  "name": null
+                }
+              }
             }
           ]
         }
-      ]
+      }
     }
-  }
 }
