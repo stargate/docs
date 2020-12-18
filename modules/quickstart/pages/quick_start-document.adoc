@@ -65,6 +65,8 @@ include::developers-guide:page$document-using.adoc[tag=DeleteNS]
 // write document data
 include::developers-guide:page$document-using.adoc[tag=WriteBasicData]
 
+include::developers-guide:partial$DocAPIBlogPost.adoc[]
+
 // read document data
 include::developers-guide:page$document-using.adoc[tag=ReadBasicData]
 
