@@ -1,0 +1,19 @@
+[IMPORTANT]
+====
+
+The GraphQL API uses specific naming conventions to preserve capitalization and
+special characters.
+
+.GraphQL naming convention
+[frame="topbot",grid="all", options="header,footer"]
+|===
+| GraphQL table name | CQL table name | GraphQL mutation format
+
+| foo_bar | foo_bar | insertfoo_bar
+
+|FooBar |"FooBar" | insertFooBar
+
+| Hellox21_ | "Hello!" | insertHellox21_
+|===
+
+====
