@@ -604,6 +604,13 @@ include::example$result/gql_insertTwoBooks.result[]
 ----
 --
 ====
+
+Note that the keyword `value` is used twice in the mutation.
+The first use defines the value that the record is set to, for instance, the title
+to Moby Dick and the author to Herman Melville. 
+The second use defines the values that will be displayed after the success
+of the mutation, so that proper insertion can be verified.
+This same method is valid for updates and read queries.
 // end::WriteData[]
 
 // tag::WriteAdvData[]
