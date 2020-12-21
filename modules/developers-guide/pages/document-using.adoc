@@ -271,6 +271,8 @@ include::example$bash/docapi_curl_drop_ns.sh[]
 All data written with the Document API is stored as JSON documents stored in
 collections.
 
+include::partial$DocAPIBlogPost.adoc[]
+
 ==== Add document specifying a collection name
 
 First, let's add a document to a specified collection.

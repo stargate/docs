@@ -3,6 +3,7 @@
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
+include::partial$GQLAPIBlogPost.adoc[]
 
 // tag::prereqsList[]
 include::partial$prereqs.adoc[]
