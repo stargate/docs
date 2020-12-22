@@ -552,7 +552,8 @@ and create a keyspace by executing the following mutation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mutation createKsLibrary {
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext"># create a keyspace called library
+mutation createKsLibrary {
   createKeyspace(name:"library", replicas: 1)
 }</code></pre>
 </div>
@@ -622,26 +623,34 @@ mutation:</p>
 <div class="tab-pane" aria-labelledby="tabset1_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation createTables {
-  books: createTable(
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables (book, reader) in library with a single mutation
+# DATA TYPES: TEXT, UUID, SET(TEXT), TUPLE(TEXT, INT, DATE), LIST(UDT)
+mutation createTables {
+  book: createTable(
     keyspaceName:"library",
-    tableName:"books",
+    tableName:"book",
     partitionKeys: [ # The keys required to access your data
       { name: "title", type: {basic: TEXT} }
     ]
-    values: [ # The values associated with the keys
+    clusteringKeys: [
       { name: "author", type: {basic: TEXT} }
     ]
   )
-  authors: createTable(
+  reader: createTable(
     keyspaceName:"library",
-    tableName:"authors",
+    tableName:"reader",
     partitionKeys: [
       { name: "name", type: {basic: TEXT} }
     ]
     clusteringKeys: [ # Secondary key used to access values within the partition
-      { name: "title", type: {basic: TEXT}, order: "ASC" }
+      { name: "user_id", type: {basic: UUID}, order: "ASC" }
   	]
+    values: [
+      { name: "birthdate", type: {basic: DATE} }
+      { name: "email", type: {basic: SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "reviews", type: {basic: TUPLE, info: { subTypes: [ { basic: TEXT }, { basic: INT }, { basic: DATE } ] } } }
+      { name: "addresses", type: { basic: LIST, info: { subTypes: [ { basic: UDT, info: { name: "address_type", frozen: true } } ] } } }
+    ]
   )
 }</code></pre>
 </div>
@@ -650,10 +659,9 @@ mutation:</p>
 <div class="tab-pane" aria-labelledby="tabset1_result">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "books": true,
-    "authors": true
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">  "data": {
+    "book": true,
+    "reader": true
   }
 }</code></pre>
 </div>
@@ -665,6 +673,58 @@ mutation:</p>
 <p>It is worth noting that one mutation is used to create two tables.
 Information about partition keys and clustering keys can be found in the
 <a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
+</div>
+<div class="paragraph">
+<p>The second table, <code>reader</code>, also defines a column using a <a href="#graphql-using.html#_creating_a_user-defined_type (UDT)" class="page unresolved">user-defined type (UDT)</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The GraphQL API uses specific naming conventions to preserve capitalization and
+special characters.</p>
+</div>
+<table class="tableblock frame-topbot grid-all stretch">
+<caption class="title">Table 2. GraphQL naming convention</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">GraphQL table name</th>
+<th class="tableblock halign-left valign-top">CQL table name</th>
+<th class="tableblock halign-left valign-top">GraphQL mutation format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertfoo_bar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FooBar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"FooBar"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertFooBar</p></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hellox21_</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Hello!"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertHellox21_</p></td>
+</tr>
+</tfoot>
+</table>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -726,28 +786,7 @@ GraphQL query:</p>
       "dcs": [],
       "tables": [
         {
-          "name": "authors",
-          "columns": [
-            {
-              "name": "name",
-              "kind": "PARTITION",
-              "type": {
-                "basic": "VARCHAR",
-                "info": null
-              }
-            },
-            {
-              "name": "title",
-              "kind": "CLUSTERING",
-              "type": {
-                "basic": "VARCHAR",
-                "info": null
-              }
-            }
-          ]
-        },
-        {
-          "name": "books",
+          "name": "book",
           "columns": [
             {
               "name": "title",
@@ -759,10 +798,30 @@ GraphQL query:</p>
             },
             {
               "name": "author",
-              "kind": "REGULAR",
+              "kind": "CLUSTERING",
               "type": {
                 "basic": "VARCHAR",
                 "info": null
+              }
+            },
+            {
+              "name": "format",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "SET",
+                "info": {
+                  "name": null
+                }
+              }
+            },
+            {
+              "name": "genre",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "SET",
+                "info": {
+                  "name": null
+                }
               }
             },
             {
@@ -772,12 +831,86 @@ GraphQL query:</p>
                 "basic": "VARCHAR",
                 "info": null
               }
+            },
+            {
+              "name": "language",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "VARCHAR",
+                "info": null
+              }
+            },
+            {
+              "name": "pub_year",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "INT",
+                "info": null
+              }
+            }
+          ]
+        },
+        {
+          "name": "reader",
+          "columns": [
+            {
+              "name": "name",
+              "kind": "PARTITION",
+              "type": {
+                "basic": "VARCHAR",
+                "info": null
+              }
+            },
+            {
+              "name": "user_id",
+              "kind": "CLUSTERING",
+              "type": {
+                "basic": "UUID",
+                "info": null
+              }
+            },
+            {
+              "name": "addresses",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "LIST",
+                "info": {
+                  "name": null
+                }
+              }
+            },
+            {
+              "name": "birthdate",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "DATE",
+                "info": null
+              }
+            },
+            {
+              "name": "email",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "SET",
+                "info": {
+                  "name": null
+                }
+              }
+            },
+            {
+              "name": "reviews",
+              "kind": "REGULAR",
+              "type": {
+                "basic": "TUPLE",
+                "info": {
+                  "name": null
+                }
+              }
             }
           ]
         }
-      ]
+      }
     }
-  }
 }</code></pre>
 </div>
 </div>
@@ -832,7 +965,7 @@ GraphQL query:</p>
       "name": "library",
       "tables": [
         {
-          "name": "authors",
+          "name": "reader",
           "columns": [
             {
               "name": "name",
@@ -842,18 +975,10 @@ GraphQL query:</p>
                 "info": null
               }
             },
-            {
-              "name": "title",
-              "kind": "CLUSTERING",
-              "type": {
-                "basic": "VARCHAR",
-                "info": null
-              }
-            }
           ]
         },
         {
-          "name": "books",
+          "name": "book",
           "columns": [
             {
               "name": "title",
@@ -923,14 +1048,14 @@ handling queries and mutations. For example, the GraphQL API generated for the
 }
 
 type Query {
-  books(value: BooksInput, filter: BooksFilterInput, orderBy: [BooksOrder], options: QueryOptions): BooksResult
-  booksFilter(filter: BooksFilterInput!, orderBy: [BooksOrder], options: QueryOptions): BooksResult
+  book(value: bookInput, filter: bookFilterInput, orderBy: [bookOrder], options: QueryOptions): bookResult
+  bookFilter(filter: bookFilterInput!, orderBy: [bookOrder], options: QueryOptions): bookResult
 }
 
 type Mutation {
-  insertBooks(value: BooksInput!, ifNotExists: Boolean, options: UpdateOptions): BooksMutationResult
-  updateBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
-  deleteBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
+  insertbook(value: bookInput!, ifNotExists: Boolean, options: UpdateOptions): bookMutationResult
+  updatebook(value: bookInput!, ifExists: Boolean, ifCondition: bookFilterInput, options: UpdateOptions): bookMutationResult
+  deletebook(value: bookInput!, ifExists: Boolean, ifCondition: bookFilterInput, options: UpdateOptions): bookMutationResult
 }</code></pre>
 </div>
 </div>
@@ -992,13 +1117,14 @@ and add a couple of books to the <code>book</code> table:</p>
 <div class="tab-pane" aria-labelledby="tabset4_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation insert2Books {
-  moby: insertBooks(value: {title:"Moby Dick", author:"Herman Melville"}) {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># insert 2 books in one mutation
+mutation insert2Books {
+  moby: insertbook(value: {title:"Moby Dick", author:"Herman Melville"}) {
     value {
       title
     }
   }
-  catch22: insertBooks(value: {title:"Catch-22", author:"Joseph Heller"}) {
+  catch22: insertbook(value: {title:"Catch-22", author:"Joseph Heller"}) {
     value {
       title
     }
@@ -1028,6 +1154,14 @@ and add a couple of books to the <code>book</code> table:</p>
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Note that the keyword <code>value</code> is used twice in the mutation.
+The first use defines the value that the record is set to, for instance, the title
+to Moby Dick and the author to Herman Melville.
+The second use defines the values that will be displayed after the success
+of the mutation, so that proper insertion can be verified.
+This same method is valid for updates and read queries.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1059,8 +1193,9 @@ title:"Moby Dick"</code>:</p>
 <div class="tab-pane" aria-labelledby="tabset5_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">query oneBook {
-    books (value: {title:"Moby Dick"}) {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># get one book using the primary key title with a value
+query oneBook {
+    book (value: {title:"Moby Dick"}) {
       values {
       	title
       	author
@@ -1095,7 +1230,7 @@ title:"Moby Dick"</code>:</p>
 <h3 id="_update_data"><a class="anchor" href="#_update_data"></a><a class="link" href="#_update_data">Update data</a></h3>
 <div class="paragraph">
 <p>Using the column that we added earlier, the data for a book is updated with the
-ISBN value:</p>
+<code>ISBN</code> value:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1113,7 +1248,7 @@ ISBN value:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation updateOneBook {
-  moby: updateBooks(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
+  moby: updatebook(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
     value {
       title
       author
@@ -1180,7 +1315,7 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation deleteOneBook {
-  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true ) {
+  PaP: deletebook(value: {title:"Pride and Prejudice"}, ifExists: true ) {
     value {
       title
     }
