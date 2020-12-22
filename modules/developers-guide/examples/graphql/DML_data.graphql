@@ -13,7 +13,7 @@ mutation insert2Books {
   }
 }
 
-# insert a book and set the option for consistency level
+# insert a book and set the option for consistency level and TTL
 # *** ADVANCED ***
 mutation insertBookWithOption {
   nativeson: insertbook(value: {title:"Native Son", author:"Richard Wright"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
@@ -146,7 +146,7 @@ query readThreeBooks {
   book(filter: { title: { in: ["Native Son", "Moby Dick", "Catch-22"] } } ) {
       values {
       	title
- 			  author
+ 	author
      }
    }
 }
@@ -284,7 +284,7 @@ query oneWriterEntryBadge {
 # insert a book to use in demonstrating deletebooks
 # *** USED IN QUICKSTART ***
 mutation insertPap {
-  pap: insertbook(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+  PaP: insertbook(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
     value {
       title
     }
