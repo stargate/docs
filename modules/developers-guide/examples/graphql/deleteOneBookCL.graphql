@@ -1,5 +1,5 @@
 mutation deleteOneBookCL {
-  PaP: deleteBooks(value: {title:"Pride and Prejudice"}, ifExists: true, options: {consistency: LOCAL_ONE }) {
+  PaP: deletebook(value: {title:"Pride and Prejudice"}, ifExists: true, options: {consistency: LOCAL_ONE }) {
     value {
       title
     }

@@ -4,12 +4,12 @@ schema {
 }
 
 type Query {
-  books(value: BooksInput, filter: BooksFilterInput, orderBy: [BooksOrder], options: QueryOptions): BooksResult
-  booksFilter(filter: BooksFilterInput!, orderBy: [BooksOrder], options: QueryOptions): BooksResult
+  book(value: bookInput, filter: bookFilterInput, orderBy: [bookOrder], options: QueryOptions): bookResult
+  bookFilter(filter: bookFilterInput!, orderBy: [bookOrder], options: QueryOptions): bookResult
 }
 
 type Mutation {
-  insertBooks(value: BooksInput!, ifNotExists: Boolean, options: UpdateOptions): BooksMutationResult
-  updateBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
-  deleteBooks(value: BooksInput!, ifExists: Boolean, ifCondition: BooksFilterInput, options: UpdateOptions): BooksMutationResult
+  insertbook(value: bookInput!, ifNotExists: Boolean, options: UpdateOptions): bookMutationResult
+  updatebook(value: bookInput!, ifExists: Boolean, ifCondition: bookFilterInput, options: UpdateOptions): bookMutationResult
+  deletebook(value: bookInput!, ifExists: Boolean, ifCondition: bookFilterInput, options: UpdateOptions): bookMutationResult
 }

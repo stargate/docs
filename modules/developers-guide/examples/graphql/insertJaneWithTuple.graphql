@@ -1,0 +1,23 @@
+# insert a reader record that uses a TUPLE
+mutation insertJaneWithTuple{
+   jane: insertreader(
+     value: {
+       user_id: "b5b5666b-2a37-4d0b-a5eb-053e54fc242b"
+       name: "Jane Doe"
+       birthdate: "2000-01-01"
+       email: ["janedoe@gmail.com", "janedoe@yahoo.com"]
+       reviews: { item0: "Moby Dick", item1: 5, item2: "2020-12-01" }
+     }
+   ) {
+     value {
+       user_id
+       name
+       birthdate
+       reviews {
+        item0
+        item1
+        item2
+      }
+     }
+   }
+}

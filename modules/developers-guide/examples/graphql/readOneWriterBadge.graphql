@@ -1,0 +1,14 @@
+# query a badge record that has a MAP (earned) with the partition key, clustering key, and a MAP key
+# Requires: CREATE INDEX badge_idx ON library.badge(KEYS(earned));
+query oneWriterBadge {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100} earned: { containsKey: "Writer"} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}

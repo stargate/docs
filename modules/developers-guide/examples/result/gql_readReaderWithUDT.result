@@ -1,0 +1,19 @@
+{
+  "data": {
+    "reader": {
+      "values": [
+        {
+          "name": "Allen Ginsberg",
+          "birthdate": "1926-06-03",
+          "addresses": [
+            {
+              "street": "Haight St",
+              "city": "San Francisco",
+              "zip": "94016"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
