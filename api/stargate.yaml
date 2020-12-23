@@ -1573,11 +1573,6 @@ components:
         | $ne | Not Equal To |
         | $in | Contained In |
         | $exists | A value is set for the key |
-        | $select | This matches a value for a key in the result of a different query |
-        | $dontSelect | Requires that a key’s value not match a value for a key in the result of a different query |
-        | $all | Contains all of the given values |
-        | $regex | Requires that a key’s value match a regular expression |
-        | $text | Performs a full text search on indexed fields |
       schema:
         type: object
       examples:
