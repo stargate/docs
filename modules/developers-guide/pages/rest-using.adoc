@@ -18,7 +18,7 @@ include::partial$docker_run.adoc[]
 // end::startDocker[]
 
 // tag::swaggerUI[]
-=== Swagger UI for the REST API
+== Swagger UI for the REST API
 
 Once you have started the docker container, you can access the REST API
 in a browser at `localhost:8082/swagger-ui`.
@@ -80,7 +80,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_simple_ks.sh[]
+include::example$rest/curl_simple_ks.sh[]
 ----
 --
 
@@ -116,7 +116,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_create_ks.sh[]
+include::example$rest/curl_create_ks.sh[]
 ----
 --
 
@@ -144,7 +144,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_ks_dcs.sh[]
+include::example$rest/curl_ks_dcs.sh[]
 ----
 --
 
@@ -159,12 +159,12 @@ include::example$result/rest_curl_ks_dcs.result[]
 ====
 [source,bash]
 ----
-include::example$bash/rest_curl_ks_dcs.sh[]
+include::example$rest/curl_ks_dcs.sh[]
 ----
 // end::CreateKSextra[]
 
 // tag::CheckKS[]
-=== Checking keyspace existence
+==== Checking keyspace existence
 
 To check if a keyspaces exist, execute a
 REST API query with `cURL` to find all the keyspaces:
@@ -176,7 +176,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_check_ks_exists.sh[]
+include::example$rest/curl_check_ks_exists.sh[]
 ----
 --
 
@@ -199,7 +199,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_particular_ks.sh[]
+include::example$rest/curl_get_particular_ks.sh[]
 ----
 --
 
@@ -227,7 +227,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_create_table.sh[]
+include::example$rest/curl_create_table.sh[]
 ----
 --
 
@@ -251,7 +251,7 @@ Need to add data types!!
 ////
 
 // tag: AddColumn[]
-=== Adding columns to table schema
+==== Adding columns to table schema
 
 If you need to add an attribute to something you are storing in a table, you
 can add a column by sending a `POST` request to add the column.
@@ -263,7 +263,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_add_column.sh[]
+include::example$rest/curl_add_column.sh[]
 ----
 --
 
@@ -287,7 +287,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_change_column.sh[]
+include::example$rest/curl_change_column.sh[]
 ----
 --
 
@@ -304,7 +304,7 @@ include::example$result/rest_curl_change_column.result[]
 // end: AddColumn[]
 
 // tag::CheckTables[]
-== Checking table and column existence
+==== Checking table and column existence
 
 To check if a table exists, execute a
 REST API query with `cURL` to find all the tables:
@@ -316,7 +316,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_check_table_exists.sh[]
+include::example$rest/curl_check_table_exists.sh[]
 ----
 --
 
@@ -339,7 +339,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_particular_table.sh[]
+include::example$rest/curl_get_particular_table.sh[]
 ----
 --
 
@@ -363,7 +363,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_check_column_exists.sh[]
+include::example$rest/curl_check_column_exists.sh[]
 ----
 --
 
@@ -386,7 +386,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_particular_column.sh[]
+include::example$rest/curl_get_particular_column.sh[]
 ----
 --
 
@@ -412,7 +412,7 @@ keyspace scheam.
 
 [source, bash]
 ----
-include::example$bash/rest_curl_drop_ks.sh[]
+include::example$rest/curl_drop_ks.sh[]
 ----
 // end::DropKS[]
 
@@ -424,7 +424,7 @@ to delete a table. All data will be deleted along with the table schema.
 
 [source, bash]
 ----
-include::example$bash/rest_curl_drop_table.sh[]
+include::example$rest/curl_drop_table.sh[]
 ----
 // end::DropTable[]
 
@@ -437,7 +437,7 @@ column data will be deleted along with the column schema.
 
 [source, bash]
 ----
-include::example$bash/rest_curl_drop_column.sh[]
+include::example$rest/curl_drop_column.sh[]
 ----
 // end::RemoveColumn[]
 
@@ -466,7 +466,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_write_users.sh[]
+include::example$rest/curl_write_users.sh[]
 ----
 --
 
@@ -501,7 +501,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_users.sh[]
+include::example$rest/curl_get_users.sh[]
 ----
 --
 
@@ -539,7 +539,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_users_where.sh[]
+include::example$rest/curl_get_users_where.sh[]
 ----
 --
 
@@ -562,7 +562,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_primKey.sh[]
+include::example$rest/curl_get_primKey.sh[]
 ----
 --
 
@@ -594,7 +594,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_update_users.sh[]
+include::example$rest/curl_update_users.sh[]
 ----
 --
 
@@ -630,7 +630,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_patch_users.sh[]
+include::example$rest/curl_patch_users.sh[]
 ----
 --
 
@@ -653,6 +653,6 @@ clustering column `lastname`, so we delete all data with `Mookie/Betts`:
 
 [source,bash]
 ----
-include::example$bash/rest_curl_delete_row.sh[]
+include::example$rest/curl_delete_row.sh[]
 ----
 // end::DeleteData[]
