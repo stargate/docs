@@ -780,6 +780,18 @@ include::example$result/rest_curl_get_primKey.result[]
 Some data types require special handling to read the data.
 Examples of `set`, `list`, `map`, and `tuple` are shown, using the column
 schema created earlier.
+Because these columns are not part of the partition or clustering key, an index
+is required to read the data.
+Currently, for Cassandra, those indexes must be created with CQL.
+Here are the indexes created for use in the following examples:
+
+[source, cql]
+----
+CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
+CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
+CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
+CREATE INDEX country_idx ON users_keyspace.users (current_country);
+----
 
 SET:
 [tabs]
