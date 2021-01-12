@@ -3,6 +3,7 @@ curl --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
 --header 'Content-Type: application/json' \
 --data '{
     "name": "users_keyspace"
+}'
 
 curl -L -X POST 'localhost:8082/v2/schemas/keyspaces' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
@@ -55,7 +56,7 @@ curl --location \
 }'
 
 curl -L -X POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns' \
--H 'X-Cassandra-Token: $AUTH_TOKEN' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{  
@@ -65,7 +66,7 @@ curl -L -X POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users
 
 curl -L \
 -X PUT "http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname" \
--H 'X-Cassandra-Token: $AUTH_TOKEN' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
  -d '{
  "name": "first",

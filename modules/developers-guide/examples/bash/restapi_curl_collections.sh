@@ -117,8 +117,6 @@ where=%7B%20%22firstname%22%3A%20%7B%22%24eq%22%3A%20%22Janesha%22%20%7D%2C%20%2
   "lastname": {"$eq": "Doesha" },
   "evaluations": {"$containsKey": "2020"}}
 
-  Curl
-
   curl -X GET "http://localhost:8082/v2/keyspaces/users_keyspace/users?\
   where=%7B%20%22firstname%22%3A%20%7B%22%24eq%22%3A%20%22Janesha%22%20%7D%2C%20%22lastname%22%3A%20%7B%22%24eq%22%3A%20%22Doesha%22%20%7D%2C%20%22evaluations%22%3A%20%7B%22%24containsKey%22%3A%20%222020%22%7D%7D" \
   -H  "accept: application/json" \

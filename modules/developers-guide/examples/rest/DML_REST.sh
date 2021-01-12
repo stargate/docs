@@ -166,10 +166,10 @@ curl -X POST "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
 }"
 
 #  READ DATA:
-#  This GET may need an index created in CQL on "top_three_tv_shows" before it will
+#  This GET may need an index created in CQL on "current_country" before it will
 #  process correctly.
 
-#  CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
+#  CREATE INDEX country_idx ON users_keyspace.users (current_country);
 
 #  The WHERE CLAUSE is:
 #  { "firstname": {"$eq": "Janesha" },

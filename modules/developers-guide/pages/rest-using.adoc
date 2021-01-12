@@ -42,7 +42,8 @@ include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
 If you prefer, you can use Postman as a client interface for exploring REST APIs
 (https://www.postman.com/downloads/[download here]).
 We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection]
+that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]
@@ -245,10 +246,12 @@ Information about partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateTable[]
 
-////
+// tag::DataTypes[]
 ==== Data types
-Need to add data types!!
-////
+Many common data types are supported by the REST API, such as collections (set, list, map)
+and tuples. Columns can be set to these data types in the original table creation,
+or be added later. Look in the next section for some examples of adding columns.
+// end::DataTypes[]
 
 // tag: AddColumn[]
 ==== Adding columns to table schema
@@ -301,6 +304,105 @@ include::example$result/rest_curl_change_column.result[]
 --
 ====
 
+To add a set to a table, specify the data type `set` along with the data type of the
+set contents, such as `text`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_set_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_set_to_table.result[]
+----
+--
+====
+
+To add a list to a table, specify the data type `list` along with the data type of the
+set contents, such as `text`.
+The difference between a set and a list is that a set is unordered, whereas a list
+is ordered:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_list_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_list_to_table.result[]
+----
+--
+====
+
+To add a map to a table, specify the data type `map` along with the data type of the
+map key and the may value:
+
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_map_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_map_to_table.result[]
+----
+--
+====
+
+To add a tuple to a table, specify the data type `tuple` along with the data type of the
+each item in the tuple.
+A tuple can consist of two or more values that can be retrieved together.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_tuple_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_tuple_to_table.result[]
+----
+--
+====
 // end: AddColumn[]
 
 // tag::CheckTables[]
@@ -485,7 +587,104 @@ include::example$result/rest_curl_write_users.result[]
 Notice that, unlike schema creation, data queries do not require `tables` in the
 URI, only the `{tableName}`.
 ====
+
 // end::WriteData[]
+
+// tag::WriteAdvData[]
+==== Collections and tuples
+
+Some data types require special handling to write the data.
+Examples of `set`, `list`, `map`, and `tuple` are shown, using the column
+schema created earlier.
+
+SET:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_set_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_set_data.result[]
+----
+--
+====
+
+LIST:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_list_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_list_data.result[]
+----
+--
+====
+
+MAP:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_map_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_map_data.result[]
+----
+--
+====
+
+TUPLE:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_tuple_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_tuple_data.result[]
+----
+--
+====
+// end::WriteAdvData[]
 
 // tag::ReadData[]
 === Read data
@@ -572,6 +771,100 @@ Result::
 [source,plaintext, subs="attributes+"]
 ----
 include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+
+==== Collections and tuples
+
+Some data types require special handling to read the data.
+Examples of `set`, `list`, `map`, and `tuple` are shown, using the column
+schema created earlier.
+
+SET:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_set_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_set_data.result[]
+----
+--
+====
+
+LIST:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_list_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_list_data.result[]
+----
+--
+====
+
+MAP:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_map_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_map_data.result[]
+----
+--
+====
+
+TUPLE:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_tuple_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_tuple_data.result[]
 ----
 --
 ====
