@@ -1,75 +1,4 @@
 curl --location \
---request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"Janet"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights/type' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/{docid}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"bench%20press"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
- --header "X-Cassandra-Token: $AUTH_TOKEN" \
- --header 'Content-Type: application/json'
-
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'
-
-curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "firstname": "JanetLee",
-    "lastname": "Doe"
-}'
-
-curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-      "firstname": "Joseph"
-}'
-
-curl -L \
--X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-    "reps": 10,
-    "type": "squat",
-    "weight": 350
-}'
-
-curl --location \
 --request POST 'localhost:8082/v2/namespaces/myworld/collections/fitness' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
@@ -86,7 +15,7 @@ curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' 
   "lastname": "Doe",
   "email": "janet.doe@gmail.com",
   "favorite color": "grey"
-}'
+}
 
 curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
@@ -100,3 +29,68 @@ curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
       "reps": 15
   }
 }'
+
+curl -L \
+-X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+      "firstname": "Joseph"
+}'
+
+curl -L \
+-X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "firstname": "JanetLee",
+    "lastname": "Doe"
+}'
+
+curl -L \
+-X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "reps": 10,
+    "type": "squat",
+    "weight": 350
+}'
+
+curl -X GET 'localhost:8082/v2/schemas/namespaces/myworld' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl --location \
+--request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
+ --header "X-Cassandra-Token: $AUTH_TOKEN" \
+ --header 'Content-Type: application/json'
+
+curl -L \
+-X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"JanetLee"\}\}' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights/type' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"bench%20press"\}\}' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
+
+curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"squat"\}\}' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'
