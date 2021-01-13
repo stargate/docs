@@ -45,12 +45,11 @@ include::partial$use_auth_token_rest_document.adoc[]
 == Using Postman
 
 If you prefer, you can use Postman as a client interface for exploring the Document API
-(https://www.postman.com/downloads/[download here]). You will need to add the
-auth token to the header, similar to the `X-Cassandra-Token` shown below.
-// LLP: NEED TO CREATE THIS FILE!!
-//We've provided a
-//https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection] that you
-//can import in Postman to play with the examples shown in this walkthrough.
+(https://www.postman.com/downloads/[download here]). You will need to change the
+auth token to the header, in the collection global variables.
+We've provided a
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/docapi/Stargate_Document_API_users.postman_collection.json[Stargate Document API Postman Collection]
+that you can import in Postman to play with the examples shown in this walkthrough.
 // end::UsingPostman[]
 
 Now you're ready to use the Document API for CRUD operations.
