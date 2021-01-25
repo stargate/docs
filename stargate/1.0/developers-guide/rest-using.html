@@ -862,7 +862,7 @@ can add a column by sending a <code>POST</code> request to add the column.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X POST 'localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns' \
--H 'X-Cassandra-Token: $AUTH_TOKEN' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{
@@ -902,7 +902,7 @@ sent a <code>PUT</code> request instead:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
 -X PUT "http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname" \
--H 'X-Cassandra-Token: $AUTH_TOKEN' \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
  -d '{
  "name": "first",
