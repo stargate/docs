@@ -87,9 +87,9 @@
                           {
                             "documentId": "my-first-post-a6h54",
                             "title": "Hello World",
-                            "author": { "name": "Cliff Wicklow" },
-                          },
-                        ],
+                            "author": { "name": "Cliff Wicklow" }
+                          }
+                        ]
                     }
         400:
           $ref: "#/components/responses/400"
