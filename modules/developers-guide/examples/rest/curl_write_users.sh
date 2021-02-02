@@ -1,4 +1,4 @@
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+curl -s --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -7,7 +7,7 @@ curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users
     "email": "mookie.betts@gmail.com",
     "favorite color": "blue"
 }'
-curl --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
+curl -s --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{

@@ -1,6 +1,6 @@
-curl -X POST "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
+curl -s -X POST "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
 -H  "accept: application/json" \
--H  "X-Cassandra-Token: 48bcfab2-b1c6-44fd-a56f-9f2221930096" \
+-H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -d "{\"firstname\": \"Janesha\",
   \"lastname\": \"Doesha\",

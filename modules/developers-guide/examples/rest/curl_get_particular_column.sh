@@ -1,4 +1,4 @@
-curl -L \
+curl -s -L \
 -X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns/email' \
 -H "accept: application/json" \
 -H "content-type: application/json" \
