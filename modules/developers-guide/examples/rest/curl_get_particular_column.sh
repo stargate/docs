@@ -1,5 +1,5 @@
 curl -s -L \
--X GET 'localhost:8082/v2/schemas/keyspaces/'users_keyspace'/tables/users/columns/email' \
--H "accept: application/json" \
--H "content-type: application/json" \
--H "X-Cassandra-Token: $AUTH_TOKEN"
+-X GET localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H "Content-Type: application/json" \
+-H "Accept: application/json"
