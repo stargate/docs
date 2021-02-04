@@ -30,8 +30,12 @@ echo "add_set_to_table: "
 ./curl_add_set_to_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_set_to_table.result)
 echo "add_list_to_table: "
 ./curl_add_list_to_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_list_to_table.result)
+echo "add map to table: "
 ./curl_add_map_to_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_map_to_table.result)
+echo "add tuple to table: "
 ./curl_add_tuple_to_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_tuple_to_table.result)
+echo "add udt to table: "
+./curl_add_udt_to_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_udt_to_table.result)
 
 # NEED TO CHECK CURL_CHANGE_COLUMN.SH, BUT IT MESSES UP REST OF WORK
 #./curl_change_column.sh
@@ -70,6 +74,8 @@ echo "write map"
 ./curl_insert_map_data.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_map_data.result)
 echo "write tuple"
 ./curl_insert_tuple_data.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_tuple_data.result)
+echo "write udt"
+./curl_insert_udt_data.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_udt_data.result)
 
 echo "patch users"
 ./curl_patch_users.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_patch_users.result)
@@ -88,10 +94,15 @@ echo "get map"
 echo "get tuple"
 ./curl_get_tuple_data.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_tuple_data.result)
 # END OF NEED 2i
+echo "get udt"
+./curl_get_udt_data.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt_data.result)
+
 echo "get users"
 ./curl_get_users.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users.result)
 echo "get users where"
 ./curl_get_users_where.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_where.result)
+echo "get users mult where"
+./curl_get_users_mult_where.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_mult_where.result)
 
 # DROP/DELETE ALL SCHEMA
 #./curl_delete_row.sh
