@@ -1133,7 +1133,7 @@ Note the use of `ifExists` to validate that the book exists before deleting it.
 ==== Deletion options
 
 Similar to the option `ifExists`, you can delete a book using `consistency`,
-`serialConsistency`, or `ttl`, similar to xref:graphql-using.adoc#WriteAdvData[insertions]:
+`serialConsistency`, or `ttl`, similar to insertions:
 
 ////
 The insertion is:
