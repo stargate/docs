@@ -1,0 +1,4785 @@
+{
+	"info": {
+		"_postman_id": "ed8f5dda-c446-46e2-a9f0-c13d9ab32809",
+		"name": "Stargate Document API: users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create a namespace myworld",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"myworld\",\n    \"replicas\": 1\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/schemas/namespaces",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"schemas",
+						"namespaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a namespace myworld - simple, no RF",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"myworld\",\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/schemas/namespaces",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"schemas",
+						"namespaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a namespace myworld_dcs with DCs",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"myworld_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/schemas/namespaces",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"schemas",
+						"namespaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "POST nonsense-stuff",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"some-stuff\",\n  \"other\": \"This is nonsensical stuff.\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PUT Janet",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstname\": \"Janet\",\n  \"lastname\": \"Doe\",\n  \"email\": \"janet.doe@gmail.com\",\n  \"favorite color\": \"grey\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Janet",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Janet"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PUT Joey",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Joey\",\n    \"lastname\": \"Doe\",\n    \"weights\": {\n      \"type\": \"bench press\",\n      \"weight\": 150,\n      \"reps\": 15\n  }\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Joey",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Joey"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PATCH Joey",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"firstname\": \"Joseph\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Joey",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Joey"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PATCH Joey weights (nested)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reps\": 10,\n    \"type\": \"squat\",\n    \"weight\": 350\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Joey/weights",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Joey",
+						"weights"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				}
+			]
+		},
+		{
+			"name": "PATCH Janet",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"JanetLee\",\n    \"lastname\": \"Doe\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Janet",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Janet"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get all namespaces",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/schemas/namespaces",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"schemas",
+						"namespaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get namespaces myworld",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/schemas/namespaces",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"schemas",
+						"namespaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get 3 documents from fitness collection",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness?page-size=3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness"
+					],
+					"query": [
+						{
+							"key": "page-size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete namespaces myworld",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/schemas/namespaces/myworld",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"schemas",
+						"namespaces",
+						"myworld"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get document WHERE firstname EQ JanetLee",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness?where={\"firstname\":{\"$eq\":\"JanetLee\"}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness"
+					],
+					"query": [
+						{
+							"key": "where",
+							"value": "{\"firstname\":{\"$eq\":\"JanetLee\"}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get document Joey, the weights type value",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Joey/weights/type",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Joey",
+						"weights",
+						"type"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get document Joey, the weights value",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness/Joey/weights",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness",
+						"Joey",
+						"weights"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get document Joey, the weights WHERE type EQ bench press",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness?where={\"weights.type\":{\"$eq\":\"bench%20press\"}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness"
+					],
+					"query": [
+						{
+							"key": "where",
+							"value": "{\"weights.type\":{\"$eq\":\"bench%20press\"}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get document Joey, the weights WHERE type EQ squat",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/namespaces/myworld/collections/fitness?where={\"weights.type\":{\"$eq\":\"squat\"}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"namespaces",
+						"myworld",
+						"collections",
+						"fitness"
+					],
+					"query": [
+						{
+							"key": "where",
+							"value": "{\"weights.type\":{\"$eq\":\"squat\"}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "Internal server error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+				},
+				{
+					"name": "resource created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"name\": \"killrvideo\"\n}"
+				},
+				{
+					"name": "Invalid input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+				},
+				{
+					"name": "Conflict",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "<string>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"killrvideo\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schemas",
+								"keyspaces"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8082"
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "8e70cbcc-ab13-45e5-b01e-f19203f38c1a"
+		}
+	]
+}

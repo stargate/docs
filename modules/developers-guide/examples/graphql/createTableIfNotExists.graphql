@@ -1,6 +1,6 @@
 # create two tables, magazine and article, IF THEY DON'T EXIST
 # DATA TYPES: TEXT, INT, LIST(TEXT)
-# *** ADVANCED ***
+
 mutation createTableIfNotExists {
   magazine: createTable(
     keyspaceName:"library",

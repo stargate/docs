@@ -1,0 +1,17 @@
+{
+  "count": 2,
+  "data": [
+    {
+      "firstname": "Janesha",
+      "favorite color": "grey",
+      "email": "janesha.doesha@gmail.com",
+      "lastname": "Doesha"
+    },
+    {
+      "firstname": "Mookie",
+      "favorite color": "blue",
+      "email": "mookie.betts@gmail.com",
+      "lastname": "Betts"
+    }
+  ]
+}
