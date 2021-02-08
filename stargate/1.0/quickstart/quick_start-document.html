@@ -424,14 +424,16 @@ meant for development and testing only.</p>
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_swagger_ui_for_the_document_api"><a class="anchor" href="#_swagger_ui_for_the_document_api"></a><a class="link" href="#_swagger_ui_for_the_document_api">Swagger UI for the Document API</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_swagger_ui_for_the_document_api"><a class="anchor" href="#_swagger_ui_for_the_document_api"></a><a class="link" href="#_swagger_ui_for_the_document_api">Swagger UI for the Document API</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Once you have started the docker container, you can access the Document API
 in a browser at <code>localhost:8082/swagger-ui</code>.
 Adding parameter information, you can generate <code>cURL</code> commands to execute and
 display results that will return.</p>
-</div>
 </div>
 </div>
 </div>
@@ -489,8 +491,11 @@ in the <code>X-Cassandra-Token</code> header. Note the port for the auth service
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you prefer, you can use Postman as a client interface for exploring the Document API
-(<a href="https://www.postman.com/downloads/">download here</a>). You will need to add the
-auth token to the header, similar to the <code>X-Cassandra-Token</code> shown below.</p>
+(<a href="https://www.postman.com/downloads/">download here</a>). You will need to change the
+auth token to the header, in the collection global variables.
+We&#8217;ve provided a
+<a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/docapi/Stargate_Document_API_users.postman_collection.json">Stargate Document API Postman Collection</a>
+that you can import in Postman to play with the examples shown in this walkthrough.</p>
 </div>
 </div>
 </div>
