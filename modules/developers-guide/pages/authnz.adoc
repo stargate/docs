@@ -20,13 +20,13 @@ Authorization is generally controlled by an organization's administrator.
 
 == Methods for accomplishing with Stargate
 
-Stargate currently has two auth/auth methods, table-based and JSON web token (JWT)-based.
+Stargate currently has two authentication and authorization methods, table-based and JSON web token (JWT)-based.
 The methods are mutually exclusive in open-source Stargate, so one method must be selected
 and implemented.
 
 TIP: Both methods can be used simultaneously in http://astra.datastax.com[Astra, DataStax's Database-as-a-Service].
 
-== Table-based auth/auth
+== Table-based authentication/authorization
 
 Table-based authentication and authorization uses the Stargate Auth API to generate
 an auth token based on a https://cassandra.apache.org/doc/4.0-beta4/operating/security.html#authentication[Cassandra username and password].
@@ -65,14 +65,14 @@ Add the auth token to the HTTP Headers box in the lower lefthand corner of the G
 --
 ====
 
-== JWT-based auth/auth
+== JWT-based authentication/authorization
 
 Token-based authentication and authorization uses a third-party generator,
 such as Keycloak, to validate a JSON web token (JWT) and pull claims for user authorization.
 The auth-jwt-service uses generated claim to allow Stargate
 API queries access to the Cassandra data.
 
-The steps required to enable JWT-based auth/auth involve three steps:
+The steps required to enable JWT-based authentication and authorization involve three steps:
 
 * Setup a keycloak server using the stargate-realms.json configuration.
 * Add a new user to keycloak to enable a user with a specified role.
@@ -266,9 +266,9 @@ version: '2'
 <3> The name of the backend used for all nodes
 <4> The environment variables identified using Cassandra docker image specifications
 <5> The docker image for the stargate node
-<6> The environment variables for Stargate to run with JWT-based auth/auth.
+<6> The environment variables for Stargate to run with JWT-based authentication and authorization
 Note in particular that the URL to link Stargate and Keycloak uses `keycloak:4444`
-which is different than the `localhost:4444` that you can use to access the Keycloak server.
+which is different than the `localhost:4444` that you can use to access the Keycloak server
 <7> A keycloak docker image
 <8> Mapped ports, so that server can be accessed locally
 <9> The environment variables for Keycloak
@@ -350,12 +350,13 @@ curl -L -X POST 'http://localhost:4444/auth/admin/realms/stargate/users' \
 This sequence of commands access Keycloak as an administrator, to create the information required to
 validate a user and grant access.
 
-== Test the auth/auth
+== Test the authentication and authorization
 
-Now let's try some queries to see if the auth/auth is working.
+Now let's try some queries to see if the authentication and authorization is working.
 
 This command should work, because the `userid` of the `testuser1` user has the role
-`web_user` which is granted permission to select data from the table.
+`web_user` which is granted permission to select data from the table, based on the appropriate
+claim `x-stargate-userid`.
 
 === REST v1
 
@@ -489,7 +490,7 @@ Result::
 
 === GraphQL
 
-GraphQL can also use the JWTs for auth/auth, if the `USER_TOKEN` is copied to the
+GraphQL can also use the JWTs for authentication and authorization, if the `USER_TOKEN` is copied to the
 header of GraphQL queries.
 
 [source, bash]
