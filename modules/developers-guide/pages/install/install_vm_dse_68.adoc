@@ -18,7 +18,7 @@ download the http://downloads.datastax.com/stargate.zip[Stargate zip file].
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:
 
-[source, bash]
+[source, bash, subs="attributes+"]
 ----
 wget https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-dse_68}/stargate-jars.zip 
 ----
