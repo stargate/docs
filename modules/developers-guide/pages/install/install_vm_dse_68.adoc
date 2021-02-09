@@ -20,7 +20,7 @@ A typical method is using wget:
 
 [source, bash, subs="attributes+"]
 ----
-wget https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-dse_68}/stargate-jars.zip 
+wget https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-68}/stargate-jars.zip 
 ----
 
 Unzip the files:
