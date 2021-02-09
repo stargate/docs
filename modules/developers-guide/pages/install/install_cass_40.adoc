@@ -13,6 +13,8 @@ is a simple method.
 xref:vm_40[virtual machines or bare metal], use the method that downloads a zip file of
 Stargate jar files and install.
 
+Once you have installed Stargate, you are ready to try one of the  Stargate xref:quickstart:quickstart.adoc[QuickStarts].
+
 include::install_docker_standalone_40.adoc[Docker]
 include::install_docker_compose_40.adoc[Docker Compose]
-include::install_vm_cstar_40.adoc[Virtual machine or bare metal]
+include::install_vm_cass_40.adoc[Virtual machine or bare metal]

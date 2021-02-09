@@ -13,6 +13,8 @@ is a simple method.
 xref:vm_3x[virtual machines or bare metal], use the method that downloads a zip file of
 Stargate jar files and install.
 
+Once you have installed Stargate, you are ready to try one of the  Stargate xref:quickstart:quickstart.adoc[QuickStarts].
+
 include::install_docker_standalone_3x.adoc[Docker]
 include::install_docker_compose_3x.adoc[Docker Compose]
-include::install_vm_cstar_3x.adoc[Virtual machine or bare metal]
+include::install_vm_cass_3x.adoc[Virtual machine or bare metal]

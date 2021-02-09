@@ -12,11 +12,11 @@ include::partial$prereqs.adoc[]
 include::developers-guide:partial$astra_tip.adoc[]
 
 // tag::getDockerImage[]
-include::partial$docker_pull.adoc[]
+include::partial$docker_pull_3x.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$docker_run.adoc[]
+include::partial$docker_run_3x.adoc[]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
@@ -608,7 +608,7 @@ include::example$result/gql_insertTwoBooks.result[]
 
 Note that the keyword `value` is used twice in the mutation.
 The first use defines the value that the record is set to, for instance, the title
-to Moby Dick and the author to Herman Melville. 
+to Moby Dick and the author to Herman Melville.
 The second use defines the values that will be displayed after the success
 of the mutation, so that proper insertion can be verified.
 This same method is valid for updates and read queries.

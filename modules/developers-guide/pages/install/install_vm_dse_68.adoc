@@ -82,5 +82,3 @@ After a few seconds, you should see that Stargate has started.
 You will see log output in your terminal display.   
 If you get a binding error, then you may have tried to start Stargate incorrectly and the process is still running.
 Terminate that process and start it again.
-
-That's it! You are ready to try a Stargate xref:quickstart:quickstart.adoc[QuickStart].

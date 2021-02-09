@@ -13,11 +13,11 @@ include::developers-guide:partial$prereqs.adoc[]
 include::developers-guide:partial$astra_tip.adoc[]
 
 // tag::getDockerImage[]
-include::developers-guide:partial$docker_pull.adoc[]
+include::developers-guide:partial$docker_pull_3x.adoc[]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::developers-guide:partial$docker_run.adoc[]
+include::developers-guide:partial$docker_run_3x.adoc[]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
