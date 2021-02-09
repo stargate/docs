@@ -18,16 +18,16 @@ download the http://downloads.datastax.com/stargate.zip[Stargate zip file].
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:
 
-[source, bash, subs="attributes+"]
+[source, shell, subs="attributes+"]
 ----
-wget https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-3x}/stargate-jars.zip 
+include::example$bash/wget_sg_jars_cass_3x.sh[]
 ----
 
 Unzip the files:
 
-[source, bash]
+[source, shell]
 ----
-unzip stargate-jars.zip 
+include::example$bash/unzip_sg_jars.sh[]
 ----
 
 Make sure that `port 7000` is open on the Stargate machine. This port is the
@@ -36,31 +36,17 @@ pass communications.
 
 Now start Stargate using the `starctl` command, the main command for starting
 and configuring Stargate:
-[source, bash]
+
+[source, shell]
 ----
-./starctl --cluster-name <cluster name> \  
---cluster-seed <seed node to connect to> \  
---cluster-version 6.8 \  
---listen <ip address for stargate to listen on> \  
---dc <data center name> \  
---rack <rack name of node to connect to> \  
---dse \  
---enable-auth
+include::example$bash/start_vm_syntax.sh[]
 ----
 
 For example:
 
-[source, bash]
+[source, shell]
 ----
-./starctl
---cluster-name stargate_test_cluster \  
---cluster-seed 172.31.29.170 \  
---cluster-version 6.8 \  
---listen 172.31.29.175 \  
---dc DC1 \  
---rack RACK1 \  
---dse \  
---enable-auth
+include::example$bash/start_vm_3x.sh[]
 ----
 
 where
