@@ -783,7 +783,7 @@ This query uses `$in` to find the two users.
 The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
 `$lte`, `$gt`, `$gte`, `$ne`, and `$exists`, if applicable.
 The primary key of the table can be used in the `WHERE` clause, but non-primary
-key columns cannot be used.
+key columns cannot be used unless indexed.
 
 [NOTE]
 ====
