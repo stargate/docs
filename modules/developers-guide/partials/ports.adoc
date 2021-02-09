@@ -1,0 +1,11 @@
+The default ports assignments align to the following services and interfaces:
+
+|===
+| Port | Service/Interface
+| 8080 | GraphQL interface for CRUD
+| 8081 | REST authorization service for generating tokens
+| 8082 | REST interface for CRUD
+| 8084 | Health check (/healthcheck, /checker/liveness, /checker/readiness)
+| 8085 | Metrics (/metrics)
+| 9042 | CQL service
+|===

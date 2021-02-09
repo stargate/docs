@@ -1,0 +1,9 @@
+=== Pull the Docker image
+
+This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
+and GraphQL Playground, along with a DataStax Enterprise^(TM)^  6.8 backend.
+
+[source,bash,subs="attributes+"]
+----
+docker pull stargateio/stargate-dse:{stargate-docker-tag-68}
+----

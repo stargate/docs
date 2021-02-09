@@ -1,0 +1,11 @@
+[#docker_compose_dse_68]
+== Stargate with Docker compose
+
+This installation method can be used to either:
+
+* new installation of both DSE and Stargate
+* add Stargate to a running DSE docker-compose network
+
+include::developers-guide:partial$docker_compose_dse_68.adoc[]
+
+include::developers-guide:partial$docker_run_existing_cstar_dse_68.adoc[]

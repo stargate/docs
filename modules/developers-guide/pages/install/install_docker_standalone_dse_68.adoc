@@ -1,0 +1,8 @@
+[#standalone_docker_dse_68]
+== Stargate Standalone with Docker
+
+include::developers-guide:partial$docker_pull_dse_68.adoc[]
+
+include::developers-guide:partial$docker_run_dse_68.adoc[]
+
+include::developers-guide:partial$ports.adoc[]
