@@ -7,3 +7,6 @@ Check out the following choices:
 * xref:quick_start-document.adoc[Document API]
 * xref:quick_start-rest.adoc[REST API]
 * xref:quick_start-graphql.adoc[GraphQL API]
+
+If you haven't installed Stargate yet, go check out
+ xref:developers-guide:install/install_overview.adoc[methods].
