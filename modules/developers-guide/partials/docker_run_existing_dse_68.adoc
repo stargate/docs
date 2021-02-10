@@ -37,6 +37,7 @@ docker run --name stargate \
 ----
 
 where
+
   * `cass-net` must be replaced with the existing Cassandra cluster network name
   * the port `9042` should be mapped to an alternative port (example shows `9049`)
   * `CLUSTER_NAME` identifies the Cassandra cluster name used at cluster creation
