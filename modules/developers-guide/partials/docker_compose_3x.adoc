@@ -28,4 +28,4 @@ CAUTION: When Stargate is launched within a container on Mac OS X as shown above
 it will connect only to Cassandra clusters running within the same Docker
 environment. To run Stargate so that it can connect to a cluster running outside
 of a containerized environment,
-see the xref:install_existing_cass_3x.adoc[Installing on VMs or bare metal] documentation.
+see the xref:developers-guide:install/install_vm_cass_3x.adoc[Installing on VMs or bare metal] documentation.
