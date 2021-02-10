@@ -15,5 +15,5 @@ docker run --name stargate \
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=6.8 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:{stargate-docker-tag-68}
+  stargateio/stargate-dse-68:{stargate-docker-tag-68}
 ----
