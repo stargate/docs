@@ -483,8 +483,8 @@ has the <code>docker run</code> commands for running a CQLSH Docker container to
 either one of the DSE nodes or the Stargate node, respectively.</p>
 </div>
 <div class="paragraph">
-<p>The files are found at:
-<a href="https://github.com/stargate/docker-images/tree/master/examples/stargate-dse68">https://github.com/stargate/docker-images/tree/master/examples/stargate-dse68</a></p>
+<p>The files are found at the
+<a href="https://github.com/stargate/docker-images/tree/master/examples/dse-6.8">Stargate docker-images repository</a>.</p>
 </div>
 <div class="paragraph">
 <p>Run the script after downloading the files:</p>
@@ -505,7 +505,7 @@ When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to DSE clusters running within the same Docker
 environment. To run Stargate so that it can connect to a cluster running outside
 of a containerized environment,
-see the <a href="#install_existing_dse_68.adoc" class="page unresolved">Installing on VMs or bare metal</a> documentation.
+see the <a href="install_vm_dse_68.html" class="page">Installing on VMs or bare metal</a> documentation.
 </td>
 </tr>
 </table>
@@ -553,14 +553,32 @@ containerized environment with the following command:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where
-  * <code>cass-net</code> must be replaced with the existing Cassandra cluster network name
-  * the port <code>9042</code> should be mapped to an alternative port (example shows <code>9049</code>)
-  * <code>CLUSTER_NAME</code> identifies the Cassandra cluster name used at cluster creation
-  * <code>CLUSTER_VERSION</code> is set to the version of Cassandra running in the cluster
-  * <code>SEED</code> is set to the IP address or docker name of a running Cassandra seed node (<code>cass1</code>)
-  * <code>SIMPLE_SNITCH</code> sets the snitch on the Stargate node
-  * <code>ENABLE_AUTH</code> enables <code>PasswordAuthenticator</code> in the cluster</p>
+<p>where</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cass-net</code> must be replaced with the existing Cassandra cluster network name</p>
+</li>
+<li>
+<p>the port <code>9042</code> should be mapped to an alternative port (example shows <code>9049</code>)</p>
+</li>
+<li>
+<p><code>CLUSTER_NAME</code> identifies the Cassandra cluster name used at cluster creation</p>
+</li>
+<li>
+<p><code>CLUSTER_VERSION</code> is set to the version of Cassandra running in the cluster</p>
+</li>
+<li>
+<p><code>SEED</code> is set to the IP address or docker name of a running Cassandra seed node (<code>cass1</code>)</p>
+</li>
+<li>
+<p><code>SIMPLE_SNITCH</code> sets the snitch on the Stargate node</p>
+</li>
+<li>
+<p><code>ENABLE_AUTH</code> enables <code>PasswordAuthenticator</code> in the cluster</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -653,7 +671,7 @@ Java 8 is installed.</p>
 </div>
 <div class="paragraph">
 <p>Once you have a machine ready,
-download the <a href="http://downloads.datastax.com/stargate.zip">Stargate zip file</a>.
+download the <a href="https://github.com/stargate/stargate/releases/download/v1.0.7/stargate-jars.zip">Stargate zip file</a>.
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:</p>
 </div>
