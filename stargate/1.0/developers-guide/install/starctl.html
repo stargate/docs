@@ -159,7 +159,7 @@
   <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="1">
-    <span class="nav-text">Installing Stargate</span>
+    <a class="nav-link" href="install_overview.html">Installing Stargate</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
@@ -167,10 +167,16 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="install_docker.html">Installing Stargate with Docker</a>
+    <a class="nav-link" href="install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="install_existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
+    <a class="nav-link" href="install_cass_3x.html">Cassandra 3.x</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="install_cass_40.html">Cassandra 4.0</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="install_dse_68.html">DSE 6.8</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="starctl.html">The starctl command</a>
@@ -304,7 +310,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../../index.html">Stargate</a></li>
-    <li>Installing Stargate</li>
+    <li><a href="install_overview.html">Installing Stargate</a></li>
     <li><a href="starctl.html">The starctl command</a></li>
   </ul>
 </nav>
@@ -339,7 +345,7 @@
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host&#8217;s network. To run Stargate in a containerized environment, see the <a href="../existing_cstar.html" class="page">Installing Stargate with an existing Cassandra cluster</a> documentation.
+When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host&#8217;s network. To run Stargate in a containerized environment, see the <a href="#existing_cstar.adoc" class="page unresolved">Installing Stargate with an existing Cassandra cluster</a> documentation.
 </td>
 </tr>
 </table>

@@ -159,7 +159,7 @@
   <li class="nav-item toggler" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item toggler" data-depth="1">
-    <span class="nav-text">Installing Stargate</span>
+    <a class="nav-link" href="../developers-guide/install/install_overview.html">Installing Stargate</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
@@ -167,10 +167,16 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers-guide/install/install_docker.html">Installing Stargate with Docker</a>
+    <a class="nav-link" href="../developers-guide/install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers-guide/install/install_existing_cstar.html">Installing Stargate with an existing Cassandra cluster</a>
+    <a class="nav-link" href="../developers-guide/install/install_cass_3x.html">Cassandra 3.x</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/install/install_cass_40.html">Cassandra 4.0</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../developers-guide/install/install_dse_68.html">DSE 6.8</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../developers-guide/install/starctl.html">The starctl command</a>
@@ -379,7 +385,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.0</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.7</code></pre>
 </div>
 </div>
 </div>
@@ -401,43 +407,9 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.0</code></pre>
+  stargateio/stargate-3_11:v1.0.7</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The ports align to the following services and interfaces:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Default Port assignments for Stargate</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Port</th>
-<th class="tableblock halign-left valign-top">Service/Interface</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8080</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8081</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating tokens</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8082</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 9042</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -689,7 +661,7 @@ Information about partition keys and clustering keys can be found in the
 special characters.</p>
 </div>
 <table class="tableblock frame-topbot grid-all stretch">
-<caption class="title">Table 2. GraphQL naming convention</caption>
+<caption class="title">Table 1. GraphQL naming convention</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
