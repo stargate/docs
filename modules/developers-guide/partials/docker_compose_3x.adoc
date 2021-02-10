@@ -14,8 +14,8 @@ delays between node startup that prevents timing issues, and a text file that
 has the `docker run` commands for running a CQLSH Docker container to query against
 either one of the Cassandra nodes or the Stargate node, respectively.
 
-The files are found at:
-https://github.com/stargate/docker-images/tree/master/examples/stargate-cass311[https://github.com/stargate/docker-images/tree/master/examples/stargate-cass311]
+The files are found at the 
+https://github.com/stargate/docker-images/tree/master/examples/cassandra-3.11[Stargate docker-images repository].
 
 Run the script after downloading the files:
 
