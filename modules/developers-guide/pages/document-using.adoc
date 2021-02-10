@@ -5,6 +5,11 @@ Stargate is a data gateway deployed between client applications and a database.
 The Document API plugin that exposes CRUD access to data stored as unstructured
 JSON documents in collections.
 
+If the Document API is used with Apache Cassandra, the document indexing is accomplished
+with secondary indexes. If the Document API is used with DataStax Enterprise, SAI indexing
+is used. The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API]
+describes the underlying structure used to store collections.
+
 // tag::prereqsList[]
 include::partial$prereqs.adoc[]
 // end::prereqsList[]
