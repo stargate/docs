@@ -311,6 +311,7 @@ GRANT SELECT ON TABLE library.authors TO web_user;
 === Create a keycloak user
 
 Create a keycloak user, so that the user's JWT can be used to verify authentication and authorization later when a query is made.
+If you used the docker-compose https://github.com/stargate/docker-images/blob/master/examples/stargate-jwt-auth/start_jwt.sh[startup script], this step has already completed.
 
 [source, bash]
 ----
