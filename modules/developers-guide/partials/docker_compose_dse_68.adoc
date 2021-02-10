@@ -1,4 +1,4 @@
-=== New Cassandra and Stargate using docker-compose
+=== New DSE and Stargate using docker-compose
 
 The `docker-compose` YAML file contains the configuration for pulling the
 required docker images and configuration required for installing:
