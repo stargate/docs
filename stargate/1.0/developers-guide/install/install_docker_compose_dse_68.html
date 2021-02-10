@@ -385,9 +385,9 @@ see the <a href="install_vm_dse_68.html" class="page">Installing on VMs or bare 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_starting_stargate_with_existing_cassandra_cluster"><a class="anchor" href="#_starting_stargate_with_existing_cassandra_cluster"></a><a class="link" href="#_starting_stargate_with_existing_cassandra_cluster">Starting Stargate with existing Cassandra cluster</a></h3>
+<h3 id="_starting_stargate_with_existing_datastaxenterprse_cluster"><a class="anchor" href="#_starting_stargate_with_existing_datastaxenterprse_cluster"></a><a class="link" href="#_starting_stargate_with_existing_datastaxenterprse_cluster">Starting Stargate with existing DataStaxEnterprse cluster</a></h3>
 <div class="paragraph">
-<p>To illustrate how a Cassandra cluster can be started, and thus exist before a
+<p>To illustrate how a DSE cluster can be started, and thus exist before a
 Stargate node is added, a single node could be started with:</p>
 </div>
 <div class="listingblock">
@@ -397,16 +397,16 @@ Stargate node is added, a single node could be started with:</p>
 docker run --name cass1 \
 --network cass-net \
 -e CASSANDRA_CLUSTER_NAME=stargate-cluster \
--d cassandra:3.11</code></pre>
+-d datastax/dse-server:6.8.9</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Here, a network is created with docker.
-Then a Cassandra node is started on that network, specifying a cluster name.
-Additional Cassandra nodes could be added to the cluster, if desired.</p>
+Then a DSE node is started on that network, specifying a cluster name.
+Additional DSE nodes could be added to the cluster, if desired.</p>
 </div>
 <div class="paragraph">
-<p>Now Stargate can be added to that existing Cassandra cluster operating in a
+<p>Now Stargate can be added to that existing DSE cluster operating in a
 containerized environment with the following command:</p>
 </div>
 <div class="listingblock">
@@ -418,11 +418,11 @@ containerized environment with the following command:</p>
   -p 8082:8082 \
   -p 9049:9042 \
   -e CLUSTER_NAME=stargate-cluster \
-  -e CLUSTER_VERSION=3.11 \
+  -e CLUSTER_VERSION=6.8 \
   -e SEED=cass1 \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  -d stargateio/stargate-3_11:v1.0.7</code></pre>
+  -d stargateio/stargate-dse-68:v1.0.7</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -431,19 +431,19 @@ containerized environment with the following command:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cass-net</code> must be replaced with the existing Cassandra cluster network name</p>
+<p><code>cass-net</code> must be replaced with the existing DSE cluster network name</p>
 </li>
 <li>
 <p>the port <code>9042</code> should be mapped to an alternative port (example shows <code>9049</code>)</p>
 </li>
 <li>
-<p><code>CLUSTER_NAME</code> identifies the Cassandra cluster name used at cluster creation</p>
+<p><code>CLUSTER_NAME</code> identifies the DSE cluster name used at cluster creation</p>
 </li>
 <li>
-<p><code>CLUSTER_VERSION</code> is set to the version of Cassandra running in the cluster</p>
+<p><code>CLUSTER_VERSION</code> is set to the version of DSE running in the cluster</p>
 </li>
 <li>
-<p><code>SEED</code> is set to the IP address or docker name of a running Cassandra seed node (<code>cass1</code>)</p>
+<p><code>SEED</code> is set to the IP address or docker name of a running DSE seed node (<code>cass1</code>)</p>
 </li>
 <li>
 <p><code>SIMPLE_SNITCH</code> sets the snitch on the Stargate node</p>
