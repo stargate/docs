@@ -6,6 +6,6 @@ This installation method can be used to either:
 * new installation of both Cassandra and Stargate
 * add Stargate to a running Cassandra docker-compose network
 
-include::developers-guide:partial$docker_compose_40.adoc[]
+include::developers-guide:partial$docker_compose.adoc[tag=40]
 
 include::developers-guide:partial$docker_run_existing_cass_40.adoc[]
