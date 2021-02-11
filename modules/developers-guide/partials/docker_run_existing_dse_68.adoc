@@ -29,11 +29,11 @@ docker run --name stargate \
   -p 8082:8082 \
   -p 9049:9042 \
   -e CLUSTER_NAME=stargate-cluster \
-  -e CLUSTER_VERSION=6.8 \
+  -e CLUSTER_VERSION={dse-tag-68} \
   -e SEED=cass1 \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  -d stargateio/stargate-dse-68:{stargate-docker-tag-68}
+  -d stargateio/stargate-dse-{dse-alt-tag-68}:{stargate-docker-tag-68}
 ----
 
 where
@@ -55,17 +55,7 @@ Use the `SIMPLE_SNITCH` option if the
   topology of the node.
 ====
 
-The ports align to the following services and interfaces:
-
-.Default Port assignments for Stargate
-|===
-| Port | Service/Interface
-
-| Port 8080 | GraphQL interface for CRUD
-| Port 8081 | REST authorization service for generating tokens
-| Port 8082 | REST interface for CRUD
-| Port 9042 | CQL service
-|===
+include::developers-guide:partial$ports.adoc[]
 
 [NOTE]
 ====
