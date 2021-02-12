@@ -343,7 +343,6 @@ specify the documentId.
 
 `PUT` requests can also be used to update an existing
 document. Let's look at those examples, next.
-// end::WriteBasicData[]
 
 // end::WriteBasicData[]
 
