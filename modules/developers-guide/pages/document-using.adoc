@@ -306,7 +306,6 @@ include::example$result/docapi_curl_post_noDocId.result[]
 ====
 
 Notice that the `document-id` returned is a UUID if not specified.
-// end::WriteBasicData[]
 
 ==== Add document specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
@@ -344,6 +343,8 @@ specify the documentId.
 
 `PUT` requests can also be used to update an existing
 document. Let's look at those examples, next.
+
+// end::WriteBasicData[]
 
 // tag::WriteAdvData[]
 ==== Inserting a sub-document
