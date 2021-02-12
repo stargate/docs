@@ -19,7 +19,7 @@ echo "create namespace "
 
 # HOW TO TEST THE ALTERNATE CREATE_NS?? NEED TO FIGURE IT OUT
 #./curl_simple_ns.sh | jq -r '.name | test("myworld")'
-#echo "create ks_dcs: "
+#echo "create ns_dcs: "
 #./curl_ns_dcs.sh | jq -r '.name | test("myworld_dcs")'
 
 # CHECK EXISTENCE
