@@ -712,6 +712,63 @@ The data is passed in the JSON body.</p>
 <div class="paragraph">
 <p>Notice that the <code>document-id</code> returned is a UUID if not specified.</p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_add_document_specifying_collection_name_and_document_id"><a class="anchor" href="#_add_document_specifying_collection_name_and_document_id"></a><a class="link" href="#_add_document_specifying_collection_name_and_document_id">Add document specifying collection name and document-id</a></h4>
+<div class="paragraph">
+<p>Next, let&#8217;s add a document to a specified collection, but specify the <code>document-id</code>.
+Send a <code>PUT</code> request to
+<code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}</code>
+to add data to the collection <code>Janet</code>.
+The <code>document-id</code> can be any string.
+The data is passed in the JSON body.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset5_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "firstname": "Janet",
+  "lastname": "Doe",
+  "email": "janet.doe@gmail.com",
+  "favorite color": "grey"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Janet"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the difference between using <code>POST</code> and <code>PUT</code>. The <code>POST</code> request
+is used to insert new documents when you want the system to auto-generate the
+documentId. The <code>PUT</code> request is used to insert a new document when you want to
+specify the documentId.</p>
+</div>
+<div class="paragraph">
+<p><code>PUT</code> requests can also be used to update an existing
+document. Let&#8217;s look at those examples, next.</p>
+</div>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -742,15 +799,15 @@ all the documents:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset5_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset6_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset5_result"></a>Result</p>
+<p><a id="tabset6_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
@@ -760,7 +817,7 @@ all the documents:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset5_result">
+<div class="tab-pane" aria-labelledby="tabset6_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -808,15 +865,15 @@ to retrieve the document:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset6_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset7_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset6_result"></a>Result</p>
+<p><a id="tabset7_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
@@ -826,7 +883,7 @@ to retrieve the document:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="tab-pane" aria-labelledby="tabset7_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -859,15 +916,15 @@ to get the same information:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset7_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset8_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset7_result"></a>Result</p>
+<p><a id="tabset8_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"Janet"\}\}' \
@@ -876,7 +933,7 @@ to get the same information:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset7_result">
+<div class="tab-pane" aria-labelledby="tabset8_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -918,15 +975,15 @@ to replace data to the existing collection. All fields included will be changed.
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset8_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset9_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset8_result"></a>Result</p>
+<p><a id="tabset9_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
@@ -940,7 +997,7 @@ to replace data to the existing collection. All fields included will be changed.
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset8_result">
+<div class="tab-pane" aria-labelledby="tabset9_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Janet"}</code></pre>
@@ -956,15 +1013,15 @@ to replace data to the existing collection. All fields included will be changed.
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset9_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset9_result"></a>Result</p>
+<p><a id="tabset10_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
@@ -973,7 +1030,7 @@ to replace data to the existing collection. All fields included will be changed.
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset9_result">
+<div class="tab-pane" aria-labelledby="tabset10_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
