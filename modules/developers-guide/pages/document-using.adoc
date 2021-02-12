@@ -219,22 +219,8 @@ include::example$result/docapi_curl_get_particular_ns.result[]
 ====
 // end::CheckNS[]
 
-//== Drop namespaces or collections
-
-// tag::deleteColl[]
-=== Dropping a collection
-
-Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}/collections/{collection_name}`
-to delete a collection. All data will be deleted along with the collection schema.
-
-[source, bash]
-----
-include::example$docapi/curl_delete_collection.sh[]
-----
-// end::deleteColl[]
-
 // tag::DeleteNS[]
-=== Dropping a namespace
+=== Deleting a namespace
 
 Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}` to delete
 a namespace. All collections and documents will be deleted along with the
@@ -822,7 +808,7 @@ include::example$result/docapi_curl_patch_check_subdoc.result[]
 // end::UpdateAdvData[]
 
 // tag::DeleteBasicData[]
-=== Delete documents
+=== Delete a document
 To delete a document, send a `DELETE` request to
 `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`.
 
@@ -833,29 +819,24 @@ include::example$docapi/curl_delete_doc.sh[]
 // end::DeleteBasicData[]
 
 // tag::DeleteAdvData[]
-//To delete a document, based on a document path, send a `DELETE` request to
-//`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+To delete a document, based on a document path, send a `DELETE` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 
-//[source, bash]
-//----
-//curl -L -X  DELETE 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"id":\{"$eq":"some%2Dstuff"\}\}' \
-//--header "X-Cassandra-Token: $AUTH_TOKEN" \
-//--header 'Content-Type: application/json'
-//----
+[source, bash]
+----
+include::example$docapi/curle_delete_doc_where.sh[]
+----
 
-//returns:
+// tag::deleteColl[]
 
-//[source, plaintext]
-//----
-//{
-//	"data":{
-//		"Janet":{
-//			"email":"janet.doe@gmail.com",
-//			"favorite color":"grey",
-//			"firstname":"Janet",
-//			"lastname":"Doe"
-//		}
-//	}
-//}
-//----
+=== Delete a collection
+
+Send a `DELETE` request to `/v2/schemas/namespaces/{namespace_name}/collections/{collection_name}`
+to delete a collection. All data will be deleted along with the collection schema.
+
+[source, bash]
+----
+include::example$docapi/curl_delete_collection.sh[]
+----
+// end::deleteColl[]
 // end::DeleteAdvData[]
