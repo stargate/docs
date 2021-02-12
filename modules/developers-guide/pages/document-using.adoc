@@ -824,7 +824,7 @@ To delete a document, based on a document path, send a `DELETE` request to
 
 [source, bash]
 ----
-include::example$docapi/curle_delete_doc_where.sh[]
+include::example$docapi/curl_delete_doc_where.sh[]
 ----
 
 // tag::deleteColl[]
