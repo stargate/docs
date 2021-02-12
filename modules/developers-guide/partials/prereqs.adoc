@@ -2,5 +2,5 @@
 
 To use Stargate you need:
 
-* Docker installed and running
+* Docker installed and running, if using Docker
 * `cURL` to run REST queries

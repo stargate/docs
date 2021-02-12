@@ -9,7 +9,7 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
     "password": "cassandra"
 }' | jq -r '.authToken')
 
-echo "drop ks: "
+echo "drop ks to clear all data: "
 #./curl_drop_ks.sh
 
 # RUN THE DDL
@@ -37,8 +37,10 @@ echo "add tuple to table: "
 echo "add udt to table: "
 ./curl_add_udt_to_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_udt_to_table.result)
 
-# NEED TO CHECK CURL_CHANGE_COLUMN.SH, BUT IT MESSES UP REST OF WORK
-#./curl_change_column.sh
+# NEED TO CHECK CURL_CHANGE_COLUMN.SH, BUT IT MESSES UP REST OF WORK, SO CHANGE BACK
+echo "Change column and back: "
+./curl_change_column.sh
+./curl_change_column_back.sh
 
 # CHECK EXISTENCE OF SCHEMA
 echo "check existence"
@@ -61,7 +63,6 @@ echo "check column email"
 # CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
 # CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
 # CREATE INDEX country_idx ON users_keyspace.users (current_country);
-
 
 # RUN THE DML
 echo "write users"

@@ -10,11 +10,11 @@ include::partial$prereqs.adoc[]
 include::developers-guide:partial$astra_tip.adoc[]
 
 // tag::getDockerImage[]
-include::partial$docker_pull_3x.adoc[]
+include::partial$docker_pull.adoc[tag=3x]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$docker_run_3x.adoc[]
+include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 // tag::swaggerUI[]
