@@ -288,14 +288,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">Stargate</span>
-    <span class="version">1</span>
+    <span class="version">1.0</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../index.html">1</a>
+          <a href="../../index.html">1.0</a>
         </li>
       </ul>
     </li>
@@ -365,20 +365,15 @@ Stargate jar files and install.</p>
 <div class="sect1">
 <h2 id="standalone_docker_dse_68"><a class="anchor" href="#standalone_docker_dse_68"></a><a class="link" href="#standalone_docker_dse_68">Stargate Standalone with Docker</a></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_pull_the_docker_image"><a class="anchor" href="#_pull_the_docker_image"></a><a class="link" href="#_pull_the_docker_image">Pull the Docker image</a></h3>
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with a DataStax Enterprise<sup>&#8482;</sup>  6.8 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse:v1.0.7</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.7</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_start_the_stargate_container"><a class="anchor" href="#_start_the_stargate_container"></a><a class="link" href="#_start_the_stargate_container">Start the Stargate container</a></h3>
 <div class="paragraph">
 <p>Start the Stargate container in developer mode.
 Developer mode removes the need to set up a separate DSE instance and is
@@ -439,7 +434,6 @@ meant for development and testing only.</p>
 </table>
 </div>
 </div>
-</div>
 <div class="sect1">
 <h2 id="docker_compose_dse_68"><a class="anchor" href="#docker_compose_dse_68"></a><a class="link" href="#docker_compose_dse_68">Stargate with Docker compose</a></h2>
 <div class="sectionbody">
@@ -465,7 +459,7 @@ required docker images and configuration required for installing:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1-3 DataStax Enterprise<sup>&#8482;</sup> 6.8 nodes as a cluster (backend-1, backend-2, backend-3)</p>
+<p>1-3 DataStax Enterprise<sup>&#8482;</sup> dse-tag-68 nodes as a cluster (backend-1, backend-2, backend-3)</p>
 </li>
 <li>
 <p>1 Stargate node (stargate)</p>
@@ -484,7 +478,7 @@ either one of the DSE nodes or the Stargate node, respectively.</p>
 </div>
 <div class="paragraph">
 <p>The files are found at the
-<a href="https://github.com/stargate/docker-images/tree/master/examples/dse-6.8">Stargate docker-images repository</a>.</p>
+<a href="https://github.com/stargate/docker-images/tree/master/examples/dse-dse-tag-68">Stargate docker-images repository</a>.</p>
 </div>
 <div class="paragraph">
 <p>Run the script after downloading the files:</p>
@@ -599,35 +593,40 @@ containerized environment with the following command:</p>
 </table>
 </div>
 <div class="paragraph">
-<p>The ports align to the following services and interfaces:</p>
+<p>The default ports assignments align to the following services and interfaces:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Default Port assignments for Stargate</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Port</th>
-<th class="tableblock halign-left valign-top">Service/Interface</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service/Interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating tokens</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 8082</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8082</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port 9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8084</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Health check (/healthcheck, /checker/liveness, /checker/readiness)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8085</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics (/metrics)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
 </tr>
 </tbody>
