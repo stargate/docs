@@ -6,6 +6,7 @@ asciidoc:
   attributes:
     sectanchors: ''
     sectlinks: ''
+    stargate-docker-tag: v1.0.7
     stargate-docker-tag-3x: v1.0.7
     stargate-docker-tag-40: v1.0.7
     stargate-docker-tag-68: v1.0.7
