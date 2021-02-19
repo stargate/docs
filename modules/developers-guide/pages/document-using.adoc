@@ -5,20 +5,27 @@ Stargate is a data gateway deployed between client applications and a database.
 The Document API plugin that exposes CRUD access to data stored as unstructured
 JSON documents in collections.
 
+If the Document API is used with Apache Cassandra, the document indexing is accomplished
+with secondary indexes. If the Document API is used with DataStax Enterprise, SAI indexing
+is used. The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API]
+describes the underlying structure used to store collections.
+
 // tag::prereqsList[]
 include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 // tag::getDockerImage[]
-include::partial$docker_pull.adoc[]
+include::partial$docker_pull.adoc[tag=3x]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$docker_run.adoc[]
+include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 // tag::swaggerUI[]
-=== Swagger UI for the Document API
+== Swagger UI for the Document API
 
 Once you have started the docker container, you can access the Document API
 in a browser at `localhost:8082/swagger-ui`.
@@ -43,12 +50,11 @@ include::partial$use_auth_token_rest_document.adoc[]
 == Using Postman
 
 If you prefer, you can use Postman as a client interface for exploring the Document API
-(https://www.postman.com/downloads/[download here]). You will need to add the
-auth token to the header, similar to the `X-Cassandra-Token` shown below.
-// LLP: NEED TO CREATE THIS FILE!!
-//We've provided a
-//https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-document-api.postman_collection.json[Stargate Document API Postman Collection] that you
-//can import in Postman to play with the examples shown in this walkthrough.
+(https://www.postman.com/downloads/[download here]). You will need to change the
+auth token to the header, in the collection global variables.
+We've provided a
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/docapi/Stargate_Document_API_users.postman_collection.json[Stargate Document API Postman Collection]
+that you can import in Postman to play with the examples shown in this walkthrough.
 // end::UsingPostman[]
 
 Now you're ready to use the Document API for CRUD operations.
@@ -83,7 +89,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_simple_ns.sh[]
+include::example$docapi/curl_simple_ns.sh[]
 ----
 --
 
@@ -119,7 +125,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_create_ns.sh[]
+include::example$docapi/curl_create_ns.sh[]
 ----
 --
 
@@ -147,7 +153,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_ns_dcs.sh[]
+include::example$docapi/curl_ns_dcs.sh[]
 ----
 --
 
@@ -175,7 +181,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_check_ns_exists.sh[]
+include::example$docapi/curl_check_ns_exists.sh[]
 ----
 --
 
@@ -198,7 +204,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_get_particular_ns.sh[]
+include::example$docapi/curl_get_particular_ns.sh[]
 ----
 --
 
@@ -224,7 +230,7 @@ namespace.
 
 [source, bash]
 ----
-include::example$bash/docapi_curl_drop_ns.sh[]
+include::example$docapi/curl_drop_ns.sh[]
 ----
 // end::DeleteNS[]
 
@@ -269,6 +275,8 @@ include::example$bash/docapi_curl_drop_ns.sh[]
 All data written with the Document API is stored as JSON documents stored in
 collections.
 
+include::partial$DocAPIBlogPost.adoc[]
+
 ==== Add document specifying a collection name
 
 First, let's add a document to a specified collection.
@@ -283,7 +291,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_post_noDocId.sh[]
+include::example$docapi/curl_post_noDocId.sh[]
 ----
 --
 
@@ -298,7 +306,6 @@ include::example$result/docapi_curl_post_noDocId.result[]
 ====
 
 Notice that the `document-id` returned is a UUID if not specified.
-// end::WriteBasicData[]
 
 ==== Add document specifying collection name and document-id
 Next, let's add a document to a specified collection, but specify the `document-id`.
@@ -315,7 +322,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_put_janet.sh[]
+include::example$docapi/curl_put_janet.sh[]
 ----
 --
 
@@ -337,6 +344,8 @@ specify the documentId.
 `PUT` requests can also be used to update an existing
 document. Let's look at those examples, next.
 
+// end::WriteBasicData[]
+
 // tag::WriteAdvData[]
 ==== Inserting a sub-document
 You can also insert documents that have nested values, or sub-documents.
@@ -352,7 +361,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_put_joey_subdoc.sh[]
+include::example$docapi/curl_put_joey_subdoc.sh[]
 ----
 --
 
@@ -387,7 +396,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_get_all_docs.sh[]
+include::example$docapi/curl_get_all_docs.sh[]
 ----
 --
 
@@ -417,7 +426,7 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$bash/docapi_curl_get_one_doc.sh[]
+include::example$docapi/curl_get_one_doc.sh[]
 ----
 --
 
@@ -449,7 +458,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_get_doc_where.sh[]
+include::example$docapi/curl_get_doc_where.sh[]
 ----
 --
 
@@ -470,6 +479,37 @@ Also, the full document is returned, as opposed to the value of the field specif
 // end::ReadBasicData[]
 
 // tag::ReadAdvData[]
+You can also search with a multiple `where` clause.
+Send a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}?{where-clause}`
+to get the same information:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_doc_mult_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_doc_mult_where.result[]
+----
+--
+====
+
+Note that the `where` clause must be url encoded, so curly brackets are escaped
+with `\` and spaces must be replaced with `%20`.
+Also, the full document is returned, as opposed to the value of the field specified in the
+`{document-path}` like the next command.
+
 You can also retrieve documents using a `WHERE` clause that searches sub-documents:
 
 [tabs]
@@ -479,7 +519,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_get_subdoc_where.sh[]
+include::example$docapi/curl_get_subdoc_where.sh[]
 ----
 --
 
@@ -493,6 +533,29 @@ include::example$result/docapi_curl_get_subdoc_where.result[]
 --
 ====
 
+Multiple `where` can be used in a variety of cases.
+Here, a numerical value between to values is sought:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_subdoc_mult_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_subdoc_mult_where.result[]
+----
+--
+====
 ==== Retrieving a specific portion of a document with document-path
 
 To find a particular value, send a `GET` request to
@@ -506,7 +569,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_get_joey.sh[]
+include::example$docapi/curl_get_joey.sh[]
 ----
 --
 
@@ -531,7 +594,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_get_joey_weights.sh[]
+include::example$docapi/curl_get_joey_weights.sh[]
 ----
 --
 
@@ -544,6 +607,57 @@ include::example$result/docapi_curl_get_joey_weights.result[]
 ----
 --
 ====
+
+==== Retrieving a specific portion of a document with json-path
+
+Let's add another record for the next example:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_post_martha.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_post_martha.result[]
+----
+--
+====
+
+To find particular values, send a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{json-path}`
+to retrieve all the users that have, say, weight reps between 11 and 16:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_json_path_wildcard.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_json_path_wildcard.result[]
+----
+--
+====
+
 // end::ReadAdvData[]
 
 // tag::UpdateBasicData[]
@@ -564,7 +678,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_patch_janet.sh[]
+include::example$docapi/curl_patch_janet.sh[]
 ----
 --
 
@@ -587,7 +701,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_patch_check_janet.sh[]
+include::example$docapi/curl_patch_check_janet.sh[]
 ----
 --
 
@@ -621,7 +735,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_patch_partial.sh[]
+include::example$docapi/curl_patch_partial.sh[]
 ----
 --
 
@@ -644,7 +758,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_patch_check_partial.sh[]
+include::example$docapi/curl_patch_check_partial.sh[]
 ----
 --
 
@@ -671,7 +785,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_patch_subdoc.sh[]
+include::example$docapi/curl_patch_subdoc.sh[]
 ----
 --
 
@@ -694,7 +808,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/docapi_curl_patch_check_subdoc.sh[]
+include::example$docapi/curl_patch_check_subdoc.sh[]
 ----
 --
 
@@ -717,7 +831,7 @@ To delete a document, send a `DELETE` request to
 
 [source,bash, subs="attributes+"]
 ----
-include::example$bash/docapi_curl_delete_doc.sh[]
+include::example$docapi/curl_delete_doc.sh[]
 ----
 // end::DeleteBasicData[]
 

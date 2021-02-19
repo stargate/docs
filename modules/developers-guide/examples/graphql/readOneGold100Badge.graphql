@@ -1,0 +1,13 @@
+# query a badge record that has a MAP (earned) with the partition key and the clustering key
+query oneGold100Badge {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100}} ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}

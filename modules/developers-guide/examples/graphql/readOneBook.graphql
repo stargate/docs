@@ -1,5 +1,6 @@
+# get one book using the primary key title with a value
 query oneBook {
-    books (value: {title:"Moby Dick"}) {
+    book (value: {title:"Moby Dick"}) {
       values {
       	title
       	author

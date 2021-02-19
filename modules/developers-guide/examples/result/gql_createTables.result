@@ -1,6 +1,6 @@
-{
+
   "data": {
-    "books": true,
-    "authors": true
+    "book": true,
+    "reader": true
   }
 }

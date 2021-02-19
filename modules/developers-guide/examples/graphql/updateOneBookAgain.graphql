@@ -1,0 +1,10 @@
+# update one book, adding a SET (genre)
+mutation updateOneBookAgain {
+ moby: updatebook(value: {title:"Moby Dick", author:"Herman Melville", genre: ["Drama", "Classic lit"]}, ifExists: true ) {
+   value {
+     title
+     author
+     genre
+   }
+ }
+}

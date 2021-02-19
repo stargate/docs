@@ -1,5 +1,6 @@
 === Start the Stargate container
 
+// tag::3x[]
 Start the Stargate container in developer mode.
 Developer mode removes the need to set up a separate Cassandra instance and is
 meant for development and testing only.
@@ -13,19 +14,48 @@ docker run --name stargate \
   -p 127.0.0.1:9042:9042 \
   -d \
   -e CLUSTER_NAME=stargate \
-  -e CLUSTER_VERSION=3.11 \
+  -e CLUSTER_VERSION={cass-tag-3x} \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:{stargate-docker-tag}
+  stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
 ----
+// end::3x[]
 
-The ports align to the following services and interfaces:
+// tag::40[]
+Start the Stargate container in developer mode.
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
 
-.Default Port assignments for Stargate
-|===
-| Port | Service/Interface
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-40} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
+----
+// end::40[]
 
-| Port 8080 | GraphQL interface for CRUD
-| Port 8081 | REST authorization service for generating tokens
-| Port 8082 | REST interface for CRUD
-| Port 9042 | CQL service
-|===
+// tag::dse_68[]
+Start the Stargate container in developer mode.
+Developer mode removes the need to set up a separate DSE instance and is
+meant for development and testing only.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={dse-tag-68} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-dse-{dse-alt-tag-68}:{stargate-docker-tag-68}
+----
+// end::dse_68[]

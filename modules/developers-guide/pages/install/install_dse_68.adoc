@@ -1,0 +1,20 @@
+= DataStax Enterprise (DSE) 6.8
+
+include::developers-guide:partial$astra_tip.adoc[]
+
+There are several ways that Stargate can be used with DataStax Enterprise.
+
+* If you are a developer who just needs a simple platform to test out ideas,
+starting Stargate as a xref:standalone_docker_dse_68[standalone container with Docker] is a good choice.
+* If you already have DSE running in a xref:docker_compose_dse_68[docker-compose application], or want
+to start Stargate with multiple nodes of DSE, installing with `docker-compose`
+is a simple method.
+* If you need to install Stargate with a running DSE cluster in either
+xref:vm_dse_68[virtual machines or bare metal], use the method that downloads a zip file of
+Stargate jar files and install.
+
+Once you have installed Stargate, you are ready to try one of the  Stargate xref:quickstart:quickstart.adoc[QuickStarts].
+
+include::install_docker_standalone_dse_68.adoc[Docker]
+include::install_docker_compose_dse_68.adoc[Docker Compose]
+include::install_vm_dse_68.adoc[Virtual machine or bare metal]

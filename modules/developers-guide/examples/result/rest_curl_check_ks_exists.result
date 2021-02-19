@@ -25,9 +25,6 @@
       "name":"library"
     },
     {
-      "name":"users_keyspace2"
-    },
-    {
       "name":"system_auth"
     },
     {

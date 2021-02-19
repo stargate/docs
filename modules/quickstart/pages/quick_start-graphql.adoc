@@ -6,16 +6,20 @@ Stargate is a data gateway deployed between client applications and a database.
 In this QuickStart, you'll be up and running on your local machine with the
 GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
+include::developers-guide:partial$GQLAPIBlogPost.adoc[]
+
 // tag::prereqsList[]
 include::developers-guide:partial$prereqs.adoc[]
 // end::prereqsList[]
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 // tag::getDockerImage[]
-include::developers-guide:partial$docker_pull.adoc[]
+include::developers-guide:partial$docker_pull.adoc[tag=3x]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::developers-guide:partial$docker_run.adoc[]
+include::developers-guide:partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token

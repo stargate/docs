@@ -1,0 +1,8 @@
+# insert a book and set the option for consistency level
+mutation insertBookWithOption {
+  nativeson: insertbook(value: {title:"Native Son", author:"Richard Wright"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
+    value {
+      title
+    }
+  }
+}

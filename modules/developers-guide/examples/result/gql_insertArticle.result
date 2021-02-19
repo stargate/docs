@@ -1,0 +1,14 @@
+{
+  "data": {
+    "magarticle": {
+      "value": {
+        "title": "How to use GraphQL",
+        "mtitle": "Database Magazine",
+        "authors": [
+          "First author",
+          "Second author"
+        ]
+      }
+    }
+  }
+}

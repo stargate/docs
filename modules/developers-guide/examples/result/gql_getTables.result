@@ -4,7 +4,7 @@
       "name": "library",
       "tables": [
         {
-          "name": "authors",
+          "name": "reader",
           "columns": [
             {
               "name": "name",
@@ -14,18 +14,10 @@
                 "info": null
               }
             },
-            {
-              "name": "title",
-              "kind": "CLUSTERING",
-              "type": {
-                "basic": "VARCHAR",
-                "info": null
-              }
-            }
           ]
         },
         {
-          "name": "books",
+          "name": "book",
           "columns": [
             {
               "name": "title",

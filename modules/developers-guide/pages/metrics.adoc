@@ -11,7 +11,7 @@ include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 // tag::getDockerImage[]
-include::partial$docker_compose.adoc[]
+include::partial$docker_compose.adoc[tag=metrics]
 // end::getDockerImage[]
 
 == Access Prometheus

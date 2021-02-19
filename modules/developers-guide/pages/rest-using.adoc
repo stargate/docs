@@ -7,16 +7,18 @@ The REST API plugin that exposes CRUD access to data stored in Cassandra tables.
 include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
+include::developers-guide:partial$astra_tip.adoc[]
+
 // tag::getDockerImage[]
-include::partial$docker_pull.adoc[]
+include::partial$docker_pull.adoc[tag=3x]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::partial$docker_run.adoc[]
+include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 // tag::swaggerUI[]
-=== Swagger UI for the REST API
+== Swagger UI for the REST API
 
 Once you have started the docker container, you can access the REST API
 in a browser at `localhost:8082/swagger-ui`.
@@ -40,7 +42,8 @@ include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
 If you prefer, you can use Postman as a client interface for exploring REST APIs
 (https://www.postman.com/downloads/[download here]).
 We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/rest/Stargate_REST_API_users_keyspace.postman_collection.json[Stargate REST API Postman Collection]
+that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]
@@ -78,7 +81,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_simple_ks.sh[]
+include::example$rest/curl_simple_ks.sh[]
 ----
 --
 
@@ -114,7 +117,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_create_ks.sh[]
+include::example$rest/curl_create_ks.sh[]
 ----
 --
 
@@ -142,7 +145,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_ks_dcs.sh[]
+include::example$rest/curl_ks_dcs.sh[]
 ----
 --
 
@@ -157,12 +160,12 @@ include::example$result/rest_curl_ks_dcs.result[]
 ====
 [source,bash]
 ----
-include::example$bash/rest_curl_ks_dcs.sh[]
+include::example$rest/curl_ks_dcs.sh[]
 ----
 // end::CreateKSextra[]
 
 // tag::CheckKS[]
-=== Checking keyspace existence
+==== Checking keyspace existence
 
 To check if a keyspaces exist, execute a
 REST API query with `cURL` to find all the keyspaces:
@@ -174,7 +177,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_check_ks_exists.sh[]
+include::example$rest/curl_check_ks_exists.sh[]
 ----
 --
 
@@ -197,7 +200,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_particular_ks.sh[]
+include::example$rest/curl_get_particular_ks.sh[]
 ----
 --
 
@@ -225,7 +228,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_create_table.sh[]
+include::example$rest/curl_create_table.sh[]
 ----
 --
 
@@ -243,13 +246,18 @@ Information about partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 // end::CreateTable[]
 
-////
+// tag::DataTypes[]
 ==== Data types
-Need to add data types!!
-////
+Many common data types are supported by the REST API, such as collections (set, list, map),
+tuples, and user-defined types (UDTs).
+In addition, collections can be specified as `frozen` collections.
+Columns can be set to these data types in the original table creation,
+or be added later.
+Look in the next section for some examples of adding columns.
+// end::DataTypes[]
 
 // tag: AddColumn[]
-=== Adding columns to table schema
+==== Adding columns to table schema
 
 If you need to add an attribute to something you are storing in a table, you
 can add a column by sending a `POST` request to add the column.
@@ -261,7 +269,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_add_column.sh[]
+include::example$rest/curl_add_column.sh[]
 ----
 --
 
@@ -285,7 +293,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_change_column.sh[]
+include::example$rest/curl_change_column.sh[]
 ----
 --
 
@@ -299,10 +307,149 @@ include::example$result/rest_curl_change_column.result[]
 --
 ====
 
+To add a set to a table, specify the data type `set` along with the data type of the
+set contents, such as `text`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_set_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_set_to_table.result[]
+----
+--
+====
+
+To add a `set` as a frozen set, specify `"typeDefinition": "frozen<set<text>>"`
+with the keyword `frozen`. In the following examples, both lists and maps can
+also be specified as frozen.
+
+To add a list to a table, specify the data type `list` along with the data type of the
+set contents, such as `text`.
+The difference between a set and a list is that a set is unordered, whereas a list
+is ordered:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_list_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_list_to_table.result[]
+----
+--
+====
+
+To add a map to a table, specify the data type `map` along with the data type of the
+map key and the may value:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_map_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_map_to_table.result[]
+----
+--
+====
+
+To add a tuple to a table, specify the data type `tuple` along with the data type of the
+each item in the tuple.
+A tuple can consist of two or more values that can be retrieved together.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_tuple_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_tuple_to_table.result[]
+----
+--
+====
+
+To add a user-defined type (UDT) to a table, specify the data type `udt` along with the data type of the
+each item in the UDT.
+A UDT can consist of two or more values that can be retrieved together.
+
+UDTs must currently be created in CQL before specifying for a column in the REST API.
+For instance, for a UDT created with the following CQL statement:
+
+[source, plaintext]
+----
+CREATE TYPE IF NOT EXISTS users_keyspace.address (
+  street text,
+  zip int
+);
+----
+we can add a UDT column to our table:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_add_udt_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_udt_to_table.result[]
+----
+--
+====
 // end: AddColumn[]
 
 // tag::CheckTables[]
-== Checking table and column existence
+==== Checking table and column existence
 
 To check if a table exists, execute a
 REST API query with `cURL` to find all the tables:
@@ -314,7 +461,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_check_table_exists.sh[]
+include::example$rest/curl_check_table_exists.sh[]
 ----
 --
 
@@ -337,7 +484,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_particular_table.sh[]
+include::example$rest/curl_get_particular_table.sh[]
 ----
 --
 
@@ -361,7 +508,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_check_column_exists.sh[]
+include::example$rest/curl_check_column_exists.sh[]
 ----
 --
 
@@ -384,7 +531,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_particular_column.sh[]
+include::example$rest/curl_get_particular_column.sh[]
 ----
 --
 
@@ -410,7 +557,7 @@ keyspace scheam.
 
 [source, bash]
 ----
-include::example$bash/rest_curl_drop_ks.sh[]
+include::example$rest/curl_drop_ks.sh[]
 ----
 // end::DropKS[]
 
@@ -422,7 +569,7 @@ to delete a table. All data will be deleted along with the table schema.
 
 [source, bash]
 ----
-include::example$bash/rest_curl_drop_table.sh[]
+include::example$rest/curl_drop_table.sh[]
 ----
 // end::DropTable[]
 
@@ -435,7 +582,7 @@ column data will be deleted along with the column schema.
 
 [source, bash]
 ----
-include::example$bash/rest_curl_drop_column.sh[]
+include::example$rest/curl_drop_column.sh[]
 ----
 // end::RemoveColumn[]
 
@@ -464,7 +611,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_write_users.sh[]
+include::example$rest/curl_write_users.sh[]
 ----
 --
 
@@ -483,7 +630,126 @@ include::example$result/rest_curl_write_users.result[]
 Notice that, unlike schema creation, data queries do not require `tables` in the
 URI, only the `{tableName}`.
 ====
+
 // end::WriteData[]
+
+// tag::WriteAdvData[]
+==== Collections, tuples, and UDTs
+
+Some data types require special handling to write the data.
+Examples of `set`, `list`, `map`, `tuple`, and `udt` are shown, using the column
+schema created earlier.
+
+SET:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_set_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_set_data.result[]
+----
+--
+====
+
+LIST:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_list_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_list_data.result[]
+----
+--
+====
+
+MAP:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_map_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_map_data.result[]
+----
+--
+====
+
+TUPLE:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_tuple_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_tuple_data.result[]
+----
+--
+====
+
+UDT:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_insert_udt_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_udt_data.result[]
+----
+--
+====
+// end::WriteAdvData[]
 
 // tag::ReadData[]
 === Read data
@@ -499,7 +765,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_users.sh[]
+include::example$rest/curl_get_users.sh[]
 ----
 --
 
@@ -517,7 +783,7 @@ This query uses `$in` to find the two users.
 The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
 `$lte`, `$gt`, `$gte`, `$ne`, and `$exists`, if applicable.
 The primary key of the table can be used in the `WHERE` clause, but non-primary
-key columns cannot be used.
+key columns cannot be used unless indexed.
 
 [NOTE]
 ====
@@ -537,7 +803,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_users_where.sh[]
+include::example$rest/curl_get_users_where.sh[]
 ----
 --
 
@@ -551,6 +817,32 @@ include::example$result/rest_curl_get_users_where.result[]
 --
 ====
 
+If the CQL indexes exist, a multiple `WHERE` can be used:
+
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+to retrieve the row for `Janesha` using `$eq`, and `Emma` using `$contains`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_users_mult_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_mult_where.result[]
+----
+--
+====
+
 Finally, a primary key can be supplied to retrieve a row:
 
 [tabs]
@@ -560,7 +852,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_get_primKey.sh[]
+include::example$rest/curl_get_primKey.sh[]
 ----
 --
 
@@ -570,6 +862,134 @@ Result::
 [source,plaintext, subs="attributes+"]
 ----
 include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+
+==== Collections, tuples, and UDTs
+
+Some data types require special handling to read the data.
+Examples of `set`, `list`, `map`, `tuple`, and `udt` are shown, using the column
+schema created earlier.
+Because these columns are not part of the partition or clustering key, an index
+is required to read the data.
+Currently, for Cassandra, those indexes must be created with CQL.
+Here are the indexes created for use in the following examples:
+
+[source, cql]
+----
+CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
+CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
+CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
+CREATE INDEX country_idx ON users_keyspace.users (current_country);
+----
+
+SET:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_set_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_set_data.result[]
+----
+--
+====
+
+LIST:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_list_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_list_data.result[]
+----
+--
+====
+
+MAP:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_map_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_map_data.result[]
+----
+--
+====
+
+TUPLE:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_tuple_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_tuple_data.result[]
+----
+--
+====
+
+UDT:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_udt_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_udt_data.result[]
 ----
 --
 ====
@@ -592,7 +1012,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_update_users.sh[]
+include::example$rest/curl_update_users.sh[]
 ----
 --
 
@@ -628,7 +1048,7 @@ cURL command (/v2)::
 --
 [source,shell]
 ----
-include::example$bash/rest_curl_patch_users.sh[]
+include::example$rest/curl_patch_users.sh[]
 ----
 --
 
@@ -644,6 +1064,7 @@ include::example$result/rest_curl_patch_users.result[]
 
 // tag::DeleteData[]
 === Delete data
+
 To delete a row, send a `DELETE` request to
 `/v2/keyspaces/{keyspace_name}/{table_name}/{primaryKey}`.
 For this example, the primary key consists of a partition key `firstname` and
@@ -651,6 +1072,6 @@ clustering column `lastname`, so we delete all data with `Mookie/Betts`:
 
 [source,bash]
 ----
-include::example$bash/rest_curl_delete_row.sh[]
+include::example$rest/curl_delete_row.sh[]
 ----
 // end::DeleteData[]
