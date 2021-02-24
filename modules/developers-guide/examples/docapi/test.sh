@@ -74,4 +74,6 @@ echo "check patch subdoc"
 
 # DROP/DELETE ALL SCHEMA
 #./curl_delete_doc.sh
-#./curl_drop_ns.sh
+#./curl_delete_doc_where.sh
+#./curl_delete_collection.sh
+#./curl_delete_ns.sh
