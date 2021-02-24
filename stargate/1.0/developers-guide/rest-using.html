@@ -2094,16 +2094,40 @@ Examples of <code>set</code>, <code>list</code>, <code>map</code>, <code>tuple</
 schema created earlier.
 Because these columns are not part of the partition or clustering key, an index
 is required to read the data.
-Currently, for Cassandra, those indexes must be created with CQL.
+Currently, for Cassandra, those indexes must be created with
+<a href="https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index">CQL</a>.
 Here are the indexes created for use in the following examples:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-cql hljs" data-lang="cql">CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
+<pre class="highlightjs highlight"><code class="language-cql hljs" data-lang="cql">CREATE INDEX books_idx ON users_keyspace.users (values(favorite_books));
 CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
 CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
-CREATE INDEX country_idx ON users_keyspace.users (current_country);</code></pre>
+CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>If you are using DataStax Enterprise, you may optionally use
+<a href="https://docs.datastax.com/en/dse/6.8/cql/cql/cql_reference/cql_commands/cqlCreateCustomIndex.html">Storage-Attached Indexing (SAI)</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cql hljs" data-lang="cql">CREATE CUSTOM INDEX books_idx
+  ON users_keyspace.users (VALUES(favorite_books))
+  USING 'StorageAttachedIndex'
+  WITH OPTIONS = ('case_sensitive': 'false');
+CREATE CUSTOM INDEX tv_idx
+  ON users_keyspace.users (VALUES(top_three_tv_shows))
+  USING 'StorageAttachedIndex'
+  WITH OPTIONS = ('case_sensitive': 'false');
+CREATE CUSTOM INDEX eval_idx
+  ON users_keyspace.users (KEYS(evaluations))
+  USING 'StorageAttachedIndex'
+  WITH OPTIONS = ('case_sensitive': 'false');</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>SAI does not support tuples. Searches using SAI do not support the operator <code>$in</code>.</p>
 </div>
 <div class="paragraph">
 <p>SET:</p>
