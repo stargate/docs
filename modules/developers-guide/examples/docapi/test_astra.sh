@@ -2,27 +2,41 @@
 
 # MUST DO THE URL AND PATH SUBSTITUTIONS BEFORE RUNNING THE TESTS
 
-base_url=http://localhost:8082
-base_api_schema_path=/v2/schemas
-base_api_path=/v2
+ASTRA_CLUSTER_ID=8319febd-e7cf-4595-81e3-34f45d332d2a
+ASTRA_REGION=us-east1
+ASTRA_USERNAME=polandll
+ASTRA_PASSWORD=Lmm2soht!
+
+echo $ASTRA_CLUSTER_ID
+echo $ASTRA_REGION
+echo $ASTRA_USERNAME
 
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#/api/rest/v2/schemas#; s#{my_base_api_path}#/api/rest/v2#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
 
 # SET THE AUTH_TOKEN FOR ALL THE OTHER COMMANDS
 
-export AUTH_TOKEN=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
+export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d332d2a-us-east1.apps.astra.datastax.com/api/rest/v1/auth' \
   -H 'Content-Type: application/json' \
   --data-raw '{
-    "username": "cassandra",
-    "password": "cassandra"
+    "username": "polandll",
+    "password": "Lmm2soht!"
 }' | jq -r '.authToken')
+
+#export AUTH_TOKEN=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \
+#  -H 'Content-Type: application/json' \
+#  --data-raw '{
+#    "username": "$ASTRA_USERNAME",
+#    "password": "$ASTRA_PASSWORD"
+#}' | jq -r '.authToken')
+
+printenv |grep AUTH_TOKEN
 
 echo "drop ns to clear all data: "
 #./curl_drop_ns.sh.tmp
