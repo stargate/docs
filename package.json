@@ -1,7 +1,7 @@
 {
   "name": "stargate-docs",
   "scripts": {
-    "build:prod": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:publish"
+    "build:prod": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:publish",
     "build:dev": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:local",
     "build:local": "antora --stacktrace --clean site-local.yaml",
     "build:publish": "antora --stacktrace --clean site-publish.yaml",
