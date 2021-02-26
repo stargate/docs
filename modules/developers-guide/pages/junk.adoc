@@ -1,0 +1,13 @@
+== TEST TEST TEST
+
+This is a test
+
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_create_table_test.sh[]
+----
+
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_create_table_test2.sh[]
+----

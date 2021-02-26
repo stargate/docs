@@ -23,3 +23,5 @@
 ** xref:api_ref/openapi_rest_ref.adoc[REST API reference]
 ** xref:api_ref/openapi_document_ref.adoc[Document API reference]
 ** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
+
+* xref:junk.adoc[junk]

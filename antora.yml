@@ -17,6 +17,9 @@ asciidoc:
     dse-server-tag-68: '6.8.9'
     dse-tag-68: '6.8'
     dse-alt-tag-68: '68'
+    my_base_url: 'http://localhost:8082'
+    my_base_api_schema_path: '/v2/schemas'
+    my_base_api_path: '/v2'
 nav:
 - modules/quickstart/nav.adoc
 - modules/concepts/nav.adoc

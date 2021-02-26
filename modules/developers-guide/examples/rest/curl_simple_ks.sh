@@ -1,4 +1,4 @@
-curl -s --location --request POST 'localhost:8082/v2/schemas/keyspaces' \
+curl -s --location --request POST '{my_base_url}{my_base_api_schema_path}/keyspaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{

@@ -1,0 +1,6 @@
+curl -s -L \
+-X PUT https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H  "Accept: application/json" \
+-H "Content-Type: application/json" \
+-d '{   "name": "first",   "typeDefinition": "varchar"}'

@@ -1,5 +1,5 @@
 curl -s --location \
---request POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
+--request POST {my_base_url}{my_base_api_schema_path}/keyspaces/users_keyspace/tables \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json" \
 --header "Accept: application/json" \

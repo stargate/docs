@@ -1,0 +1,3 @@
+curl -s -L -X DELETE https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v2/keyspaces/users_keyspace/users/Mookie/Betts \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H "Content-Type: application/json"
