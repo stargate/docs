@@ -5,11 +5,7 @@
 ASTRA_CLUSTER_ID=8319febd-e7cf-4595-81e3-34f45d332d2a
 ASTRA_REGION=us-east1
 ASTRA_USERNAME=polandll
-ASTRA_PASSWORD=Lmm2soht!
-
-echo $ASTRA_CLUSTER_ID
-echo $ASTRA_REGION
-echo $ASTRA_USERNAME
+ASTRA_PASSWORD=12345abcd
 
 for FILE in *;
  do
@@ -26,7 +22,7 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d33
   -H 'Content-Type: application/json' \
   --data-raw '{
     "username": "polandll",
-    "password": "Lmm2soht!"
+    "password": "12345abcd"
 }' | jq -r '.authToken')
 
 #export AUTH_TOKEN=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \
