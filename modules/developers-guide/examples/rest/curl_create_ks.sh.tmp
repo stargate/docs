@@ -1,7 +1,0 @@
-curl -s -L -X POST https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v2/schemas/keyspaces \
--H "X-Cassandra-Token: $AUTH_TOKEN" \
--H "Content-Type: application/json" \
--d '{
-    "name": "users_keyspace",
-    "replicas": 1
-}'

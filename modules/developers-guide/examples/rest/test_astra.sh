@@ -137,4 +137,4 @@ echo "get users mult where"
 #./curl_drop_ks.sh.tmp
 
 # CLEAN UP tmp files
-#rm *.tmp; rm HOLD;
+rm *.tmp; rm HOLD;

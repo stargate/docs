@@ -1,5 +1,0 @@
-curl -s -L \
--X GET https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
--H "X-Cassandra-Token: $AUTH_TOKEN" \
--H "Accept: application/json" \
--H "Content-Type: application/json"

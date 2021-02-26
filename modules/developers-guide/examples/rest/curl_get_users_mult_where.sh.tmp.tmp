@@ -1,3 +1,0 @@
-curl -s -L -X GET 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$eq":"Janesha"\},"favorite_books":\{"$contains":"Emma"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header "Content-Type: application/json"
