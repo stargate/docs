@@ -20,7 +20,7 @@
 				"header": [
 					{
 						"key": "X-Cassandra-Token",
-						"value": "{{AUTH_TOKEN}}"
+						"value": "{{authToken}}"
 					},
 					{
 						"key": "Content-Type",
@@ -29,17 +29,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"users_keyspace\",\n    \"replicas\": 1\n}"
+					"raw": "{\n    \"name\": \"{{keyspaceName}}\",\n    \"replicas\": 1\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces",
+					"raw": "{{base_url}}{{base_api_schema_path}}",
 					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"v2",
-						"schemas",
-						"keyspaces"
+						"{{base_url}}{{base_api_schema_path}}"
 					]
 				},
 				"description": "{{base_url}}/v2/schemas/keyspaces"
@@ -69,17 +64,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"users_keyspace\",\n    \"replicas\": 1\n}"
+					"raw": "{\n    \"name\": \"{{keyspaceName}}\",\n    \"replicas\": 1\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces",
+					"raw": "{{base_url}}{{base_api_schema_path}}",
 					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"v2",
-						"schemas",
-						"keyspaces"
+						"{{base_url}}{{base_api_schema_path}}"
 					]
 				},
 				"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace\",\n    \"replicas\": 1\n}"
@@ -105,14 +95,9 @@
 					"raw": "{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces",
+					"raw": "{{base_url}}{{base_api_schema_path}}",
 					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"v2",
-						"schemas",
-						"keyspaces"
+						"{{base_url}}{{base_api_schema_path}}"
 					]
 				},
 				"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
@@ -136,18 +121,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					"raw": " {\n        \"name\": \"{{tableName}}\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables"
 					],
 					"query": [
@@ -452,17 +434,14 @@
 					"raw": "{  \n   \"name\": \"email\",  \n   \"typeDefinition\": \"text\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables/{{tableName}}/columns",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables",
-						"users",
+						"{{tableName}}",
 						"columns"
 					]
 				},
@@ -541,17 +520,14 @@
 					"raw": "{\n   \"name\": \"top_three_tv_shows\",\n   \"typeDefinition\": \"list<text>\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables/{{tableName}}/columns",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables",
-						"users",
+						"{{tableName}}",
 						"columns"
 					]
 				},
@@ -589,17 +565,14 @@
 					"raw": "{\n   \"name\": \"evaluations\",\n   \"typeDefinition\": \"map<int,text>\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables/{{tableName}}/columns",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables",
-						"users",
+						"{{tableName}}",
 						"columns"
 					]
 				},
@@ -630,17 +603,14 @@
 					"raw": "{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables/{{tableName}}/columns",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables",
-						"users",
+						"{{tableName}}",
 						"columns"
 					]
 				},
@@ -671,15 +641,13 @@
 					"raw": "{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"favorite_books\": \"{ 'Emma', 'The Color Purple' }\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users",
+					"raw": "{{base_url}}{{base_api_path}}/{{keyspaceName}}/{{tableName}}",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_path}}"
 					],
 					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users"
+						"{{keyspaceName}}",
+						"{{tableName}}"
 					]
 				},
 				"description": "{{base_url}}/v2/keyspaces/users_keyspace/users\n\n{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"favorite_books\": \"{ 'Emma', 'The Color Purple' }\"\n}"
@@ -709,15 +677,13 @@
 					"raw": "{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users",
+					"raw": "{{base_url}}{{base_api_path}}/{{keyspaceName}}/{{tableName}}",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_path}}"
 					],
 					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users"
+						"{{keyspaceName}}",
+						"{{tableName}}"
 					]
 				},
 				"description": "{{base_url}}/v2/keyspaces/users_keyspace/users\n\n{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\"\n}"
@@ -747,15 +713,13 @@
 					"raw": "{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\",\n  \"evaluations\": \"{ 2020:good, 2019:okay }\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users",
+					"raw": "{{base_url}}{{base_api_path}}/{{keyspaceName}}/{{tableName}}",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_path}}"
 					],
 					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users"
+						"{{keyspaceName}}",
+						"{{tableName}}"
 					]
 				},
 				"description": "{{base_url}}/v2/keyspaces/users_keyspace/users\n\n{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\",\n  \"evaluations\": \"{ 2020:good, 2019:okay }\"\n}"
@@ -773,7 +737,7 @@
 					},
 					{
 						"key": "X-Cassandra-Token",
-						"value": "{{AUTH_TOKEN}}"
+						"value": "{{authToken}}"
 					},
 					{
 						"key": "Content-Type",
@@ -785,15 +749,13 @@
 					"raw": "{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"current_country\": \"( 'France', '2016-01-01', '2020-02-02' )\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users",
+					"raw": "{{base_url}}{{base_api_path}}/{{keyspaceName}}/{{tableName}}",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_path}}"
 					],
 					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users"
+						"{{keyspaceName}}",
+						"{{tableName}}"
 					]
 				},
 				"description": "{{base_url}}/v2/keyspaces/users_keyspace/users\n\n{\"firstname\": \"Janesha\",\n  \"lastname\": \"Doesha\",\n  \"favorite color\": \"grey\",\n  \"current_country\": \"( 'France', '2016-01-01', '2020-02-02' )\"\n}"
@@ -819,15 +781,13 @@
 					"raw": "{\n    \"email\": \"mookie.betts.email@email.com\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users/Mookie/Betts",
+					"raw": "{{base_url}}{{base_api_path}}/{{keyspaceName}}/{{tableName}}/Mookie/Betts",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_path}}"
 					],
 					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users",
+						"{{keyspaceName}}",
+						"{{tableName}}",
 						"Mookie",
 						"Betts"
 					]
@@ -861,15 +821,13 @@
 					"raw": "{\n    \"email\": \"mookie.betts.new-email@email.com\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users/Mookie/Betts",
+					"raw": "{{base_url}}{{base_api_path}}/{{keyspaceName}}/{{tableName}}/Mookie/Betts",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_path}}"
 					],
 					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users",
+						"{{keyspaceName}}",
+						"{{tableName}}",
 						"Mookie",
 						"Betts"
 					]
@@ -895,14 +853,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces",
+					"raw": "{{base_url}}{{base_api_schema_path}}",
 					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"v2",
-						"schemas",
-						"keyspaces"
+						"{{base_url}}{{base_api_schema_path}}"
 					]
 				},
 				"description": "{{base_url}}/v2/schemas/keyspaces"
@@ -928,15 +881,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace"
+						"{{keyspaceName}}"
 					]
 				},
 				"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace"
@@ -958,15 +908,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables"
 					]
 				},
@@ -993,17 +940,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables/{{tableName}}/columns",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables",
-						"users",
+						"{{tableName}}",
 						"columns"
 					]
 				},
@@ -1030,17 +974,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email",
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}/tables/{{tableName}}/columns/email",
 					"host": [
-						"{{base_url}}"
+						"{{base_url}}{{base_api_schema_path}}"
 					],
 					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace",
+						"{{keyspaceName}}",
 						"tables",
-						"users",
+						"{{tableName}}",
 						"columns",
 						"email"
 					]
@@ -1096,15 +1037,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/v2/keyspaces/users_keyspace/users?where={\"firstname\":{\"$eq\":\"Mookie\"}}",
+					"raw": "{{base_url}}{{base_api_path}}{{keyspaceName}{{tableName}}?where={\"firstname\":{\"$eq\":\"Mookie\"}}",
 					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"v2",
-						"keyspaces",
-						"users_keyspace",
-						"users"
+						"{{base_url}}{{base_api_path}}{{keyspaceName}{{tableName}}"
 					],
 					"query": [
 						{
@@ -1220,36 +1155,6 @@
 			"response": []
 		},
 		{
-			"name": "Delete keyspace users_keyspace",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "X-Cassandra-Token",
-						"value": "{{AUTH_TOKEN}}"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base_url}}/v2/schemas/keyspaces/users_keyspace",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"v2",
-						"schemas",
-						"keyspaces",
-						"users_keyspace"
-					]
-				},
-				"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace"
-			},
-			"response": []
-		},
-		{
 			"name": "Delete table users",
 			"request": {
 				"method": "DELETE",
@@ -1280,6 +1185,33 @@
 				"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users"
 			},
 			"response": []
+		},
+		{
+			"name": "Delete keyspace users_keyspace",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}{{base_api_schema_path}}/{{keyspaceName}}",
+					"host": [
+						"{{base_url}}{{base_api_schema_path}}"
+					],
+					"path": [
+						"{{keyspaceName}}"
+					]
+				},
+				"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace"
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1288,7 +1220,29 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					""
+					"let url = 'http://' + pm.variables.get('base_auth_url') + '/v1/auth';",
+					"console.log(url);",
+					"const postRequest = {",
+					"    url: url,",
+					"    method: 'POST',",
+					"    header: {",
+					"        'Content-Type': 'application/json',",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            \"username\": pm.variables.get('username'),",
+					"            \"password\": pm.variables.get('password')",
+					"        })",
+					"    }",
+					"};",
+					"pm.sendRequest(postRequest, (error, response) => {",
+					"    console.log(error ? error: response)",
+					"    pm.request.headers.upsert({",
+					"        key: \"X-Cassandra-Token\",",
+					"        value: response.json()[\"authToken\"]",
+					"    })",
+					"});"
 				]
 			}
 		},
@@ -1308,8 +1262,36 @@
 			"value": "localhost:8082"
 		},
 		{
-			"key": "AUTH_TOKEN",
-			"value": "e0ec38ec-871b-4a7d-b79e-85fc6209cb9e"
+			"key": "authToken",
+			"value": "\n"
+		},
+		{
+			"key": "username",
+			"value": "cassandra"
+		},
+		{
+			"key": "password",
+			"value": "cassandra"
+		},
+		{
+			"key": "base_auth_url",
+			"value": "localhost:8081"
+		},
+		{
+			"key": "base_api_schema_path",
+			"value": "/v2/schemas/keyspaces\n"
+		},
+		{
+			"key": "base_api_path",
+			"value": "/v2/keyspaces"
+		},
+		{
+			"key": "keyspaceName",
+			"value": "users_keyspace"
+		},
+		{
+			"key": "tableName",
+			"value": "users"
 		}
 	]
 }
