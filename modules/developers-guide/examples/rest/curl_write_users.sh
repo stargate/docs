@@ -1,4 +1,4 @@
-curl -s --location --request POST '{my_base_url}{my_base_api_path}/keyspaces/users_keyspace/users' \
+curl -s --location --request POST '{my_base_url}{my_base_api_path}/{my_keyspace}/{my_table}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -7,7 +7,7 @@ curl -s --location --request POST '{my_base_url}{my_base_api_path}/keyspaces/use
     "email": "mookie.betts@gmail.com",
     "favorite color": "blue"
 }'
-curl -s --location --request POST '{my_base_url}{my_base_api_path}/keyspaces/users_keyspace/users' \
+curl -s --location --request POST '{my_base_url}{my_base_api_path}/{my_keyspace}/{my_table}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{

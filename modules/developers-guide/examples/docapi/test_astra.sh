@@ -7,11 +7,16 @@ ASTRA_REGION=us-east1
 ASTRA_USERNAME=polandll
 ASTRA_PASSWORD=12345abcd
 
+base_api_schema_path=/api/rest/v2/schemas
+base_api_path=/api/rest/v2/namespaces
+namespaceName=myworld
+collectionName=fitness
+
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#/api/rest/v2/schemas#; s#{my_base_api_path}#/api/rest/v2#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#/api/rest/v2/schemas#; s#{my_base_api_path}#/api/rest/v2#; s#{my_namespace}#$namespaceName#; s#{my_collection}#$collectionName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done

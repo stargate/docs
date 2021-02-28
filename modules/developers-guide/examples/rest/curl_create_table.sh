@@ -1,10 +1,10 @@
 curl -s --location \
---request POST {my_base_url}{my_base_api_schema_path}/keyspaces/users_keyspace/tables \
+--request POST {my_base_url}{my_base_api_schema_path}/{my_keyspace}/tables \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json" \
 --header "Accept: application/json" \
 --data '{
-	"name": "users",
+	"name": "{my_table}",
 	"columnDefinitions":
 	  [
         {

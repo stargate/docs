@@ -2,11 +2,17 @@
 
 # MUST DO THE URL AND PATH SUBSTITUTIONS BEFORE RUNNING THE TESTS
 
+base_url=http://localhost:8082
+base_api_schema_path=/v2/schemas/keyspaces
+base_api_path=/v2/keyspaces
+keyspaceName=users_keyspace
+tableName=users
+
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed 's#{my_base_url}#http://localhost:8082#; s#{my_base_api_schema_path}#/v2/schemas#; s#{my_base_api_path}#/v2#' $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$keyspaceName#; s#{my_table}#$tableName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done

@@ -4,13 +4,15 @@
 
 base_url=http://localhost:8082
 base_api_schema_path=/v2/schemas
-base_api_path=/v2
+base_api_path=/v2/namespaces
+namespaceName=myworld
+collectionName=fitness
 
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_namespace}#$namespaceName#; s#{my_collection}#$collectionName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done

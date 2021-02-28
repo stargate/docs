@@ -5,20 +5,22 @@
 export ASTRA_CLUSTER_ID=8319febd-e7cf-4595-81e3-34f45d332d2a
 export ASTRA_REGION=us-east1
 export ASTRA_USERNAME=polandll
-export ASTRA_PASSWORD=Lmm2soht!
+export ASTRA_PASSWORD=12345abcd
 
 ASTRA_CLUSTER_ID=8319febd-e7cf-4595-81e3-34f45d332d2a
 ASTRA_REGION=us-east1
 ASTRA_USERNAME=polandll
-ASTRA_PASSWORD=Lmm2soht!
+ASTRA_PASSWORD=12345abcd
 base_api_schema_path=/api/rest/v2/schemas
 base_api_path=/api/rest/v2
+keyspaceName=users_keyspace
+tableName=users
 
 for FILE in *;
  do 
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$keyspaceName#; s#{my_table}#$tableName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
@@ -29,7 +31,7 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d33
   -H 'Content-Type: application/json' \
   --data-raw '{
     "username": "polandll",
-    "password": "Lmm2soht!"
+    "password": "12345abcd"
 }' | jq -r '.authToken')
 
 #export AUTH_TOKEN=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \

@@ -1,5 +1,5 @@
 # current_country currently uses a v1 style query
-curl -s -G -L "{my_base_url}{my_base_api_path}/keyspaces/users_keyspace/users" \
+curl -s -G -L "{my_base_url}{my_base_api_path}/{my_keyspace}/{my_table}" \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
    -H  "Content-Type: application/json" \
    --data-urlencode 'where={
