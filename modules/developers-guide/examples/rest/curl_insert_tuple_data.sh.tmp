@@ -1,9 +1,9 @@
-curl -s -X POST {my_base_url}{my_base_api_path}/{my_keyspace}/{my_table} \
+curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -d '{"firstname": "Janesha",
   "lastname": "Doesha",
   "favorite color": "grey",
-  "address": { "street": "1, Main St", "city": "San Francisco", "state": "California", "zip": 12345 }
+  "current_country": [ "France", "2016-01-01", "2020-02-02" ]
 }'

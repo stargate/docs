@@ -13,14 +13,14 @@ ASTRA_USERNAME=polandll
 ASTRA_PASSWORD=12345abcd
 base_api_schema_path=/api/rest/v2/schemas
 base_api_path=/api/rest/v2
-keyspaceName=users_keyspace
-tableName=users
+rkeyspaceName=users_keyspace
+rtableName=users
 
 for FILE in *;
  do 
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$keyspaceName#; s#{my_table}#$tableName#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$rkeyspaceName#; s#{my_table}#$rtableName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done

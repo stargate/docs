@@ -5,14 +5,14 @@
 base_url=http://localhost:8082
 base_api_schema_path=/v2/schemas/keyspaces
 base_api_path=/v2/keyspaces
-keyspaceName=users_keyspace
-tableName=users
+rkeyspaceName=users_keyspace
+rtableName=users
 
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$keyspaceName#; s#{my_table}#$tableName#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$rkeyspaceName#; s#{my_table}#$rtableName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
@@ -39,8 +39,15 @@ echo "create keyspace "
 #echo "create ks_dcs: "
 #./curl_ks_dcs.sh.tmp | jq -r '.name | test("users_keyspace_dcs")'
 
+# UDT must currently be created in CQL
+#cqlsh -f ../cql/create_udt.cql
+
+#echo "create udt"
+#./curl_create_udt.sh.tmp | jq -r '.name | test("address_type")'
+
 echo "create table and add columns "
 ./curl_create_table.sh.tmp | jq -r '.name | test("users")'
+
 echo "add_column: "
 ./curl_add_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_column.result)
 echo "add_set_to_table: "
@@ -76,10 +83,10 @@ echo "check column email"
 ./curl_get_particular_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_column.result)
 
 # CQL INDEXES ARE REQUIRED FOR SOME DML, MUST CREATE IN CQLSH
-# CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
-# CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv.sh.tmpows));
-# CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
-# CREATE INDEX country_idx ON users_keyspace.users (current_country);
+#cqlsh -f ../cql/create_index_set.cql
+#cqlsh -f ../cql/create_index_list.cql
+#cqlsh -f ../cql/create_index_map.cql
+#cqlsh -f ../cql/create_index_tuple.cql
 
 # RUN THE DML
 echo "write users"
@@ -129,4 +136,4 @@ echo "get users mult where"
 #./curl_drop_ks.sh.tmp
 
 # CLEAN UP tmp files
-rm *.tmp; rm HOLD;
+#rm *.tmp; rm HOLD;
