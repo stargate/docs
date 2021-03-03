@@ -6,7 +6,7 @@ machine or bare metal.
 
 [Optional] Make sure DSE is up and running.
 Stargate requires authentication, so be sure to enable it in the
-https://cassandra.apache.org/doc/latest/configuration/cass_yaml_file.html#authenticator[cassandra.yaml] file.
+https://docs.datastax.com/en/dse/6.8/dse-dev/datastax_enterprise/config/configCassandra_yaml.html#configCassandra_yaml__authenticator[cassandra.yaml] file.
 If you don't have a cluster running, use these instructions to install
 https://docs.datastax.com/en/install/6.8/install/installWhichOne.html[DSE 6.8].
 
@@ -14,7 +14,7 @@ Next, prepare a virtual machine to install Stargate on. You'll need to be sure
 Java 8 is installed.
 
 Once you have a machine ready,
-download the https://github.com/stargate/stargate/releases/download/v1.0.7/stargate-jars.zip[Stargate zip file].
+download the https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-68}/stargate-jars.zip[Stargate zip file].
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:
 
