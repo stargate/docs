@@ -14,7 +14,7 @@ Next, prepare a virtual machine to install Stargate on. You'll need to be sure
 Java 8 is installed.
 
 Once you have a machine ready,
-download the https://github.com/stargate/stargate/releases/download/v1.0.7/stargate-jars.zip[Stargate zip file].
+download the https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-3x}/stargate-jars.zip[Stargate zip file].
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:
 
