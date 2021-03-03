@@ -1,35 +1,51 @@
 #!/bin/bash
 
-# SET VARIABLES FOR STARGATE
-base_url=http://localhost:8080
-base_api_schema_path=/graphql-schema
-base_api_path=/graphql
-keyspaceName=/library
+# MUST DO THE URL AND PATH SUBSTITUTIONS BEFORE RUNNING THE TESTS
+
+export ASTRA_CLUSTER_ID=8319febd-e7cf-4595-81e3-34f45d332d2a
+export ASTRA_REGION=us-east1
+export ASTRA_USERNAME=polandll
+export ASTRA_PASSWORD=12345abcd
+
+ASTRA_CLUSTER_ID=8319febd-e7cf-4595-81e3-34f45d332d2a
+ASTRA_REGION=us-east1
+ASTRA_USERNAME=polandll
+ASTRA_PASSWORD=12345abcd
+base_api_schema_path=/api/graphql-schema
+base_api_path=/api/graphql
+gkeyspaceName=library
 
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{keyspaceName}#$keyspaceName#;" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{keyspaceName}#$gkeyspaceName#; s#{my_table}#$tableName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
 
+# SET THE AUTH_TOKEN FOR ALL THE OTHER COMMANDS
 
-#GET AND SET AUTH_TOKEN
-export AUTH_TOKEN=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
+export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d332d2a-us-east1.apps.astra.datastax.com/api/rest/v1/auth' \
   -H 'Content-Type: application/json' \
   --data-raw '{
-    "username": "cassandra",
-    "password": "cassandra"
+    "username": "polandll",
+    "password": "12345abcd"
 }' | jq -r '.authToken')
 
+#export AUTH_TOKEN=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \
+#  -H 'Content-Type: application/json' \
+#  --data-raw '{
+#    "username": "$ASTRA_USERNAME",
+#    "password": "$ASTRA_PASSWORD"
+#}' | jq -r '.authToken')
 
 # RUN THE DDL
 
-echo -e "\n\ncreate keyspace\n"
-./curl_createKeyspace.sh.tmp 
+#echo -e "\n\ncreate keyspace\n"
+#./curl_createKeyspace.sh.tmp 
 #| jq -r '.name | test("library")'
+
 echo -e "\n\ncreate udt\n"
 ./curl_createUDT.sh.tmp 
 # | jq -r '.name | test("address_type")'
@@ -38,8 +54,8 @@ echo -e "\n\ncreate 2 tables\n"
 ./curl_create2Tables.sh.tmp
 echo -e "\n\ncreate 2 tables if not exists\n"
 ./curl_create2TablesIfNotExists.sh.tmp
-echo -e "\n\ncreate collection table\n"
-./curl_createCollTable.sh.tmp
+#echo -e "\n\ncreate collection table\n"
+#./curl_createCollTable.sh.tmp
 echo -e "\n\ncreate map table\n"
 ./curl_createMapTable.sh.tmp
 
@@ -65,6 +81,9 @@ echo -e "\n\ninsert reader with UDT\n"
 
 echo -e "\n\ninsert reader with tuple\n"
 ./curl_insertJaneWithTuple.sh.tmp
+
+echo -e "\n\ninsert badge\n"
+./curl_insertOneBadge.sh.tmp
 
 echo -e "\n\nread one book with primary key title\n"
 ./curl_readOneBook.sh.tmp

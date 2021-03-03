@@ -4,13 +4,13 @@
 base_url=http://localhost:8080
 base_api_schema_path=/graphql-schema
 base_api_path=/graphql
-keyspaceName=/library
+gkeyspaceName=/library
 
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{keyspaceName}#$keyspaceName#;" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{keyspaceName}#$gkeyspaceName#;" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
@@ -28,18 +28,21 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
 # RUN THE DDL
 
 echo -e "\n\ncreate keyspace\n"
-./curl_createKeyspace.sh.tmp 
+./curl_createKeyspace.sh.tmp
 #| jq -r '.name | test("library")'
 echo -e "\n\ncreate udt\n"
-./curl_createUDT.sh.tmp 
+./curl_createUDT.sh.tmp
 # | jq -r '.name | test("address_type")'
 
 echo -e "\n\ncreate 2 tables\n"
 ./curl_create2Tables.sh.tmp
 echo -e "\n\ncreate 2 tables if not exists\n"
 ./curl_create2TablesIfNotExists.sh.tmp
-echo -e "\n\ncreate collection table\n"
-./curl_createCollTable.sh.tmp
+
+echo -e "\n\ncreate indexes \n"
+./curl_createIndexes.sh.tmp
+#echo -e "\n\ncreate collection table\n"
+#./curl_createCollTable.sh.tmp
 echo -e "\n\ncreate map table\n"
 ./curl_createMapTable.sh.tmp
 
@@ -65,6 +68,9 @@ echo -e "\n\ninsert reader with UDT\n"
 
 echo -e "\n\ninsert reader with tuple\n"
 ./curl_insertJaneWithTuple.sh.tmp
+
+echo -e "\n\ninsert badge\n"
+./curl_insertOneBadge.sh.tmp
 
 echo -e "\n\nread one book with primary key title\n"
 ./curl_readOneBook.sh.tmp

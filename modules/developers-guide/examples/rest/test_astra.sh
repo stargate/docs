@@ -12,12 +12,12 @@ ASTRA_REGION=us-east1
 ASTRA_USERNAME=polandll
 ASTRA_PASSWORD=12345abcd
 base_api_schema_path=/api/rest/v2/schemas
-base_api_path=/api/rest/v2
+base_api_path=/api/rest/v2/keyspaces
 rkeyspaceName=users_keyspace
 rtableName=users
 
 for FILE in *;
- do 
+ do
     if [[ "$FILE" != "test"* ]]
     then
       gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_keyspace}#$rkeyspaceName#; s#{my_table}#$rtableName#" $FILE > $FILE.tmp;
@@ -43,53 +43,58 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d33
 
 printenv |grep AUTH_TOKEN
 
-echo "drop ks to clear all data: "
+echo -e "\n\ndrop ks to clear all data: "
 #./curl_drop_ks.sh.tmp
 
 # RUN THE DDL
 
-#echo "create keyspace "
+#echo -e "\n\ncreate keyspace "
 #./curl_create_ks.sh.tmp | jq -r '.name | test("users_keyspace")'
 
 # HOW TO TEST THE ALTERNATE CREATE_KS?? NEED TO FIGURE IT OUT
 #./curl_simple_ks.sh.tmp | jq -r '.name | test("users_keyspace")'
-#echo "create ks_dcs: "
+#echo -e "\n\ncreate ks_dcs: "
 #./curl_ks_dcs.sh.tmp | jq -r '.name | test("users_keyspace_dcs")'
 
-echo "create table and add columns "
+# create the UDT with graphQL instead
+echo -e "\n\ncreate UDT with graphql \n"
+./curl_createUDT_gql_astra.sh
+
+echo -e "\n\ncreate table and add columns "
 ./curl_create_table.sh.tmp | jq -r '.name | test("users")'
-echo "add_column: "
+
+echo -e "\n\nadd_column: "
 ./curl_add_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_column.result)
-echo "add_set_to_table: "
+echo -e "\n\nadd_set_to_table: "
 ./curl_add_set_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_set_to_table.result)
-echo "add_list_to_table: "
+echo -e "\n\nadd_list_to_table: "
 ./curl_add_list_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_list_to_table.result)
-echo "add map to table: "
+echo -e "\n\nadd map to table: "
 ./curl_add_map_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_map_to_table.result)
-echo "add tuple to table: "
+echo -e "\n\nadd tuple to table: "
 ./curl_add_tuple_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_tuple_to_table.result)
-echo "add udt to table: "
+echo -e "\n\nadd udt to table: "
 ./curl_add_udt_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_udt_to_table.result)
 
 # NEED TO CHECK CURL_CHANGE_COLUMN.SH, BUT IT MESSES UP REST OF WORK, SO CHANGE BACK
-echo "Change column and back: "
+echo -e "\n\nChange column and back: "
 ./curl_change_column.sh.tmp
 ./curl_change_column_back.sh.tmp
 
 # CHECK EXISTENCE OF SCHEMA
-echo "check existence"
-#test $(./curl_check_ks_exists.sh.tmp | jq '.| length') -eq 1 && echo "PASS" || echo "FAIL"
+echo -e "\n\ncheck existence"
+#test $(./curl_check_ks_exists.sh.tmp | jq '.| length') -eq 1 && echo -e "\n\nPASS" || echo -e "\n\nFAIL"
 ./curl_check_ks_exists.sh.tmp | jq -r '.data[].name | test("users_keyspace")'
-echo "check ks users_keyspace"
+echo -e "\n\ncheck ks users_keyspace"
 ./curl_get_particular_ks.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_ks.result)
 ./curl_check_table_exists.sh.tmp | jq '.data[].name | test("users")'
-echo "check table users"
+echo -e "\n\ncheck table users"
 ./curl_get_particular_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_table.result)
-echo "email test 1"
+echo -e "\n\nemail test 1"
 ./curl_check_column_exists.sh.tmp | jq '.data[].name | test("email")'
-echo "email test 2"
+echo -e "\n\nemail test 2"
 ./curl_check_column_exists.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_check_column_exists.result)
-echo "check column email"
+echo -e "\n\ncheck column email"
 ./curl_get_particular_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_column.result)
 
 # CQL INDEXES ARE REQUIRED FOR SOME DML, MUST CREATE IN CQLSH
@@ -98,45 +103,51 @@ echo "check column email"
 # CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
 # CREATE INDEX country_idx ON users_keyspace.users (current_country);
 
+# create the indexes with graphQL instead
+echo -e "\n\ncreate indexes with graphql \n"
+./curl_createIndexes_gql_astra.sh
+
 # RUN THE DML
-echo "write users"
+echo -e "\n\nwrite users"
 ./curl_write_users.sh.tmp|jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_write_users.result)
-echo "write set"
+echo -e "\n\nwrite set"
 ./curl_insert_set_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_set_data.result)
-echo "write list"
+echo -e "\n\nwrite list"
 ./curl_insert_list_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_list_data.result)
-echo "write map"
+echo -e "\n\nwrite map"
 ./curl_insert_map_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_map_data.result)
-echo "write tuple"
+echo -e "\n\nwrite tuple"
 ./curl_insert_tuple_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_tuple_data.result)
-echo "write udt"
+echo -e "\n\nwrite udt"
 ./curl_insert_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_udt_data.result)
 
-echo "patch users"
+echo -e "\n\npatch users"
 ./curl_patch_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_patch_users.result)
-echo "update users"
+echo -e "\n\nupdate users"
 ./curl_update_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_update_users.result)
 
-echo "get prim key"
+echo -e "\n\nget prim key"
 ./curl_get_primKey.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_primKey.result)
 # THESE NEED 2i
-echo "get set"
+echo -e "\n\nget set"
 ./curl_get_set_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_set_data.result)
-echo "get list"
+echo -e "\n\nget list"
 ./curl_get_list_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_list_data.result)
-echo "get map"
+echo -e "\n\nget map"
 ./curl_get_map_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_map_data.result)
-echo "get tuple"
+echo -e "\n\nget tuple"
 ./curl_get_tuple_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_tuple_data.result)
 # END OF NEED 2i
-echo "get udt"
-./curl_get_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt_data.result)
 
-echo "get users"
+# UDT IS NOT WORKING - BUG IN SG8 CODE
+#echo -e "\n\nget udt"
+#./curl_get_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt_data.result)
+
+echo -e "\n\nget users"
 ./curl_get_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users.result)
-echo "get users where"
+echo -e "\n\nget users where"
 ./curl_get_users_where.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_where.result)
-echo "get users mult where"
+echo -e "\n\nget users mult where"
 ./curl_get_users_mult_where.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_mult_where.result)
 
 # DROP/DELETE ALL SCHEMA
@@ -146,4 +157,4 @@ echo "get users mult where"
 #./curl_drop_ks.sh.tmp
 
 # CLEAN UP tmp files
-rm *.tmp; rm HOLD;
+#rm *.tmp; rm HOLD;

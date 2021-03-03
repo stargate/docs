@@ -16,7 +16,7 @@ for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#/api/rest/v2/schemas#; s#{my_base_api_path}#/api/rest/v2#; s#{my_namespace}#$namespaceName#; s#{my_collection}#$collectionName#" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{my_namespace}#$namespaceName#; s#{my_collection}#$collectionName#" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
@@ -30,7 +30,7 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d33
     "password": "12345abcd"
 }' | jq -r '.authToken')
 
-#export AUTH_TOKEN=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \
+#export AUTH_TOKEN=$(curl -s -L -X POST "https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth" \
 #  -H 'Content-Type: application/json' \
 #  --data-raw '{
 #    "username": "$ASTRA_USERNAME",
@@ -39,18 +39,13 @@ export AUTH_TOKEN=$(curl -s -L -X POST 'https://8319febd-e7cf-4595-81e3-34f45d33
 
 printenv |grep AUTH_TOKEN
 
-echo "drop ns to clear all data: "
-#./curl_drop_ns.sh.tmp
-
 # RUN THE DDL
 
-echo "create namespace "
-./curl_create_ns.sh.tmp | jq -r '.name | test("myworld")'
-
-# HOW TO TEST THE ALTERNATE CREATE_NS?? NEED TO FIGURE IT OUT
-#./curl_simple_ns.sh.tmp | jq -r '.name | test("myworld")'
-#echo "create ns_dcs: "
-#./curl_ns_dcs.sh.tmp | jq -r '.name | test("myworld_dcs")'
+# namespace CANNOT BE CREATED WITH THIS API CALL IN ASTRA
+# MUST BE CREATED IN THE ASTRA INTERFACE BEFORE RUNNING THE TEST 
+# USE DEVOPS API TO CREATE??
+#echo "create namespace "
+#./curl_create_ns.sh.tmp | jq -r '.name | test("myworld")'
 
 # CHECK EXISTENCE
 echo "check existence"
@@ -106,7 +101,6 @@ echo "check patch subdoc"
 #./curl_delete_doc.sh.tmp
 #./curl_delete_doc_where.sh.tmp
 #./curl_delete_collection.sh.tmp
-#./curl_delete_ns.sh.tmp
 
 # CLEAN UP tmp files
 rm *.tmp; rm HOLD;

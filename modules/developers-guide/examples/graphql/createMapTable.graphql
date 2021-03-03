@@ -5,14 +5,15 @@ mutation createMapTable {
     keyspaceName:"library",
     tableName: "badge",
     partitionKeys: [
-      {name: "badge_type", type: {basic:TEXT}}
+      { name: "user_id", type: {basic: UUID} },
+      { name: "badge_type", type: {basic:TEXT} }
     ]
     clusteringKeys: [
       { name: "badge_id", type: { basic: INT} }
     ],
-    ifNotExists:true,
+    ifNotExists:true
     values: [
-      {name: "earned", type:{basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}}}
+        { name: "earned", type:{basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}} }
     ]
   )
 }

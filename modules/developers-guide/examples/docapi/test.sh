@@ -32,6 +32,7 @@ echo "drop ns to clear all data: "
 # RUN THE DDL
 
 echo "create namespace "
+# this test won't work when many namespaces/keyspaces exist
 ./curl_create_ns.sh.tmp | jq -r '.name | test("myworld")'
 
 # HOW TO TEST THE ALTERNATE CREATE_NS?? NEED TO FIGURE IT OUT
@@ -42,6 +43,7 @@ echo "create namespace "
 # CHECK EXISTENCE
 echo "check existence"
 #test $(./curl_check_ns_exists.sh.tmp | jq '.| length') -eq 1 && echo "PASS" || echo "FAIL"
+# this test won't work when many namespaces/keyspaces exist
 ./curl_check_ns_exists.sh.tmp | jq -r '.data[].name | test("myworld")'
 echo "check ns myworld"
 ./curl_get_particular_ns.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/docapi_curl_get_particular_ns.result)

@@ -1,0 +1,4 @@
+curl --location --request POST {my_base_url}{my_base_api_schema_path} \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation createIndexes {\n  book: createIndex(\n    keyspaceName:\"library\",\n    tableName:\"book\",\n    columnName:\"author\",\n    indexName:\"author_idx\",\n    indexType: \"org.apache.cassandra.index.sasi.SASIIndex\"\n  )\n  reader: createIndex(\n      keyspaceName:\"library\",\n      tableName:\"reader\",\n      columnName:\"birthdate\",\n      indexName:\"reader_bdate_idx\",\n      indexType: \"org.apache.cassandra.index.sasi.SASIIndex\"\n  )\n  reader2: createIndex(\n      keyspaceName:\"library\",\n      tableName:\"reader\",\n      columnName:\"email\",\n      indexName:\"reader_email_idx\"\n  )\n}","variables":{}}'

@@ -4,13 +4,13 @@
 base_url=http://localhost:8080
 base_api_schema_path=/graphql-schema
 base_api_path=/graphql
-keyspaceName=/library
+gkeyspaceName=library
 
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{keyspaceName}#$keyspaceName#;" $FILE > $FILE.tmp;
+      gsed "s#{my_base_url}#$base_url#; s#{my_base_api_schema_path}#$base_api_schema_path#; s#{my_base_api_path}#$base_api_path#; s#{keyspaceName}#$gkeyspaceName#;" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done
