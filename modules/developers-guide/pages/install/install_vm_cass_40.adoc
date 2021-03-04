@@ -57,7 +57,7 @@ where
 (Stargate uses this IP address to broadcast itself, to join a Cassandra cluster as a coordinator node)  
 * `DC1` is the name of the data center of the Cassandra node
 * `RACK1` is the name of the data center of the Cassandra node
-The full set of options are described in xref:starctl.adoc[the `starctl` documentation].
+The full set of options are described in xref:install/starctl.adoc[the `starctl` documentation].
 
 [TIP]
 ====

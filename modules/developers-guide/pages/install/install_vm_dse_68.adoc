@@ -57,7 +57,7 @@ where
 (Stargate uses this IP address to broadcast itself, to join a DSE cluster as a coordinator node)  
 * `DC1` is the name of the data center of the DSE node
 * `RACK1` is the name of the data center of the DSE node
-The full set of options are described in xref:starctl.adoc[the `starctl` documentation].
+The full set of options are described in xref:install/starctl.adoc[the `starctl` documentation].
 
 [TIP]
 ====
