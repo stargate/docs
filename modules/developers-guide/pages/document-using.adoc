@@ -53,7 +53,7 @@ If you prefer, you can use Postman as a client interface for exploring the Docum
 (https://www.postman.com/downloads/[download here]). You will need to change the
 auth token to the header, in the collection global variables.
 We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/docapi/Stargate_Document_API_users.postman_collection.json[Stargate Document API Postman Collection]
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_Document_API_users.postman_collection.json[Stargate Document API Postman Collection]
 that you can import in Postman to play with the examples shown in this walkthrough.
 // end::UsingPostman[]
 

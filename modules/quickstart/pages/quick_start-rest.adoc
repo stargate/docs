@@ -36,7 +36,7 @@ include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
 If you prefer, you can use Postman as a client interface for exploring REST APIs
 (https://www.postman.com/downloads/[download here]).
 We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/stargate-rest-api.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_REST_v2_API_users_keyspace.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the REST API for CRUD operations.
 // tag::endUsingPostman[]
