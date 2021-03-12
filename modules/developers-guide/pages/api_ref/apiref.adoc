@@ -1,8 +1,8 @@
 = Stargate API reference
 
-Currently, the followin Data APIs exist for Stargate:
+Currently, the following Data APIs exist for Stargate:
 
-* xref:auth.adoc[Auth API]
+* xref:authnz.adoc[Auth API]
 * xref:api_ref/openapi_rest_ref.adoc[REST API]
 * xref:api_ref/openapi_document_ref.adoc[Document API]
 * https://cassandra.apache.org/doc/latest/cql/[CQL reference]
