@@ -56,7 +56,7 @@ We'll start the playground with `/graphql-schema` to create some schema.
 
 If you prefer, you can use Postman as a client interface for exploring the GraphQL API
 (https://www.postman.com/downloads/[download here]).
-See xref:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
+See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
 Instructions for configuring the environments for Stargate OSS and link:https://astra.datastax.com[Astra] are available.
 You can immediately import the documentation code examples and explore!
 
