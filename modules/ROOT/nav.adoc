@@ -1,1 +1,2 @@
 * xref:FAQ.adoc[FAQ]
+* xref:tooling.adoc[Tooling Resources]
