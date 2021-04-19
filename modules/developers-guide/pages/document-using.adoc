@@ -49,7 +49,7 @@ include::partial$use_auth_token_rest_document.adoc[]
 // tag::UsingPostman[]
 == Using Postman
 
-If you prefer, you can use Postman as a client interface for exploring the Document  API
+If you prefer, you can use Postman as a client interface for exploring the Document API
 (https://www.postman.com/downloads/[download here]).
 See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
 Instructions for configuring the environments for Stargate OSS and link:https://astra.datastax.com[Astra] are available.
