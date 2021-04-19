@@ -54,11 +54,11 @@ We'll start the playground with `/graphql-schema` to create some schema.
 // tag::UsingPostman[]
 == Using Postman
 
-If you prefer, you can use Postman as a client interface for exploring GraphQL APIs
+If you prefer, you can use Postman as a client interface for exploring the GraphQL API
 (https://www.postman.com/downloads/[download here]).
-We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_users_keyspace.postman_collection.json[Stargate GraphQL API Postman Collection]
-that you can import in Postman to play with the examples shown in this walkthrough.
+See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
+Instructions for configuring the environments for Stargate OSS and link:https://astra.datastax.com[Astra] are available.
+You can immediately import the documentation code examples and explore!
 
 Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]

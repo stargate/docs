@@ -50,11 +50,10 @@ include::partial$use_auth_token_rest_document.adoc[]
 == Using Postman
 
 If you prefer, you can use Postman as a client interface for exploring the Document API
-(https://www.postman.com/downloads/[download here]). You will need to change the
-auth token to the header, in the collection global variables.
-We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_Document_API_users.postman_collection.json[Stargate Document API Postman Collection]
-that you can import in Postman to play with the examples shown in this walkthrough.
+(https://www.postman.com/downloads/[download here]).
+See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
+Instructions for configuring the environments for Stargate OSS and link:https://astra.datastax.com[Astra] are available.
+You can immediately import the documentation code examples and explore!
 // end::UsingPostman[]
 
 Now you're ready to use the Document API for CRUD operations.
