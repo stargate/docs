@@ -1,0 +1,11 @@
+mutation insertgroundswell1 {
+  insertBook(book: { title: "Groundswell", author: "Charlene Li"}) {
+    title
+  }
+}
+
+mutation insertgroundswell2 {
+  insertBook(book: { title:"Groundswell", author: "Katie Lee"}) {
+    title
+  }
+}

@@ -33,19 +33,10 @@ You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
 // using GraphQL Playground
-include::developers-guide:page$graphql-using.adoc[tag=UseGraphQLPlayground]
+include::developers-guide:page$graphql.adoc[tag=UsingGraphQLPlayground]
 
-// tag::UsingPostman[]
-== Using Postman
-
-If you prefer, you can use Postman as a client interface for exploring GraphQL APIs
-(https://www.postman.com/downloads/[download here]).
-We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_users_keyspace.postman_collection.json[Stargate GraphQL API Postman Collection]
-that you can import in Postman to play with the examples shown in this walkthrough.
-
-Now you're ready to use the REST API for CRUD operations.
-// end::UsingPostman[]
+// using Postman
+include::developers-guide:page$graphql.adoc[tag=UsingPostman]
 
 == Creating schema
 

@@ -1,0 +1,7 @@
+type Mutation {
+  updateBook(book: BookInput): Boolean
+}
+
+mutation {
+  updateBook(book: { title: "Pride and Prejudice", name: "Miss Jane Austen" })
+}

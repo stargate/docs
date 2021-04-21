@@ -15,28 +15,36 @@ mutation {
           rating: Int
           reviewDate: Date @cql_column(name: "review_date")
        }
-        type Book @key @cql_entity(name: "book") @cql_input {
+       type Book @key @cql_entity(name: "book") @cql_input {
           title: String! @cql_column(partitionKey: true)
           author: String @cql_column(clusteringOrder: ASC)
-        }
-         type Reader @key @cql_entity(name: "reader") @cql_input {
+       }
+       type SelectBookResult @cql_payload {
+          data: [Book]
+          pagingState: String
+       } 
+       type Reader @key @cql_entity(name: "reader") @cql_input {
           name: String! @cql_column(partitionKey: true)
           user_id: Uuid! @cql_column(clusteringOrder: ASC)
-          birthdate: Date
+          birthdate: Date @cql_index(name: "date_idx")
           email: [String] @cql_column(typeHint: "set<varchar>")
-          reviews: [Review]
+          reviews: [Review]  @cql_index(name: "review_idx", target: FULL)
           address: [Address]
-        }
-        type Query {
+       }
+       type Query {
           book(title:String!, author:String): Book
           reader(name:String!, user_id:Uuid): Reader
-        }
-        type Mutation {
+          books( 
+            title: String!, 
+            pagingState: String @cql_pagingState
+          ): SelectBookResult @cql_select(pageSize: 10)
+       }
+       type Mutation {
           insertBook(book:BookInput!): Book
           deleteUser(book:BookInput!): Boolean
           insertReader(reader:ReaderInput!):Reader
           deleteReader(reader:ReaderInput!):Boolean
-        }
+       }
     """
   ) {
     version
