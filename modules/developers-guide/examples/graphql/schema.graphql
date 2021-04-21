@@ -1,0 +1,35 @@
+type Address @cql_entity(target: UDT) @cql_input {
+      street: String
+      city: String
+      state: String
+      zipCode: String @cql_column(name: "zip_code")
+    }
+type Review @cql_entity(target: UDT) @cql_input {
+  bookTitle: String @cql_column(name: "book_title")
+  comment: String
+  rating: Int
+  reviewDate: Date @cql_column(name: "review_date")
+}
+type Book @key @cql_entity(name: "book") @cql_input {
+  title: String! @cql_column(partitionKey: true)
+  author: String @cql_column(clusteringOrder: ASC)
+}
+ type Reader @key @cql_entity(name: "reader") @cql_input {
+  name: String! @cql_column(partitionKey: true)
+  user_id: Uuid! @cql_column(clusteringOrder: ASC)
+  birthdate: Date
+  email: [String] @cql_column(typeHint: "set<varchar>")
+  reviews: [Review]
+  address: [Address]
+}
+type Query {
+  book(title:String!, author:String): Book
+  reader(name:String!, user_id:Uuid): Reader
+}
+type Mutation {
+  insertBook(book:BookInput!): Book
+  deleteUser(book:BookInput!): Boolean
+  insertReader(reader:ReaderInput!):Reader
+  deleteReader(reader:ReaderInput!):Boolean
+}
+
