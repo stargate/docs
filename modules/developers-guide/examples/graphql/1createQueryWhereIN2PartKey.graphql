@@ -1,0 +1,15 @@
+type Query {
+  libcoll(type: String!, lib_id: Int!): [LibCollection]
+  libCollIn( 
+    type: [String!] @cql_where(field: "type", predicate: IN)
+    lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
+  ): [LibCollection]
+}
+
+query fetchLibCollIn {
+  libCollIn(type:[ "photo", "book" ], lib_id: [ 12345, 12543 ]) {
+      type 
+      lib_id
+      lib_name
+  }
+}

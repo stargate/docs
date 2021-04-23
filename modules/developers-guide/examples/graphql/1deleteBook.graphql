@@ -1,9 +1,3 @@
-mutation insertpap {
-  insertBook(book: { title: "Pride and Prejudice", author: "Jane Austen" }) {
-    title
-  }
-}
-
 mutation deletepap {
   deleteBook(book: { title:"Pride and Prejudice"}) {
     title

@@ -1,35 +1,74 @@
-type Address @cql_entity(target: UDT) @cql_input {
-      street: String
-      city: String
-      state: String
-      zipCode: String @cql_column(name: "zip_code")
-    }
-type Review @cql_entity(target: UDT) @cql_input {
-  bookTitle: String @cql_column(name: "book_title")
-  comment: String
-  rating: Int
-  reviewDate: Date @cql_column(name: "review_date")
-}
-type Book @key @cql_entity(name: "book") @cql_input {
-  title: String! @cql_column(partitionKey: true)
-  author: String @cql_column(clusteringOrder: ASC)
-}
- type Reader @key @cql_entity(name: "reader") @cql_input {
-  name: String! @cql_column(partitionKey: true)
-  user_id: Uuid! @cql_column(clusteringOrder: ASC)
-  birthdate: Date
-  email: [String] @cql_column(typeHint: "set<varchar>")
-  reviews: [Review]
-  address: [Address]
-}
-type Query {
-  book(title:String!, author:String): Book
-  reader(name:String!, user_id:Uuid): Reader
-}
-type Mutation {
-  insertBook(book:BookInput!): Book
-  deleteUser(book:BookInput!): Boolean
-  insertReader(reader:ReaderInput!):Reader
-  deleteReader(reader:ReaderInput!):Boolean
-}
-
+expectedVersion: "9e572c60-a301-11eb-a22f-7bb5f4c20029"
+      type Address @cql_entity(target: UDT) @cql_input {
+            street: String
+            city: String
+            state: String
+            zipCode: String @cql_column(name: "zip_code")
+          }
+          type Review @cql_entity(target: UDT) @cql_input {
+            bookTitle: String @cql_column(name: "book_title")
+            comment: String
+            rating: Int
+            reviewDate: Date @cql_column(name: "review_date")
+         }
+         type Book @key @cql_entity(name: "book") @cql_input {
+            title: String! @cql_column(partitionKey: true)
+            author: String @cql_column(clusteringOrder: ASC)
+            isbn: String
+         }
+         type SelectBookResult @cql_payload {
+            data: [Book]
+            pagingState: String
+         }
+         type Reader @key @cql_entity(name: "reader") @cql_input {
+            name: String! @cql_column(partitionKey: true)
+            user_id: Uuid! @cql_column(clusteringOrder: ASC)
+            birthdate: Date @cql_index(name: "date_idx")
+            email: [String] @cql_column(typeHint: "set<varchar>")
+            reviews: [Review]  @cql_index(name: "review_idx", target: VALUES)
+            address: [Address]
+         }
+         type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
+            type: String! @cql_column(partitionKey: true)
+            lib_id: Int! @cql_column(partitionKey: true)
+            lib_name: String @cql_column(clusteringOrder: ASC)
+         }
+         type Query {
+            book(title:String!, author:String): [Book]
+            reader(name:String!, user_id:Uuid): [Reader]
+            libcoll(type: String!, lib_id: Int!): [LibCollection]
+            books(
+              title: String!,
+              pagingState: String @cql_pagingState
+            ): SelectBookResult @cql_select(pageSize: 10)
+            booksIn(
+      				title: [String!] @cql_where(field: "title", predicate: IN)
+    				): [Book]
+    				readerGT(
+      				name: String!,
+              user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
+   				 ): [Reader]
+           bookGT(
+              title: String!
+              author: String
+              @cql_where(field: "author", predicate: GT)
+          ): [Book]
+          bookLT(
+              title: String!
+              author: String
+              @cql_where(field: "author", predicate: LT)
+          ): [Book]
+            libCollIn(
+              type: [String!] @cql_where(field: "type", predicate: IN)
+              lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
+            ): [LibCollection]
+         }
+         type Mutation {
+            insertBook(book:BookInput!): Book
+            updateBook(book:BookInput): Boolean @cql_update
+            deleteBook(book:BookInput!): Boolean
+            insertReader(reader:ReaderInput!): Reader
+            deleteReader(reader:ReaderInput!): Boolean
+            insertLibCollection(libColl: LibCollectionInput!): LibCollection
+            deleteLibCollection(libColl: LibCollectionInput!): Boolean
+         }

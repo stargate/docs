@@ -1,7 +1,7 @@
 type Mutation {
-  updateBook(book: BookInput): Boolean
+  updateBook(book: BookInput): Boolean @cql_update
 }
 
 mutation {
-  updateBook(book: { title: "Pride and Prejudice", name: "Miss Jane Austen" })
+  updateBook(book: { title: "Pride and Prejudice", name: "Jane Austen" isbn: "some isbn number" })
 }

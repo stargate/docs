@@ -1,5 +1,6 @@
 type Mutation {
  insertBook(book:BookInput!): Book
+ updateBook(book:BookInput): Boolean @cql_update
  deleteBook(book:BookInput!): Boolean
  insertReader(reader:ReaderInput!):Reader
  deleteReader(reader:ReaderInput!):Boolean

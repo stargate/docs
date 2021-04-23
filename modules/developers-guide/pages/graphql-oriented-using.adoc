@@ -526,7 +526,7 @@ graphQL command::
 --
 [source,shell]
 ----
-include::example$graphql/1Undeploy.graphql[]
+include::example$graphql/1undeploy.graphql[]
 ----
 --
 
@@ -535,7 +535,7 @@ Result::
 --
 [source,plaintext]
 ----
-include::example$result/gql_1Undeploy.result[]
+include::example$result/gql_1undeploy.result[]
 ----
 --
 ====
@@ -753,16 +753,163 @@ The filters available are:
 | Predicate | GraphQL fields that can have condition applied
 | EQ (equal) | partition key, clustering key, regular indexed field
 | IN (within)  | partition key, clustering key, regular indexed field
-| GT (greater than) | clustering key, regular indexed field
-| GTE (greater than or equal to) | clustering key, regular indexed field
-| LT (less than) | clustering key, regular indexed field
-| LTE (less than or equal to) | clustering key, regular indexed field
+| GT (greater than) | clustering key
+| GTE (greater than or equal to) | clustering key
+| LT (less than) | clustering key
+| LTE (less than or equal to) | clustering key
 | CONTAINS | regular indexed field that is a list and has an index target of VALUES
 |====
 
 //* notEq (not equal)
 //* containsKey (a map contains the specified key)
 //* containsEntry (a map contains the specified key:value pair)
+
+IN example:
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createQueryWhereIN.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereIN.result[]
+----
+--
+====
+
+IN example with 2 partition keys
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createQueryWhereIN2PartKey.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereIN2PartKey.result[]
+----
+--
+====
+
+// LLP: notice that the "name" of the field in foos is NOT the gql field name
+// for example: minCc1 and maxCc1
+GT example #1
+
+Equality on the partition key, and range on a clustering field:
+foos(
+    pk: Int
+    minCc1: Int @cql_where(field: "cc1", predicate: GTE)
+    maxCc1: Int @cql_where(field: "cc1", predicate: LTE)
+): [Foo]
+
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createQueryWhereGT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereGT.result[]
+----
+--
+====
+
+GT example #2
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createQueryWhereGT-2.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereGT-2.result[]
+----
+--
+====
+
+LT example
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createQueryWhereLT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereLT.result[]
+----
+--
+====
+
+CONTAINS example
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createQueryWhereCONTAINS.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereCONTAINS.result[]
+----
+--
+====
 
 // end::ReadAdvData[]
 
@@ -771,7 +918,7 @@ The filters available are:
 
 A mutation can be turned into a update operation by starting the mutation
 name with `update`.
-A mutation will also be an update operation if it is annotated with `@cxql_update`.
+A mutation will also be an update operation if it is annotated with `@cql_update`.
 The mutation must take a single argument that is an input type for a mapped entity.
 If successful, the mutation will return a Boolean value.
 In order to execute the mutation, all primary key fields and at least one non-primary key
@@ -800,7 +947,6 @@ include::example$result/gql_1queryUpdate.result[]
 --
 ====
 
-// LLP: Is this true?
 [NOTE]
 ====
 Updates are upserts. If the row doesn't exist, it will be created.
@@ -809,25 +955,37 @@ If it does exist, it will be updated with the new row data.
 // end::UpdateData[]
 
 // tag::DeleteData[]
-=== Delete data
+=== Deleting data
 
-After adding the book "Pride and Prejudice" with an `insertBook()`, you can delete
+A mutation can be turned into a delete operation by starting the mutation
+name with `delete` or `remove`.
+A mutation will also be an delete operation if it is annotated with `@cql_delete`.
+The mutation must take a single argument that is an input type for a mapped entity,
+or individual primary key arguments like retrieving operations.
+If successful, the mutation will return a Boolean value.
+
+At runtime, all partition key fields must be present, and a prefix of the
+clustering columns can be present (if using a single object argument, other
+  fields will be ignored).
+The delete operation targets a single row if it operates on a full primary key,
+or multiple rows otherwise.
+
+Let's add another book "Pride and Prejudice" with an `insertBook()`, so that you can delete
 the book using `deleteBook()` to illustrate deleting data:
-
-////
-The insertion is:
-mutation insertAnotherBook {
-  PaP: insertbook(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
-    value {
-      title
-    }
-  }
-}
-////
 
 [tabs]
 ====
-graphQL command::
+
+insert book::
++
+--
+[source,shell]
+----
+include::example$graphql/1insertPapBook.graphql[]
+----
+--
+
+delete book::
 +
 --
 [source,shell]
@@ -836,7 +994,7 @@ include::example$graphql/1deleteBook.graphql[]
 ----
 --
 
-Result::
+delete result::
 +
 --
 [source,plaintext]
@@ -850,6 +1008,7 @@ include::example$result/gql_1deleteBook.result[]
 // end::DeleteData[]
 
 
+// LLP: doublecheck the table below before releasing
 // tag::Directives[]
 == Directives
 
@@ -857,13 +1016,13 @@ include::example$result/gql_1deleteBook.result[]
 | Name | Description | Arguments
 | @cql_input | Identify a type as an input type | N/A
 | @cql_payload | Identify a type as a payload type | N/A
-| @cql_index | Create a type field index | name, class, type, options
+| @cql_index | Create a type field index | name, class (org.apache.cassandra.index.sasi.SASIIndex), type, options (mode: 'CONTAINS')
 | @cql_column | Set type field CQL values | name, partitionKey, clusteringOrder, typeHint
 | @cql_entity | Set a type field data type | name, target (UDT)
 | @cql_pagingState | The paging state to inject in the query | N/A
 | @cql_select | Set response arguments | pageSize, limit
 | @cql_update | |
-| @cql_where | Predicates that customize the conditions of a parameter | EQ (default), IN, GT, GTE, LT, LTE, CONTAINS
+| @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
 |===
 // end::Directives[]
 

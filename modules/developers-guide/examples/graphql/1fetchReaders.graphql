@@ -34,4 +34,4 @@ query fetchHerman {
       zipCode
     }
   }
-
+}
