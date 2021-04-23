@@ -405,18 +405,41 @@ A defined mutation `deploySchema` is executed.
 The keyspace is specified, along with the schema, specified between triple quotes (`"""`).
 
 A number of additional options are used in the following manner:
+
 |====
 | Option | Default | Description
 | expectedVersion | N/A | Each schema is assigned a unique version number. If the current deployment is a modification, the version must be supplied.
 | dryRun | false | To test in a dryrun, use `dryRun: true`
 | force | false |Force a schema change
-| migrationStrategy | No | USE_EXISTING, ADD_MISSING_TABLES, ADD_MISSING_TABLES_AND_COLUMNS, DROP_AND_RECREATE_ALL, DROP_AND_RECREATE_IF_MISMATCH
+| migrationStrategy | ADD_MISSING_TABLES_AND_COLUMNS | USE_EXISTING, ADD_MISSING_TABLES, ADD_MISSING_TABLES_AND_COLUMNS, DROP_AND_RECREATE_ALL, DROP_AND_RECREATE_IF_MISMATCH
 |====
 
 Two items are returned in this example, the `version` that is assigned to the schema,
 and `cqlChanges`, the status of whether CQL changes occurred due to the schema deployment.
 Other responses are `logs` and `query`.
 
+The `migrationStrategy` option needs further explanation on how `deploySchema`
+updates the underlying CQL schema, based on the options argument.
+The available strategies are:
+
+ADD_MISSING_TABLES_AND_COLUMNS (default)::
+Create CQL tables and UDTs that don't already exist.
+For those that exist, add any missing columns.
+Partition keys and clustering columns cannot be added after initial creation.
+This strategy will fail if the column already exists with a different data type.
+USE_EXISTING::
+Don't do anything. This is the most conservative strategy.
+All CQL tables and UDTs must match, otherwise the deployment is aborted.
+ADD_MISSING_TABLES::
+Create CQL tables and UDTs that don't already exist.
+Those that exist must match, otherwise the deployment is aborted.
+DROP_AND_RECREATE_ALL::
+Drop and recreate all CQL tables and UDTs.
+This is a destructive operation: any existing data will be lost.
+DROP_AND_RECREATE_IF_MISMATCH::
+Drop and recreate only the CQL tables and UDTs that don't match.
+This is a destructive operation: any existing data in the recreated tables will be lost.
+Tables that are not recreated will retain their data.
 
 === Deploying schema file
 
@@ -1017,6 +1040,7 @@ include::example$result/gql_1deleteBook.result[]
 | @cql_input | Identify a type as an input type | N/A
 | @cql_payload | Identify a type as a payload type | N/A
 | @cql_index | Create a type field index | name, class (org.apache.cassandra.index.sasi.SASIIndex), type, options (mode: 'CONTAINS')
+| @cql_insert | Add a conditional clause | ifNotExists
 | @cql_column | Set type field CQL values | name, partitionKey, clusteringOrder, typeHint
 | @cql_entity | Set a type field data type | name, target (UDT)
 | @cql_pagingState | The paging state to inject in the query | N/A
@@ -1025,6 +1049,10 @@ include::example$result/gql_1deleteBook.result[]
 | @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
 |===
 // end::Directives[]
+
+== Migration Strategy
+
+
 
 // LLP: Apollo data federation - in this doc, or a separate page?
 
