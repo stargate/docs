@@ -1,5 +1,3 @@
 mutation deletepap {
-  deleteBook(book: { title:"Pride and Prejudice"}) {
-    title
-  }
+  deleteBook(book: { title:"Pride and Prejudice"})
 }

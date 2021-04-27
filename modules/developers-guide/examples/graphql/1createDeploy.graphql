@@ -80,7 +80,7 @@ mutation {
             insertReader(reader:ReaderInput!): Reader
             deleteReader(reader:ReaderInput!): Boolean
             insertLibCollection(libColl: LibCollectionInput!): LibCollection
-            deleteLibCollection(libColl: LibCollectionInput!): Boolean
+            deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists: true)
          }
     """
   ) {

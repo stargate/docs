@@ -1,5 +1,5 @@
 mutation {
   undeploySchema(
     keyspace: "library"
-    expectedVersion: "ba500230-9e50-11eb-8fde-b341b9f82ca9")
+    expectedVersion: " 6c34d600-a3a7-11eb-a22f-7bb5f4c20029")
 }

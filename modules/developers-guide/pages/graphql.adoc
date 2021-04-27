@@ -12,6 +12,9 @@ include::partial$graphql-oriented-desc.adoc[]
 
 include::partial$cql-oriented-desc.adoc[]
 
+// LLP: I really should put an example side by side of each approach here. For example,
+// the reader table as cql-first and as gql-first
+
 include::partial$GQLAPIBlogPost.adoc[]
 
 You can start with a xref:quickstart:quick_start-graphql.adoc[GraphQL QuickStart] or

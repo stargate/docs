@@ -603,7 +603,7 @@ include::example$result/gql_1insert2Books.result[]
 The insertion is straightforward.
 The title and author are specified, and the title is returned in response to a successful insertion.
 Only the required fields must be specified, and any fields can be returned in the response.
-This same operation can be used to update the stored data, as insertions are upserts in all cases.
+This same operation can update stored data, as insertions are upserts in all cases.
 
 // LLP: ********** I  NEED TO ADD A CONDITIONAL IFNOTEXISTS INSERT! ********
 
@@ -611,6 +611,28 @@ This same operation can be used to update the stored data, as insertions are ups
 
 // COMMENTED OUT FOR NOW - NOT IMPLEMENTED BUT MAY BE, SO LEAVE THE TEXT
 // tag::WriteAdvData[]
+==== Conditional insertion
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createPayloadConditional.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createPayloadConditional.result[]
+----
+--
+====
 //==== Insertion options
 
 //Three insertion options are configurable during data insertion or updating:
@@ -1027,7 +1049,8 @@ include::example$result/gql_1deleteBook.result[]
 --
 ====
 
-// LLP: Is this true? Note the use of `ifExists` to validate that the book exists before deleting it.
+// LLP: YES Note the use of `ifExists` to validate that the book exists before deleting it.
+// NEED EXAMPLE
 // end::DeleteData[]
 
 
@@ -1037,21 +1060,19 @@ include::example$result/gql_1deleteBook.result[]
 
 |===
 | Name | Description | Arguments
-| @cql_input | Identify a type as an input type | N/A
+| @cql_column | Set type field CQL values | name, partitionKey, clusteringOrder, typeHint
+| @cql_delete | Conditional delete clause | if Exists: true
+| @cql_entity | Set a type field data type | name, target (UDT)
 | @cql_payload | Identify a type as a payload type | N/A
 | @cql_index | Create a type field index | name, class (org.apache.cassandra.index.sasi.SASIIndex), type, options (mode: 'CONTAINS')
-| @cql_insert | Add a conditional clause | ifNotExists
-| @cql_column | Set type field CQL values | name, partitionKey, clusteringOrder, typeHint
-| @cql_entity | Set a type field data type | name, target (UDT)
+| @cql_input | Identify a type as an input type | N/A
+| @cql_insert | Add a conditional clause | ifNotExists: true
 | @cql_pagingState | The paging state to inject in the query | N/A
 | @cql_select | Set response arguments | pageSize, limit
-| @cql_update | |
+| @cql_update | Set an insertion to be an update | N/A
 | @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
 |===
 // end::Directives[]
-
-== Migration Strategy
-
 
 
 // LLP: Apollo data federation - in this doc, or a separate page?
