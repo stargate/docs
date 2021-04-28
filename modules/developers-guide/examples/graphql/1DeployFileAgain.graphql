@@ -1,0 +1,9 @@
+curl http://localhost:8080/graphql-admin \
+  -H "X-Cassandra-Token: $AUTH_TOKEN" \
+  -F operations='
+{
+  "query": "mutation($file: Upload!) { deploySchemaFile( keyspace: \"library\" expectedVersion: \"6c34d600-a3a7-11eb-a22f-7bb5f4c20029\" schemaFile: $file) { version } }",
+  "variables": { "file": null }
+};type=application/json' \
+  -F map='{ "filePart": ["variables.file"] }' \
+  -F filePart=@/tmp/schema.graphql

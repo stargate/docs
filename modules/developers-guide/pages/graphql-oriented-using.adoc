@@ -124,7 +124,8 @@ To denote that the type will be stored as a UDT in Cassandra, `@cql_entity(targe
 is added to the initial line.
 
 To avoid duplicating the type as both an input type and output type, `@cql_input` is
-added to make the type an input type.
+added to generate an `AddressInput` type with the same fields as the type `address`
+in the GraphQL schema.
 
 Standard CamelCase is used to name the fields, but the Cassandra column name can be
 named with an alternative using `@cql_column(name: "book_title")`.
@@ -203,6 +204,7 @@ Note that these two fields are arrays of the UDTs previously defined.
 
 Lastly, `@cql_column` can be used to provide a hint to Cassandra that specifies
 custom field types, such as a set of strings, `@cql_column(typeHint: "set<varchar>")`.
+The only valid `typeHints` using a set instead of a list, or making a CQL type frozen.
 // end::CreateObjectTypes[]
 
 // tag::CreateIndexes[]
@@ -306,7 +308,7 @@ or annotating it with @cql_insert(ifNotExists: true)
 === Creating payload types
 
 Payloads types are not mapped to the database.
-They only serve as wrappers of an operation's arguments or response.
+They only serve as wrappers of an operation's response.
 They typically pass a more complex object than just an entity. For example,
 you can add fields that check the `applied` status for a conditional query, or
 the `pagingState`.
@@ -475,6 +477,30 @@ parameterized mutation, which takes a single `$file` argument (note that we
   leave it as null in the payload, because it's going to be set another way).
 The `filePart` argument contains the file.
 The `map` argument specifies which file goes into which GraphQL variable.
+
+In order to deploy a schema file again, you'll need to supply the `expectedVersion` for
+the schema to be replaced:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/1DeployFileAgain.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1DeployFileAgain.result[]
+----
+--
+====
 
 === Modifying schema
 
@@ -1049,8 +1075,48 @@ include::example$result/gql_1deleteBook.result[]
 --
 ====
 
-// LLP: YES Note the use of `ifExists` to validate that the book exists before deleting it.
-// NEED EXAMPLE
+To check for the existence of a record before deleting, use either method discussed above.
+This example shows the use of the directive `@cql_delete( ifExists: true)`:
+
+[tabs]
+====
+mutation::
++
+--
+[source,shell]
+----
+deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists: true)
+----
+--
+
+insert library collection::
++
+--
+[source,shell]
+----
+include::example$graphql/1insert4LibColls.graphql[]
+----
+--
+
+delete book with ifExists::
++
+--
+[source,shell]
+----
+include::example$graphql/1deleteLibColl.graphql[]
+----
+--
+
+delete result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1deleteLibColl.result[]
+----
+--
+====
+
 // end::DeleteData[]
 
 

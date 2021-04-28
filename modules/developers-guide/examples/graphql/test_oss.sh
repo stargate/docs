@@ -27,7 +27,9 @@ done
 
 echo -e "\nDeploy the graphql schema\n"
 cp ./schema.graphql /tmp
-./1DeployFile.graphql.tmp
+./1createDeployFile.graphql.tmp
+# There is also a need to check redeploying with an expectedVersion supplied:
+# ./1DeployFileAgain.graphql.tmp
 
 echo -e "\nGet keyspace schema\n"
 ./1curl_getAllKsSchema.sh.tmp
@@ -62,7 +64,7 @@ echo -e "\nFetch books\n"
 ./1curl_fetchSameBooks.sh.tmp
 
 echo -e "\nDelete book Pap\n"
-./1curl_deleteBook.sh.tmp 
+./1curl_deleteBook.sh.tmp
 
 << 'BLOCK-OUT-UNTIL-TESTED'
 echo -e "\n\ncreate udt\n"

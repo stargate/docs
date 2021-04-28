@@ -8,9 +8,11 @@ using GraphQL types, mutations, and queries with any Cassandra deployment.
 The Stargate GraphQL API has two orientations, one developed from GraphQL principles, and one developed with the Cassandra Query Language (CQL)
 in mind.
 
+include::partial$cql-oriented-desc.adoc[]
+
 include::partial$graphql-oriented-desc.adoc[]
 
-include::partial$cql-oriented-desc.adoc[]
+include::partial$compare-orientations.adoc[]
 
 // LLP: I really should put an example side by side of each approach here. For example,
 // the reader table as cql-first and as gql-first
