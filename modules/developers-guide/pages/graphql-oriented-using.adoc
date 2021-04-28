@@ -195,6 +195,12 @@ The default clustering order is `ASC`, or ascending.
 Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 
+[IMPORTANT]
+====
+If no field has a `partitionKey: true`, but the first field is of data type
+ID, Uuid, or TimeUuid, then that field is used as the partition key in the database.
+====
+
 A standard GraphQL type feature is displayed in these types, the required fields
 denoted by `String!` and `Uuid!` that include the exclamation mark.
 
