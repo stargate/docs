@@ -784,10 +784,10 @@ components:
       properties:
         username:
           type: string
-          description: Username, must be ASTRA_DB_USERNAME
+          description: Username
         password:
           type: string
-          description: Password, must be ASTRA_DB_PASSWORD
+          description: Password
     AuthTokenResponse:
       type: object
       properties:
