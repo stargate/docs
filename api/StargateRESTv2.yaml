@@ -9,8 +9,6 @@ info:
 servers:
   - url: https://localhost:8082
     description: "Change the port if required."
-#  - auth_url: https://localhost:8081
-#    description: "Change the port if required."
 externalDocs:
   description: Reference Document
   url: http://shorturl.at/hnqIQ
@@ -23,6 +21,8 @@ tags:
     description: "The Data API allows you to add, update, and delete rows in your database"
 paths:
   /v1/auth:
+    servers:
+      - url: https://localhost:8081
     post:
       tags:
         - Auth
