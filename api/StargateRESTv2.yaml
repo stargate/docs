@@ -9,8 +9,8 @@ info:
 servers:
   - url: https://localhost:8082
     description: "Change the port if required."
-  - auth_url: https://localhost:8081
-    description: "Change the port if required."
+#  - auth_url: https://localhost:8081
+#    description: "Change the port if required."
 externalDocs:
   description: Reference Document
   url: http://shorturl.at/hnqIQ

@@ -9,8 +9,8 @@ info:
 servers:
  - url: https://localhost:8082
    description: Replace the port if necessary.
- - auth_url: https://localhost:8081
-   description: Replace the port if necessary.
+# - auth_url: https://localhost:8081
+#   description: Replace the port if necessary.
 tags:
  - name: Auth
    description: auth

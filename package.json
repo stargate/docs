@@ -20,12 +20,12 @@
     "@antora/cli": "^2.3.4",
     "@antora/site-generator-default": "^2.3.4",
     "@openapitools/openapi-generator-cli": "^2.1.23",
-    "mobx": "^6.0.4",
+    "mobx": "^6.1.0",
     "openapi-generator": "^0.1.39",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "redoc": "^2.0.0-rc.48",
     "redoc-cli": "^0.10.4",
-    "styled-components": "^4.1.1"
+    "styled-components": "^5.1.1"
   }
 }
