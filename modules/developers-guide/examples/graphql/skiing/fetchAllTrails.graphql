@@ -1,0 +1,6 @@
+query {
+  allTrails {
+  	name
+	status
+  }
+}

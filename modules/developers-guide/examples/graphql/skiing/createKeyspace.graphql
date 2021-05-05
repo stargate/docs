@@ -1,0 +1,4 @@
+# create a keyspace called skiing
+mutation createKsSkiing {
+  createKeyspace(name:"skiing", replicas: 1)
+}

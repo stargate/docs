@@ -1,0 +1,7 @@
+mutation {
+ setLiftStatus(id: "panorama", status: OPEN) {
+   name
+   status
+   difficulty
+ }
+}

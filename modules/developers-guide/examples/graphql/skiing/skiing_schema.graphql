@@ -1,0 +1,54 @@
+type Lift {
+id: ID!
+name: String!
+status: LiftStatus!
+capacity: Int!
+night: Boolean!
+elevationGain: Int!
+}
+ 
+enum LiftStatus {
+  OPEN
+  HOLD
+  CLOSED
+}
+
+type Query {
+ allLifts(status: LiftStatus): [Lift!]!
+ Lift(id: ID!): Lift!
+ liftCount(status: LiftStatus): Int!
+}
+
+type Mutation {
+ setLiftStatus(id: ID!, 
+ status: LiftStatus!): Lift!
+}
+
+  type Trail {
+    id: ID!
+    name: String!
+    status: TrailStatus!
+    difficulty: Difficulty!
+    groomed: Boolean!
+    trees: Boolean!
+    night: Boolean!
+  }
+enum Difficulty {
+    BEGINNER
+    INTERMEDIATE
+    ADVANCED
+    EXPERT
+}
+enum TrailStatus {
+  OPEN
+  CLOSED
+}
+type Query {
+    allTrails(status: TrailStatus): [Trail!]!
+    Trail(id: ID!): Trail!
+    trailCount(status: TrailStatus): Int!
+}
+type Mutation {
+    setTrailStatus(id: ID!, status: TrailStatus!): Trail!
+}
+
