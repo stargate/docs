@@ -24,6 +24,7 @@ paths:
      tags:
        - Auth
      summary: Create an auth token
+     description: Create an authorization token.
      operationId: createToken
      parameters:
        - $ref: "#/components/parameters/pretty"
@@ -350,7 +351,7 @@ paths:
    put:
      tags:
        - Documents
-     summary: Replace a document
+     summary: Replace a document by {document-id}
      operationId: replaceDoc
      parameters:
        - $ref: "#/components/parameters/pretty"
@@ -482,7 +483,7 @@ paths:
    put:
      tags:
        - Documents
-     summary: Replace a sub document
+     summary: Replace a sub document by {document-path}
      operationId: replaceSubDoc
      parameters:
        - $ref: "#/components/parameters/pretty"
@@ -520,7 +521,7 @@ paths:
    patch:
      tags:
        - Documents
-     summary: Update part of a sub document
+     summary: Update part of a sub document by {document-path}
      operationId: updatePartOfSubDoc
      parameters:
        - $ref: "#/components/parameters/pretty"
@@ -559,7 +560,7 @@ paths:
    delete:
      tags:
        - Documents
-     summary: Delete a sub document
+     summary: Delete a sub document by {document-path}
      operationId: deleteSubDoc
      parameters:
        - $ref: "#/components/parameters/pretty"

@@ -27,7 +27,7 @@ paths:
       tags:
         - Auth
       summary: Create an authorization token
-      description: "To create an authorization token, you'll need the {databaseid} and {region} for your server, in addition to the path parameters. This applies only if you are using a classic database that was created before 4 March 2021 that has not migrated to the newest authentication."
+      description: Create an authorization token.
       operationId: createToken
       requestBody:
         content:
@@ -77,7 +77,7 @@ paths:
     post:
       tags:
         - Schemas
-      summary: create a keyspace
+      summary: Create a keyspace
       operationId: createKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -134,7 +134,7 @@ paths:
     delete:
       tags:
         - Schemas
-      summary: delete a keyspace
+      summary: Delete a keyspace
       operationId: deleteKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -234,7 +234,7 @@ paths:
     put:
       tags:
         - Schemas
-      summary: Replace a table definition, except for columns
+      summary: Replace a table definition (table options only)
       operationId: replaceTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -508,7 +508,7 @@ paths:
     get:
       tags:
         - Data
-      summary: Get a row
+      summary: Get a row by primary key
       operationId: getRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -545,7 +545,7 @@ paths:
     put:
       tags:
         - Data
-      summary: Replace a row
+      summary: Replace a row by primary key
       operationId: replaceRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -591,7 +591,7 @@ paths:
     patch:
       tags:
         - Data
-      summary: Update a row
+      summary: Update a row by primary key
       operationId: updateRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -637,7 +637,7 @@ paths:
     delete:
       tags:
         - Data
-      summary: Delete a row
+      summary: Delete a row by primary key
       operationId: deleteRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -784,10 +784,10 @@ components:
       properties:
         username:
           type: string
-          description: Username
+          description: Username, such as cassandra
         password:
           type: string
-          description: Password
+          description: Password, such as cassandra
     AuthTokenResponse:
       type: object
       properties:

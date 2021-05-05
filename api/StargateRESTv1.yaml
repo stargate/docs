@@ -77,7 +77,7 @@ paths:
     post:
       tags:
         - Schemas
-      summary: create a keyspace
+      summary: Create a keyspace
       operationId: createKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -233,7 +233,7 @@ paths:
     delete:
       tags:
         - Schemas
-      summary: Delete a table
+      summary: Delete a table by {table-id}
       operationId: deleteTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -313,7 +313,7 @@ paths:
     get:
       tags:
         - Schemas
-      summary: Get a column
+      summary: Get a column by {column-id}
       operationId: getAColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
