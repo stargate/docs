@@ -1,0 +1,1837 @@
+openapi: '3.0.0'
+info:
+  description: >-
+    Use these REST APIs to perform lifecycle actions for DataStax Astra databases and DataStax Astra Streaming Pulsar instances.</br>
+  version: 2.0.0
+  title: Astra DevOps API
+  contact:
+    email: ad-astra@datastax.com
+
+security:
+  - Bearer:
+      - org-db-create
+      - org-db-terminate
+      - org-db-view
+      - org-db-expand
+      - org-db-suspend
+#      - org-db-managemigratorproxy
+      - db-keyspace-create
+      - db-cql
+
+tags:
+  - name: DB Operations
+    description: The Astra DB DevOps APIs are for interacting with Astra databases and all aspects of their lifecycle.
+  - name: Streaming Operations (Beta)
+    description: The Astra Streaming DevOps APIs are for interacting with Astra Streaming instances and all aspects of their lifecycle.<br/><br/>
+                 <strong>Note:</strong> Working with Streaming DevOps API requires auth token with permission to `Create DB`.<br/><br/>
+                 <strong>Astra Streaming is currently in private beta.</strong>
+#  - name: Authentication
+#    description: auth endpoint for service account authentication to get token used for all other database operations via the api
+
+paths:
+
+#  /v2/authenticateServiceAccount:
+#    post:
+#      security: []
+#      tags:
+#        - Authentication
+#      summary: Create a token to use the Astra DevOps API endpoints
+#      description: Creates a new token for the service account
+#      operationId: AuthenticateServiceAccountToken
+#      requestBody:
+#        description: The service account to create a token for.
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/ServiceAccountTokenInput'
+#        required: true
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ServiceAccountTokenResponse'
+#        '400':
+#          $ref: '#/components/responses/BadRequest'
+#        '401':
+#          $ref: '#/components/responses/Unauthorized'
+#        '5XX':
+#          $ref: '#/components/responses/ServerError'
+
+  /v2/databases:
+    get:
+      tags:
+        - DB Operations
+      summary: Returns a list of databases
+      description: Get a list of databases visible to the user.
+      security:
+        - Bearer: [org-db-view]
+      operationId: listDatabases
+      parameters:
+        - in: query
+          name: include
+          description: Allows filtering so that databases in listed states are returned.
+          required: false
+          schema:
+            type: string
+            enum: [nonterminated, all, active, pending, preparing, prepared, initializing, parked, parking, unparking, terminating, terminated, resizing, error, maintenance]
+            default: nonterminated
+        - in: query
+          name: provider
+          description: Allows filtering so that databases from a given provider are returned.
+          required: false
+          schema:
+            type: string
+            enum: [ALL, GCP, AWS, AZURE]
+            default: ALL
+        - in: query
+          name: starting_after
+          schema:
+            type: string
+          required: false
+          description: Optional parameter for pagination purposes. Used as this value for starting retrieving a specific page of results.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 25
+            minimum: 1
+            maximum: 100
+          required: false
+          description: Optional parameter for pagination purposes. Specify the number of items for one page of data.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Database'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags:
+        - DB Operations
+      summary: Create a new database
+      description: Takes a user provided databaseInfo and returns the uuid for a new database.
+      security:
+        - Bearer: [org-db-create]
+      operationId: createDatabase
+      requestBody:
+        description: Definition of new database.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseInfoCreate'
+      responses:
+        '201':
+          description: created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: Database UUID
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}:
+    get:
+      tags:
+        - DB Operations
+      summary: Finds database by ID
+      description: Returns specified database.
+      security:
+        - Bearer: [org-db-view]
+      operationId: getDatabase
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}/keyspaces/{keyspaceName}:
+    post:
+      tags:
+        - DB Operations
+      summary: Adds keyspace into database
+      description: Adds the specified keyspace to the database.
+      security:
+        - Bearer: [db-keyspace-create]
+      operationId: addKeyspace
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+        - $ref: '#/components/parameters/KeyspaceNameParam'
+      responses:
+        '201':
+          description: created
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}/secureBundleURL:
+    post:
+      summary: Obtain zip for connecting to the database
+      description: 'Returns a temporary URL to download a zip file with certificates for connecting to the database. The URL expires after five minutes.<p>There are two types of the secure bundle URL:
+        <ul><li><b>Internal</b> - Use with VPC peering connections to use private networking and avoid public internet for communication.</li>
+        <li><b>External</b> - Use with any connection where the public internet is sufficient for communication between the application and the Astra database with MTLS.</li></ul>
+        Both types support MTLS for communication via the driver.</p>'
+      security:
+        - Bearer: [db-cql]
+      operationId: generateSecureBundleURL
+      tags:
+        - DB Operations
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '200':
+          description: Credentials provides a link to download cluster secure-connect-*.zip file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredsURL'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}/terminate:
+    post:
+      summary: Terminates a database
+      description: Terminates a database.
+      security:
+        - Bearer: [org-db-terminate]
+      operationId: terminateDatabase
+      tags:
+        - DB Operations
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+        - in: query
+          name: preparedStateOnly
+          description: For internal use only. Used to safely terminate prepared databases.
+          required: false
+          schema:
+            type: boolean
+            default: false
+
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}/park:
+    post:
+      summary: Parks a database
+      description: Parks a database.
+      security:
+        - Bearer: [org-db-suspend]
+      operationId: parkDatabase
+      tags:
+        - DB Operations
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+#  /v2/databases/{databaseID}/suspend:
+#    post:
+#      summary: Suspends a database
+#      description: Suspends a database
+#      security:
+#        - Bearer: [org-db-suspend]
+#      operationId: suspendDatabase
+#      tags:
+#        - Public
+#      parameters:
+#        - $ref: '#/components/parameters/DatabaseIdParam'
+#        - in: query
+#          name: freeConsumed
+#          description: Represents, from 0 to 100, the free credits percentage consumed.
+#          required: false
+#          schema:
+#            type: integer
+#            default: -1
+#      responses:
+#        '202':
+#          $ref: '#/components/responses/Accepted'
+#        '400':
+#          $ref: '#/components/responses/BadRequest'
+#        '401':
+#          $ref: '#/components/responses/Unauthorized'
+#        '404':
+#          $ref: '#/components/responses/NotFound'
+#       '409':
+#          $ref: '#/components/responses/Conflict'
+#        '5XX':
+#          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}/unpark:
+    post:
+      summary: Unparks a database
+      description: Unparks a database.
+      security:
+        - Bearer: [org-db-suspend]
+      operationId: unparkDatabase
+      tags:
+        - DB Operations
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/databases/{databaseID}/resize:
+    post:
+      summary: Resizes a database
+      description: Resizes a database. Total number of capacity units desired should be specified. Reducing a size of a database is not supported at this time.
+      security:
+        - Bearer: [org-db-expand]
+      operationId: resizeDatabase
+      tags:
+        - DB Operations
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Map containing capacityUnits key with a value greater than the current number of capacity units. The max increment of 3 additional capacity units can be added at one time.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CapacityUnits'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+
+  /v2/databases/{databaseID}/resetPassword:
+    post:
+      summary: Resets Password
+      description: Sets a database password to the one specified in POST body.
+      security:
+        - Bearer: [org-db-create]
+      operationId: resetPassword
+      tags:
+        - DB Operations
+      parameters:
+        - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Map containing username and password. The specified password will be updated for the specified database user.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPassword'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+
+#  /v2/databases/{databaseID}/migrationProxy:
+#    put:
+#      tags:
+#        - Public
+#      summary: Launches migration proxy
+#      description: The migration proxy can be used to live-migrate a workload to astra
+#       security:
+#         - Bearer: [org-db-managemigratorproxy]
+#      operationId: launchMigrationProxy
+#      parameters:
+#        - $ref: '#/components/parameters/DatabaseIdParam'
+#      requestBody:
+#        description: A list of mappings of astra nodes to customer nodes currently in use
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              $ref: '#/components/schemas/MigrationProxyConfiguration'
+#      responses:
+#        '202':
+#          $ref: '#/components/responses/Accepted'
+#        '400':
+#          $ref: '#/components/responses/BadRequest'
+#        '401':
+#          $ref: '#/components/responses/Unauthorized'
+#        '404':
+#          $ref: '#/components/responses/NotFound'
+#        '409':
+#          $ref: '#/components/responses/Conflict'
+#        '5XX':
+#          $ref: '#/components/responses/ServerError'
+#    delete:
+#      tags:
+#        - Public
+#      summary: Removes migration proxy
+#      description: Removes the existing migration proxy
+#      security:
+#         - Bearer: [org-db-managemigratorproxy]
+#      operationId: removeMigrationProxy
+#      parameters:
+#        - $ref: '#/components/parameters/DatabaseIdParam'
+#      responses:
+#        '202':
+#          $ref: '#/components/responses/Accepted'
+#        '400':
+#          $ref: '#/components/responses/BadRequest'
+#        '401':
+#          $ref: '#/components/responses/Unauthorized'
+#        '404':
+#          $ref: '#/components/responses/NotFound'
+#        '409':
+#          $ref: '#/components/responses/Conflict'
+#        '5XX':
+#          $ref: '#/components/responses/ServerError'
+
+  /v2/availableRegions:
+    get:
+      tags:
+        - DB Operations
+      summary: Returns supported regions and availability for a given user and organization
+      description: Returns all supported tier, cloud, region, count, and capacitity combinations.
+      security:
+        - Bearer: [org-db-create]
+      operationId: listAvailableRegions
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailableRegionCombination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/organizations/roles:
+    get:
+      tags:
+        - "DB Operations"
+      summary: "Get all roles for an organization"
+      operationId: "getOrganizationRoles"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Roles'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags:
+        - "DB Operations"
+      summary: "Create a role in an organization"
+      operationId: "addOrganizationRole"
+      requestBody:
+        description: "The model for create role body."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/organizations/roles/{roleID}:
+    get:
+      tags:
+        - "DB Operations"
+      summary: "Get a role for an organization"
+      description: "Retrieve the details for a role for a given organization."
+      operationId: "getOrganizationRole"
+      parameters:
+        - $ref: '#/components/parameters/RoleIdParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Role'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      tags:
+        - "DB Operations"
+      summary: "Update a role within an organization"
+      description: "Update a role within an organization."
+      operationId: "updateRole"
+      parameters:
+        - $ref: '#/components/parameters/RoleIdParam'
+      requestBody:
+        description: "The model for update role body"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoleRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Role'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags:
+        - "DB Operations"
+      summary: "Delete a role by ID"
+      operationId: "deleteOrganizationRole"
+      parameters:
+        - $ref: '#/components/parameters/RoleIdParam'
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/clientIdSecrets:
+    get:
+      tags:
+        - "DB Operations"
+      summary: "Get a list of clients for an org"
+      operationId: "getClientsForOrg"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClientRoleList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+    post:
+      tags:
+        - "DB Operations"
+      summary: "Generate token for client"
+      operationId: "generateTokenForClient"
+      requestBody:
+        description: "The model for generating token for client."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateTokenBody'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GenerateTokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/clientIdSecret/{clientId}:
+    delete:
+      tags:
+        - "DB Operations"
+      summary: "Revokes a token"
+      operationId: "deleteTokenForClient"
+      parameters:
+        - $ref: '#/components/parameters/ClientIdParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /v2/currentOrg:
+    get:
+      tags:
+        - "DB Operations"
+      summary: "Get the current organization from the passed token"
+      description: "Retrieve the details for the organization in the provided token."
+      operationId: "getCurrentOrganization"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Organization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+## Start Astra Streaming paths...
+
+  /v2/streaming/providers:
+    get:
+      summary: Gets a list of providers and regions
+      description: Returns all available providers and all regions under each provider.
+      security:
+        - Bearer: [org-db-create]
+      operationId: GetCloudProvidersRegions
+      responses:
+        "200":
+          description: All providers and regions under each provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudProviderRegionResponse'
+        "401":
+          description: Authentication failure
+          content:
+            application/json:
+              schema:
+                type: string
+        "429":
+          description: Over rate limit
+        "500":
+          description: Failed to read the HTTP body
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Streaming Operations (Beta)
+  /v2/streaming/tenants:
+    get:
+      summary: Gets a list of tenants from the token's auth header
+      description: Lists all Pulsar tenants under the organization that is retrieved
+        from the token in the authorization header.
+      security:
+        - Bearer: [org-db-create]
+      operationId: GetTenants
+      responses:
+        "200":
+          description: List of tenants successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TenantClusterPlanResponse'
+        "401":
+          description: Authentication failure
+          content:
+            application/json:
+              schema:
+                type: string
+        "429":
+          description: over rate limit
+        "500":
+          description: Failed to read the HTTP body
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Streaming Operations (Beta)
+    post:
+      summary: Creates a tenant
+      description: Creates a tenant, the default namespace, a plan policy, and a Pulsar
+        JWT.</br></br>
+        <strong>TIP\:</strong>  You can use the Apache Pulsar <a href="https://pulsar.apache.org/admin-rest-api/?version=2.7.1&apiversion=v2">REST administration interface</a>
+        or command line utilities to perform additional CRUD operations.
+      security:
+        - Bearer: [org-db-create]
+      operationId: CreateTenant
+      parameters:
+      - description: A topic name for auto-creation (if not specified, no topic is created).
+        in: query
+        name: topic
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: Request body for tenant creation
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantRequest'
+      responses:
+        "200":
+          description: Tenant successfully created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TenantClusterPlanResponse'
+        "401":
+          description: Authentication failure
+          content:
+            application/json:
+              schema:
+                type: string
+        "409":
+          description: Tenant already exists
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Failed to read the HTTP body
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Streaming Operations (Beta)
+  /v2/streaming/tenants/{tenant}/clusters/{cluster}:
+    delete:
+      summary: Deletes a tenant
+      description: Deletes a tenant from a cluster.
+      security:
+        - Bearer: [org-db-create]
+      operationId: DeleteTenant
+      parameters:
+      - $ref: '#/components/parameters/TenantNameParam'
+      - $ref: '#/components/parameters/ClusterNameParam'
+
+      - description: Performs a soft delete that only marks the tenant as deleted in the database (opt=soft).
+        in: query
+        name: opt
+        required: false
+        schema:
+          type: string
+      responses:
+        "202":
+          description: Tenant deleted successfully
+        "401":
+          description: Authentication failure
+          content:
+            application/json:
+              schema:
+                type: string
+        "429":
+          description: over rate limit
+        "500":
+          description: Failed to read the HTTP body
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Streaming Operations (Beta)
+  /v2/streaming/tenants/{tenant}/limits:
+    get:
+      summary: Gets a tenant's number of namespaces and topics, and the limits for both
+      description: For the specified tenant, returns the current number of namespaces
+        and topics, and the limits for both.
+      security:
+        - Bearer: [org-db-create]
+      parameters:
+      - $ref: '#/components/parameters/TenantNameParam'
+      operationId: GetTenantLimit
+      responses:
+        "200":
+          description: List of tenant namespaces, topics, and the limits and current usage for both
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TenantLimitResponse'
+
+        "401":
+          description: Authentication failure
+          content:
+            application/json:
+              schema:
+                type: string
+        "429":
+          description: Over rate limit
+        "500":
+          description: Failed to read the HTTP body
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Streaming Operations (Beta)
+  /v2/streaming/tenants/{tenant}:
+    head:
+      summary: Returns 200 if the tenant exists
+      description: Returns 200 if the tenant name exists
+      security:
+        - Bearer: [org-db-create]
+      operationId: EvaluateTenantName
+      parameters:
+        - $ref: '#/components/parameters/TenantNameParam'
+      responses:
+        "200":
+          description: Tenant name exists
+        "401":
+          description: Authentication failure
+          content:
+            application/json:
+              schema:
+                type: string
+        "404":
+          description: Tenant name not found
+        "429":
+          description: Over rate limit
+        "500":
+          description: Failed to read the HTTP body
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Streaming Operations (Beta)
+
+## End Astra Streaming paths...
+
+servers:
+  - url: https://api.astra.datastax.com
+components:
+
+  parameters:
+
+    DatabaseIdParam:
+      in: path
+      name: databaseID
+      required: true
+      description: String representation of the database ID
+      schema:
+        type: string
+
+    TagNameParam:
+      in: path
+      name: tagName
+      required: true
+      description: Name of database tag
+      schema:
+        type: string
+
+    KeyspaceNameParam:
+      in: path
+      name: keyspaceName
+      required: true
+      description: Name of database keyspace
+      schema:
+        type: string
+
+    ClientIdParam:
+      in: path
+      name: clientId
+      required: true
+      schema:
+        type: string
+      description: clientID to revoke token for
+
+    RoleIdParam:
+      in: path
+      name: roleID
+      required: true
+      schema:
+        type: string
+      description: id for the role
+
+  ## Astra Streaming parameters
+
+    OrgParam:
+      in: path
+      name: org
+      required: true
+      description: String representation of the Org ID
+      schema:
+        type: string
+
+    TenantNameParam:
+      in: path
+      name: tenant
+      required: true
+      description: Tenant name
+      schema:
+        type: string
+
+    ClusterNameParam:
+      in: path
+      name: cluster
+      required: true
+      description: Cluster name
+      schema:
+        type: string
+
+## End Astra Streaming parameters
+
+  schemas:
+
+    ServiceAccountTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: The application token to use in each request.
+          example: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDA...
+
+    ServiceAccountTokenInput:
+      type: object
+      required:
+        - clientName
+        - clientId
+        - clientSecret
+      properties:
+        clientName:
+          type: string
+          description: The organization name in a more human readable format.
+          example: Binford Tools
+        clientId:
+          type: string
+          description: The unique identifier for the client for authentication.
+          example: binford
+        clientSecret:
+          type: string
+          description: The UUID client secret for the service account from
+            the create service account response in the user interface.
+          format: uuid
+          example: '00b03a37-209c-462a-971b-be35ab3321de'
+
+    StatusEnum:
+      type: string
+      enum: [ACTIVE, PENDING, PREPARING, PREPARED, INITIALIZING, PARKED, PARKING, UNPARKING, TERMINATED, TERMINATING, RESIZING, ERROR, MAINTENANCE, UNKNOWN]
+      example: ACTIVE
+
+    Database:
+      type: object
+      description: Database contains the key information about a database.
+      required:
+        - id
+        - orgId
+        - ownerId
+        - info
+        - status
+      properties:
+        id:
+          type: string
+          example: '1234-5678-91011121-3141'
+        orgId:
+          type: string
+          example: 'organizations/7142-1283-54249566-3707'
+        ownerId:
+          type: string
+          example: 'users/8243-2404-85664728-0889'
+        info:
+          $ref: '#/components/schemas/DatabaseInfo'
+        creationTime:
+          type: string
+          description: CreationTime in ISO RFC3339 format
+          example: "2012-11-01T22:08:41+00:00"
+        terminationTime:
+          type: string
+          description: TerminationTime in ISO RFC3339 format
+          example: "2019-11-01T22:08:41+00:00"
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        storage:
+          $ref: '#/components/schemas/Storage'
+        availableActions:
+          type: array
+          items:
+            type: string
+            enum: [park, unpark, resize, resetPassword, addKeyspace, addDatacenters, terminateDatacenter, getCreds, terminate, removeKeyspace, addTable, removeMigrationProxy, launchMigrationProxy]
+            example: park, terminate
+        message:
+          type: string
+          description: Message to the customer about the cluster.
+          example: Auto parked due to inactivity
+        studioUrl:
+          type: string
+          example: "http://path-to-studio:port"
+        grafanaUrl:
+          type: string
+          example: "http://path-to-grafana:port"
+        cqlshUrl:
+          type: string
+          example: "http://path-to-cqlsh:port/cqlsh"
+        graphqlUrl:
+          type: string
+          example: "http://path-to-graqphl:port/api/graphql"
+        dataEndpointUrl:
+          type: string
+          example: "http://path-to-dataendpoint:port/api/rest"
+
+    DatabaseInfoCreate:
+      type: object
+      required:
+        - name
+        - keyspace
+        - cloudProvider
+        - tier
+        - capacityUnits
+        - region
+      description: DatabaseInfo is the user-provided information describing a database.
+      properties:
+        name:
+          type: string
+          example: mySplendidDatabase
+          description: Name of the database--user friendly identifier.
+        keyspace:
+          type: string
+          example: myKeyspace
+          description: Keyspace name in database.
+        cloudProvider:
+          type: string
+          example: AWS
+          enum:
+            - AWS
+            - GCP
+#            - AZURE
+          description: This is the cloud provider where the database lives.
+        tier:
+          type: string
+          example: serverless
+          enum:
+            - serverless
+          description: With the exception of classic databases, all databases are serverless. Classic databases can no longer be created with the DevOps API.
+        capacityUnits:
+          type: integer
+          example: 1
+          minimum: 1
+          maximum: 1
+          description: Capacity units were used for classic databases, but are not used for serverless databases. Enter 1 CU for serverless databases. Classic databases can no longer be created with the DevOps API.
+        region:
+          type: string
+          example: us-west-2
+          description: Region refers to the cloud region.
+
+    DatabaseInfo:
+      type: object
+      description: DatabaseInfo is the user-provided information describing a database.
+      properties:
+        name:
+          type: string
+          example: mySplendidDatabase
+          description: Name of the database--user friendly identifier.
+        keyspace:
+          type: string
+          example: myKeyspace
+          description: Keyspace name in database.
+        cloudProvider:
+          type: string
+          example: AWS
+          enum:
+            - AWS
+            - GCP
+#            - AZURE
+          description: This is the cloud provider where the database lives.
+        tier:
+          type: string
+          example: serverless
+          enum:
+            - serverless
+          description: With the exception of classic databases, all databases are serverless. Classic databases can no longer be created with the DevOps API.
+        capacityUnits:
+          type: integer
+          example: 1
+          minimum: 1
+          maximum: 1
+          description: Capacity units were used for classic databases, but are not used for serverless databases. Enter 1 CU for serverless databases. Classic databases can no longer be created with the DevOps API.
+        region:
+          type: string
+          example: us-west-2
+          description: Region refers to the cloud region.
+        user:
+          type: string
+          example: db_admin
+          description: User is the user to access the database.
+        password:
+          type: string
+          example: "*****"
+          description: Password for the user to access the database.
+        additionalKeyspaces:
+          type: array
+          maximum: 1
+          items:
+            type: string
+            example: additionalKeyspace
+          description: Additional keyspaces names in database.
+
+    CredsURL:
+      description: CredsURL from which the creds zip may be downloaded.
+      type: object
+      required:
+        - downloadURL
+      properties:
+        downloadURL:
+          type: string
+          example: nifty.cloud.datastax.com:9092
+          description: DownloadURL is only valid for about 5 minutes.
+        downloadURLInternal:
+          type: string
+          example: internal-nifty.cloud.datastax.com:9092
+          description: Internal DownloadURL is only valid for about 5 minutes.
+        downloadURLMigrationProxy:
+          type: string
+          example: proxy-nifty.cloud.datastax.com:9092
+          description: Migration Proxy DownloadURL is only valid for about 5 minutes.
+        downloadURLMigrationProxyInternal:
+          type: string
+          example: proxy-nifty.cloud.datastax.com:9092
+          description: Internal Migration Proxy DownloadURL is only valid for about 5 minutes.
+
+    UserPassword:
+      description: UserPassword specifies a username and new password. The specified password will be updated for the specified database user.
+      type: object
+      properties:
+        username:
+          type: string
+          example: dbusername
+        password:
+          type: string
+          example: MyNewSecur3Passw0rd
+          description: New password (min 6 characters)
+
+    MigrationProxyConfiguration:
+      description: Configuration of the migration proxy and mappings of astra node to a customer node currently in use.
+      type: object
+      required:
+        - originUsername
+        - originPassword
+        - mappings
+      properties:
+        originUsername:
+          type: string
+          example: cassandraUsername
+          description: origin cassandra username
+        originPassword:
+          type: string
+          example: cassandraPassword
+          description: origin cassandra password
+        mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/MigrationProxyMapping'
+
+    MigrationProxyMapping:
+      description: A mapping of Astra node to a customer node currently in use.
+      type: object
+      required:
+        - originIP
+        - originPort
+        - rack
+        - rackNodeOrdinal
+      properties:
+        originIP:
+          type: string
+          example: 172.18.19.20
+          description: IP on which the node currently in use is accessible.
+        originPort:
+          type: integer
+          example: 9042
+          description: Port on which the node currently in use is accessible.
+        rack:
+          type: integer
+          example: 2
+          description: The number of the rack; usually 0, 1, or 2.
+        rackNodeOrdinal:
+          type: integer
+          example: 1
+          description: The number of the node in a given rack, starting with 0.
+
+    CapacityUnits:
+      description: CapacityUnits is used to horizontally scale a database.
+      type: object
+      properties:
+        capacityUnits:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 4
+          description: CapacityUnits can be increased by a max of three additional capacity units per operation. Reducing capacity units is not currently supported.
+    Storage:
+      description: Storage contains the information about how much storage space a cluster has available.
+      type: object
+      required:
+        - nodeCount
+        - replicationFactor
+        - totalStorage
+      properties:
+        nodeCount:
+          type: integer
+          example: 6
+          description: NodeCount for the cluster.
+        replicationFactor:
+          type: integer
+          example: 3
+          description: ReplicationFactor is the number of nodes storing a piece of data.
+        totalStorage:
+          type: integer
+          example: 800
+          description: TotalStorage of the cluster in GB.
+        usedStorage:
+          type: integer
+          example: 348
+          description: UsedStorage in GB.
+
+    RegionCombination:
+      type: object
+      description: RegionCombination defines a tier, cloud provider, and region combination.
+      required:
+        - tier
+        - cloudProvider
+        - region
+        - cost
+      properties:
+        tier:
+          type: string
+          example: Free
+        cloudProvider:
+          type: string
+          example: GCP
+        region:
+          type: string
+          example: us-east1
+        cost:
+          $ref: "#/components/schemas/Costs"
+
+    AvailableRegionCombination:
+      type: object
+      description: AvailableRegionCombination defines a tier, cloud provider, and region combination.
+      required:
+        - tier
+        - cloudProvider
+        - region
+        - cost
+        - databaseCountUsed
+        - databaseCountLimit
+        - capacityUnitsUsed
+        - capacityUnitsLimit
+        - defaultStoragePerCapacityUnitGb
+      properties:
+        tier:
+          type: string
+          example: Free
+        cloudProvider:
+          type: string
+          example: GCP
+        region:
+          type: string
+          example: us-east1
+        cost:
+          $ref: "#/components/schemas/Costs"
+        databaseCountUsed:
+          type: integer
+          example: 0
+        databaseCountLimit:
+          type: integer
+          example: 1
+        capacityUnitsUsed:
+          type: integer
+          example: 0
+        capacityUnitsLimit:
+          type: integer
+          example: 30
+        defaultStoragePerCapacityUnitGb:
+          type: integer
+          example: 500
+
+    Costs:
+      properties:
+        costPerMinCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthCents:
+          type: number
+          format: double
+          example: 0
+        costPerMinParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthParkedCents:
+          type: number
+          format: double
+          example: 0
+
+    Errors:
+      description: Errors is a collection of individual Error objects.
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+    Error:
+      description: ModelError information that is returned to users.
+      type: object
+      required:
+        - id
+        - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code.
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error.
+
+    Role:
+      type: "object"
+      description: "Details of a user role and its policy details."
+      properties:
+        id:
+          type: "string"
+          description: "The unique system generated identifier of the role."
+        name:
+          type: "string"
+          description: "The name of the role."
+        policy:
+          $ref: '#/components/schemas/Policy'
+        last_update_datetime:
+          type: "string"
+          description: "The date and time of the last update on the role."
+          format: "date-time"
+        last_update_userid:
+          type: "string"
+          description: "The userID of the user who last updated the role."
+    Policy:
+      type: object
+      description: "A policy for a role in Astra."
+      required:
+        - description
+        - actions
+        - effect
+        - resources
+      properties:
+        description:
+          description: "A description of this policy."
+          type: string
+        resources:
+          type: array
+          description: "The resources this policy can manipulate."
+          items:
+            type: string
+            example: "drn:astra:org:<organizationId>"
+        actions:
+          type: array
+          description: "The actions this policy can take. Example actions: 'org-billing-write' 'db-keyspace-create'."
+          items:
+            type: string
+            enum:
+              [   "db-all-keyspace-create",
+                  "db-all-keyspace-describe",
+                  "db-cql",
+                  "db-graphql",
+                  "db-keyspace-alter",
+                  "db-keyspace-authorize",
+                  "db-keyspace-create",
+                  "db-keyspace-describe",
+                  "db-keyspace-drop",
+                  "db-keyspace-grant",
+                  "db-keyspace-modify",
+                  "db-rest",
+                  "db-table-alter",
+                  "db-table-authorize",
+                  "db-table-create",
+                  "db-table-describe",
+                  "db-table-drop",
+                  "db-table-grant",
+                  "db-table-modify",
+                  "db-table-select",
+                  "org-audits-read",
+                  "org-billing-read",
+                  "org-billing-write",
+                  "org-db-addpeering",
+                  "org-db-create",
+                  "org-db-expand",
+                  "org-db-managemigratorproxy",
+                  "org-db-passwordreset",
+                  "org-db-suspend",
+                  "org-db-terminate",
+                  "org-db-view",
+                  "org-external-auth-read",
+                  "org-external-auth-write",
+                  "org-notification-write",
+                  "org-read",
+                  "org-role-delete",
+                  "org-role-read",
+                  "org-role-write",
+                  "org-token-read",
+                  "org-token-write",
+                  "org-user-read",
+                  "org-user-write",
+                  "org-write" ]
+        effect:
+          type: string
+          description: "Effect this policy will have on the provided resource."
+          enum: [allow]
+
+    Organization:
+      type: object
+      description: "An organization."
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: "The organization UUID."
+          example: "d04d1eb2-6a52-483e-ab16-faaad3d077a9"
+
+    Roles:
+      type: "array"
+      description: "An array of roles."
+      items:
+        $ref: '#/components/schemas/Role'
+
+    CreateRoleRequest:
+      type: "object"
+      description: "The createRole model."
+      required:
+        - name
+        - policy
+      properties:
+        name:
+          type: "string"
+          description: The name for your custom role in your organization.
+        policy:
+          $ref: '#/components/schemas/Policy'
+    UpdateRoleRequest:
+      type: "object"
+      description: "The updateRole model"
+      required:
+        - name
+        - policy
+      properties:
+        name:
+          type: "string"
+          description: The name of the custom role you want to update in your organization.
+        policy:
+          $ref: '#/components/schemas/Policy'
+
+    RoleInviteRequest:
+      type: "object"
+      description: "The roleInvite model."
+      required:
+        - roles
+      properties:
+        roles:
+          type: "array"
+          items:
+            type: string
+
+    GenerateTokenBody:
+      type: "object"
+      description: "The POST body to generate a token."
+      required:
+        - "roles"
+      properties:
+        roles:
+          type: "array"
+          description: "The roles for which the token will be generated."
+          items:
+            type: "string"
+            example: "write"
+
+    ClientRoleList:
+      type: "object"
+      description: "The response for a requested token."
+      properties:
+        clients:
+          type: "array"
+          description: "a list of clientId and associated roles."
+          items:
+            $ref: '#/components/schemas/ClientRole'
+
+    ClientRole:
+      type: "object"
+      description: "An individual clientID and associated roles."
+      properties:
+        clientId:
+          type: "string"
+          description: "the clientID"
+          example: "IFmJlTkNvptFzTDEQpQIEJud"
+        roles:
+          type: "array"
+          items:
+            type: "string"
+            description: "Role associated with the client."
+
+    GenerateTokenResponse:
+      type: "object"
+      description: "The response for a requested token."
+      required:
+        - "clientId"
+        - "secret"
+        - "orgId"
+        - "roles"
+      properties:
+        clientId:
+          type: "string"
+          description: "The ID of the client (UUID)."
+          format: 'string'
+        secret:
+          type: "string"
+          description: "The secret token."
+          format: "string"
+        orgId:
+          type: "string"
+          description: "The UUID of the organization."
+          example: "uuid"
+        roles:
+          type: "array"
+          description: "The roles for which the token will be generated."
+          items:
+            type: "string"
+            example: "write"
+        token:
+          type: "string"
+          description: "AstraCS:clientId:hex(sha256(secret))"
+          example: "uuid"
+
+  ## Astra Streaming schemas...
+
+    ClusterResponse:
+      type: object
+      description: ClusterResponse is the response struct for a cluster.
+      properties:
+        brokerServiceUrl:
+          type: string
+        cloudProvider:
+          type: string
+          example: aws
+        cloudRegion:
+          type: string
+          example: us-east-2
+        clusterName:
+          type: string
+        clusterType:
+          type: string
+        webServiceUrl:
+          type: string
+        websocketUrl:
+          type: string
+    TenantClusterPlanResponse:
+      description: TenantClusterPlanResponse is the tenant plan on a cluster.
+      properties:
+        astraOrgGUID:
+          type: string
+        brokerServiceUrl:
+          type: string
+        cloudProvider:
+          type: string
+        cloudProviderCode:
+          type: string
+        cloudRegion:
+          type: string
+        clusterName:
+          type: string
+        jvmVersion:
+          type: string
+        plan:
+          type: string
+        planCode:
+          type: string
+        pulsarToken:
+          type: string
+        pulsarVersion:
+          type: string
+        status:
+          type: string
+        tenantName:
+          type: string
+        webServiceUrl:
+          type: string
+        websocketQueryParamUrl:
+          type: string
+        websocketUrl:
+          type: string
+      type: object
+    TenantRequest:
+      type: object
+      properties:
+        cloudProvider:
+          type: string
+        cloudRegion:
+          type: string
+        plan:
+          type: string
+        tenantName:
+          type: string
+        userEmail:
+          type: string
+    TenantLimitResponse:
+      type: object
+      properties:
+        namespace_limit:
+          type: integer
+        topic_per_namespace_limit:
+          type: integer
+        usage:
+          $ref: '#/components/schemas/NamespaceUsages'
+    NamespaceUsages:
+      type: array
+      description: A list of namespace and its usage.
+      items:
+        $ref: '#/components/schemas/NamespaceUsage'
+    NamespaceUsage:
+      type: object
+      description: A namespace and its usage
+      properties:
+        namespace:
+          type: string
+        topics:
+          type: array
+          items:
+            type: string
+    CloudProviderRegionResponse:
+      description: CloudProviderRegionResponse is a map of cloud provider and its available regions.
+      type: object
+      properties:
+        aws:
+          type: array
+          items:
+            type: string
+            example: ["us-east-2", "eu-west-1"]
+        gcp:
+          type: array
+          items:
+            type: string
+            example: ["us-east-2", "eu-west-1"]
+        azure:
+          type: array
+          items:
+            type: string
+            example: ["us-east-2", "eu-west-1"]
+
+## End Astra Streaming schemas
+
+  responses:
+
+    # 200
+    Ok:
+      description: The request completed successfully.
+
+    # 201
+    Created:
+      description: The request completed successfully and created an object.
+
+    # 202
+    Accepted:
+      description: The request was accepted.
+
+    # 204
+    NoContent:
+      description: The request succeeded and no content is returned in response body.
+
+    # 400
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+    # 401
+    Unauthorized:
+      description: The user is unauthorized to perform the operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+    # 403
+    Forbidden:
+      description: The user is forbidden to perform the operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+    # 404
+    NotFound:
+      description: The specified database was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+    # 409
+    Conflict:
+      description: The database is not in a valid state to perform the operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+    # 422
+    UnprocessableEntity:
+      description: The structured data in the request could not be parsed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+    # 5XX
+    ServerError:
+      description: A server error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+  securitySchemes:
+
+    Bearer:
+      description: A token must be passed in header to access the API.
+      type: http
+      scheme: bearer

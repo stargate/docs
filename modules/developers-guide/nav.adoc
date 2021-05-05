@@ -15,11 +15,9 @@
 *** xref:graphql-using.adoc[Using the GraphQL API]
 ** xref:cql.adoc[CQL API]
 *** xref:cql-using.adoc[Using the CQL API]
+*** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
 
 * xref:metrics.adoc[Accessing Stargate metrics with Prometheus and Grafana]
 
-* xref:api_ref/apiref.adoc[API reference for Stargate]
-** xref:authnz.adoc[Auth API]
-** xref:api_ref/openapi_rest_ref.adoc[REST API reference]
-** xref:api_ref/openapi_document_ref.adoc[Document API reference]
-** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
+* xref:authnz.adoc[Securing Stargate]
+

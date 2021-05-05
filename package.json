@@ -1,25 +1,31 @@
 {
   "name": "stargate-docs",
   "scripts": {
-    "build:prod": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:publish",
-    "build:dev": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:local",
-    "build:local": "antora --stacktrace --clean site-local.yaml",
-    "build:publish": "antora --stacktrace --clean site-publish.yaml",
-    "build:api": "openapi-generator-cli generate -g asciidoc -i api/oas.yaml -o build/api --skip-validate-spec",
-    "build:docapi": "openapi-generator-cli generate -g asciidoc -i api/stargate.yaml -o build/api --skip-validate-spec",
-    "build:copy-api": "cp build/api/index.adoc modules/developers-guide/pages/openapi_rest_ref.adoc",
-    "build:copy-docapi": "cp build/api/index.adoc modules/developers-guide/pages/openapi_document_ref.adoc"
+    "build:prod": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:devopsapi && npm run build:publish",
+    "build:prodlint": "npm run build:oaslinter && npm run build:prod",
+    "build:dev": "npm run build:restapi && npm run build:docapi && npm run build:devopsapi && npm run build:local",
+    "build:publish": "antora --fetch --clean site-publish.yaml",
+    "build:local": "antora --stacktrace --fetch --clean site-local.yaml",
+    "build:restapi": "redoc-cli bundle api/StargateRESTv2.yaml --output modules/ROOT/attachments/restv2.html",
+    "build:restapiv1": "redoc-cli bundle api/StargateRESTv1.yaml --output modules/ROOT/attachments/restv1.html",
+    "build:docapi": "npx redoc-cli bundle api/StargateDocv2.yaml --output modules/ROOT/attachments/docv2.html",
+    "build:devopsapi": "redoc-cli bundle api/DevOpsv2.yaml --output modules/ROOT/attachments/devopsv2.html",
+    "build:oaslinter": "npx @redocly/openapi-cli lint api/StargateRESTv2.yaml && npx @redocly/openapi-cli lint api/StargateRESTv1.yaml && npx @redocly/openapi-cli lint api/StargateDocv2.yaml && npx @redocly/openapi-cli lint api/DevOpsv2.yaml"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stargate/docs.git"
   },
-  "devDependencies": {
-    "@antora/cli": "^2.3.3",
-    "@antora/site-generator-default": "^2.3.3",
-    "@openapitools/openapi-generator-cli": "^1.0.18-4.3.1"
-  },
   "dependencies": {
-    "openapi-generator": "^0.1.37"
+    "@antora/cli": "^2.3.4",
+    "@antora/site-generator-default": "^2.3.4",
+    "@openapitools/openapi-generator-cli": "^2.1.23",
+    "mobx": "^6.0.4",
+    "openapi-generator": "^0.1.39",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "redoc": "^2.0.0-rc.48",
+    "redoc-cli": "^0.10.4",
+    "styled-components": "^4.1.1"
   }
 }
