@@ -54,22 +54,17 @@ paths:
         - Schemas
       summary: Get all keyspaces
       description: "Retrieve all available keyspaces in the specific database."
-      operationId: getKeyspaces
+      operationId: getAllKeyspaces
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/raw"
       responses:
         200:
-          description: ""
+          description: "OK"
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Keyspace"
+                $ref: "#/components/schemas/Keyspace"
         401:
           $ref: "#/components/responses/401"
         500:
@@ -425,6 +420,84 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/indexes:
+    get:
+      tags:
+        - Schemas
+      summary: List indexes for a given table
+      operationId: getIndexes
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IndexResponse"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - Schemas
+      summary: Create an index
+      operationId: createIndex
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IndexDefinition"
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"success": true}
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/indexes/{index-id}:
+    delete:
+      tags:
+        - Schemas
+      summary: Delete an index
+      operationId: deleteIndex
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/index-id"
+      responses:
+        204:
+          description: No Content
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
   /v2/keyspaces/{keyspace-id}/{table-id}:
     get:
       tags:
@@ -663,7 +736,7 @@ components:
     raw:
       name: raw
       in: query
-      description: unwrap results
+      description: Unwrap results.
       required: false
       schema:
         type: boolean
@@ -686,6 +759,13 @@ components:
       name: column-id
       in: path
       description: column name
+      required: true
+      schema:
+        type: string
+    index-id:
+      name: index-id
+      in: path
+      description: index name
       required: true
       schema:
         type: string
@@ -775,6 +855,44 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: A description of an error state
+      properties:
+        description:
+          type: string
+          description: A human readable description of the error state
+          example: Invalid STRING constant (8be6d514-3436-4e04-a5fc-0ffbefa4c1fe) for
+            "id" of type uuid.
+        code:
+          type: integer
+          description: The code referencing the error state
+          format: int32
+          example: 400
+        internalTxId:
+          type: string
+    ResponseWrapper:
+      type: object
+      properties:
+        data:
+          type: object
+          properties: {}
+          description: Response data returned by the request.
+    GetResponseWrapper:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The count of records returned
+          format: int32
+        pageState:
+          type: string
+          description: A string representing the paging state to be used on future
+            paging requests.
+        data:
+          type: object
+          properties: {}
+          description: The data returned by the request.
     Credentials:
       type: object
       required:
@@ -784,45 +902,63 @@ components:
       properties:
         username:
           type: string
-          description: Username, such as cassandra
+          description: Username
+          example: cassandra
         password:
           type: string
-          description: Password, such as cassandra
+          description: Password
+          example: cassandra
     AuthTokenResponse:
       type: object
       properties:
         authToken:
           type: string
-    Keyspace:
-      type: object
-      properties:
-        name:
-          type: string
-        datacenters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Datacenter'
-      required:
-        - name
+          example: "5c90f769-8784-499c-83f7-b764822255f1"
     Datacenter:
       type: object
-      properties:
-        name:
-          type: string
-        replicas:
-          type: integer
       required:
         - name
         - replicas
-    Table:
-      type: object
       properties:
         name:
           type: string
+          description: The name of the datacenter.
+        replicas:
+          type: integer
+          description: "The number of replicas in the datacenter. In other words, the
+            number of copies of each row in the datacenter."
+          format: int32
+    Keyspace:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the keyspace.
+        datacenters:
+          type: array
+          description: "The datacenters within a keyspace. Only applies for those keyspaces
+            created with NetworkTopologyStrategy."
+          items:
+            $ref: '#/components/schemas/Datacenter'
+
+    Table:
+      type: object
+      required:
+        - name
+        - columnDefinitions
+        - primaryKey
+      properties:
+        name:
+          type: string
+          description: The name of the table.
         keyspace:
           type: string
+          description: The name of the keyspace.
         columnDefinitions:
           type: array
+          description: An array of column names with data type.
           items:
             $ref: '#/components/schemas/ColumnDefinition'
         primaryKey:
@@ -838,12 +974,18 @@ components:
       properties:
         name:
           type: string
+          description: Name of the table.
+          example: users
         ifNotExists:
           type: boolean
-          description: "Determines whether to create a new table if a table with the same name exists. Attempting to create an existing table returns an error unless this option is true."
+          description: "Determines whether to create a new table if a table with
+            the same name exists. Attempting to create an existing table returns
+            an error unless this option is true."
           default: false
+          example: true
         columnDefinitions:
           type: array
+          description: Definition of columns that belong to the table to be added.
           items:
             $ref: '#/components/schemas/ColumnDefinition'
         primaryKey:
@@ -901,12 +1043,12 @@ components:
           description: "Denotes whether the column is shared by all rows of a partition."
     PrimaryKey:
       type: object
+      required:
+        - partitionKey
       description: "Defines a column list for the primary key. Can be either a single
         column, compound primary key, or composite partition key. Provide
         multiple columns for the partition key to define a composite partition
         key."
-      required:
-        - partitionKey
       properties:
         partitionKey:
           type: array
@@ -919,12 +1061,92 @@ components:
           description: "Name of the column or columns that constitute the clustering key."
           items:
             type: string
+    IndexDefinition:
+      type: object
+      required:
+        - column
+      properties:
+        name:
+          type: string
+          description: "Optional name for the index, which must be unique.
+            If no name is specified, the index is named as follows:
+            tablename_columnname_idx."
+          example: age_idx
+        column:
+          type: string
+          description: "Column for which index will be created."
+          example: age
+        type:
+          type: string
+          description: "Type of index, defined with a custom index class name or classpath.
+            Secondary index is default, no type entered"
+          default: ""
+          enum:
+            - "org.apache.cassandra.index.sasi.SASIIndex"
+            - "StorageAttachedIndex"
+        options:
+          type: object
+          additionalProperties:
+            type: string
+            description: "Options passed to a custom index."
+        kind:
+          type: string
+          description: "Index kind for collections."
+          default: VALUES
+          example: "KEYS"
+          enum:
+            - FULL
+            - KEYS
+            - VALUES
+            - ENTRIES
+        ifNotExists:
+          type: boolean
+          description: "Determines creation of a new index, if an index with the
+            same name exists. If an index exists, and this option is set to true,
+            an error is returned."
+          default: false
+          example: true
+    IndexResponse:
+      type: array
+      description: The data returned by the index fetch.
+      items:
+        properties:
+          keyspace_name:
+            type: string
+            example: users_keyspace
+          options:
+            type: array
+            items:
+              $ref: '#/components/schemas/IndexOptions'
+          table_name:
+            type: string
+            example: users
+          index_name:
+            type: string
+            example: fav_books_idx
+          kind:
+            type: string
+            example: COMPOSITES
+    IndexOptions:
+      type: object
+      properties:
+        key:
+          type: string
+          example: target
+        value:
+          type: string
+          example: values(favorite_books)
     TableOptions:
       type: object
       properties:
         defaultTimeToLive:
           type: integer
-          description: "Defines the Time To Live (TTL), which determines the time period (in seconds) to expire data. If the value is >0, TTL is enabled for the entire table and an expiration timestamp is added to each column. The maximum value is 630720000 (20 years). A new TTL timestamp is calculated each time the data is updated and the row is removed after the data expires."
+          description: "Defines the Time To Live (TTL), which determines the
+            time period (in seconds) to expire data. If the value is >0, TTL is
+            enabled for the entire table and an expiration timestamp is added to
+            each column. The maximum value is 630720000 (20 years). A new TTL
+            timestamp is calculated each time the data is updated and the row is
+            removed after the data expires."
           default: 0
         clusteringExpression:
           type: array
@@ -932,17 +1154,19 @@ components:
             $ref: '#/components/schemas/ClusteringExpression'
     ClusteringExpression:
       type: object
-      description: >-
-        Order rows storage to make use of the on-disk sorting of columns.
-        Specifying order can make query results more efficient.
       required:
         - column
         - order
+      description: "Order rows storage to make use of the on-disk sorting of columns.
+        Specifying order can make query results more efficient."
       properties:
         column:
           type: string
+          description: The name of the column to order by.
         order:
           type: string
+          description: The clustering order.
+          readOnly: true
           enum:
             - ASC
             - DESC
@@ -956,17 +1180,3 @@ components:
       example:
         firstName: asc
         age: desc
-    Error:
-      type: object
-      description: A description of an error state
-      properties:
-        description:
-          type: string
-          example: >-
-            Invalid STRING constant (8be6d514-3436-4e04-a5fc-0ffbefa4c1fe) for
-            "id" of type uuid
-          description: A human readable description of the error state
-        code:
-          type: integer
-          example: 400
-          description: The code referencing the error state
