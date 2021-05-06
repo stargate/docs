@@ -1,0 +1,25 @@
+{
+  "name": "stargate-docs",
+  "scripts": {
+    "build:prod": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:publish",
+    "build:dev": "npm run build:api && npm run build:copy-api && npm run build:docapi && npm run build:copy-docapi && npm run build:local",
+    "build:local": "antora --stacktrace --clean site-local.yaml",
+    "build:publish": "antora --stacktrace --clean site-publish.yaml",
+    "build:api": "openapi-generator-cli generate -g asciidoc -i api/oas.yaml -o build/api --skip-validate-spec",
+    "build:docapi": "openapi-generator-cli generate -g asciidoc -i api/stargate.yaml -o build/api --skip-validate-spec",
+    "build:copy-api": "cp build/api/index.adoc modules/developers-guide/pages/openapi_rest_ref.adoc",
+    "build:copy-docapi": "cp build/api/index.adoc modules/developers-guide/pages/openapi_document_ref.adoc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stargate/docs.git"
+  },
+  "devDependencies": {
+    "@antora/cli": "^2.3.3",
+    "@antora/site-generator-default": "^2.3.3",
+    "@openapitools/openapi-generator-cli": "^1.0.18-4.3.1"
+  },
+  "dependencies": {
+    "openapi-generator": "^0.1.37"
+  }
+}
