@@ -923,11 +923,13 @@ components:
         name:
           type: string
           description: The name of the datacenter.
+          example: DC1
         replicas:
           type: integer
           description: "The number of replicas in the datacenter. In other words, the
             number of copies of each row in the datacenter."
           format: int32
+          example: 2
     Keyspace:
       type: object
       required:
@@ -936,6 +938,7 @@ components:
         name:
           type: string
           description: The name of the keyspace.
+          example: users_keyspace
         datacenters:
           type: array
           description: "The datacenters within a keyspace. Only applies for those keyspaces
@@ -953,9 +956,11 @@ components:
         name:
           type: string
           description: The name of the table.
+          example: users
         keyspace:
           type: string
           description: The name of the keyspace.
+          example: users_keyspace
         columnDefinitions:
           type: array
           description: An array of column names with data type.
@@ -1056,11 +1061,13 @@ components:
           minItems: 1
           items:
             type: string
+            example: emailaddress
         clusteringKey:
           type: array
           description: "Name of the column or columns that constitute the clustering key."
           items:
             type: string
+            example: age
     IndexDefinition:
       type: object
       required:
@@ -1163,10 +1170,11 @@ components:
         column:
           type: string
           description: The name of the column to order by.
+          example: age
         order:
           type: string
           description: The clustering order.
-          readOnly: true
+          example: ASC
           enum:
             - ASC
             - DESC
