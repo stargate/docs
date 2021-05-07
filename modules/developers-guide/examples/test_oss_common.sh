@@ -73,15 +73,5 @@ if [[ -z $keyspace ]]; then
     keyspace="testks"
 fi
 
-env_host=""
-if [[ $environment == "dev" || $shortEnv == "DEV" ]]; then
-  env_host="astra-dev"
-elif [[ $environment == "test" || $shortEnv == "TEST" ]]; then
-  env_host="astra-test"
-elif [[ $environment == "prod" || $shortEnv == "PROD" ]]; then
-  env_host="astra"
-else
-  echoerr "Unknown environment '$environment'" && exit 1
-fi
 
 export AUTH_TOKEN=$token
