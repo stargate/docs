@@ -52,8 +52,8 @@ Admin::
 Querying::
 `https://localhost:8080/graphql/{keyspace_name}`
 
-The schema endpoint is used to create schema in the CQL-oriented GraphQL.
-The admin endpoint is used to deploy schema in the GraphQL-oriented GraphQL.
+The schema endpoint is used to create or alter CQL schema in the CQL-oriented GraphQL using direct schema manipulation.
+The admin endpoint is used to deploy GraphQL schema in the GraphQL-oriented GraphQL which will indirectly modify underlying CQL schema.
 The querying endpoint is constructed in the same manner for both GraphQL-oriented and CQL-oriented.
 
 Each request must have a valid xref:manage-application-tokens.adoc[application token]
