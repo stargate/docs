@@ -16,13 +16,10 @@ exit_on_failure() { echoerr "Test FAILED" && exit 1; }
 while [[ $# -gt 0 ]]; do
   arg="$1"
   case $arg in
-    --cluster|-c)      shift; opt cluster "$1"; shift;;
-    --region|-r)       shift; opt region "$1"; shift;;
     --username|-u)     shift; opt username "$1"; shift;;
     --password|-p)     shift; opt password "$1"; shift;;
     --token|-t)        shift; opt token "$1"; shift;;
     --keyspace|-k)     shift; opt keyspace "$1"; shift;;
-    --environment|-e)  shift; opt environment "$1"; shift;;
     --help|-h)                opt help true; shift;;
     *) shift;;
   esac
