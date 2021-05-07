@@ -16,13 +16,10 @@ exit_on_failure() { echoerr "Test FAILED" && exit 1; }
 while [[ $# -gt 0 ]]; do
   arg="$1"
   case $arg in
-    --cluster|-c)      shift; opt cluster "$1"; shift;;
-    --region|-r)       shift; opt region "$1"; shift;;
     --username|-u)     shift; opt username "$1"; shift;;
     --password|-p)     shift; opt password "$1"; shift;;
     --token|-t)        shift; opt token "$1"; shift;;
     --keyspace|-k)     shift; opt keyspace "$1"; shift;;
-    --environment|-e)  shift; opt environment "$1"; shift;;
     --help|-h)                opt help true; shift;;
     *) shift;;
   esac
@@ -34,13 +31,10 @@ fi
 
 if [[ -n ${help-} ]]; then
   echoerr "Usage: $0"
-  echoerr "    -c, --cluster      <cluster>       The clusterID to connect to"
-  echoerr "    -r, --region       <region>        The region containing the cluster"
   echoerr "    -u, --username     <username>      The username to use for authentication. Can also be provided as environment variable USERNAME."
   echoerr "    -p, --password     <password>      The password to use for authentication. Can also be provided as environment variable PASSWORD"
   echoerr "    -t, --token        <token>         Token for authenticating and authorization requests in lieu of username/password. Can also be provided as environment variable TOKEN."
   echoerr "    -k, --keyspace     <keyspace>      The keyspace to use for testing. If not provided will default to 'testks'"
-  echoerr "    -e, --environment  <environment>   The environment to use for testing. Acceptable values are dev, test, or prod"
   echoerr "    -h, --help"
   exit 1
 fi
@@ -66,7 +60,7 @@ fi
 
 # No token provided so generate one
 if [[ -z $token ]]; then
-    token=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \
+    token=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
     -H 'Content-Type: application/json' \
     --data-raw '{
       "username": "$username",
@@ -90,6 +84,4 @@ else
   echoerr "Unknown environment '$environment'" && exit 1
 fi
 
-export ASTRA_CLUSTER_ID=$cluster
-export ASTRA_REGION=$region
 export AUTH_TOKEN=$token
