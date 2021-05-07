@@ -5,12 +5,14 @@
 The Stargate GraphQL API is implemented to easily modify and query your table data
 using GraphQL types, mutations, and queries with any Cassandra deployment.
 
-The Stargate GraphQL API has two orientations, one developed from GraphQL principles, and one developed with the Cassandra Query Language (CQL)
-in mind.
+The Stargate GraphQL API has two modes, one developed from native GraphQL schema principles,
+and one developed with the Cassandra Query Language (CQL) in mind.
+To distinguish these two modes, the rest of the documentation will refer to the
+modes as `graphql-first` and `cql-first`.
 
-include::partial$cql-oriented-desc.adoc[]
+include::partial$cql-first-desc.adoc[]
 
-include::partial$graphql-oriented-desc.adoc[]
+include::partial$graphql-first-desc.adoc[]
 
 include::partial$compare-orientations.adoc[]
 
@@ -20,29 +22,29 @@ include::partial$compare-orientations.adoc[]
 include::partial$GQLAPIBlogPost.adoc[]
 
 You can start with a xref:quickstart:quick_start-graphql.adoc[GraphQL QuickStart] or
-follow the full instructions: xref:graphql-oriented-using.adoc[[GraphQL oriented]] xref:graphql-using.adoc[[CQL oriented]] .
+follow the full instructions: xref:graphql-first-using.adoc[[graphql-first]] xref:graphql-using.adoc[[cql-first]] .
 
 We'll show you you how to:
 
 // FIX THE REST OF THESE LINKS!
 // . xref:generating-authorization-token.adoc[Generate an authorization token]
 . xref:manage-application-tokens.adoc[Get an application token]
-. Creating a keyspace  xref:developers-guide/graphql-oriented-using.html#_creating_a_keyspace[[GraphQL oriented]]  xref:developers-guide/graphql-using.html#_creating_a_keyspace[[CQL oriented]]
-. _Optional_: Creating a user-defined type (UDT)  xref:creating-a-udt-in-your-keyspace-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:creating-a-udt-in-your-keyspace-graphql.adoc[[CQL oriented]]
-. Creating table schema  xref:creating-a-table-in-your-keyspace-using-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:creating-a-table-in-your-keyspace-using-graphql.adoc[[CQL oriented]]
-. _Optional_: Creating table indexes  xref:creating-an-index-for-a-table-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:creating-an-index-for-a-table-graphql.adoc[[CQL oriented]]
-. Deploying schema  xref:deploying-schema-in-your-keyspace-GraphQL-oriented.adoc[[GraphQL oriented]]
-. Undeploying schema  xref:undeploying-schema-in-your-keyspace-GraphQL-oriented.adoc[[GraphQL oriented]]
-. Dropping user-defined types (UDTs), tables or columns  xref:dropping-schema-graphql.adoc[[CQL oriented]]
-. Adding rows to your table  xref:adding-rows-in-your-table-using-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:adding-rows-in-your-table-using-graphql.adoc[[CQL oriented]]
-. Retrieving rows from your table  xref:retrieving-rows-in-your-table-using-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:retrieving-rows-in-your-table-using-graphql.adoc[[CQL oriented]]
-. Updating rows in your table  xref:updating-rows-in-your-table-using-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:updating-rows-in-your-table-using-graphql.adoc[[CQL oriented]]
-. Deleting rows in your table  xref:deleting-rows-in-your-table-using-GraphQL-oriented.adoc[[GraphQL oriented]]  xref:deleting-rows-in-your-table-using-graphql.adoc[[CQL oriented]]
+. Creating a keyspace  xref:developers-guide/graphql-first-using.html#_creating_a_keyspace[[graphql-first]]  xref:developers-guide/graphql-using.html#_creating_a_keyspace[[cql-first]]
+. _Optional_: Creating a user-defined type (UDT)  xref:creating-a-udt-in-your-keyspace-graphql-first.adoc[[graphql-first]]  xref:creating-a-udt-in-your-keyspace-graphql.adoc[[cql-first]]
+. Creating table schema  xref:creating-a-table-in-your-keyspace-using-graphql-first.adoc[[graphql-first]]  xref:creating-a-table-in-your-keyspace-using-graphql.adoc[[cql-first]]
+. _Optional_: Creating table indexes  xref:creating-an-index-for-a-table-graphql-first.adoc[[graphql-first]]  xref:creating-an-index-for-a-table-graphql.adoc[[cql-first]]
+. Deploying schema  xref:deploying-schema-in-your-keyspace-graphql-first.adoc[[graphql-first]]
+. Undeploying schema  xref:undeploying-schema-in-your-keyspace-graphql-first.adoc[[graphql-first]]
+. Dropping user-defined types (UDTs), tables or columns  xref:dropping-schema-graphql.adoc[[cql-first]]
+. Adding rows to your table  xref:adding-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:adding-rows-in-your-table-using-graphql.adoc[[cql-first]]
+. Retrieving rows from your table  xref:retrieving-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:retrieving-rows-in-your-table-using-graphql.adoc[[cql-first]]
+. Updating rows in your table  xref:updating-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:updating-rows-in-your-table-using-graphql.adoc[[cql-first]]
+. Deleting rows in your table  xref:deleting-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:deleting-rows-in-your-table-using-graphql.adoc[[cql-first]]
 
 == About the GraphQL API endpoints
 
-There are three Stargate GraphQL API endpoints, one for creating schema in CQL-oriented,
-one for deploying schema in the GraphQL-oriented, and the third for querying or mutating a keyspace.
+There are three Stargate GraphQL API endpoints, one for creating schema in cql-first,
+one for deploying schema in the graphql-first, and the third for querying or mutating a keyspace.
 The URLS are:
 
 Schema::
@@ -52,11 +54,11 @@ Admin::
 Querying::
 `https://localhost:8080/graphql/{keyspace_name}`
 
-The schema endpoint is used to create or alter CQL schema in the CQL-oriented GraphQL
+The schema endpoint is used to create or alter CQL schema in the cql-first GraphQL
 using direct schema manipulation.
-The admin endpoint is used to deploy GraphQL schema in the GraphQL-oriented GraphQL
+The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL
 which will indirectly modify underlying CQL schema.
-The querying endpoint is constructed in the same manner for both GraphQL-oriented and CQL-oriented.
+The querying endpoint is constructed in the same manner for both graphql-first and cql-first.
 
 Each request must have a valid xref:manage-application-tokens.adoc[application token].
 Each request can also have an optional unique request id.

@@ -1,9 +1,9 @@
-= Using the Stargate GraphQL API (GraphQL-oriented)
+= Using the Stargate GraphQL API (graphql-first)
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-include::partial$graphql-oriented-desc.adoc[]
+include::partial$graphql-first-desc.adoc[]
 
 include::partial$GQLAPIBlogPost.adoc[]
 
@@ -38,7 +38,7 @@ your GraphQL requests. Copy the value after `"authToken"` to use later.
 
 == Creating or dropping schema
 
-In order to use the GraphQL API, you must xref:graphql-oriented-using.adoc##_deploying_schema[deploy schema]
+In order to use the GraphQL API, you must xref:graphql-first-using.adoc##_deploying_schema[deploy schema]
 that defines the types, mutations, and queries.
 However, a keyspace, a container that stores the data, must first be created.
 
@@ -89,7 +89,7 @@ include::example$result/gql_createKeyspace.result[]
 === A note about what schema is
 
 A full GraphQL schema that will be
-xref:graphql-oriented-using.adoc#deploying_schema[deployed] can
+xref:graphql-first-using.adoc#deploying_schema[deployed] can
 include user-defined types (UDTs), object types, indexes, queries, mutations, and payload
 types. The next sections describes the definition of these items before discussing
 how to deploy the schema once created.
@@ -97,7 +97,7 @@ how to deploy the schema once created.
 [TIP]
 ====
 Do you want to understand deployment first?
-Read xref:graphql-oriented-using.adoc#deploying_schema[Deploying Schema].
+Read xref:graphql-first-using.adoc#deploying_schema[Deploying Schema].
 ====
 
 // tag::CreateUDT[]
@@ -356,7 +356,7 @@ There is an additional decoration `@cql_select` that can define two parameters:
 
 This example includes `pageSize`.
 
-An example of retrieving data using this query is found xref:graphql-oriented-using.adoc#_retrieving_data[below].
+An example of retrieving data using this query is found xref:graphql-first-using.adoc#_retrieving_data[below].
 
 Often, you wish to know if an operation was successful. Creating a payload type that
 uses a boolean field `applied` can definitively answer if a conditional operation

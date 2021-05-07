@@ -1,9 +1,9 @@
-= Using the Stargate GraphQL API (CQL-oriented)
+= Using the Stargate GraphQL API (cql-first)
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-include::partial$cql-oriented-desc.adoc[]
+include::partial$cql-first-desc.adoc[]
 
 include::partial$GQLAPIBlogPost.adoc[]
 
