@@ -84,6 +84,4 @@ else
   echoerr "Unknown environment '$environment'" && exit 1
 fi
 
-export ASTRA_CLUSTER_ID=$cluster
-export ASTRA_REGION=$region
 export AUTH_TOKEN=$token
