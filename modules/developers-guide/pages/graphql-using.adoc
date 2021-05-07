@@ -8,7 +8,7 @@ include::partial$cql-oriented-desc.adoc[]
 include::partial$GQLAPIBlogPost.adoc[]
 
 // tag::prereqsList[]
-include::partial$prereqs.adoc[]
+include::partial$gql-prereqs.adoc[]
 // end::prereqsList[]
 
 include::developers-guide:partial$astra_tip.adoc[]
@@ -31,9 +31,9 @@ include::partial$gen_auth_token.adoc[]
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
-include::graphql.adoc[tag=UsingGraphQLPlayground]
-
-include::graphql.adoc[tag=UsingPostman]
+// LLP - 05.07.21 These two sections are in graphql.adoc
+//include::graphql.adoc[tag=UsingGraphQLPlayground]
+//include::graphql.adoc[tag=UsingPostman]
 
 == Creating or dropping schema
 
@@ -89,8 +89,11 @@ include::example$result/gql_createKeyspace.result[]
 // tag::CreateUDT[]
 === Creating a user-defined type (UDT)
 
-User-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called `address_type` that includes a street, city, state, and zipcode.
+Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called `address_type` that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.
 
 [tabs]
 ====

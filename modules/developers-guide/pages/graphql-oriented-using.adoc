@@ -8,7 +8,7 @@ include::partial$graphql-oriented-desc.adoc[]
 include::partial$GQLAPIBlogPost.adoc[]
 
 // tag::prereqsList[]
-include::partial$prereqs.adoc[]
+include::partial$gql-prereqs.adoc[]
 // end::prereqsList[]
 
 // not in astra yet
@@ -23,7 +23,7 @@ include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
+In order to use the Stargate GraphQL API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
 // generate the auth token
@@ -32,9 +32,9 @@ include::partial$gen_auth_token.adoc[]
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
-include::graphql.adoc[tag=UsingGraphQLPlayground]
-
-include::graphql.adoc[tag=UsingPostman]
+// LLP - 05.07.21 These two sections are in graphql.adoc
+//include::graphql.adoc[tag=UsingGraphQLPlayground]
+//include::graphql.adoc[tag=UsingPostman]
 
 == Creating or dropping schema
 
@@ -85,6 +85,20 @@ Now run the mutation to create the keyspace. You should see a return value of:
 include::example$result/gql_createKeyspace.result[]
 ----
 // end::CreateKS[]
+
+=== A note about what schema is
+
+A full GraphQL schema that will be
+xref:graphql-oriented-using.adoc#deploying_schema[deployed] can
+include user-defined types (UDTs), object types, indexes, queries, mutations, and payload
+types. The next sections describes the definition of these items before discussing
+how to deploy the schema once created.
+
+[TIP]
+====
+Do you want to understand deployment first?
+Read xref:graphql-oriented-using.adoc#deploying_schema[Deploying Schema].
+====
 
 // tag::CreateUDT[]
 === Creating a user-defined type (UDT)
@@ -1036,7 +1050,7 @@ If it does exist, it will be updated with the new row data.
 
 A mutation can be turned into a delete operation by starting the mutation
 name with `delete` or `remove`.
-A mutation will also be an delete operation if it is annotated with `@cql_delete`.
+A mutation will also be a delete operation if it is annotated with `@cql_delete`.
 The mutation must take a single argument that is an input type for a mapped entity,
 or individual primary key arguments like retrieving operations.
 If successful, the mutation will return a Boolean value.

@@ -42,7 +42,7 @@ We'll show you you how to:
 == About the GraphQL API endpoints
 
 There are three Stargate GraphQL API endpoints, one for creating schema in CQL-oriented,
-one for deploying schema in the GraphQL-oriented, and the third for querying a keyspace.
+one for deploying schema in the GraphQL-oriented, and the third for querying or mutating a keyspace.
 The URLS are:
 
 Schema::
@@ -52,12 +52,15 @@ Admin::
 Querying::
 `https://localhost:8080/graphql/{keyspace_name}`
 
-The schema endpoint is used to create schema in the CQL-oriented GraphQL.
-The admin endpoint is used to deploy schema in the GraphQL-oriented GraphQL.
+The schema endpoint is used to create or alter CQL schema in the CQL-oriented GraphQL
+using direct schema manipulation.
+The admin endpoint is used to deploy GraphQL schema in the GraphQL-oriented GraphQL
+which will indirectly modify underlying CQL schema.
 The querying endpoint is constructed in the same manner for both GraphQL-oriented and CQL-oriented.
 
-Each request must have a valid xref:manage-application-tokens.adoc[application token]
-and a unique id.
+Each request must have a valid xref:manage-application-tokens.adoc[application token].
+Each request can also have an optional unique request id.
+The request id is recommended in a production environment and can be useful in troubleshooting issues.
 
 [TIP]
 ====
@@ -95,7 +98,7 @@ such as `createTable`, or `dropTable`.
 * `/graphql-admin`
 ** An API for deploying GraphQL schema.
 * `/graphql/<keyspace>`
-** An API for querying and modifying your tables using GraphQL fields.
+** An API for querying and modifying data in your tables using GraphQL fields.
 // end::UsingGraphQLPlayground[]
 
 // tag::UsingPostman[]
