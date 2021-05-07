@@ -48,7 +48,8 @@ However, a keyspace, a container that stores the data, must first be created.
 Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace in your database.
 
-// LLP: need to check how to write this - it's migration...If you are connecting to a Cassandra database with existing schema, you can skip this step.
+// LLP: need to check how to write this - it's migration...If you are connecting
+// to a Cassandra database with existing schema, you can skip this step.
 
 Inside the GraphQL playground, navigate to
 http://localhost:8080/graphql-schema[http://localhost:8080/graphql-schema]
@@ -319,9 +320,7 @@ A mutation can be turned into a conditional insertion operation by ending the mu
 name with `ifNotExists`.
 However, it may be useful to know if the insertion is successfully applied.
 In that case, see payload type below to see how a boolean field `applied` can
-be added to the response from insertions.
-
-or annotating it with @cql_insert(ifNotExists: true)
+be added to the response from insertions or annotating it with @cql_insert(ifNotExists: true)
 // end::CreateMutations[]
 
 // tag::CreatePayloadTypes[]
@@ -375,18 +374,10 @@ include::example$graphql/1createPayloadConditional.graphql[]
 ----
 --
 ====
-type User @cql_input { … }
-type InsertUserResponse @cql_payload {
-  applied: Boolean!
-  user: User!
-}
-type Mutation {
-  insertUserIfNotExists(user: UserInput!): InsertUserResponse
-}
 
 If the conditional insert is successful (the row did not exist), then applied
-
-will be true and user will echo back the data that was just inserted; otherwise, applied will be false and user will be the existing data.
+will be true and book will echo back the data that was just inserted;
+otherwise, applied will be false and book will be the existing data.
 
 // end::CreatePayloadTypes[]
 
@@ -595,7 +586,7 @@ graphQL command::
 --
 [source,shell]
 ----
-include::example$graphql/1undeploy.graphql[]
+include::example$graphql/1Undeploy.graphql[]
 ----
 --
 
@@ -604,7 +595,7 @@ Result::
 --
 [source,plaintext]
 ----
-include::example$result/gql_1undeploy.result[]
+include::example$result/gql_1Undeploy.result[]
 ----
 --
 ====
@@ -679,6 +670,7 @@ include::example$result/gql_1createPayloadConditional.result[]
 ----
 --
 ====
+
 //==== Insertion options
 
 //Three insertion options are configurable during data insertion or updating:
@@ -1160,10 +1152,6 @@ include::example$result/gql_1deleteLibColl.result[]
 |===
 // end::Directives[]
 
-
-// LLP: Apollo data federation - in this doc, or a separate page?
-
-////
-I'll need a section that shows how connecting to an existing C* cluster will automatically
-create the graphql endpoints!
-////
+// LLP: is this true?
+// I'll need a section that shows how connecting to an existing C* cluster will automatically
+// create the graphql endpoints!
