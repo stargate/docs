@@ -31,13 +31,10 @@ fi
 
 if [[ -n ${help-} ]]; then
   echoerr "Usage: $0"
-  echoerr "    -c, --cluster      <cluster>       The clusterID to connect to"
-  echoerr "    -r, --region       <region>        The region containing the cluster"
   echoerr "    -u, --username     <username>      The username to use for authentication. Can also be provided as environment variable USERNAME."
   echoerr "    -p, --password     <password>      The password to use for authentication. Can also be provided as environment variable PASSWORD"
   echoerr "    -t, --token        <token>         Token for authenticating and authorization requests in lieu of username/password. Can also be provided as environment variable TOKEN."
   echoerr "    -k, --keyspace     <keyspace>      The keyspace to use for testing. If not provided will default to 'testks'"
-  echoerr "    -e, --environment  <environment>   The environment to use for testing. Acceptable values are dev, test, or prod"
   echoerr "    -h, --help"
   exit 1
 fi
