@@ -1036,7 +1036,7 @@ If it does exist, it will be updated with the new row data.
 
 A mutation can be turned into a delete operation by starting the mutation
 name with `delete` or `remove`.
-A mutation will also be an delete operation if it is annotated with `@cql_delete`.
+A mutation will also be a delete operation if it is annotated with `@cql_delete`.
 The mutation must take a single argument that is an input type for a mapped entity,
 or individual primary key arguments like retrieving operations.
 If successful, the mutation will return a Boolean value.
