@@ -60,7 +60,7 @@ fi
 
 # No token provided so generate one
 if [[ -z $token ]]; then
-    token=$(curl -s -L -X POST 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/v1/auth' \
+    token=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
     -H 'Content-Type: application/json' \
     --data-raw '{
       "username": "$username",
