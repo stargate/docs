@@ -23,7 +23,7 @@ include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
+In order to use the Stargate GraphQL API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
 // generate the auth token
