@@ -10,7 +10,6 @@ which gron > /dev/null || (echoerr "Please ensure that gron is in your PATH" && 
 echoerr() { echo "$@" 1>&2; }
 badopt() { echoerr "$@"; help='true'; }
 opt() { if [[ -z ${2-} ]]; then badopt "$1 flag must be followed by an argument"; fi; export $1="$2"; }
-required_args() { for arg in $@; do if [[ -z "${!arg-}" ]]; then badopt "$arg is a required argument"; fi; done; }
 exit_on_failure() { echoerr "Test FAILED" && exit 1; }
 
 while [[ $# -gt 0 ]]; do
@@ -24,10 +23,6 @@ while [[ $# -gt 0 ]]; do
     *) shift;;
   esac
 done
-
-if [[ -z ${help-} ]]; then
-  required_args cluster region environment
-fi
 
 if [[ -n ${help-} ]]; then
   echoerr "Usage: $0"
