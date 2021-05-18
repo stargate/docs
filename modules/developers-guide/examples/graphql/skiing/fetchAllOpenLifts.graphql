@@ -1,7 +1,0 @@
-query {
- allLifts(status: OPEN) {
-   name
-   status
-   capacity
- }
-}

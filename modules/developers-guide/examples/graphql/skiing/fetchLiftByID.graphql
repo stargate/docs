@@ -1,6 +1,0 @@
-query {
- Lift(id: "panorama") {
-   name
-   status
- }
-}

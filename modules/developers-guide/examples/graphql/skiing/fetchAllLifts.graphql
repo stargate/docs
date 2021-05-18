@@ -1,6 +1,0 @@
-query {
-  allLifts {
-  	name
-	status
-  }
-}

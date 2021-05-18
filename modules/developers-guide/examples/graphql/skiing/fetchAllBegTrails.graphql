@@ -1,7 +1,0 @@
-query {
- allTrails(difficulty: BEGINNER) {
-   name
-   status
-   difficulty
- }
-}

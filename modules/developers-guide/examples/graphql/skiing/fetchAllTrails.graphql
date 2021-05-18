@@ -1,6 +1,0 @@
-query {
-  allTrails {
-  	name
-	status
-  }
-}

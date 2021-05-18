@@ -1,7 +1,0 @@
-mutation {
- setTrailStatus(id: "blue-bird", status: OPEN) {
-   name
-   status
-   difficulty
- }
-}
