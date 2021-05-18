@@ -39,6 +39,11 @@ mutation insertherman {
     }
   ) {
     name
+    user_id
+  }
+}
+  ) {
+    name
     birthdate
     email
     address {

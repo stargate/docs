@@ -1,7 +1,7 @@
 mutation {
   deploySchema(
     keyspace: "library"
-    expectedVersion: "ba500230-9e50-11eb-8fde-b341b9f82ca9"
+    expectedVersion: "1da4f190-b7fd-11eb-8258-1ff1380eaff5"
     schema: """
       # Write your query or mutation here
         mutation {
@@ -68,6 +68,13 @@ mutation {
               author: String
               @cql_where(field: "author", predicate: LT)
           ): [Book]
+          readerGT(
+            name: String!,
+            user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
+          ): [Reader]
+          readerCONTAINS(
+            reviews: [Review] @cql_where(field: "reviews", predicate: CONTAINS)
+          ): [Reader]
             libCollIn(
               type: [String!] @cql_where(field: "type", predicate: IN)
               lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
@@ -94,4 +101,3 @@ mutation {
     cqlChanges
   }
 }
-

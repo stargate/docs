@@ -21,8 +21,8 @@ done
 
 # RUN THE DDL
 
-#echo -e "\n\ncreate keyspace\n"
-#./curl_createKeyspace.sh.tmp
+echo -e "\n\ncreate keyspace\n"
+./1curl_createKeyspace.sh.tmp
 #| jq -r '.name | test("library")'
 
 echo -e "\nDeploy the graphql schema\n"
@@ -37,8 +37,10 @@ cp ./schema.graphql /tmp
 #./1createDeploy.graphql.tmp
 
 echo -e "\nGet keyspace schema\n"
+echo -e "\nAll schema\n"
 ./1curl_getAllKsSchema.sh.tmp
-./1curl_getParticularKsSchema.sh.tmp
+#echo -e "\nSchema for library\n"
+#./1curl_getParticularKsSchema.sh.tmp
 
 echo -e "\nInsert 2 books\n"
 ./1curl_insertNativeSon.sh.tmp
@@ -52,9 +54,7 @@ echo -e "\nInsert another book\n"
 ./1curl_insertPapBook.sh.tmp
 
 echo -e "\nInsert 2 readers\n"
-echo -e "insert jane"
 ./1curl_insertReaderJane.sh.tmp
-echo -e "insert herman"
 ./1curl_insertReaderHerman.sh.tmp
 
 echo -e "\nInsert 4 library collections\n"

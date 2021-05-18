@@ -1,10 +1,9 @@
-expectedVersion: "6c34d600-a3a7-11eb-a22f-7bb5f4c20029"
 type Address @cql_entity(target: UDT) @cql_input {
       street: String
       city: String
       state: String
       zipCode: String @cql_column(name: "zip_code")
-    }
+}
 type Review @cql_entity(target: UDT) @cql_input {
   bookTitle: String @cql_column(name: "book_title")
   comment: String
@@ -42,13 +41,9 @@ type Query {
     pagingState: String @cql_pagingState
   ): SelectBookResult @cql_select(pageSize: 10)
   booksIn(
-		title: [String!] @cql_where(field: "title", predicate: IN)
-	): [Book]
-	readerGT(
-		name: String!,
-    user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
-	 ): [Reader]
- bookGT(
+    title: [String!] @cql_where(field: "title", predicate: IN)
+  ): [Book]
+  bookGT(
     title: String!
     author: String @cql_where(field: "author", predicate: GT)
   ): [Book]
@@ -56,6 +51,13 @@ type Query {
     title: String!
     author: String @cql_where(field: "author", predicate: LT)
   ): [Book]
+  readerGT(
+    name: String!,
+    user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
+  ): [Reader]
+  readerCONTAINS(
+    reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
+  ): [Reader]
   libCollIn(
     type: [String!] @cql_where(field: "type", predicate: IN)
     lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
