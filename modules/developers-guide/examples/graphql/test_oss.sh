@@ -39,8 +39,8 @@ cp ./schema.graphql /tmp
 echo -e "\nGet keyspace schema\n"
 echo -e "\nAll schema\n"
 ./1curl_getAllKsSchema.sh.tmp
-#echo -e "\nSchema for library\n"
-#./1curl_getParticularKsSchema.sh.tmp
+echo -e "\nSchema for library\n"
+./1curl_getParticularKsSchema.sh.tmp
 
 echo -e "\nInsert 2 books\n"
 ./1curl_insertNativeSon.sh.tmp
