@@ -232,7 +232,10 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../developers-guide/graphql-using.html">Using the GraphQL API</a>
+    <a class="nav-link" href="../developers-guide/graphql-using.html">Using the GraphQL API (CQL-first)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#graphql-oriented-using.adoc">Using the GraphQL API (Schema-first</a>
   </li>
 </ul>
   </li>
@@ -351,7 +354,7 @@ GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.<
 <p>Docker installed and running, if using Docker</p>
 </li>
 <li>
-<p><code>cURL</code> to run REST queries</p>
+<p><code>cURL</code> to run REST, Document, or GraphQL queries</p>
 </li>
 </ul>
 </div>
@@ -376,7 +379,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.13</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.24</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -395,7 +398,7 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.13</code></pre>
+  stargateio/stargate-3_11:v1.0.24</code></pre>
 </div>
 </div>
 </div>
@@ -446,10 +449,19 @@ your GraphQL requests. Copy the value after <code>"authToken"</code> to use late
 <h2 id="_using_the_graphql_playground"><a class="anchor" href="#_using_the_graphql_playground"></a><a class="link" href="#_using_the_graphql_playground">Using the GraphQL Playground</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The easiest way to get started is to use the built-in GraphQL playground that is
-included in the <code>stargate</code> docker container. It can be accessed at
-<a href="http://localhost:8080/playground">http://localhost:8080/playground</a> using a local
-browser after the docker container is started.</p>
+<p>The easiest way to get started with GraphQL uses the built-in GraphQL playground.
+In Astra, go to the Connect tab for your database, choose GraphQL under the
+<code>Connect using an API</code> and you&#8217;ll see instructions for accessing the playground.
+The GraphQL playground launches the url
+<code><a href="https://localhost:8080/playground" class="bare">https://localhost:8080/playground</a></code>
+in your browser.</p>
+</div>
+<div class="paragraph">
+<p>Add your <a href="#manage-application-tokens.adoc" class="page unresolved">application token</a> to the HTTP HEADERS
+section at the lower lefthand corner of the GraphQL Playground window:</p>
+</div>
+<div class="paragraph">
+<p>{"x-cassandra-token":"$AUTH_TOKEN"}</p>
 </div>
 <div class="paragraph">
 <p>Once in the playground, you can create new schema and interact with the
@@ -464,8 +476,18 @@ querying schema, as well as querying and modifying Cassandra data:</p>
 <ul>
 <li>
 <p>An API for exploring and creating schema, or Data Definition Language (DDL).
-For example, Cassandra has queries to create, modify, drop keyspaces and tables,
-such as <code>CREATE KEYSPACE</code>, <code>CREATE TABLE1</code>, or <code>DROP TABLE</code>.</p>
+For example, Astra has queries to create, modify, or drop tables,
+such as <code>createTable</code>, or <code>dropTable</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>/graphql-admin</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>An API for deploying GraphQL schema.</p>
 </li>
 </ul>
 </div>
@@ -475,15 +497,12 @@ such as <code>CREATE KEYSPACE</code>, <code>CREATE TABLE1</code>, or <code>DROP 
 <div class="ulist">
 <ul>
 <li>
-<p>An API for querying and modifying your Cassandra tables using GraphQL fields.</p>
+<p>An API for querying and modifying data in your tables using GraphQL fields.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll start the playground with <code>/graphql-schema</code> to create some schema.</p>
 </div>
 </div>
 </div>
@@ -491,14 +510,11 @@ such as <code>CREATE KEYSPACE</code>, <code>CREATE TABLE1</code>, or <code>DROP 
 <h2 id="_using_postman"><a class="anchor" href="#_using_postman"></a><a class="link" href="#_using_postman">Using Postman</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you prefer, you can use Postman as a client interface for exploring GraphQL APIs
-(<a href="https://www.postman.com/downloads/">download here</a>).
+<p>If you prefer, you can use Postman as a client interface for exploring the GraphQL API
+(<a href="https://www.postman.com/downloads/" target="_blank" rel="noopener">download here</a>).
 We&#8217;ve provided a
-<a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_users_keyspace.postman_collection.json">Stargate GraphQL API Postman Collection</a>
+<a href="https://raw.githubusercontent.com/stargate/docs/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_library_Astra.postman_collection.json">Stargate GraphQL API Postman Astra Collection</a>
 that you can import in Postman to play with the examples shown in this walkthrough.</p>
-</div>
-<div class="paragraph">
-<p>Now you&#8217;re ready to use the REST API for CRUD operations.</p>
 </div>
 </div>
 </div>

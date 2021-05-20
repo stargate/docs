@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Using the Stargate GraphQL API :: Stargate documentation</title>
+    <title>Using the Stargate GraphQL API (cql-first) :: Stargate documentation</title>
     <link rel="prev" href="graphql.html">
-    <link rel="next" href="cql.html">
+    <link rel="next" href="#graphql-oriented-using.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
@@ -232,7 +232,10 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="graphql-using.html">Using the GraphQL API</a>
+    <a class="nav-link" href="graphql-using.html">Using the GraphQL API (CQL-first)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#graphql-oriented-using.adoc">Using the GraphQL API (Schema-first</a>
   </li>
 </ul>
   </li>
@@ -305,19 +308,26 @@
     <li><a href="../index.html">Stargate</a></li>
     <li><a href="devguide.html">Developing with Stargate</a></li>
     <li><a href="graphql.html">GraphQL API</a></li>
-    <li><a href="graphql-using.html">Using the GraphQL API</a></li>
+    <li><a href="graphql-using.html">Using the GraphQL API (CQL-first)</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/graphql-using.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Using the Stargate GraphQL API</h1>
+<h1 class="page">Using the Stargate GraphQL API (cql-first)</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.</p>
+</div>
+<div class="paragraph">
+<p>The CQL-first approach directly translates CQL tables into GraphQL types, mutations, and queries.
+The GraphQL schema is automatically generated from the keyspace, tables, and columns
+defined, but no customization is allowed.
+A standard set of mutations and queries are produced for searching and modifying the table data.
+If you are familiar with Cassandra, you might prefer this approach.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -348,7 +358,14 @@ The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tabl
 <p>Docker installed and running, if using Docker</p>
 </li>
 <li>
-<p><code>cURL</code> to run REST queries</p>
+<p><a href="graphql.html#_using_the_graphql_playground" class="page">GraphQL Playground</a> running to deploy schema, and execute mutations and queries</p>
+</li>
+<li>
+<p>Optional: <code>cURL</code> to run GraphQL queries from command-line</p>
+</li>
+<li>
+<p>Optional: <a href="graphql.html#_using_postman" class="page">Postman collections</a> if you wish to execute mutations and queries
+in Postman</p>
 </li>
 </ul>
 </div>
@@ -373,7 +390,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.13</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.24</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -392,7 +409,7 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.13</code></pre>
+  stargateio/stargate-3_11:v1.0.24</code></pre>
 </div>
 </div>
 </div>
@@ -436,66 +453,6 @@ in the <code>X-Cassandra-Token</code> header. Note the port for the auth service
 <p>You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after <code>"authToken"</code> to use later.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using_the_graphql_playground"><a class="anchor" href="#_using_the_graphql_playground"></a><a class="link" href="#_using_the_graphql_playground">Using the GraphQL Playground</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The easiest way to get started is to use the built-in GraphQL playground that is
-included in the <code>stargate</code> docker container. It can be accessed at
-<a href="http://localhost:8080/playground">http://localhost:8080/playground</a> using a local
-browser after the docker container is started.</p>
-</div>
-<div class="paragraph">
-<p>Once in the playground, you can create new schema and interact with the
-GraphQL APIs. The server paths are structured to provide access to creating and
-querying schema, as well as querying and modifying Cassandra data:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/graphql-schema</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>An API for exploring and creating schema, or Data Definition Language (DDL).
-For example, Cassandra has queries to create, modify, drop keyspaces and tables,
-such as <code>CREATE KEYSPACE</code>, <code>CREATE TABLE1</code>, or <code>DROP TABLE</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>/graphql/&lt;keyspace&gt;</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>An API for querying and modifying your Cassandra tables using GraphQL fields.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll start the playground with <code>/graphql-schema</code> to create some schema.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using_postman"><a class="anchor" href="#_using_postman"></a><a class="link" href="#_using_postman">Using Postman</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you prefer, you can use Postman as a client interface for exploring the GraphQL API
-(<a href="https://www.postman.com/downloads/">download here</a>).
-See <a href="../tooling.html" class="page">Tooling Resources</a> for links to downloadable collections and environments.
-Instructions for configuring the environments for Stargate OSS and <a href="https://astra.datastax.com">Astra</a> are available.
-You can immediately import the documentation code examples and explore!</p>
-</div>
-<div class="paragraph">
-<p>Now you&#8217;re ready to use the REST API for CRUD operations.</p>
 </div>
 </div>
 </div>
@@ -576,8 +533,11 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 <div class="sect2">
 <h3 id="_creating_a_user_defined_type_udt"><a class="anchor" href="#_creating_a_user_defined_type_udt"></a><a class="link" href="#_creating_a_user_defined_type_udt">Creating a user-defined type (UDT)</a></h3>
 <div class="paragraph">
-<p>User-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called <code>address_type</code> that includes a street, city, state, and zipcode.</p>
+<p>Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called <code>address_type</code> that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -2747,7 +2707,7 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="graphql.html">GraphQL API</a></span>
-  <span class="next"><a href="cql.html">CQL API</a></span>
+  <span class="next"><a href="#graphql-oriented-using.adoc">Using the GraphQL API (Schema-first</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

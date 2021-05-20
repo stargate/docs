@@ -232,7 +232,10 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="graphql-using.html">Using the GraphQL API</a>
+    <a class="nav-link" href="graphql-using.html">Using the GraphQL API (CQL-first)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#graphql-oriented-using.adoc">Using the GraphQL API (Schema-first</a>
   </li>
 </ul>
   </li>
@@ -333,7 +336,7 @@ The REST API plugin that exposes CRUD access to data stored in Cassandra tables.
 <p>Docker installed and running, if using Docker</p>
 </li>
 <li>
-<p><code>cURL</code> to run REST queries</p>
+<p><code>cURL</code> to run REST, Document, or GraphQL queries</p>
 </li>
 </ul>
 </div>
@@ -358,7 +361,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.13</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.24</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -377,7 +380,7 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.13</code></pre>
+  stargateio/stargate-3_11:v1.0.24</code></pre>
 </div>
 </div>
 </div>
