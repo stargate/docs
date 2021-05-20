@@ -1,9 +1,0 @@
-{
-  "data": {
-    "schema": {
-      "version": "01a00a50-9e50-11eb-8fde-b341b9f82ca9",
-      "deployDate": "2021-04-16T01:06:42.677Z[Etc/UTC]",
-      "contents": "  type Book @key @cql_entity(name: \"book\") @cql_input {\n    title: String! @cql_column(partitionKey: true)\n    author: String @cql_column(clusteringOrder: ASC)\n  }\n  type Query {\n    book(title:String!, author:String): Book\n  }\n  type Mutation {\n    insertBook(book:BookInput!): Book\n    deleteUser(book:BookInput!): Boolean\n  }\n  type Address @cql_entity(target: UDT) @cql_input {\n    street: String\n    city: String\n    state: String\n    zipCode: String @cql_column(name: \"zip_code\")\n  }\n  type Review @cql_entity(target: UDT) @cql_input {\n    bookTitle: String @cql_column(name: \"book_title\")\n    comment: String\n    rating: Int\n    reviewDate: Date @cql_column(name: \"review_date\")\n }\n type Reader @cql_entity(name: \"reader\") @cql_input {\n    name: String! @cql_column(partitionKey: true)\n    user_id: Uuid! @cql_column(clusteringOrder: ASC)\n    birthdate: Date\n    email: [String] @cql_column(typeHint: \"set<varchar>\")\n    reviews: [Review]\n    address: [Address]\n}"
-    }
-  }
-}

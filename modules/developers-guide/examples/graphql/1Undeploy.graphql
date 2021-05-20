@@ -1,5 +1,0 @@
-mutation {
-  undeploySchema(
-    keyspace: "library"
-    expectedVersion: " 6c34d600-a3a7-11eb-a22f-7bb5f4c20029")
-}

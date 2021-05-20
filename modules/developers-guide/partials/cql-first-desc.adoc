@@ -1,5 +1,0 @@
-The CQL-first approach directly translates CQL tables into GraphQL types, mutations, and queries.
-The GraphQL schema is automatically generated from the keyspace, tables, and columns
-defined, but no customization is allowed.
-A standard set of mutations and queries are produced for searching and modifying the table data.
-If you are familiar with Cassandra, you might prefer this approach.

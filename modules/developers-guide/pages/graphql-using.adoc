@@ -1,14 +1,12 @@
-= Using the Stargate GraphQL API (cql-first)
+= Using the Stargate GraphQL API
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-include::partial$cql-first-desc.adoc[]
-
 include::partial$GQLAPIBlogPost.adoc[]
 
 // tag::prereqsList[]
-include::partial$gql-prereqs.adoc[]
+include::partial$prereqs.adoc[]
 // end::prereqsList[]
 
 include::developers-guide:partial$astra_tip.adoc[]
@@ -31,9 +29,39 @@ include::partial$gen_auth_token.adoc[]
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
-// LLP - 05.07.21 These two sections are in graphql.adoc
-//include::graphql.adoc[tag=UsingGraphQLPlayground]
-//include::graphql.adoc[tag=UsingPostman]
+// tag::UseGraphQLPlayground[]
+== Using the GraphQL Playground
+
+The easiest way to get started is to use the built-in GraphQL playground that is
+included in the `stargate` docker container. It can be accessed at
+http://localhost:8080/playground[http://localhost:8080/playground] using a local
+browser after the docker container is started.
+
+Once in the playground, you can create new schema and interact with the
+GraphQL APIs. The server paths are structured to provide access to creating and
+querying schema, as well as querying and modifying Cassandra data:
+
+* `/graphql-schema`
+** An API for exploring and creating schema, or Data Definition Language (DDL).
+For example, Cassandra has queries to create, modify, drop keyspaces and tables,
+such as `CREATE KEYSPACE`, `CREATE TABLE1`, or `DROP TABLE`.
+* `/graphql/<keyspace>`
+** An API for querying and modifying your Cassandra tables using GraphQL fields.
+
+We'll start the playground with `/graphql-schema` to create some schema.
+// end::UseGraphQLPlayground[]
+
+// tag::UsingPostman[]
+== Using Postman
+
+If you prefer, you can use Postman as a client interface for exploring the GraphQL API
+(https://www.postman.com/downloads/[download here]).
+See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
+Instructions for configuring the environments for Stargate OSS and link:https://astra.datastax.com[Astra] are available.
+You can immediately import the documentation code examples and explore!
+
+Now you're ready to use the REST API for CRUD operations.
+// end::UsingPostman[]
 
 == Creating or dropping schema
 
@@ -89,11 +117,8 @@ include::example$result/gql_createKeyspace.result[]
 // tag::CreateUDT[]
 === Creating a user-defined type (UDT)
 
-Optional user-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called `address_type` that includes a street, city,
-state, and zipcode.
-If you plan to use UDTs as a data type for columns in your table, create the UDT
-first.
+User-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called `address_type` that includes a street, city, state, and zipcode.
 
 [tabs]
 ====
