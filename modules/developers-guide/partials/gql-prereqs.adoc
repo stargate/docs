@@ -1,9 +1,0 @@
-== Prerequisites
-
-To use Stargate you need:
-
-* Docker installed and running, if using Docker
-* xref:graphql.adoc#_using_the_graphql_playground[GraphQL Playground] running to deploy schema, and execute mutations and queries
-* Optional: `cURL` to run GraphQL queries from command-line
-* Optional: xref:graphql.adoc#_using_postman[Postman collections] if you wish to execute mutations and queries 
-in Postman

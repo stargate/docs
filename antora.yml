@@ -6,10 +6,10 @@ asciidoc:
   attributes:
     sectanchors: ''
     sectlinks: ''
-    stargate-docker-tag: v1.0.24
-    stargate-docker-tag-3x: v1.0.24
-    stargate-docker-tag-40: v1.0.24
-    stargate-docker-tag-68: v1.0.24
+    stargate-docker-tag: v1.0.13
+    stargate-docker-tag-3x: v1.0.13
+    stargate-docker-tag-40: v1.0.13
+    stargate-docker-tag-68: v1.0.13
     cass-tag-3x: '3.11'
     cass-alt-tag-3x: '3_11'
     cass-tag-40: '4.0'
