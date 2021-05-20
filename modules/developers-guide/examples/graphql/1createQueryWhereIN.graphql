@@ -1,0 +1,12 @@
+type Query {
+  booksIn( 
+    title: [String!] @cql_where(field: "title", predicate: IN)
+  ): [Book]
+}
+
+query fetchBooksIn {
+  booksIn(title:["Native Son", "Moby Dick"]) {
+      title 
+      author
+  }
+}

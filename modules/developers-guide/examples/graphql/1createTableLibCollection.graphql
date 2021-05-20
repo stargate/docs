@@ -1,0 +1,5 @@
+type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
+ type: String! @cql_column(partitionKey: true)
+ lib_id: Int! @cql_column(partitionKey: true)
+ lib_name: String @cql_column(clusteringOrder: ASC)
+}

@@ -1,0 +1,7 @@
+{
+  schemas(keyspace: "library") {
+    version
+    deployDate
+    contents
+  }
+}
