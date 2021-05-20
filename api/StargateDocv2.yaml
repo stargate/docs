@@ -20,7 +20,7 @@ paths:
  /v1/auth:
     servers:
       - url: https://localhost:8081
-   post:
+    post:
      tags:
        - Auth
      summary: Create an auth token
