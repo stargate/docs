@@ -22,24 +22,44 @@ include::partial$compare-orientations.adoc[]
 include::partial$GQLAPIBlogPost.adoc[]
 
 You can start with a xref:quickstart:quick_start-graphql.adoc[GraphQL QuickStart] or
-follow the full instructions: xref:graphql-first-using.adoc[[graphql-first]] xref:graphql-using.adoc[[cql-first]] .
+follow the full instructions: xref:graphql-first-using.adoc[(graphql-first)] xref:graphql-using.adoc[(cql-first)] .
 
 We'll show you you how to:
 
 // FIX THE REST OF THESE LINKS!
-// . xref:generating-authorization-token.adoc[Generate an authorization token]
-. xref:manage-application-tokens.adoc[Get an application token]
-. Creating a keyspace  xref:developers-guide/graphql-first-using.html#_creating_a_keyspace[[graphql-first]]  xref:developers-guide/graphql-using.html#_creating_a_keyspace[[cql-first]]
-. _Optional_: Creating a user-defined type (UDT)  xref:creating-a-udt-in-your-keyspace-graphql-first.adoc[[graphql-first]]  xref:creating-a-udt-in-your-keyspace-graphql.adoc[[cql-first]]
-. Creating table schema  xref:creating-a-table-in-your-keyspace-using-graphql-first.adoc[[graphql-first]]  xref:creating-a-table-in-your-keyspace-using-graphql.adoc[[cql-first]]
-. _Optional_: Creating table indexes  xref:creating-an-index-for-a-table-graphql-first.adoc[[graphql-first]]  xref:creating-an-index-for-a-table-graphql.adoc[[cql-first]]
-. Deploying schema  xref:deploying-schema-in-your-keyspace-graphql-first.adoc[[graphql-first]]
-. Undeploying schema  xref:undeploying-schema-in-your-keyspace-graphql-first.adoc[[graphql-first]]
-. Dropping user-defined types (UDTs), tables or columns  xref:dropping-schema-graphql.adoc[[cql-first]]
-. Adding rows to your table  xref:adding-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:adding-rows-in-your-table-using-graphql.adoc[[cql-first]]
-. Retrieving rows from your table  xref:retrieving-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:retrieving-rows-in-your-table-using-graphql.adoc[[cql-first]]
-. Updating rows in your table  xref:updating-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:updating-rows-in-your-table-using-graphql.adoc[[cql-first]]
-. Deleting rows in your table  xref:deleting-rows-in-your-table-using-graphql-first.adoc[[graphql-first]]  xref:deleting-rows-in-your-table-using-graphql.adoc[[cql-first]]
+. xref:generating-authorization-token.adoc[Generate an authorization token]
+//. xref:manage-application-tokens.adoc[Get an application token]
+. Creating a keyspace
+xref:graphql-first-using#_creating_a_keyspace.adoc[(graphql-first)]
+xref:graphql-using#_creating_a_keyspace.adoc[(cql-first)]
+. _Optional_ Creating a user-defined type (UDT)
+xref:graphql-first-using.adoc#_creating_a_user_defined_type_udt[(graphql-first)]
+xref:graphql-using.adoc#_creating_a_user_defined_type_udt[(cql-first)]
+. Creating object types
+xref:graphql-first-using.adoc#_creating_object_types[(graphql-first)]
+. Creating table schema
+xref:graphql-using.adoc#_creating_a_table[(cql-first)]
+. _Optional_ Creating table indexes
+xref:graphql-first-using.adoc#_creating_indexes[(graphql-first)]
+// xref:creating-an-index-for-a-table-graphql.adoc[(cql-first)]
+. Deploying schema
+xref:graphql-first-using.adoc#_deploying_schema[(graphql-first)]
+. Undeploying schema
+xref:graphql-first-using.adoc#_undeploying_schema[(graphql-first)]
+. Dropping user-defined types (UDTs), tables or columns
+xref:graphql-using.adoc#_drop_keyspaces_user_defined_types_udts_tables_or_columns[(cql-first)]
+. Adding rows to your table
+xref:graphql-first-using.adoc#_inserting_data[(graphql-first)]
+xref:graphql-using.adoc#_write_data[(cql-first)]
+. Retrieving rows from your table
+xref:graphql-first-using.adoc#_retrieving_data[(graphql-first)]
+xref:graphql-using.adoc#_read_data[(cql-first)]
+. Updating rows in your table
+xref:graphql-first-using.adoc#_updating_data[(graphql-first)]
+xref:graphql-using.adoc#_update_data[(cql-first)]
+. Deleting rows in your table
+xref:graphql-first-using.adoc#_deleting_data[(graphql-first)]
+xref:graphql-using.adoc#_delete_data[(cql-first)]
 
 == About the GraphQL API endpoints
 

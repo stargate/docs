@@ -38,7 +38,7 @@ your GraphQL requests. Copy the value after `"authToken"` to use later.
 
 == Creating or dropping schema
 
-In order to use the GraphQL API, you must xref:graphql-first-using.adoc##_deploying_schema[deploy schema]
+In order to use the GraphQL API, you must xref:graphql-first-using.adoc#_deploying_schema[deploy schema]
 that defines the types, mutations, and queries.
 However, a keyspace, a container that stores the data, must first be created.
 
