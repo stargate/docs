@@ -27,7 +27,7 @@ follow the full instructions: xref:graphql-first-using.adoc[(graphql-first)] xre
 We'll show you you how to:
 
 // FIX THE REST OF THESE LINKS!
-. xref:generating-authorization-token.adoc[Generate an authorization token]
+. xref:auth.adoc[Generate an authorization token]
 //. xref:manage-application-tokens.adoc[Get an application token]
 . Creating a keyspace
 xref:graphql-first-using#_creating_a_keyspace.adoc[(graphql-first)]
@@ -39,9 +39,9 @@ xref:graphql-using.adoc#_creating_a_user_defined_type_udt[(cql-first)]
 xref:graphql-first-using.adoc#_creating_object_types[(graphql-first)]
 . Creating table schema
 xref:graphql-using.adoc#_creating_a_table[(cql-first)]
-. _Optional_ Creating table indexes
+. _Optional_ Creating indexes
 xref:graphql-first-using.adoc#_creating_indexes[(graphql-first)]
-// xref:creating-an-index-for-a-table-graphql.adoc[(cql-first)]
+xref:graphql-using.adoc#_creating_an_index[(cql-first)]
 . Deploying schema
 xref:graphql-first-using.adoc#_deploying_schema[(graphql-first)]
 . Undeploying schema

@@ -98,7 +98,7 @@ how to deploy the schema once created.
 [TIP]
 ====
 Do you want to understand deployment first?
-Read xref:graphql-first-using.adoc#deploying_schema[Deploying Schema].
+Read xref:graphql-first-using.adoc#_deploying_schema[Deploying Schema].
 ====
 
 // tag::CreateUDT[]
@@ -135,17 +135,17 @@ include::example$graphql/1createUDTReview.graphql[]
 // USE asciidoc callouts to explain? a la https://docs.couchbase.com/home/contribute/code-blocks.html#callouts
 These types have some Cassandra-specific features, in addition to the typical format
 of a GraphQL type.
-To denote that the type will be stored as a UDT in Cassandra, `@cql_entity(target: UDT)`
+To denote that the type is stored as a UDT in Cassandra, `@cql_entity(target: UDT)`
 is added to the initial line.
 
-To avoid duplicating the type as both an input type and output type, `@cql_input` is
-added to generate an `AddressInput` type with the same fields as the type `address`
+To avoid duplicating the type as both an input type and output type, add `@cql_input`
+to generate an `AddressInput` type with the same fields as the type `Address`
 in the GraphQL schema.
 
 Standard CamelCase is used to name the fields, but the Cassandra column name can be
 named with an alternative using `@cql_column(name: "book_title")`.
 In Cassandra, CamelCase names must be double-quoted, so this particular field name is
-both GraphQL friendly (bookTitle) and CQL friendly (book_title).
+both GraphQL friendly (`bookTitle`) and CQL friendly (`book_title`).
 
 ==== Data types
 
