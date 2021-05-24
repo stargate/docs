@@ -3,7 +3,7 @@ name: Generate Antora site
 on:
   push:
     branches:
-      - gql_first
+      - master
 env:
   SITE_DIR: 'site'
 jobs:
