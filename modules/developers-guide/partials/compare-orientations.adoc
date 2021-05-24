@@ -20,7 +20,7 @@ a container (table or type) to hold information about  a `reader`:
     ]
   )
 }
-| graphql-first
+| schema-first
 | type Reader @key @cql_entity(name: "reader") @cql_input {
   name: String! @cql_column(partitionKey: true)
   user_id: Uuid! @cql_column(clusteringOrder: ASC)
@@ -32,21 +32,21 @@ a container (table or type) to hold information about  a `reader`:
 |===
 
 The two approaches are similar, in that both must name the columns (cql-first) or
-fields (graphql-first). The data type must be specified for each column or field.
+fields (schema-first). The data type must be specified for each column or field.
 Although the syntax of the data type is different, by comparing, you can see
 that they are similar. Each approach can define the primary key composed of one or
 more partition keys and zero or more clustering keys.
 The column `reviews` in the cql-first example is defined as a tuple, but since
-the graphql-first approach doesn't support tuples, a user-defined type `Review`
+the schema-first approach doesn't support tuples, a user-defined type `Review`
 is used instead.
 The UDTs are not included here for brevity, but are explained later.
 
 The main difference in the two approaches shown here are the CQL directives included
-in the graphql-first type. To extend the power of Cassandra, these directives
+in the schema-first type. To extend the power of Cassandra, these directives
 allow a user to fine-tune, if you choose, how the type is defined in the underlying
 database.
 
 The other difference, not illustrated here, is that, in the cql-first approach,
 mutations and queries are automatically generated, but no customization is possible.
-In the graphql-first approach, the developer is responsible for declaring the mutations
+In the schema-first approach, the developer is responsible for declaring the mutations
 and queries, and so has the freedom to do whatever is needed for an application.

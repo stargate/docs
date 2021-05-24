@@ -1,4 +1,4 @@
-= Using the Stargate GraphQL API (graphql-first)
+= Using the Stargate GraphQL API (Schema-first)
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
@@ -22,7 +22,7 @@ include::partial$docker_pull.adoc[tag=3x]
 include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
-== Using the Auth API to generate an auth token
+== Use the Auth API to generate an auth token
 In order to use the Stargate GraphQL API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
@@ -36,14 +36,14 @@ your GraphQL requests. Copy the value after `"authToken"` to use later.
 //include::graphql.adoc[tag=UsingGraphQLPlayground]
 //include::graphql.adoc[tag=UsingPostman]
 
-== Creating or dropping schema
+== Create or delete schema
 
 In order to use the GraphQL API, you must xref:graphql-first-using.adoc#_deploying_schema[deploy schema]
 that defines the types, mutations, and queries.
 However, a keyspace, a container that stores the data, must first be created.
 
 // tag::CreateKS[]
-=== Creating a keyspace
+=== Create a keyspace
 
 Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace in your database.
@@ -87,6 +87,18 @@ include::example$result/gql_createKeyspace.result[]
 ----
 // end::CreateKS[]
 
+// tag::DeleteKS[]
+=== Delete a keyspace
+
+You can delete a keyspace. All tables and table data will be deleted along with
+the keyspace schema.
+
+[source, plaintext]
+----
+include::example$graphql/dropKeyspace.graphql[]
+----
+// end::DeleteKS[]
+
 === A note about what schema is
 
 A full GraphQL schema that will be
@@ -102,7 +114,7 @@ Read xref:graphql-first-using.adoc#_deploying_schema[Deploying Schema].
 ====
 
 // tag::CreateUDT[]
-=== Creating a user-defined type (UDT)
+=== Create a user-defined type (UDT)
 
 User-defined types (UDTs) can be created as GraphQL object types.
 UDTs are optional, but if you wish to use a UDT in another object type definition,
@@ -146,8 +158,10 @@ Standard CamelCase is used to name the fields, but the Cassandra column name can
 named with an alternative using `@cql_column(name: "book_title")`.
 In Cassandra, CamelCase names must be double-quoted, so this particular field name is
 both GraphQL friendly (`bookTitle`) and CQL friendly (`book_title`).
+// end::CreateUDT[]
 
-==== Data types
+// tag::DataTypes[]
+=== Data types
 
 A column's CQL data type is inferred from the GraphQL field type.
 GraphQL's built-in scalar types are mapped:
@@ -169,11 +183,10 @@ Float32, Blob, SmallInt, TinyInt, Timestamp, Time.
 
 Sets and lists are defined by custom typed arrays. Maps and tuples are not
 supported, but UDTs can be used to create the same functionality.
-
-// end::CreateUDT[]
+// end::DataTypes[]
 
 // tag::CreateObjectTypes[]
-=== Creating object types
+=== Create object types
 
 The most basic components of a GraphQL schema are object types, which just
 represent a kind of object you can fetch from your service, and specify the
@@ -229,7 +242,7 @@ The only valid `typeHints` using a set instead of a list, or making a CQL type f
 // end::CreateObjectTypes[]
 
 // tag::CreateIndexes[]
-=== Creating indexes
+=== Create indexes
 
 Cassandra supports indexing any regular, non-primary key fields in an object type.
 A field will  be indexed if `@cql_index` is added to the field definition.
@@ -260,7 +273,7 @@ The directive `@cql_index` has the following optional arguments:
 // end::CreateIndexes[]
 
 // tag::CreateQueries[]
-=== Creating queries
+=== Create queries
 
 Most types in your schema will just be normal object types, but there are two types
 that are special, the Query type and the Mutation type.
@@ -292,7 +305,7 @@ while `[Book]` specifies that the output will be an array of books.
 // end::CreateQueries[]
 
 // tag::CreateMutations[]
-=== Creating mutations
+=== Create mutations
 
 Mutations work in a similar way  to queries.
 Define fields in the mutation type, and you can specify those fields in your queries.
@@ -314,7 +327,7 @@ type submitted to the mutation is a `book`.
 `insertBook` will insert a book, `insertReader` will insert a reader, and `deleteBook`
 and `deleteReader` are Boolean operations.
 
-==== Conditional inserting
+==== Conditional insertion
 
 A mutation can be turned into a conditional insertion operation by ending the mutation
 name with `ifNotExists`.
@@ -324,7 +337,7 @@ be added to the response from insertions or annotating it with @cql_insert(ifNot
 // end::CreateMutations[]
 
 // tag::CreatePayloadTypes[]
-=== Creating payload types
+=== Create payload types
 
 Payloads types are not mapped to the database.
 They only serve as wrappers of an operation's response.
@@ -382,9 +395,9 @@ otherwise, applied will be false and book will be the existing data.
 // end::CreatePayloadTypes[]
 
 // tag::DeploySchema[]
-== Deploying schema
+== Deploy schema
 
-=== Deploying schema manually
+=== Deploy schema manually
 
 Now that you have created GraphQL types, queries, and mutations, it's time to deploy the schema.
 Recall that the corresponding CQL schema is inferred and created from the GraphQL schema
@@ -454,7 +467,7 @@ Drop and recreate only the CQL tables and UDTs that don't match.
 This is a destructive operation: any existing data in the recreated tables will be lost.
 Tables that are not recreated will retain their data.
 
-=== Deploying schema file
+=== Deploy schema file
 
 Schema can also be deployed to a keyspace using a schema file upload.
 This mutation must be executed with a multipart request (note that your operations
@@ -513,7 +526,7 @@ include::example$result/gql_1DeployFileAgain.result[]
 --
 ====
 
-=== Modifying schema
+=== Modify schema
 
 To modify the current schema, simply deploy again, supplying the `expectedVersion` as the
 current schema's version if you wish to overwrite the definitions. Otherwise, a new schema
@@ -522,7 +535,7 @@ with a new version id will be created.
 
 
 // tag::CheckKSSchema[]
-== Checking the keyspace schema
+== Check the keyspace schema
 
 To check if the schema exists, execute a GraphQL check in http://localhost:8080/graphql-admin:
 
@@ -575,7 +588,7 @@ include::example$result/gql_1getParticularKsSchema.result[]
 // end::CheckKSSchema[]
 
 // tag::UndeploySchema[]
-== Undeploying schema
+== Undeploy schema
 
 To undeploy an existing schema, use the following mutation.
 
@@ -604,10 +617,10 @@ The keyspace name and schema version must be supplied.
 One option is available, `force`, to force an erasure of the schema.
 // end::UndeploySchema[]
 
-== Interacting with data stored in tables
+== Interact with data stored in tables
 
 // tag::WriteData[]
-=== Inserting data
+=== Insert data
 
 If you have created schema for insertion, now you are ready to write data into the database.
 
@@ -705,7 +718,7 @@ include::example$result/gql_1createPayloadConditional.result[]
 //The serial consistency can also be set with `serialConsistency` in the options,
 //if needed.
 
-==== Inserting arrays and UDTs
+==== Insert arrays and UDTs
 
 Inserting arrays and UDTs requires a few extra embellishments:
 
@@ -736,7 +749,7 @@ array items.
 // end::WriteAdvData[]
 
 // tag::ReadData[]
-=== Retrieving data
+=== Retrieve data
 
 Let's check that the data was inserted.
 Use the query `book` with the primary key to find a book based on its title.
@@ -822,7 +835,7 @@ include::example$result/gql_1fetchReaders.result[]
 In this example, the primary key consists of both `name` and `user_id`, to distinguish
 readers who might have the same name.
 
-==== Filter options for reading
+==== Filter options for reads
 
 It's possible to customize the CQL condition of each parameter with `@cql_where`
 with the following arguments:
@@ -997,7 +1010,7 @@ include::example$result/gql_1createQueryWhereCONTAINS.result[]
 // end::ReadAdvData[]
 
 // tag::UpdateData[]
-=== Updating data
+=== Update data
 
 A mutation can be turned into a update operation by starting the mutation
 name with `update`.
@@ -1038,7 +1051,7 @@ If it does exist, it will be updated with the new row data.
 // end::UpdateData[]
 
 // tag::DeleteData[]
-=== Deleting data
+=== Delete data
 
 A mutation can be turned into a delete operation by starting the mutation
 name with `delete` or `remove`.

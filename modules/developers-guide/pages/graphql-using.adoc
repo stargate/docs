@@ -1,4 +1,4 @@
-= Using the Stargate GraphQL API (cql-first)
+= Using the Stargate GraphQL API (CQL-first)
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
@@ -21,7 +21,7 @@ include::partial$docker_pull.adoc[tag=3x]
 include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
-== Using the Auth API to generate an auth token
+== Use the Auth API to generate an auth token
 In order to use the Stargate Document API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
@@ -35,7 +35,7 @@ your GraphQL requests. Copy the value after `"authToken"` to use later.
 //include::graphql.adoc[tag=UsingGraphQLPlayground]
 //include::graphql.adoc[tag=UsingPostman]
 
-== Creating or dropping schema
+== Create or delete schema
 
 In order to use the GraphQL API, you must create schema that defines the keyspace and
 tables that will store the data. A keyspace is a container for which a
@@ -44,7 +44,7 @@ Tables consist of columns that have a defined data type. Multiple tables are con
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
 // tag::CreateKS[]
-=== Creating a keyspace
+=== Create a keyspace
 
 Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace and at least one table in your database. If you are connecting to a
@@ -86,8 +86,47 @@ include::example$result/gql_createKeyspace.result[]
 ----
 // end::CreateKS[]
 
+// tag::CheckKS[]
+=== Check keyspace existence
+
+To check if a keyspace exists, execute a GraphQL query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/getKs.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getKs.result[]
+----
+--
+====
+// end::CheckKS[]
+
+// tag::DropKS[]
+=== Delete a keyspace
+
+You can delete a keyspace. All tables and table data will be deleted along with
+the keyspace schema.
+
+[source, plaintext]
+----
+include::example$graphql/dropKeyspace.graphql[]
+----
+// end::DropKS[]
+
 // tag::CreateUDT[]
-=== Creating a user-defined type (UDT)
+=== Create a user-defined type (UDT)
 
 Optional user-defined types (UDTs) can be created and used in table definitions.
 This example creates a UDT called `address_type` that includes a street, city,
@@ -118,8 +157,19 @@ include::example$result/gql_createUDT.result[]
 
 // end::CreateUDT[]
 
+// tag::DropType[]
+=== Delete a user-defined type (UDT)
+
+You can delete a UDT. All tables that use the UDT must first be deleted.
+
+[source, plaintext]
+----
+include::example$graphql/dropType.graphql[]
+----
+// end::DropType[]
+
 // tag::CreateTable[]
-=== Creating a table
+=== Create a table
 
 After the keyspace exists, you can create two tables by executing the following
 mutation:
@@ -220,7 +270,7 @@ This example shows a map. A previous example shows a list.
 In the next example, a set will be used.
 
 // tag:AddColumns[]
-=== Adding columns to table schema
+=== Add columns to table schema
 
 If you need to add more attributes to something you are storing in a table, you
 can add one or more columns:
@@ -247,8 +297,125 @@ include::example$result/gql_alterTableAddCols.result[]
 ====
 // end:AddColumns[]
 
+// tag::CheckTables[]
+=== Check table and column existence
+
+To check if a table or particular table columns exist, execute a
+GraphQL query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/getTables.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getTables.result[]
+----
+--
+====
+
+Because these queries are named, the GraphQL playground will allow you to select
+which query to run. The first query will return information about the keyspace
+`library` and the tables within it. The second query will return just information
+about the tables in that keyspace.
+// end::CheckTables[]
+
+// tag::DropColumns[]
+=== Delete columns from table schema
+
+If you find an attribute is no longer required in a table, you
+can remove a column.  All column data will be deleted along with the column schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/dropColumnFormat.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropColumnFormat.result[]
+----
+--
+====
+// end::DropColumns[]
+
+
+// tag::DropTable[]
+=== Delete a table
+
+You can delete a table. All data will be deleted along with the table schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/dropTableArticle.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableArticle.result[]
+----
+--
+====
+// end::DropTable[]
+
+// tag::DropAdvTable[]
+==== IF EXISTS option
+
+You can delete a table after checking that it exists with the `ifExists` option.
+All data will be deleted along with the table schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/dropTableIfExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableIfExists.result[]
+----
+--
+====
+// end::DropAdvTable[]
+
 // tag::CreateIndex[]
-=== Creating an index
+=== Create indexes
 
 Tables can contain partition keys and clustering keys, both of which define the
 primary key. A table can also include non-primary keys.
@@ -347,176 +514,7 @@ The `cqlsh` tool can be used to create the indexes if desired.
 
 // end::CreateIndexes[]
 
-// tag::CheckKSTables[]
-=== Checking that keyspaces and tables exist
-
-To check if a keyspace, tables, or particular table columns exist, execute a
-GraphQL query:
-
-For keyspaces and tables:
-
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/getKs.graphql[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_getKs.result[]
-----
---
-====
-
-And for tables:
-
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/getTables.graphql[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_getTables.result[]
-----
---
-====
-
-Because these queries are named, the GraphQL playground will allow you to select
-which query to run. The first query will return information about the keyspace
-`library` and the tables within it. The second query will return just information
-about the tables in that keyspace.
-
-// LLP: What about "columns"?
-
-// end::CheckKSTables[]
-
-== Drop keyspaces, user-defined types (UDTs), tables or columns
-
-// tag::DropKS[]
-=== Dropping a keyspace
-
-You can delete a keyspace. All tables and table data will be deleted along with
-the keyspace schema.
-
-[source, plaintext]
-----
-include::example$graphql/dropKeyspace.graphql[]
-----
-// end::DropKS[]
-
-// tag::DropType[]
-=== Dropping a type
-
-You can delete a type. All tables that use the UDT must first be deleted.
-
-[source, plaintext]
-----
-include::example$graphql/dropType.graphql[]
-----
-// end::DropType[]
-
-// tag::DropTable[]
-=== Dropping a table
-
-You can delete a table. All data will be deleted along with the table schema.
-
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/dropTableArticle.graphql[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_dropTableArticle.result[]
-----
---
-====
-// end::DropTable[]
-
-// tag::DropAdvTable[]
-==== IF EXISTS option
-
-You can delete a table after checking that it exists with the `ifExists` option.
-All data will be deleted along with the table schema.
-
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/dropTableIfExists.graphql[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_dropTableIfExists.result[]
-----
---
-====
-// end::DropAdvTable[]
-
-// tag::DropColumns[]
-=== Dropping columns from table schema
-
-If you find an attribute is no longer required in a table, you
-can remove a column.  All column data will be deleted along with the column schema.
-
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/dropColumnFormat.graphql[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_dropColumnFormat.result[]
-----
---
-====
-// end::DropColumns[]
-
-== Interacting with data stored in tables
+== Interact with data stored in tables
 
 // tag::APIGeneration[]
 === API generation

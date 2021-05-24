@@ -8,7 +8,7 @@ using GraphQL types, mutations, and queries with any Cassandra deployment.
 The Stargate GraphQL API has two modes, one developed from native GraphQL schema principles,
 and one developed with the Cassandra Query Language (CQL) in mind.
 To distinguish these two modes, the rest of the documentation will refer to the
-modes as `graphql-first` and `cql-first`.
+modes as `schema-first` and `cql-first`.
 
 include::partial$cql-first-desc.adoc[]
 
@@ -16,49 +16,51 @@ include::partial$graphql-first-desc.adoc[]
 
 include::partial$compare-orientations.adoc[]
 
-// LLP: I really should put an example side by side of each approach here. For example,
-// the reader table as cql-first and as gql-first
-
 include::partial$GQLAPIBlogPost.adoc[]
 
 You can start with a xref:quickstart:quick_start-graphql.adoc[GraphQL QuickStart] or
-follow the full instructions: xref:graphql-first-using.adoc[(graphql-first)] xref:graphql-using.adoc[(cql-first)] .
+follow the full instructions: xref:graphql-first-using.adoc[(schema-first)] xref:graphql-using.adoc[(cql-first)] .
 
 We'll show you you how to:
 
 // FIX THE REST OF THESE LINKS!
 . xref:auth.adoc[Generate an authorization token]
 //. xref:manage-application-tokens.adoc[Get an application token]
-. Creating a keyspace
-xref:graphql-first-using#_creating_a_keyspace.adoc[(graphql-first)]
-xref:graphql-using#_creating_a_keyspace.adoc[(cql-first)]
-. _Optional_ Creating a user-defined type (UDT)
-xref:graphql-first-using.adoc#_creating_a_user_defined_type_udt[(graphql-first)]
-xref:graphql-using.adoc#_creating_a_user_defined_type_udt[(cql-first)]
-. Creating object types
-xref:graphql-first-using.adoc#_creating_object_types[(graphql-first)]
-. Creating table schema
-xref:graphql-using.adoc#_creating_a_table[(cql-first)]
-. _Optional_ Creating indexes
-xref:graphql-first-using.adoc#_creating_indexes[(graphql-first)]
-xref:graphql-using.adoc#_creating_an_index[(cql-first)]
-. Deploying schema
-xref:graphql-first-using.adoc#_deploying_schema[(graphql-first)]
-. Undeploying schema
-xref:graphql-first-using.adoc#_undeploying_schema[(graphql-first)]
-. Dropping user-defined types (UDTs), tables or columns
-xref:graphql-using.adoc#_drop_keyspaces_user_defined_types_udts_tables_or_columns[(cql-first)]
-. Adding rows to your table
-xref:graphql-first-using.adoc#_inserting_data[(graphql-first)]
+. Create a keyspace
+xref:graphql-first-using#_create_a_keyspace.adoc[(schema-first)]
+xref:graphql-using#_create_a_keyspace.adoc[(cql-first)]
+. Delete a keyspace
+xref:graphql-first-using#_delete_a_keyspace.adoc[(schema-first)]
+xref:graphql-using#_delete_a_keyspace.adoc[(cql-first)]
+. _Optional_ Create a user-defined type (UDT)
+xref:graphql-first-using.adoc#_create_a_user_defined_type_udt[(schema-first)]
+xref:graphql-using.adoc#_create_a_user_defined_type_udt[(cql-first)]
+. _Optional_ Delete a UDT
+xref:graphql-using.adoc#_delete_a_user_defined_type_UDT[(cql-first)]
+. Create object types
+xref:graphql-first-using.adoc#_create_object_types[(schema-first)]
+. Create table schema
+xref:graphql-using.adoc#_create_a_table[(cql-first)]
+. Delete table schema
+xref:graphql-using.adoc#_delete_a_table[(cql-first)]
+. _Optional_ Create indexes
+xref:graphql-first-using.adoc#_create_indexes[(schema-first)]
+xref:graphql-using.adoc#_create_indexes[(cql-first)]
+. Deploy schema
+xref:graphql-first-using.adoc#_deploy_schema[(schema-first)]
+. Undeploy schema
+xref:graphql-first-using.adoc#_undeploy_schema[(schema-first)]
+. Add data
+xref:graphql-first-using.adoc#_insert_data[(schema-first)]
 xref:graphql-using.adoc#_write_data[(cql-first)]
-. Retrieving rows from your table
-xref:graphql-first-using.adoc#_retrieving_data[(graphql-first)]
+. Get data
+xref:graphql-first-using.adoc#_retrieve_data[(schema-first)]
 xref:graphql-using.adoc#_read_data[(cql-first)]
-. Updating rows in your table
-xref:graphql-first-using.adoc#_updating_data[(graphql-first)]
+. Update data
+xref:graphql-first-using.adoc#_update_data[(schema-first)]
 xref:graphql-using.adoc#_update_data[(cql-first)]
-. Deleting rows in your table
-xref:graphql-first-using.adoc#_deleting_data[(graphql-first)]
+. Delete data
+xref:graphql-first-using.adoc#_delete_data[(schema-first)]
 xref:graphql-using.adoc#_delete_data[(cql-first)]
 
 == About the GraphQL API endpoints

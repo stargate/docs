@@ -53,7 +53,8 @@ include::developers-guide:page$graphql-using.adoc[tag=CreateKS]
 include::developers-guide:page$graphql-using.adoc[tag=CreateTable]
 
 // check NS and collections exist
-include::developers-guide:page$graphql-using.adoc[tag=CheckKSTables]
+include::developers-guide:page$graphql-using.adoc[tag=CheckKS]
+include::developers-guide:page$graphql-using.adoc[tag=CheckTables]
 
 == Interacting with tables
 

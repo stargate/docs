@@ -26,7 +26,7 @@ Adding parameter information, you can generate `cURL` commands to execute and
 display results that will return.
 // end::swaggerUI[]
 
-== Using the Auth API to generate an auth token
+== Use the Auth API to generate an auth token
 In order to use the Stargate REST API, an authorization token must be
 generated to access the interface.
 
@@ -37,11 +37,11 @@ include::partial$gen_auth_token.adoc[]
 include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
 
 // tag::UsingPostman[]
-== Using Postman
+== Use Postman
 
 If you prefer, you can use Postman as a client interface for exploring the REST API
-(https://www.postman.com/downloads/[download here]). 
-See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments. 
+(https://www.postman.com/downloads/[download here]).
+See xref:ROOT:tooling.adoc[Tooling Resources] for links to downloadable collections and environments.
 Instructions for configuring the environments for Stargate OSS and link:https://astra.datastax.com[Astra] are available.
 You can immediately import the documentation code examples and explore!
 
@@ -49,7 +49,7 @@ Now you're ready to use the REST API for CRUD operations.
 // end::UsingPostman[]
 
 // tag::CreateKS[]
-== Creating or dropping keyspace and table schema
+== Create or delete keyspace and table schema
 
 In order to use the REST API, you must create schema that defines at least one
 keyspace and one table that will store the data.
@@ -67,7 +67,7 @@ If no replica is defined, then for a keyspace in a single datacenter cluster,
 the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
 datacenter.
 
-=== Creating a keyspace
+=== Create a keyspace
 
 ==== Simple keyspace
 
@@ -165,7 +165,7 @@ include::example$rest/curl_ks_dcs.sh[]
 // end::CreateKSextra[]
 
 // tag::CheckKS[]
-==== Checking keyspace existence
+=== Check keyspace existence
 
 To check if a keyspaces exist, execute a
 REST API query with `cURL` to find all the keyspaces:
@@ -215,8 +215,24 @@ include::example$result/rest_curl_get_particular_ks.result[]
 ====
 // end::CheckKS[]
 
+// tag::DropKS[]
+=== Delete a keyspace
+
+Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}` to delete
+a keyspace. All data and all table schema will be deleted along with the
+keyspace scheam.
+
+[source, bash]
+----
+include::example$rest/curl_drop_ks.sh[]
+----
+// end::DropKS[]
+
+// LLP: 05.24.21 ADD CREATE UDT HERE
+// LLP: 05.24.21 ADD DELETE UDT HERE
+
 // tag::CreateTable[]
-=== Creating a table
+=== Create a table
 
 Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/tables` to create a table.
 Set the table name and column definitions in the JSON body.
@@ -257,7 +273,7 @@ Look in the next section for some examples of adding columns.
 // end::DataTypes[]
 
 // tag: AddColumn[]
-==== Adding columns to table schema
+==== Add columns to table schema
 
 If you need to add an attribute to something you are storing in a table, you
 can add a column by sending a `POST` request to add the column.
@@ -449,7 +465,7 @@ include::example$result/rest_curl_add_udt_to_table.result[]
 // end: AddColumn[]
 
 // tag::CheckTables[]
-==== Checking table and column existence
+=== Check table and column existence
 
 To check if a table exists, execute a
 REST API query with `cURL` to find all the tables:
@@ -546,35 +562,8 @@ include::example$result/rest_curl_get_particular_column.result[]
 ====
 // end::CheckTables[]
 
-== Drop keyspaces, tables or columns
-
-// tag::DropKS[]
-=== Dropping a keyspace
-
-Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}` to delete
-a keyspace. All data and all table schema will be deleted along with the
-keyspace scheam.
-
-[source, bash]
-----
-include::example$rest/curl_drop_ks.sh[]
-----
-// end::DropKS[]
-
-// tag::DropTable[]
-=== Dropping a table
-
-Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}`
-to delete a table. All data will be deleted along with the table schema.
-
-[source, bash]
-----
-include::example$rest/curl_drop_table.sh[]
-----
-// end::DropTable[]
-
 // tag::RemoveColumn[]
-=== Removing columns from table schema
+=== Remove columns from table schema
 
 If you find an attribute is no longer required in a table, you
 can remove a column by sending a `DELETE` request to delete the column. All
@@ -586,12 +575,26 @@ include::example$rest/curl_drop_column.sh[]
 ----
 // end::RemoveColumn[]
 
-== Modifying schema
+// tag::DropTable[]
+=== Delete a table
+
+Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}`
+to delete a table. All data will be deleted along with the table schema.
+
+[source, bash]
+----
+include::example$rest/curl_drop_table.sh[]
+----
+// end::DropTable[]
+
+// LLP: 05.24.21 ADD CREATE INDEX AND DELETE INDEX?
+
+//== Modify schema
 
 //LLP: need to add "replace a table definition, except for columns"
 // which can be used to change table options, like clustering order and TTL
 
-== Interacting with data stored in tables
+== Interact with data stored in tables
 
 All data written with the REST API is stored in columns in tables that were
 specified with the schema.
