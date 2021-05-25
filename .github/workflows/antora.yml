@@ -20,9 +20,15 @@ jobs:
          site_sources_path: ./
       - name: "List folder"
         run: |
-          ls -ltra $GITHUB_WORKSPACE
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
+      - name: "Fix attachments"
+        run: |
+          mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/attachments
+          sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2
         with:
           name: site
           path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
@@ -38,12 +44,12 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v2
      - name: Download generated site
-       uses: actions/download-artifact@v1
+       uses: actions/download-artifact@v2
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
      - name: Deploy to GitHub Pages
-       uses: JamesIves/github-pages-deploy-action@3.2.1
+       uses: JamesIves/github-pages-deploy-action@3.7.1
        with:
         # ACCESS_TOKEN: # optional
         GITHUB_TOKEN: "${{ github.token}}"
