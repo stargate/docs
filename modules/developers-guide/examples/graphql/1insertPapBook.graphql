@@ -1,0 +1,6 @@
+mutation insertAnotherBook {
+ insertBook(book: { title: "Pride and Prejudice", author: "Jane Austen" }) {
+      title
+      author
+  }
+}

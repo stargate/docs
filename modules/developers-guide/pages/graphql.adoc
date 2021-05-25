@@ -1,6 +1,136 @@
 = GraphQL API
 
-The Stargate GraphQL API is implemented to use GraphQL mutations and queries with any Cassandra deployment.
+== Overview
 
-* xref:quickstart:quick_start-graphql.adoc[GraphQL QuickStart]
-* xref:graphql-using.adoc[Using the GraphQL API]
+The Stargate GraphQL API is implemented to easily modify and query your table data
+using GraphQL types, mutations, and queries with any Cassandra deployment.
+
+The Stargate GraphQL API has two modes, one developed from native GraphQL schema principles,
+and one developed with the Cassandra Query Language (CQL) in mind.
+To distinguish these two modes, the rest of the documentation will refer to the
+modes as `schema-first` and `cql-first`.
+
+include::partial$cql-first-desc.adoc[]
+
+include::partial$graphql-first-desc.adoc[]
+
+include::partial$compare-orientations.adoc[]
+
+include::partial$GQLAPIBlogPost.adoc[]
+
+You can start with a xref:quickstart:quick_start-graphql.adoc[GraphQL QuickStart] or
+follow the full instructions: xref:graphql-first-using.adoc[(schema-first)] xref:graphql-using.adoc[(cql-first)] .
+
+We'll show you you how to:
+
+// FIX THE REST OF THESE LINKS!
+. xref:auth.adoc[Generate an authorization token]
+//. xref:manage-application-tokens.adoc[Get an application token]
+. Create a keyspace
+xref:graphql-first-using#_create_a_keyspace.adoc[(schema-first)]
+xref:graphql-using#_create_a_keyspace.adoc[(cql-first)]
+. Delete a keyspace
+xref:graphql-first-using#_delete_a_keyspace.adoc[(schema-first)]
+xref:graphql-using#_delete_a_keyspace.adoc[(cql-first)]
+. _Optional_ Create a user-defined type (UDT)
+xref:graphql-first-using.adoc#_create_a_user_defined_type_udt[(schema-first)]
+xref:graphql-using.adoc#_create_a_user_defined_type_udt[(cql-first)]
+. _Optional_ Delete a UDT
+xref:graphql-using.adoc#_delete_a_user_defined_type_UDT[(cql-first)]
+. Create object types
+xref:graphql-first-using.adoc#_create_object_types[(schema-first)]
+. Create table schema
+xref:graphql-using.adoc#_create_a_table[(cql-first)]
+. Delete table schema
+xref:graphql-using.adoc#_delete_a_table[(cql-first)]
+. _Optional_ Create indexes
+xref:graphql-first-using.adoc#_create_indexes[(schema-first)]
+xref:graphql-using.adoc#_create_indexes[(cql-first)]
+. Deploy schema
+xref:graphql-first-using.adoc#_deploy_schema[(schema-first)]
+. Undeploy schema
+xref:graphql-first-using.adoc#_undeploy_schema[(schema-first)]
+. Add data
+xref:graphql-first-using.adoc#_insert_data[(schema-first)]
+xref:graphql-using.adoc#_write_data[(cql-first)]
+. Get data
+xref:graphql-first-using.adoc#_retrieve_data[(schema-first)]
+xref:graphql-using.adoc#_read_data[(cql-first)]
+. Update data
+xref:graphql-first-using.adoc#_update_data[(schema-first)]
+xref:graphql-using.adoc#_update_data[(cql-first)]
+. Delete data
+xref:graphql-first-using.adoc#_delete_data[(schema-first)]
+xref:graphql-using.adoc#_delete_data[(cql-first)]
+
+== About the GraphQL API endpoints
+
+There are three Stargate GraphQL API endpoints, one for creating schema in cql-first,
+one for deploying schema in the graphql-first, and the third for querying or mutating a keyspace.
+The URLS are:
+
+Schema::
+`https://localhost:8080/graphql-schema`
+Admin::
+`https://localhost:8080/graphql-admin`
+Querying::
+`https://localhost:8080/graphql/{keyspace_name}`
+
+The schema endpoint is used to create or alter CQL schema in the cql-first GraphQL
+using direct schema manipulation.
+The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL
+which will indirectly modify underlying CQL schema.
+The querying endpoint is constructed in the same manner for both graphql-first and cql-first.
+
+Each request must have a valid xref:manage-application-tokens.adoc[application token].
+Each request can also have an optional unique request id.
+The request id is recommended in a production environment and can be useful in troubleshooting issues.
+
+[TIP]
+====
+**Generating UUIDs**
+Consider using a tool like this https://www.uuidgenerator.net/[online UUID generator, window="_blank"]
+to quickly create a random UUID to pass with your requests if you are submitting
+the queries manually using a tool like cURL.
+====
+
+include::partial$GQLNaming.adoc[]
+
+// tag::UsingGraphQLPlayground[]
+== Using the GraphQL Playground
+
+The easiest way to get started with GraphQL uses the built-in GraphQL playground.
+In Astra, go to the Connect tab for your database, choose GraphQL under the
+`Connect using an API` and you'll see instructions for accessing the playground.
+The GraphQL playground launches the url
+`https://localhost:8080/playground`
+in your browser.
+
+Add your xref:manage-application-tokens.adoc[application token] to the HTTP HEADERS
+section at the lower lefthand corner of the GraphQL Playground window:
+
+{"x-cassandra-token":"$AUTH_TOKEN"}
+
+Once in the playground, you can create new schema and interact with the
+GraphQL APIs. The server paths are structured to provide access to creating and
+querying schema, as well as querying and modifying Cassandra data:
+
+* `/graphql-schema`
+** An API for exploring and creating schema, or Data Definition Language (DDL).
+For example, Astra has queries to create, modify, or drop tables,
+such as `createTable`, or `dropTable`.
+* `/graphql-admin`
+** An API for deploying GraphQL schema.
+* `/graphql/<keyspace>`
+** An API for querying and modifying data in your tables using GraphQL fields.
+// end::UsingGraphQLPlayground[]
+
+// tag::UsingPostman[]
+== Using Postman
+
+If you prefer, you can use Postman as a client interface for exploring the GraphQL API
+(https://www.postman.com/downloads/[download here, window="_blank"]).
+We've provided a
+https://raw.githubusercontent.com/stargate/docs/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_library_Astra.postman_collection.json[Stargate GraphQL API Postman Astra Collection]
+that you can import in Postman to play with the examples shown in this walkthrough.
+// end::UsingPostman[]

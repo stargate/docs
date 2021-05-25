@@ -1,1 +1,1 @@
-CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
+CREATE INDEX country_idx ON users_keyspace.users (VALUES (current_country));

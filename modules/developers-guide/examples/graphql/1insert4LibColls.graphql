@@ -1,0 +1,30 @@
+mutation insertCSRMPhoto {
+  insertLibColl(libColl: { type: "photo", lib_id: 12345, lib_name: "CSRM" }) {
+    type
+    lib_id
+    lib_name
+  }
+}
+
+mutation insertCSRMBook {
+  insertLibColl(libColl: { type: "book", lib_id: 12345, lib_name: "CSRM" }) {
+    type
+    lib_id
+    lib_name
+  }
+}
+mutation insertWSacPhoto {
+  insertLibColl(libColl: { type: "photo", lib_id: 12543, lib_name: "West Sacramento Historical Society" }) {
+    type
+    lib_id
+    lib_name
+  }
+}
+
+mutation insertDavisBook {
+  insertLibColl(libColl: { type: "book", lib_id: 66666, lib_name: "Davis Historical Museum" }) {
+    type
+    lib_id
+    lib_name
+  }
+}

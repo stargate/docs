@@ -1,0 +1,15 @@
+{
+  "data": {
+    "insertBook": {
+      "title": "Native Son"
+    }
+  }
+}
+
+{
+  "data": {
+    "insertBook": {
+      "title": "Moby Dick"
+    }
+  }
+}

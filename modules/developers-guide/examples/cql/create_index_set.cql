@@ -1,1 +1,1 @@
-CREATE INDEX books_idx ON users_keyspace.users (values(favorite_books));
+CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));

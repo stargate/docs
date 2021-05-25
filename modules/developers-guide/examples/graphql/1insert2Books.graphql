@@ -1,0 +1,11 @@
+mutation insertnativeson {
+  insertBook(book: { title: "Native Son", author: "Richard Wright" }) {
+    title
+  }
+}
+
+mutation insertmobydick {
+  insertBook(book: { title:"Moby Dick", author: "Herman Melville"}) {
+    title
+  }
+}

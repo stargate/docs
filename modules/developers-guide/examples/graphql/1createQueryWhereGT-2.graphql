@@ -1,0 +1,15 @@
+type Query {
+  bookGT( 
+    title: [String!] 
+    author: [String] @cql_where(field: "author", predicate: GT)
+  ): [Book]
+}
+
+# retrieves only one book, author: Katie Lee
+# change to author: "Betty Doe" and both books show up
+query fetchBooksGT {
+  bookGT( title:"Groundswell",  author: "Jane Doe") {
+    title
+    author
+  }
+}
