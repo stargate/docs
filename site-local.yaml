@@ -4,7 +4,7 @@ site:
   start_page: stargate::index.adoc
 
 content:
-  edit_url: 'https://github.com/stargate/docs/blob/main/{path}'
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
     - url: .
       branches: HEAD
