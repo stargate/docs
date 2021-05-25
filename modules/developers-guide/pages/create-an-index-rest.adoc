@@ -1,0 +1,96 @@
+= Create an index
+:slug: create-an-index-rest
+
+Tables can contain partition keys and clustering keys, both of which define the
+primary key. A table can also include non-primary keys.
+
+If you wish to create a table query that uses anything other than the partition key
+to define which row or rows are to be retrieved, a column index must be created
+on each column to read the data.
+
+Currently, those indexes can be created with REST,
+https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL],
+or xref:graphql-using.adoc#_create-an-index[GraphQL].
+
+To use the REST API to create indexes, you'll need the xref:auth.adoc[application token]
+you generated to create other schema in your keyspace.
+
+// tag::CreateIndex[]
+== Create an index
+
+Send a `POST` request to
+`/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/indexes`
+to create an index.
+Set the index definitions in the JSON body in the `--data`. In this example,
+an index name is defined as `fav_books_idx` for the column `favorite_books` in
+the keyspace `users_keyspace` and table `users`.
+An option to only create the index if it already exists is set with `ifNotExists: true`;
+the default is `false`.
+
+Two additional options are available:
+
+* `type` can be defined to use SAI indexes if desired; the default is secondary indexes.
+* `kind` defines the kind of index for map collections; the choices available are
+`VALUES/KEYS/ENTRIES/FULL`.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$rest/curl_create_index.sh[]
+----
+--
+
+Result::
++
+--
+[source, plaintext]
+----
+include::example$result/rest_curl_create_index.result[]
+----
+--
+====
+
+Here is an additional example, which creates indexes that are used in the REST API examples:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$rest/curl_create_addl_indexes.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/rest_curl_create_addl_indexes.result[]
+----
+--
+====
+
+Note the use of the `kind` in the definitions used for the map collection `evaluations`.
+
+//
+//If you are using DataStax Enterprise, you may optionally use
+//https://docs.datastax.com/en/dse/6.8/cql/cql/cql_reference/cql_commands/cqlCreateCustomIndex.html[Storage-Attached Indexing (SAI)]:
+
+//[source, cql]
+//----
+//include::example$cql/create_index_set_sai.cql[]
+//include::example$cql/create_index_list_sai.cql[]
+//include::example$cql/create_index_map_sai.cql[]
+//----
+
+//SAI does not support tuples. Searches using SAI do not support the operator `$in`.
+//
+
+// end::CreateIndexes[]
