@@ -166,6 +166,8 @@ include::example$rest/curl_ks_dcs.sh[]
 
 include::developers-guide:page$create-an-index-rest.adoc[]
 
+include::developers-guide:page$delete-an-index-rest.adoc[]
+
 // tag::CheckKS[]
 === Check keyspace existence
 
