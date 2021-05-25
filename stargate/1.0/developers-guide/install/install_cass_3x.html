@@ -232,7 +232,10 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../graphql-using.html">Using the GraphQL API</a>
+    <a class="nav-link" href="../graphql-using.html">Using the GraphQL API (CQL-first)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../graphql-first-using.html">Using the GraphQL API (Schema-first)</a>
   </li>
 </ul>
   </li>
@@ -364,7 +367,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.13</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -383,7 +386,7 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.13</code></pre>
+  stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -537,7 +540,7 @@ with the following command:</p>
   -e SEED=cass1 \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  -d stargateio/stargate-3_11:v1.0.13</code></pre>
+  -d stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -660,13 +663,13 @@ Java 8 is installed.</p>
 </div>
 <div class="paragraph">
 <p>Once you have a machine ready,
-download the <a href="https://github.com/stargate/stargate/releases/download/v1.0.13/stargate-jars.zip">Stargate zip file</a>.
+download the <a href="https://github.com/stargate/stargate/releases/download/v1.0.25/stargate-jars.zip">Stargate zip file</a>.
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">wget https://github.com/stargate/stargate/releases/download/v1.0.13/stargate-jars.zip</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">wget https://github.com/stargate/stargate/releases/download/v1.0.25/stargate-jars.zip</code></pre>
 </div>
 </div>
 <div class="paragraph">

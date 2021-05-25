@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Using the Stargate GraphQL API :: Stargate documentation</title>
+    <title>Using the Stargate GraphQL API (CQL-first) :: Stargate documentation</title>
     <link rel="prev" href="graphql.html">
-    <link rel="next" href="cql.html">
+    <link rel="next" href="graphql-first-using.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
@@ -232,7 +232,10 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="graphql-using.html">Using the GraphQL API</a>
+    <a class="nav-link" href="graphql-using.html">Using the GraphQL API (CQL-first)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="graphql-first-using.html">Using the GraphQL API (Schema-first)</a>
   </li>
 </ul>
   </li>
@@ -305,19 +308,26 @@
     <li><a href="../index.html">Stargate</a></li>
     <li><a href="devguide.html">Developing with Stargate</a></li>
     <li><a href="graphql.html">GraphQL API</a></li>
-    <li><a href="graphql-using.html">Using the GraphQL API</a></li>
+    <li><a href="graphql-using.html">Using the GraphQL API (CQL-first)</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/graphql-using.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Using the Stargate GraphQL API</h1>
+<h1 class="page">Using the Stargate GraphQL API (CQL-first)</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.</p>
+</div>
+<div class="paragraph">
+<p>The CQL-first approach directly translates CQL tables into GraphQL types, mutations, and queries.
+The GraphQL schema is automatically generated from the keyspace, tables, and columns
+defined, but no customization is allowed.
+A standard set of mutations and queries are produced for searching and modifying the table data.
+If you are familiar with Cassandra, you might prefer this approach.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -348,7 +358,14 @@ The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tabl
 <p>Docker installed and running, if using Docker</p>
 </li>
 <li>
-<p><code>cURL</code> to run REST queries</p>
+<p><a href="graphql.html#_using_the_graphql_playground" class="page">GraphQL Playground</a> running to deploy schema, and execute mutations and queries</p>
+</li>
+<li>
+<p>Optional: <code>cURL</code> to run GraphQL queries from command-line</p>
+</li>
+<li>
+<p>Optional: <a href="graphql.html#_using_postman" class="page">Postman collections</a> if you wish to execute mutations and queries
+in Postman</p>
 </li>
 </ul>
 </div>
@@ -373,7 +390,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.13</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -392,13 +409,13 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.13</code></pre>
+  stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_the_auth_api_to_generate_an_auth_token"><a class="anchor" href="#_using_the_auth_api_to_generate_an_auth_token"></a><a class="link" href="#_using_the_auth_api_to_generate_an_auth_token">Using the Auth API to generate an auth token</a></h2>
+<h2 id="_use_the_auth_api_to_generate_an_auth_token"><a class="anchor" href="#_use_the_auth_api_to_generate_an_auth_token"></a><a class="link" href="#_use_the_auth_api_to_generate_an_auth_token">Use the Auth API to generate an auth token</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to use the Stargate Document API, an authorization token must be
@@ -440,67 +457,7 @@ your GraphQL requests. Copy the value after <code>"authToken"</code> to use late
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_the_graphql_playground"><a class="anchor" href="#_using_the_graphql_playground"></a><a class="link" href="#_using_the_graphql_playground">Using the GraphQL Playground</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The easiest way to get started is to use the built-in GraphQL playground that is
-included in the <code>stargate</code> docker container. It can be accessed at
-<a href="http://localhost:8080/playground">http://localhost:8080/playground</a> using a local
-browser after the docker container is started.</p>
-</div>
-<div class="paragraph">
-<p>Once in the playground, you can create new schema and interact with the
-GraphQL APIs. The server paths are structured to provide access to creating and
-querying schema, as well as querying and modifying Cassandra data:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/graphql-schema</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>An API for exploring and creating schema, or Data Definition Language (DDL).
-For example, Cassandra has queries to create, modify, drop keyspaces and tables,
-such as <code>CREATE KEYSPACE</code>, <code>CREATE TABLE1</code>, or <code>DROP TABLE</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>/graphql/&lt;keyspace&gt;</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>An API for querying and modifying your Cassandra tables using GraphQL fields.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll start the playground with <code>/graphql-schema</code> to create some schema.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using_postman"><a class="anchor" href="#_using_postman"></a><a class="link" href="#_using_postman">Using Postman</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you prefer, you can use Postman as a client interface for exploring the GraphQL API
-(<a href="https://www.postman.com/downloads/">download here</a>).
-See <a href="../tooling.html" class="page">Tooling Resources</a> for links to downloadable collections and environments.
-Instructions for configuring the environments for Stargate OSS and <a href="https://astra.datastax.com">Astra</a> are available.
-You can immediately import the documentation code examples and explore!</p>
-</div>
-<div class="paragraph">
-<p>Now you&#8217;re ready to use the REST API for CRUD operations.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_creating_or_dropping_schema"><a class="anchor" href="#_creating_or_dropping_schema"></a><a class="link" href="#_creating_or_dropping_schema">Creating or dropping schema</a></h2>
+<h2 id="_create_or_delete_schema"><a class="anchor" href="#_create_or_delete_schema"></a><a class="link" href="#_create_or_delete_schema">Create or delete schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to use the GraphQL API, you must create schema that defines the keyspace and
@@ -510,7 +467,7 @@ Tables consist of columns that have a defined data type. Multiple tables are con
 in a keyspace, but a table cannot be contained in multiple keyspaces.</p>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_keyspace"><a class="anchor" href="#_creating_a_keyspace"></a><a class="link" href="#_creating_a_keyspace">Creating a keyspace</a></h3>
+<h3 id="_create_a_keyspace"><a class="anchor" href="#_create_a_keyspace"></a><a class="link" href="#_create_a_keyspace">Create a keyspace</a></h3>
 <div class="paragraph">
 <p>Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace and at least one table in your database. If you are connecting to a
@@ -574,10 +531,9 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_user_defined_type_udt"><a class="anchor" href="#_creating_a_user_defined_type_udt"></a><a class="link" href="#_creating_a_user_defined_type_udt">Creating a user-defined type (UDT)</a></h3>
+<h3 id="_check_keyspace_existence"><a class="anchor" href="#_check_keyspace_existence"></a><a class="link" href="#_check_keyspace_existence">Check keyspace existence</a></h3>
 <div class="paragraph">
-<p>User-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called <code>address_type</code> that includes a street, city, state, and zipcode.</p>
+<p>To check if a keyspace exists, execute a GraphQL query:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -592,382 +548,6 @@ This example creates a UDT called <code>address_type</code> that includes a stre
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a user-defined type (UDT)
-mutation createAddressUDT {
-  createType(
-    keyspaceName: "library"
-    typeName: "address_type"
-    fields: [
-      { name: "street", type: { basic: TEXT } }
-      { name: "city", type: { basic: TEXT } }
-      { name: "state", type: { basic: TEXT } }
-      { name: "zip", type: { basic: TEXT } }
-    ]
-  )
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset1_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "createType": true
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_creating_a_table"><a class="anchor" href="#_creating_a_table"></a><a class="link" href="#_creating_a_table">Creating a table</a></h3>
-<div class="paragraph">
-<p>After the keyspace exists, you can create two tables by executing the following
-mutation:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset2_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset2_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset2_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables (book, reader) in library with a single mutation
-# DATA TYPES: TEXT, UUID, SET(TEXT), TUPLE(TEXT, INT, DATE), LIST(UDT)
-mutation createTables {
-  book: createTable(
-    keyspaceName:"library",
-    tableName:"book",
-    partitionKeys: [ # The keys required to access your data
-      { name: "title", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [
-      { name: "author", type: {basic: TEXT} }
-    ]
-  )
-  reader: createTable(
-    keyspaceName:"library",
-    tableName:"reader",
-    partitionKeys: [
-      { name: "name", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [ # Secondary key used to access values within the partition
-      { name: "user_id", type: {basic: UUID}, order: "ASC" }
-  	]
-    values: [
-      { name: "birthdate", type: {basic: DATE} }
-      { name: "email", type: {basic: SET, info:{ subTypes: [ { basic: TEXT } ] } } }
-      { name: "reviews", type: {basic: TUPLE, info: { subTypes: [ { basic: TEXT }, { basic: INT }, { basic: DATE } ] } } }
-      { name: "addresses", type: { basic: LIST, info: { subTypes: [ { basic: UDT, info: { name: "address_type", frozen: true } } ] } } }
-    ]
-  )
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset2_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">  "data": {
-    "book": true,
-    "reader": true
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>It is worth noting that one mutation is used to create two tables.
-Information about partition keys and clustering keys can be found in the
-<a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
-</div>
-<div class="paragraph">
-<p>The second table, <code>reader</code>, also defines a column using a <a href="#graphql-using.html#_creating_a_user-defined_type (UDT)" class="page unresolved">user-defined type (UDT)</a>.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The GraphQL API uses specific naming conventions to preserve capitalization and
-special characters.</p>
-</div>
-<table class="tableblock frame-topbot grid-all stretch">
-<caption class="title">Table 1. GraphQL naming convention</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">GraphQL table name</th>
-<th class="tableblock halign-left valign-top">CQL table name</th>
-<th class="tableblock halign-left valign-top">GraphQL mutation format</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">insertfoo_bar</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FooBar</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"FooBar"</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">insertFooBar</p></td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hellox21_</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"Hello!"</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">insertHellox21_</p></td>
-</tr>
-</tfoot>
-</table>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_data_types"><a class="anchor" href="#_data_types"></a><a class="link" href="#_data_types">Data types</a></h4>
-<div class="paragraph">
-<p>Tables can be created with an option <code>ifNotExists</code>.
-They can also be created with collections (set, list, map), tuples, and UDTs.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_if_not_exists_option"><a class="anchor" href="#_if_not_exists_option"></a><a class="link" href="#_if_not_exists_option">IF NOT EXISTS option</a></h4>
-<div class="paragraph">
-<p>A table can be created with an option <code>ifNotExists</code> that will only create the
-table if it does not already exist:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset3_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset3_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset3_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables, magazine and article, IF THEY DON'T EXIST
-# DATA TYPES: TEXT, INT, LIST(TEXT)
-
-mutation createTableIfNotExists {
-  magazine: createTable(
-    keyspaceName:"library",
-    tableName:"magazine",
-    partitionKeys: [ # The keys required to access your data
-      { name: "title", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [ # Secondary key used to access values within the partition
-      { name: "pub_yr", type: {basic: INT}, order: "ASC" }
-      { name: "pub_mon", type: {basic: INT} }
-      { name: "mag_id", type: {basic: INT} }
-    ],
-    ifNotExists: true,
-    values: [ # The values associated with the keys
-      { name: "editor", type: {basic: TEXT} }
-    ]
-  )
-  article: createTable(
-    keyspaceName:"library",
-    tableName:"article",
-    partitionKeys: [ # The keys required to access your data
-      { name: "title", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [ # Secondary key used to access values within the partition
-      { name: "mtitle", type: {basic: TEXT} }
-    ],
-    ifNotExists: true,
-    values: [ # The values associated with the keys
-      { name: "authors", type: {basic:LIST, info:{ subTypes: [ { basic: TEXT } ] } } }
-    ]
-  )
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset3_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "magazine": true,
-    "article": true
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>One of these tables includes creating a column with the data type <code>LIST</code>, an ordered
-collection of text values.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_collection_set_list_map_columns"><a class="anchor" href="#_collection_set_list_map_columns"></a><a class="link" href="#_collection_set_list_map_columns">Collection (set, list, map) columns</a></h4>
-<div class="paragraph">
-<p>Including a collection in a table has a couple of extra parts:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset4_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset4_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset4_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a table with a MAP
-# DATA TYPE: TEXT, INT, MAP(TEXT, DATE)
-mutation createMapTable {
-  badge: createTable (
-    keyspaceName:"library",
-    tableName: "badge",
-    partitionKeys: [
-      {name: "badge_type", type: {basic:TEXT}}
-    ]
-    clusteringKeys: [
-      { name: "badge_id", type: { basic: INT} }
-    ],
-    ifNotExists:true,
-    values: [
-      {name: "earned", type:{basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}}}
-    ]
-  )
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset4_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "badge": true
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>This example shows a map. A previous example shows a list.
-In the next example, a set will be used.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_adding_columns_to_table_schema"><a class="anchor" href="#_adding_columns_to_table_schema"></a><a class="link" href="#_adding_columns_to_table_schema">Adding columns to table schema</a></h3>
-<div class="paragraph">
-<p>If you need to add more attributes to something you are storing in a table, you
-can add one or more columns:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset5_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset5_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># alter a table and add columns
-# DATA TYPES: TEXT, INT, SET(TEXT)
-mutation alterTableAddCols {
-  alterTableAdd(
-    keyspaceName:"library",
-    tableName:"book",
-    toAdd:[
-      { name: "isbn", type: { basic: TEXT } }
-      { name: "language", type: {basic: TEXT} }
-      { name: "pub_year", type: {basic: INT} }
-      { name: "genre", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
-      { name: "format", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
-    ]
-  )
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset5_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "alterTableAdd": true
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_checking_that_keyspaces_and_tables_exist"><a class="anchor" href="#_checking_that_keyspaces_and_tables_exist"></a><a class="link" href="#_checking_that_keyspaces_and_tables_exist">Checking that keyspaces and tables exist</a></h3>
-<div class="paragraph">
-<p>To check if a keyspace, tables, or particular table columns exist, execute a
-GraphQL query:</p>
-</div>
-<div class="paragraph">
-<p>For keyspaces and tables:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset6_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset6_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset6_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">query GetKeyspace {
@@ -995,7 +575,7 @@ GraphQL query:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="tab-pane" aria-labelledby="tabset1_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1136,8 +716,416 @@ GraphQL query:</p>
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_keyspace"><a class="anchor" href="#_delete_a_keyspace"></a><a class="link" href="#_delete_a_keyspace">Delete a keyspace</a></h3>
 <div class="paragraph">
-<p>And for tables:</p>
+<p>You can delete a keyspace. All tables and table data will be deleted along with
+the keyspace schema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mutation dropKsLibrary {
+  dropKeyspace(name:"library", ifExists: true)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_user_defined_type_udt"><a class="anchor" href="#_create_a_user_defined_type_udt"></a><a class="link" href="#_create_a_user_defined_type_udt">Create a user-defined type (UDT)</a></h3>
+<div class="paragraph">
+<p>Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called <code>address_type</code> that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset2_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a user-defined type (UDT)
+mutation createAddressUDT {
+  createType(
+    keyspaceName: "library"
+    typeName: "address_type"
+    fields: [
+      { name: "street", type: { basic: TEXT } }
+      { name: "city", type: { basic: TEXT } }
+      { name: "state", type: { basic: TEXT } }
+      { name: "zip", type: { basic: TEXT } }
+    ]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "createType": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_user_defined_type_udt"><a class="anchor" href="#_delete_a_user_defined_type_udt"></a><a class="link" href="#_delete_a_user_defined_type_udt">Delete a user-defined type (UDT)</a></h3>
+<div class="paragraph">
+<p>You can delete a UDT. All tables that use the UDT must first be deleted.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext"># drop a UDT
+mutation dropType {
+  dropType(keyspaceName:"library", typeName:"address_type", ifExists:true)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_table"><a class="anchor" href="#_create_a_table"></a><a class="link" href="#_create_a_table">Create a table</a></h3>
+<div class="paragraph">
+<p>After the keyspace exists, you can create two tables by executing the following
+mutation:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset3_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables (book, reader) in library with a single mutation
+# DATA TYPES: TEXT, UUID, SET(TEXT), TUPLE(TEXT, INT, DATE), LIST(UDT)
+mutation createTables {
+  book: createTable(
+    keyspaceName:"library",
+    tableName:"book",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [
+      { name: "author", type: {basic: TEXT} }
+    ]
+  )
+  reader: createTable(
+    keyspaceName:"library",
+    tableName:"reader",
+    partitionKeys: [
+      { name: "name", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "user_id", type: {basic: UUID}, order: "ASC" }
+  	]
+    values: [
+      { name: "birthdate", type: {basic: DATE} }
+      { name: "email", type: {basic: SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "reviews", type: {basic: TUPLE, info: { subTypes: [ { basic: TEXT }, { basic: INT }, { basic: DATE } ] } } }
+      { name: "addresses", type: { basic: LIST, info: { subTypes: [ { basic: UDT, info: { name: "address_type", frozen: true } } ] } } }
+    ]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">  "data": {
+    "book": true,
+    "reader": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>It is worth noting that one mutation is used to create two tables.
+Information about partition keys and clustering keys can be found in the
+<a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
+</div>
+<div class="paragraph">
+<p>The second table, <code>reader</code>, also defines a column using a <a href="#graphql-using.html#_creating_a_user-defined_type (UDT)" class="page unresolved">user-defined type (UDT)</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The GraphQL API uses specific naming conventions to preserve capitalization and
+special characters.</p>
+</div>
+<table class="tableblock frame-topbot grid-all stretch">
+<caption class="title">Table 1. GraphQL naming convention</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">GraphQL table name</th>
+<th class="tableblock halign-left valign-top">CQL table name</th>
+<th class="tableblock halign-left valign-top">GraphQL mutation format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertfoo_bar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FooBar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"FooBar"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertFooBar</p></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hellox21_</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Hello!"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertHellox21_</p></td>
+</tr>
+</tfoot>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_data_types"><a class="anchor" href="#_data_types"></a><a class="link" href="#_data_types">Data types</a></h4>
+<div class="paragraph">
+<p>Tables can be created with an option <code>ifNotExists</code>.
+They can also be created with collections (set, list, map), tuples, and UDTs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_if_not_exists_option"><a class="anchor" href="#_if_not_exists_option"></a><a class="link" href="#_if_not_exists_option">IF NOT EXISTS option</a></h4>
+<div class="paragraph">
+<p>A table can be created with an option <code>ifNotExists</code> that will only create the
+table if it does not already exist:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset4_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables, magazine and article, IF THEY DON'T EXIST
+# DATA TYPES: TEXT, INT, LIST(TEXT)
+
+mutation createTableIfNotExists {
+  magazine: createTable(
+    keyspaceName:"library",
+    tableName:"magazine",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "pub_yr", type: {basic: INT}, order: "ASC" }
+      { name: "pub_mon", type: {basic: INT} }
+      { name: "mag_id", type: {basic: INT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "editor", type: {basic: TEXT} }
+    ]
+  )
+  article: createTable(
+    keyspaceName:"library",
+    tableName:"article",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "mtitle", type: {basic: TEXT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "authors", type: {basic:LIST, info:{ subTypes: [ { basic: TEXT } ] } } }
+    ]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "magazine": true,
+    "article": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>One of these tables includes creating a column with the data type <code>LIST</code>, an ordered
+collection of text values.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_collection_set_list_map_columns"><a class="anchor" href="#_collection_set_list_map_columns"></a><a class="link" href="#_collection_set_list_map_columns">Collection (set, list, map) columns</a></h4>
+<div class="paragraph">
+<p>Including a collection in a table has a couple of extra parts:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset5_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a table with a MAP
+# DATA TYPE: TEXT, INT, MAP(TEXT, DATE)
+mutation createMapTable {
+  badge: createTable (
+    keyspaceName:"library",
+    tableName: "badge",
+    partitionKeys: [
+      {name: "badge_type", type: {basic:TEXT}}
+    ]
+    clusteringKeys: [
+      { name: "badge_id", type: { basic: INT} }
+    ],
+    ifNotExists:true,
+    values: [
+      {name: "earned", type:{basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}}}
+    ]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "badge": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This example shows a map. A previous example shows a list.
+In the next example, a set will be used.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_columns_to_table_schema"><a class="anchor" href="#_add_columns_to_table_schema"></a><a class="link" href="#_add_columns_to_table_schema">Add columns to table schema</a></h3>
+<div class="paragraph">
+<p>If you need to add more attributes to something you are storing in a table, you
+can add one or more columns:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset6_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset6_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># alter a table and add columns
+# DATA TYPES: TEXT, INT, SET(TEXT)
+mutation alterTableAddCols {
+  alterTableAdd(
+    keyspaceName:"library",
+    tableName:"book",
+    toAdd:[
+      { name: "isbn", type: { basic: TEXT } }
+      { name: "language", type: {basic: TEXT} }
+      { name: "pub_year", type: {basic: INT} }
+      { name: "genre", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "format", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+    ]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "alterTableAdd": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_table_and_column_existence"><a class="anchor" href="#_check_table_and_column_existence"></a><a class="link" href="#_check_table_and_column_existence">Check table and column existence</a></h3>
+<div class="paragraph">
+<p>To check if a table or particular table columns exist, execute a
+GraphQL query:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1241,43 +1229,11 @@ which query to run. The first query will return information about the keyspace
 about the tables in that keyspace.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_drop_keyspaces_user_defined_types_udts_tables_or_columns"><a class="anchor" href="#_drop_keyspaces_user_defined_types_udts_tables_or_columns"></a><a class="link" href="#_drop_keyspaces_user_defined_types_udts_tables_or_columns">Drop keyspaces, user-defined types (UDTs), tables or columns</a></h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_dropping_a_keyspace"><a class="anchor" href="#_dropping_a_keyspace"></a><a class="link" href="#_dropping_a_keyspace">Dropping a keyspace</a></h3>
+<h3 id="_delete_columns_from_table_schema"><a class="anchor" href="#_delete_columns_from_table_schema"></a><a class="link" href="#_delete_columns_from_table_schema">Delete columns from table schema</a></h3>
 <div class="paragraph">
-<p>You can delete a keyspace. All tables and table data will be deleted along with
-the keyspace schema.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mutation dropKsLibrary {
-  dropKeyspace(name:"library", ifExists: true)
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_dropping_a_type"><a class="anchor" href="#_dropping_a_type"></a><a class="link" href="#_dropping_a_type">Dropping a type</a></h3>
-<div class="paragraph">
-<p>You can delete a type. All tables that use the UDT must first be deleted.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext"># drop a UDT
-mutation dropType {
-  dropType(keyspaceName:"library", typeName:"address_type", ifExists:true)
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_dropping_a_table"><a class="anchor" href="#_dropping_a_table"></a><a class="link" href="#_dropping_a_table">Dropping a table</a></h3>
-<div class="paragraph">
-<p>You can delete a table. All data will be deleted along with the table schema.</p>
+<p>If you find an attribute is no longer required in a table, you
+can remove a column.  All column data will be deleted along with the column schema.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1294,6 +1250,51 @@ mutation dropType {
 <div class="tab-pane" aria-labelledby="tabset8_graphql-command">
 <div class="listingblock">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a column format from a table
+mutation dropColumnFormat {
+    alterTableDrop(
+    keyspaceName:"library",
+    tableName:"book",
+    toDrop:["format"]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset8_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "alterTableDrop": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_table"><a class="anchor" href="#_delete_a_table"></a><a class="link" href="#_delete_a_table">Delete a table</a></h3>
+<div class="paragraph">
+<p>You can delete a table. All data will be deleted along with the table schema.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset9_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_graphql-command">
+<div class="listingblock">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a table
 mutation dropTableBook {
   dropTable(keyspaceName:"library",
@@ -1302,7 +1303,7 @@ mutation dropTableBook {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset8_result">
+<div class="tab-pane" aria-labelledby="tabset9_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1325,15 +1326,15 @@ All data will be deleted along with the table schema.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset9_graphql-command"></a>graphQL command</p>
+<p><a id="tabset10_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset9_result"></a>Result</p>
+<p><a id="tabset10_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset9_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset10_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a table if it exists
@@ -1345,7 +1346,7 @@ mutation dropTableIfExists {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset9_result">
+<div class="tab-pane" aria-labelledby="tabset10_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1361,55 +1362,143 @@ mutation dropTableIfExists {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dropping_columns_from_table_schema"><a class="anchor" href="#_dropping_columns_from_table_schema"></a><a class="link" href="#_dropping_columns_from_table_schema">Dropping columns from table schema</a></h3>
+<h3 id="_create_indexes"><a class="anchor" href="#_create_indexes"></a><a class="link" href="#_create_indexes">Create indexes</a></h3>
 <div class="paragraph">
-<p>If you find an attribute is no longer required in a table, you
-can remove a column.  All column data will be deleted along with the column schema.</p>
+<p>Tables can contain partition keys and clustering keys, both of which define the
+primary key. A table can also include non-primary keys.</p>
+</div>
+<div class="paragraph">
+<p>If you wish to create a table query that uses anything other than the partition key
+to define which row or rows are to be retrieved, a column index must be created
+on each column in order to read the data.</p>
+</div>
+<div class="paragraph">
+<p>You can create an index using a mutation in <code>/graphql-schema</code>.
+In the following example, three indexes are created for the tables <code>book</code> and <code>reader</code>.
+The table columns for these indexes are created are <code>author</code>, <code>birthdate</code>, and <code>email</code>.</p>
+</div>
+<div class="paragraph">
+<p>An index name can be defined, such as <code>author_idx</code> in this example.
+An additional option, <code>indexType</code> can be defined to use SAI indexes if desired.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset10_graphql-command"></a>graphQL command</p>
+<p><a id="tabset11_graphql-mutation"></a>graphQL mutation</p>
 </li>
 <li>
-<p><a id="tabset10_result"></a>Result</p>
+<p><a id="tabset11_curl-command"></a>cURL command</p>
+</li>
+<li>
+<p><a id="tabset11_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset10_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset11_graphql-mutation">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a column format from a table
-mutation dropColumnFormat {
-    alterTableDrop(
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation createIndexes {
+  book: createIndex(
     keyspaceName:"library",
     tableName:"book",
-    toDrop:["format"]
+    columnName:"author",
+    indexName:"author_idx"
+  )
+  reader: createIndex(
+      keyspaceName:"library",
+      tableName:"reader",
+      columnName:"birthdate",
+      indexName:"reader_bdate_idx"
+  )
+  reader2: createIndex(
+      keyspaceName:"library",
+      tableName:"reader",
+      columnName:"email",
+      indexName:"reader_email_idx"
   )
 }</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset10_result">
+<div class="tab-pane" aria-labelledby="tabset11_curl-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "alterTableDrop": true
-  }
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST http://localhost:8080/graphql-schema \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation createIndexes {\n  book: createIndex(\n    keyspaceName:\"library\",\n    tableName:\"book\",\n    columnName:\"author\",\n    indexName:\"author_idx\"\n  )\n  reader: createIndex(\n      keyspaceName:\"library\",\n      tableName:\"reader\",\n      columnName:\"birthdate\",\n      indexName:\"reader_bdate_idx\"\n  )\n  reader2: createIndex(\n      keyspaceName:\"library\",\n      tableName:\"reader\",\n      columnName:\"email\",\n      indexName:\"reader_email_idx\"\n  )\n}","variables":{}}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset11_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Result TBD</code></pre>
 </div>
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Here is an additional example, which creates indexes that could be used in the REST API examples:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset12_curl-command"></a>cURL command</p>
+</li>
+<li>
+<p><a id="tabset12_cql-command"></a>CQL command</p>
+</li>
+<li>
+<p><a id="tabset12_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset12_curl-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8080/api/graphql-schema' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation createIndexes {\n  user1: createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"favorite_books\",\n    indexName:\"fav_books_idx\",\n    indexKind: VALUES\n  )\n  user2:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"top_three_tv_shows\",\n    indexName:\"tv_idx\",\n    indexKind: VALUES\n  )\n  user3:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"evaluations\",\n    indexName:\"evalv_idx\",\n    indexKind: VALUES\n  )\n   user4:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"evaluations\",\n    indexName:\"evalk_idx\",\n    indexKind: KEYS\n  )\n   user5:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"evaluations\",\n    indexName:\"evale_idx\",\n    indexKind: ENTRIES\n  )\n    users6: createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"current_country\",\n    indexName:\"country_idx\"\n  )\n}","variables":{}}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset12_cql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cql hljs" data-lang="cql">CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
+CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
+CREATE INDEX evalk_idx ON users_keyspace.users (KEYS (evaluations));
+CREATE INDEX evalv_idx ON users_keyspace.users (VALUES (evaluations));
+CREATE INDEX evale_idx ON users_keyspace.users (ENTRIES (evaluations));
+CREATE INDEX country_idx ON users_keyspace.users (VALUES (current_country));</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset12_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Result TBD</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The CQL commands for creating these indexes is included here for reference.
+The <code>cqlsh</code> tool can be used to create the indexes if desired.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interacting_with_data_stored_in_tables"><a class="anchor" href="#_interacting_with_data_stored_in_tables"></a><a class="link" href="#_interacting_with_data_stored_in_tables">Interacting with data stored in tables</a></h2>
+<h2 id="_interact_with_data_stored_in_tables"><a class="anchor" href="#_interact_with_data_stored_in_tables"></a><a class="link" href="#_interact_with_data_stored_in_tables">Interact with data stored in tables</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_api_generation"><a class="anchor" href="#_api_generation"></a><a class="link" href="#_api_generation">API generation</a></h3>
@@ -1490,15 +1579,15 @@ and add a couple of books to the <code>book</code> table:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset11_graphql-command"></a>graphQL command</p>
+<p><a id="tabset13_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset11_result"></a>Result</p>
+<p><a id="tabset13_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset11_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset13_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># insert 2 books in one mutation
@@ -1517,7 +1606,7 @@ mutation insert2Books {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset11_result">
+<div class="tab-pane" aria-labelledby="tabset13_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1572,15 +1661,15 @@ This same method is valid for updates and read queries.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset12_graphql-command"></a>graphQL command</p>
+<p><a id="tabset14_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset12_result"></a>Result</p>
+<p><a id="tabset14_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset12_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset14_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># insert a book and set the option for consistency level
@@ -1594,7 +1683,7 @@ mutation insertBookWithOption {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset12_result">
+<div class="tab-pane" aria-labelledby="tabset14_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1625,15 +1714,15 @@ if needed.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset13_graphql-command"></a>graphQL command</p>
+<p><a id="tabset15_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset13_result"></a>Result</p>
+<p><a id="tabset15_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset13_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset15_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># insert an article USING A LIST (authors)
@@ -1649,7 +1738,7 @@ mutation insertArticle {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset13_result">
+<div class="tab-pane" aria-labelledby="tabset15_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1678,15 +1767,15 @@ mutation insertArticle {
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset14_graphql-command"></a>graphQL command</p>
+<p><a id="tabset16_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset14_result"></a>Result</p>
+<p><a id="tabset16_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset14_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset16_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation insertOneBadge {
@@ -1701,7 +1790,7 @@ mutation insertArticle {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset14_result">
+<div class="tab-pane" aria-labelledby="tabset16_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1736,15 +1825,15 @@ and so on, to insert the parts of the tuple</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset15_graphql-command"></a>graphQL command</p>
+<p><a id="tabset17_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset15_result"></a>Result</p>
+<p><a id="tabset17_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset15_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset17_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># insert a reader record that uses a TUPLE
@@ -1773,7 +1862,7 @@ mutation insertJaneWithTuple{
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset15_result">
+<div class="tab-pane" aria-labelledby="tabset17_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1807,15 +1896,15 @@ mutation insertJaneWithTuple{
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset16_graphql-command"></a>graphQL command</p>
+<p><a id="tabset18_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset16_result"></a>Result</p>
+<p><a id="tabset18_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset16_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset18_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># insert a reader record that uses a UDT
@@ -1843,7 +1932,7 @@ mutation insertReaderWithUDT{
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset16_result">
+<div class="tab-pane" aria-labelledby="tabset18_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1889,15 +1978,15 @@ title:"Moby Dick"</code>:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset17_graphql-command"></a>graphQL command</p>
+<p><a id="tabset19_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset17_result"></a>Result</p>
+<p><a id="tabset19_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset17_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset19_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># get one book using the primary key title with a value
@@ -1912,7 +2001,7 @@ query oneBook {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset17_result">
+<div class="tab-pane" aria-labelledby="tabset19_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1940,15 +2029,15 @@ the list of titles desired is <code>IN</code> a group:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset18_graphql-command"></a>graphQL command</p>
+<p><a id="tabset20_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset18_result"></a>Result</p>
+<p><a id="tabset20_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset18_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset20_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># get 3 books using the primary keys with an "in" filter clause of the primary key title
@@ -1963,7 +2052,7 @@ query ThreeBooks {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset18_result">
+<div class="tab-pane" aria-labelledby="tabset20_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1994,15 +2083,15 @@ query ThreeBooks {
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset19_graphql-command"></a>graphQL command</p>
+<p><a id="tabset21_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset19_result"></a>Result</p>
+<p><a id="tabset21_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset19_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset21_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query the author to see the UDT
@@ -2022,7 +2111,7 @@ query getReaderWithUDT{
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset19_result">
+<div class="tab-pane" aria-labelledby="tabset21_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2056,15 +2145,15 @@ query getReaderWithUDT{
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset20_graphql-command"></a>graphQL command</p>
+<p><a id="tabset22_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset20_result"></a>Result</p>
+<p><a id="tabset22_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset20_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset22_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only the partition key
@@ -2083,7 +2172,7 @@ query oneGoldBadge {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset20_result">
+<div class="tab-pane" aria-labelledby="tabset22_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2162,124 +2251,6 @@ the <code>badge_id</code> equal to <code>100</code>:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset21_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset21_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset21_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with the partition key and the clustering key
-query oneGold100Badge {
-  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100}} ) {
-      values {
-      	badge_type
-        badge_id
-      	earned {
-          key
-          value
-        }
-     }
-   }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset21_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "badge": {
-      "values": [
-        {
-          "badge_type": "Gold",
-          "badge_id": 100,
-          "earned": [
-            {
-              "key": "Writer",
-              "value": "2020-11-20"
-            }
-          ]
-        }
-      ]
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Now if we use a different operator <code>gt</code> with the same query, notice that the query will fail,
-because no <code>badge_id</code> greater than a value of 100 is found:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset22_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset22_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset22_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with the partition key and the clustering key
-# filter badge_id: {gt:100 will fail}
-query oneGold100BadgeFail {
-  badge(filter: { badge_type: {eq:"Gold"} badge_id: {gt:100}} ) {
-      values {
-      	badge_type
-        badge_id
-      	earned {
-          key
-          value
-        }
-     }
-   }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset22_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "badge": {
-      "values": []
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>In order to use filters for any columns that are not part of the primary key, currently
-you need to use CQL to create a secondary index using the CQL shell.
-The next three examples show the CQL creation of an index in order to query a column
-that is a map collection.</p>
-</div>
-<div class="paragraph">
-<p>In this example, an index is created on the keys of the map <code>earned</code>, so the <code>containsKey</code>
-filter can be used to query in GraphQL.</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
 <p><a id="tabset23_graphql-command"></a>graphQL command</p>
 </li>
 <li>
@@ -2291,10 +2262,9 @@ filter can be used to query in GraphQL.</p>
 <div class="tab-pane" aria-labelledby="tabset23_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with the partition key, clustering key, and a MAP key
-# Requires: CREATE INDEX badge_idx ON library.badge(KEYS(earned));
-query oneWriterBadge {
-  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100} earned: { containsKey: "Writer"} } ) {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with the partition key and the clustering key
+query oneGold100Badge {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100}} ) {
       values {
       	badge_type
         badge_id
@@ -2335,7 +2305,8 @@ query oneWriterBadge {
 </div>
 </div>
 <div class="paragraph">
-<p>Because the index now exists, it is also possible to just filter based on the map key itself:</p>
+<p>Now if we use a different operator <code>gt</code> with the same query, notice that the query will fail,
+because no <code>badge_id</code> greater than a value of 100 is found:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -2352,10 +2323,10 @@ query oneWriterBadge {
 <div class="tab-pane" aria-labelledby="tabset24_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only a MAP key
-# CREATE INDEX badge_idx ON library.badge(KEYS(earned));
-query oneWriterKeyBadge {
-  badge(filter: { earned: { containsKey: "Writer"} } ) {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with the partition key and the clustering key
+# filter badge_id: {gt:100 will fail}
+query oneGold100BadgeFail {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {gt:100}} ) {
       values {
       	badge_type
         badge_id
@@ -2375,18 +2346,7 @@ query oneWriterKeyBadge {
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
   "data": {
     "badge": {
-      "values": [
-        {
-          "badge_type": "Gold",
-          "badge_id": 100,
-          "earned": [
-            {
-              "key": "Writer",
-              "value": "2020-11-20"
-            }
-          ]
-        }
-      ]
+      "values": []
     }
   }
 }</code></pre>
@@ -2396,7 +2356,13 @@ query oneWriterKeyBadge {
 </div>
 </div>
 <div class="paragraph">
-<p>In this next example, an index is created on the values of the map <code>earned</code>, so the <code>contains</code>
+<p>In order to use filters for any columns that are not part of the primary key, currently
+you need to use CQL to create a secondary index using the CQL shell.
+The next three examples show the CQL creation of an index in order to query a column
+that is a map collection.</p>
+</div>
+<div class="paragraph">
+<p>In this example, an index is created on the keys of the map <code>earned</code>, so the <code>containsKey</code>
 filter can be used to query in GraphQL.</p>
 </div>
 <div class="tabset is-loading">
@@ -2414,10 +2380,10 @@ filter can be used to query in GraphQL.</p>
 <div class="tab-pane" aria-labelledby="tabset25_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only a MAP value
-# Requires: CREATE INDEX badge2_idx ON library.badge(VALUES(earned));
-query oneWriterValueBadge {
-  badge(filter: { earned: { contains: "2020-11-20"} } ) {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with the partition key, clustering key, and a MAP key
+# Requires: CREATE INDEX badge_idx ON library.badge(KEYS(earned));
+query oneWriterBadge {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100} earned: { containsKey: "Writer"} } ) {
       values {
       	badge_type
         badge_id
@@ -2458,8 +2424,7 @@ query oneWriterValueBadge {
 </div>
 </div>
 <div class="paragraph">
-<p>To make a complete set of filters, an index is created on the entries of the map <code>earned</code>, so the <code>containsEntry</code>
-filter can be used to query in GraphQL.</p>
+<p>Because the index now exists, it is also possible to just filter based on the map key itself:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -2476,10 +2441,10 @@ filter can be used to query in GraphQL.</p>
 <div class="tab-pane" aria-labelledby="tabset26_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only a MAP entry
-# Requires: CREATE INDEX badge3_idx ON library.badge(ENTRIES(earned));
-query oneWriterEntryBadge {
-  badge(filter: { earned: { containsEntry: {key:"Writer", value:"2020-11-20"}} } ) {
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only a MAP key
+# CREATE INDEX badge_idx ON library.badge(KEYS(earned));
+query oneWriterKeyBadge {
+  badge(filter: { earned: { containsKey: "Writer"} } ) {
       values {
       	badge_type
         badge_id
@@ -2519,13 +2484,9 @@ query oneWriterEntryBadge {
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_update_data"><a class="anchor" href="#_update_data"></a><a class="link" href="#_update_data">Update data</a></h3>
 <div class="paragraph">
-<p>Using the column that we added earlier, the data for a book is updated with the
-<code>ISBN</code> value:</p>
+<p>In this next example, an index is created on the values of the map <code>earned</code>, so the <code>contains</code>
+filter can be used to query in GraphQL.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -2542,6 +2503,134 @@ query oneWriterEntryBadge {
 <div class="tab-pane" aria-labelledby="tabset27_graphql-command">
 <div class="listingblock">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only a MAP value
+# Requires: CREATE INDEX badge2_idx ON library.badge(VALUES(earned));
+query oneWriterValueBadge {
+  badge(filter: { earned: { contains: "2020-11-20"} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset27_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "badge": {
+      "values": [
+        {
+          "badge_type": "Gold",
+          "badge_id": 100,
+          "earned": [
+            {
+              "key": "Writer",
+              "value": "2020-11-20"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To make a complete set of filters, an index is created on the entries of the map <code>earned</code>, so the <code>containsEntry</code>
+filter can be used to query in GraphQL.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset28_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset28_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset28_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># query a badge record that has a MAP (earned) with only a MAP entry
+# Requires: CREATE INDEX badge3_idx ON library.badge(ENTRIES(earned));
+query oneWriterEntryBadge {
+  badge(filter: { earned: { containsEntry: {key:"Writer", value:"2020-11-20"}} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset28_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "badge": {
+      "values": [
+        {
+          "badge_type": "Gold",
+          "badge_id": 100,
+          "earned": [
+            {
+              "key": "Writer",
+              "value": "2020-11-20"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_data"><a class="anchor" href="#_update_data"></a><a class="link" href="#_update_data">Update data</a></h3>
+<div class="paragraph">
+<p>Using the column that we added earlier, the data for a book is updated with the
+<code>ISBN</code> value:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset29_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset29_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset29_graphql-command">
+<div class="listingblock">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation updateOneBook {
   moby: updatebook(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
     value {
@@ -2554,7 +2643,7 @@ query oneWriterEntryBadge {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset27_result">
+<div class="tab-pane" aria-labelledby="tabset29_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2595,15 +2684,15 @@ If it does exist, it will be updated with the new row data.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset28_graphql-command"></a>graphQL command</p>
+<p><a id="tabset30_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset28_result"></a>Result</p>
+<p><a id="tabset30_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset28_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset30_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># update one book, adding a SET (genre)
@@ -2619,7 +2708,7 @@ mutation updateOneBookAgain {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset28_result">
+<div class="tab-pane" aria-labelledby="tabset30_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2652,15 +2741,15 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset29_graphql-command"></a>graphQL command</p>
+<p><a id="tabset31_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset29_result"></a>Result</p>
+<p><a id="tabset31_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset29_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset31_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation deleteOneBook {
@@ -2673,7 +2762,7 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset29_result">
+<div class="tab-pane" aria-labelledby="tabset31_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2703,15 +2792,15 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset30_graphql-command"></a>graphQL command</p>
+<p><a id="tabset32_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset30_result"></a>Result</p>
+<p><a id="tabset32_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset30_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset32_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation deleteOneBookCL {
@@ -2724,7 +2813,7 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset30_result">
+<div class="tab-pane" aria-labelledby="tabset32_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2747,7 +2836,7 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="graphql.html">GraphQL API</a></span>
-  <span class="next"><a href="cql.html">CQL API</a></span>
+  <span class="next"><a href="graphql-first-using.html">Using the GraphQL API (Schema-first)</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

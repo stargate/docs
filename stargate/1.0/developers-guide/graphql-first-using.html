@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Using the Stargate GraphQL API (graphql-first) :: Stargate documentation</title>
+    <title>Using the Stargate GraphQL API (Schema-first) :: Stargate documentation</title>
+    <link rel="prev" href="graphql-using.html">
+    <link rel="next" href="cql.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
@@ -232,8 +234,8 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="graphql-using.html">Using the GraphQL API (CQL-first)</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#graphql-oriented-using.adoc">Using the GraphQL API (Schema-first</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="graphql-first-using.html">Using the GraphQL API (Schema-first)</a>
   </li>
 </ul>
   </li>
@@ -304,14 +306,16 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Stargate</a></li>
-    <li><a href="graphql-first-using.html">Using the Stargate GraphQL API (graphql-first)</a></li>
+    <li><a href="devguide.html">Developing with Stargate</a></li>
+    <li><a href="graphql.html">GraphQL API</a></li>
+    <li><a href="graphql-first-using.html">Using the GraphQL API (Schema-first)</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/graphql-first-using.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Using the Stargate GraphQL API (graphql-first)</h1>
+<h1 class="page">Using the Stargate GraphQL API (Schema-first)</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -319,7 +323,7 @@
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.</p>
 </div>
 <div class="paragraph">
-<p>The graphql-first approach allows you to create idiomatic GraphQL types, mutations, and queries
+<p>The schema-first approach allows you to create idiomatic GraphQL types, mutations, and queries
 in a manner familiar to GraphQL developers.
 The schema is deployed and can be updated by deploying a new schema without
 recreating the tables and columns directly.
@@ -376,7 +380,7 @@ and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 ba
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.24</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -395,13 +399,13 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.24</code></pre>
+  stargateio/stargate-3_11:v1.0.25</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_the_auth_api_to_generate_an_auth_token"><a class="anchor" href="#_using_the_auth_api_to_generate_an_auth_token"></a><a class="link" href="#_using_the_auth_api_to_generate_an_auth_token">Using the Auth API to generate an auth token</a></h2>
+<h2 id="_use_the_auth_api_to_generate_an_auth_token"><a class="anchor" href="#_use_the_auth_api_to_generate_an_auth_token"></a><a class="link" href="#_use_the_auth_api_to_generate_an_auth_token">Use the Auth API to generate an auth token</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to use the Stargate GraphQL API, an authorization token must be
@@ -443,15 +447,15 @@ your GraphQL requests. Copy the value after <code>"authToken"</code> to use late
 </div>
 </div>
 <div class="sect1">
-<h2 id="_creating_or_dropping_schema"><a class="anchor" href="#_creating_or_dropping_schema"></a><a class="link" href="#_creating_or_dropping_schema">Creating or dropping schema</a></h2>
+<h2 id="_create_or_delete_schema"><a class="anchor" href="#_create_or_delete_schema"></a><a class="link" href="#_create_or_delete_schema">Create or delete schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to use the GraphQL API, you must <a href="##_deploying_schema">deploy schema</a>
+<p>In order to use the GraphQL API, you must <a href="#_deploying_schema">deploy schema</a>
 that defines the types, mutations, and queries.
 However, a keyspace, a container that stores the data, must first be created.</p>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_keyspace"><a class="anchor" href="#_creating_a_keyspace"></a><a class="link" href="#_creating_a_keyspace">Creating a keyspace</a></h3>
+<h3 id="_create_a_keyspace"><a class="anchor" href="#_create_a_keyspace"></a><a class="link" href="#_create_a_keyspace">Create a keyspace</a></h3>
 <div class="paragraph">
 <p>Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace in your database.</p>
@@ -514,6 +518,20 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 </div>
 </div>
 <div class="sect2">
+<h3 id="_delete_a_keyspace"><a class="anchor" href="#_delete_a_keyspace"></a><a class="link" href="#_delete_a_keyspace">Delete a keyspace</a></h3>
+<div class="paragraph">
+<p>You can delete a keyspace. All tables and table data will be deleted along with
+the keyspace schema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">mutation dropKsLibrary {
+  dropKeyspace(name:"library", ifExists: true)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_a_note_about_what_schema_is"><a class="anchor" href="#_a_note_about_what_schema_is"></a><a class="link" href="#_a_note_about_what_schema_is">A note about what schema is</a></h3>
 <div class="paragraph">
 <p>A full GraphQL schema that will be
@@ -531,7 +549,7 @@ how to deploy the schema once created.</p>
 <td class="content">
 <div class="paragraph">
 <p>Do you want to understand deployment first?
-Read <a href="#deploying_schema">Deploying Schema</a>.</p>
+Read <a href="#_deploying_schema">Deploying Schema</a>.</p>
 </div>
 </td>
 </tr>
@@ -539,7 +557,7 @@ Read <a href="#deploying_schema">Deploying Schema</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_user_defined_type_udt"><a class="anchor" href="#_creating_a_user_defined_type_udt"></a><a class="link" href="#_creating_a_user_defined_type_udt">Creating a user-defined type (UDT)</a></h3>
+<h3 id="_create_a_user_defined_type_udt"><a class="anchor" href="#_create_a_user_defined_type_udt"></a><a class="link" href="#_create_a_user_defined_type_udt">Create a user-defined type (UDT)</a></h3>
 <div class="paragraph">
 <p>User-defined types (UDTs) can be created as GraphQL object types.
 UDTs are optional, but if you wish to use a UDT in another object type definition,
@@ -589,22 +607,23 @@ and a UDT called <code>Review</code> that includes a book title, comment, rating
 <div class="paragraph">
 <p>These types have some Cassandra-specific features, in addition to the typical format
 of a GraphQL type.
-To denote that the type will be stored as a UDT in Cassandra, <code>@cql_entity(target: UDT)</code>
+To denote that the type is stored as a UDT in Cassandra, <code>@cql_entity(target: UDT)</code>
 is added to the initial line.</p>
 </div>
 <div class="paragraph">
-<p>To avoid duplicating the type as both an input type and output type, <code>@cql_input</code> is
-added to generate an <code>AddressInput</code> type with the same fields as the type <code>address</code>
+<p>To avoid duplicating the type as both an input type and output type, add <code>@cql_input</code>
+to generate an <code>AddressInput</code> type with the same fields as the type <code>Address</code>
 in the GraphQL schema.</p>
 </div>
 <div class="paragraph">
 <p>Standard CamelCase is used to name the fields, but the Cassandra column name can be
 named with an alternative using <code>@cql_column(name: "book_title")</code>.
 In Cassandra, CamelCase names must be double-quoted, so this particular field name is
-both GraphQL friendly (bookTitle) and CQL friendly (book_title).</p>
+both GraphQL friendly (<code>bookTitle</code>) and CQL friendly (<code>book_title</code>).</p>
 </div>
-<div class="sect3">
-<h4 id="_data_types"><a class="anchor" href="#_data_types"></a><a class="link" href="#_data_types">Data types</a></h4>
+</div>
+<div class="sect2">
+<h3 id="_data_types"><a class="anchor" href="#_data_types"></a><a class="link" href="#_data_types">Data types</a></h3>
 <div class="paragraph">
 <p>A column&#8217;s CQL data type is inferred from the GraphQL field type.
 GraphQL&#8217;s built-in scalar types are mapped:</p>
@@ -654,9 +673,8 @@ Float32, Blob, SmallInt, TinyInt, Timestamp, Time.</p>
 supported, but UDTs can be used to create the same functionality.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_creating_object_types"><a class="anchor" href="#_creating_object_types"></a><a class="link" href="#_creating_object_types">Creating object types</a></h3>
+<h3 id="_create_object_types"><a class="anchor" href="#_create_object_types"></a><a class="link" href="#_create_object_types">Create object types</a></h3>
 <div class="paragraph">
 <p>The most basic components of a GraphQL schema are object types, which just
 represent a kind of object you can fetch from your service, and specify the
@@ -744,7 +762,7 @@ The only valid <code>typeHints</code> using a set instead of a list, or making a
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_indexes"><a class="anchor" href="#_creating_indexes"></a><a class="link" href="#_creating_indexes">Creating indexes</a></h3>
+<h3 id="_create_indexes"><a class="anchor" href="#_create_indexes"></a><a class="link" href="#_create_indexes">Create indexes</a></h3>
 <div class="paragraph">
 <p>Cassandra supports indexing any regular, non-primary key fields in an object type.
 A field will  be indexed if <code>@cql_index</code> is added to the field definition.
@@ -814,7 +832,7 @@ Indexed fields can be used as parameters in queries.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_creating_queries"><a class="anchor" href="#_creating_queries"></a><a class="link" href="#_creating_queries">Creating queries</a></h3>
+<h3 id="_create_queries"><a class="anchor" href="#_create_queries"></a><a class="link" href="#_create_queries">Create queries</a></h3>
 <div class="paragraph">
 <p>Most types in your schema will just be normal object types, but there are two types
 that are special, the Query type and the Mutation type.
@@ -858,7 +876,7 @@ while <code>[Book]</code> specifies that the output will be an array of books.</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_mutations"><a class="anchor" href="#_creating_mutations"></a><a class="link" href="#_creating_mutations">Creating mutations</a></h3>
+<h3 id="_create_mutations"><a class="anchor" href="#_create_mutations"></a><a class="link" href="#_create_mutations">Create mutations</a></h3>
 <div class="paragraph">
 <p>Mutations work in a similar way  to queries.
 Define fields in the mutation type, and you can specify those fields in your queries.</p>
@@ -896,7 +914,7 @@ type submitted to the mutation is a <code>book</code>.
 and <code>deleteReader</code> are Boolean operations.</p>
 </div>
 <div class="sect3">
-<h4 id="_conditional_inserting"><a class="anchor" href="#_conditional_inserting"></a><a class="link" href="#_conditional_inserting">Conditional inserting</a></h4>
+<h4 id="_conditional_insertion"><a class="anchor" href="#_conditional_insertion"></a><a class="link" href="#_conditional_insertion">Conditional insertion</a></h4>
 <div class="paragraph">
 <p>A mutation can be turned into a conditional insertion operation by ending the mutation
 name with <code>ifNotExists</code>.
@@ -907,7 +925,7 @@ be added to the response from insertions or annotating it with @cql_insert(ifNot
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_payload_types"><a class="anchor" href="#_creating_payload_types"></a><a class="link" href="#_creating_payload_types">Creating payload types</a></h3>
+<h3 id="_create_payload_types"><a class="anchor" href="#_create_payload_types"></a><a class="link" href="#_create_payload_types">Create payload types</a></h3>
 <div class="paragraph">
 <p>Payloads types are not mapped to the database.
 They only serve as wrappers of an operation&#8217;s response.
@@ -1012,10 +1030,10 @@ otherwise, applied will be false and book will be the existing data.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploying_schema"><a class="anchor" href="#_deploying_schema"></a><a class="link" href="#_deploying_schema">Deploying schema</a></h2>
+<h2 id="_deploy_schema"><a class="anchor" href="#_deploy_schema"></a><a class="link" href="#_deploy_schema">Deploy schema</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploying_schema_manually"><a class="anchor" href="#_deploying_schema_manually"></a><a class="link" href="#_deploying_schema_manually">Deploying schema manually</a></h3>
+<h3 id="_deploy_schema_manually"><a class="anchor" href="#_deploy_schema_manually"></a><a class="link" href="#_deploy_schema_manually">Deploy schema manually</a></h3>
 <div class="paragraph">
 <p>Now that you have created GraphQL types, queries, and mutations, it&#8217;s time to deploy the schema.
 Recall that the corresponding CQL schema is inferred and created from the GraphQL schema
@@ -1249,7 +1267,7 @@ Tables that are not recreated will retain their data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_deploying_schema_file"><a class="anchor" href="#_deploying_schema_file"></a><a class="link" href="#_deploying_schema_file">Deploying schema file</a></h3>
+<h3 id="_deploy_schema_file"><a class="anchor" href="#_deploy_schema_file"></a><a class="link" href="#_deploy_schema_file">Deploy schema file</a></h3>
 <div class="paragraph">
 <p>Schema can also be deployed to a keyspace using a schema file upload.
 This mutation must be executed with a multipart request (note that your operations
@@ -1344,7 +1362,7 @@ the schema to be replaced:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_modifying_schema"><a class="anchor" href="#_modifying_schema"></a><a class="link" href="#_modifying_schema">Modifying schema</a></h3>
+<h3 id="_modify_schema"><a class="anchor" href="#_modify_schema"></a><a class="link" href="#_modify_schema">Modify schema</a></h3>
 <div class="paragraph">
 <p>To modify the current schema, simply deploy again, supplying the <code>expectedVersion</code> as the
 current schema&#8217;s version if you wish to overwrite the definitions. Otherwise, a new schema
@@ -1354,7 +1372,7 @@ with a new version id will be created.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_checking_the_keyspace_schema"><a class="anchor" href="#_checking_the_keyspace_schema"></a><a class="link" href="#_checking_the_keyspace_schema">Checking the keyspace schema</a></h2>
+<h2 id="_check_the_keyspace_schema"><a class="anchor" href="#_check_the_keyspace_schema"></a><a class="link" href="#_check_the_keyspace_schema">Check the keyspace schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To check if the schema exists, execute a GraphQL check in <a href="http://localhost:8080/graphql-admin" class="bare">http://localhost:8080/graphql-admin</a>:</p>
@@ -1499,7 +1517,7 @@ with a new version id will be created.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_undeploying_schema"><a class="anchor" href="#_undeploying_schema"></a><a class="link" href="#_undeploying_schema">Undeploying schema</a></h2>
+<h2 id="_undeploy_schema"><a class="anchor" href="#_undeploy_schema"></a><a class="link" href="#_undeploy_schema">Undeploy schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To undeploy an existing schema, use the following mutation.</p>
@@ -1547,10 +1565,10 @@ One option is available, <code>force</code>, to force an erasure of the schema.<
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interacting_with_data_stored_in_tables"><a class="anchor" href="#_interacting_with_data_stored_in_tables"></a><a class="link" href="#_interacting_with_data_stored_in_tables">Interacting with data stored in tables</a></h2>
+<h2 id="_interact_with_data_stored_in_tables"><a class="anchor" href="#_interact_with_data_stored_in_tables"></a><a class="link" href="#_interact_with_data_stored_in_tables">Interact with data stored in tables</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_inserting_data"><a class="anchor" href="#_inserting_data"></a><a class="link" href="#_inserting_data">Inserting data</a></h3>
+<h3 id="_insert_data"><a class="anchor" href="#_insert_data"></a><a class="link" href="#_insert_data">Insert data</a></h3>
 <div class="paragraph">
 <p>If you have created schema for insertion, now you are ready to write data into the database.</p>
 </div>
@@ -1619,7 +1637,7 @@ Only the required fields must be specified, and any fields can be returned in th
 This same operation can update stored data, as insertions are upserts in all cases.</p>
 </div>
 <div class="sect3">
-<h4 id="_conditional_insertion"><a class="anchor" href="#_conditional_insertion"></a><a class="link" href="#_conditional_insertion">Conditional insertion</a></h4>
+<h4 id="_conditional_insertion_2"><a class="anchor" href="#_conditional_insertion_2"></a><a class="link" href="#_conditional_insertion_2">Conditional insertion</a></h4>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -1661,7 +1679,7 @@ type Mutation {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_inserting_arrays_and_udts"><a class="anchor" href="#_inserting_arrays_and_udts"></a><a class="link" href="#_inserting_arrays_and_udts">Inserting arrays and UDTs</a></h4>
+<h4 id="_insert_arrays_and_udts"><a class="anchor" href="#_insert_arrays_and_udts"></a><a class="link" href="#_insert_arrays_and_udts">Insert arrays and UDTs</a></h4>
 <div class="paragraph">
 <p>Inserting arrays and UDTs requires a few extra embellishments:</p>
 </div>
@@ -1782,7 +1800,7 @@ array items.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_retrieving_data"><a class="anchor" href="#_retrieving_data"></a><a class="link" href="#_retrieving_data">Retrieving data</a></h3>
+<h3 id="_retrieve_data"><a class="anchor" href="#_retrieve_data"></a><a class="link" href="#_retrieve_data">Retrieve data</a></h3>
 <div class="paragraph">
 <p>Let&#8217;s check that the data was inserted.
 Use the query <code>book</code> with the primary key to find a book based on its title.
@@ -2014,7 +2032,7 @@ query fetchHerman {
 readers who might have the same name.</p>
 </div>
 <div class="sect3">
-<h4 id="_filter_options_for_reading"><a class="anchor" href="#_filter_options_for_reading"></a><a class="link" href="#_filter_options_for_reading">Filter options for reading</a></h4>
+<h4 id="_filter_options_for_reads"><a class="anchor" href="#_filter_options_for_reads"></a><a class="link" href="#_filter_options_for_reads">Filter options for reads</a></h4>
 <div class="paragraph">
 <p>It&#8217;s possible to customize the CQL condition of each parameter with <code>@cql_where</code>
 with the following arguments:</p>
@@ -2419,7 +2437,7 @@ query fetchReadersCONTAINS {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_updating_data"><a class="anchor" href="#_updating_data"></a><a class="link" href="#_updating_data">Updating data</a></h3>
+<h3 id="_update_data"><a class="anchor" href="#_update_data"></a><a class="link" href="#_update_data">Update data</a></h3>
 <div class="paragraph">
 <p>A mutation can be turned into a update operation by starting the mutation
 name with <code>update</code>.
@@ -2487,7 +2505,7 @@ If it does exist, it will be updated with the new row data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_deleting_data"><a class="anchor" href="#_deleting_data"></a><a class="link" href="#_deleting_data">Deleting data</a></h3>
+<h3 id="_delete_data"><a class="anchor" href="#_delete_data"></a><a class="link" href="#_delete_data">Delete data</a></h3>
 <div class="paragraph">
 <p>A mutation can be turned into a delete operation by starting the mutation
 name with <code>delete</code> or <code>remove</code>.
@@ -2716,6 +2734,10 @@ mutation insertDavisBook {
 </table>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="graphql-using.html">Using the GraphQL API (CQL-first)</a></span>
+  <span class="next"><a href="cql.html">CQL API</a></span>
+</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
