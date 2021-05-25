@@ -1,4 +1,5 @@
-= Delete an index
+// tag::DeleteIndex[]
+=== Delete an index
 :slug: delete-an-index-rest
 
 // == Prerequisites
@@ -30,16 +31,13 @@ include::example$result/rest_curl_get_indexes.result[]
 --
 ====
 
-// tag::DeleteIndex[]
-=== Delete an index
-
 Send a `DELETE` request to
 `/api/rest/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/indexes/{index_name}`
 to delete an index. All index data will be deleted along with the index schema.
 
 [source, bash, subs="attributes+"]
 ----
-include::example$rest/curl_drop_index.sh[]
+include::example$rest/curl_delete_index.sh[]
 ----
 
 If the call is successful, a `204` message is returned.

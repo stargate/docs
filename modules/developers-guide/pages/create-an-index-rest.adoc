@@ -1,4 +1,5 @@
-= Create an index
+// tag::CreateIndex[]
+=== Create an index
 :slug: create-an-index-rest
 
 Tables can contain partition keys and clustering keys, both of which define the
@@ -14,9 +15,6 @@ or xref:graphql-using.adoc#_create-an-index[GraphQL].
 
 To use the REST API to create indexes, you'll need the xref:auth.adoc[application token]
 you generated to create other schema in your keyspace.
-
-// tag::CreateIndex[]
-== Create an index
 
 Send a `POST` request to
 `/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/indexes`

@@ -522,6 +522,43 @@ The `cqlsh` tool can be used to create the indexes if desired.
 
 // end::CreateIndexes[]
 
+// tag::DeleteIndex[]
+=== Delete an index
+If you find an index is no longer required on a table column, or you need to change the index,
+you can delete it.
+All index data will be deleted along with the index schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/deleteIndex.graphql[]
+----
+--
+
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/curl_deleteIndex.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/gql_deleteIndex.result[]
+----
+--
+====
+// end::DeleteIndex[]
+
 == Interact with data stored in tables
 
 // tag::APIGeneration[]
