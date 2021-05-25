@@ -23,10 +23,8 @@ jobs:
           ls -ltra $GITHUB_WORKSPACE
       - name: "Change attachments directory and urls"
         run: |
-          cd ${{ github.workspace }}/build/${{ env.SITE_DIR }};
-          cd stargate/1.0; 
-          mv _attachments attachments;
-          sed '_attachments/attachments/g' << api.html;
+          mv ${{ github.workspace }}/build/${{ env.SITE_DIR }}/stargate/1.0/_attachments ${{ github.workspace }}/build/${{ env.SITE_DIR }}/stargate/1.0/attachments; 
+          sed -i 's/_attachments/attachments/g' api.html;
       - name: "Upload generated site"
         uses: actions/upload-artifact@v1.0.0
         with:
