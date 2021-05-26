@@ -1,22 +1,5 @@
 #!/bin/bash
 
-# MUST SET THE URL AND PATH SUBSTITUTIONS BEFORE RUNNING THE TESTS
-
-base_url=http://localhost:11082
-base_rest_schema=/v2/schemas/keyspaces
-base_rest_api=/v2/keyspaces
-rkeyspace=users_keyspace
-rtable=users
-
-for FILE in *;
- do
-    if [[ "$FILE" != "test"* ]]
-    then
-      gsed "s#{base_url}#$base_url#; s#{base_rest_schema}#$base_rest_schema#; s#{base_rest_api}#$base_rest_api#; s#{rkeyspace}#$rkeyspace#; s#{rtable}#$rtable#; s#{auth_token}#\$AUTH_TOKEN#;" $FILE > $FILE.tmp;
-      chmod 755 $FILE.tmp;
-    fi
-done
-
 # SET THE AUTH_TOKEN FOR ALL THE OTHER COMMANDS
 
 export AUTH_TOKEN=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
@@ -38,9 +21,6 @@ echo "create keyspace "
 #./curl_simple_ks.sh | jq -r '.name | test("users_keyspace")'
 #echo "create ks_dcs: "
 #./curl_ks_dcs.sh | jq -r '.name | test("users_keyspace_dcs")'
-
-echo "create udt "
-./curl_create_udt.sh | jq -r '.name | test("address_type")'
 
 echo "create table and add columns "
 ./curl_create_table.sh | jq -r '.name | test("users")'
@@ -68,8 +48,6 @@ echo "check existence"
 ./curl_check_ks_exists.sh | jq -r '.data[].name | test("users_keyspace")'
 echo "check ks users_keyspace"
 ./curl_get_particular_ks.sh | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_ks.result)
-echo "check udt address_type"
-./curl_get_udt.sh | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt.result)
 ./curl_check_table_exists.sh | jq '.data[].name | test("users")'
 echo "check table users"
 ./curl_get_particular_table.sh | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_table.result)
@@ -131,5 +109,4 @@ echo "get users mult where"
 #./curl_delete_row.sh
 #./curl_drop_column.sh
 #./curl_drop_table.sh
-#./curl_delete_udt.sh
 #./curl_drop_ks.sh

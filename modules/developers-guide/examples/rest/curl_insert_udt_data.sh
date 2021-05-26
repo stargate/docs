@@ -5,5 +5,5 @@ curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -d '{"firstname": "Janesha",
   "lastname": "Doesha",
   "favorite color": "grey",
-  "address": { "street": "1 Main St", "zip": "12345" }
+  "address": { "street": "1 Main St", "zip": 12345 }
 }'
