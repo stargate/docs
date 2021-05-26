@@ -563,16 +563,17 @@ the queries manually using a tool like cURL.</p>
 </tr>
 </table>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_naming_conventions_for_graphql"><a class="anchor" href="#_naming_conventions_for_graphql"></a><a class="link" href="#_naming_conventions_for_graphql">Naming conventions for GraphQL</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The GraphQL API uses specific naming conventions to preserve capitalization and
-special characters.</p>
+special characters. Note that if typical GraphQL naming conventions are used,
+such as <code>camelCase</code>, that the underlying Cassandra storage tables will use double
+quoting to preserve the capitalization. If a naming conflict occurs, an error
+results that the table already exists.</p>
 </div>
 <table class="tableblock frame-topbot grid-all stretch">
 <caption class="title">Table 1. GraphQL naming convention</caption>
@@ -589,6 +590,16 @@ special characters.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">foo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">foo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertfoo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Foo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Foo"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insertFoo</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">foo_bar</p></td>
@@ -608,15 +619,11 @@ special characters.</p>
 </tr>
 </tfoot>
 </table>
-</td>
-</tr>
-</table>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>== Using the GraphQL Playground</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using_the_graphql_playground"><a class="anchor" href="#_using_the_graphql_playground"></a><a class="link" href="#_using_the_graphql_playground">Using the GraphQL Playground</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>The easiest way to get started with GraphQL uses the built-in GraphQL playground.
 In Astra, go to the Connect tab for your database, choose GraphQL under the
@@ -673,17 +680,17 @@ such as <code>createTable</code>, or <code>dropTable</code>.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>== Using Postman</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_using_postman"><a class="anchor" href="#_using_postman"></a><a class="link" href="#_using_postman">Using Postman</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>If you prefer, you can use Postman as a client interface for exploring the GraphQL API
 (<a href="https://www.postman.com/downloads/" target="_blank" rel="noopener">download here</a>).
 We&#8217;ve provided a
 <a href="https://raw.githubusercontent.com/stargate/docs/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_library_Astra.postman_collection.json">Stargate GraphQL API Postman Astra Collection</a>
 that you can import in Postman to play with the examples shown in this walkthrough.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
