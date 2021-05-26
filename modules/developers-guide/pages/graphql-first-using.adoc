@@ -38,7 +38,7 @@ your GraphQL requests. Copy the value after `"authToken"` to use later.
 
 == Create or delete schema
 
-In order to use the GraphQL API, you must xref:graphql-first-using.adoc#_deploying_schema[deploy schema]
+In order to use the GraphQL API, you must xref:graphql-first-using.adoc#_deploy_schema[deploy schema]
 that defines the types, mutations, and queries.
 However, a keyspace, a container that stores the data, must first be created.
 
@@ -102,7 +102,7 @@ include::example$graphql/dropKeyspace.graphql[]
 === A note about what schema is
 
 A full GraphQL schema that will be
-xref:graphql-first-using.adoc#deploying_schema[deployed] can
+xref:graphql-first-using.adoc#_deploy_schema[deployed] can
 include user-defined types (UDTs), object types, indexes, queries, mutations, and payload
 types. The next sections describes the definition of these items before discussing
 how to deploy the schema once created.
@@ -110,7 +110,7 @@ how to deploy the schema once created.
 [TIP]
 ====
 Do you want to understand deployment first?
-Read xref:graphql-first-using.adoc#_deploying_schema[Deploying Schema].
+Read xref:graphql-first-using.adoc#_deploy_schema[Deploy Schema].
 ====
 
 // tag::CreateUDT[]
@@ -368,7 +368,7 @@ There is an additional decoration `@cql_select` that can define two parameters:
 
 This example includes `pageSize`.
 
-An example of retrieving data using this query is found xref:graphql-first-using.adoc#_retrieving_data[below].
+An example of retrieving data using this query is found xref:graphql-first-using.adoc#_retrieve_data[below].
 
 Often, you wish to know if an operation was successful. Creating a payload type that
 uses a boolean field `applied` can definitively answer if a conditional operation
