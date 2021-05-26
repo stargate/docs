@@ -264,6 +264,8 @@ include::example$result/rest_curl_create_udt.result[]
 ====
 // end::CreateUDT[]
 
+// LLP: 05.26.21 Need to add a UPDATE UDT here
+
 // tag::GetUDT[]
 === Check UDT existence
 
