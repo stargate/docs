@@ -450,7 +450,7 @@ your GraphQL requests. Copy the value after <code>"authToken"</code> to use late
 <h2 id="_create_or_delete_schema"><a class="anchor" href="#_create_or_delete_schema"></a><a class="link" href="#_create_or_delete_schema">Create or delete schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to use the GraphQL API, you must <a href="#_deploying_schema">deploy schema</a>
+<p>In order to use the GraphQL API, you must <a href="#_deploy_schema">deploy schema</a>
 that defines the types, mutations, and queries.
 However, a keyspace, a container that stores the data, must first be created.</p>
 </div>
@@ -535,7 +535,7 @@ the keyspace schema.</p>
 <h3 id="_a_note_about_what_schema_is"><a class="anchor" href="#_a_note_about_what_schema_is"></a><a class="link" href="#_a_note_about_what_schema_is">A note about what schema is</a></h3>
 <div class="paragraph">
 <p>A full GraphQL schema that will be
-<a href="#deploying_schema">deployed</a> can
+<a href="#_deploy_schema">deployed</a> can
 include user-defined types (UDTs), object types, indexes, queries, mutations, and payload
 types. The next sections describes the definition of these items before discussing
 how to deploy the schema once created.</p>
@@ -549,7 +549,7 @@ how to deploy the schema once created.</p>
 <td class="content">
 <div class="paragraph">
 <p>Do you want to understand deployment first?
-Read <a href="#_deploying_schema">Deploying Schema</a>.</p>
+Read <a href="#_deploy_schema">Deploy Schema</a>.</p>
 </div>
 </td>
 </tr>
@@ -982,7 +982,7 @@ type Query {
 <p>This example includes <code>pageSize</code>.</p>
 </div>
 <div class="paragraph">
-<p>An example of retrieving data using this query is found <a href="#_retrieving_data">below</a>.</p>
+<p>An example of retrieving data using this query is found <a href="#_retrieve_data">below</a>.</p>
 </div>
 <div class="paragraph">
 <p>Often, you wish to know if an operation was successful. Creating a payload type that
