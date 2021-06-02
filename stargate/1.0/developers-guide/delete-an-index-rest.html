@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>REST API :: Stargate documentation</title>
-    <link rel="prev" href="document-using.html">
-    <link rel="next" href="rest-using.html">
+    <title>Untitled :: Stargate documentation</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
@@ -210,7 +208,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item toggler is-current-page" data-depth="2">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="rest.html">REST API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -304,38 +302,139 @@
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="../index.html">Stargate</a></li>
-    <li><a href="devguide.html">Developing with Stargate</a></li>
-    <li><a href="rest.html">REST API</a></li>
-  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/rest.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/delete-an-index-rest.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">REST API</h1>
+<div class="sect2">
+<h3 id="_delete_an_index"><a class="anchor" href="#_delete_an_index"></a><a class="link" href="#_delete_an_index">Delete an index</a></h3>
 <div class="paragraph">
-<p>The Stargate REST API is implemented to use REST queries with any Cassandra
-deployment.</p>
+<p>You may wish to list all the indexes to verify the index name you wish to delete:</p>
 </div>
-<div class="ulist">
+<div class="tabset is-loading">
+<div class="ulist tabs">
 <ul>
 <li>
-<p><a href="../quickstart/quick_start-rest.html" class="page">REST QuickStart</a></p>
+<p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a href="rest-using.html" class="page">Using the REST API</a></p>
-</li>
-<li>
-<p><a href="https://stargate.io/docs/attachments/restv2.html">REST API reference</a></p>
+<p><a id="tabset1_result"></a>Result</p>
 </li>
 </ul>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="document-using.html">Using the Document API</a></span>
-  <span class="next"><a href="rest-using.html">Using the REST API</a></span>
-</nav>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
+--request GET http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">[
+  {
+    "keyspace_name": "users_keyspace",
+    "options": [
+      {
+        "key": "target",
+        "value": "current_country"
+      }
+    ],
+    "table_name": "users",
+    "index_name": "country_idx",
+    "kind": "COMPOSITES"
+  },
+  {
+    "keyspace_name": "users_keyspace",
+    "options": [
+      {
+        "key": "target",
+        "value": "entries(evaluations)"
+      }
+    ],
+    "table_name": "users",
+    "index_name": "evale_idx",
+    "kind": "COMPOSITES"
+  },
+  {
+    "keyspace_name": "users_keyspace",
+    "options": [
+      {
+        "key": "target",
+        "value": "keys(evaluations)"
+      }
+    ],
+    "table_name": "users",
+    "index_name": "evalk_idx",
+    "kind": "COMPOSITES"
+  },
+  {
+    "keyspace_name": "users_keyspace",
+    "options": [
+      {
+        "key": "target",
+        "value": "values(evaluations)"
+      }
+    ],
+    "table_name": "users",
+    "index_name": "evalv_idx",
+    "kind": "COMPOSITES"
+  },
+  {
+    "keyspace_name": "users_keyspace",
+    "options": [
+      {
+        "key": "target",
+        "value": "values(favorite_books)"
+      }
+    ],
+    "table_name": "users",
+    "index_name": "fav_books_idx",
+    "kind": "COMPOSITES"
+  },
+  {
+    "keyspace_name": "users_keyspace",
+    "options": [
+      {
+        "key": "target",
+        "value": "values(top_three_tv_shows)"
+      }
+    ],
+    "table_name": "users",
+    "index_name": "tv_idx",
+    "kind": "COMPOSITES"
+  }
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Send a <code>DELETE</code> request to
+<code>/api/rest/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/indexes/{index_name}</code>
+to delete an index. All index data will be deleted along with the index schema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -s --location \
+--request DELETE http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes/fav_books_idx \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the call is successful, a <code>204</code> message is returned.</p>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

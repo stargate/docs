@@ -1399,7 +1399,7 @@ mutation dropTableIfExists {
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p>=== Create indexes</p>
+<p>=== Create an index</p>
 </div>
 <div class="paragraph">
 <p>Tables can contain partition keys and clustering keys, both of which define the
@@ -1409,6 +1409,15 @@ primary key. A table can also include non-primary keys.</p>
 <p>If you wish to create a table query that uses anything other than the partition key
 to define which row or rows are to be retrieved, a column index must be created
 on each column in order to read the data.</p>
+</div>
+<div class="paragraph">
+<p>Currently, those indexes can be created with
+<a href="https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index">CQL</a>
+or GraphQL.</p>
+</div>
+<div class="paragraph">
+<p>Use the <a href="auth.html" class="page">application token</a> you generated
+to create schema in your keyspace using the GraphQL playground.</p>
 </div>
 <div class="paragraph">
 <p>You can create an index using a mutation in <code>/graphql-schema</code>.
@@ -1544,6 +1553,69 @@ CREATE INDEX country_idx ON users_keyspace.users (VALUES (current_country));</co
 <p>The CQL commands for creating these indexes is included here for reference.
 The <code>cqlsh</code> tool can be used to create the indexes if desired.</p>
 </div>
+<div class="paragraph">
+<p>=== Delete an index
+If you find an index is no longer required on a table column, or you need to change the index,
+you can delete it.
+All index data will be deleted along with the index schema.</p>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">graphQL command</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation dropIndexBdate {
+
+  reader: dropIndex(
+      keyspaceName:"library",
+      indexName:"reader_bdate_idx"
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">cURL command</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST http://localhost:8080/graphql-schema \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation dropIndexBdate {\n\n  reader: dropIndex(\n      keyspaceName:\"library\",\n      indexName:\"reader_bdate_idx\"\n  )\n}","variables":{}}'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Result</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "reader": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p>== Interact with data stored in tables</p>
 </div>

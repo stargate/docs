@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>REST API :: Stargate documentation</title>
-    <link rel="prev" href="document-using.html">
-    <link rel="next" href="rest-using.html">
+    <title>Untitled :: Stargate documentation</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
@@ -210,7 +208,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item toggler is-current-page" data-depth="2">
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="rest.html">REST API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -304,38 +302,212 @@
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="../index.html">Stargate</a></li>
-    <li><a href="devguide.html">Developing with Stargate</a></li>
-    <li><a href="rest.html">REST API</a></li>
-  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/rest.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/create-an-index-rest.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">REST API</h1>
+<div class="sect2">
+<h3 id="_create_an_index"><a class="anchor" href="#_create_an_index"></a><a class="link" href="#_create_an_index">Create an index</a></h3>
 <div class="paragraph">
-<p>The Stargate REST API is implemented to use REST queries with any Cassandra
-deployment.</p>
+<p>Tables can contain partition keys and clustering keys, both of which define the
+primary key. A table can also include non-primary keys.</p>
+</div>
+<div class="paragraph">
+<p>If you wish to create a table query that uses anything other than the partition key
+to define which row or rows are to be retrieved, a column index must be created
+on each column to read the data.</p>
+</div>
+<div class="paragraph">
+<p>Currently, those indexes can be created with REST,
+<a href="https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index">CQL</a>,
+or <a href="graphql-using.html#_create-an-index" class="page">GraphQL</a>.</p>
+</div>
+<div class="paragraph">
+<p>To use the REST API to create indexes, you&#8217;ll need the <a href="auth.html" class="page">application token</a>
+you generated to create other schema in your keyspace.</p>
+</div>
+<div class="paragraph">
+<p>Send a <code>POST</code> request to
+<code>/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/indexes</code>
+to create an index.
+Set the index definitions in the JSON body in the <code>--data</code>. In this example,
+an index name is defined as <code>fav_books_idx</code> for the column <code>favorite_books</code> in
+the keyspace <code>users_keyspace</code> and table <code>users</code>.
+An option to only create the index if it already exists is set with <code>ifNotExists: true</code>;
+the default is <code>false</code>.</p>
+</div>
+<div class="paragraph">
+<p>Two additional options are available:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../quickstart/quick_start-rest.html" class="page">REST QuickStart</a></p>
+<p><code>type</code> can be defined to use SAI indexes if desired; the default is secondary indexes.</p>
 </li>
 <li>
-<p><a href="rest-using.html" class="page">Using the REST API</a></p>
-</li>
-<li>
-<p><a href="https://stargate.io/docs/attachments/restv2.html">REST API reference</a></p>
+<p><code>kind</code> defines the kind of index for map collections; the choices available are
+<code>VALUES/KEYS/ENTRIES/FULL</code>.</p>
 </li>
 </ul>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="document-using.html">Using the Document API</a></span>
-  <span class="next"><a href="rest-using.html">Using the REST API</a></span>
-</nav>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset1_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "favorite_books",
+  "name": "fav_books_idx",
+  "ifNotExists": true
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "success": true
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is an additional example, which creates indexes that are used in the REST API examples:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_curl-command"></a>cURL command</p>
+</li>
+<li>
+<p><a id="tabset2_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_curl-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "favorite_books",
+  "name": "fav_books_idex",
+  "ifNotExists": true
+}'
+
+curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "top_three_tv_shows",
+  "name": "tv_idx",
+  "ifNotExists": true
+}'
+
+curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "evaluations",
+  "name": "evalv_idx",
+  "ifNotExists": true
+}'
+
+curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "evaluations",
+  "name": "evalk_idx",
+  "kind": "KEYS",
+  "ifNotExists": true
+}'
+
+curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "evaluations",
+  "name": "evale_idx",
+  "kind": "ENTRIES",
+  "ifNotExists": true
+}'
+
+curl -s --location \
+--request POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--data '{
+  "column": "current_country",
+  "name": "country_idx",
+  "ifNotExists": true
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "success": true
+}
+{
+  "success": true
+}
+{
+  "success": true
+}
+{
+  "success": true
+}
+{
+  "success": true
+}
+{
+  "success": true
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the use of the <code>kind</code> in the definitions used for the map collection <code>evaluations</code>.</p>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
