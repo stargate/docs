@@ -563,10 +563,10 @@ include::example$result/rest_curl_get_particular_column.result[]
 // end::CheckTables[]
 
 // tag::RemoveColumn[]
-=== Remove columns from table schema
+=== Delete columns from table schema
 
 If you find an attribute is no longer required in a table, you
-can remove a column by sending a `DELETE` request to delete the column. All
+can delete a column by sending a `DELETE` request. All
 column data will be deleted along with the column schema.
 
 [source, bash]
@@ -593,6 +593,10 @@ include::example$rest/curl_drop_table.sh[]
 
 //LLP: need to add "replace a table definition, except for columns"
 // which can be used to change table options, like clustering order and TTL
+
+include::developers-guide:page$create-an-index-rest.adoc[]
+
+include::developers-guide:page$delete-an-index-rest.adoc[]
 
 == Interact with data stored in tables
 

@@ -5,4 +5,4 @@ deployment.
 
 * xref:quickstart:quick_start-rest.adoc[REST QuickStart]
 * xref:rest-using.adoc[Using the REST API]
-* xref:api_ref/openapi_rest_ref.adoc[REST API reference]
+* link:https://stargate.io/docs/attachments/restv2.html[REST API reference]

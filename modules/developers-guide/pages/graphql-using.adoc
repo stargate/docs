@@ -415,7 +415,7 @@ include::example$result/gql_dropTableIfExists.result[]
 // end::DropAdvTable[]
 
 // tag::CreateIndex[]
-=== Create indexes
+=== Create an index
 
 Tables can contain partition keys and clustering keys, both of which define the
 primary key. A table can also include non-primary keys.
@@ -423,6 +423,14 @@ primary key. A table can also include non-primary keys.
 If you wish to create a table query that uses anything other than the partition key
 to define which row or rows are to be retrieved, a column index must be created
 on each column in order to read the data.
+
+Currently, those indexes can be created with
+//xref:creating-an-index-for-a-table.adoc[REST],
+https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL]
+or GraphQL.
+
+Use the xref:auth.adoc[application token] you generated
+to create schema in your keyspace using the GraphQL playground.
 
 You can create an index using a mutation in `/graphql-schema`.
 In the following example, three indexes are created for the tables `book` and `reader`.
@@ -513,6 +521,43 @@ The `cqlsh` tool can be used to create the indexes if desired.
 //
 
 // end::CreateIndexes[]
+
+// tag::DeleteIndex[]
+=== Delete an index
+If you find an index is no longer required on a table column, or you need to change the index,
+you can delete it.
+All index data will be deleted along with the index schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/deleteIndex.graphql[]
+----
+--
+
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/curl_deleteIndex.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/gql_deleteIndex.result[]
+----
+--
+====
+// end::DeleteIndex[]
 
 == Interact with data stored in tables
 
