@@ -1,0 +1,49 @@
+= Apollo data federation for GraphQL schema-First
+
+Data federation is the creation of a virtual database that aggregates data from
+distributed sources, giving them a common data model.
+It is an approach to data integration that provides a single source of data for
+front-end applications.
+
+To get the most out of GraphQL, your organization should expose a single data
+graph that provides a unified interface for querying any combination of your
+backing data sources.
+However, it can be challenging to represent an enterprise-scale data graph with
+a single, monolithic GraphQL server.
+
+To remedy this, you can divide your graph's implementation across multiple
+composable services with Apollo Federation.
+Unlike other distributed GraphQL architectures (such as schema stitching),
+Apollo Federation uses a declarative programming model that enables each subgraph
+to implement only the part of your composed supergraph that it's responsible for.
+
+An Apollo Federation architecture consists of:
+
+* A collection of subgraphs (usually represented by different back-end services)
+that each define a distinct GraphQL schema
+* A gateway that composes the subgraphs into a federated data graph and executes
+queries across multiple subgraphs
+
+FROM NETFLIX:
+The goal of GraphQL Federation is two-fold: provide a unified API for consumers
+while also giving backend developers flexibility and service isolation.
+To achieve this, schemas need to be created and annotated to indicate how
+ownership is distributed.
+Let’s look at an example with three core entities:
+Movie: At Netflix, we make titles (shows, films, shorts etc.).
+For simplicity, let’s assume each title is a Movie object.
+Production: Each Movie is associated with a Studio Production.
+A Production object tracks everything needed to make a Movie including shooting location, vendors, and more.
+Talent: the people working on a Movie are the Talent, including actors, directors, and so on.
+These three domains are owned by three separate engineering teams responsible for
+their own data sources, business logic, and corresponding microservices.
+In an unfederated implementation, we would have this simple Schema and Resolvers
+owned and implemented by the Studio API team.
+The GraphQL Framework would take in queries from clients and orchestrate the
+calls to the resolvers in a breadth-first traversal.
+
+SEE DIAGRAM
+
+This ability to extend a Movie type across GraphQL service boundaries makes Movie
+a Federated Type.
+Resolving a given field requires delegation by a gateway layer down to the owning domain services.

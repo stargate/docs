@@ -1,5 +1,5 @@
 mutation insertAnotherBook {
- insertBook(book: { title: "Pride and Prejudice", author: "Jane Austen" }) {
+ insertBook(book: { title: "Pride and Prejudice", isbn: "", author: "Jane Austen" }) {
       title
       author
   }
