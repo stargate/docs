@@ -1,21 +1,14 @@
 openapi: 3.0.1
 info:
   title: Stargate REST API reference
-  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate. Keep in mind that you will need information for the server ({databaseId} and {region}) for all of these operations."
+  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate."
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.0.0
+  version: 1.0.0
 servers:
-  - url: https://{databaseId}-{region}.apps.astra.datastax.com
-    description: "Replace the <code>{databaseId}</code> with the UUID of your database (EX: `d341f349-e5db-46d2-9c90-bb9ebaa6f0fc`) and <code>{region}</code> with the cloud region where your database lives (EX: `us-east-1`)."
-    variables:
-      databaseId:
-        default: ''
-        description: "UUID of your database from the Astra URL. </br> For example, `d341f349-e5db-46d2-9c90-bb9ebaa6f0fc`."
-      region:
-        default: ''
-        description: "Cloud region where your database lives. </br> For example, `us-east-1`"
+  - url: https://localhost:8082
+    description: "Replace the port if necessary."
 externalDocs:
   description: Reference Document
   url: http://shorturl.at/hnqIQ
@@ -27,12 +20,14 @@ tags:
   - name: Data
     description: "The Data API allows you to add, update, and delete rows in your database"
 paths:
-  /api/rest/v1/auth:
+  /v1/auth:
+    servers:
+      - url: https://localhost:8081
     post:
       tags:
         - Auth
       summary: Create an authorization token
-      description: "To create an authorization token, you'll need the {databaseid} and {region} for your server, in addition to the path parameters."
+      description: "Create an authorization token used for all queries."
       operationId: createToken
       requestBody:
         content:
@@ -53,11 +48,11 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces:
+  /v1/keyspaces:
     get:
       tags:
         - Schemas
-      summary: Return all keyspaces
+      summary: Get all keyspaces
       description: "Retrieve all available keyspaces in the specific database."
       operationId: getKeyspaces
       parameters:
@@ -79,110 +74,39 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
-#    post:
-#      tags:
-#        - Schemas
-#      summary: create a keyspace
-#      operationId: createKeyspace
-#      parameters:
-#        - $ref: "#/components/parameters/databaseId"
-#        - $ref: "#/components/parameters/region"
-#        - $ref: "#/components/parameters/X-Cassandra-Token"
-#      requestBody:
-#        description: ""
-#        required: true
-#        content:
-#          application/json:
-#            schema:
-#              $ref: "#/components/schemas/Keyspace"
-#      responses:
-#        201:
-#          description: resource created
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  name:
-#                    type: string
-#        400:
-#          $ref: "#/components/responses/400"
-#        401:
-#          $ref: "#/components/responses/401"
-#        409:
-#          $ref: "#/components/responses/409"
-#        500:
-#          $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}:
-    get:
+    post:
       tags:
         - Schemas
-      summary: Get a keyspace using the {keyspace-id}, for example, `better-botz`.
-      operationId: getKeyspace
+      summary: Create a keyspace
+      operationId: createKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/raw"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Keyspace"
       responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Keyspace"
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        404:
-          $ref: "#/components/responses/404"
-        500:
-          $ref: "#/components/responses/500"
-#    delete:
-#      tags:
-#        - Schemas
-#      summary: delete a keyspace
-#      operationId: deleteKeyspace
-#      parameters:
-#        - $ref: "#/components/parameters/databaseId"
-#        - $ref: "#/components/parameters/region"
-#        - $ref: "#/components/parameters/X-Cassandra-Token"
-#        - $ref: "#/components/parameters/keyspace-id"
-#      responses:
-#        204:
-#          description: No Content
-#        401:
-#          $ref: "#/components/responses/401"
-#        500:
-#          $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables:
-    get:
-      tags:
-        - Schemas
-      summary: List tables
-      operationId: getTables
-      parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/raw"
-      responses:
-        200:
-          description: ""
+        201:
+          description: resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Table"
+                  name:
+                    type: string
+        400:
+          $ref: "#/components/responses/400"
         401:
           $ref: "#/components/responses/401"
-        404:
-          $ref: "#/components/responses/404"
+        409:
+          $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
+  /v1/keyspaces/{keyspace-id}/tables:
     post:
       tags:
         - Schemas
@@ -216,16 +140,14 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}:
     get:
       tags:
         - Schemas
-      summary: Get a table
-      operationId: getTable
+      summary: Get tables
+      operationId: getTables
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
         - $ref: "#/components/parameters/raw"
       responses:
         200:
@@ -233,18 +155,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Table"
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Table"
         401:
           $ref: "#/components/responses/401"
         404:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
+  /v1/keyspaces/{keyspace-id}/tables/{table-id}:
     put:
       tags:
         - Schemas
-      summary: Replace a table definition, except for columns
-      operationId: replaceTable
+      summary: Create a table by {table-id}
+      operationId: createTableById
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -257,8 +185,8 @@ paths:
             schema:
               $ref: "#/components/schemas/TableAdd"
       responses:
-        200:
-          description: resource updated
+        201:
+          description: resource created
           content:
             application/json:
               schema:
@@ -270,34 +198,15 @@ paths:
           $ref: "#/components/responses/400"
         401:
           $ref: "#/components/responses/401"
-        404:
-          $ref: "#/components/responses/404"
         409:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-    delete:
-      tags:
-        - Schemas
-      summary: Delete a table
-      operationId: deleteTable
-      parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-      responses:
-        204:
-          description: No Content
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
     get:
       tags:
         - Schemas
-      summary: List columns
-      operationId: getColumns
+      summary: Get tables by {table-id}
+      operationId: getTablesByID
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -314,13 +223,30 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/ColumnDefinition"
+                      $ref: "#/components/schemas/Table"
         401:
           $ref: "#/components/responses/401"
         404:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - Schemas
+      summary: Delete a table by {table-id}
+      operationId: deleteTable
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      responses:
+        204:
+          description: No Content
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v1/keyspaces/{keyspace-id}/tables/{table-id}/columns}:
     post:
       tags:
         - Schemas
@@ -355,12 +281,40 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /api/rest/v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
     get:
       tags:
         - Schemas
-      summary: Get a column
-      operationId: getColumn
+      summary: Get all columns
+      operationId: getColumns
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ColumnDefinition"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  /v1/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
+    get:
+      tags:
+        - Schemas
+      summary: Get a column by {column-id}
+      operationId: getAColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -373,7 +327,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ColumnDefinition"
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ColumnDefinition"
         401:
           $ref: "#/components/responses/401"
         404:
@@ -383,8 +342,8 @@ paths:
     put:
       tags:
         - Schemas
-      summary: Replace a column definition
-      operationId: replaceColumn
+      summary: Create a column by {column-id}
+      operationId: createColumnById
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/keyspace-id"
@@ -398,8 +357,8 @@ paths:
             schema:
               $ref: "#/components/schemas/ColumnDefinition"
       responses:
-        200:
-          description: resource updated
+        201:
+          description: resource created
           content:
             application/json:
               schema:
@@ -411,89 +370,44 @@ paths:
           $ref: "#/components/responses/400"
         401:
           $ref: "#/components/responses/401"
-        404:
-          $ref: "#/components/responses/404"
         409:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
     delete:
       tags:
-        - Schemas
-      summary: Delete a column
-      operationId: deleteColumn
+          - Schemas
+      summary: Delete a column by {column-id}
+      operationId: deleteColumnById
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/column-id"
+          - $ref: "#/components/parameters/X-Cassandra-Token"
+          - $ref: "#/components/parameters/keyspace-id"
+          - $ref: "#/components/parameters/table-id"
+          - $ref: "#/components/parameters/column-id"
       responses:
-        204:
-          description: No Content
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-  /v2/keyspaces/{keyspace-id}/{table-id}:
-    get:
-      tags:
-        - Data
-      summary: Search a table
-      operationId: searchTable
-      parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/where"
-        - $ref: "#/components/parameters/fields"
-        - $ref: "#/components/parameters/page-size"
-        - $ref: "#/components/parameters/page-state"
-        - $ref: "#/components/parameters/sort"
-        - $ref: "#/components/parameters/raw"
-      responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties:
-                        type: string
-                  count:
-                    type: integer
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-# ERROR Add Rows isn't working
+          204:
+            description: No Content
+          401:
+            $ref: "#/components/responses/401"
+          500:
+            $ref: "#/components/responses/500"
+  /v1/keyspaces/{keyspace-id}/tables/{table-id}/rows:
     post:
       tags:
         - Data
-      summary: Add rows
-      operationId: addRows
+      summary: Create a row
+      operationId: createRow
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
+          - $ref: "#/components/parameters/X-Cassandra-Token"
+          - $ref: "#/components/parameters/keyspace-id"
+          - $ref: "#/components/parameters/table-id"
       requestBody:
+        description: ""
         required: true
         content:
           application/json:
             schema:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                pk: e73c77ec-002d-457a-8b65-8ce7cfb15fc7
-                age: "30"
-                name: John
+              $ref: "#/components/schemas/ColumnDefinition"
       responses:
         201:
           description: resource created
@@ -501,10 +415,9 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties:
-                  type: string
-                example:
-                  pk: e73c77ec-002d-457a-8b65-8ce7cfb15fc7
+                properties:
+                  name:
+                    type: string
         400:
           $ref: "#/components/responses/400"
         401:
@@ -513,22 +426,16 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
-  /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}:
     get:
       tags:
         - Data
-      summary: Get a row
+      summary: Get all rows
       operationId: getRows
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-        - $ref: "#/components/parameters/fields"
-        - $ref: "#/components/parameters/page-size"
-        - $ref: "#/components/parameters/page-state"
-        - $ref: "#/components/parameters/sort"
-        - $ref: "#/components/parameters/raw"
+          - $ref: "#/components/parameters/X-Cassandra-Token"
+          - $ref: "#/components/parameters/keyspace-id"
+          - $ref: "#/components/parameters/table-id"
+          - $ref: "#/components/parameters/raw"
       responses:
         200:
           description: ""
@@ -540,133 +447,122 @@ paths:
                   data:
                     type: array
                     items:
-                      type: object
-                      additionalProperties:
-                        type: string
-                  count:
-                    type: integer
-        400:
-          $ref: "#/components/responses/400"
+                      $ref: "#/components/schemas/ColumnDefinition"
         401:
           $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
+  /v1/keyspaces/{keyspace-id}/tables/{table-id}/rows/{primary-key}:
+    get:
+      tags:
+          - Data
+      summary: Get a row by primary key
+      operationId: getRowByPrimKey
+      parameters:
+          - $ref: "#/components/parameters/X-Cassandra-Token"
+          - $ref: "#/components/parameters/keyspace-id"
+          - $ref: "#/components/parameters/table-id"
+          - $ref: "#/components/parameters/primary-key"
+          - $ref: "#/components/parameters/raw"
+      responses:
+          200:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Table"
+          401:
+            $ref: "#/components/responses/401"
+          404:
+            $ref: "#/components/responses/404"
+          500:
+            $ref: "#/components/responses/500"
     put:
       tags:
-        - Data
-      summary: Replace a row
-      operationId: replaceRows
+          - Data
+      summary: Replace a row by primary key
+      operationId: replaceRowByPrimKey
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-        - $ref: "#/components/parameters/raw"
+          - $ref: "#/components/parameters/X-Cassandra-Token"
+          - $ref: "#/components/parameters/keyspace-id"
+          - $ref: "#/components/parameters/table-id"
       requestBody:
-        description: document
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                pk: e73c77ec-002d-457a-8b65-8ce7cfb15fc7
-                age: "30"
-                name: John
-      responses:
-        200:
-          description: resource updated
+          description: ""
+          required: true
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    additionalProperties:
-                      type: string
-                    example:
-                      pk: e73c77ec-002d-457a-8b65-8ce7cfb15fc7
-                      age: "30"
-                      name: John
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-    patch:
-      tags:
-        - Data
-      summary: Update part of a row
-      operationId: updateRows
-      parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
-        - $ref: "#/components/parameters/raw"
-      requestBody:
-        description: document
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                pk: e73c77ec-002d-457a-8b65-8ce7cfb15fc7
-                age: "30"
-                name: John
+                $ref: "#/components/schemas/TableAdd"
       responses:
-        200:
-          description: resource updated
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    additionalProperties:
+          200:
+            description: resource updated
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
                       type: string
-                    example:
-                      pk: e73c77ec-002d-457a-8b65-8ce7cfb15fc7
-                      age: "30"
-                      name: John
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
+          400:
+            $ref: "#/components/responses/400"
+          401:
+            $ref: "#/components/responses/401"
+          404:
+            $ref: "#/components/responses/404"
+          409:
+            $ref: "#/components/responses/409"
+          500:
+            $ref: "#/components/responses/500"
     delete:
       tags:
-        - Data
-      summary: Delete a row(s)
-      operationId: deleteRows
+          - Data
+      summary: Delete a row
+      operationId: deleteRow
       parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/table-id"
-        - $ref: "#/components/parameters/primary-key"
+          - $ref: "#/components/parameters/X-Cassandra-Token"
+          - $ref: "#/components/parameters/keyspace-id"
+          - $ref: "#/components/parameters/table-id"
       responses:
-        204:
-          description: No Content
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
+          204:
+            description: No Content
+          401:
+            $ref: "#/components/responses/401"
+          500:
+            $ref: "#/components/responses/500"
+  # /v1/keyspaces/{keyspace-id}/tables/{table-id}/rows/{query}:
+  #   post:
+  #     tags:
+  #       - Data
+  #     summary: Post a row query
+  #     operationId: getRowQuery
+  #     parameters:
+  #       - $ref: "#/components/parameters/X-Cassandra-Token"
+  #       - $ref: "#/components/parameters/keyspace-id"
+  #       - $ref: "#/components/parameters/table-id"
+  #       - $ref: "#/components/parameters/query"
+  #       - $ref: "#/components/parameters/raw"
+  #     responses:
+  #       200:
+  #         description: ""
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/ColumnDefinition"
+  #       401:
+  #         $ref: "#/components/responses/401"
+  #       404:
+  #         $ref: "#/components/responses/404"
+  #       500:
+  #         $ref: "#/components/responses/500"
 components:
   parameters:
     X-Cassandra-Token:
       name: X-Cassandra-Token
       in: header
       required: true
-      description: "The token returned from the authorization endpoint. Use this token in each request."
+      description: "The token returned from the authorization endpoint for classic databases. Use this token in each request."
       schema:
         type: string
     raw:
@@ -709,6 +605,13 @@ components:
         `race_year/race_name`
       schema:
         type: string
+    query:
+      name: query
+      in: path
+      description: query
+      required: true
+      schema:
+        type: string
     fields:
       name: fields
       in: query
@@ -739,6 +642,7 @@ components:
       in: query
       description: |
         URL escaped JSON query using the following keys:
+
         | Key | Operation |
         |-|-|
         | $lt | Less Than |
@@ -748,6 +652,7 @@ components:
         | $ne | Not Equal To |
         | $in | Contained In |
         | $exists | A value is set for the key |
+
       schema:
         type: object
   responses:
@@ -791,10 +696,10 @@ components:
       properties:
         username:
           type: string
-          description: Username, must be ASTRA_DB_USERNAME
+          description: Username
         password:
           type: string
-          description: Password, must be ASTRA_DB_PASSWORD
+          description: Password
     AuthTokenResponse:
       type: object
       properties:

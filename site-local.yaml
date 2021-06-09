@@ -4,13 +4,14 @@ site:
   start_page: stargate::index.adoc
 
 content:
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
     - url: .
       branches: HEAD
 
 ui:
   bundle:
-    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.3/ui-bundle.zip
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.4/ui-bundle.zip
   supplemental_files: ./supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
@@ -18,5 +19,6 @@ ui:
 asciidoc:
   attributes:
     source-highlighter: highlightjs
+    page-pagination: ''
   extensions:
   - ./lib/tabs-block.js

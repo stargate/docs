@@ -1,0 +1,7 @@
+{
+  schema(keyspace: "library", version: "01a00a50-9e50-11eb-8fde-b341b9f82ca9") {
+    version
+    deployDate
+    contents
+  }
+}

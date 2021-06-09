@@ -1,0 +1,3 @@
+mutation deleteDHM {
+  deleteLibCollection(libColl: { type:"book", lib_id: 66666 })
+}

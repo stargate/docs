@@ -22,8 +22,14 @@ jobs:
       - name: "List folder"
         run: |
           ls -ltra $GITHUB_WORKSPACE
+      - name: "Fix attachments"
+        run: |
+          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/attachments
+          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2
         with:
           name: site
           path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
@@ -39,12 +45,12 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v2
      - name: Download generated site
-       uses: actions/download-artifact@v1
+       uses: actions/download-artifact@v2
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
      - name: Deploy to GitHub Pages
-       uses: peaceiris/actions-gh-pages@v3.7.0-8
+       uses: peaceiris/actions-gh-pages@v3
        with:
           personal_token: "${{ secrets.PUBLISH_STARGATE_DOCS }}"
           external_repository: stargate/website

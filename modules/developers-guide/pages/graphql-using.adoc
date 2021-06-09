@@ -1,12 +1,14 @@
-= Using the Stargate GraphQL API
+= Using the Stargate GraphQL API (CQL-first)
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
+include::partial$cql-first-desc.adoc[]
+
 include::partial$GQLAPIBlogPost.adoc[]
 
 // tag::prereqsList[]
-include::partial$prereqs.adoc[]
+include::partial$gql-prereqs.adoc[]
 // end::prereqsList[]
 
 include::developers-guide:partial$astra_tip.adoc[]
@@ -19,7 +21,7 @@ include::partial$docker_pull.adoc[tag=3x]
 include::partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
-== Using the Auth API to generate an auth token
+== Use the Auth API to generate an auth token
 In order to use the Stargate Document API, an authorization token must be
 generated to access the interface. A REST API token is used for this purpose.
 
@@ -29,41 +31,11 @@ include::partial$gen_auth_token.adoc[]
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
-// tag::UseGraphQLPlayground[]
-== Using the GraphQL Playground
+// LLP - 05.07.21 These two sections are in graphql.adoc
+//include::graphql.adoc[tag=UsingGraphQLPlayground]
+//include::graphql.adoc[tag=UsingPostman]
 
-The easiest way to get started is to use the built-in GraphQL playground that is
-included in the `stargate` docker container. It can be accessed at
-http://localhost:8080/playground[http://localhost:8080/playground] using a local
-browser after the docker container is started.
-
-Once in the playground, you can create new schema and interact with the
-GraphQL APIs. The server paths are structured to provide access to creating and
-querying schema, as well as querying and modifying Cassandra data:
-
-* `/graphql-schema`
-** An API for exploring and creating schema, or Data Definition Language (DDL).
-For example, Cassandra has queries to create, modify, drop keyspaces and tables,
-such as `CREATE KEYSPACE`, `CREATE TABLE1`, or `DROP TABLE`.
-* `/graphql/<keyspace>`
-** An API for querying and modifying your Cassandra tables using GraphQL fields.
-
-We'll start the playground with `/graphql-schema` to create some schema.
-// end::UseGraphQLPlayground[]
-
-// tag::UsingPostman[]
-== Using Postman
-
-If you prefer, you can use Postman as a client interface for exploring GraphQL APIs
-(https://www.postman.com/downloads/[download here]).
-We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_GraphQL_API_users_keyspace.postman_collection.json[Stargate GraphQL API Postman Collection]
-that you can import in Postman to play with the examples shown in this walkthrough.
-
-Now you're ready to use the REST API for CRUD operations.
-// end::UsingPostman[]
-
-== Creating or dropping schema
+== Create or delete schema
 
 In order to use the GraphQL API, you must create schema that defines the keyspace and
 tables that will store the data. A keyspace is a container for which a
@@ -72,7 +44,7 @@ Tables consist of columns that have a defined data type. Multiple tables are con
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
 // tag::CreateKS[]
-=== Creating a keyspace
+=== Create a keyspace
 
 Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace and at least one table in your database. If you are connecting to a
@@ -114,11 +86,53 @@ include::example$result/gql_createKeyspace.result[]
 ----
 // end::CreateKS[]
 
-// tag::CreateUDT[]
-=== Creating a user-defined type (UDT)
+// tag::CheckKS[]
+=== Check keyspace existence
 
-User-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called `address_type` that includes a street, city, state, and zipcode.
+To check if a keyspace exists, execute a GraphQL query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/getKs.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getKs.result[]
+----
+--
+====
+// end::CheckKS[]
+
+// tag::DropKS[]
+=== Delete a keyspace
+
+You can delete a keyspace. All tables and table data will be deleted along with
+the keyspace schema.
+
+[source, plaintext]
+----
+include::example$graphql/dropKeyspace.graphql[]
+----
+// end::DropKS[]
+
+// tag::CreateUDT[]
+=== Create a user-defined type (UDT)
+
+Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called `address_type` that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.
 
 [tabs]
 ====
@@ -143,8 +157,19 @@ include::example$result/gql_createUDT.result[]
 
 // end::CreateUDT[]
 
+// tag::DropType[]
+=== Delete a user-defined type (UDT)
+
+You can delete a UDT. All tables that use the UDT must first be deleted.
+
+[source, plaintext]
+----
+include::example$graphql/dropType.graphql[]
+----
+// end::DropType[]
+
 // tag::CreateTable[]
-=== Creating a table
+=== Create a table
 
 After the keyspace exists, you can create two tables by executing the following
 mutation:
@@ -245,7 +270,7 @@ This example shows a map. A previous example shows a list.
 In the next example, a set will be used.
 
 // tag:AddColumns[]
-=== Adding columns to table schema
+=== Add columns to table schema
 
 If you need to add more attributes to something you are storing in a table, you
 can add one or more columns:
@@ -272,36 +297,11 @@ include::example$result/gql_alterTableAddCols.result[]
 ====
 // end:AddColumns[]
 
-// tag::CheckKSTables[]
-=== Checking that keyspaces and tables exist
+// tag::CheckTables[]
+=== Check table and column existence
 
-To check if a keyspace, tables, or particular table columns exist, execute a
+To check if a table or particular table columns exist, execute a
 GraphQL query:
-
-For keyspaces and tables:
-
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/getKs.graphql[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_getKs.result[]
-----
---
-====
-
-And for tables:
 
 [tabs]
 ====
@@ -328,38 +328,39 @@ Because these queries are named, the GraphQL playground will allow you to select
 which query to run. The first query will return information about the keyspace
 `library` and the tables within it. The second query will return just information
 about the tables in that keyspace.
+// end::CheckTables[]
 
-// LLP: What about "columns"?
+// tag::DropColumns[]
+=== Delete columns from table schema
 
-// end::CheckKSTables[]
+If you find an attribute is no longer required in a table, you
+can remove a column.  All column data will be deleted along with the column schema.
 
-== Drop keyspaces, user-defined types (UDTs), tables or columns
-
-// tag::DropKS[]
-=== Dropping a keyspace
-
-You can delete a keyspace. All tables and table data will be deleted along with
-the keyspace schema.
-
-[source, plaintext]
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
 ----
-include::example$graphql/dropKeyspace.graphql[]
+include::example$graphql/dropColumnFormat.graphql[]
 ----
-// end::DropKS[]
+--
 
-// tag::DropType[]
-=== Dropping a type
-
-You can delete a type. All tables that use the UDT must first be deleted.
-
-[source, plaintext]
+Result::
++
+--
+[source,plaintext]
 ----
-include::example$graphql/dropType.graphql[]
+include::example$result/gql_dropColumnFormat.result[]
 ----
-// end::DropType[]
+--
+====
+// end::DropColumns[]
+
 
 // tag::DropTable[]
-=== Dropping a table
+=== Delete a table
 
 You can delete a table. All data will be deleted along with the table schema.
 
@@ -413,35 +414,152 @@ include::example$result/gql_dropTableIfExists.result[]
 ====
 // end::DropAdvTable[]
 
-// tag::DropColumns[]
-=== Dropping columns from table schema
+// tag::CreateIndex[]
+=== Create an index
 
-If you find an attribute is no longer required in a table, you
-can remove a column.  All column data will be deleted along with the column schema.
+Tables can contain partition keys and clustering keys, both of which define the
+primary key. A table can also include non-primary keys.
+
+If you wish to create a table query that uses anything other than the partition key
+to define which row or rows are to be retrieved, a column index must be created
+on each column in order to read the data.
+
+Currently, those indexes can be created with
+//xref:creating-an-index-for-a-table.adoc[REST],
+https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL]
+or GraphQL.
+
+Use the xref:auth.adoc[application token] you generated
+to create schema in your keyspace using the GraphQL playground.
+
+You can create an index using a mutation in `/graphql-schema`.
+In the following example, three indexes are created for the tables `book` and `reader`.
+The table columns for these indexes are created are `author`, `birthdate`, and `email`.
+
+An index name can be defined, such as `author_idx` in this example.
+An additional option, `indexType` can be defined to use SAI indexes if desired.
 
 [tabs]
 ====
-graphQL command::
+graphQL mutation::
 +
 --
-[source,shell]
+[source,shell,subs="attributes+"]
 ----
-include::example$graphql/dropColumnFormat.graphql[]
+include::example$graphql/createIndexes.graphql[]
+----
+--
+
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/curl_createIndexes.sh[]
+----
+--
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/gql_createIndexes.result[]
+----
+--
+====
+
+Here is an additional example, which creates indexes that could be used in the REST API examples:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$rest/curl_createIndexes_gql_astra.sh[]
+----
+--
+
+CQL command::
++
+--
+[source, cql]
+----
+include::example$cql/create_index_set.cql[]
+include::example$cql/create_index_list.cql[]
+include::example$cql/create_index_map.cql[]
+include::example$cql/create_index_tuple.cql[]
 ----
 --
 
 Result::
 +
 --
-[source,plaintext]
+[source,plaintext,subs="attributes+"]
 ----
-include::example$result/gql_dropColumnFormat.result[]
+include::example$result/rest_createIndexes.result[]
 ----
 --
 ====
-// end::DropColumns[]
 
-== Interacting with data stored in tables
+The CQL commands for creating these indexes is included here for reference.
+The `cqlsh` tool can be used to create the indexes if desired.
+
+//
+//If you are using DataStax Enterprise, you may optionally use
+//https://docs.datastax.com/en/dse/6.8/cql/cql/cql_reference/cql_commands/cqlCreateCustomIndex.html[Storage-Attached Indexing (SAI)]:
+
+//[source, cql]
+//----
+//include::example$cql/create_index_set_sai.cql[]
+//include::example$cql/create_index_list_sai.cql[]
+//include::example$cql/create_index_map_sai.cql[]
+//----
+
+//SAI does not support tuples. Searches using SAI do not support the operator `$in`.
+//
+
+// end::CreateIndexes[]
+
+// tag::DeleteIndex[]
+=== Delete an index
+If you find an index is no longer required on a table column, or you need to change the index,
+you can delete it.
+All index data will be deleted along with the index schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/deleteIndex.graphql[]
+----
+--
+
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/curl_deleteIndex.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/gql_deleteIndex.result[]
+----
+--
+====
+// end::DeleteIndex[]
+
+== Interact with data stored in tables
 
 // tag::APIGeneration[]
 === API generation

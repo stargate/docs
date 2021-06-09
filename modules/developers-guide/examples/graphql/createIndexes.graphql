@@ -1,0 +1,20 @@
+mutation createIndexes {
+  book: createIndex(
+    keyspaceName:"library",
+    tableName:"book",
+    columnName:"author",
+    indexName:"author_idx"
+  )
+  reader: createIndex(
+      keyspaceName:"library",
+      tableName:"reader",
+      columnName:"birthdate",
+      indexName:"reader_bdate_idx"
+  )
+  reader2: createIndex(
+      keyspaceName:"library",
+      tableName:"reader",
+      columnName:"email",
+      indexName:"reader_email_idx"
+  )
+}

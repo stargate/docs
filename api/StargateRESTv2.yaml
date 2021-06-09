@@ -1,24 +1,33 @@
 openapi: 3.0.1
 info:
   title: Stargate REST API reference
-  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate."
+  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate. Keep in mind that you will need information for the server ({databaseId} and {region}) for all of these operations."
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
+servers:
+  - url: https://localhost:8082
+    description: "Change the port if required."
+externalDocs:
+  description: Reference Document
+  url: http://shorturl.at/hnqIQ
 tags:
-  - name: auth
-    description: "Create an authorization token to connect to your database"
-  - name: schemas
-    description: "Interact with keyspaces and tables in your database"
-  - name: data
-    description: "Add, update, and delete rows in your database"
+  - name: Auth
+    description: "The Auth API allows you to create an authorization token to connect to your database."
+  - name: Schemas
+    description: "The Schema API allows you to interact with keyspaces and tables in your database"
+  - name: Data
+    description: "The Data API allows you to add, update, and delete rows in your database"
 paths:
   /v1/auth:
+    servers:
+      - url: https://localhost:8081
     post:
       tags:
-        - auth
-      summary: Create an auth token
+        - Auth
+      summary: Create an authorization token
+      description: Create an authorization token.
       operationId: createToken
       requestBody:
         content:
@@ -42,33 +51,28 @@ paths:
   /v2/schemas/keyspaces:
     get:
       tags:
-        - schemas
-      summary: Return all keyspaces
+        - Schemas
+      summary: Get all keyspaces
       description: "Retrieve all available keyspaces in the specific database."
-      operationId: getKeyspaces
+      operationId: getAllKeyspaces
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
         - $ref: "#/components/parameters/raw"
       responses:
         200:
-          description: ""
+          description: "OK"
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Keyspace"
+                $ref: "#/components/schemas/Keyspace"
         401:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
     post:
       tags:
-        - schemas
-      summary: create a keyspace
+        - Schemas
+      summary: Create a keyspace
       operationId: createKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -100,8 +104,8 @@ paths:
   /v2/schemas/keyspaces/{keyspace-id}:
     get:
       tags:
-        - schemas
-      summary: get a keyspace
+        - Schemas
+      summary: Get a keyspace using the {keyspace-id}
       operationId: getKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -124,8 +128,8 @@ paths:
           $ref: "#/components/responses/500"
     delete:
       tags:
-        - schemas
-      summary: delete a keyspace
+        - Schemas
+      summary: Delete a keyspace
       operationId: deleteKeyspace
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -138,37 +142,10 @@ paths:
         500:
           $ref: "#/components/responses/500"
   /v2/schemas/keyspaces/{keyspace-id}/tables:
-    get:
-      tags:
-        - schemas
-      summary: list tables
-      operationId: getTables
-      parameters:
-        - $ref: "#/components/parameters/X-Cassandra-Token"
-        - $ref: "#/components/parameters/keyspace-id"
-        - $ref: "#/components/parameters/raw"
-      responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Table"
-        401:
-          $ref: "#/components/responses/401"
-        404:
-          $ref: "#/components/responses/404"
-        500:
-          $ref: "#/components/responses/500"
     post:
       tags:
-        - schemas
-      summary: create a table
+        - Schemas
+      summary: Create a table
       operationId: createTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -198,11 +175,38 @@ paths:
           $ref: "#/components/responses/409"
         500:
           $ref: "#/components/responses/500"
+    get:
+      tags:
+        - Schemas
+      summary: Get all tables
+      operationId: getTables
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Table"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
   /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}:
     get:
       tags:
-        - schemas
-      summary: get a table
+        - Schemas
+      summary: Get a table
       operationId: getTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -224,8 +228,8 @@ paths:
           $ref: "#/components/responses/500"
     put:
       tags:
-        - schemas
-      summary: replace a table definition, except for columns
+        - Schemas
+      summary: Replace a table definition (table options only)
       operationId: replaceTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -260,8 +264,8 @@ paths:
           $ref: "#/components/responses/500"
     delete:
       tags:
-        - schemas
-      summary: delete a table
+        - Schemas
+      summary: Delete a table
       operationId: deleteTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -277,8 +281,8 @@ paths:
   /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns:
     get:
       tags:
-        - schemas
-      summary: list columns
+        - Schemas
+      summary: List columns
       operationId: getColumns
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -305,8 +309,8 @@ paths:
           $ref: "#/components/responses/500"
     post:
       tags:
-        - schemas
-      summary: create a column
+        - Schemas
+      summary: Create a column
       operationId: createColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -340,8 +344,8 @@ paths:
   /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/columns/{column-id}:
     get:
       tags:
-        - schemas
-      summary: get a column
+        - Schemas
+      summary: Get a column
       operationId: getColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -364,8 +368,8 @@ paths:
           $ref: "#/components/responses/500"
     put:
       tags:
-        - schemas
-      summary: replace a column definition
+        - Schemas
+      summary: Replace a column definition
       operationId: replaceColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -401,8 +405,8 @@ paths:
           $ref: "#/components/responses/500"
     delete:
       tags:
-        - schemas
-      summary: delete a column
+        - Schemas
+      summary: Delete a column
       operationId: deleteColumn
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -416,11 +420,89 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/indexes:
+    get:
+      tags:
+        - Schemas
+      summary: List indexes for a given table
+      operationId: getIndexes
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IndexResponse"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - Schemas
+      summary: Create an index
+      operationId: createIndex
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IndexDefinition"
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"success": true}
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/tables/{table-id}/indexes/{index-id}:
+    delete:
+      tags:
+        - Schemas
+      summary: Delete an index
+      operationId: deleteIndex
+      parameters:
+        - $ref: "#/components/parameters/X-Cassandra-Token"
+        - $ref: "#/components/parameters/keyspace-id"
+        - $ref: "#/components/parameters/table-id"
+        - $ref: "#/components/parameters/index-id"
+      responses:
+        204:
+          description: No Content
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
   /v2/keyspaces/{keyspace-id}/{table-id}:
     get:
       tags:
-        - data
-      summary: search a table
+        - Data
+      summary: Search a table
       operationId: searchTable
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -454,9 +536,10 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
+# ERROR Add Rows isn't working
     post:
       tags:
-        - data
+        - Data
       summary: Add rows
       operationId: addRows
       parameters:
@@ -497,8 +580,8 @@ paths:
   /v2/keyspaces/{keyspace-id}/{table-id}/{primary-key}:
     get:
       tags:
-        - data
-      summary: get a row(s)
+        - Data
+      summary: Get a row by primary key
       operationId: getRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -534,8 +617,8 @@ paths:
           $ref: "#/components/responses/500"
     put:
       tags:
-        - data
-      summary: replace a row(s)
+        - Data
+      summary: Replace a row by primary key
       operationId: replaceRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -580,8 +663,8 @@ paths:
           $ref: "#/components/responses/500"
     patch:
       tags:
-        - data
-      summary: update part of a row(s)
+        - Data
+      summary: Update a row by primary key
       operationId: updateRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -626,8 +709,8 @@ paths:
           $ref: "#/components/responses/500"
     delete:
       tags:
-        - data
-      summary: delete a row(s)
+        - Data
+      summary: Delete a row by primary key
       operationId: deleteRows
       parameters:
         - $ref: "#/components/parameters/X-Cassandra-Token"
@@ -653,7 +736,7 @@ components:
     raw:
       name: raw
       in: query
-      description: unwrap results
+      description: Unwrap results.
       required: false
       schema:
         type: boolean
@@ -676,6 +759,13 @@ components:
       name: column-id
       in: path
       description: column name
+      required: true
+      schema:
+        type: string
+    index-id:
+      name: index-id
+      in: path
+      description: index name
       required: true
       schema:
         type: string
@@ -720,8 +810,9 @@ components:
       in: query
       description: |
         URL escaped JSON query using the following keys:
+
         | Key | Operation |
-        |-|-|
+        |---|---|
         | $lt | Less Than |
         | $lte | Less Than Or Equal To |
         | $gt | Greater Than |
@@ -729,6 +820,7 @@ components:
         | $ne | Not Equal To |
         | $in | Contained In |
         | $exists | A value is set for the key |
+
       schema:
         type: object
   responses:
@@ -763,6 +855,44 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: A description of an error state
+      properties:
+        description:
+          type: string
+          description: A human readable description of the error state
+          example: Invalid STRING constant (8be6d514-3436-4e04-a5fc-0ffbefa4c1fe) for
+            "id" of type uuid.
+        code:
+          type: integer
+          description: The code referencing the error state
+          format: int32
+          example: 400
+        internalTxId:
+          type: string
+    ResponseWrapper:
+      type: object
+      properties:
+        data:
+          type: object
+          properties: {}
+          description: Response data returned by the request.
+    GetResponseWrapper:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The count of records returned
+          format: int32
+        pageState:
+          type: string
+          description: A string representing the paging state to be used on future
+            paging requests.
+        data:
+          type: object
+          properties: {}
+          description: The data returned by the request.
     Credentials:
       type: object
       required:
@@ -773,44 +903,67 @@ components:
         username:
           type: string
           description: Username
+          example: cassandra
         password:
           type: string
           description: Password
+          example: cassandra
     AuthTokenResponse:
       type: object
       properties:
         authToken:
           type: string
-    Keyspace:
-      type: object
-      properties:
-        name:
-          type: string
-        datacenters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Datacenter'
-      required:
-        - name
+          example: "5c90f769-8784-499c-83f7-b764822255f1"
     Datacenter:
       type: object
-      properties:
-        name:
-          type: string
-        replicas:
-          type: integer
       required:
         - name
         - replicas
-    Table:
-      type: object
       properties:
         name:
           type: string
+          description: The name of the datacenter.
+          example: DC1
+        replicas:
+          type: integer
+          description: "The number of replicas in the datacenter. In other words, the
+            number of copies of each row in the datacenter."
+          format: int32
+          example: 2
+    Keyspace:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the keyspace.
+          example: users_keyspace
+        datacenters:
+          type: array
+          description: "The datacenters within a keyspace. Only applies for those keyspaces
+            created with NetworkTopologyStrategy."
+          items:
+            $ref: '#/components/schemas/Datacenter'
+
+    Table:
+      type: object
+      required:
+        - name
+        - columnDefinitions
+        - primaryKey
+      properties:
+        name:
+          type: string
+          description: The name of the table.
+          example: users
         keyspace:
           type: string
+          description: The name of the keyspace.
+          example: users_keyspace
         columnDefinitions:
           type: array
+          description: An array of column names with data type.
           items:
             $ref: '#/components/schemas/ColumnDefinition'
         primaryKey:
@@ -826,12 +979,18 @@ components:
       properties:
         name:
           type: string
+          description: Name of the table.
+          example: users
         ifNotExists:
           type: boolean
-          description: "Determines whether to create a new table if a table with the same name exists. Attempting to create an existing table returns an error unless this option is true."
+          description: "Determines whether to create a new table if a table with
+            the same name exists. Attempting to create an existing table returns
+            an error unless this option is true."
           default: false
+          example: true
         columnDefinitions:
           type: array
+          description: Definition of columns that belong to the table to be added.
           items:
             $ref: '#/components/schemas/ColumnDefinition'
         primaryKey:
@@ -889,12 +1048,12 @@ components:
           description: "Denotes whether the column is shared by all rows of a partition."
     PrimaryKey:
       type: object
+      required:
+        - partitionKey
       description: "Defines a column list for the primary key. Can be either a single
         column, compound primary key, or composite partition key. Provide
         multiple columns for the partition key to define a composite partition
         key."
-      required:
-        - partitionKey
       properties:
         partitionKey:
           type: array
@@ -902,17 +1061,99 @@ components:
           minItems: 1
           items:
             type: string
+            example: emailaddress
         clusteringKey:
           type: array
           description: "Name of the column or columns that constitute the clustering key."
           items:
             type: string
+            example: age
+    IndexDefinition:
+      type: object
+      required:
+        - column
+      properties:
+        name:
+          type: string
+          description: "Optional name for the index, which must be unique.
+            If no name is specified, the index is named as follows:
+            tablename_columnname_idx."
+          example: age_idx
+        column:
+          type: string
+          description: "Column for which index will be created."
+          example: age
+        type:
+          type: string
+          description: "Type of index, defined with a custom index class name or classpath.
+            Secondary index is default, no type entered"
+          default: ""
+          enum:
+            - "org.apache.cassandra.index.sasi.SASIIndex"
+            - "StorageAttachedIndex"
+        options:
+          type: object
+          additionalProperties:
+            type: string
+            description: "Options passed to a custom index."
+        kind:
+          type: string
+          description: "Index kind for collections."
+          default: VALUES
+          example: "KEYS"
+          enum:
+            - FULL
+            - KEYS
+            - VALUES
+            - ENTRIES
+        ifNotExists:
+          type: boolean
+          description: "Determines creation of a new index, if an index with the
+            same name exists. If an index exists, and this option is set to true,
+            an error is returned."
+          default: false
+          example: true
+    IndexResponse:
+      type: array
+      description: The data returned by the index fetch.
+      items:
+        properties:
+          keyspace_name:
+            type: string
+            example: users_keyspace
+          options:
+            type: array
+            items:
+              $ref: '#/components/schemas/IndexOptions'
+          table_name:
+            type: string
+            example: users
+          index_name:
+            type: string
+            example: fav_books_idx
+          kind:
+            type: string
+            example: COMPOSITES
+    IndexOptions:
+      type: object
+      properties:
+        key:
+          type: string
+          example: target
+        value:
+          type: string
+          example: values(favorite_books)
     TableOptions:
       type: object
       properties:
         defaultTimeToLive:
           type: integer
-          description: "Defines the Time To Live (TTL), which determines the time period (in seconds) to expire data. If the value is >0, TTL is enabled for the entire table and an expiration timestamp is added to each column. The maximum value is 630720000 (20 years). A new TTL timestamp is calculated each time the data is updated and the row is removed after the data expires."
+          description: "Defines the Time To Live (TTL), which determines the
+            time period (in seconds) to expire data. If the value is >0, TTL is
+            enabled for the entire table and an expiration timestamp is added to
+            each column. The maximum value is 630720000 (20 years). A new TTL
+            timestamp is calculated each time the data is updated and the row is
+            removed after the data expires."
           default: 0
         clusteringExpression:
           type: array
@@ -920,17 +1161,20 @@ components:
             $ref: '#/components/schemas/ClusteringExpression'
     ClusteringExpression:
       type: object
-      description: >-
-        Order rows storage to make use of the on-disk sorting of columns.
-        Specifying order can make query results more efficient.
       required:
         - column
         - order
+      description: "Order rows storage to make use of the on-disk sorting of columns.
+        Specifying order can make query results more efficient."
       properties:
         column:
           type: string
+          description: The name of the column to order by.
+          example: age
         order:
           type: string
+          description: The clustering order.
+          example: ASC
           enum:
             - ASC
             - DESC
@@ -944,17 +1188,3 @@ components:
       example:
         firstName: asc
         age: desc
-    Error:
-      type: object
-      description: A description of an error state
-      properties:
-        description:
-          type: string
-          example: >-
-            Invalid STRING constant (8be6d514-3436-4e04-a5fc-0ffbefa4c1fe) for
-            "id" of type uuid
-          description: A human readable description of the error state
-        code:
-          type: integer
-          example: 400
-          description: The code referencing the error state
