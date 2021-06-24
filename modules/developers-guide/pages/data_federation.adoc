@@ -47,3 +47,20 @@ SEE DIAGRAM
 This ability to extend a Movie type across GraphQL service boundaries makes Movie
 a Federated Type.
 Resolving a given field requires delegation by a gateway layer down to the owning domain services.
+
+
+// REFINE THIS LIST OF QUERIES - AWFUL RIGHT NOW!
+For the Library example:
+
+1. Look up a book by title and author. _book_
+2. Look up a reader by name and user_id. _reader_
+3. Look up a library collection by type and lib_id. _libcoll_
+4. Look up books by title. _books_
+5. Look up an order by checkout_id. _order_
+6. Get a list of all orders. _orders_
+2. Look up a book by isbn.
+3. Look up a checkout and find all the books in the order.
+4.
+5. Look up a book and find all reviews.
+6. Look up a reader and find all books read/reviewed.
+7. Look up a book and find all the readers who have read it.

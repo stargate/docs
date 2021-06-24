@@ -9,8 +9,9 @@ type Review @cql_entity(target: UDT) @cql_input {
   comment: String
   rating: Int
   reviewDate: Date @cql_column(name: "review_date")
+  description: 'A book review with rating, review date, and comment.'
 }
-type Book @key @cql_entity(name: "book") @cql_input {
+type Book @key(fields: "title author") @cql_entity(name: "book") @cql_input {
   title: String! @cql_column(partitionKey: true)
   author: String @cql_column(clusteringOrder: ASC)
   isbn: String
@@ -19,18 +20,22 @@ type SelectBookResult @cql_payload {
   data: [Book]
   pagingState: String
 }
-type Reader @key @cql_entity(name: "reader") @cql_input {
+type Reader @key(fields: "name user_id") @cql_entity(name: "reader") @cql_input {
   name: String! @cql_column(partitionKey: true)
   user_id: Uuid! @cql_column(clusteringOrder: ASC)
   birthdate: Date @cql_index(name: "date_idx")
   email: [String] @cql_column(typeHint: "set<varchar>")
-  reviews: [Review]  @cql_index(name: "review_idx", target: VALUES)
   address: [Address]
+  reviews: [Review]  @cql_index(name: "review_idx", target: VALUES)
 }
-type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
-  type: String! @cql_column(partitionKey: true)
+type LibCollection @key(fields: "type lib_id") @cql_entity(name: "lib_collection") @cql_input {
+  type: MediaType @cql_column(partitionKey: true)
   lib_id: Int! @cql_column(partitionKey: true)
   lib_name: String @cql_column(clusteringOrder: ASC)
+}
+enum MediaType {
+  photo
+  book
 }
 type Query {
   book(title:String!, author:String): [Book]
