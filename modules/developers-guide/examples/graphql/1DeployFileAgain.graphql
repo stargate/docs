@@ -2,7 +2,7 @@ curl http://localhost:8080/graphql-admin \
   -H "X-Cassandra-Token: $AUTH_TOKEN" \
   -F operations='
 {
-  "query": "mutation($file: Upload!) { deploySchemaFile( keyspace: \"library\" expectedVersion: \"3b443154-4076-4f90-b419-51e19c1700e2\" schemaFile: $file) { version } }",
+  "query": "mutation($file: Upload!) { deploySchemaFile( keyspace: \"library\" expectedVersion: \"d3e5bcb0-c57b-11eb-b05a-7def2c5495fb\" schemaFile: $file) { version } }",
   "variables": { "file": null }
 };type=application/json' \
   -F map='{ "filePart": ["variables.file"] }' \

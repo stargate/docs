@@ -9,38 +9,38 @@ type Review @cql_entity(target: UDT) @cql_input {
   comment: String
   rating: Int
   reviewDate: Date @cql_column(name: "review_date")
-  description: 'A book review with rating, review date, and comment.'
 }
-type Book @key(fields: "title author") @cql_entity(name: "book") @cql_input {
+type Book @key @cql_entity(name: "book") @cql_input {
   title: String! @cql_column(partitionKey: true)
   author: String @cql_column(clusteringOrder: ASC)
   isbn: String
+  orders: [Order]
 }
 type SelectBookResult @cql_payload {
   data: [Book]
   pagingState: String
 }
-type Reader @key(fields: "name user_id") @cql_entity(name: "reader") @cql_input {
+type Reader @key @cql_entity(name: "reader") @cql_input {
   name: String! @cql_column(partitionKey: true)
   user_id: Uuid! @cql_column(clusteringOrder: ASC)
   birthdate: Date @cql_index(name: "date_idx")
   email: [String] @cql_column(typeHint: "set<varchar>")
-  address: [Address]
   reviews: [Review]  @cql_index(name: "review_idx", target: VALUES)
+  address: [Address]
 }
-type LibCollection @key(fields: "type lib_id") @cql_entity(name: "lib_collection") @cql_input {
-  type: MediaType @cql_column(partitionKey: true)
+type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
+  type: String! @cql_column(partitionKey: true)
   lib_id: Int! @cql_column(partitionKey: true)
   lib_name: String @cql_column(clusteringOrder: ASC)
 }
-enum MediaType {
-  photo
-  book
+extend type Order @key(fields: "checkout_id") {
+  checkout_id: Int! @external
+  books: [Book]
 }
 type Query {
-  book(title:String!, author:String): [Book]
-  reader(name:String!, user_id:Uuid): [Reader]
-  libcoll(type: String!, lib_id: Int!): [LibCollection]
+  allBooks(title: String!): [Book]
+  book(title:String!): [Book]
+  bookByAuthor(title:String!, author:String!): [Book]
   books(
     title: String!,
     pagingState: String @cql_pagingState
@@ -56,6 +56,7 @@ type Query {
     title: String!
     author: String @cql_where(field: "author", predicate: LT)
   ): [Book]
+  reader(name:String!, user_id:Uuid): [Reader]
   readerGT(
     name: String!,
     user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
@@ -63,6 +64,7 @@ type Query {
   readerCONTAINS(
     reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
   ): [Reader]
+  libcoll(type: String!, lib_id: Int!): [LibCollection]
   libCollIn(
     type: [String!] @cql_where(field: "type", predicate: IN)
     lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
@@ -70,6 +72,7 @@ type Query {
 }
 type Mutation {
   insertBook(book: BookInput!): Book
+  #setBookIsbn(title: String!, isbn: String!): Boolean @cql_update
   updateBook(book: BookInput): Boolean @cql_update
   deleteBook(book: BookInput!): Boolean
   insertReader(reader: ReaderInput!): Reader
