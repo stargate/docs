@@ -59,3 +59,24 @@ docker run --name stargate \
   stargateio/stargate-dse-{dse-alt-tag-68}:{stargate-docker-tag-68}
 ----
 // end::dse_68[]
+
+// tag::3x_graphql-first[]
+Start the Stargate container in developer mode.
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-3x} \
+  -e DEVELOPER_MODE=true \
+  -e JAVA_OPTS="-Dstargate.graphql_first.enabled=true" \
+  stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
+----
+// end::3x_graphql-first[]
