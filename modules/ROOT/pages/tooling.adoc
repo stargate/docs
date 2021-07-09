@@ -46,7 +46,7 @@ You can also edit the JSON file directly, if you prefer.
 === Astra
 
 There are three items that must be
-xref:manage-application-tokens.adoc[retrieved from the Astra dashboard] and configured in the Postman environment:
+link:https://docs.datastax.com/en/astra/docs/manage-application-tokens.html[retrieved from the Astra dashboard] and configured in the Postman environment:
 
 * ASTRA_DB_ID
 * ASTRA_DB_REGION

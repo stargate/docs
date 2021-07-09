@@ -5,4 +5,4 @@ The Stargate Document API is implemented to use schemaless document REST queries
 
 * xref:quickstart:quick_start-document.adoc[Document API QuickStart]
 * xref:document-using.adoc[Using the Document API]
-* xref:api_ref/openapi_document_ref.adoc[Document API reference]
+* link:https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API reference]

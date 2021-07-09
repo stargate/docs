@@ -78,5 +78,5 @@ include::developers-guide:page$rest-using.adoc[tag=DeleteData]
 
 Voila! For more information on the REST API, see the see the
 xref:developers-guide:rest-using.adoc[Using the REST API]
-or the xref:developers-guide:openapi_rest_ref.adoc[REST API] in the
-Data API section.
+or the link:https://stargate.io/docs/stargate/1.0/attachments/restv2.html[REST API] in the
+API references section.
