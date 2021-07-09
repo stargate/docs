@@ -600,9 +600,9 @@ components:
       required: true
       description: |
         Value from the primary key column for the table. Define composite keys by separating values with
-        slashes (`val1/val2...`) in the order they were defined. </br> For example, if the composite key
+        semicolons (`val1;val2...`) in the order they were defined. </br> For example, if the composite key
         was defined as `PRIMARY KEY(race_year, race_name)` then the primary key in the path would be
-        `race_year/race_name`
+        `race_year;race_name`.
       schema:
         type: string
     query:
