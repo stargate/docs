@@ -78,5 +78,5 @@ include::developers-guide:page$document-using.adoc[tag=DeleteBasicData]
 
 Voila! For more information on the Document API, see the
 xref:developers-guide:document-using.adoc[Using the Document API]
-or the xref:developers-guide:openapi_document_ref.adoc[Document API] in the
-Data API section.
+or the link:https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API] in the
+API references section.
