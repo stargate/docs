@@ -1,5 +1,5 @@
-mutation insertjanedoe {
-  insertReader(
+mutation insert2Readers {
+  janedoe: insertReader(
     reader: {
       name: "Jane Doe"
       user_id: "f02e2894-db48-4347-8360-34f28f958590"
@@ -21,10 +21,16 @@ mutation insertjanedoe {
   ) {
     name
     user_id
+    birthdate
+    email
+    address {
+      street
+      city
+      state
+      zipCode
+    }
   }
-}
-mutation insertherman {
-  insertReader(
+  herman: insertReader(
     reader: {
       name: "Herman Melville"
       user_id: "e0ec47e1-2b46-41ad-961c-70e6de629810"
@@ -40,10 +46,6 @@ mutation insertherman {
   ) {
     name
     user_id
-  }
-}
-  ) {
-    name
     birthdate
     email
     address {

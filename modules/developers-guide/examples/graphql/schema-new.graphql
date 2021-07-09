@@ -13,8 +13,13 @@ type Review @cql_entity(target: UDT) @cql_input {
 type Book @key(fields:"title isbn") @cql_entity(name: "book") @cql_input {
   title: String! @cql_column(partitionKey: true)
   isbn: String @cql_column(clusteringOrder: ASC)
-  author: [String]
+  author: [String] @cql_index(name: "author_idx", target: VALUES)
   #orders: [Order]
+}
+type BookI @key(fields:"title isbn") @cql_entity(name: "booki") @cql_input {
+  title: String! @cql_column(clusteringOrder: ASC)
+  isbn: String @cql_column(partitionKey: true)
+  author: [String] @cql_index(name: "authori_idx", target: VALUES)
 }
 type SelectBookResult @cql_payload {
   data: [Book]
@@ -28,57 +33,33 @@ type Reader @key @cql_entity(name: "reader") @cql_input {
   reviews: [Review]  @cql_index(name: "review_idx", target: VALUES)
   address: [Address]
 }
-type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
-  type: String! @cql_column(partitionKey: true)
-  lib_id: Int! @cql_column(partitionKey: true)
-  lib_name: String @cql_column(clusteringOrder: ASC)
-}
-#extend type Order @key(fields: "checkout_id") {
-#  checkout_id: Int! @external
-#  books: [Book]
-#}
+
 type Query {
-  allBooks(title: String!): [Book]
-  book(title:String!): [Book]
-  bookByAuthor(title:String!, author:String!): [Book]
-  books(
-    title: String!,
-    pagingState: String @cql_pagingState
-  ): SelectBookResult @cql_select(pageSize: 10)
-  booksIn(
-    title: [String!] @cql_where(field: "title", predicate: IN)
+  bookByTitle(title: String!): [Book]
+  bookByTitleAndIsbn( title: String!, isbn: String): [Book]
+  bookByAuthor(
+    author: String @cql_where(field: "author", predicate: CONTAINS)
   ): [Book]
-  bookGT(
-    title: String!
-    author: String @cql_where(field: "author", predicate: GT)
+  bookByTitleAndAuthor(title: String!, author: String @cql_where(field: "author", predicate: CONTAINS)
   ): [Book]
-  bookLT(
-    title: String!
-    author: String @cql_where(field: "author", predicate: LT)
-  ): [Book]
-  reader(name:String!, user_id:Uuid): [Reader]
-  readerGT(
-    name: String!,
-    user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
-  ): [Reader]
+  bookIByIsbn(isbn: String): [BookI]
+  #books(
+  #  title: String!,
+  #  pagingState: String @cql_pagingState
+  #): SelectBookResult @cql_select(pageSize: 10)
+  readerByName(name:String!): [Reader]
+  readerByNameAndUserid(name:String!, user_id:Uuid): [Reader]
   readerCONTAINS(
     reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
   ): [Reader]
-  libcoll(type: String!, lib_id: Int!): [LibCollection]
-  libCollIn(
-    type: [String!] @cql_where(field: "type", predicate: IN)
-    lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
-  ): [LibCollection]
 }
 type Mutation {
   insertBook(book: BookInput!): Book
+  insertBookI(booki: BookIInput!): BookI
   #setBookIsbn(title: String!, isbn: String!): Boolean @cql_update
   updateBook(book: BookInput): Boolean @cql_update
   deleteBook(book: BookInput!): Boolean
   insertReader(reader: ReaderInput!): Reader
   updateReader(reader: ReaderInput!): Boolean @cql_update
   deleteReader(reader: ReaderInput!): Boolean
-  insertLibCollection(libColl: LibCollectionInput!): LibCollection
-  updateLibCollection(libColl: LibCollectionInput!): Boolean @cql_update
-  deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists: true)
 }
