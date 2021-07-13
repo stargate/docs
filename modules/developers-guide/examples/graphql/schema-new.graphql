@@ -33,6 +33,19 @@ type Reader @key @cql_entity(name: "reader") @cql_input {
   reviews: [Review]  @cql_index(name: "review_idx", target: VALUES)
   address: [Address]
 }
+type ReaderU @key @cql_entity(name: "readeru") @cql_input {
+  name: String! @cql_column(clusteringOrder: ASC)
+  user_id: Uuid! @cql_column(partitionKey: true)
+  birthdate: Date @cql_index(name: "dateu_idx")
+  email: [String] @cql_column(typeHint: "set<varchar>")
+  reviews: [Review]  @cql_index(name: "reviewu_idx", target: VALUES)
+  address: [Address]
+}
+type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
+  type: String! @cql_column(partitionKey: true)
+  lib_id: Int! @cql_column(partitionKey: true)
+  lib_name: String @cql_index(name: "libname_idx")
+}
 
 type Query {
   bookByTitle(title: String!): [Book]
@@ -49,9 +62,13 @@ type Query {
   #): SelectBookResult @cql_select(pageSize: 10)
   readerByName(name:String!): [Reader]
   readerByNameAndUserid(name:String!, user_id:Uuid): [Reader]
+  readerUByUserid(user_id: Uuid!): [ReaderU]
   readerCONTAINS(
     reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
   ): [Reader]
+  libCollByType(type: String!): [LibCollection]
+  libCollByTypeAndLibid(type: String!, lib_id: Int!): [LibCollection]
+  libCollByName(name: String): [LibCollection]
 }
 type Mutation {
   insertBook(book: BookInput!): Book

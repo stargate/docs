@@ -82,13 +82,13 @@ For the Library example:
 4. (allLibColls) Get all lib collections. _LibCollection_
 
 5. (booksByTitle) Look up books by title (partition key). _Book_
-6. CAN'T DO(bookByIsbn) Look up a book by ISBN (clustering column). _Book_
+6. (bookIByIsbn) Look up a book by ISBN (clustering column). _BookI_
 7. (booksByTitleAndIsbn) Look up a book by title and ISBN (primary key). _Book_
 8. (booksByAuthor) Look up books by author (non-PK column collection, index). _Book_
 9. (booksByTitleAndAuthor) Look up a book by title and author (partition key + index). _Book_
 
 10. (readerByName) Look up a reader by name (partition key). _Reader_
-11. CAN'T DO(readerByUserid) Look up a reader by user_id (clustering column). _Reader_
+11. (readerUByUserid) Look up a reader by user_id (clustering column). _ReaderU_
 12. (readerByNameAndUserid) Look up a reader by name and user_id (primary key). _Reader_
     All 3 of these queries will allow you to get all the books reviewed by a reader.
 
