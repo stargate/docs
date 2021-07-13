@@ -498,6 +498,126 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/types:
+    get:
+      tags:
+      - Schemas
+      summary: List types
+      operationId: getTypes
+      parameters:
+      - $ref: "#/components/parameters/X-Cassandra-Token"
+      - $ref: "#/components/parameters/keyspace-id"
+      - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TypeResponse"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+      - Schemas
+      summary: Create Type
+      operationId: createType
+      parameters:
+      - $ref: "#/components/parameters/X-Cassandra-Token"
+      - $ref: "#/components/parameters/keyspace-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TypeAdd"
+      responses:
+        201:
+          description: resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        409:
+          $ref: "#/components/responses/409"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+      - Schemas
+      summary: Update a type
+      operationId: updateType
+      parameters:
+      - $ref: "#/components/parameters/X-Cassandra-Token"
+      - $ref: "#/components/parameters/keyspace-id"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TypeUpdate"
+      responses:
+        204:
+          description: No Content
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /v2/schemas/keyspaces/{keyspace-id}/types/{type-id}:
+    get:
+      tags:
+      - Schemas
+      summary: Get a type
+      operationId: getType
+      parameters:
+      - $ref: "#/components/parameters/X-Cassandra-Token"
+      - $ref: "#/components/parameters/keyspace-id"
+      - $ref: "#/components/parameters/type-id"
+      - $ref: "#/components/parameters/raw"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TypeResponse"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+      - Schemas
+      summary: Delete a type
+      operationId: deleteType
+      parameters:
+      - $ref: "#/components/parameters/X-Cassandra-Token"
+      - $ref: "#/components/parameters/keyspace-id"
+      - $ref: "#/components/parameters/type-id"
+      responses:
+        204:
+          description: No Content
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
   /v2/keyspaces/{keyspace-id}/{table-id}:
     get:
       tags:
@@ -766,6 +886,13 @@ components:
       name: index-id
       in: path
       description: index name
+      required: true
+      schema:
+        type: string
+    type-id:
+      name: type-id
+      in: path
+      description: type name
       required: true
       schema:
         type: string
@@ -1188,3 +1315,72 @@ components:
       example:
         firstName: asc
         age: desc
+    TypeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        keyspace:
+          type: string
+          description: "Name of the keyspace the user defined type belongs."
+        fields:
+          type: array
+          description: "Definition of columns within the user defined type."
+          items:
+            $ref: "#/components/schemas/TypeField"
+    TypeAdd:
+      type: object
+      required:
+        - fields
+        - name
+      properties:
+        name:
+          type: string
+        ifNotExists:
+          type: boolean
+          description: "Determines whether to create a new UDT if an UDT with the same\
+          \ name exists. Attempting to create an existing UDT returns an error unless\
+          \ this option is true."
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/TypeField"
+    TypeField:
+      type: object
+      required:
+      - name
+      - typeDefinition
+      properties:
+        name:
+          type: string
+          description: "Name for the type, which must be unique."
+        typeDefinition:
+          type: string
+          example: "text"
+          description: "A valid type of data (e.g, text, int, etc) allowed in the type."
+    RenameTypeField:
+      type: object
+      properties:
+        from:
+          type: string
+          description: "Type's old field name"
+        to:
+          type: string
+          description: "Type's new field name"
+    TypeUpdate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        addFields:
+          type: array
+          description: "Type fields to add"
+          items:
+            $ref: "#/components/schemas/TypeField"
+        renameFields:
+          type: array
+          description: "User Defined Type fields to rename"
+          items:
+            $ref: "#/components/schemas/RenameTypeField"
