@@ -1,4 +1,4 @@
 type Query {
- book(title:String!, author:String): [Book]
+ book(title:String!, isbn:String): [Book]
  reader(name:String!, user_id:Uuid): [Reader]
 }

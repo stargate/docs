@@ -46,7 +46,8 @@ SEE DIAGRAM
 
 This ability to extend a Movie type across GraphQL service boundaries makes Movie
 a Federated Type.
-Resolving a given field requires delegation by a gateway layer down to the owning domain services.
+Resolving a given field requires delegation by a gateway layer down to the
+owning domain services.
 
 NOTE:
 ONLY PRIMARY KEY FIELDS can be used in @key. In stargate schema, you can use
@@ -72,7 +73,7 @@ The arguments must have the same names and types as the fields on the object typ
 They don't necessarily have to be in order (although it's probably the most
 logical to keep the same order).
 ****
-// REFINE THIS LIST OF QUERIES - AWFUL RIGHT NOW!
+
 For the Library example:
 
 *** 1-4 are NOT POSSIBLE ***
@@ -95,13 +96,16 @@ For the Library example:
 13. (orderById) Look up an order by checkout_id (partition key). _Order_
     This will give you all books in the order.
 
-14. (libCollByType) Look up a library collection by type (partition key, partial primary key). _LibCollection_
-15. (libCollByLibid) Look up a library collection by lib_id (partition key, partial primary key). _LibCollection_
+14. CAN'T DO?(libCollByType) Look up a library collection by type (partition key, partial primary key). _LibCollection_
+15. CAN'T DO(libCollByLibid) Look up a library collection by lib_id (partition key, partial primary key). _LibCollection_
 16. (libCollByTypeAndLibid) Look up a library collection by type and lib_id (primary key). _LibCollection_
 17. (libCollByName) Look up a library collection by name (non-PK column, index). _LibCollection_
 
-18. (reviewsByBook) Look up a book and find all reviews. _union_ of _Book_ and _Reader_
+18. (orders) Get all orders. _Order_
+19. (order) Get order by checkout_id. _Order_
+
+20.(reviewsByBook) Look up a book and find all reviews. _union_ of _Book_ and _Reader_
     Find a book, check all readers for a review of the book by Review.bookTitle.
-19. (orderByBook) Look up a book and find all the readers who have checked it out. _union_ of _Book_ and _Order_
+21. (orderByBook) Look up a book and find all the readers who have checked it out. _union_ of _Book_ and _Order_
     Find a book, look up the orders, get the readers.
-20. (fullReview) For a reader's review, get all the book information (non-PK column collection, index). _union_ of _Book_ and _Reader_
+22. (fullReview) For a reader's review, get all the book information (non-PK column collection, index). _union_ of _Book_ and _Reader_

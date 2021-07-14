@@ -66,14 +66,14 @@ type Query {
   readerCONTAINS(
     reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
   ): [Reader]
-  libCollByType(type: String!): [LibCollection]
+  #libCollByType(type: String!): [LibCollection]
   libCollByTypeAndLibid(type: String!, lib_id: Int!): [LibCollection]
-  libCollByName(name: String): [LibCollection]
+  libCollByName(lib_name: String): [LibCollection]
 }
 type Mutation {
   insertBook(book: BookInput!): Book
   insertBookI(booki: BookIInput!): BookI
-  #setBookIsbn(title: String!, isbn: String!): Boolean @cql_update
+  setBookIsbn(title: String!, isbn: String!): Boolean @cql_update
   updateBook(book: BookInput): Boolean @cql_update
   deleteBook(book: BookInput!): Boolean
   insertReader(reader: ReaderInput!): Reader

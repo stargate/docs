@@ -113,52 +113,7 @@ Do you want to understand deployment first?
 Read xref:graphql-first-using.adoc#_deploy_schema[Deploy Schema].
 ====
 
-// tag::CreateUDT[]
-=== Create a user-defined type (UDT)
 
-User-defined types (UDTs) can be created as GraphQL object types.
-UDTs are optional, but if you wish to use a UDT in another object type definition,
-you'll want to create the UDT first.
-Once created, you can include the type in the schema deployed via the GraphQL playground.
-Here are two examples that create a UDT called `Address` that includes a street, city, state, and zipcode,
-and a UDT called `Review` that includes a book title, comment, rating and review data.
-
-[tabs]
-====
-Address UDT::
-+
---
-[source,shell]
-----
-include::example$graphql/1createUDTAddress.graphql[]
-----
---
-
-Review UDT::
-+
---
-[source,shell]
-----
-include::example$graphql/1createUDTReview.graphql[]
-----
---
-====
-
-// USE asciidoc callouts to explain? a la https://docs.couchbase.com/home/contribute/code-blocks.html#callouts
-These types have some Cassandra-specific features, in addition to the typical format
-of a GraphQL type.
-To denote that the type is stored as a UDT in Cassandra, `@cql_entity(target: UDT)`
-is added to the initial line.
-
-To avoid duplicating the type as both an input type and output type, add `@cql_input`
-to generate an `AddressInput` type with the same fields as the type `Address`
-in the GraphQL schema.
-
-Standard CamelCase is used to name the fields, but the Cassandra column name can be
-named with an alternative using `@cql_column(name: "book_title")`.
-In Cassandra, CamelCase names must be double-quoted, so this particular field name is
-both GraphQL friendly (`bookTitle`) and CQL friendly (`book_title`).
-// end::CreateUDT[]
 
 // tag::DataTypes[]
 === Data types
@@ -232,14 +187,64 @@ ID, Uuid, or TimeUuid, then that field is used as the partition key in the datab
 A standard GraphQL type feature is displayed in these types, the required fields
 denoted by `String!` and `Uuid!` that include the exclamation mark.
 
-The fields `reviews` and `address` are defined as arrays by the addition of square brackets,
+The fields `author`, `reviews`, `address` are defined as arrays by the addition of square brackets,
 `reviews: [Review]`.
-Note that these two fields are arrays of the UDTs previously defined.
+Note that `reviews` and `addresses` are arrays of xref:graphql-first-using.adoc_create_a_user_defined_type_udt[UDTs]
+whereas `author` is a list of Strings to name each author.
+
+The `@cql_index` is discussed in xref:graphql-first-using.adoc#_create_indexes[Create indexes].
 
 Lastly, `@cql_column` can be used to provide a hint to Cassandra that specifies
 custom field types, such as a set of strings, `@cql_column(typeHint: "set<varchar>")`.
 The only valid `typeHints` using a set instead of a list, or making a CQL type frozen.
 // end::CreateObjectTypes[]
+
+// tag::CreateUDT[]
+=== Create a user-defined type (UDT)
+
+User-defined types (UDTs) can be created as GraphQL object types.
+UDTs are optional, but if you wish to use a UDT in another object type definition,
+you'll want to create the UDT first.
+Once created, you can include the type in the schema deployed via the GraphQL playground.
+Here are two examples that create a UDT called `Address` that includes a street, city, state, and zipcode,
+and a UDT called `Review` that includes a book title, comment, rating and review data.
+
+[tabs]
+====
+Address UDT::
++
+--
+[source,shell]
+----
+include::example$graphql/1createUDTAddress.graphql[]
+----
+--
+
+Review UDT::
++
+--
+[source,shell]
+----
+include::example$graphql/1createUDTReview.graphql[]
+----
+--
+====
+
+// USE asciidoc callouts to explain? a la https://docs.couchbase.com/home/contribute/code-blocks.html#callouts
+These types have some Cassandra-specific features, in addition to the typical format
+of a GraphQL type.
+To denote that the type is stored as a UDT in Cassandra, `@cql_entity(target: UDT)`
+is added to the initial line.
+
+To avoid duplicating the type as both an input type and output type, add `@cql_input`
+to generate an `AddressInput` type with the same fields as the type `Address`
+in the GraphQL schema.
+
+Standard CamelCase is used to name the fields, but the Cassandra column name can be
+named with an alternative using `@cql_column(name: "book_title")`.
+In Cassandra, CamelCase names must be double-quoted, so this particular field name is
+both GraphQL friendly (`bookTitle`) and CQL friendly (`book_title`).
+// end::CreateUDT[]
 
 // tag::CreateIndexes[]
 === Create indexes
@@ -298,7 +303,7 @@ include::example$graphql/1createQuery.graphql[]
 These queries each specify the fields required and optional, as well as the input
 type.
 
-In the case of `book`, `title` is a required column, and `author` is an optional field
+In the case of `book`, `title` is a required column, and `isbn` is an optional field
 input to retrieve a particular book. Because you specified `@cql_input` in the
 object type, a book can be the input to this query,
 while `[Book]` specifies that the output will be an array of books.
@@ -1166,5 +1171,6 @@ include::example$result/gql_1deleteLibColl.result[]
 // end::Directives[]
 
 // LLP: is this true?
+// turning a "legacy" cql keyspace into a graphql schema-first keyspace
 // I'll need a section that shows how connecting to an existing C* cluster will automatically
 // create the graphql endpoints!
