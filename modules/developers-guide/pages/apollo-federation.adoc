@@ -123,7 +123,7 @@ The `Reader` object type has a similar extension defined.
 
 Now let's define the resolvers that this script will use.
 A resolver is a function that's responsible for populating the data for a single
-field in your schema. 
+field in your schema.
 Stargate resolves objects based on the schema supplied, but the Javascript server
 requires resolver definition.
 
@@ -199,3 +199,22 @@ include::example$graphql/1gateway-3.js[]
 ----
 --
 ====
+
+In Gateway1, an Apollo server and Apollo gateway are defined as required.
+In order for the gateway to access the Stargate data source, a token is required.
+That token is specified as `stargateIntrospectionToken`.
+
+In Gateway2, a `serviceList` that defines the data sources lists the Stargate
+instance and the Javascript Apollo server that are described above.
+It builds the services based on logic tied to the name of the data source,
+`library`.
+Note that if more data sources are specified, you'll need to change the logic
+that specifies which service is used for queries and mutations.
+
+An experimental flag is set to allow GraphQL Playground to display the query
+plan for the federated service.
+
+In Gateway3, a new Apollo server, designated as a gateway is started.
+There are some settings currently set to false; the code gives an explanation.
+If the fetched data is from the Stargate instance, the token must be passed
+in the header of the request as `x-cassandra-token`.
