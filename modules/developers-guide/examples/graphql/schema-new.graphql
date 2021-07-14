@@ -73,7 +73,7 @@ type Query {
 type Mutation {
   insertBook(book: BookInput!): Book
   insertBookI(booki: BookIInput!): BookI
-  setBookIsbn(title: String!, isbn: String!): Boolean @cql_update
+  setBookIsbn(title: String!, isbn: String!): Boolean @cql_update(targetEntity: "Book")
   updateBook(book: BookInput): Boolean @cql_update
   deleteBook(book: BookInput!): Boolean
   insertReader(reader: ReaderInput!): Reader

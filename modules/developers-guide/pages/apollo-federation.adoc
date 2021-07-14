@@ -218,3 +218,43 @@ In Gateway3, a new Apollo server, designated as a gateway is started.
 There are some settings currently set to false; the code gives an explanation.
 If the fetched data is from the Stargate instance, the token must be passed
 in the header of the request as `x-cassandra-token`.
+
+== Federated queries
+
+Now that we have two subgraphs supplied from two different data sources,
+and a gateway running, we can explore how data from all data sources can be
+returned in a query.
+
+For example, if I want to discover all the books that were checked out at the
+same time, and get all the book data, I can use this query in GraphQL Playground,
+pointed to the URL where the gateway is running, or `localhost:4000` in this case:
+
+[tabs]
+====
+Get a checkout order by ID::
++
+--
+[source,shell]
+----
+include::example$graphql/1fetchOrderById.graphql[]
+----
+--
+Result::
++
+--
+[source,shell]
+----
+include::example$result/gql_1fetchOrderById.result[]
+----
+--
+====
+
+While the resulting return seems unremarkable, think about the result for a moment.
+The Apollo server returning an order did supply the reader `name` and `user_id`, but
+the `email` and `address` information is fetched from the Stargate instance.
+Likewise, the Stargate instance is also supplying the author information for
+the books returned in the `order` query.
+Thus, the federated supergraph of Order, Book, and Reader, along with the
+resolvers in the Apollo server, are fetching data from two different servers!
+That is a very valuable feature, especially for application developers who need
+to fetch and use data from data sources that they do not control.
