@@ -104,7 +104,7 @@ For the Library example:
 18. (orders) Get all orders. _Order_
 19. (order) Get order by checkout_id. _Order_
 
-20.(reviewsByBook) Look up a book and find all reviews. _union_ of _Book_ and _Reader_
+20.(reviewsByBook) Look up a book and find all reviews and return review+book info. _union_ of _Book_ and _Reader_
     Find a book, check all readers for a review of the book by Review.bookTitle.
 21. (orderByBook) Look up a book and find all the readers who have checked it out. _union_ of _Book_ and _Order_
     Find a book, look up the orders, get the readers.

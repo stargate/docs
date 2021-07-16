@@ -258,3 +258,7 @@ Thus, the federated supergraph of Order, Book, and Reader, along with the
 resolvers in the Apollo server, are fetching data from two different servers!
 That is a very valuable feature, especially for application developers who need
 to fetch and use data from data sources that they do not control.
+
+=== Examples of queries
+
+Use the queries I have created in data_federation.adoc...
