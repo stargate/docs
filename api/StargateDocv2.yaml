@@ -823,6 +823,7 @@ components:
        | $lte | Less Than Or Equal To |
        | $gt | Greater Than |
        | $gte | Greater Than Or Equal To |
+       | $eq | Equal To |
        | $ne | Not Equal To |
        | $in | Contained In |
        | $exists | A value is set for the key |
