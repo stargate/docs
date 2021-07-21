@@ -826,6 +826,7 @@ components:
        | $eq | Equal To |
        | $ne | Not Equal To |
        | $in | Contained In |
+       | $nin | Not Contained In |
        | $exists | A value is set for the key |
 
      schema:
