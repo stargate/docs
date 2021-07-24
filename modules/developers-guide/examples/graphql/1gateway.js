@@ -1,3 +1,4 @@
+# tag::gateway1[]
 const { ApolloServer } = require("apollo-server");
 const { ApolloGateway, RemoteGraphQLDataSource } = require("@apollo/gateway");
 
@@ -16,7 +17,9 @@ class StargateGraphQLDataSource extends RemoteGraphQLDataSource {
     }
   }
 }
+# end::gateway1[]
 
+# tag::gateway2[]
 const gateway = new ApolloGateway({
 
   serviceList: [
@@ -43,7 +46,9 @@ const gateway = new ApolloGateway({
   // Experimental: Enabling this enables the query plan view in Playground.
   __exposeQueryPlanExperimental: true,
 });
+# end::gateway2[]
 
+# tag::gateway3[]
 (async () => {
   const server = new ApolloServer({
     gateway,
@@ -67,3 +72,4 @@ const gateway = new ApolloGateway({
     console.log(`🚀 Gateway ready at ${url}`);
   });
 })();
+# end::gateway3[]

@@ -95,9 +95,3 @@ mutation {
     cqlChanges
   }
 }
-    """
-  ) {
-    version
-    cqlChanges
-  }
-}

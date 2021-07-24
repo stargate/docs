@@ -1,0 +1,30 @@
+type Query {
+  bookByTitle(title: String!): [Book]
+  bookByTitleAndIsbn( title: String!, isbn: String): [Book]
+  bookByAuthor(
+    author: String @cql_where(field: "author", predicate: CONTAINS)
+  ): [Book]
+  bookByTitleAndAuthor(title: String!, author: String @cql_where(field: "author", predicate: CONTAINS)
+  ): [Book]
+  bookIByIsbn(isbn: String): [BookI]
+  #books(
+  #  title: String!,
+  #  pagingState: String @cql_pagingState
+  #): SelectBookResult @cql_select(pageSize: 10)
+
+  readerByName(name:String!): [Reader]
+  readerByNameAndUserid(name:String!, user_id:Uuid): [Reader]
+  readerUByUserid(user_id: Uuid!): [ReaderU]
+  readerCONTAINS(
+    reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
+  ): [Reader]
+
+  #libCollByType(type: String!): [LibCollection]
+  libCollByTypeAndLibid(type: String!, lib_id: Int!): [LibCollection]
+  libCollByName(lib_name: String): [LibCollection]
+
+  reviewsByBook(
+    title: ReaderInput! @cql_where(field: "reviews", predicate: CONTAINS)
+  ): [Reader]
+  reviewIt(contains: String): [ReviewResult!]
+}

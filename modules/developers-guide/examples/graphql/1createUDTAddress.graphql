@@ -1,4 +1,4 @@
-type Address @cql_entity(target: UDT) @cql_input {
+type Address @cql_entity(target: UDT) @cql_input { // <1>
  street: String
  city: String
  state: String

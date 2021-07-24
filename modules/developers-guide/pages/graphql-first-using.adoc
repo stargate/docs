@@ -138,6 +138,11 @@ Float32, Blob, SmallInt, TinyInt, Timestamp, Time.
 
 Sets and lists are defined by custom typed arrays. Maps and tuples are not
 supported, but UDTs can be used to create the same functionality.
+
+In GraphQL syntax, square brackets denote an array, such as `email: [String]`
+defines a field named email that is an array of String values.
+Additionally, if an exclamation point follows a data type, such as `String!`,
+then the field cannot contain a null value.
 // end::DataTypes[]
 
 // tag::CreateObjectTypes[]
@@ -146,6 +151,13 @@ supported, but UDTs can be used to create the same functionality.
 The most basic components of a GraphQL schema are object types, which just
 represent a kind of object you can fetch from your service, and specify the
 fields contained in the object.
+Object types also have
+link:https://www.graphql-tools.com/docs/schema-directives/[directives], which
+are identifiers preceded by an `@` character.
+Directives are GraphQL server-specific, and implemented in the server.
+Stargate implements directives that are specific to the Apache Cassandra
+backend, as well as Apollo data federation-specific directives that allow Stargate
+to work with the Apollo gateway.
 
 [tabs]
 ====
@@ -168,35 +180,49 @@ include::example$graphql/1createTableReader.graphql[]
 --
 ====
 
-Although the types defined for UDTs and these examples are not fundamentally different,
-a few new features are illustrated here.
+Directives in example:
 
-In the Book type, there are additional `@cql_column` parameters defined.
-It is possible to define the partition key and clustering keys are shown, by
-using `partitionKey: true` and `clusteringOrder: ASC`, respectively.
-The default clustering order is `ASC`, or ascending.
+<1> Book: `@key` defines the fields that uniquely identify an object.
+Stargate assigns primary key fields automatically as `@key` fields.
+For other servers, the fields must be identified in a string, such as `@key(fields: "title isbn")`.
+Required for Apollo data federation.
+<2> Book: `@cql_entity(name: "book")` defines an alternate table name for the underlying database.
+Cassandra, Astra DB, and DataStax Enterprise all require double-quotes around table names
+that are CamelCase.
+Changing the name to lowercase makes the object name both  GraphQL-friendly (`Book`) and CQL-friendly (`book`).
+Not required.
+<3> Book: `@cql_input` generates a `BookInput` type with the same fields as the type `Book`
+in the GraphQL schema, without duplicating the object type in the schema.
+Not required but strongly suggested to make writing queries and mutations easier.
+<4> Book: `@cql_column(partitionKey: true)` sets the field to a partition key in the underlying database table.
+This directive must be used for each field that comprises the partition key.
+*IMPORTANT:* If no field has a `partitionKey: true`, but the first field is of data type
+ID, Uuid, or TimeUuid, then that field is used as the partition key in the database.
 Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
-
-[IMPORTANT]
-====
-If no field has a `partitionKey: true`, but the first field is of data type
-ID, Uuid, or TimeUuid, then that field is used as the partition key in the database.
-====
-
-A standard GraphQL type feature is displayed in these types, the required fields
-denoted by `String!` and `Uuid!` that include the exclamation mark.
+<5> Book: `@cql_column(partitionKey: true, name: "book_title")` also sets the field name to an
+alternate value that is CQL-friendly. Note the comma-separated items in @cql_column.
+Column renaming is not required.
+<6> Book: `@cql_column(clusteringOrder: ASC)` sets the field to a clustering column in the underlying database table.
+This directive must be used for each field that is a clustering column.
+The default clustering order is `ASC`, or ascending.
+Not required.
+<7> Book: `@cql_index(name: "author_idx", target: VALUES)` creates an index of the list of author names,
+using the values listed in the array.
+Note that the parameter `target` is required for arrays (set, list).
+Required if queries will use the field as a parameter to retrieve data.
+<8> Reader: `@cql_index(name: "date_idx")` creates an index of the birthdates.
+Note that no target is required.
+The `@cql_index` is discussed in xref:graphql-first-using.adoc#_create_indexes[Create indexes].
+Not required.
+<9> Reader: `@cql_column(typeHint: "set<varchar>")` sets the column data type to a set.
+The only valid defaults are `set` or making a CQL type `frozen`.
+Required if the field is a set or list.
 
 The fields `author`, `reviews`, `address` are defined as arrays by the addition of square brackets,
 `reviews: [Review]`.
 Note that `reviews` and `addresses` are arrays of xref:graphql-first-using.adoc_create_a_user_defined_type_udt[UDTs]
 whereas `author` is a list of Strings to name each author.
-
-The `@cql_index` is discussed in xref:graphql-first-using.adoc#_create_indexes[Create indexes].
-
-Lastly, `@cql_column` can be used to provide a hint to Cassandra that specifies
-custom field types, such as a set of strings, `@cql_column(typeHint: "set<varchar>")`.
-The only valid `typeHints` using a set instead of a list, or making a CQL type frozen.
 // end::CreateObjectTypes[]
 
 // tag::CreateUDT[]
@@ -230,20 +256,10 @@ include::example$graphql/1createUDTReview.graphql[]
 --
 ====
 
-// USE asciidoc callouts to explain? a la https://docs.couchbase.com/home/contribute/code-blocks.html#callouts
-These types have some Cassandra-specific features, in addition to the typical format
-of a GraphQL type.
-To denote that the type is stored as a UDT in Cassandra, `@cql_entity(target: UDT)`
-is added to the initial line.
+Directives in example:
 
-To avoid duplicating the type as both an input type and output type, add `@cql_input`
-to generate an `AddressInput` type with the same fields as the type `Address`
-in the GraphQL schema.
-
-Standard CamelCase is used to name the fields, but the Cassandra column name can be
-named with an alternative using `@cql_column(name: "book_title")`.
-In Cassandra, CamelCase names must be double-quoted, so this particular field name is
-both GraphQL friendly (`bookTitle`) and CQL friendly (`book_title`).
+<1> The `@cql_entity(target: UDT)` denotes that the type is stored as a user-defined type (UDT)
+in the underlying database table.
 // end::CreateUDT[]
 
 // tag::CreateIndexes[]
@@ -270,9 +286,9 @@ The directive `@cql_index` has the following optional arguments:
 
 |====
 | Argument  | Default | Description
-| name | Generated | Custom index name
-| class | Secondary index | Custom index class, such as SAI
-| target | VALUES | Specifies set and list index type. Options are FULL and VALUES
+| name | Generated | Custom index name.
+| class | Secondary index | Custom index class, such as SAI.
+| target | VALUES | Specifies set and list index type. Options are FULL and VALUES.
 | options | N/A | Any options to pass to the underlying index query.
 |====
 // end::CreateIndexes[]
@@ -282,9 +298,8 @@ The directive `@cql_index` has the following optional arguments:
 
 Most types in your schema will just be normal object types, but there are two types
 that are special, the Query type and the Mutation type.
-Every GraphQL service has a query type.
+Every GraphQL service has at least one query type.
 Mutation types are optional.
-These types are special because they define the entry point of every GraphQL query.
 
 Queries
 
@@ -300,20 +315,17 @@ include::example$graphql/1createQuery.graphql[]
 --
 ====
 
-These queries each specify the fields required and optional, as well as the input
-type.
-
-In the case of `book`, `title` is a required column, and `isbn` is an optional field
-input to retrieve a particular book. Because you specified `@cql_input` in the
-object type, a book can be the input to this query,
-while `[Book]` specifies that the output will be an array of books.
+<1> This query is named `bookByTitleAndIsbn`, with inputs `title` (non-null String value) and `isbn` (String value),
+and outputs an array of objects of type Book.
+<2> This query is named `readerByNameAndUserid`, with inputs `name` (non-null String value) and `user_id` (Uuid value),
+and outputs an array of objects of type Reader.
 // end::CreateQueries[]
 
 // tag::CreateMutations[]
 === Create mutations
 
 Mutations work in a similar way  to queries.
-Define fields in the mutation type, and you can specify those fields in your queries.
+An input and output is defined.
 
 [tabs]
 ====
@@ -327,10 +339,16 @@ include::example$graphql/1createOperations.graphql[]
 --
 ====
 
-For mutations, notice the use of the input type `book:BookInput!` to define that the
-type submitted to the mutation is a `book`.
-`insertBook` will insert a book, `insertReader` will insert a reader, and `deleteBook`
-and `deleteReader` are Boolean operations.
+<1> An input of `BookInput!` is required, and must include the required fields as defined
+by the `Book` object type. The output is a `Book` object.
+<2> An input of `BookInput!` is required, and must include the required fields as defined
+by the `Book` object type. The output is a Boolean value. The `@cql_update` directive
+makes this mutation an update, rather than an insert.
+
+The `insert` mutation will insert an object of the specified type, and the `update`
+and `delete` mutations will return a Boolean value.
+If the `update` or `delete` mutation names begin with those words, the `@cql_update` directive
+is not required.
 
 ==== Conditional insertion
 
@@ -338,14 +356,13 @@ A mutation can be turned into a conditional insertion operation by ending the mu
 name with `ifNotExists`.
 However, it may be useful to know if the insertion is successfully applied.
 In that case, see payload type below to see how a boolean field `applied` can
-be added to the response from insertions or annotating it with @cql_insert(ifNotExists: true)
+be added to the response from insertions or annotating it with `@cql_insert(ifNotExists: true)`.
 // end::CreateMutations[]
 
 // tag::CreatePayloadTypes[]
 === Create payload types
 
-Payloads types are not mapped to the database.
-They only serve as wrappers of an operation's response.
+Payloads types are not mapped to the database, and only serve as wrappers of an operation's response.
 They typically pass a more complex object than just an entity. For example,
 you can add fields that check the `applied` status for a conditional query, or
 the `pagingState`.
@@ -366,12 +383,14 @@ include::example$graphql/1createQueryPageSize.graphql[]
 --
 ====
 
-There is an additional decoration `@cql_select` that can define two parameters:
+Directives in example:
 
-* limit: the maximum total number of results to return (type Int)
-* pageSize: how many results to return by page if the query is paginated (type Int)
-
-This example includes `pageSize`.
+<1> The `@cql_payload` directive defines the type as a payload.
+<2> The `@cql_pagingState` directive defines the fields as a storing a paging state.
+<3> The `@cql_select(pageSize: 10)` directive defines how many results to return by
+page if the query is paginated, with an Integer input.
+Another parameter is also available, `limit: 10`, which is the maximum total number of
+results to return, with an Integer input.
 
 An example of retrieving data using this query is found xref:graphql-first-using.adoc#_retrieve_data[below].
 

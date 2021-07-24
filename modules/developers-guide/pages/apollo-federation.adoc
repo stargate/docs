@@ -84,7 +84,7 @@ Orders setup::
 --
 [source,shell]
 ----
-include::example$graphql/1orders-1.js[]
+include::example$graphql/1orders.js[tag=setup]
 ----
 --
 ====
@@ -101,7 +101,7 @@ Orders schema::
 --
 [source,shell]
 ----
-include::example$graphql/1orders-2.js[]
+include::example$graphql/1orders.js[tag=schema]
 ----
 --
 ====
@@ -112,11 +112,18 @@ Two directives are used in this example, `@key` and `@external` that pertain to
 data federation.
 The `@key` directive defines a combination of fields that uniquely identify and
 are used to fetch an object or interface.
+Only the primary key fields can be used in `@key`.
 The `@external` directive marks a field as owned by another service.
 
+[TIP]
+====
+In Stargate schema, you can use just `@key` without specifying the `fields`,
+because the primary key is inferred.
+====
+
 In this example, for the `Book` object type, the fields `title` and `isbn` are
-defined the the `@key` directive as the fields that are required to uniquely identify
-a specific book and fetch the requested information from the object.
+defined in the `@key` directive as the fields that are required to uniquely identify
+a specific book (the primary key) and fetch the requested information from the object.
 The `@external` directive further marks the same fields are owned by the Stargate
 service, not the Apollo server.
 The `Reader` object type has a similar extension defined.
@@ -134,7 +141,7 @@ Orders resolvers::
 --
 [source,shell]
 ----
-include::example$graphql/1orders-3.js[]
+include::example$graphql/1orders.js[tag=resolvers]
 ----
 --
 ====
@@ -149,7 +156,7 @@ Orders server::
 --
 [source,shell]
 ----
-include::example$graphql/1orders-4.js[]
+include::example$graphql/1orders.js[tag=server]
 ----
 --
 ====
@@ -179,7 +186,7 @@ Gateway1::
 --
 [source,shell]
 ----
-include::example$graphql/1gateway-1.js[]
+include::example$graphql/1gateway.js[tag=gateway1]
 ----
 --
 Gateway2::
@@ -187,7 +194,7 @@ Gateway2::
 --
 [source,shell]
 ----
-include::example$graphql/1gateway-2.js[]
+include::example$graphql/1gateway.js[tag=gateway2]
 ----
 --
 Gateway3::
@@ -195,7 +202,7 @@ Gateway3::
 --
 [source,shell]
 ----
-include::example$graphql/1gateway-3.js[]
+include::example$graphql/1gateway.js[tag=gateway3]
 ----
 --
 ====
@@ -220,6 +227,8 @@ If the fetched data is from the Stargate instance, the token must be passed
 in the header of the request as `x-cassandra-token`.
 
 == Federated queries
+
+=== Simple example
 
 Now that we have two subgraphs supplied from two different data sources,
 and a gateway running, we can explore how data from all data sources can be
@@ -259,6 +268,8 @@ resolvers in the Apollo server, are fetching data from two different servers!
 That is a very valuable feature, especially for application developers who need
 to fetch and use data from data sources that they do not control.
 
-=== Examples of queries
+=== Additional examples of queries
 
 Use the queries I have created in data_federation.adoc...
+
+Write about what you can and can't do...

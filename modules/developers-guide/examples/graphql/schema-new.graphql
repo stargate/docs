@@ -10,15 +10,24 @@ type Review @cql_entity(target: UDT) @cql_input {
   rating: Int
   reviewDate: Date @cql_column(name: "review_date")
 }
-type Book @key(fields:"title isbn") @cql_entity(name: "book") @cql_input {
-  title: String! @cql_column(partitionKey: true)
-  isbn: String @cql_column(clusteringOrder: ASC)
+# Stargate does not require definition of fields in @key,
+# but uses the primary key
+type Book @key @cql_entity(name: "book") @cql_input {
+  title: String! @cql_column(partitionKey: true, name: "book_title")
+  isbn: String! @cql_column(clusteringOrder: ASC)
   author: [String] @cql_index(name: "author_idx", target: VALUES)
   #orders: [Order]
 }
-type BookI @key(fields:"title isbn") @cql_entity(name: "booki") @cql_input {
-  title: String! @cql_column(clusteringOrder: ASC)
-  isbn: String @cql_column(partitionKey: true)
+type Book @key @cql_entity(name: "book") @cql_input {
+  random_id: UUID!
+  title: String
+  isbn: String 
+  author: [String] @cql_index(name: "author_idx", target: VALUES)
+  #orders: [Order]
+}
+type BookI @key @cql_entity(name: "booki") @cql_input {
+  isbn: String! @cql_column(partitionKey: true)
+  title: String @cql_column(clusteringOrder: ASC, name: "book_title")
   author: [String] @cql_index(name: "authori_idx", target: VALUES)
 }
 type SelectBookResult @cql_payload {
@@ -34,8 +43,8 @@ type Reader @key @cql_entity(name: "reader") @cql_input {
   address: [Address]
 }
 type ReaderU @key @cql_entity(name: "readeru") @cql_input {
-  name: String! @cql_column(clusteringOrder: ASC)
   user_id: Uuid! @cql_column(partitionKey: true)
+  name: String! @cql_column(clusteringOrder: ASC)
   birthdate: Date @cql_index(name: "dateu_idx")
   email: [String] @cql_column(typeHint: "set<varchar>")
   reviews: [Review]  @cql_index(name: "reviewu_idx", target: VALUES)
@@ -61,12 +70,14 @@ type Query {
   #  title: String!,
   #  pagingState: String @cql_pagingState
   #): SelectBookResult @cql_select(pageSize: 10)
+
   readerByName(name:String!): [Reader]
   readerByNameAndUserid(name:String!, user_id:Uuid): [Reader]
   readerUByUserid(user_id: Uuid!): [ReaderU]
   readerCONTAINS(
     reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
   ): [Reader]
+
   #libCollByType(type: String!): [LibCollection]
   libCollByTypeAndLibid(type: String!, lib_id: Int!): [LibCollection]
   libCollByName(lib_name: String): [LibCollection]

@@ -1,28 +1,6 @@
 = Apollo data federation for GraphQL schema-First
 
-Data federation is the creation of a virtual database that aggregates data from
-distributed sources, giving them a common data model.
-It is an approach to data integration that provides a single source of data for
-front-end applications.
 
-To get the most out of GraphQL, your organization should expose a single data
-graph that provides a unified interface for querying any combination of your
-backing data sources.
-However, it can be challenging to represent an enterprise-scale data graph with
-a single, monolithic GraphQL server.
-
-To remedy this, you can divide your graph's implementation across multiple
-composable services with Apollo Federation.
-Unlike other distributed GraphQL architectures (such as schema stitching),
-Apollo Federation uses a declarative programming model that enables each subgraph
-to implement only the part of your composed supergraph that it's responsible for.
-
-An Apollo Federation architecture consists of:
-
-* A collection of subgraphs (usually represented by different back-end services)
-that each define a distinct GraphQL schema
-* A gateway that composes the subgraphs into a federated data graph and executes
-queries across multiple subgraphs
 
 FROM NETFLIX:
 The goal of GraphQL Federation is two-fold: provide a unified API for consumers
@@ -49,9 +27,6 @@ a Federated Type.
 Resolving a given field requires delegation by a gateway layer down to the
 owning domain services.
 
-NOTE:
-ONLY PRIMARY KEY FIELDS can be used in @key. In stargate schema, you can use
-just `@key` without specifying the `fields`, because the PK is inferred.
 
 ****
 CQL indexes can be created on regular (not partition key nor clustering columns) fields.
@@ -93,16 +68,15 @@ For the Library example:
 12. (readerByNameAndUserid) Look up a reader by name and user_id (primary key). _Reader_
     All 3 of these queries will allow you to get all the books reviewed by a reader.
 
-13. (orderById) Look up an order by checkout_id (partition key). _Order_
+13. (orders) Get all orders. _Order_
+13a. (order) Get order by checkout_id. _Order_
+13b. (orderById) Look up an order by checkout_id (partition key). _Order_
     This will give you all books in the order.
 
 14. CAN'T DO?(libCollByType) Look up a library collection by type (partition key, partial primary key). _LibCollection_
 15. CAN'T DO(libCollByLibid) Look up a library collection by lib_id (partition key, partial primary key). _LibCollection_
 16. (libCollByTypeAndLibid) Look up a library collection by type and lib_id (primary key). _LibCollection_
 17. (libCollByName) Look up a library collection by name (non-PK column, index). _LibCollection_
-
-18. (orders) Get all orders. _Order_
-19. (order) Get order by checkout_id. _Order_
 
 20.(reviewsByBook) Look up a book and find all reviews and return review+book info. _union_ of _Book_ and _Reader_
     Find a book, check all readers for a review of the book by Review.bookTitle.
