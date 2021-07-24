@@ -415,7 +415,6 @@ include::example$graphql/1createPayloadConditional.graphql[]
 If the conditional insert is successful (the row did not exist), then applied
 will be true and book will echo back the data that was just inserted;
 otherwise, applied will be false and book will be the existing data.
-
 // end::CreatePayloadTypes[]
 
 // tag::DeploySchema[]
