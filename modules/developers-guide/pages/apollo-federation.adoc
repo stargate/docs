@@ -59,6 +59,8 @@ In this example, `Book` and `Reader` schema are supplied from a Stargate instanc
 as the first data source,and the schema is described in the
 xref:graphql-first-using.adoc[GraphQL schema-first] section.
 
+// LLP: NEED TO LINK the partial/data_fed_directive into this page somewhere
+
 === Javascript Apollo server schema
 For `Order`, a simple Javascript, `orders.js` will be used to define the `Order`
 schema, supply some resolvers, insert some data, and start an Apollo server as
