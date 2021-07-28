@@ -26,6 +26,9 @@ that each define a distinct GraphQL schema
 * A gateway that composes the subgraphs into a federated data graph and executes
 queries across multiple subgraphs
 
+// LLP: need to insert an illustration of Federated to (1)Book/Reader schema in
+// Stargate, and (2)Order in node.js apollo server
+
 == GraphQL schema
 
 To achieve data federation, schemas need to be created and annotated to indicate how

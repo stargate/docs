@@ -418,13 +418,19 @@ otherwise, applied will be false and book will be the existing data.
 // end::CreatePayloadTypes[]
 
 // tag::DeploySchema[]
-== Deploy schema
+== Deploy or undeploy schema
 
 === Deploy schema manually
 
 Now that you have created GraphQL types, queries, and mutations, it's time to deploy the schema.
 Recall that the corresponding CQL schema is inferred and created from the GraphQL schema
 submitted.
+
+[NOTE]
+====
+A keyspace will be created as xref:graphql-using.adoc[CQL-first] unless a schema is deployed. 
+After a schema is deployed, the keyspace should be accessed as schema-first.
+====
 
 Inside the GraphQL playground, navigate to http://localhost:8080/graphql-admin and create
 the schema to deploy to a previously defined keyspace:
@@ -558,7 +564,7 @@ with a new version id will be created.
 
 
 // tag::CheckKSSchema[]
-== Check the keyspace schema
+=== Check the keyspace schema
 
 To check if the schema exists, execute a GraphQL check in http://localhost:8080/graphql-admin:
 
@@ -611,7 +617,7 @@ include::example$result/gql_1getParticularKsSchema.result[]
 // end::CheckKSSchema[]
 
 // tag::UndeploySchema[]
-== Undeploy schema
+=== Undeploy schema
 
 To undeploy an existing schema, use the following mutation.
 

@@ -2,6 +2,7 @@ query fetchSameBooks {
   books(title: "Groundswell") {  
     data {
       title,
+      isbn,
       author
     },
     pagingState

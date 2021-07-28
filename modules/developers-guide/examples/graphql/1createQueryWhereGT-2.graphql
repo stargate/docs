@@ -10,6 +10,7 @@ type Query {
 query fetchBooksGT {
   bookGT( title:"Groundswell",  author: "Jane Doe") {
     title
+    isbn
     author
   }
 }

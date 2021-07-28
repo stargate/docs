@@ -11,6 +11,7 @@ type Query {
 query fetchBooksLT {
   bookLT( title:"Groundswell",  author: "Betty Doe") {
     title
+    isbn
     author
   }
 }
