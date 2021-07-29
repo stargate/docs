@@ -99,9 +99,9 @@ type Query {
   # reader by user_id (object: ReaderU)
   readerUByUserid(user_id: Uuid!): [ReaderU]
   # reader by review that CONTAINS information
-  #readerCONTAINS(
-  #  reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
-  #): [Reader]
+  readerCONTAINS(
+    reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
+  ): [Reader]
   #readerGT(
   #  name: String!,
   #  user_id: Uuid! @cql_where(field: "user_id", predicate:GT)
@@ -113,10 +113,10 @@ type Query {
   # lib collection by indexed column lib_name
   #libCollByName(lib_name: String): [LibCollection]
   # lib collection by type IN and lib_id IN
-  #libCollIn(
-  #  type: [String!] @cql_where(field: "type", predicate: IN)
-  #  lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
-  #): [LibCollection]
+  libCollIn(
+    type: [String] @cql_where(field: "type", predicate: IN)
+    lib_id: [Int] @cql_where(field: "lib_id", predicate: IN)
+  ): [LibCollection]
 }
 type Mutation {
   insertBook(book: BookInput!): Book

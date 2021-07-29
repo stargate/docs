@@ -29,24 +29,30 @@ generated to access the interface. A REST API token is used for this purpose.
 // generate the auth token
 include::partial$gen_auth_token.adoc[]
 
-You will need to add this token to the GraphQL Playground in order to authorize
-your GraphQL requests. Copy the value after `"authToken"` to use later.
+You will need to add this token to authorize your GraphQL requests, either
+executing cURL commands or using the GraphQL Playground.
+Copy the value after `"authToken"` to use later.
 
 // LLP - 05.07.21 These two sections are in graphql.adoc
 //include::graphql.adoc[tag=UsingGraphQLPlayground]
 //include::graphql.adoc[tag=UsingPostman]
 
+include::partial$curl_and_graphQL.adoc[]
+
+All examples on this page will use the GraphQL Playground, with some exceptions
+using cURL commands.
+
 == Create or delete schema
 
 In order to use the GraphQL API, you must xref:graphql-first-using.adoc#_deploy_schema[deploy schema]
 that defines the types, mutations, and queries.
-However, a keyspace, a container that stores the data, must first be created.
 
 // tag::CreateKS[]
 === Create a keyspace
 
 Before you can start using the GraphQL API, you must first create a Cassandra
-keyspace in your database.
+keyspace in your database. The keyspace is a container that stores data
+with replication.
 
 // LLP: need to check how to write this - it's migration...If you are connecting
 // to a Cassandra database with existing schema, you can skip this step.
@@ -85,9 +91,6 @@ Now run the mutation to create the keyspace. You should see a return value of:
 ----
 include::example$result/gql_createKeyspace.result[]
 ----
-
-include::partial$curl_and_graphQL.adoc[]
-
 // end::CreateKS[]
 
 // tag::DeleteKS[]
@@ -345,8 +348,8 @@ include::example$graphql/1createOperations.graphql[]
 <1> An input of `BookInput!` is required, and must include the required fields as defined
 by the `Book` object type. The output is a `Book` object.
 <2> An input of `BookInput!` is required, and must include the required fields as defined
-by the `Book` object type. The output is a Boolean value. The `@cql_update` directive
-makes this mutation an update, rather than an insert.
+by the `Book` object type. The output is a Boolean value.
+<3> The `@cql_update` directive makes this mutation an update, rather than an insert.
 
 The `insert` mutation will insert an object of the specified type, and the `update`
 and `delete` mutations will return a Boolean value.
@@ -440,21 +443,30 @@ the schema to deploy to a previously defined keyspace:
 
 [tabs]
 ====
-graphQL command::
+Simple graphQL schema command::
 +
 --
 [source,shell]
 ----
-include::example$graphql/1createDeploy.graphql[]
+include::example$graphql/1createDeploySimple.graphql[]
 ----
 --
 
-Result::
+Simple result::
 +
 --
 [source,plaintext]
 ----
 include::example$result/gql_1createDeploy.result[]
+----
+--
+
+Full schema command::
++
+--
+[source,shell]
+----
+include::example$graphql/1createDeploy.graphql[]
 ----
 --
 ====
@@ -499,7 +511,7 @@ Drop and recreate only the CQL tables and UDTs that don't match.
 This is a destructive operation: any existing data in the recreated tables will be lost.
 Tables that are not recreated will retain their data.
 
-=== Deploy schema file
+=== Deploy schema file using cURL
 
 Schema can also be deployed to a keyspace using a schema file upload.
 This mutation must be executed with a multipart request (note that your operations
@@ -532,10 +544,14 @@ The operations part contains the GraphQL payload. It consists of a
 parameterized mutation, which takes a single `$file` argument (note that we
   leave it as null in the payload, because it's going to be set another way).
 The `filePart` argument contains the file.
-The `map` argument specifies which file goes into which GraphQL variable.
+The `map` argument specifies that the file specified by `filePart` will map
+to the `variables.file` setting.
+In this example, the schema file supplied is located in `/tmp/schema.graphql`.
 
-In order to deploy a schema file again, you'll need to supply the `expectedVersion` for
-the schema to be replaced:
+In order to deploy a schema file again, you'll need to supply the `expectedVersion`
+for the schema to be replaced.
+xref:graphql-first-using.adoc#_check_the_keyspace_schema[Check the keyspace schema]
+to get the current version.
 
 [tabs]
 ====
@@ -561,8 +577,9 @@ include::example$result/gql_1DeployFileAgain.result[]
 === Modify schema
 
 To modify the current schema, simply deploy again, supplying the `expectedVersion` as the
-current schema's version if you wish to overwrite the definitions. Otherwise, a new schema
-with a new version id will be created.
+current schema's version if you wish to overwrite the definitions.
+Otherwise, a new schema with a new version id will be created.
+Either the GraphQL Playground or the cURL command can be used to update the schema.
 // end::DeploySchema[]
 
 
@@ -593,6 +610,8 @@ include::example$result/gql_1getAllKsSchema.result[]
 ----
 --
 ====
+
+Note that the result lists the current schema version for every loaded schema.
 
 For a particular version of a keyspace schema:
 
@@ -814,8 +833,8 @@ include::example$result/gql_1fetchBook.result[]
 // tag::ReadAdvData[]
 
 It is also possible to find books with a partial primary key. If more than one book
-has the same title (partition key), for instance, but different authors (clustering key),
-then a listing of all books can be retrieved:
+has the same title (partition key), for instance, but different isbn codes (clustering key),
+then a listing of all books that match can be retrieved:
 
 [tabs]
 ====
@@ -838,10 +857,10 @@ include::example$result/gql_1fetchSameBooks.result[]
 --
 ====
 
-In both queries, both the `title` and the `author` are specified as return results.
+In both queries, the `title`, `isbn`, and `author` are specified as return results.
 
-To display the contents of a UDT, notice the inclusion of `addresses`  and its embedded fields in the values
-designated as return values in this query to retrieve the readers:
+To display the contents of a UDT, notice the inclusion of `addresses` and its
+embedded fields in the values designated as return values in this query to retrieve the readers:
 
 [tabs]
 ====
@@ -892,7 +911,7 @@ The filters available are:
 //* containsKey (a map contains the specified key)
 //* containsEntry (a map contains the specified key:value pair)
 
-IN example:
+IN example, that finds the books that are listed in the supplied array:
 [tabs]
 ====
 graphQL command::
@@ -914,7 +933,8 @@ include::example$result/gql_1createQueryWhereIN.result[]
 --
 ====
 
-IN example with 2 partition keys
+IN example with 2 partition keys, demonstrating that values for each
+can be supplied:
 
 [tabs]
 ====
@@ -937,17 +957,8 @@ include::example$result/gql_1createQueryWhereIN2PartKey.result[]
 --
 ====
 
-// LLP: notice that the "name" of the field in foos is NOT the gql field name
-// for example: minCc1 and maxCc1
-GT example #1
-
-Equality on the partition key, and range on a clustering field:
-foos(
-    pk: Int
-    minCc1: Int @cql_where(field: "cc1", predicate: GTE)
-    maxCc1: Int @cql_where(field: "cc1", predicate: LTE)
-): [Foo]
-
+GT example, that looks for equality on the partition key, and then a range of
+possible values for the clustering field:
 
 [tabs]
 ====
@@ -970,7 +981,8 @@ include::example$result/gql_1createQueryWhereGT.result[]
 --
 ====
 
-GT example #2
+GT example #2, that looks for a book with a title and an isbn code that is
+greater than the value supplied:
 
 [tabs]
 ====
@@ -993,7 +1005,8 @@ include::example$result/gql_1createQueryWhereGT-2.result[]
 --
 ====
 
-LT example
+LT example, that looks for a book with the same title and an isbn code that is
+less than the value supplied:
 
 [tabs]
 ====
@@ -1016,7 +1029,8 @@ include::example$result/gql_1createQueryWhereLT.result[]
 --
 ====
 
-CONTAINS example
+CONTAINS example that shows how to retrieve a reader that submitted a
+supplied review:
 
 [tabs]
 ====
@@ -1065,12 +1079,21 @@ include::example$graphql/1queryUpdate.graphql[]
 ----
 --
 
-Result::
+Result of command::
 +
 --
 [source,plaintext]
 ----
 include::example$result/gql_1queryUpdate.result[]
+----
+--
+
+New record::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1queryUpdate-2.result[]
 ----
 --
 ====
@@ -1196,8 +1219,3 @@ include::example$result/gql_1deleteLibColl.result[]
 | @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
 |===
 // end::Directives[]
-
-// LLP: is this true?
-// turning a "legacy" cql keyspace into a graphql schema-first keyspace
-// I'll need a section that shows how connecting to an existing C* cluster will automatically
-// create the graphql endpoints!

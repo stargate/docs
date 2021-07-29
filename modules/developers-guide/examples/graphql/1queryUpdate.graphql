@@ -2,6 +2,9 @@ type Mutation {
   updateBook(book: BookInput): Boolean @cql_update
 }
 
-mutation {
-  updateBook(book: { title: "Pride and Prejudice", name: "Jane Austen" isbn: "some isbn number" })
+mutation updatePap {
+  updateBook(book: {
+    title: "Pride and Prejudice",
+    author: ["Jane Austen", "random other author"],
+    isbn: "978-0141439518" })
 }

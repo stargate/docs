@@ -1,11 +1,12 @@
-[TIP]
-====
-Working with graphQL, there are three ways to enter queries:
+.Working with graphQL entries
+****
+Before you start creating types, mutations and queries, it is helpful to
+understand that there are four ways to enter mutations and queries:
 
 . In the GraphQL playground, copy and paste the following to a tab pointing to
 localhost:8080/graphql-schema:
 
-[source, plaintext]
+[source, plaintext, subs="attributes+"]
 ----
 include::example$graphql/createKeyspace.graphql[]
 ----
@@ -14,14 +15,14 @@ include::example$graphql/createKeyspace.graphql[]
 . If you wish to submit the mutation using a curl command, use a JSON file as
 the data:
 
-[source, plaintext]
+[source, plaintext, subs="attributes+"]
 ----
 include::example$graphql/1curl_createKeyspaceWithFile.sh[]
 ----
 
 where `createKeyspace.json`:
 
-[source, plaintext]
+[source, plaintext, subs="attributes+"]
 ----
 include::example$graphql/createKeyspace.json[]
 ----
@@ -34,8 +35,12 @@ playground, and notice the JSON decoration that is added.
 but directly adding the data, note that the JSON must be entered as a single line
 of data.
 
-[source, plaintext]
+[source, plaintext, subs="attributes+"]
 ----
 include::example$graphql/1curl_createKeyspace.sh[]
 ----
-====
+
+[arabic, start=4]
+. The last way to create schema is by deploying a schema file, as is shown on this
+page in xref:graphql-first-using.adoc#_deploy_or_undeploy_schema[Deploy or undeploy schemas].
+****

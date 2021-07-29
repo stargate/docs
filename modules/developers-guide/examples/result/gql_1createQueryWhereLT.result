@@ -3,11 +3,10 @@
     "bookLT": [
       {
         "title": "Groundswell",
-        "author": "Charlene Li"
-      },
-      {
-        "title": "Groundswell",
-        "author": "Katie Lee"
+        "isbn": "978-1422125007",
+        "author": [
+          "Charlene Li"
+        ]
       }
     ]
   }
