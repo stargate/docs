@@ -82,5 +82,6 @@ For the Library example:
     Find a book, check all readers for a review of the book by Review.bookTitle.
 21. (orderByBook) Look up a book and find all the readers who have checked it out. _union_ of _Book_ and _Order_
     Find a book, look up the orders, get the readers.
-22. (fullReview) For a reader's review, get all the book information (non-PK column collection, index). _union_ of _Book_ and _Reader_
+22. THIS IS readerCONTAINS(fullReview) For a reader's review, get all the book information (non-PK column collection, index)
+Requires all review information. _Reader_
 23. (??) Look at a reader and get all books read. _union_ of _Book_ and _Reader_

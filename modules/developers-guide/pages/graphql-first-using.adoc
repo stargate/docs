@@ -54,9 +54,6 @@ Before you can start using the GraphQL API, you must first create a Cassandra
 keyspace in your database. The keyspace is a container that stores data
 with replication.
 
-// LLP: need to check how to write this - it's migration...If you are connecting
-// to a Cassandra database with existing schema, you can skip this step.
-
 Inside the GraphQL playground, navigate to
 http://localhost:8080/graphql-schema[http://localhost:8080/graphql-schema]
 and create a keyspace by executing the following mutation:
@@ -272,6 +269,8 @@ in the underlying database table.
 === Create indexes
 
 Cassandra supports indexing any regular, non-primary key fields in an object type.
+Any field designated as a partition key or clustering column cannot be indexed,
+unless DataStax Enterprise is the defined database.
 A field will  be indexed if `@cql_index` is added to the field definition.
 Indexed fields can be used as parameters in queries.
 
@@ -707,10 +706,8 @@ Only the required fields must be specified, and any fields can be returned in th
 This same operation can update stored data, as insertions are upserts in all cases.
 
 // LLP: ********** I  NEED TO ADD A CONDITIONAL IFNOTEXISTS INSERT! ********
-
 // end::WriteData[]
 
-// COMMENTED OUT FOR NOW - NOT IMPLEMENTED BUT MAY BE, SO LEAVE THE TEXT
 // tag::WriteAdvData[]
 ==== Conditional insertion
 
@@ -886,7 +883,13 @@ include::example$result/gql_1fetchReaders.result[]
 In this example, the primary key consists of both `name` and `user_id`, to distinguish
 readers who might have the same name.
 
-==== Filter options for reads
+Stargate only allows combinations of fields that have:
+* at most one indexed field in the query
+* if no indexed field is present, then all partition key fields must be present
+** it's possible to omit some or all of the clustering fields (in which case
+  the query may return multiple rows
+
+==== **Filter options for reads**
 
 It's possible to customize the CQL condition of each parameter with `@cql_where`
 with the following arguments:
@@ -1199,8 +1202,6 @@ include::example$result/gql_1deleteLibColl.result[]
 
 // end::DeleteData[]
 
-
-// LLP: doublecheck the table below before releasing
 // tag::Directives[]
 == Directives
 

@@ -26,9 +26,21 @@ that each define a distinct GraphQL schema
 * A gateway that composes the subgraphs into a federated data graph and executes
 queries across multiple subgraphs
 
-// LLP: need to insert an illustration of Federated to (1)Book/Reader schema in
-// Stargate, and (2)Order in node.js apollo server
 
+```
+                    +--------------------+
+                    |  Federated schema  |
+                    |  (Apollo Gateway)  |
+                    +--------------------+
+                              |
+                 +------------+-----------+
+                 |                        |
+        +--------+---------+     +--------+---------+
+        |  Library schema  |     |  Orders schema   |
+        |    (Stargate)    |     |  (Node.js Apollo |
+        |   Book/Reader    |     |   server)        |
+        +------------------+     +------------------+
+```
 == GraphQL schema
 
 To achieve data federation, schemas need to be created and annotated to indicate how
@@ -56,29 +68,18 @@ the associated resolvers owned and implemented by a single team.
 === Stargate GraphQL schema
 
 In this example, `Book` and `Reader` schema are supplied from a Stargate instance
-as the first data source,and the schema is described in the
+as the first data source, and the schema is described in the
 xref:graphql-first-using.adoc[GraphQL schema-first] section.
+Stargate also automatically adds the following:
 
-// LLP: NEED TO LINK the partial/data_fed_directive into this page somewhere
+include::partial$data_fed_directive.adoc
 
 === Javascript Apollo server schema
+
 For `Order`, a simple Javascript, `orders.js` will be used to define the `Order`
 schema, supply some resolvers, insert some data, and start an Apollo server as
-the second data source.
+the second data source. Let's break down the script into four parts.
 
-[tabs]
-====
-Orders.js::
-+
---
-[source,shell]
-----
-include::example$graphql/1orders.js[]
-----
---
-====
-
-Let's break down this script.
 First, set up the script to require `apollo server` and `apollo federation`.
 Set the port for the server to `4001`.
 
@@ -166,23 +167,24 @@ include::example$graphql/1orders.js[tag=server]
 --
 ====
 
-== Installing Apollo gateway
-
-Let's look at a simple Javascript that runs the Apollo gateway:
+The full script:
 
 [tabs]
 ====
-gateway.js::
+Orders.js::
 +
 --
 [source,shell]
 ----
-include::example$graphql/1gateway.js[]
+include::example$graphql/1orders.js[]
 ----
 --
 ====
 
-Let's break down this script.
+== Installing Apollo gateway
+
+Let's look at a simple Javascript that runs the Apollo gateway:
+Let's break down this script down as well, into three parts.
 
 [tabs]
 ====
@@ -231,6 +233,20 @@ There are some settings currently set to false; the code gives an explanation.
 If the fetched data is from the Stargate instance, the token must be passed
 in the header of the request as `x-cassandra-token`.
 
+The full script:
+
+[tabs]
+====
+gateway.js::
++
+--
+[source,shell]
+----
+include::example$graphql/1gateway.js[]
+----
+--
+====
+
 == Federated queries
 
 === Simple example
@@ -273,8 +289,8 @@ resolvers in the Apollo server, are fetching data from two different servers!
 That is a very valuable feature, especially for application developers who need
 to fetch and use data from data sources that they do not control.
 
-=== Additional examples of queries
+//=== Additional examples of queries
 
-Use the queries I have created in data_federation.adoc...
+//Use the queries I have created in data_federation.adoc...
 
-Write about what you can and can't do...
+//Write about what you can and can't do...
