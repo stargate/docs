@@ -1,0 +1,41 @@
+[TIP]
+====
+Working with graphQL, there are three ways to enter queries:
+
+. In the GraphQL playground, copy and paste the following to a tab pointing to
+localhost:8080/graphql-schema:
+
+[source, plaintext]
+----
+include::example$graphql/createKeyspace.graphql[]
+----
+
+[arabic, start=2]
+. If you wish to submit the mutation using a curl command, use a JSON file as
+the data:
+
+[source, plaintext]
+----
+include::example$graphql/1curl_createKeyspaceWithFile.sh[]
+----
+
+where `createKeyspace.json`:
+
+[source, plaintext]
+----
+include::example$graphql/createKeyspace.json[]
+----
+
+Compare `createKeyspace.json` to the source that you can copy/paste into the
+playground, and notice the JSON decoration that is added.
+
+[arabic, start=3]
+. If you wish to submit the mutation using a curl command, not using a JSON file,
+but directly adding the data, note that the JSON must be entered as a single line
+of data.
+
+[source, plaintext]
+----
+include::example$graphql/1curl_createKeyspace.sh[]
+----
+====
