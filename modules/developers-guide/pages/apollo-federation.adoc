@@ -184,7 +184,7 @@ include::example$graphql/1orders.js[]
 == Installing Apollo gateway
 
 Let's look at a simple Javascript that runs the Apollo gateway:
-Let's break down this script down as well, into three parts.
+Let's break this script down as well, into three parts.
 
 [tabs]
 ====
