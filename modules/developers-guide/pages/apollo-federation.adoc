@@ -72,7 +72,9 @@ as the first data source, and the schema is described in the
 xref:graphql-first-using.adoc[GraphQL schema-first] section.
 Stargate also automatically adds the following:
 
-include::partial$data_fed_directive.adoc
+include::partial$data_fed_directives.adoc[]
+
+include::partial$curl_cql_directive.adoc[]
 
 === Javascript Apollo server schema
 

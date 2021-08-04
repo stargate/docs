@@ -1219,4 +1219,6 @@ include::example$result/gql_1deleteLibColl.result[]
 | @cql_update | Set an insertion to be an update | N/A
 | @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
 |===
+
+include::partial$curl_cql_directive.adoc[]
 // end::Directives[]
