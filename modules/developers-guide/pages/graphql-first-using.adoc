@@ -1210,14 +1210,16 @@ include::example$result/gql_1deleteLibColl.result[]
 | @cql_column | Set type field CQL values | name, partitionKey, clusteringOrder, typeHint
 | @cql_delete | Conditional delete clause | if Exists: true
 | @cql_entity | Set a type field data type | name, target (UDT)
-| @cql_payload | Identify a type as a payload type | N/A
-| @cql_index | Create a type field index | name, class (org.apache.cassandra.index.sasi.SASIIndex), type, options (mode: 'CONTAINS')
+| @cql_increment | Set a type field that will increment on UPDATE | field to increment (counter, set, and list only); The default is false, meaning that the value will be appended; prepend: Boolean = false
+| @cql_if | Set a type field that the predicate `if <field> <predicate` uses to check condition for  DELETE and UPDATE. | field, predicates (EQ, GT, GTE, IN, GT, LTE, and NEQ)
+| @cql_index | Create a type field index | name, class (org.apache.cassandra.index.sasi.SASIIndex), type (FULL, VALUES), options (mode: 'CONTAINS')
 | @cql_input | Identify a type as an input type | N/A
 | @cql_insert | Add a conditional clause | ifNotExists: true
 | @cql_pagingState | The paging state to inject in the query | N/A
+| @cql_payload | Identify a type as a payload type | N/A
 | @cql_select | Set response arguments | pageSize, limit
 | @cql_update | Set an insertion to be an update | N/A
-| @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
+| @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), GT, GTE, IN, LT, LTE, CONTAINS)
 |===
 
 include::partial$curl_cql_directive.adoc[]
