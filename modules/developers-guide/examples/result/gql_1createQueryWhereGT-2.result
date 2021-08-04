@@ -3,7 +3,10 @@
     "bookGT": [
       {
         "title": "Groundswell",
-        "author": "Katie Lee"
+        "isbn": "978-1439183595",
+        "author": [
+          "Katie Lee"
+        ]
       }
     ]
   }

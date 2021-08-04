@@ -1,16 +1,15 @@
 type Query {
-  bookLT( 
-    title: [String!] 
-    author: [String]
-    @cql_where(field: "author", predicate: LT)
-  ): [Book]
+bookLT(
+  title: String
+  isbn: String @cql_where(field: "isbn", predicate: LT)
+): [Book]
 }
 
-# retrieves no books
-# change to author: "Zorro Doe" and both books show up
-query fetchBooksLT {
-  bookLT( title:"Groundswell",  author: "Betty Doe") {
+# retrieves only one book, by Charlene Li
+query fetchIsbnLT {
+  bookLT(title: "Groundswell", isbn: "978-1422125008") {
     title
+    isbn
     author
   }
 }

@@ -1,0 +1,9 @@
+query getOrder {
+  order(checkout_id: 1) {
+    checkout_id
+    reader {
+      name
+      user_id
+    }
+  }
+}

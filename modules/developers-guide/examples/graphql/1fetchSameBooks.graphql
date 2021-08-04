@@ -1,9 +1,7 @@
-query fetchSameBooks {
-  books(title: "Groundswell") {  
-    data {
-      title,
-      author
-    },
-    pagingState
- }
+query fetchSameBook {
+  bookByTitle(title: "Groundswell") {
+    title
+    isbn
+    author
+  }
 }

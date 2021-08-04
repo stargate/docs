@@ -14,6 +14,7 @@
 ** xref:graphql.adoc[GraphQL API]
 *** xref:graphql-using.adoc[Using the GraphQL API (CQL-first)]
 *** xref:graphql-first-using.adoc[Using the GraphQL API (Schema-first)]
+*** xref:apollo-federation.adoc[Apollo data federation for GraphQL schema-first]
 ** xref:cql.adoc[CQL API]
 *** xref:cql-using.adoc[Using the CQL API]
 *** https://cassandra.apache.org/doc/latest/cql/[CQL reference]

@@ -1,6 +1,6 @@
 type Query {
-  readerCONTAINS( 
-    reviews: [Review] @cql_where(field: "reviews", predicate: CONTAINS)
+  readerCONTAINS(
+    reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
   ): [Reader]
 }
 

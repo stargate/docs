@@ -21,5 +21,3 @@ results that the table already exists.
 
 | Hellox21_ | "Hello!" | insertHellox21_
 |===
-
-====

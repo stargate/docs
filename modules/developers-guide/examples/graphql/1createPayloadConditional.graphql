@@ -1,6 +1,7 @@
 type Book @key @cql_entity(name: "book") @cql_input {
  title: String! @cql_column(partitionKey: true)
- author: String @cql_column(clusteringOrder: ASC)
+ isbn: String @cql_column(clusteringOrder: ASC)
+ author: [String] @cql_index(name: "author_idx", target: VALUES)
 }
 
 type InsertBookResponse @cql_payload {

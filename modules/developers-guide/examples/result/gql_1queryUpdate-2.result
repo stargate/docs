@@ -1,0 +1,14 @@
+{
+  "data": {
+    "bookByTitle": [
+      {
+        "title": "Pride and Prejudice",
+        "isbn": "978-0141439518",
+        "author": [
+          "Jane Austen",
+          "random other author"
+        ]
+      }
+    ]
+  }
+}

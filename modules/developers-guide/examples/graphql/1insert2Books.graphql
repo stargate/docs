@@ -1,11 +1,8 @@
-mutation insertnativeson {
-  insertBook(book: { title: "Native Son", author: "Richard Wright" }) {
+mutation insert2books {
+  nativeson: insertBook(book: { title: "Native Son", isbn: "978-0061148507", author: ["Richard Wright"] }) {
     title
   }
-}
-
-mutation insertmobydick {
-  insertBook(book: { title:"Moby Dick", author: "Herman Melville"}) {
+  mobydick: insertBook(book: { title: "Moby Dick", isbn: "978-1503280786", author: ["Herman Melville"]}) {
     title
   }
 }
