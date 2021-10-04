@@ -456,6 +456,10 @@ in the <code>X-Cassandra-Token</code> header. Note the port for the auth service
 <p>You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after <code>"authToken"</code> to use later.</p>
 </div>
+<div class="paragraph">
+<p>All examples on this page will use the GraphQL Playground, with some exceptions
+using cURL commands.</p>
+</div>
 </div>
 </div>
 </div>
@@ -521,7 +525,8 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 </table>
 </div>
 <div class="paragraph">
-<p>Now run the mutation to create the keyspace. You should see a return value of:</p>
+<p>Now run the mutation to create the keyspace.
+You should see a return value of:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -737,13 +742,69 @@ the keyspace schema.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_a_user_defined_type_udt"><a class="anchor" href="#_create_a_user_defined_type_udt"></a><a class="link" href="#_create_a_user_defined_type_udt">Create a user-defined type (UDT)</a></h3>
+<h3 id="_a_note_about_what_schema_is"><a class="anchor" href="#_a_note_about_what_schema_is"></a><a class="link" href="#_a_note_about_what_schema_is">A note about what schema is</a></h3>
 <div class="paragraph">
-<p>Optional user-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called <code>address_type</code> that includes a street, city,
-state, and zipcode.
-If you plan to use UDTs as a data type for columns in your table, create the UDT
-first.</p>
+<p>A full GraphQL table schema can include user-defined types (UDTs) and indexes.
+Queries and mutations are automatically generated based on the schema.
+The next sections describes the definition of these items.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_types"><a class="anchor" href="#_data_types"></a><a class="link" href="#_data_types">Data types</a></h3>
+<div class="paragraph">
+<p>A column&#8217;s CQL data type is inferred from the GraphQL table column type.
+GraphQL&#8217;s built-in scalar types are mapped:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">GraphQL</th>
+<th class="tableblock halign-left valign-top">CQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uuid</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">varchar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">double</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In addition, Stargate provides a set of custom scalar types that map directly
+to the CQL types of the same name:
+Uuid, TimeUuid, Inet, Date, Duration, BigInt, Counter, Ascii, Decimal, Varint,
+Float32, Blob, SmallInt, TinyInt, Timestamp, Time, Set, List, Map, Tuple.</p>
+</div>
+<div class="paragraph">
+<p>Lastly, <a href="#_create_a_user_defined_type_udt">user-defined types (UDTs)</a>
+are supported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_table"><a class="anchor" href="#_create_a_table"></a><a class="link" href="#_create_a_table">Create a table</a></h3>
+<div class="paragraph">
+<p>After the keyspace exists, you can create a table by executing mutations.
+For this example, two tables are created:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -758,71 +819,6 @@ first.</p>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset2_graphql-command">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a user-defined type (UDT)
-mutation createAddressUDT {
-  createType(
-    keyspaceName: "library"
-    typeName: "address_type"
-    fields: [
-      { name: "street", type: { basic: TEXT } }
-      { name: "city", type: { basic: TEXT } }
-      { name: "state", type: { basic: TEXT } }
-      { name: "zip", type: { basic: TEXT } }
-    ]
-  )
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset2_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data": {
-    "createType": true
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_delete_a_user_defined_type_udt"><a class="anchor" href="#_delete_a_user_defined_type_udt"></a><a class="link" href="#_delete_a_user_defined_type_udt">Delete a user-defined type (UDT)</a></h3>
-<div class="paragraph">
-<p>You can delete a UDT. All tables that use the UDT must first be deleted.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext"># drop a UDT
-mutation dropType {
-  dropType(keyspaceName:"library", typeName:"address_type", ifExists:true)
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_create_a_table"><a class="anchor" href="#_create_a_table"></a><a class="link" href="#_create_a_table">Create a table</a></h3>
-<div class="paragraph">
-<p>After the keyspace exists, you can create two tables by executing the following
-mutation:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset3_graphql-command"></a>graphQL command</p>
-</li>
-<li>
-<p><a id="tabset3_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset3_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables (book, reader) in library with a single mutation
@@ -858,7 +854,7 @@ mutation createTables {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset3_result">
+<div class="tab-pane" aria-labelledby="tabset2_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">  "data": {
@@ -877,7 +873,8 @@ Information about partition keys and clustering keys can be found in the
 <a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
 </div>
 <div class="paragraph">
-<p>The second table, <code>reader</code>, also defines a column using a <a href="#graphql-using.html#_creating_a_user-defined_type (UDT)" class="page unresolved">user-defined type (UDT)</a>.</p>
+<p>The second table, <code>reader</code>, also defines a column using a
+<a href="#_creating_a_user-defined_type (UDT)">user-defined type (UDT)</a>.</p>
 </div>
 </div>
 </div>
@@ -937,13 +934,6 @@ results that the table already exists.</p>
 </tfoot>
 </table>
 <div class="sect3">
-<h4 id="_data_types"><a class="anchor" href="#_data_types"></a><a class="link" href="#_data_types">Data types</a></h4>
-<div class="paragraph">
-<p>Tables can be created with an option <code>ifNotExists</code>.
-They can also be created with collections (set, list, map), tuples, and UDTs.</p>
-</div>
-</div>
-<div class="sect3">
 <h4 id="_if_not_exists_option"><a class="anchor" href="#_if_not_exists_option"></a><a class="link" href="#_if_not_exists_option">IF NOT EXISTS option</a></h4>
 <div class="paragraph">
 <p>A table can be created with an option <code>ifNotExists</code> that will only create the
@@ -953,15 +943,15 @@ table if it does not already exist:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset4_graphql-command"></a>graphQL command</p>
+<p><a id="tabset3_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset4_result"></a>Result</p>
+<p><a id="tabset3_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset4_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset3_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create two tables, magazine and article, IF THEY DON'T EXIST
@@ -1002,7 +992,7 @@ mutation createTableIfNotExists {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset4_result">
+<div class="tab-pane" aria-labelledby="tabset3_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1017,8 +1007,8 @@ mutation createTableIfNotExists {
 </div>
 </div>
 <div class="paragraph">
-<p>One of these tables includes creating a column with the data type <code>LIST</code>, an ordered
-collection of text values.</p>
+<p>One of these tables includes creating a column with the data type <code>LIST</code>, an
+ordered collection of text values.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1030,15 +1020,15 @@ collection of text values.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset5_graphql-command"></a>graphQL command</p>
+<p><a id="tabset4_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset5_result"></a>Result</p>
+<p><a id="tabset4_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset4_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a table with a MAP
@@ -1063,7 +1053,7 @@ mutation createMapTable {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset5_result">
+<div class="tab-pane" aria-labelledby="tabset4_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1078,7 +1068,7 @@ mutation createMapTable {
 </div>
 <div class="paragraph">
 <p>This example shows a map. A previous example shows a list.
-In the next example, a set will be used.</p>
+In the next example, a set will be defined.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1091,15 +1081,15 @@ can add one or more columns:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset6_graphql-command"></a>graphQL command</p>
+<p><a id="tabset5_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset6_result"></a>Result</p>
+<p><a id="tabset5_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset6_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset5_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># alter a table and add columns
@@ -1120,7 +1110,7 @@ mutation alterTableAddCols {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="tab-pane" aria-labelledby="tabset5_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1144,15 +1134,15 @@ GraphQL query:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset7_graphql-command"></a>graphQL command</p>
+<p><a id="tabset6_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset7_result"></a>Result</p>
+<p><a id="tabset6_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset7_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset6_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">query GetTables {
@@ -1176,7 +1166,7 @@ GraphQL query:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset7_result">
+<div class="tab-pane" aria-labelledby="tabset6_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1252,15 +1242,15 @@ can remove a column.  All column data will be deleted along with the column sche
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset8_graphql-command"></a>graphQL command</p>
+<p><a id="tabset7_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset8_result"></a>Result</p>
+<p><a id="tabset7_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset8_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset7_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a column format from a table
@@ -1274,7 +1264,7 @@ mutation dropColumnFormat {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset8_result">
+<div class="tab-pane" aria-labelledby="tabset7_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1297,15 +1287,15 @@ mutation dropColumnFormat {
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset9_graphql-command"></a>graphQL command</p>
+<p><a id="tabset8_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset9_result"></a>Result</p>
+<p><a id="tabset8_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset9_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset8_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a table
@@ -1316,7 +1306,7 @@ mutation dropTableBook {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset9_result">
+<div class="tab-pane" aria-labelledby="tabset8_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1339,15 +1329,15 @@ All data will be deleted along with the table schema.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset10_graphql-command"></a>graphQL command</p>
+<p><a id="tabset9_graphql-command"></a>graphQL command</p>
 </li>
 <li>
-<p><a id="tabset10_result"></a>Result</p>
+<p><a id="tabset9_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset10_graphql-command">
+<div class="tab-pane" aria-labelledby="tabset9_graphql-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># drop a table if it exists
@@ -1359,7 +1349,7 @@ mutation dropTableIfExists {
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset10_result">
+<div class="tab-pane" aria-labelledby="tabset9_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1375,10 +1365,79 @@ mutation dropTableIfExists {
 </div>
 </div>
 <div class="sect2">
+<h3 id="_create_a_user_defined_type_udt"><a class="anchor" href="#_create_a_user_defined_type_udt"></a><a class="link" href="#_create_a_user_defined_type_udt">Create a user-defined type (UDT)</a></h3>
+<div class="paragraph">
+<p>Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called <code>address_type</code> that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset10_graphql-command"></a>graphQL command</p>
+</li>
+<li>
+<p><a id="tabset10_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset10_graphql-command">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># create a user-defined type (UDT)
+mutation createAddressUDT {
+  createType(
+    keyspaceName: "library"
+    typeName: "address_type"
+    fields: [
+      { name: "street", type: { basic: TEXT } }
+      { name: "city", type: { basic: TEXT } }
+      { name: "state", type: { basic: TEXT } }
+      { name: "zip", type: { basic: TEXT } }
+    ]
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset10_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data": {
+    "createType": true
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_user_defined_type_udt"><a class="anchor" href="#_delete_a_user_defined_type_udt"></a><a class="link" href="#_delete_a_user_defined_type_udt">Delete a user-defined type (UDT)</a></h3>
+<div class="paragraph">
+<p>You can delete a UDT. All tables that use the UDT must first be deleted.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext"># drop a UDT
+mutation dropType {
+  dropType(keyspaceName:"library", typeName:"address_type", ifExists:true)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_create_an_index"><a class="anchor" href="#_create_an_index"></a><a class="link" href="#_create_an_index">Create an index</a></h3>
 <div class="paragraph">
-<p>Tables can contain partition keys and clustering keys, both of which define the
-primary key. A table can also include non-primary keys.</p>
+<p>Cassandra supports indexing any regular, non-primary key columns in a table.
+Any column designated as a partition key or clustering column cannot be indexed,
+unless DataStax Enterprise is the defined database.</p>
 </div>
 <div class="paragraph">
 <p>If you wish to create a table query that uses anything other than the partition key
@@ -1464,7 +1523,8 @@ An additional option, <code>indexType</code> can be defined to use SAI indexes i
 </div>
 </div>
 <div class="paragraph">
-<p>Here is an additional example, which creates indexes that could be used in the REST API examples:</p>
+<p>Here is an additional example, which creates indexes that could be used in the
+REST API examples:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1645,7 +1705,7 @@ query and mutation types that can be used to interact with the table data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_write_data"><a class="anchor" href="#_write_data"></a><a class="link" href="#_write_data">Write data</a></h3>
+<h3 id="_insert_data"><a class="anchor" href="#_insert_data"></a><a class="link" href="#_insert_data">Insert data</a></h3>
 <div class="paragraph">
 <p>Any of the created APIs can be used to interact with the GraphQL data, to write
 or read data.</p>
@@ -2042,14 +2102,14 @@ mutation insertReaderWithUDT{
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read_data"><a class="anchor" href="#_read_data"></a><a class="link" href="#_read_data">Read data</a></h3>
+<h3 id="_retrieve_data"><a class="anchor" href="#_retrieve_data"></a><a class="link" href="#_retrieve_data">Retrieve data</a></h3>
 <div class="paragraph">
 <p>Let&#8217;s check that the data was inserted.</p>
 </div>
 <div class="paragraph">
 <p>Now let&#8217;s search for a particular record using a <code>WHERE</code> clause. The primary
 key of the table can be used in the <code>WHERE</code> clause, but non-primary key columns
-cannot be used.
+cannot be used unless indexed.
 The following query, looking at the location
 <a href="http://localhost:8080/graphql/library">http://localhost:8080/graphql/library</a>
 will get both the <code>title</code> and the <code>author</code> for the specified book <code>WHERE
@@ -2282,42 +2342,74 @@ query oneGoldBadge {
 <div class="sect3">
 <h4 id="_filter_options_for_reading"><a class="anchor" href="#_filter_options_for_reading"></a><a class="link" href="#_filter_options_for_reading">Filter options for reading</a></h4>
 <div class="paragraph">
-<p>The filters available are:</p>
+<p>It&#8217;s possible to customize the condition of each parameter with <code>WHERE</code>
+with the following arguments:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>eq (equal)</p>
+<p>column: the GraphQL column name to which the condition applies</p>
 </li>
 <li>
-<p>notEq (not equal)</p>
-</li>
-<li>
-<p>gt (greater than)</p>
-</li>
-<li>
-<p>gte (greater than or equal to)</p>
-</li>
-<li>
-<p>lt (less than)</p>
-</li>
-<li>
-<p>lte (less than or equal to)</p>
-</li>
-<li>
-<p>in (within)</p>
-</li>
-<li>
-<p>contains (a map contains the specified value)</p>
-</li>
-<li>
-<p>containsKey (a map contains the specified key)</p>
-</li>
-<li>
-<p>containsEntry (a map contains the specified key:value pair)</p>
+<p>predicate: the conditional predicate to use</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The filters available are:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Predicate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">columns that can have condition applied</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eq (equal)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partition key, clustering column, regular indexed column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">notEq (not equal)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partition key, clustering column, regular indexed column; allowed in conditional updates, but not selects</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">in (within)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partition key, clustering column, regular indexed column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gt (greater than)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clustering column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gte (greater than or equal to)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clustering column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lt (less than)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clustering column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lte (less than or equal to)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clustering column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contains</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">regular indexed column  that is a , set or list, and has an index target of VALUES</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">containsKey</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map contains the specified key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">containsEntry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map contains the specified key:value pair</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Note that these can only be used with primary key columns, just like in Cassandra, unless
 indexing is created.</p>

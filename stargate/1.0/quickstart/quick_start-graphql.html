@@ -583,7 +583,8 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 </table>
 </div>
 <div class="paragraph">
-<p>Now run the mutation to create the keyspace. You should see a return value of:</p>
+<p>Now run the mutation to create the keyspace.
+You should see a return value of:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -598,8 +599,8 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 <div class="sect2">
 <h3 id="_create_a_table"><a class="anchor" href="#_create_a_table"></a><a class="link" href="#_create_a_table">Create a table</a></h3>
 <div class="paragraph">
-<p>After the keyspace exists, you can create two tables by executing the following
-mutation:</p>
+<p>After the keyspace exists, you can create a table by executing mutations.
+For this example, two tables are created:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -668,7 +669,8 @@ Information about partition keys and clustering keys can be found in the
 <a href="https://cassandra.apache.org/doc/latest/cql/">CQL reference</a>.</p>
 </div>
 <div class="paragraph">
-<p>The second table, <code>reader</code>, also defines a column using a <a href="#graphql-using.html#_creating_a_user-defined_type (UDT)" class="page unresolved">user-defined type (UDT)</a>.</p>
+<p>The second table, <code>reader</code>, also defines a column using a
+<a href="#graphql-using.adoc#_creating_a_user-defined_type (UDT)" class="page unresolved">user-defined type (UDT)</a>.</p>
 </div>
 </div>
 </div>
@@ -1093,7 +1095,7 @@ query and mutation types that can be used to interact with the table data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_write_data"><a class="anchor" href="#_write_data"></a><a class="link" href="#_write_data">Write data</a></h3>
+<h3 id="_insert_data"><a class="anchor" href="#_insert_data"></a><a class="link" href="#_insert_data">Insert data</a></h3>
 <div class="paragraph">
 <p>Any of the created APIs can be used to interact with the GraphQL data, to write
 or read data.</p>
@@ -1167,14 +1169,14 @@ This same method is valid for updates and read queries.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read_data"><a class="anchor" href="#_read_data"></a><a class="link" href="#_read_data">Read data</a></h3>
+<h3 id="_retrieve_data"><a class="anchor" href="#_retrieve_data"></a><a class="link" href="#_retrieve_data">Retrieve data</a></h3>
 <div class="paragraph">
 <p>Let&#8217;s check that the data was inserted.</p>
 </div>
 <div class="paragraph">
 <p>Now let&#8217;s search for a particular record using a <code>WHERE</code> clause. The primary
 key of the table can be used in the <code>WHERE</code> clause, but non-primary key columns
-cannot be used.
+cannot be used unless indexed.
 The following query, looking at the location
 <a href="http://localhost:8080/graphql/library">http://localhost:8080/graphql/library</a>
 will get both the <code>title</code> and the <code>author</code> for the specified book <code>WHERE

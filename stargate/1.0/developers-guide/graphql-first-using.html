@@ -598,7 +598,8 @@ generate token has. It is <code>X-Cassandra-Token</code>, not <code>auth-token</
 </table>
 </div>
 <div class="paragraph">
-<p>Now run the mutation to create the keyspace. You should see a return value of:</p>
+<p>Now run the mutation to create the keyspace.
+You should see a return value of:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -898,7 +899,7 @@ in the underlying database table.</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_indexes"><a class="anchor" href="#_create_indexes"></a><a class="link" href="#_create_indexes">Create indexes</a></h3>
+<h3 id="_create_an_index"><a class="anchor" href="#_create_an_index"></a><a class="link" href="#_create_an_index">Create an index</a></h3>
 <div class="paragraph">
 <p>Cassandra supports indexing any regular, non-primary key fields in an object type.
 Any field designated as a partition key or clustering column cannot be indexed,
@@ -1865,7 +1866,7 @@ One option is available, <code>force</code>, to force an erasure of the schema.<
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interact_with_data_stored_in_tables"><a class="anchor" href="#_interact_with_data_stored_in_tables"></a><a class="link" href="#_interact_with_data_stored_in_tables">Interact with data stored in tables</a></h2>
+<h2 id="_interact_with_data_stored_in_objects"><a class="anchor" href="#_interact_with_data_stored_in_objects"></a><a class="link" href="#_interact_with_data_stored_in_objects">Interact with data stored in objects</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_insert_data"><a class="anchor" href="#_insert_data"></a><a class="link" href="#_insert_data">Insert data</a></h3>
@@ -1876,7 +1877,7 @@ One option is available, <code>force</code>, to force an erasure of the schema.<
 <p>First, let&#8217;s navigate to your new keyspace <code>library</code> inside the playground.
 Change the location to
 <a href="http://localhost:8080/graphql/library">http://localhost:8080/graphql/library</a>
-and add a couple of books to the <code>book</code> table:</p>
+and add a couple of books:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1929,8 +1930,10 @@ and add a couple of books to the <code>book</code> table:</p>
 </div>
 <div class="paragraph">
 <p>The insertion is straightforward.
-The title and author are specified, and the title is returned in response to a successful insertion.
-Only the required fields must be specified, and any fields can be returned in the response.
+The title and author are specified, and the title is returned in response to a
+successful insertion.
+Only the required fields must be specified, and any fields can be returned in
+the response.
 This same operation can update stored data, as insertions are upserts in all cases.</p>
 </div>
 <div class="sect3">
@@ -3023,73 +3026,188 @@ mutation deleteDHM {
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 20%;">
+<col>
+<col>
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Arguments</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_column</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_column</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set type field CQL values</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name, partitionKey, clusteringOrder, typeHint</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>name: String</p>
+</div>
+<div class="paragraph">
+<p>partitionKey: true/false</p>
+</div>
+<div class="paragraph">
+<p>clusteringOrder: ASC/DESC</p>
+</div>
+<div class="paragraph">
+<p>typeHint: String</p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_delete</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional delete clause</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">if Exists: true</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_delete</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional delete clause, with possible consistency level, serial consistency level, or targetEntity</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>if Exists: true/false</p>
+</div>
+<div class="paragraph">
+<p>consistencyLevel: MutationConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM</p>
+</div>
+<div class="paragraph">
+<p>serialConsistency: SerialConsistency = LOCAL_SERIAL/SERIAL</p>
+</div>
+<div class="paragraph">
+<p>targetEntity: String</p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_entity</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_entity</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set a type field data type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name, target (UDT)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>name: String</p>
+</div>
+<div class="paragraph">
+<p>target (UDT)</p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_payload</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identify a type as a payload type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_increment</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set a type field that will increment on UPDATE</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>field to increment (counter, set, and list only): String</p>
+</div>
+<div class="paragraph">
+<p>The default is false, meaning that the value will be appended</p>
+</div>
+<div class="paragraph">
+<p>prepend: Boolean = false</p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_index</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_if</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set a type field that the predicate <code>if &lt;field&gt; &lt;predicate</code> uses to check condition for  DELETE and UPDATE.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>field: String
+predicates (EQ, GT, GTE, IN, GT, LTE, and NEQ)</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_index</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Create a type field index</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name, class (org.apache.cassandra.index.sasi.SASIIndex), type, options (mode: 'CONTAINS')</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>name: String</p>
+</div>
+<div class="paragraph">
+<p>class: (org.apache.cassandra.index.sasi.SASIIndex)</p>
+</div>
+<div class="paragraph">
+<p>type: (FULL, VALUES)</p>
+</div>
+<div class="paragraph">
+<p>options: (mode: 'CONTAINS')</p>
+</div>
+<div class="paragraph">
+<p>target: String</p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_input</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_input</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identify a type as an input type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name (optional): String</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_insert</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add a conditional clause</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ifNotExists: true</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_insert</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a conditional clause, consistency level, serial consistency level, or time-to-live (TTL)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>ifNotExists: true/false</p>
+</div>
+<div class="paragraph">
+<p>consistencyLevel: MutationConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM</p>
+</div>
+<div class="paragraph">
+<p>serialConsistency: SerialConsistency = LOCAL_SERIAL/SERIAL</p>
+</div>
+<div class="paragraph">
+<p>ttl: String (interpreted in seconds)</p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_pagingState</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_pagingState</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The paging state to inject in the query</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_select</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set response arguments</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pageSize, limit</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_update</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set an insertion to be an update</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_payload</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identify a type as a payload type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@cql_where</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_select</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set response arguments pageSize, limit, with possible consistencyLevel</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>consistencyLevel: QueryConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM/LOCAL_SERIAL/SERIAL</p>
+</div>
+<div class="paragraph">
+<p>pageSize: Int</p>
+</div>
+<div class="paragraph">
+<p>limit: Int</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_update</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set an insertion to be an update, with possible conditional clause, consistency level, serial consistency level, time-to-live (TTL), or targetEntity</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>ifExists: true/false</p>
+</div>
+<div class="paragraph">
+<p>consistencyLevel: MutationConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM</p>
+</div>
+<div class="paragraph">
+<p>serialConsistency: SerialConsistency = LOCAL_SERIAL/SERIAL</p>
+</div>
+<div class="paragraph">
+<p>ttl: String (interpreted in seconds)</p>
+</div>
+<div class="paragraph">
+<p>targetEntity: String</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">@cql_where</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Predicates that customize the conditions of a parameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>field: String</p>
+</div>
+<div class="paragraph">
+<p>predicate (EQ (default), GT, GTE, IN, LT, LTE, CONTAINS)</p>
+</div></div></td>
 </tr>
 </tbody>
 </table>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Getting directive information</div>
+<div class="paragraph">
+<p>To see information on all the CQL directives available in Stargate,
+run the following cURL command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-files/cql_directives.graphql \
+  --header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">
