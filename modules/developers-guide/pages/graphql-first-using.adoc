@@ -33,10 +33,6 @@ You will need to add this token to authorize your GraphQL requests, either
 executing cURL commands or using the GraphQL Playground.
 Copy the value after `"authToken"` to use later.
 
-// LLP - 05.07.21 These two sections are in graphql.adoc
-//include::graphql.adoc[tag=UsingGraphQLPlayground]
-//include::graphql.adoc[tag=UsingPostman]
-
 include::partial$curl_and_graphQL.adoc[]
 
 All examples on this page will use the GraphQL Playground, with some exceptions
@@ -82,7 +78,8 @@ Notice that the key for this JSON token is different than the value that the
 generate token has. It is `X-Cassandra-Token`, not `auth-token`.
 ====
 
-Now run the mutation to create the keyspace. You should see a return value of:
+Now run the mutation to create the keyspace.
+You should see a return value of:
 
 [source, plaintext]
 ----
@@ -265,8 +262,8 @@ Directives in example:
 in the underlying database table.
 // end::CreateUDT[]
 
-// tag::CreateIndexes[]
-=== Create indexes
+// tag::CreateIndex[]
+=== Create an index
 
 Cassandra supports indexing any regular, non-primary key fields in an object type.
 Any field designated as a partition key or clustering column cannot be indexed,
@@ -296,7 +293,7 @@ The directive `@cql_index` has the following optional arguments:
 | target | VALUES | Specifies set and list index type. Options are FULL and VALUES.
 | options | N/A | Any options to pass to the underlying index query.
 |====
-// end::CreateIndexes[]
+// end::CreateIndex[]
 
 // tag::CreateQueries[]
 === Create queries
@@ -667,7 +664,7 @@ The keyspace name and schema version must be supplied.
 One option is available, `force`, to force an erasure of the schema.
 // end::UndeploySchema[]
 
-== Interact with data stored in tables
+== Interact with data stored in objects
 
 // tag::WriteData[]
 === Insert data
@@ -677,7 +674,7 @@ If you have created schema for insertion, now you are ready to write data into t
 First, let's navigate to your new keyspace `library` inside the playground.
 Change the location to
 http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
-and add a couple of books to the `book` table:
+and add a couple of books:
 
 [tabs]
 ====
@@ -701,8 +698,10 @@ include::example$result/gql_1insert2Books.result[]
 ====
 
 The insertion is straightforward.
-The title and author are specified, and the title is returned in response to a successful insertion.
-Only the required fields must be specified, and any fields can be returned in the response.
+The title and author are specified, and the title is returned in response to a
+successful insertion.
+Only the required fields must be specified, and any fields can be returned in
+the response.
 This same operation can update stored data, as insertions are upserts in all cases.
 
 // LLP: ********** I  NEED TO ADD A CONDITIONAL IFNOTEXISTS INSERT! ********
@@ -909,10 +908,6 @@ The filters available are:
 | LTE (less than or equal to) | clustering key
 | CONTAINS | regular indexed field that is a list and has an index target of VALUES
 |====
-
-//* notEq (not equal)
-//* containsKey (a map contains the specified key)
-//* containsEntry (a map contains the specified key:value pair)
 
 IN example, that finds the books that are listed in the supplied array:
 [tabs]
@@ -1205,18 +1200,90 @@ include::example$result/gql_1deleteLibColl.result[]
 // tag::Directives[]
 == Directives
 
+[cols="20h,~,~"]
 |===
 | Name | Description | Arguments
-| @cql_column | Set type field CQL values | name, partitionKey, clusteringOrder, typeHint
-| @cql_delete | Conditional delete clause | if Exists: true
-| @cql_entity | Set a type field data type | name, target (UDT)
-| @cql_payload | Identify a type as a payload type | N/A
-| @cql_index | Create a type field index | name, class (org.apache.cassandra.index.sasi.SASIIndex), type, options (mode: 'CONTAINS')
-| @cql_input | Identify a type as an input type | N/A
-| @cql_insert | Add a conditional clause | ifNotExists: true
+| @cql_column | Set type field CQL values
+a|
+name: String
+
+partitionKey: true/false
+
+clusteringOrder: ASC/DESC
+
+typeHint: String
+| @cql_delete | Conditional delete clause, with possible consistency level, serial consistency level, or targetEntity
+a|
+if Exists: true/false
+
+consistencyLevel: MutationConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM
+
+serialConsistency: SerialConsistency = LOCAL_SERIAL/SERIAL
+
+targetEntity: String
+| @cql_entity | Set a type field data type
+a|
+name: String
+
+target (UDT)
+| @cql_increment | Set a type field that will increment on UPDATE
+a|
+field to increment (counter, set, and list only): String
+
+The default is false, meaning that the value will be appended
+
+prepend: Boolean = false
+| @cql_if | Set a type field that the predicate `if <field> <predicate` uses to check condition for  DELETE and UPDATE.
+a|
+field: String
+predicates (EQ, GT, GTE, IN, GT, LTE, and NEQ)
+| @cql_index | Create a type field index
+a|
+name: String
+
+class: (org.apache.cassandra.index.sasi.SASIIndex)
+
+type: (FULL, VALUES)
+
+options: (mode: 'CONTAINS')
+
+target: String
+| @cql_input | Identify a type as an input type | name (optional): String
+| @cql_insert | Add a conditional clause, consistency level, serial consistency level, or time-to-live (TTL)
+a|
+ifNotExists: true/false
+
+consistencyLevel: MutationConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM
+
+serialConsistency: SerialConsistency = LOCAL_SERIAL/SERIAL
+
+ttl: String (interpreted in seconds)
 | @cql_pagingState | The paging state to inject in the query | N/A
-| @cql_select | Set response arguments | pageSize, limit
-| @cql_update | Set an insertion to be an update | N/A
-| @cql_where | Predicates that customize the conditions of a parameter | field, predicate (EQ (default), IN, GT, GTE, LT, LTE, CONTAINS)
+| @cql_payload | Identify a type as a payload type | N/A
+| @cql_select | Set response arguments pageSize, limit, with possible consistencyLevel
+a|
+consistencyLevel: QueryConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM/LOCAL_SERIAL/SERIAL
+
+pageSize: Int
+
+limit: Int
+| @cql_update | Set an insertion to be an update, with possible conditional clause, consistency level, serial consistency level, time-to-live (TTL), or targetEntity
+a|
+ifExists: true/false
+
+consistencyLevel: MutationConsistency = ALL/LOCAL_ONE/LOCAL_QUORUM
+
+serialConsistency: SerialConsistency = LOCAL_SERIAL/SERIAL
+
+ttl: String (interpreted in seconds)
+
+targetEntity: String
+| @cql_where | Predicates that customize the conditions of a parameter
+a|
+field: String
+
+predicate (EQ (default), GT, GTE, IN, LT, LTE, CONTAINS)
 |===
+
+include::partial$curl_cql_directive.adoc[]
 // end::Directives[]

@@ -31,9 +31,11 @@ include::partial$gen_auth_token.adoc[]
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
-// LLP - 05.07.21 These two sections are in graphql.adoc
-//include::graphql.adoc[tag=UsingGraphQLPlayground]
-//include::graphql.adoc[tag=UsingPostman]
+// LLP -08.05.21 Do I need a modified note of this partial for cql-first?
+// include::partial$curl_and_graphQL.adoc[]
+
+All examples on this page will use the GraphQL Playground, with some exceptions
+using cURL commands.
 
 == Create or delete schema
 
@@ -78,7 +80,8 @@ Notice that the key for this JSON token is different than the value that the
 generate token has. It is `X-Cassandra-Token`, not `auth-token`.
 ====
 
-Now run the mutation to create the keyspace. You should see a return value of:
+Now run the mutation to create the keyspace.
+You should see a return value of:
 
 [source, plaintext]
 ----
@@ -113,7 +116,7 @@ include::example$result/gql_getKs.result[]
 ====
 // end::CheckKS[]
 
-// tag::DropKS[]
+// tag::DeleteKS[]
 === Delete a keyspace
 
 You can delete a keyspace. All tables and table data will be deleted along with
@@ -123,56 +126,44 @@ the keyspace schema.
 ----
 include::example$graphql/dropKeyspace.graphql[]
 ----
-// end::DropKS[]
+// end::DeleteKS[]
 
-// tag::CreateUDT[]
-=== Create a user-defined type (UDT)
+=== A note about what schema is
 
-Optional user-defined types (UDTs) can be created and used in table definitions.
-This example creates a UDT called `address_type` that includes a street, city,
-state, and zipcode.
-If you plan to use UDTs as a data type for columns in your table, create the UDT
-first.
+A full GraphQL table schema can include user-defined types (UDTs) and indexes.
+Queries and mutations are automatically generated based on the schema.
+The next sections describes the definition of these items.
 
-[tabs]
-====
-graphQL command::
-+
---
-[source,shell]
-----
-include::example$graphql/createUDT.graphql[]
-----
---
+// tag::DataTypes[]
+=== Data types
 
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/gql_createUDT.result[]
-----
---
-====
+A column's CQL data type is inferred from the GraphQL table column type.
+GraphQL's built-in scalar types are mapped:
 
-// end::CreateUDT[]
+[options="header",footer"]
+|====
+| GraphQL | CQL
+| ID      | uuid
+| String  | varchar
+| Int     | int
+| Float   | double
+| Boolean | boolean
+|====
 
-// tag::DropType[]
-=== Delete a user-defined type (UDT)
+In addition, Stargate provides a set of custom scalar types that map directly
+to the CQL types of the same name:
+Uuid, TimeUuid, Inet, Date, Duration, BigInt, Counter, Ascii, Decimal, Varint,
+Float32, Blob, SmallInt, TinyInt, Timestamp, Time, Set, List, Map, Tuple.
 
-You can delete a UDT. All tables that use the UDT must first be deleted.
-
-[source, plaintext]
-----
-include::example$graphql/dropType.graphql[]
-----
-// end::DropType[]
+Lastly, xref:graphql-using.adoc#_create_a_user_defined_type_udt[user-defined types (UDTs)]
+are supported.
+// end::DataTypes[]
 
 // tag::CreateTable[]
 === Create a table
 
-After the keyspace exists, you can create two tables by executing the following
-mutation:
+After the keyspace exists, you can create a table by executing mutations.
+For this example, two tables are created:
 
 [tabs]
 ====
@@ -199,18 +190,13 @@ It is worth noting that one mutation is used to create two tables.
 Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 
-The second table, `reader`, also defines a column using a xref:graphql-using.html#_creating_a_user-defined_type (UDT)[user-defined type (UDT)].
+The second table, `reader`, also defines a column using a
+xref:graphql-using.adoc#_creating_a_user-defined_type (UDT)[user-defined type (UDT)].
 
 include::partial$GQLNaming.adoc[]
 // end::CreateTable[]
 
-==== Data types
-
 // tag::CreateAdvTable[]
-
-Tables can be created with an option `ifNotExists`.
-They can also be created with collections (set, list, map), tuples, and UDTs.
-
 ==== IF NOT EXISTS option
 
 A table can be created with an option `ifNotExists` that will only create the
@@ -237,8 +223,8 @@ include::example$result/gql_createTableIfNotExists.result[]
 --
 ====
 
-One of these tables includes creating a column with the data type `LIST`, an ordered
-collection of text values.
+One of these tables includes creating a column with the data type `LIST`, an
+ordered collection of text values.
 // end::CreateAdvTable[]
 
 ==== Collection (set, list, map) columns
@@ -267,7 +253,7 @@ include::example$result/gql_createMapTable.result[]
 ====
 
 This example shows a map. A previous example shows a list.
-In the next example, a set will be used.
+In the next example, a set will be defined.
 
 // tag:AddColumns[]
 === Add columns to table schema
@@ -414,11 +400,55 @@ include::example$result/gql_dropTableIfExists.result[]
 ====
 // end::DropAdvTable[]
 
+// tag::CreateUDT[]
+=== Create a user-defined type (UDT)
+
+Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called `address_type` that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source,shell]
+----
+include::example$graphql/createUDT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createUDT.result[]
+----
+--
+====
+
+// end::CreateUDT[]
+
+// tag::DropType[]
+=== Delete a user-defined type (UDT)
+
+You can delete a UDT. All tables that use the UDT must first be deleted.
+
+[source, plaintext]
+----
+include::example$graphql/dropType.graphql[]
+----
+// end::DropType[]
+
 // tag::CreateIndex[]
 === Create an index
 
-Tables can contain partition keys and clustering keys, both of which define the
-primary key. A table can also include non-primary keys.
+Cassandra supports indexing any regular, non-primary key columns in a table.
+Any column designated as a partition key or clustering column cannot be indexed,
+unless DataStax Enterprise is the defined database.
 
 If you wish to create a table query that uses anything other than the partition key
 to define which row or rows are to be retrieved, a column index must be created
@@ -468,7 +498,8 @@ include::example$result/gql_createIndexes.result[]
 --
 ====
 
-Here is an additional example, which creates indexes that could be used in the REST API examples:
+Here is an additional example, which creates indexes that could be used in the
+REST API examples:
 
 [tabs]
 ====
@@ -520,7 +551,7 @@ The `cqlsh` tool can be used to create the indexes if desired.
 //SAI does not support tuples. Searches using SAI do not support the operator `$in`.
 //
 
-// end::CreateIndexes[]
+// end::CreateIndex[]
 
 // tag::DeleteIndex[]
 === Delete an index
@@ -705,7 +736,7 @@ query and mutation types that can be used to interact with the table data.
 // end::APIGeneration[]
 
 // tag::WriteData[]
-=== Write data
+=== Insert data
 
 Any of the created APIs can be used to interact with the GraphQL data, to write
 or read data.
@@ -881,7 +912,7 @@ include::example$result/gql_insertReaderWithUDT.result[]
 // end::WriteAdvData[]
 
 // tag::ReadData[]
-=== Read data
+=== Retrieve data
 
 Let's check that the data was inserted.
 
@@ -889,7 +920,7 @@ Let's check that the data was inserted.
 
 Now let's search for a particular record using a `WHERE` clause. The primary
 key of the table can be used in the `WHERE` clause, but non-primary key columns
-cannot be used.
+cannot be used unless indexed.
 The following query, looking at the location
 http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
 will get both the `title` and the `author` for the specified book `WHERE
@@ -991,18 +1022,27 @@ include::example$result/gql_readOneGoldBadge.result[]
 ====
 ==== Filter options for reading
 
+It's possible to customize the condition of each parameter with `WHERE`
+with the following arguments:
+
+* column: the GraphQL column name to which the condition applies
+* predicate: the conditional predicate to use
+
 The filters available are:
 
-* eq (equal)
-* notEq (not equal)
-* gt (greater than)
-* gte (greater than or equal to)
-* lt (less than)
-* lte (less than or equal to)
-* in (within)
-* contains (a map contains the specified value)
-* containsKey (a map contains the specified key)
-* containsEntry (a map contains the specified key:value pair)
+|====
+| Predicate | columns that can have condition applied
+| eq (equal) | partition key, clustering column, regular indexed column
+| notEq (not equal) | partition key, clustering column, regular indexed column; allowed in conditional updates, but not selects
+| in (within)  | partition key, clustering column, regular indexed column
+| gt (greater than) | clustering column
+| gte (greater than or equal to) | clustering column
+| lt (less than) | clustering column
+| lte (less than or equal to) | clustering column
+| contains | regular indexed column  that is a , set or list, and has an index target of VALUES
+| containsKey | map contains the specified key
+| containsEntry | map contains the specified key:value pair
+|====
 
 Note that these can only be used with primary key columns, just like in Cassandra, unless
 indexing is created.
