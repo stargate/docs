@@ -236,7 +236,6 @@ paths:
        - $ref: "#/components/parameters/fields"
        - $ref: "#/components/parameters/page-size"
        - $ref: "#/components/parameters/page-state"
-       - $ref: "#/components/parameters/sort"
        - $ref: "#/components/parameters/raw"
      responses:
        200:
@@ -829,15 +828,6 @@ components:
      examples:
        default:
          value: "name, email"
-   sort:
-     name: sort
-     in: query
-     description: keys to sort by
-     schema:
-       type: object
-     examples:
-       default:
-         value: { "documentId": "asc", "name": "desc" }
    page-state:
      name: page-state
      in: query
