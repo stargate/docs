@@ -26,8 +26,6 @@ paths:
      summary: Create an auth token
      description: Create an authorization token.
      operationId: createToken
-     parameters:
-       - $ref: "#/components/parameters/pretty"
      requestBody:
        content:
          application/json:
@@ -55,7 +53,6 @@ paths:
      summary: Create a collection
      operationId: createCollection
      parameters:
-       - $ref: "#/components/parameters/pretty"
        - $ref: "#/components/parameters/X-Cassandra-Token"
        - $ref: "#/components/parameters/namespace-id"
      requestBody:
@@ -95,7 +92,6 @@ paths:
      summary: List collections in a namespace
      operationId: listCollections
      parameters:
-       - $ref: "#/components/parameters/pretty"
        - $ref: "#/components/parameters/X-Cassandra-Token"
        - $ref: "#/components/parameters/namespace-id"
        - $ref: "#/components/parameters/raw"
@@ -129,7 +125,6 @@ paths:
      summary: Get a collection
      operationId: getCollection
      parameters:
-       - $ref: "#/components/parameters/pretty"
        - $ref: "#/components/parameters/X-Cassandra-Token"
        - $ref: "#/components/parameters/namespace-id"
        - $ref: "#/components/parameters/collection-id"
@@ -164,7 +159,6 @@ paths:
 #      parameters:
 #        - $ref: "#/components/parameters/databaseId"
 #        - $ref: "#/components/parameters/region"
-#        - $ref: "#/components/parameters/pretty"
 #        - $ref: "#/components/parameters/X-Cassandra-Token"
 #        - $ref: "#/components/parameters/namespace-id"
 #        - $ref: "#/components/parameters/collection-id"
@@ -205,7 +199,6 @@ paths:
      summary: Delete a collection
      operationId: deleteCollectionSchema
      parameters:
-       - $ref: "#/components/parameters/pretty"
        - $ref: "#/components/parameters/X-Cassandra-Token"
        - $ref: "#/components/parameters/namespace-id"
        - $ref: "#/components/parameters/collection-id"
@@ -228,7 +221,6 @@ paths:
      summary: Search for documents in {collection-id}
      operationId: searchDoc
      parameters:
-       - $ref: "#/components/parameters/pretty"
        - $ref: "#/components/parameters/X-Cassandra-Token"
        - $ref: "#/components/parameters/namespace-id"
        - $ref: "#/components/parameters/collection-id"
@@ -269,7 +261,6 @@ paths:
      summary: Add a new document to {collection-id}
      operationId: addDoc
      parameters:
-       - $ref: "#/components/parameters/pretty"
        - $ref: "#/components/parameters/X-Cassandra-Token"
        - $ref: "#/components/parameters/namespace-id"
        - $ref: "#/components/parameters/collection-id"
