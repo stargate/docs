@@ -387,6 +387,21 @@ The auth-table-based-service uses the generated auth token to allow Stargate
 API queries access to the Cassandra data.</p>
 </div>
 <div class="paragraph">
+<p>By default, the token persists for 30 minutes with a sliding window. Each use of the token to authenticate resets the
+30 minute window. A token created and used after 29 minutes will authenticate a request, but if 31 minutes passes before
+use, the token will no longer exist.</p>
+</div>
+<div class="paragraph">
+<p>The length of time to persist the token is configurable using the system property stargate.auth_tokenttl. For example,
+set the token to persist for 100 seconds:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">JAVA_OPTS='-Dstargate.auth_tokenttl=100' ./starctl \
+--developer-mode --cluster-name test --cluster-version 3.11 --enable-auth</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>The step below uses <code>cURL</code> to access the REST interface to generate the needed
 token.</p>
 </div>
