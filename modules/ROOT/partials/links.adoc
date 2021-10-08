@@ -1,0 +1,147 @@
+==  Links
+
+There are two kind of links:
+
+* External links that reference content outside the documentation
+* Internal links that reference content inside the documentation
+
+
+=== External Links
+
+Prefix: `link:`
+
+Reference: link:https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#links[AsciiDoctor Links]
+
+A `link` follows this style: `http(s)://domain/#section[Printed Name]`
+
+Where `#section` and `[Printed Name]` are optional components.
+
+The `link:` prefix is **only** needed when the target is not a URI.
+That's because the URI protocol is an implicit macro;
+ in other words, http(s): is recognized as a macro prefix of an implicit link.
+
+Example:
+`https://github.com/stargate/docs/best-practices.adoc#_links[Links in the Best Practices doc]`
+
+A URL may not display correctly when it contains characters such as underscores (\_)
+or carets (\^)
+Please see link:https://asciidoctor.org/docs/user-manual/#complex-urls[Troubleshooting Complex URLs how to solve that.
+
+This is an example of an URL containing problematic characters which needs special treatment:
+`https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)`
+
+AsciiDoc files can also use page-specific or global attributes to provide links.
+Using such links greatly improves readability while authoring the document.
+
+[source, plaintext]
+----
+= The Page Header
+:internal-link-name-url: https://example.com/content/link_can_be_very_long
+
+Text {internal-link-name-url}[highlighted text] text.
+----
+
+It is important that `:internal-link-name-url:` is placed directly below the page header.
+Any number of these link attributes can be added.
+As a matter of good practice, end your link attribute names with `-url`.
+
+.NOTE
+====
+If you want to prevent automatic linking of a URL, prepend it with a backslash (\\).
+This will create text but not a clickable link and can be used for example URLs.
+This method helps prevent false positives when checking broken links.
+For example:
+
+[source, plaintext]
+----
+This is an example of an unlinked web address: \http://example.com
+----
+The above example renders as: `This is an example web address: \http://example.com`
+with no clickable link.
+====
+
+See https://docs.antora.org/antora/2.3/asciidoc/external-urls/#troubleshooting-urls[Troubleshooting URLs]
+for more possibilities.
+
+=== Internal Links
+
+Prefix: `xref:`
+
+Reference: https://asciidoctor.org/docs/user-manual/#xref[Cross Reference]
+
+Arguably one of the most powerful features of AsciiDoc, an internal link called
+a `cross reference` can link to:
+
+* an in-page reference
+* another documentation file, even in another repository
+* a section title or anchor name inside a documentation file
+
+All content you want to reference **must be** inside the directory structure of `modules/`
+in one of the repositories used to build the documentation.
+
+An `xref` is usually written in the following example style:
+
+[source, plaintext]
+----
+xref:module_name:<path>/file.adoc#section[Printed Name
+----
+
+Where `module_name:`, `#section` and `[Printed Name]` are optional components.
+`module_name:` is mandatory when referenced content is not in the same module.
+`<path>` is the relative path via the module name to your referenced file.
+
+You can reference a section or an anchor inside the same file, another file,
+or another module.
+Section titles automatically create references, where the text is converted to
+lowercase characters and all special characters including an underscore are
+converted to a dash (`_`).
+
+You can create anchors manually anywhere in the page by using following methods:
+
+* text `[[anchor-name]]` text (anchor-name will not be printed, it is only the reference point)
+* text `[#anchor-name]#Anchor text to be referenced to#` text (Anchor text will be printed)
+
+Reference Examples:
+
+- This example references a section title inside the same document:
+
+[source, plaintext]
+----
+xref:section-title[FAQ]
+----
+
+- This example references a manual anchor inside the same document:
+
+[source, plaintext]
+----
+xref:anchor-name[FAQ]
+----
+
+- This example references another file:
+
+[source, plaintext]
+----
+xref:configuration/server/occ_command.adoc[Market app]
+----
+
+- This example references another file and a particular section title:
+
+[source, plaintext]
+----
+xref:configuration/server/occ_command.adoc#apps-commands[Market app]
+----
+
+- This example references another file in another module and a particular section title: <br/>
+
+[source, plaintext]
+----
+xref:admin_manual:configuration/server/occ_command.adoc#apps-commands[Market app]
+----
+
+**Strongly** In general it`s advisable to use a ToC
+([Table of Contents](#table-of-contents)) instead of a list of xref´s.
+
+**Note:** Use a link checker regularly to find broken links to section titles
+or anchors.
+If an anchor link is broken, a build will not report an error as the page
+itself is accessible.

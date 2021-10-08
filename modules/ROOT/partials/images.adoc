@@ -1,0 +1,54 @@
+== Images
+
+Prefix: `image`
+
+Reference: link:https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images[`Images`]
+
+All images must to be stored in a path under `modules`/`module_name`/`assets/images`/`<path>`
+
+An `image` is written in following example style:
+[source, plaintext]
+----
+image:<path>/image_name[Alternative Image Text, options]
+----
+
+Please use the comma as separator for one or more options.
+
+The `options` are optional, but can define attributes, like the sizing of an image,
+(`width=40%`).
+
+[source, plaintext]
+----
+image:configuration/files/encryption1.png[Encryption, width=40%]
+----
+
+There are two ways that an image is treated defined, using either
+`image:` or `image::`
+
+Using `image:` will make the image part of the text written.
+Use this syntax when you want an image to be part of the text flow, like a referenced icon.
+
+Using `image::` will put the image on a new line, centered by default.
+The alignment can be set with `align="center|left|right"`.
+
+**IMPORTANT**
+Please be advised, in case you use an Alternative Image Text, not to use double
+quotes to highlight some text elements.
+Double quotes will be rendered properly when the html documentation is built,
+but creating the pdf will return a warning that the string can not be parsed
+and the complete image link is broken.
+You can avoid that by using single quotes and ticks (not backticks!) instead.
+
+Bad:
+
+[source, plaintext]
+----
+image:enterprise/firewall/firewall-3.png[Protecting files tagged with "Confidential" from outside access]
+----
+
+Good:
+
+[source, plaintext]
+----
+image:enterprise/firewall/firewall-3.png[Protecting files tagged with 'Confidential' from outside access]
+----
