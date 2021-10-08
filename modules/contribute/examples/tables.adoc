@@ -16,8 +16,8 @@
 // end::two-col[]
 
 // tag::adoc[]
-.cbq Shell Commands
-[#table-cbq-shell-commands,cols="1,2,4"]
+.Shell Commands
+[#table-shell-commands,cols="1,2,4"]
 |===
 |Shell Command |Arguments |Description and Examples
 
@@ -45,12 +45,12 @@ cbq> \PUSH -args  [8];
 
 .Resulting variable stack
 ----
-cbq> \SET;
+> \SET;
  Query Parameters :
  Parameter name : args
  Value : [[6,7] [8] [8]]
 ...
-cbq>
+>
 ----
 |===
 // end::adoc[]
@@ -105,6 +105,7 @@ For more information, see xref:server:monitoring:ui-monitoring-statistics.adoc#t
 |The maximum size of a document that can be indexed.
 The default value is set to 20 MB to ensure that all documents get indexed.
 
+// LLP 10.08.21 FIX THIS
 In Couchbase Server version 2.x and earlier, the view engine enforced a limit of 1MB on documents that can be indexed.
 As a result, when the size of a document exceeded the limit, the view engine (in version 2.x) did not index that document.
 

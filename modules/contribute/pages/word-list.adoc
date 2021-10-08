@@ -1,6 +1,8 @@
 = Word List
 :page-topic-type: reference
 
+
+// LLP 10.08.21 NEED TO STRIP OF COUCHBASE TERMS, REPLACE WITH STARGATE TERMS
 [abstract]
 Alphabetical listing of all words needing the attention of a consistent Style Guide, including Stargate terms.
 
@@ -11,11 +13,11 @@ Alphabetical listing of all words needing the attention of a consistent Style Gu
 Nevertheless, there is little room for ambiguity and doubt in enterprise software, and consistent documentation is a great aid to clarity.
 
 [NOTE]
-For items not covered here, refer to the Associated Press Stylebook -- and for spelling, capitalization, and hyphenation, refer to Webster's New World College Dictionary. 
-New Yorker, in particular, presents some interesting alternatives, and we may be open to some discussion, so consider opening a https://issues.couchbase.com/projects/DOC[JIRA ticket] against this document.
+For items not covered here, refer to the Associated Press Stylebook -- and for spelling, capitalization, and hyphenation, refer to Webster's New World College Dictionary.
+New Yorker, in particular, presents some interesting alternatives, and we may be open to some discussion, so consider opening a https://stargate.io/docs/issues[issue] against this document.
 
 == Alphabetical Listing
-<<A>> <<B>> <<C>> <<D>> <<E>> <<F>> <<G>> <<H>> <<I>> <<J>> <<K>> <<L>> <<M>> <<N>> <<O>> <<P>> <<Q>> <<R>> <<S>> <<T>> <<U>> <<V>> <<W>> <<X>> <<Y>> <<Z>> 
+<<A>> <<B>> <<C>> <<D>> <<E>> <<F>> <<G>> <<H>> <<I>> <<J>> <<K>> <<L>> <<M>> <<N>> <<O>> <<P>> <<Q>> <<R>> <<S>> <<T>> <<U>> <<V>> <<W>> <<X>> <<Y>> <<Z>>
 
 
 == Numbers & Symbols
@@ -65,20 +67,20 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 |===
 | Term | Notes
 
-| backend | (noun); back-end (adj) 
-| backup |  (n & adj) back up (v) 
-| [Stargate] Backup Manager | 
+| backend | (noun); back-end (adj)
+| backup |  (n & adj) back up (v)
+| [Stargate] Backup Manager |
 | backward-compatible | (adj)
-| beta release | if used before product name. Beta if used after (e.g., Stargate Server 5.0 Beta) 
-| BI | 
-| bidirectional | 
-| big data | 
+| beta release | if used before product name. Beta if used after (e.g., Stargate Server 5.0 Beta)
+| BI |
+| bidirectional |
+| big data |
 | Blacklist | Do not use -- should be denylist (and allowlist)
 | Blocklist | Use _denylist_
 | blog | always abbreviate weblog to blog
-| bootstrap | 
-| buckets | 
-| Bytes | kB / MB / GB / TB / PB -- note, these are decimal, not x1024. Use KiB / MiB / GiB for 1024, 1 048 576, 1 073 741 824, etc. 
+| bootstrap |
+| buckets |
+| Bytes | kB / MB / GB / TB / PB -- note, these are decimal, not x1024. Use KiB / MiB / GiB for 1024, 1 048 576, 1 073 741 824, etc.
 |===
 
 
@@ -94,8 +96,8 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | `cbcollect` |
 | `cbc` | couchbase CLI tools that come with libcouchbase (LCB). Variety of binaries installed as /usr/bin/cbc*, for example, `cbc-pillowfight`, `cbc-version`
 | `cbq` | product name for query shell
-| `cbtransfer` | 
-| CCCP | Stargate Cluster Connection Protocol 
+| `cbtransfer` |
+| CCCP | Stargate Cluster Connection Protocol
 | CentOS |
 | cheat sheet | is two words
 | checkbox(es) | is one word
@@ -137,7 +139,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | DataOps | (similar styling to DevOps)
 | dataset | (not data set)
 | datacenter replication |
-| datasheet | 
+| datasheet |
 | Data Service | _aka_ KV Service -- _use title case_
 | data store |
 | data structure | not datastructure
@@ -176,7 +178,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | e-payment | (ePayment = PayPal reference only)
 | error-free report | Or the report is error free
 | etc. | Try not to over-use -- try _and so on_
-| Event-Condition -Action model | is used in Stargate developer documentation (most companies use lowercase event-condition-action model) 
+| Event-Condition -Action model | is used in Stargate developer documentation (most companies use lowercase event-condition-action model)
 | Eventing Service | _use title case_
 | extract, transform, load (ETL) operations |
 |===
@@ -247,7 +249,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | Term | Notes
 
 | IaaS |
-| i.e. | use the full stops 
+| i.e. | use the full stops
 | indexes | not indices -- such are the degenerate times in which we live
 | IndexScan |
 | Industry standard | is a noun phrase, so not hyphenated
@@ -255,7 +257,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | in-memory | adj
 | install | (verb), installation (noun)
 | intra-cluster replication |
-| Internet | not internet 
+| Internet | not internet
 | Internet of Things | IoT
 |===
 
@@ -314,21 +316,21 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | MapReduce views | Views Service
 | massively parallel processing (MPP) |
 | Master | avoid master/slave, use primary/secondary
-| Memcached bucket | 
-| memcached | (Early Stargate component) distributed memory object caching system from Memcached 
+| Memcached bucket |
+| memcached | (Early Stargate component) distributed memory object caching system from Memcached
 | memory-optimized indexes (MOI) |
 | metadata |
 | microservices  |
 | microservices architecture |
 | microservices applications |
-| millisecond (ms) | abbreviated with a space 50 ms 
-| mission critical | mission-critical (adj. modifier) 
+| millisecond (ms) | abbreviated with a space 50 ms
+| mission critical | mission-critical (adj. modifier)
 | MongoDB™ | Use the ™
 | multichannel |
 | multi-datacenter |
-| Multi-Dimensional Scaling (MDS) | when referrring to product. When referring to the capability, then it should simply be multi-dimensional scaling. 
+| Multi-Dimensional Scaling (MDS) | when referrring to product. When referring to the capability, then it should simply be multi-dimensional scaling.
 | multilingual |
-| Multi-master | see master 
+| Multi-master | see master
 | multi-model |
 | multi-region |
 | multi-threaded |
@@ -386,7 +388,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | Passlist | Use _allowlist_
 | peer to peer | but hyphate as adj. modifier
 | PDF |
-| Pluggable Authentication Modules (PAM) | 
+| Pluggable Authentication Modules (PAM) |
 | plug-in | hyphenated noun
 | preload |
 |===
@@ -402,7 +404,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | query executor |
 | query monitoring |
 | query planner |
-| query plan visualizer | 
+| query plan visualizer |
 | Query Service | _use title case_
 | query shell | product name is CBQ
 | Query Workbench |
@@ -519,7 +521,7 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | warmup |
 | web | website / webpage
 | Whitelist | should be Allow list
-| whitepaper | 
+| whitepaper |
 | wifi |
 | wip | See _work-in-progress_
 | Work in progress | Do not use as a banner on incomplete pages -- use _under construction_.
@@ -554,6 +556,6 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 |===
 | Term | Notes
 
-| Zendesk | 
+| Zendesk |
 | zip |
 |===

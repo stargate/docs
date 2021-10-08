@@ -1,15 +1,17 @@
 = Get the Site Playbook Project
-:url-git-playbook: https://github.com/couchbase/docs-site
+:url-git-playbook: https://github.com/stargate/docs
 
-The Docs Site playbook project contains the:
+The Stargate docs playbook project contains the:
 
-* staging playbook
-* production playbook
-* site extensions
-* Home docs component
+* site-local playbook
+* site-publish playbook
+//* site extensions
+//* Home docs component
 
-To generate the documentation site on your device, you need its playbook.
+To generate the documentation site on your device, you need the `site-local.yaml` playbook.
 The playbook provides the site configuration to Antora.
+
+// LLP 10.08.21 FIX ALL THIS
 
 == Fork and Clone the Playbook Project
 

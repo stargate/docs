@@ -1,5 +1,0 @@
-== Initial Reading
-
-Here is a good starting point to get a quick Antora overview,
-link:https://matthewsetter.com/antoras-three-core-concepts/[`Three Core Antora Concepts`],
-written by Matthew Setter.

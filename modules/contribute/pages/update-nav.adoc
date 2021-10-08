@@ -7,7 +7,8 @@ When you want visitors to locate a page using the xref:nav-menus-and-files.adoc#
 A navigation file contains one or more unordered AsciiDoc lists.
 Navigation lists must be separated by at least one blank line.
 
-Each navigation list in the Couchbase documentation starts with a category title.
+// LLP 10.08.21 is not true.
+Each navigation list in the Stargate documentation starts with a category title.
 A category is represented by a block title (`.Title of Category`).
 
 On the line directly after the category title is a level 1 list item.
@@ -61,7 +62,7 @@ When adding and editing list items, remember the following:
 +
 [source,asciidoc]
 ----
-** https://support.couchbase.com[Link Text, window=_blank]
+** https://support.datastax.com[Link Text, window=_blank]
 ----
 NOTE: The shorthand syntax (`[Link Text^]`) is not supported for nav links.
 
@@ -70,7 +71,7 @@ When removing a list item, remember the following:
 * If the item had child items, adjust their nesting level as needed.
 * Pages that aren't linked to from a navigation file are still published to the site; they are still indexed by the site search and search engines and can be referenced by any page.
 
-=== Xrefs
+=== Cross-references (xrefs)
 
 Xrefs in a navigation file follow the same rules and structure as xref:cross-references.adoc[xrefs in a page].
 If a page and a navigation file are in the same module, then only specify the page coordinate.
@@ -105,6 +106,7 @@ Write "`and`" as an ampersand (*&*).
 Use title case for the link and regular text in list items.
 Write "`and`" as *and*.
 
+// LLP 10.08.21 Fix the couchbase refs
 .Navigation category, regular, and link text examples
 ----
 .Hello World!
@@ -120,5 +122,5 @@ Write "`and`" as *and*.
 .Settings, Error Handling & Diagnostics
 * xref:tracing-from-the-sdk.adoc[Tracing from the SDK]
 * Getting Help
-** https://support.couchbase.com[Contact Support]
+** https://support.datastax.com[Contact Support]
 ----

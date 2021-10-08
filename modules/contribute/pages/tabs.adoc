@@ -64,5 +64,4 @@ Tab 2 Title::
 This is the content of the second tab.
 ====
 
-See a tabs set in action on the xref:sync-gateway::getting-started.adoc#installation[Sync Gateway Getting Started page].
-// https://docs-staging.couchbase.com/home/index.html
+See a tabs set in action on the link:https://stargate.io/docs/stargate/1.0/developers-guide/document-using.html#_creating_a_namespace[Creating a namespace].

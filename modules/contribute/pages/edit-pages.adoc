@@ -1,4 +1,4 @@
-= Edit Existing Documentation
+= Edit existing documentation
 
 The following sections describe the document editing process using the Atom editor; however, you can write AsciiDoc in the plain text editor or integrated development environment (IDE) of your choice.
 
@@ -19,7 +19,7 @@ A basic preview of the rendered document is displayed in an adjacent pane.
 When your edits are complete, you're ready to xref:test-site.adoc[configure a local playbook] to use your changes and build the site on your device.
 
 [#edit-server]
-== Editing a Page in the Server Component
+== Editing a page in the Server Component
 
 Let's step through editing a Server component page using Atom.
 Now that the documentation has been converted from DITA, you can use all of the features of AsciiDoc to enhance the content and structure of the pages.

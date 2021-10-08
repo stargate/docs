@@ -1,9 +1,0 @@
-== File Locations
-
-* All documents are written into the directory `modules`/`module_name`/`pages`/`<path>`
-* All images are written into the directory `modules`/`module_name`/`assets/images`/`<path>`
-* All examples are written into the directory `modules`/`module_name`/`examples`/`<type>`/`<path>`
-
-When using paths to include, you might need to use the `module_name` when linking to another module,
-but you must not use `pages`, `assets/images` or `examples` as the path component, only `<path>`.
-See the examples in the relevant sections.

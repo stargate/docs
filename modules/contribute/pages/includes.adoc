@@ -1,5 +1,5 @@
 = Include Examples and Partials
-:url-docs-antora: https://docs.antora.org/antora/2.0
+:url-docs-antora: https://docs.antora.org/antora/2.3
 :url-docs-adoc: https://asciidoctor.org/docs/user-manual
 :url-resource: {url-docs-antora}/page/resource-id/
 :url-include-example: {url-docs-antora}/asciidoc/include-example/
@@ -11,11 +11,15 @@
 
 == Example Files
 
-Examples are non-AsciiDoc files that contain reusable content, such as source code or programmatic output, that is often inserted into xref:code-blocks.adoc[code blocks].
+Examples are non-AsciiDoc files that contain reusable content, such as source code
+or programmatic output, that is often inserted into xref:code-blocks.adoc[code blocks].
 They're saved in the xref:component-configuration.adoc#examples-dir[_examples_ directory of a module].
-Regardless of an example's source module, it can be inserted into any standard page in your documentation site using the include directive and the example file's resource ID.
+Regardless of an example's source module, it can be inserted into any standard
+page in your documentation site using the include directive and the example file's resource ID.
 
-.Include directive and example resource ID structure
+.Include directive and example resource ID structure:
+
+[source, plaintext]
 ----
 \include::version@component:module:example$file.ext[]
 ----
@@ -24,35 +28,46 @@ Regardless of an example's source module, it can be inserted into any standard p
 
 Partials are AsciiDoc files that contain reusable snippets of content.
 They're saved in the xref:component-configuration.adoc#partials-dir[_partials_ directory of a module].
-Regardless of a partial's source module, it can be inserted into any standard page in your documentation site using the include directive and the partial file's resource ID.
+Regardless of a partial's source module, it can be inserted into any standard page
+in your documentation site using the include directive and the partial file's resource ID.
 
-.Include directive and partial resource ID structure
+.Include directive and partial resource ID structure:
+
+[source, plaintext]
 ----
 \include::version@component:module:partial$file.adoc[]
 ----
 
 == Insert an Example or a Partial
 
-An entire example or partial (or a portion of) is inserted into a page using the include directive and file's resource ID.
+An entire example or partial (or a portion of) is inserted into a page using the
+include directive and file's resource ID.
 A {url-resource}[resource ID^] is just like a page ID, but it has an extra coordinate, `family$`.
 The family coordinate for examples is `example$` and `partial$` for partials.
-Like the xref:cross-references.adoc[page ID in an xref], the more a page and the partial or example are related, the less coordinates you have to specify.
+Like the xref:cross-references.adoc[page ID in an xref], the more a page and
+the partial or example are related, the less coordinates you have to specify.
 
-.Include from the same module
+.Include from the same module:
+
+[source, plaintext]
 ----
-\include::example$output/query-max.json[]
+\include::example$result/gql_getKs.result[]
 
-\include::partial$cli-options.adoc[]
-----
-
-.Include from the same component, different modules
-----
-\include::ROOT:example$HelloWorld.java[]
-
-\include::security:partial$mode-definitions.adoc[]
+\include::partial$astra_tip.adoc[]
 ----
 
-.Include from different components
+.Include from the same component, different modules:
+
+[source, plaintext]
+----
+\include::ROOT:example$random.java[]
+
+\include::developers-guide:partial$docker_run.adoc.adoc[]
+----
+
+.Include from different components:
+
+[source, plaintext]
 ----
 \include::4.5@tree::example$extension.js[]
 
@@ -64,32 +79,33 @@ Like the xref:cross-references.adoc[page ID in an xref], the more a page and the
 
 To include a snippet of content from an example or partial (instead of the whole file), use the `tag` directive.
 
-.Tagging content in a partial file
+.Tagging content in a partial file:
+
+[source, plaintext]
 ----
-This page discusses how to develop Stargate applications to function in times of node or network failure.
+// tag::CreateKS[] <1> <2>
+=== Create a keyspace
 
-// tag::failover-definition[] <1> <2>
---
-Failover is the means by which a node is removed from the cluster and all its owned vBuckets are immediately:
+Before you can start using the GraphQL API, you must first create a Cassandra
+keyspace in your database. The keyspace is a container that stores data
+with replication.
 
-* Transferred to a replica node (if there are replica nodes)
-* Marked offline (if there are no replica nodes).
---
-// end::failover-definition[] <3> <4>
+// end::CreateKS[]<3> <4>
 ----
 <1> To indicate the start of a tagged region, insert a comment line (`+//+`) in the file.
 <2> Assign a unique name to the region in the `tag` directive, followed by a set of square brackets (`[]`).
-In this example the tag is called _failover-definition_.
+In this example the tag is called _CreateKS_.
 <3> Insert a comment line where you want the tagged region to end.
 <4> Assign the name of the region you want to terminate to the `end` directive.
 
 To insert a tagged region into a page, enter the resource ID and tag attribute in the include directive.
 
-.Include a tagged region of a partial into a page in another component
-----
-If you received this error message, you might have a failover condition.
+.Include a tagged region of a partial into a page in another component:
 
-\include::6.0@sdk-common:shared:partial$env-errors.adoc[tag=failover-definition]
+[source, plaintext]
+----
+// create keyspace
+\include::developers-guide:page$rest-using.adoc[tag=CreateKS]
 ----
 
 Code regions in example files can be tagged using the language's comment syntax before `tag` and `end`.
@@ -105,12 +121,14 @@ For example, if you tag code in a YAML file, place a hash (`+#+`) before the tag
     - public/
 ----
 
+// LLP 10.08.21 Need to decide on developer preview partial and whether it would be useful
 == Stargate Documentation Partials
 
 === Developer Preview Partial
 
 To call out a section of a page as Developer Preview, use the `developer-preview` partial.
-Otherwise if the whole page is Developer Preview content, you can use the xref:attributes-and-roles.adoc#custom-page-attributes[page-status] attribute.
+Otherwise if the whole page is Developer Preview content, you can use the
+xref:attributes-and-roles.adoc#custom-page-attributes[page-status] attribute.
 
 ----
 \include::home:ROOT:partial$developer-preview.adoc[]

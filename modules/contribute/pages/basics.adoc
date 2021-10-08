@@ -1,5 +1,5 @@
 = AsciiDoc Basics
-:url-docs-antora: https://docs.antora.org/antora/2.0
+:url-docs-antora: https://docs.antora.org/antora/2.3
 :url-docs-adoc: https://asciidoctor.org/docs/user-manual
 :url-pages: {url-docs-antora}/page/
 :url-tables: {url-docs-adoc}/#tables
@@ -168,6 +168,7 @@ image::console-login.png[,280,align=left]
 
 Renders as:
 
+// LLP 10.08.21 REPLACE WITH A STARGATE EXAMPLE
 image::console-login.png[,280,align=left]
 
 The inline image macro, indicated by a single colon (`:`), is used for displaying small images and icons directly in the flow of a sentence.

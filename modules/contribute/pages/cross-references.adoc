@@ -57,28 +57,29 @@ To link to a page in a different component, you need to know the destination com
 [source,asciidoc]
 xref:component-name:module-name:name-of-file.adoc[link text]
 
-The component's name is located in the xref:component-configuration.adoc#config[component descriptor file, _antora.yml_], which is found in the destination component's repository.
+The component's name is located in the xref:component-configuration.adoc#config[component descriptor file, _antora.yaml_],
+which is found in the destination component's repository.
 
-.antora.yml in docs-server repository
+.antora.yaml in docs repository
 [source,yaml]
 ----
-name: server # <1>
-title: Couchbase Server
-version: '5.5'
+name: docs # <1>
+title: Stargate Docs
+version: 'latest'
 start_page: introduction:intro.adoc
 nav:
 - modules/ROOT/nav.adoc
 ----
 <1> Component name that you use in xrefs.
 
-To link from this page, to the What's New? page in the server component, you write:
+To link from this page, to the What's New? page in the another component, you write:
 
 [source,asciidoc]
-xref:server:introduction:whats-new.adoc[What's new] in Couchbase Server?
+xref:server:introduction:whats-new.adoc[What's new] in Stargate?
 
 This renders as:
 
-xref:server:introduction:whats-new.adoc[What's new] in Couchbase Server?
+xref:server:introduction:whats-new.adoc[What's new] in Stargate?
 
 [#link-to-element]
 == Link to an Element in a Page
