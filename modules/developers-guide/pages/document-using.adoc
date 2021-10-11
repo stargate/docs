@@ -394,7 +394,63 @@ include::example$result/docapi_curl_get_all_docs.result[]
 
 The `page-size` parameter is included to get all the documents, rather than the
 last inserted document.
-The `pageState` is useful for pagination of the results in queries.
+
+==== Retrieving all documents with Paging
+With a collection of many documents it can be helpful to page through only
+a subset of the results at a time. For this example, we will use a `page-size`
+of 5. Start by sending a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}page-size=5` to
+retrieve first page of documents in the collection:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_all_docs_w_paging_1.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs_w_paging_1.result[]
+----
+--
+====
+
+To get the next 5 documents re-run the same request, but add the `page-state`
+parameter along with the value returned from the previous results:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_all_docs_w_paging_2.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs_w_paging_2.result[]
+----
+--
+====
+
+Repeat the process for following pages by adding the `page-state` parameter
+returned from each successive result set.
+
+The `page-size` parameter has a default value of 1 and a maximum value of 20.
 
 ==== Retrieving a specified document
 Let's check that the data was inserted for a particular document.
