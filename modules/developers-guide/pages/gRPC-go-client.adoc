@@ -1,0 +1,13 @@
+= gRPC Go Client
+
+include::page$go-setup.adoc[]
+
+include::page$go-connecting.adoc[]
+
+include::page$go-querying.adoc[]
+
+include::page$go-processing.adoc[]
+
+include::page$go-developing.adoc[]
+
+// LLP 10.11.21   need to add the Run the examples, but I need to figure out where it needs to go.

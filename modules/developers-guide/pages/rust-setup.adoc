@@ -1,0 +1,18 @@
+== Rust set-up
+
+.Add required dependencies.
+You'll need at least stargate-grpc and an async framework, e.g. tokio:
+
+[source, rust]
+----
+[devependencies]
+stargate-grpc = { git = "https://github.com/stargate/stargate-grpc-rust-client" }
+tokio = { version = "1", features = ["full"]}
+----
+
+Add the following line to the includes in the source code of your app:
+
+[source, rust]
+----
+use stargate_grpc::*;
+----

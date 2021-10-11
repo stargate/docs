@@ -1,0 +1,21 @@
+== Rust querying
+
+Use QueryBuilder to create a query, bind query values and pass query parameters:
+
+[source, rust]
+----
+let query = QueryBuilder::new()
+    .keyspace("test")                           // set the keyspace the query applies to
+    .consistency(Consistency::LocalQuorum)      // set consistency level
+    .query("SELECT login, emails FROM users WHERE id = :id")
+    .named_value("id", 1000)                    // bind :id to 1000
+    .build();                                   // build the Query
+----
+
+Run the query and wait for its results:
+
+[source, rust]
+----
+let response = client.execute_query(query).await?;  // send the query and wait for gRPC response
+let result_set: ResultSet = response.try_into()?;   // convert the response into ResultSet
+----

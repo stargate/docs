@@ -1,11 +1,27 @@
 = Using the Stargate gRPC API
 
 Stargate is a data gateway deployed between client applications and a database.
-The gRPC API plugin that exposes ???
+The gRPC API plugin exposes ???
 
-include::partial$cql-first-desc.adoc[]
+== Setup
 
-include::partial$GQLAPIBlogPost.adoc[]
+== Connecting
+
+== Querying
+
+=== Standard
+
+=== Batch
+
+== Processing result sets
+
+== Developing
+
+=== Building
+
+=== Testing
+
+== Issue Management (MOVE THIS UP TO CONTRIBUTE SECTION!! SHOULDN'T BE HERE)
 
 // tag::prereqsList[]
 include::partial$gql-prereqs.adoc[]

@@ -1,0 +1,19 @@
+== Rust developing
+
+=== Building
+
+Install Rust toolchain:
+
+[source, shell]
+----
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+----
+
+Run build in the root directory of the project:
+
+[source, shell]
+----
+git clone https://github.com/stargate/stargate-grpc-rust-client stargate-grpc
+cd stargate-grpc
+cargo build
+----

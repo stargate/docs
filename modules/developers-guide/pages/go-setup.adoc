@@ -1,0 +1,37 @@
+== Go set-up
+
+To begin, you'll need to add the necessary dependency to your project
+
+[source, shell]
+----
+go get -u github.com/stargate/stargate-grpc-go-client
+----
+
+If you don't already have access to a Stargate deployment one can be started quickly for testing.
+Use the following Docker command to run Stargate locally in developer mode and expose port 8090 for gRPC connections:
+
+[source, shell]
+----
+docker run --name stargate \
+  -p 8081:8081 \
+  -p 8090:8090 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION=3.11 \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-3_11:v1.0.35
+----
+
+Ensure the local instance of Stargate is running properly by tailing the logs for the container:
+
+[source, shell]
+----
+docker logs -f stargate
+----
+
+When you see this message, Stargate is ready for traffic:
+
+[source, plaintext]
+----
+Finished starting bundles.
+----
