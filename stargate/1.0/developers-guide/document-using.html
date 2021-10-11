@@ -894,11 +894,11 @@ The data is passed in the JSON body.</p>
 <div class="sect2">
 <h3 id="_reading_documents"><a class="anchor" href="#_reading_documents"></a><a class="link" href="#_reading_documents">Reading documents</a></h3>
 <div class="sect3">
-<h4 id="_retrieving_all_documents"><a class="anchor" href="#_retrieving_all_documents"></a><a class="link" href="#_retrieving_all_documents">Retrieving all documents</a></h4>
+<h4 id="_retrieving_a_specified_document"><a class="anchor" href="#_retrieving_a_specified_document"></a><a class="link" href="#_retrieving_a_specified_document">Retrieving a specified document</a></h4>
 <div class="paragraph">
-<p>Let&#8217;s check that the document was inserted. Send a <code>GET</code> request to
-<code>/v2/namespaces/{namespace_name}/collections/{collections_name}</code> to retrieve
-all the documents:</p>
+<p>Let&#8217;s check that the data was inserted for a particular document.
+Send a <code>GET</code> request to <code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}</code>
+to retrieve the document:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -915,72 +915,6 @@ all the documents:</p>
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset9_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "data":{
-     "Joey":{
-	"firstname":"Joey",
-	"lastname":"Doe",
-	"weights":{
-		"reps":15,
-		"type":"bench press",
-		"weight":150
-	}
-     },
-     "Janet":{
-	"email":"janet.doe@gmail.com",
-	"favorite color":"grey",
-	"firstname":"Janet",
-	"lastname":"Doe"
-     },
-     "3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b":{
-	"id":"some-stuff",
-	"other":"This is nonsensical stuff."
-     }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>page-size</code> parameter is included to get all the documents, rather than the
-last inserted document.
-The <code>pageState</code> is useful for pagination of the results in queries.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_retrieving_a_specified_document"><a class="anchor" href="#_retrieving_a_specified_document"></a><a class="link" href="#_retrieving_a_specified_document">Retrieving a specified document</a></h4>
-<div class="paragraph">
-<p>Let&#8217;s check that the data was inserted for a particular document.
-Send a <code>GET</code> request to <code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}</code>
-to retrieve the document:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
-</li>
-<li>
-<p><a id="tabset10_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
 -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
@@ -988,7 +922,7 @@ to retrieve the document:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset10_result">
+<div class="tab-pane" aria-labelledby="tabset9_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1021,15 +955,15 @@ to get the same information:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset11_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset11_result"></a>Result</p>
+<p><a id="tabset10_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"Janet"\}\}' \
@@ -1038,7 +972,7 @@ to get the same information:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset11_result">
+<div class="tab-pane" aria-labelledby="tabset10_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1072,15 +1006,15 @@ to get the same information:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset12_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset11_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset12_result"></a>Result</p>
+<p><a id="tabset11_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"firstname":\{"$eq":"Janet"\},"lastname":\{"$eq":"Doe"\}\}' \
@@ -1089,7 +1023,7 @@ to get the same information:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset12_result">
+<div class="tab-pane" aria-labelledby="tabset11_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1120,15 +1054,15 @@ Also, the full document is returned, as opposed to the value of the field specif
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset13_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset12_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset13_result"></a>Result</p>
+<p><a id="tabset12_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset13_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.type":\{"$eq":"bench%20press"\}\}' \
@@ -1137,7 +1071,7 @@ Also, the full document is returned, as opposed to the value of the field specif
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset13_result">
+<div class="tab-pane" aria-labelledby="tabset12_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1167,15 +1101,15 @@ Here, a numerical value between to values is sought:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset14_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset13_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset14_result"></a>Result</p>
+<p><a id="tabset13_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset14_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset13_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.reps":\{"$gt":12\},"weights.reps":\{"$lt":20\}\}' \
@@ -1184,7 +1118,7 @@ Here, a numerical value between to values is sought:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset14_result">
+<div class="tab-pane" aria-labelledby="tabset13_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1207,11 +1141,77 @@ Here, a numerical value between to values is sought:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_retrieving_a_specific_portion_of_a_document_with_document_path"><a class="anchor" href="#_retrieving_a_specific_portion_of_a_document_with_document_path"></a><a class="link" href="#_retrieving_a_specific_portion_of_a_document_with_document_path">Retrieving a specific portion of a document with document-path</a></h4>
+<h4 id="_retrieving_all_documents"><a class="anchor" href="#_retrieving_all_documents"></a><a class="link" href="#_retrieving_all_documents">Retrieving all documents</a></h4>
 <div class="paragraph">
-<p>To find a particular value, send a <code>GET</code> request to
-<code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}</code>
-to retrieve the type of weights Joey has done in his workout:</p>
+<p>Let&#8217;s check that the document was inserted. Send a <code>GET</code> request to
+<code>/v2/namespaces/{namespace_name}/collections/{collections_name}</code> to retrieve
+all the documents:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset14_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset14_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset14_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?page-size=3' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset14_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data":{
+     "Joey":{
+	"firstname":"Joey",
+	"lastname":"Doe",
+	"weights":{
+		"reps":15,
+		"type":"bench press",
+		"weight":150
+	}
+     },
+     "Janet":{
+	"email":"janet.doe@gmail.com",
+	"favorite color":"grey",
+	"firstname":"Janet",
+	"lastname":"Doe"
+     },
+     "3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b":{
+	"id":"some-stuff",
+	"other":"This is nonsensical stuff."
+     }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>page-size</code> parameter is included to get all the documents, rather than the
+last inserted document.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_retrieving_all_documents_with_paging"><a class="anchor" href="#_retrieving_all_documents_with_paging"></a><a class="link" href="#_retrieving_all_documents_with_paging">Retrieving all documents with Paging</a></h4>
+<div class="paragraph">
+<p>For large collections, you can page a subset of the results. In this example,
+page-size is set to 5. Send a GET request to
+/v2/namespaces/{namespace_name}/collections/{collections_name}page-size=5 to
+retrieve the first five documents (a page) in the collection:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1228,13 +1228,117 @@ to retrieve the type of weights Joey has done in his workout:</p>
 <div class="tab-pane" aria-labelledby="tabset15_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights/type' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request GET 'localhost:8082/v2/namespaces/myworld/collections/books?page-size=5' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset15_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "pageState":"JGNlYjczMDc5LTE1NTItNGQyNS1hM2ExLWE2MzgxNWVlYTAyMADwf_____B_____",
+  "data":{
+    "58b12778-0efd-466e-89bf-66a4c99adee1":{"author":"Tom Clancy","title":"Red Rabbit"},
+    "77fe8690-f8d4-43b8-b1c9-a328318d4eae":{"author":"Tom Clancy","title":"Every Man a Tiger"},
+    "3177f86c-a633-4302-92a5-de4c15ab5840":{"author":"Tom Clancy","title":"Rainbow Six"},
+    "cefc7117-fc73-47b8-a965-099cf3a59269":{"author":"Tom Clancy","title":"Clear and Present Danger"},
+    "ceb73079-1552-4d25-a3a1-a63815eea020":{"author":"Tom Clancy","title":"The Cardinal of the Kremlin"}
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Pay close attention to the <code>pageState</code> value in the results. The <code>pageState</code> is
+a string representation a location in the result set. It is essentially an encoded
+shortcut that allows the final result set to be built from a specific point.</p>
+</div>
+<div class="paragraph">
+<p>In order to get the next five documents, re-run the request with page-state
+parameter set to the first page&#8217;s pageState:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset16_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset16_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset16_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request GET 'localhost:8082/v2/namespaces/myworld/collections/books?page-size=5&amp;page-state=JGNlYjczMDc5LTE1NTItNGQyNS1hM2ExLWE2MzgxNWVlYTAyMADwf_____B_____ \' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset16_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "pageState":"JDUxMzVmMzFiLWY4NDYtNGZiNy1iNmFmLTk2YmU2OTMyNzlmMQDwf_____B_____",
+  "data":{
+    "f42cc7d8-81ba-41d5-b5c9-c13f8d0009c6":{"author":"Tom Clancy","title":"Patriot Games"},
+    "46df315f-7208-4859-af1c-96c4953f70c7":{"author":"Tom Clancy","title":"Without Remorse"},
+    "b23af545-4fdc-4ac5-907a-7132d7429d26":{"author":"Tom Clancy","title":"The Hunt for Red October"},
+    "c6d55ecd-1631-4d5c-8320-d111662f8837":{"author":"Tom Clancy","title":"Executive Orders"},
+    "5135f31b-f846-4fb7-b6af-96be693279f1":{"author":"Tom Clancy","title":"The Sum of all Fears"}
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Repeat the process for following pages by adding the <code>page-state</code> parameter
+returned from each successive result set.</p>
+</div>
+<div class="paragraph">
+<p>The <code>page-size</code> parameter has a default value of 1 and a maximum value of 20.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_retrieving_a_specific_portion_of_a_document_with_document_path"><a class="anchor" href="#_retrieving_a_specific_portion_of_a_document_with_document_path"></a><a class="link" href="#_retrieving_a_specific_portion_of_a_document_with_document_path">Retrieving a specific portion of a document with document-path</a></h4>
+<div class="paragraph">
+<p>To find a particular value, send a <code>GET</code> request to
+<code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}</code>
+to retrieve the type of weights Joey has done in his workout:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset17_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset17_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset17_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights/type' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset17_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Joey","data":"bench press"}</code></pre>
@@ -1252,15 +1356,15 @@ to retrieve the type of weights Joey has done in his workout:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset16_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset18_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset16_result"></a>Result</p>
+<p><a id="tabset18_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset16_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset18_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
@@ -1269,7 +1373,7 @@ to retrieve the type of weights Joey has done in his workout:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset16_result">
+<div class="tab-pane" aria-labelledby="tabset18_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1295,15 +1399,15 @@ to retrieve the type of weights Joey has done in his workout:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset17_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset19_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset17_result"></a>Result</p>
+<p><a id="tabset19_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset17_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset19_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Martha' \
@@ -1321,7 +1425,7 @@ to retrieve the type of weights Joey has done in his workout:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset17_result">
+<div class="tab-pane" aria-labelledby="tabset19_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Martha"}</code></pre>
@@ -1339,15 +1443,15 @@ to retrieve all the users that have, say, weight reps between 11 and 16:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset18_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset20_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset18_result"></a>Result</p>
+<p><a id="tabset20_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset18_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset20_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness?where=\{"weights.*":\{"$gt":11\},"weights.*":\{"$lt":16\}\}&amp;page-size=3' \
@@ -1356,7 +1460,7 @@ to retrieve all the users that have, say, weight reps between 11 and 16:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset18_result">
+<div class="tab-pane" aria-labelledby="tabset20_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1404,15 +1508,15 @@ to replace data to the existing collection. All fields included will be changed.
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset19_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset21_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset19_result"></a>Result</p>
+<p><a id="tabset21_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset19_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset21_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
@@ -1426,7 +1530,7 @@ to replace data to the existing collection. All fields included will be changed.
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset19_result">
+<div class="tab-pane" aria-labelledby="tabset21_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Janet"}</code></pre>
@@ -1442,15 +1546,15 @@ to replace data to the existing collection. All fields included will be changed.
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset20_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset22_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset20_result"></a>Result</p>
+<p><a id="tabset22_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset20_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset22_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Janet' \
@@ -1459,7 +1563,7 @@ to replace data to the existing collection. All fields included will be changed.
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset20_result">
+<div class="tab-pane" aria-labelledby="tabset22_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1502,92 +1606,6 @@ In this example, we want to change just the firstname of the document:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset21_curl-command-v2"></a>cURL command (/v2)</p>
-</li>
-<li>
-<p><a id="tabset21_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset21_curl-command-v2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-      "firstname": "Joseph"
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset21_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Joey"}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>and a <code>GET</code> will show that only the <code>weights</code> has been changed.</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset22_curl-command-v2"></a>cURL command (/v2)</p>
-</li>
-<li>
-<p><a id="tabset22_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset22_curl-command-v2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json'</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset22_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
-  "documentId":"Joey",
-  "data":{
-    "firstname":"Joseph",
-    "lastname":"Doe",
-    "weights":{
-      "reps":15,
-      "type":"bench press",
-      "weight":150
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>To partially update a sub-document,  send a <code>PATCH</code> request to
- <code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}</code>
- in the same manner as the last command, but including only sub-document
- information to change and the <code>document-path</code> of the sub-document. Include
- all fields that you wish to update.</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
 <p><a id="tabset23_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
@@ -1600,13 +1618,11 @@ In this example, we want to change just the firstname of the document:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
+-X PATCH 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
-    "reps": 10,
-    "type": "squat",
-    "weight": 350
+      "firstname": "Joseph"
 }'</code></pre>
 </div>
 </div>
@@ -1646,6 +1662,94 @@ In this example, we want to change just the firstname of the document:</p>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset24_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "documentId":"Joey",
+  "data":{
+    "firstname":"Joseph",
+    "lastname":"Doe",
+    "weights":{
+      "reps":15,
+      "type":"bench press",
+      "weight":150
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To partially update a sub-document,  send a <code>PATCH</code> request to
+ <code>/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}</code>
+ in the same manner as the last command, but including only sub-document
+ information to change and the <code>document-path</code> of the sub-document. Include
+ all fields that you wish to update.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset25_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset25_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset25_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
+-X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+    "reps": 10,
+    "type": "squat",
+    "weight": 350
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset25_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"documentId":"Joey"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>and a <code>GET</code> will show that only the <code>weights</code> has been changed.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset26_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset26_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset26_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
+-X GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset26_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
