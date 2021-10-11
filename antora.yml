@@ -6,6 +6,7 @@ asciidoc:
   attributes:
     sectanchors: ''
     sectlinks: ''
+    experimental: ''
     stargate-docker-tag: v1.0.35
     stargate-docker-tag-3x: v1.0.35
     stargate-docker-tag-40: v1.0.35
@@ -35,3 +36,4 @@ nav:
 - modules/concepts/nav.adoc
 - modules/developers-guide/nav.adoc
 - modules/ROOT/nav.adoc
+- modules/contribute/nav.adoc
