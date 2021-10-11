@@ -1,0 +1,45 @@
+== gRPC Node.js setup
+
+=== Installing
+
+Using NPM:
+
+[source, shell]
+----
+npm i @stargate/stargate-grpc-node-client
+----
+
+Using Yarn:
+
+[source, shell]
+----
+yarn add @stargate/stargate-grpc-node-client
+----
+
+=== Example use
+
+Use the following Docker command to run Stargate locally in developer mode and expose port 8090 for gRPC connections:
+
+[source, shell]
+----
+bash
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 8090:8090 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION=3.11 \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-3_11:v1.0.35
+----
+
+Ensure the local instance of Stargate is running properly by tailing the logs for the container with `docker logs -f stargate`.
+ When you see this message, Stargate is ready for traffic:
+
+ [source, plaintext]
+ ----
+Finished starting bundles.
+----

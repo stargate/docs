@@ -10,4 +10,5 @@ include::page$node-processing.adoc[]
 
 include::page$node-developing.adoc[]
 
+// LLP 10.11.21 - node-connecting.adoc actually includes connecting, querying and processing right now
 // LLP 10.11.21   need to add the Run the examples, but I need to figure out where it needs to go.
