@@ -567,8 +567,7 @@ include::example$result/docapi_curl_get_all_docs_w_paging_1.result[]
 
 Pay close attention to the `pageState` value in the results. The `pageState` is
 a string representation a location in the result set. It is essentially an encoded
-shortcut which allows for the final result set to be built from a specific
-point.
+shortcut that allows the final result set to be built from a specific point.
 
 In order to get the next five documents, re-run the request with page-state
 parameter set to the first page's pageState:
