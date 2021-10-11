@@ -366,36 +366,6 @@ Need to add data types!!
 // tag::ReadBasicData[]
 === Reading documents
 
-==== Retrieving all documents
-Let's check that the document was inserted. Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
-all the documents:
-
-[tabs]
-====
-cURL command (/v2)::
-+
---
-[source,shell]
-----
-include::example$docapi/curl_get_all_docs.sh[]
-----
---
-
-Result::
-+
---
-[source,plaintext, subs="attributes+"]
-----
-include::example$result/docapi_curl_get_all_docs.result[]
-----
---
-====
-
-The `page-size` parameter is included to get all the documents, rather than the
-last inserted document.
-The `pageState` is useful for pagination of the results in queries.
-
 ==== Retrieving a specified document
 Let's check that the data was inserted for a particular document.
 Send a `GET` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
@@ -538,6 +508,96 @@ include::example$result/docapi_curl_get_subdoc_mult_where.result[]
 ----
 --
 ====
+
+==== Retrieving all documents
+Let's check that the document was inserted. Send a `GET` request to
+`/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
+all the documents:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_all_docs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs.result[]
+----
+--
+====
+
+The `page-size` parameter is included to get all the documents, rather than the
+last inserted document.
+
+==== Retrieving all documents with Paging
+For large collections, you can page a subset of the results. In this example,
+page-size is set to 5. Send a GET request to
+/v2/namespaces/{namespace_name}/collections/{collections_name}page-size=5 to
+retrieve the first five documents (a page) in the collection:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_all_docs_w_paging_1.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs_w_paging_1.result[]
+----
+--
+====
+
+Pay close attention to the `pageState` value in the results. The `pageState` is
+a string representation a location in the result set. It is essentially an encoded
+shortcut that allows the final result set to be built from a specific point.
+
+In order to get the next five documents, re-run the request with page-state
+parameter set to the first page's pageState:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$docapi/curl_get_all_docs_w_paging_2.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs_w_paging_2.result[]
+----
+--
+====
+
+Repeat the process for following pages by adding the `page-state` parameter
+returned from each successive result set.
+
+The `page-size` parameter has a default value of 1 and a maximum value of 20.
+
 ==== Retrieving a specific portion of a document with document-path
 
 To find a particular value, send a `GET` request to
