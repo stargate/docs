@@ -1,0 +1,7 @@
+= gRPC API
+
+The Stargate gRPC API is implemented to create language-specific queries
+using CQL with any Cassandra deployment.
+
+* xref:gRPC-using.adoc[Using the gRPC API]
+* xref:gRPC-client-creation.adoc[Creating new Stargate gRPC clients]

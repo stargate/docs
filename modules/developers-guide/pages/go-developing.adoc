@@ -2,10 +2,11 @@
 
 === Testing
 
-The tests for this project can be run from the root using the following command (addition of `-tags integration` will also
-run the integration tests).
+The tests for this project can be run from the root using the following command:
 
 [source, shell]
 ----
-go test ./... -v -tags integration
+include::example$go/go-run-test.go[]
 ----
+
+The addition of `-tags integration` also runs the integration tests.

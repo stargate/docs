@@ -4,39 +4,9 @@ To connect to your Stargate instance, set up the client as follows.
 This example assumes that you're running Stargate locally with the default credentials
 of `cassandra/cassandra`.
 For more information regarding authentication please see the
-[Stargate authentication and authorization docs](https://stargate.io/docs/stargate/1.0/developers-guide/authnz.html).
+link:https://stargate.io/docs/stargate/1.0/developers-guide/authnz.html[Stargate authentication and authorization docs].
 
 [source, go]
 ----
-go
-package main
-
-import (
-	"fmt"
-	"os"
-
-	"github.com/stargate/stargate-grpc-go-client/stargate/pkg/auth"
-	"github.com/stargate/stargate-grpc-go-client/stargate/pkg/client"
-	"google.golang.org/grpc"
-)
-
-var stargateClient *client.StargateClient
-
-func main() {
-	grpcEndpoint := "localhost:8090"
-	authEndpoint := "localhost:8081"
-
-	conn, err := grpc.Dial(grpcEndpoint, grpc.WithInsecure(), grpc.WithBlock(),
-		grpc.WithPerRPCCredentials(auth.NewTableBasedTokenProvider(fmt.Sprintf("http://%s/v1/auth", authEndpoint), "cassandra", "cassandra")))
-	if err != nil {
-		fmt.Printf("error dialing connection %v", err)
-		os.Exit(1)
-	}
-
-	stargateClient, err = client.NewStargateClientWithConn(conn)
-	if err != nil {
-		fmt.Printf("error creating client %v", err)
-		os.Exit(1)
-	}
-}
+include::example$go/go-connect.go[]
 ----

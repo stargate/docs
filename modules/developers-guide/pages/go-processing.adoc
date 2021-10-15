@@ -1,39 +1,16 @@
 == Go processing result set
 
-After executing a query a response will be returned containing rows for a SELECT statement,
-otherwise the returned payload will be unset.
-The convenience function `ToResultSet()` is provided to help transform this response into a ResultSet that's easier to work with.
+After executing a query, a response returns rows that match the SELECT statement.
+If there are no rows, the returned payload is unset.
+The convenience function `ToResultSet()` is provided to help transform this
+response into a result set that's easier to work with.
 
 [source, go]
 ----
-go
-// Insert a record into the table
-_, err = stargateClient.ExecuteQuery(&pb.Query{
-    Cql: "insert into ks1.tbl2 (key, value) values ('a', 'alpha');",
-})
-if err != nil {
-    return err
-}
-
-// Read the data back out
-response, err := stargateClient.ExecuteQuery(&pb.Query{
-    Cql: "select key, value from ks1.tbl2",
-})
-if err != nil {
-	return err
-}
-
-result, err := ToResultSet(response)
-
-// We're calling ToString() here because we know the type being returned. If this was something like a UUID we would use ToUUID().
-key, err := ToString(result.Rows[0].Values[0])
-if err != nil {
-    return err
-}
-
-fmt.Printf("key = %s\n", key)
+include::example$go/go-toResultSet.go[]
 ----
 
-Notice that in the above the `ToString` function is used to transform the value into a native string.
+Since the result type is known, the `ToString` function transforms the value into a native string.
 Additional functions also exist for other types such as `int`, `map`, and `blob`.
-The full list can be found in [values.go](stargate/pkg/client/values.go).
+The full list can be found in
+link:https://github.com/stargate/stargate-grpc-go-client/tree/add-readme/stargate/pkg/client[values.go].

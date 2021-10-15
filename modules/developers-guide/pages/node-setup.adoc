@@ -2,44 +2,52 @@
 
 === Installing
 
-Using NPM:
-
-[source, shell]
+Install `stargate-grpc-node-client` using either `npm` or `yarn`:
+[tabs]
+====
+npm command::
++
+--
+[source,shell]
 ----
-npm i @stargate/stargate-grpc-node-client
+include::example$bash/node-npm.sh[]
 ----
+--
 
-Using Yarn:
-
-[source, shell]
+Yarn command::
++
+--
+[source,plaintext]
 ----
-yarn add @stargate/stargate-grpc-node-client
+include::example$bash/node-yarn.sh[]
 ----
+--
+====
 
-=== Example use
+=== Start Stargate
 
-Use the following Docker command to run Stargate locally in developer mode and expose port 8090 for gRPC connections:
+include::partial$docker_run.adoc[tag=grpc]
 
-[source, shell]
+Ensure the local instance of Stargate is running properly by tailing the logs for the container,
+and looking for the message that indicates Stargate is ready for traffic.
+
+[tabs]
+====
+shell command (/v2)::
++
+--
+[source,shell]
 ----
-bash
-docker run --name stargate \
-  -p 8080:8080 \
-  -p 8081:8081 \
-  -p 8082:8082 \
-  -p 8090:8090 \
-  -p 127.0.0.1:9042:9042 \
-  -d \
-  -e CLUSTER_NAME=stargate \
-  -e CLUSTER_VERSION=3.11 \
-  -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.35
+include::example$bash/docker-logs.sh[]
 ----
+--
 
-Ensure the local instance of Stargate is running properly by tailing the logs for the container with `docker logs -f stargate`.
- When you see this message, Stargate is ready for traffic:
-
- [source, plaintext]
- ----
-Finished starting bundles.
+Result::
++
+--
+[source,plaintext]
 ----
+include::example$result/sh_docker-logs.result[]
+----
+--
+====

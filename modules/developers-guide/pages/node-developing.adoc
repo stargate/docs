@@ -16,6 +16,9 @@ Then simply run tests:
 
 These tests include an integration suite that uses [the Testcontainers library](https://github.com/testcontainers/testcontainers-node) to spin up a Docker container running Stargate to test gRPC connection, queries, etc.
 
+See the integration tests at `src/client/client.test.ts` for more example uses of this client.
+The [DEV_GUIDE.md](DEV_GUIDE.md) has instructions on how to run the integration tests locally as well.
+
 === Generating gRPC code stubs
 
 Should the Stargate protobuf files change and you need to generate new gRPC code, this project has an NPM script you can use:

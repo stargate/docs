@@ -1,12 +1,33 @@
-= gRPC API
+= Stargate gRPC API client creation
+
+You can create a gRPC client to use Stargate in any language that gRPC supports.
+This section provides information to developers that wish to create a client in
+a language not yet supported.
 
 == Client creation
 
-The Stargate gRPC API is implemented to easily ????
+This quote from link:https://grpc.io/docs/what-is-grpc/introduction/[gRPC.io]
+provides context to why you might wish to create a gRPC client:
 
-. xref:gRPC-rust-client.adoc[Rust client]
-. xref:gRPC-go-client.adoc[Go client]
-. xref:gRPC-node-client.adoc[Node.js client]
-. xref:gRPC-java-client.adoc[Java client]
+====
+In gRPC, a client application can directly call a method on a server application
+on a different machine as if it were a local object, making it easier for you to
+create distributed applications and services.
+As in many RPC systems, gRPC is based around the idea of defining a service,
+specifying the methods that can be called remotely with their parameters and
+return types.
+On the server side, the server implements this interface and runs a gRPC server
+to handle client calls.
+On the client side, the client has a stub (referred to as just a client in some
+languages) that provides the same methods as the server.
+====
 
-// LLP 10.11.21 are there any gRPC tools worth mentioning??
+The Stargate gRPC API implements two query services, `standard` and `batch`.
+
+The `standard` service executes a single CQL query.
+The `batch` service executes a batch of CQL queries.
+
+// LLP - need to discuss the messages for each service - see query.proto in
+// https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto
+
+// and link to the proto repo location in stargate/stargate

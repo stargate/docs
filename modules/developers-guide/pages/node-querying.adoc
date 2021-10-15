@@ -1,0 +1,28 @@
+== Node.js querying
+
+The client follows the `@grpc/grpc-js` callback style for sending queries and batches:
+
+[source, javascript]
+----
+include::example$javascript/node-execute-query.js[]
+----
+
+Now make a gRPC call in your code to create a full query:
+
+[source, javascript]
+----
+include::example$javascript/node-query-full.js[]
+----
+
+=== Promise support
+
+If you'd prefer promises over callbacks, this library provides a utility function
+to create a promisified version of the Stargate gRPC client.
+The promise will reject if an error occurs:
+
+[source, javascript]
+----
+include::example$javascript/node-query-promisify.js[]
+----
+
+The `metadata` and `callOptions` arguments are both optional.

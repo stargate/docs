@@ -5,19 +5,12 @@ A row can be easily unpacked into a tuple:
 
 [source, rust]
 ----
-for row in result_set.rows {
-    let (login, emails): (String, Vec<String>) = row.try_into()?;
-    // ...
-}
+include::example$rust/rust-processing1-tuple.rs[]
 ----
 
 It is also possible to read each field separately and convert it to desired type, without dropping the original row:
 
 [source, rust]
 ----
-for row in result_set.rows {
-    let login: String = row.get(0)?;
-    let emails: Vec<String> = row.get(1)?;
-    // ...
-}
+include::example$rust/rust-processing2-type.rs[]
 ----

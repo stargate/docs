@@ -4,34 +4,31 @@ To begin, you'll need to add the necessary dependency to your project
 
 [source, shell]
 ----
-go get -u github.com/stargate/stargate-grpc-go-client
+include::example$bash/go-get-grpc-go-client.sh[]
 ----
 
-If you don't already have access to a Stargate deployment one can be started quickly for testing.
-Use the following Docker command to run Stargate locally in developer mode and expose port 8090 for gRPC connections:
+include::partial$docker_run.adoc[tag=grpc]
 
-[source, shell]
-----
-docker run --name stargate \
-  -p 8081:8081 \
-  -p 8090:8090 \
-  -d \
-  -e CLUSTER_NAME=stargate \
-  -e CLUSTER_VERSION=3.11 \
-  -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.35
-----
+Ensure the local instance of Stargate is running properly by tailing the logs for the container,
+and looking for the message that indicates Stargate is ready for traffic.
 
-Ensure the local instance of Stargate is running properly by tailing the logs for the container:
+[tabs]
+====
+shell command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/docker-logs.sh[]
+----
+--
 
-[source, shell]
+Result::
++
+--
+[source,plaintext]
 ----
-docker logs -f stargate
+include::example$result/sh_docker-logs.result[]
 ----
-
-When you see this message, Stargate is ready for traffic:
-
-[source, plaintext]
-----
-Finished starting bundles.
-----
+--
+====
