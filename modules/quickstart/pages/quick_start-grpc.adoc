@@ -2,6 +2,9 @@
 
 *Time to complete: 5 minutes*
 
+// LLP - REWRITE FOR GRPC
+// INCLUDE EXAMPLES WITH BLOOMRPC
+
 Stargate is a data gateway deployed between client applications and a database.
 In this QuickStart, you'll be up and running on your local machine with the
 gRPC API plugin that exposes ???

@@ -1,0 +1,30 @@
+== Java connecting
+
+Once we have the generated code, we are ready to create the client based on that.
+Before delving into the code, we need to generate the auth token that will be used to perform Authorization,
+to see how to do it, please visit the xref:auth.adoc[Stargate Authz documentation].
+For the development purpose, this should be good enough:
+
+[source, shell]
+----
+include::example$bash/java-connect-gen-auth.sh[]
+----
+assuming that Stargate is running on the `localhost:8081`
+
+Once we have that, we can connect to the gRPC API.
+First, generate the `Channel` that is used to perform connection:
+
+[source, java]
+----
+include::example$java/java-grpc-create-channel.java[]
+----
+
+Please note that `usePlaintext()` is only for development and test.
+When using `Channel` in a production environment, load balancer that terminates TLS should be used.
+
+For local development of Stargate, the channel is:
+
+[source, java]
+----
+include::example$java/java-grpc-create-localhost.java[]
+----

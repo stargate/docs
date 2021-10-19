@@ -2,6 +2,7 @@
 
 . Add required dependencies.
 You'll need at least stargate-grpc and an async framework, such as link:https://tokio.rs/[tokio]:
+// THIS IS PUT IN THE CARGO.TOML file
 +
 [source, rust]
 ----
