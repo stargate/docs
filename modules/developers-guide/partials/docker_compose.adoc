@@ -86,7 +86,7 @@ has the `docker run` commands for running a CQLSH Docker container to query agai
 either one of the DSE nodes or the Stargate node, respectively.
 
 The files are found at the
-https://github.com/stargate/docker-images/tree/master/examples/dse-dse-tag-68[Stargate docker-images repository].
+https://github.com/stargate/docker-images/tree/master/examples/dse-6.8[Stargate docker-images repository].
 
 Run the script after downloading the files:
 
