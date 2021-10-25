@@ -792,11 +792,6 @@ The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
 The primary key of the table can be used in the `WHERE` clause, but non-primary
 key columns cannot be used unless indexed.
 
-[NOTE]
-====
-A query for table rows must include a `WHERE` clause or a primary key to retrieve
-rows.
-====
 // end::ReadData[]
 
 // tag::ReadAdvData[]
@@ -850,7 +845,8 @@ include::example$result/rest_curl_get_users_mult_where.result[]
 --
 ====
 
-Finally, a primary key can be supplied to retrieve a row:
+A primary key can be supplied to retrieve a row:
+
 
 [tabs]
 ====
@@ -869,6 +865,35 @@ Result::
 [source,plaintext, subs="attributes+"]
 ----
 include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+
+Finally, if no `WHERE` clause or primary key is provided and `/rows` is added 
+to the path then all rows in the table are returned. 
+
+CAUTION: Returning *all* rows in a large table can negatively impact your database.
+For large tables it is recommended to include a `page-size` query parameter in your
+request to limit the number of results returned and to further page through the remaining
+rows by also including the `page-state` parameter in subsequent requests.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_all.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_all.result[]
 ----
 --
 ====
