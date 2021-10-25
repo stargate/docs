@@ -910,7 +910,9 @@ components:
     fields:
       name: fields
       in: query
-      description: URL escaped, comma delimited list of keys to include
+      description: |
+        URL escaped, comma delimited list of keys to include. These values will be used to restrict what
+        fields are returned as part of the response object.
       schema:
         type: string
     sort:

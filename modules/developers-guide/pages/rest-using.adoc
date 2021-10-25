@@ -873,6 +873,30 @@ include::example$result/rest_curl_get_primKey.result[]
 --
 ====
 
+To further refine the response object use the `fields` query parameter to return
+only the keys of the object you want.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_users_fields.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_fields.result[]
+----
+--
+====
+
 ==== Collections, tuples, and UDTs
 
 Some data types require special handling to read the data.
