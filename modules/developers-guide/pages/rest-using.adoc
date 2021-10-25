@@ -881,6 +881,30 @@ and separated by a forward slash, such as `pk1/pk2/ck1/ck2/....` Each key must
 be included in order, but subsequent clustering keys do not have to be included.
 Note that the inclusion of clustering keys may return a range of rows.
 
+
+To return only desired fields in a response object, use the `fields` query parameter:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_users_fields.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_fields.result[]
+----
+--
+====
+
 ==== Collections, tuples, and UDTs
 
 Some data types require special handling to read the data.
