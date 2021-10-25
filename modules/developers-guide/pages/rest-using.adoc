@@ -873,6 +873,15 @@ include::example$result/rest_curl_get_primKey.result[]
 --
 ====
 
+In this example both `Mookie` and `Betts` are supplied in the path. `Mookie` is
+the partition key `firstname` and `Betts` is the clustering key `lastname`. Together
+these keys form the primary key of a row. To retrieve any rows using the partition
+keys and clustering keys, the primary key can be part of the request, in order
+and separated by a forward slash, such as `pk1/pk2/ck1/ck2/....` Each key must
+be included in order, but subsequent clustering keys do not have to be included.
+Note that the inclusion of clustering keys may return a range of rows.
+
+
 To return only desired fields in a response object, use the `fields` query parameter:
 
 [tabs]
