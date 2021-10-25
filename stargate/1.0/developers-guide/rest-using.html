@@ -2412,6 +2412,39 @@ and separated by a forward slash, such as <code>pk1/pk2/ck1/ck2/&#8230;&#8203;.<
 be included in order, but subsequent clustering keys do not have to be included.
 Note that the inclusion of clustering keys may return a range of rows.</p>
 </div>
+<div class="paragraph">
+<p>To return only desired fields in a response object, use the <code>fields</code> query parameter:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset31_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset31_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset31_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}/Janesha/Doesha?fields=firstname,lastname,top_three_tv_shows \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "Content-Type: application/json"</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset31_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Unresolved include directive in modules/developers-guide/pages/rest-using.adoc - include::example$result/rest_curl_get_users_fields.result[]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_collections_tuples_and_udts_2"><a class="anchor" href="#_collections_tuples_and_udts_2"></a><a class="link" href="#_collections_tuples_and_udts_2">Collections, tuples, and UDTs</a></h4>
 <div class="paragraph">
@@ -2464,15 +2497,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset31_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset32_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset31_result"></a>Result</p>
+<p><a id="tabset32_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset31_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset32_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
@@ -2487,7 +2520,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset31_result">
+<div class="tab-pane" aria-labelledby="tabset32_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2563,15 +2596,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset32_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset33_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset32_result"></a>Result</p>
+<p><a id="tabset33_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset32_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset33_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
@@ -2586,7 +2619,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset32_result">
+<div class="tab-pane" aria-labelledby="tabset33_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2662,15 +2695,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset33_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset34_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset33_result"></a>Result</p>
+<p><a id="tabset34_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset33_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset34_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
@@ -2685,7 +2718,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset33_result">
+<div class="tab-pane" aria-labelledby="tabset34_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2761,15 +2794,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset34_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset35_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset34_result"></a>Result</p>
+<p><a id="tabset35_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset34_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset35_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># current_country currently uses a v1 style query
@@ -2784,7 +2817,7 @@ curl -s -G -L "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset34_result">
+<div class="tab-pane" aria-labelledby="tabset35_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2860,15 +2893,15 @@ curl -s -G -L "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset35_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset36_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset35_result"></a>Result</p>
+<p><a id="tabset36_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset35_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset36_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
@@ -2883,7 +2916,7 @@ curl -s -G -L "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset35_result">
+<div class="tab-pane" aria-labelledby="tabset36_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Example coming</code></pre>
@@ -2908,15 +2941,15 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset36_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset37_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset36_result"></a>Result</p>
+<p><a id="tabset37_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset36_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset37_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
@@ -2928,7 +2961,7 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset36_result">
+<div class="tab-pane" aria-labelledby="tabset37_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"data":{"email":"mookie.betts.new-email@email.com"}}</code></pre>
@@ -2962,15 +2995,15 @@ we want to only change that one column:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset37_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset38_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset37_result"></a>Result</p>
+<p><a id="tabset38_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset37_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset38_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PATCH 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
@@ -2982,7 +3015,7 @@ we want to only change that one column:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset37_result">
+<div class="tab-pane" aria-labelledby="tabset38_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"data":{"email":"mookie.betts.email@email.com"}}</code></pre>
