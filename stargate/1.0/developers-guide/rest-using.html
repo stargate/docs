@@ -2403,6 +2403,15 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>In this example both <code>Mookie</code> and <code>Betts</code> are supplied in the path. <code>Mookie</code> is
+the partition key <code>firstname</code> and <code>Betts</code> is the clustering key <code>lastname</code>. Together
+these keys form the primary key of a row. To retrieve any rows using the partition
+keys and clustering keys, the primary key can be part of the request, in order
+and separated by a forward slash, such as <code>pk1/pk2/ck1/ck2/&#8230;&#8203;.</code> Each key must
+be included in order, but subsequent clustering keys do not have to be included.
+Note that the inclusion of clustering keys may return a range of rows.</p>
+</div>
 <div class="sect3">
 <h4 id="_collections_tuples_and_udts_2"><a class="anchor" href="#_collections_tuples_and_udts_2"></a><a class="link" href="#_collections_tuples_and_udts_2">Collections, tuples, and UDTs</a></h4>
 <div class="paragraph">
