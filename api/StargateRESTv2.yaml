@@ -911,8 +911,8 @@ components:
       name: fields
       in: query
       description: |
-        URL escaped, comma delimited list of keys to include. These values will be used to restrict what
-        fields are returned as part of the response object.
+        URL escaped, comma delimited list of keys to include. Values listed restrict the fields returned
+        in the response object.
       schema:
         type: string
     sort:

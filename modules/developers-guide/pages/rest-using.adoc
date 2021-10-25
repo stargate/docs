@@ -873,8 +873,7 @@ include::example$result/rest_curl_get_primKey.result[]
 --
 ====
 
-To further refine the response object use the `fields` query parameter to return
-only the keys of the object you want.
+To return only desired fields in a response object, use the `fields` query parameter:
 
 [tabs]
 ====
