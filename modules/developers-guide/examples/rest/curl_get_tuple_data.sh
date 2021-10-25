@@ -1,5 +1,4 @@
-# current_country currently uses a v1 style query
-curl -s -G -L "http://localhost:8082/v2/keyspaces/users_keyspace/users" \
+curl -s -G -L {base_url}{base_rest_schema}/{rkeyspace}/{rtable} \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
    -H  "Content-Type: application/json" \
    --data-urlencode 'where={
