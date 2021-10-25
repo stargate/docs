@@ -872,9 +872,8 @@ include::example$result/rest_curl_get_primKey.result[]
 Adding `/rows` instead of a `WHERE` clause or primary key returns all table rows. 
 
 CAUTION: Returning *all* rows in a large table can negatively impact your database.
-For large tables it is recommended to include a `page-size` query parameter in your
-request to limit the number of results returned and to further page through the remaining
-rows by also including the `page-state` parameter in subsequent requests.
+The `page-size` parameter limits the number of results returned, and is recommended for large tables.
+The `pageState` is useful for pagination of the results in queries.
 
 [tabs]
 ====
