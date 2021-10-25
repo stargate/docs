@@ -1,4 +1,3 @@
-go
 any, err := anypb.New(
   &pb.Values{
     Values: []*pb.Value{

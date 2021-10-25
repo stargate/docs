@@ -1,4 +1,3 @@
-go
 package main
 
 import (
@@ -17,7 +16,11 @@ func main() {
 	authEndpoint := "localhost:8081"
 
 	conn, err := grpc.Dial(grpcEndpoint, grpc.WithInsecure(), grpc.WithBlock(),
-		grpc.WithPerRPCCredentials(auth.NewTableBasedTokenProvider(fmt.Sprintf("http://%s/v1/auth", authEndpoint), "cassandra", "cassandra")))
+		grpc.WithPerRPCCredentials(
+			auth.NewTableBasedTokenProvider(
+				fmt.Sprintf("http://%s/v1/auth", authEndpoint), "cassandra", "cassandra")
+			)
+		)
 	if err != nil {
 		fmt.Printf("error dialing connection %v", err)
 		os.Exit(1)

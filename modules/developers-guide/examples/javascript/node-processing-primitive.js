@@ -1,4 +1,3 @@
-typescript
 // Assume we know this is a string
 const firstValueInRow = row.getValuesList()[0];
 
@@ -10,4 +9,4 @@ const stringValue = firstValueInRow.getString();
 // This should resolve to false
 const isInt = firstValueInRow.hasInt();
 // This should resolve to 0 - zero value for this data type
-const intValue = firstValueInRow.getInt(); 
+const intValue = firstValueInRow.getInt();

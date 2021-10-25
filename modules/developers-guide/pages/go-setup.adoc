@@ -1,34 +1,16 @@
 == Go set-up
 
-To begin, you'll need to add the necessary dependency to your project
+=== Prerequisites
+
+* xref:manage-application-tokens.adoc[Get an application token]
+* xref:creating-a-table-in-your-keyspace.adoc[Create a table in your keyspace]
+* xref:start-stargate.adoc[Start Stargate (optional)]
+
+=== Add dependencies
+
+To begin, add the required dependency to your project:
 
 [source, shell]
 ----
 include::example$bash/go-get-grpc-go-client.sh[]
 ----
-
-include::partial$docker_run.adoc[tag=grpc]
-
-Ensure the local instance of Stargate is running properly by tailing the logs for the container,
-and looking for the message that indicates Stargate is ready for traffic.
-
-[tabs]
-====
-shell command (/v2)::
-+
---
-[source,shell]
-----
-include::example$bash/docker-logs.sh[]
-----
---
-
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/sh_docker-logs.result[]
-----
---
-====

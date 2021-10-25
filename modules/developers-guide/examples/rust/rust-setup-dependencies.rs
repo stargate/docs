@@ -1,3 +1,3 @@
 [dependencies]
-stargate-grpc = { git = "https://github.com/stargate/stargate-grpc-rust-client" }
+stargate-grpc = "0.1"
 tokio = { version = "1", features = ["full"]}

@@ -102,4 +102,28 @@ docker run --name stargate \
   -e DEVELOPER_MODE=true \
   stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
 ----
+
+Ensure the local instance of Stargate is running properly by tailing the logs for the container,
+and looking for the message that indicates Stargate is ready for traffic.
+
+[tabs]
+====
+shell command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/docker-logs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/sh_docker-logs.result[]
+----
+--
+====
 // end::grpc[]

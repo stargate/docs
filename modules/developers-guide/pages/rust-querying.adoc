@@ -22,3 +22,17 @@ include::example$rust/rust-query2.rs[]
 ----
 --
 ====
+
+create keyspace:
+
+[source, rust]
+----
+include::example$rust/keyspace.rs[]
+----
+
+create table:
+
+[source, rust]
+----
+include::example$rust/table.rs[]
+----

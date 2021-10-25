@@ -1,4 +1,3 @@
-go
 // Create a new keyspace
 createKeyspaceStatement := &pb.Query{
   Cql: "CREATE KEYSPACE IF NOT EXISTS ks1 WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};",

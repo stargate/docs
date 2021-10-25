@@ -1,4 +1,3 @@
-typescript
 import * as grpc from "@grpc/grpc-js";
 import { StargateClient, TableBasedCallCredentials, Query, toResultSet, Response, promisifyStargateClient } from "@stargate/stargate-grpc-node-client";
 

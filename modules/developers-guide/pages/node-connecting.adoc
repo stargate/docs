@@ -2,22 +2,62 @@
 
 === Authentication
 
-The `TableBasedCallCredentials` class generates gRPC metadata with an auth token
-from link:(https://stargate.io/docs/stargate/1.0/developers-guide/auth.html[the Stargate Auth API].
-Construct an instance using the username and password of a user in your Cassandra
-database, then call the `generateMetadata` method with the location of your
-Stargate instance's auth endpoint:
+This client supports both table-based and JWT-based authentication to Stargate.
+
+For table-based auth, use the `StargateTableBasedToken` class:
 
 [source, javascript]
 ----
-include::example$javascript/node-auth.js[]
+include::example$javascript/node-gen-table-token.js[]
 ----
 
-The `generateMetadata` method POSTs on your Stargate auth endpoint to fetch a token,
-then sets it on the metadata it returns.
+For JWT-based auth, use the `StargateBearerToken` class and pass your token in directly:
 
-You can reuse the same `TableBasedCallCredentials` instance but should call
-`generateMetadata` on it for each gRPC call you make, to ensure you don't use a stale auth token.
+[source, javascript]
+----
+include::example$javascript/node-jwt-token.js[]
+----
+
+==== Generating authentication metadata
+
+If you're connecting to Stargate through insecure gRPC credentials, you must
+manually generate metadata for each call.
+For a local Stargate instance, for instance, the following client code will
+fetch an auth token with a REST call:
+
+[source, javascript]
+----
+include::example$javascript/node-gen-auth-token.js[]
+----
+
+This is because the Node gRPC implementation
+link:https://github.com/grpc/grpc-node/issues/543[does not allow composing insecure credentials.]
+However, if you're using secure gRPC credentials, you can include the token
+ metadata generator when constructing the client.
+For a connection to a remote Stargate instance like link:https://astra.datastax.com[Astra]
+automatically generate on every call to the client:
+
+[source, javascript]
+----
+include::example$javascript/node-client.js[]
+----
+
+// The `TableBasedCallCredentials` class generates gRPC metadata with an auth token
+// from link:https://stargate.io/docs/stargate/1.0/developers-guide/auth.html[the Stargate Auth API].
+// Construct an instance using the username and password of a user in your Cassandra
+// database, then call the `generateMetadata` method with the location of your
+// Stargate instance's auth endpoint:
+//
+// [source, javascript]
+// ----
+// include::example$javascript/node-auth.js[]
+// ----
+//
+// The `generateMetadata` method POSTs on your Stargate auth endpoint to fetch a token,
+// then sets it on the metadata it returns.
+//
+// You can reuse the same `TableBasedCallCredentials` instance but should call
+// `generateMetadata` on it for each gRPC call you make, to ensure you don't use a stale auth token.
 
 === gRPC calls
 

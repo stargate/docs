@@ -1,17 +1,28 @@
 == Rust set-up
 
-. Add required dependencies.
+=== Prerequisites
+
+* xref:manage-application-tokens.adoc[Get an application token]
+* xref:creating-a-table-in-your-keyspace.adoc[Create a table in your keyspace]
+* xref:start-stargate.adoc[Start Stargate (optional)]
+
+=== Add dependencies
+
+. Add required dependencies to the `cargo.toml` file in your Rust project.
 You'll need at least stargate-grpc and an async framework, such as link:https://tokio.rs/[tokio]:
-// THIS IS PUT IN THE CARGO.TOML file
 +
 [source, rust]
 ----
 include::example$rust/rust-setup-dependencies.rs[]
 ----
 +
-. Add the following line to the includes in the source code of your app:
+. Build the project with `cargo build` and fetch and compile the dependencies.
++
+. Add the following line to the includes in the source code of your app, such as `main.rs`:
 +
 [source, rust]
 ----
 include::example$rust/rust-setup-use.rs[]
 ----
+
+This set-up will make all the Stargate gRPC functionality available.

@@ -1,4 +1,3 @@
-typescript
 // Here value is the response in the gRPC callback function
 const resultSet = toResultSet(value);
 if (resultSet) {

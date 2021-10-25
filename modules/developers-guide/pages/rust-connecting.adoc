@@ -1,5 +1,21 @@
 == Rust connecting
 
+=== Authentication
+
+This example assumes that you're running Stargate locally with the default credentials
+of `cassandra/cassandra`.
+For more information regarding authentication please see the
+link:https://stargate.io/docs/stargate/1.0/developers-guide/authnz.html[Stargate authentication and authorization docs].
+
+Insert the generated token with the following code snippet in the client code:
+
+[source, rust]
+----
+include::example$rust/rust-auth.rs[]
+----
+
+=== Set up client
+
 The main structure that provides the interface to Stargate is `StargateClient`.
 Pass the connection channel and the Stargate authentication token to
 `StargateClient::with_auth` to obtain an instance of the client:

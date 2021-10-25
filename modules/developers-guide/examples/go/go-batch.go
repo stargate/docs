@@ -1,4 +1,3 @@
-go
 batch := &pb.Batch{
   Type:       pb.Batch_LOGGED,
   Queries:    []*pb.BatchQuery{

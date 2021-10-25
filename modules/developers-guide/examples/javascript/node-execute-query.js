@@ -1,4 +1,3 @@
-typescript
 stargateClient.executeQuery(
   query,
   authenticationMetadata,

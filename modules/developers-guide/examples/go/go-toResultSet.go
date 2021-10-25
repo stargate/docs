@@ -1,4 +1,3 @@
-go
 // Insert a record into the table
 _, err = stargateClient.ExecuteQuery(&pb.Query{
   Cql: "INSERT INTO ks1.tbl2 (key, value) VALUES ('a', 'alpha');",
