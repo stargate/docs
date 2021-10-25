@@ -1115,7 +1115,7 @@ that were entered:</p>
 <div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$in":\["Janesha","Mookie"\]\}\}' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}?where=\{"firstname":\{"$in":\["Janesha","Mookie"\]\}\}' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json"</code></pre>
 </div>
@@ -1206,21 +1206,6 @@ The <code>WHERE</code> clause can be used with other valid search terms: <code>$
 <code>$lte</code>, <code>$gt</code>, <code>$gte</code>, <code>$ne</code>, and <code>$exists</code>, if applicable.
 The primary key of the table can be used in the <code>WHERE</code> clause, but non-primary
 key columns cannot be used unless indexed.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>A query for table rows must include a <code>WHERE</code> clause or a primary key to retrieve
-rows.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
