@@ -852,19 +852,6 @@ include::example$result/rest_curl_get_users_mult_where.result[]
 
 Finally, a primary key can be supplied to retrieve a row:
 
-[NOTE]
-====
-Notice that in the below example both `Mookie` and `Betts` are supplied in the
-path. In this example, `Mookie` being the `firstname` is the partition key and
-`Betts` being the `lastname` is the clustering key which together form the primary
-key of the row. If there were more partition keys or clustering keys on the table
-each could be provided as `pk1/pk2/ck1/ck2/...` each separated with a forward
-slash. Although some of the clustering keys can be omitted in order to return
-additional rows the preceding keys must be provided. This means that if there is
-one partition key `pk1` and three clustering keys `ck1`, `ck2`, and `ck3` then `pk1`,
-`ck1` and `ck2` are required to return all rows with the clustering key of `ck2`.
-====
-
 [tabs]
 ====
 cURL command (/v2)::
@@ -885,6 +872,14 @@ include::example$result/rest_curl_get_primKey.result[]
 ----
 --
 ====
+
+In this example both `Mookie` and `Betts` are supplied in the path. `Mookie` is
+the partition key `firstname` and `Betts` is the clustering key `lastname`. Together
+these keys form the primary key of a row. To retrieve any rows using the partition
+keys and clustering keys, the primary key can be part of the request, in order
+and separated by a forward slash, such as `pk1/pk2/ck1/ck2/....` Each key must
+be included in order, but subsequent clustering keys do not have to be included.
+Note that the inclusion of clustering keys may return a range of rows.
 
 ==== Collections, tuples, and UDTs
 
