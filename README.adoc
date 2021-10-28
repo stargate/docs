@@ -2,7 +2,7 @@
 
 This repo contains the source files for the Stargate documentation.
 
-The docs are written in asciidoc and use Antora to generate the output.
+The docs are written in AsciiDoc and use Antora to generate the output.
 
 The Stargate docs are organized into three Antora modules:
 
@@ -18,6 +18,12 @@ Antora requires NodeJS, install it and then install the project dependencies:
 ----
 npm install
 ----
+
+[IMPORTANT]
+====
+It has been reported that the GraphQL functionality will not work if `node-fetch` is greater than
+version 2.6.1. You will need to downgrade that package before building if you encounter errors.
+====
 
 == Viewing the current HTML output
 
@@ -42,11 +48,11 @@ To generate the docs and OpenAPI docs:
 npm run build:dev
 ----
 
-Open `build/site/index.html` a web browser to view the output.
+Open `build/site/index.html` in a web browser to view the output.
 
 == Publishing to the Stargate website
 
-Pushing a tag starting with `v` will trigger the `.github/workflows/publish.yaml` action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. The output will be put in the `docs` directory. Live docs use the `site-publish.yaml` Anotra site configuration file.
+Pushing a tag starting with `v` will trigger the `.github/workflows/publish.yaml` action that generates the docs and publishes them to the `stargate/website` repo in the `gh-pages` branch. The output will be put in the `docs` directory. Live docs use the `site-publish.yaml` Antora site configuration file.
 
 The Deploy to GitHub Pages action uses a repo secret in order to push the changes to stargate/website.
 To use a different secret:
