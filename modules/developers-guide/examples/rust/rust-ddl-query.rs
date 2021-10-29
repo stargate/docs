@@ -1,7 +1,10 @@
+use std::convert::TryInto;
 
 use config::*;
 use connect::*;
-use stargate_grpc::{Query, StargateClient};
+use stargate_grpc::*;
+//! Demonstrates writing and reading chrono dates and timestamps
+use chrono::{Date, DateTime, Local};
 
 #[path = "connect.rs"]
 mod connect;
@@ -15,6 +18,25 @@ pub async fn create_keyspace(client: &mut StargateClient, keyspace: &str) -> any
     );
     let create_keyspace = Query::builder().query(cql.as_str()).build();
     client.execute_query(create_keyspace).await?;
+    Ok(())
+}
+
+/// ALTERNATIVE
+/// Creates the test keyspace and an empty `users` table.
+async fn create_schema(client: &mut StargateClient, keyspace: &str) -> anyhow::Result<()> {
+    let create_table = Query::builder()
+        .keyspace(keyspace)
+        .query(
+            r"CREATE TABLE IF NOT EXISTS events (
+                sensor bigint,
+                day date,
+                ts timestamp,
+                value varchar,
+                PRIMARY KEY ((sensor, day), ts)
+            )",
+        )
+        .build();
+    client.execute_query(create_table).await?;
     Ok(())
 }
 

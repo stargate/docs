@@ -1,21 +1,14 @@
 == Node.js processing result set
 
-=== Working with responses
-
-A response will contain a `ResultSet` object if you sent CQL that should return data,
-or a `SchemaChange` object if your query should have changed the CQL schema.
-It will never return both.
-
-If you expect a ResultSet in your response, this library offers a utility method
-to convert it for you. You can then read rows, columns and values off the result set:
+After executing a query a response will be returned containing rows for a SELECT statement,
+otherwise the returned payload will be unset.
+The convenience function `ToResultSet()`` is provided to help transform this response
+into a ResultSet that's easier to work with.
 
 [source, javascript]
 ----
 include::example$javascript/node-processing1.js[]
 ----
-
-The `toResultSet` method will never throw an error; it will simply return `undefined`
-if it's unable to properly deserialize the value passed to it into a `ResultSet` object.
 
 === Reading primitive values
 
@@ -29,4 +22,22 @@ You'll get `undefined` or another falsy value based on the expected data type.
 [source, javascript]
 ----
 include::example$javascript/node-processing-primitive.js[]
+----
+
+=== Reading CQL data types
+
+The built-in `toX()` methods for Values representing more complicated types
+like UUIDs can be hard to work with.
+This library exposes helper functions to translate a Value into a more easily used type:
+
+* toUUIDString
+* toCQLTime
+
+Unlike the built-in `toX()` methods, these helper functions will throw an error if the conversion fails.
+
+Here's an example of processing a UUID:
+
+[source, javascript]
+----
+include::example$javascript/node-processing-cql.js[]
 ----

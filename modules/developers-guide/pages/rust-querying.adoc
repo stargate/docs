@@ -7,7 +7,7 @@ Use QueryBuilder to create a query, bind query values and pass query parameters.
 Rust query builder command (/v2)::
 +
 --
-[source,shell]
+[source,rust]
 ----
 include::example$rust/rust-query1.rs[]
 ----
@@ -16,7 +16,7 @@ include::example$rust/rust-query1.rs[]
 Rust execute command::
 +
 --
-[source,plaintext]
+[source,rust]
 ----
 include::example$rust/rust-query2.rs[]
 ----
@@ -25,7 +25,16 @@ include::example$rust/rust-query2.rs[]
 
 Data definition (DDL) queries are supported in the same manner:
 
-[source, go]
+[source, rust]
 ----
-include::example$rust/rust-ddl-query.go[]
+include::example$rust/rust-ddl-query.rs[]
+----
+
+If you would like to use a
+link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
+the client also provides an `ExecuteBatch()` function to execute a batch query:
+
+[source, rust]
+----
+include::example$rust/rust-batch.rs[]
 ----

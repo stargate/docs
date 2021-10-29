@@ -1,11 +1,19 @@
-// Here value is the response in the gRPC callback function
-const resultSet = toResultSet(value);
+// Insert a record into the table
+const insert = new Query();
+insert.setCql("INSERT INTO ks1.tbl2 (key, value) VALUES ('a', 'alpha');");
+await promisifiedClient.executeQuery(insert, authenticationMetadata);
+
+// Read the data back out
+const read = new Query();
+read.setCql("SELECT key, value FROM ks1.tbl2");
+const result = await promisifiedClient.executeQuery(read, authenticationMetadata);
+
+const resultSet = toResultSet(result);
+
 if (resultSet) {
-  const rowsReturned = resultSet.getRowsList();
-  rowsReturned.forEach(row, (index) => {
-    const valuesInThisRow = row.getValuesList();
-    // Assume we know/expect this is a string value based on our query
-    const firstValueInRow = row.getValuesList()[0].getString();
-    console.log(`First value in row ${index}: ${firstValueInRow}`);
-  });
+  const firstRow = resultSet.getRowsList()[0];
+  // We call getString() here because we know the type being returned.
+  // See below for details on working with types.
+  const key = firstRow.getValuesList()[0].getString();
+  console.log(`key: ${key}`);
 }
