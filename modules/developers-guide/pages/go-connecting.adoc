@@ -15,6 +15,13 @@ in the client code:
 include::example$go/go-auth.go[]
 ----
 
+For a secure connection, use:
+
+[source, go]
+----
+include::example$go/go-auth-secure.go[]
+----
+
 === Set up client
 
 To connect to your Stargate instance, set up the client as follows.

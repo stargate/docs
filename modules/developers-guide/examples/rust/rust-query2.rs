@@ -1,3 +1,5 @@
+use std::convert::TryInto;
+
 // Send the query and wait for gRPC response
 let response = client.execute_query(query).await?;
 

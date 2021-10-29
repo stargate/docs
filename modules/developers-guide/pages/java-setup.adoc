@@ -1,5 +1,11 @@
 == gRPC Java client setup
 
+=== Prerequisites
+
+* xref:authnz.adoc[Get an application token]
+* * Create a table in your keyspace: xref:rest-using.adoc#_create_a_keyspace[(REST)]  xref:graphql-first-using.adoc#_create_a_keyspace[(GraphQL)]
+* xref:start-stargate.adoc[Start Stargate (optional)]
+
 Let's see how to configure a java project to use the Stargate gRPC API.
 The generated code based on protobuf files (`query.proto` and `stargate.proto`) is shipped with the `grpc-proto` dependency.
 

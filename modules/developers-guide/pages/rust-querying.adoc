@@ -23,16 +23,9 @@ include::example$rust/rust-query2.rs[]
 --
 ====
 
-create keyspace:
+Data definition (DDL) queries are supported in the same manner:
 
-[source, rust]
+[source, go]
 ----
-include::example$rust/keyspace.rs[]
-----
-
-create table:
-
-[source, rust]
-----
-include::example$rust/table.rs[]
+include::example$rust/rust-ddl-query.go[]
 ----
