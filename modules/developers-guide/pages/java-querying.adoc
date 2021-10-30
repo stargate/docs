@@ -1,64 +1,42 @@
 == Java querying
 
-Next, we can generate the `StargateGrpc` stub.
-There are two ways of interacting with the gRPC API.
+A simple query can be performed by passing a CQL query to the client using the
+`ExecuteQuery()` function for standard query execution:
 
-The first one is synchronous (blocking):
-
-[source, java]
+[source, go]
 ----
-include::example$java/java-grpc-sync.java[]
+include::example$java/java-grpc-sync-query.java[]
 ----
 
-The second one is asynchronous (non-blocking):
+This example is a synchronous, or blocking, interaction.
+Interactions with the gRPC API can also be asynchronous (non-blocking):
 
 [source, java]
 ----
 include::example$java/java-grpc-async.java[]
 ----
 
-Please note, that we need setup the `CallCredentials`, using the `token-value` generated in the previous step.
+Data definition (DDL) queries are supported in the same manner:
 
-We will assume that all queries are executed within the existing keyspace `ks` and table `test`.
-The table definition is following:
-
-[source, cql]
+[source, go]
 ----
-include::example$cql/java-grpc-create-table.cql[]
+include::example$java/java-ddl-query.java[]
 ----
 
-The Stargate gRPC API provides a way to execute two types of queries:
-
-* standard CQL queries
-* batch queries (contains N CQL queries)
-
-=== Standard Query
-
-We can start from inserting a record using gRPC stub:
-
-[source, java]
-----
-include::example$java/java-grpc-std-query.java[]
-----
-
-This will build and execute a single query.
-
-=== Batch Query
-
-In case we want to execute N queries, we can use the `executeBatch` method:
+If you would like to use a
+link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
+the client also provides an `ExecuteBatch()` function to execute a batch query:
 
 [source, java]
 ----
 include::example$java/java-grpc-batch-query.java[]
 ----
 
-It takes the `Batch` as an argument.
-A Batch can contain N queries of type INSERT, UPDATE, or DELETE.
-We are adding two queries via `addQueries` method.
+We are adding two queries via the `addQueries` method.
 See the link:https://docs.datastax.com/en/dse/6.0/cql/cql/cql_reference/cql_commands/cqlBatch.html[Batch Documentation]
 if you want to read more about how the Batch request is handled.
 
-=== Async API
+=== More notes on the asynchronous use of the gRPC API
 
 Up to this point, we were using the blocking version of the generated stub.
 We can also interact with the Stargate API using the async version of the stub.
@@ -95,4 +73,5 @@ The output of our program will look like this:
 include::example$yaml/async-yaml-result.yaml[]
 ----
 
-Please note, that at the end we have a `completed` emitted. This is called by the `onCompleted` method.
+Please note, that at the end we have a `completed` emitted.
+This is called by the `onCompleted` method.

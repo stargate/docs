@@ -1,5 +1,6 @@
 = Stargate gRPC API client creation
 
+Stargate has a gRPC server implemented as part of the gRPC API. 
 You can create a gRPC client to use Stargate in any language that gRPC supports.
 This section provides information to developers that wish to create a client in
 a language not yet supported.
@@ -24,10 +25,35 @@ languages) that provides the same methods as the server.
 
 The Stargate gRPC API implements two query services, `standard` and `batch`.
 
-The `standard` service executes a single CQL query.
+The `standard` service executes a single Cassandra Query Language (CQL) query.
 The `batch` service executes a batch of CQL queries.
 
-// LLP - need to discuss the messages for each service - see query.proto in
-// https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto
+=== Proto files
 
-// and link to the proto repo location in stargate/stargate
+The link:https://github.com/stargate/stargate/blob/master/grpc-proto/proto/stargate.proto[`stargate.proto`]
+file provides these services that interact with a Stargate coordinator to execute
+CQL queries.
+The link:https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto[`query.proto`]
+file identifies the relevant messages required to interact with CQL.
+These include:
+
+* Type values, including some special elements that need additional message definitions
+* Values
+* Query strings
+* Query parameters
+* Metadata about columns
+* Tracing information
+* Schema change information, including the object (keyspace, table, etc.) changed
+* Query response
+* ResultSet of values returned from a query
+* Batch queries
+* Batch parameters
+* Errors
+
+When a language-specific proto file is generated from these two files, the services
+provided allow a gRPC client to interact with Apache Cassandra through Stargate.
+
+=== Client code
+
+Examples of some xref:gRPC-using.adoc[gRPC clients] written for Stargate exist to provide samples of how
+a new client can be created.

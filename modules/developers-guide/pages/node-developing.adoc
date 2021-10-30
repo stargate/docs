@@ -38,6 +38,9 @@ this project has an NPM script you can use:
 npm run gen
 ----
 
+After running, you will find the new generated `*grpc_pb.d.ts` and `*pb.d.ts`
+files in `stargate-grpc-node-client/src/proto/`.
+
 === TypeScript compilation
 
 This client is written in TypeScript but must compile JS for use in vanilla JavaScript environments.
@@ -68,5 +71,5 @@ with new changes at any time by running `yalc push` from the
 
 === Coding style
 
-This project uses `eslint` and `prettier` to lint and format code. 
+This project uses `eslint` and `prettier` to lint and format code.
 These standards are enforced automatically with a husky pre-commit hook and in the CI pipeline.

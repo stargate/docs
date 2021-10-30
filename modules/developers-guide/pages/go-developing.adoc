@@ -22,8 +22,8 @@ The addition of `-tags integration` also runs the integration tests.
 
 === Generating gRPC code stubs
 
-To update the protobuf files being used add the new files to the top level proto
-directory and then run make proto from the root of the project.
+To update the protobuf files being used, add the new files to the top level proto
+directory and then run `make proto` from the root of the project.
 After running, you will find the new generated ``*.pb.go` files in `stargate/pkg/proto`.
 
 === Coding style
