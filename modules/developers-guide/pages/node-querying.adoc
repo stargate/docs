@@ -15,6 +15,13 @@ Data definition (DDL) queries are supported in the same manner:
 include::example$javascript/node-ddl-query.js[]
 ----
 
+Parameterized queries are also supported:
+
+[source, javascript]
+----
+include::example$javascript/node-parameterized.js[]
+----
+
 If you would like to use a
 link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
 the client also provides an `ExecuteBatch()` function to execute a batch query:

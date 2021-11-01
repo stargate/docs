@@ -1,5 +1,5 @@
 import * as grpc from "@grpc/grpc-js";
-import { StargateClient, TableBasedCallCredentials, Query, toResultSet, Response, promisifyStargateClient } from "@stargate/stargate-grpc-node-client";
+import { StargateClient, TableBasedCallCredentials, Query, Response, promisifyStargateClient } from "@stargate/stargate-grpc-node-client";
 
 // Create a client for Stargate/Cassandra authentication using the default C* username and password
 const creds = new TableBasedCallCredentials({username: 'cassandra', password: 'cassandra'});
@@ -19,7 +19,7 @@ try {
 
     const result: Response = await promisifiedClient.executeQuery(query, authenticationMetadata);
 
-    const resultSet = toResultSet(result);
+    const resultSet = result.getResultSet();
 
     if (resultSet) {
         const firstRowReturned = resultSet.getRowsList()[0];

@@ -7,7 +7,7 @@ const read = new Query();
 read.setCql("SELECT id FROM ks1.tbl2");
 const result = await promisifiedClient.executeQuery(read, authenticationMetadata);
 
-const resultSet = toResultSet(result);
+const resultSet = result.getResultSet();
 
 if (resultSet) {
   const firstRow = resultSet.getRowsList()[0];
