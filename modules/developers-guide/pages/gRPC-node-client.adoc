@@ -1,5 +1,11 @@
 = gRPC Node.js Client
 
+[NOTE]
+====
+This client is designed for use with a Node.js application or backend.
+It is not intended for use with Javascript running in a browser environment.
+====
+
 include::page$node-setup.adoc[]
 
 include::page$node-connecting.adoc[]
