@@ -1,26 +1,5 @@
 == Java developing
 
-=== Getting started
-
-// LLP NEEDS UPDATING
-// Clone the repo, then install dependencies:
-//
-// [source, shell]
-// ----
-// git clone
-// ----
-
-=== Testing
-
-// LLP NEEDS UPDATING
-// The tests for this project can be run from the root using the following command:
-//
-// [source, shell]
-// ----
-// include::example$go/go-run-test.go[]
-// ----
-//
-// The addition of `-tags integration` also runs the integration tests.
 
 === Generating gRPC code stubs
 
@@ -28,10 +7,3 @@ To see a guide how the Java code is compiled from the proto files see the
 link:https://github.com/grpc/grpc-java/blob/master/README.md#download[gRPC setup project dependencies].
 To update the protobuf files being used, add the new files to the top level proto
 directory and then run make proto from the root of the project.
-// LLP NEEDS UPDATING After running, you will find the new generated `*.pb.go` files in `stargate/pkg/proto`.
-
-=== Coding style
-
-// LLP NEEDS UPDATING
-// This project uses `golangci-lint` to lint code.
-// These standards are enforced automatically in the CI pipeline.

@@ -8,6 +8,8 @@ include::page$java-querying.adoc[]
 
 include::page$java-processing.adoc[]
 
+include::page$java-full.adoc[]
+
 include::page$java-developing.adoc[]
 
 // LLP 10.11.21   need to add the Run the examples, but I need to figure out where it needs to go.
