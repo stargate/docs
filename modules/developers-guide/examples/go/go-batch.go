@@ -1,13 +1,18 @@
 batch := &pb.Batch{
-  Type:       pb.Batch_LOGGED,
-  Queries:    []*pb.BatchQuery{
+  Type: pb.Batch_LOGGED,
+  Queries: []*pb.BatchQuery{
     {
-      Cql: "INSERT INTO ks1.tbl2 (key, value) VALUES ('a', 'alpha');",
+      Cql: "INSERT INTO test.users (firstname, lastname) VALUES ('Lorina', 'Poland');",
     },
     {
-      Cql: "INSERT INTO ks1.tbl2 (key, value) VALUES ('b', 'bravo');",
+      Cql: "INSERT INTO test.users (firstname, lastname) VALUES ('Ronnie', 'Miller');",
     },
   },
 }
 
-response, err := stargateClient.ExecuteBatch(batch)
+_, err = stargateClient.ExecuteBatch(batch)
+if err != nil {
+  fmt.Printf("error creating batch %v", err)
+  return
+}
+fmt.Printf("insert data\n")

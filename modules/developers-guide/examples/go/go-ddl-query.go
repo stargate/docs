@@ -1,23 +1,23 @@
 // Create a new keyspace
 createKeyspaceStatement := &pb.Query{
-  Cql: "CREATE KEYSPACE IF NOT EXISTS ks1 WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};",
-}
-_, err = stargateClient.ExecuteQuery(createKeyspaceStatement)
-if err != nil {
-  return err
+  Cql: "CREATE KEYSPACE IF NOT EXISTS test WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};",
 }
 
+_, err = stargateClient.ExecuteQuery(createKeyspaceStatement)
+if err != nil {
+  fmt.Printf("error creating keyspace %v", err)
+  return
+}
+fmt.Printf("made keyspace\n")
+
 // Create a new table
-createTableStatement := `
-  CREATE TABLE IF NOT EXISTS ks1.tbl2 (
-    key TEXT PRIMARY KEY,
-    value TEXT
-  );`
 createTableQuery := &pb.Query{
-	Cql: createTableStatement,
+  Cql: "CREATE TABLE IF NOT EXISTS test.users (firstname text PRIMARY KEY, lastname text);",
 }
 
 _, err = stargateClient.ExecuteQuery(createTableQuery)
 if err != nil {
-  return err
+  fmt.Printf("error creating table %v", err)
+  return
 }
+fmt.Printf("made table \n")

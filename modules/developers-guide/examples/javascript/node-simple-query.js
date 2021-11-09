@@ -1,9 +1,13 @@
+// For Stargate OSS: SELECT the data to read from the table
 const query = new Query();
-query.setCql('select cluster_name from system.local');
+const queryString = 'SELECT firstname, lastname FROM test.users;'
+// Set the CQL statement using the string defined in the last line
+query.setCql(queryString);
 
-// Must manually generate auth metadata if using insecure creds -
-// see authentication section above for details
-const authenticationMetadata = await creds.generateMetadata(
-  {service_url: 'http://localhost:8081/v1/auth'}
+// For Stargate OSS and Astra DB: execute the query statement
+const response = await promisifiedClient.executeQuery(
+  query,
+  authenticationMetadata
 );
-await promisifiedClient.executeQuery(query, authenticationMetadata);
+
+console.log("select executed")

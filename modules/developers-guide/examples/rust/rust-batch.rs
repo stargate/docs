@@ -1,21 +1,11 @@
-/// Inserts a user into both tables with a single batch of statements
-async fn register_user(
-    client: &mut StargateClient,
-    keyspace: &str,
-    id: i64,
-    login: &str,
-) -> anyhow::Result<i64> {
-    let batch = Batch::builder()
-        .keyspace(keyspace)
-        .query("INSERT INTO users (id, login, emails) VALUES (:id, :login, :emails)")
-        .bind_name("id", id)
-        .bind_name("login", login)
-        .bind_name("emails", vec![format!("{}@example.net", login)])
-        .query("INSERT INTO users_by_login (id, login) VALUES (:id, :login)")
-        .bind_name("id", id)
-        .bind_name("login", login)
-        .build();
+// For Stargate OSS: INSERT two rows/records
+//  Two queries will be run in a batch statement
+let batch = Batch::builder()
+    .keyspace("test")                   // set the keyspace the query applies to
+    .consistency(Consistency::One)      // set consistency level
+    .query("INSERT INTO test.users (firstname, lastname) VALUES ('Jane', 'Doe');")
+    .query("INSERT INTO test.users (firstname, lastname) VALUES ('Serge', 'Provencio');")
+    .build();
+client.execute_batch(batch).await?;
 
-    client.execute_batch(batch).await?;
-    Ok(id)
-}
+println!("insert data");

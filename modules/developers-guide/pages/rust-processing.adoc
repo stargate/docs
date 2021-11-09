@@ -1,16 +1,9 @@
 == Rust processing result set
 
 The result set comes back as a collection of rows.
-A row can be easily unpacked into a tuple:
+A row can be easily unpacked:
 
 [source, rust]
 ----
-include::example$rust/rust-processing1-tuple.rs[]
-----
-
-It is also possible to read each field separately and convert it to desired type, without dropping the original row:
-
-[source, rust]
-----
-include::example$rust/rust-processing2-type.rs[]
+include::example$rust/rust-processing.rs[]
 ----

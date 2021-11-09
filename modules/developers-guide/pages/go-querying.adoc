@@ -15,6 +15,8 @@ Data definition (DDL) queries are supported in the same manner:
 include::example$go/go-ddl-query.go[]
 ----
 
+In general, users will create a keyspace and table first.
+
 Parameterized queries are also supported:
 
 [source, go]
@@ -22,11 +24,17 @@ Parameterized queries are also supported:
 include::example$go/go-parameterized.go[]
 ----
 
-If you would like to use a
+The `ExecuteQuery` function can be used to execute a single query.
+
+If you need to group several commands together as a
 link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
 the client also provides an `ExecuteBatch()` function to execute a batch query:
+
 
 [source, go]
 ----
 include::example$go/go-batch.go[]
 ----
+
+This example inserts two values into the keyspace table `test.users`.
+Only `INSERT`, `UPDATE`, and `DELETE` operations can be used in a batch query.

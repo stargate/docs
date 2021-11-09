@@ -29,3 +29,8 @@ include::example$bash/node-yarn.sh[]
 ----
 --
 ====
+
+This set-up will make all the Stargate gRPC functionality available.
+
+The next sections explain the parts of a script to use the Stargate functionality.
+A xref:gRPC-node-client.adoc#_node_full_sample_script[full working script] is included below.

@@ -14,6 +14,6 @@ include::page$node-querying.adoc[]
 
 include::page$node-processing.adoc[]
 
-include::page$node-developing.adoc[]
+include::page$node-full.adoc[]
 
-// LLP 10.11.21   need to add the Run the examples, but I need to figure out where it needs to go.
+include::page$node-developing.adoc[]

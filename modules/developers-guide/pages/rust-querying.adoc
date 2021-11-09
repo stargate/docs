@@ -1,6 +1,8 @@
 == Rust querying
 
 Use QueryBuilder to create a query, bind query values and pass query parameters.
+The query is followed by the execute commands that actually run the command and
+return the results.
 
 [tabs]
 ====
@@ -23,14 +25,26 @@ include::example$rust/rust-query2.rs[]
 --
 ====
 
-Data definition (DDL) queries are supported in the same manner:
+It is also possible to use a `bind` statement to insert values:
+
+[source,rust]
+----
+include::example$rust/rust-bind.rs[]
+----
+
+
+Data definition language (DDL) queries are supported in the same manner:
 
 [source, rust]
 ----
 include::example$rust/rust-ddl-query.rs[]
 ----
 
-If you would like to use a
+In general, users will create a keyspace and table first.
+
+The `ExecuteQuery` function can be used to execute a single query.
+
+If you need to group several commands together as a 
 link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
 the client also provides an `ExecuteBatch()` function to execute a batch query:
 
@@ -38,3 +52,6 @@ the client also provides an `ExecuteBatch()` function to execute a batch query:
 ----
 include::example$rust/rust-batch.rs[]
 ----
+
+This example inserts two values into the keyspace table `test.users`.
+Only `INSERT`, `UPDATE`, and `DELETE` operations can be used in a batch query.

@@ -8,6 +8,6 @@ include::page$rust-querying.adoc[]
 
 include::page$rust-processing.adoc[]
 
-include::page$rust-developing.adoc[]
+include::page$rust-full.adoc[]
 
-// LLP 10.11.21   need to add the Run the examples, but I need to figure out where it needs to go.
+include::page$rust-developing.adoc[]

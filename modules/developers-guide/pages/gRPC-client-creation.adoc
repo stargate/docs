@@ -1,6 +1,6 @@
 = Stargate gRPC API client creation
 
-Stargate has a gRPC server implemented as part of the gRPC API. 
+Stargate has a gRPC server implemented as part of the gRPC API.
 You can create a gRPC client to use Stargate in any language that gRPC supports.
 This section provides information to developers that wish to create a client in
 a language not yet supported.
@@ -52,6 +52,32 @@ These include:
 
 When a language-specific proto file is generated from these two files, the services
 provided allow a gRPC client to interact with Apache Cassandra through Stargate.
+
+=== Generate gRPC classes for a language
+
+This section is possibly the most “black-boxed” part of the whole process.
+Each language has special tools to automatically generate classes from the proto files.
+When the appropriate tools are run, new files will be generated.
+
+For example, in Python, the following commands are run to generate the required protobuf files:
+
+[source, python]
+----
+$ pip install grpcio
+$ pip install grpcio-tools
+
+$ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. stargate.proto
+$ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. query.proto
+----
+
+The generated files generated are:
+
+* query_pb2.py — contains message classes
+* query_grpc_pb2.py — contains server and client classes
+
+* stargate_pb2.py - contains message classes
+* stargate_pb2_grpc.py — contains server and client classes
+
 
 === Client code
 

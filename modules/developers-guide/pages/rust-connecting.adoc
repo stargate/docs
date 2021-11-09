@@ -5,9 +5,14 @@
 This example assumes that you're running Stargate locally with the default credentials
 of `cassandra/cassandra`.
 For more information regarding authentication please see the
-link:https://stargate.io/docs/stargate/1.0/developers-guide/authnz.html[Stargate authentication and authorization docs].
+xref:authnz.html[Stargate authentication and authorization docs].
 
-You'll need to generate a token to insert into the client connection.
+You'll need to generate a token to insert into the client connection code:
+
+[source,bash]
+----
+include::example$bash/get-table-based-token.sh[]
+----
 
 === Set up client
 

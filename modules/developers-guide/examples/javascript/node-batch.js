@@ -1,10 +1,19 @@
-const insertOne = new BatchQuery();
-const insertTwo = new BatchQuery();
+// For Stargate OSS: INSERT two rows/records
+ // Create two queries that will be run in a batch statement
+ const insertOne = new BatchQuery();
+ const insertTwo = new BatchQuery();
 
-insertOne.setCql(`INSERT INTO ${KEYSPACE}.test (key, value) VALUES('a', 1)`);
-insertTwo.setCql(`INSERT INTO ${KEYSPACE}.test (key, value) VALUES('b', 2)`);
+ // Set the CQL statement
+ insertOne.setCql(`INSERT INTO test.users (firstname, lastname) VALUES('Jane', 'Doe')`);
+ insertTwo.setCql(`INSERT INTO test.users (firstname, lastname) VALUES('Serge', 'Provencio')`);
 
-const batch = new Batch();
-batch.setQueriesList([insertOne, insertTwo]);
+ // Define the new batch to include the 2 insertions
+ const batch = new Batch();
+ batch.setQueriesList([insertOne, insertTwo]);
 
-await promisifiedClient.executeBatch(batch, authenticationMetadata);
+ // For Stargate OSS: execute the batch statement
+ const batchResult = await promisifiedClient.executeBatch(
+   batch,
+   authenticationMetadata
+ );
+ console.log("inserted data");

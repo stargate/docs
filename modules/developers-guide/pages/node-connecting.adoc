@@ -18,16 +18,16 @@ For JWT-based auth, use the `StargateBearerToken` class and pass your token in d
 include::example$javascript/node-jwt-token.js[]
 ----
 
-==== Generating authentication metadata
+==== Creating a client
 
 If you're connecting to Stargate through insecure gRPC credentials, you must
-manually generate metadata for each call.
+manually generate metadata for each call
 For a local Stargate instance, for instance, the following client code will
 fetch an auth token with a REST call:
 
 [source, javascript]
 ----
-include::example$javascript/node-gen-auth-token.js[]
+include::example$javascript/node-connect-metadata.js[]
 ----
 
 This is because the Node gRPC implementation
@@ -40,32 +40,4 @@ automatically generate on every call to the client:
 [source, javascript]
 ----
 include::example$javascript/node-client.js[]
-----
-
-// The `TableBasedCallCredentials` class generates gRPC metadata with an auth token
-// from link:https://stargate.io/docs/stargate/1.0/developers-guide/auth.html[the Stargate Auth API].
-// Construct an instance using the username and password of a user in your Cassandra
-// database, then call the `generateMetadata` method with the location of your
-// Stargate instance's auth endpoint:
-//
-// [source, javascript]
-// ----
-// include::example$javascript/node-auth.js[]
-// ----
-//
-// The `generateMetadata` method POSTs on your Stargate auth endpoint to fetch a token,
-// then sets it on the metadata it returns.
-//
-// You can reuse the same `TableBasedCallCredentials` instance but should call
-// `generateMetadata` on it for each gRPC call you make, to ensure you don't use a stale auth token.
-
-=== gRPC calls
-
-Create a `StargateClient` instance with the address of your gRPC server and any
-credentials needed to connect.
-Note Stargate exposes port 8090 for gRPC traffic by default:
-
-[source, javascript]
-----
-include::example$javascript/node-connect.js[]
 ----
