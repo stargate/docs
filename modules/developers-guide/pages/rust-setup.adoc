@@ -3,7 +3,7 @@
 === Prerequisites
 
 * xref:authnz.adoc[Get an application token]
-* Create a table in your keyspace: xref:rest-using.adoc#_create_a_keyspace[(REST)]  xref:graphql-first-using.adoc#_create_a_keyspace[(GraphQL)]
+* Create a table in your keyspace (optional): xref:rest-using.adoc#_create_a_keyspace[(REST)]  xref:graphql-first-using.adoc#_create_a_keyspace[(GraphQL)]
 * xref:start-stargate.adoc[Start Stargate (optional)]
 
 === Set up a Rust project
@@ -26,7 +26,7 @@ You'll need at least `stargate-grpc` and an async framework, such as link:https:
 ----
 include::example$rust/rust-setup-dependencies.rs[]
 ----
-// LLLP: The stargate version may need to be changed.
+// LLP: The stargate version may need to be changed.
 +
 . Build the project with `cargo build` and fetch and compile the dependencies.
 +

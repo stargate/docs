@@ -15,6 +15,3 @@ Four language clients are currently available:
 * xref:gRPC-go-client.adoc[Go client]
 * xref:gRPC-node-client.adoc[Node.js client]
 * xref:gRPC-java-client.adoc[Java client]
-
-
-//== Issue Management (MOVE THIS UP TO CONTRIBUTE SECTION!! SHOULDN'T BE HERE)
