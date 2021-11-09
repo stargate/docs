@@ -17,7 +17,7 @@
 *** xref:apollo-federation.adoc[Apollo data federation for GraphQL schema-first]
 ** xref:gRPC.adoc[gRPC API]
 *** xref:gRPC-using.adoc[Using Stargate gRPC API clients]
-*** xref:gRPC-client-creation.adoc[Creating new Stargate gRPC clients]
+//*** xref:gRPC-client-creation.adoc[Creating new Stargate gRPC clients]
 ** xref:cql.adoc[CQL API]
 *** xref:cql-using.adoc[Using the CQL API]
 *** https://cassandra.apache.org/doc/latest/cql/[CQL reference]
