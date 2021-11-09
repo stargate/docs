@@ -8,7 +8,7 @@
 
 === Set up a Rust project
 
-. Use the following command to initialize a Rust project in an empty directory:
+Use the following command to initialize a Rust project in an empty directory:
 
 [source, rust]
 ----

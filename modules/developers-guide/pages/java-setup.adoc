@@ -6,9 +6,17 @@
 * * Create a table in your keyspace: xref:rest-using.adoc#_create_a_keyspace[(REST)]  xref:graphql-first-using.adoc#_create_a_keyspace[(GraphQL)]
 * xref:start-stargate.adoc[Start Stargate (optional)]
 
+=== Install software
+
+You'll need to install the following software if it is not already installed:
+
+* link:https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html[Install a Java Development Kit (JDK)]
+* link:https://maven.apache.org/install.html[Install Apache Maven]
+
+
 === Add dependencies
 
-To begin, add the required dependency to your project:
+To begin, add the required dependency to your project `pom.xml`:
 
 [source, xml]
 ----
@@ -22,8 +30,3 @@ If you do not add it, you will observe the following error:
 No functional channel service provider found.
 Try adding a dependency on the grpc-okhttp, grpc-netty, or grpc-netty-shaded artifact.
 ----
-
-Once we have all needed dependencies, we can use the Stargate gRPC-stub API.
-After this step, you should have `StargateGrpc` available on your class path
-(from the `grpc-proto` dependency).
-It contains the logic for interacting with Stargate gRPC API.

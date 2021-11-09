@@ -10,14 +10,16 @@ link:https://stargate.io/docs/stargate/1.0/developers-guide/authnz.html[Stargate
 The following code snippet can be used to generate the table-based auth token
 in the client code:
 
-[source, shell]
+[source, java]
 ----
-include::example$bash/java-connect-gen-auth.sh[]
+include::example$java/java-grpc-auth.java[]
 ----
 
-=== Set up client
+=== Creating a client
 
-To connect to your Stargate instance, set up the client as follows.
+To connect to your Stargate instance, create the client.
+For a local Stargate instance, for instance, the following client code will
+fetch an auth token with a REST call:
 
 [source, java]
 ----

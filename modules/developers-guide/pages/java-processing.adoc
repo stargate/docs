@@ -1,46 +1,16 @@
 == Java gRPC processing result set
 
-Next, we can retrieve the inserted record(s):
-[source, java]
-----
-include::example$java/java-grpc-process1.java[]
-----
-
-If we print out the result set, it will have the following structure:
-
-[source, yaml]
-----
-include::example$yaml/java-grpc-std-query-result.yaml[]
-----
-
-The value contains the binary data, that we can deserialize.
-First, unwrap the `ResultSet`:
+After executing a query, a response returns rows that match the SELECT statement.
+If there are no rows, the returned payload is unset.
+The convenience function `getResultSet()` is provided to help transform this
+response into a result set that's easier to work with.
 
 [source, java]
 ----
-include::example$java/java-grpc-process2.java[]
+include::example$java/java-grpc-processing.java[]
 ----
 
-We can get all rows `getRowsList()` and iterate over the result
-OR get the specific row using its index and passing it to the `getRows(int index)` method.
-We picked the latter approach in the example above.
-Our retrieval query (`SELECT k, v FROM ks.test`) stated explicitly which columns should be retrieved.
-Thanks to that, we can safely get the values using their positions via the `getValues()` method.
-The `getString()` and `getInt()` perform deserialization of data.
-These methods were used because we knew the underlying type of the corresponding columns.
-The API provides utility methods for deserialization for more types as well.
-For the full list of available types, see `Value` section in the [query.proto] file.
-
-If you want to iterate over all results, you may do:
-
-[source, java]
-----
-include::example$java/java-grpc-process3.java[]
-----
-
-It will allow you to operate on a single row. When executing the above snippet, it will return:
-
-[source, yaml]
-----
-include::example$yaml/java-grpc-one-row.yaml[]
-----
+Since the result type is known, the `getString` function transforms the value into a native string.
+Additional functions also exist for other types such as `int`, `map`, and `blob`.
+The full list can be found in
+link:https://github.com/stargate/stargate/blob/master/grpc-proto/src/main/java/io/stargate/grpc/Values.java[Values.java].

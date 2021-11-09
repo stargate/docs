@@ -1,38 +1,19 @@
-package com.datastax.stargate.sdk.sandbox;
+// Stargate OSS configuration for locally hosted docker image
+private static final String STARGATE_USERNAME      = "cassandra";
+private static final String STARGATE_PASSWORD      = "cassandra";
+private static final String STARGATE_HOST          = "localhost";
+private static final int    STARGATE_GRPC_PORT     = 8090;
+private static final String STARGATE_AUTH_ENDPOINT = "http://" + STARGATE_HOST+ ":8081/v1/auth";
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+public static void main(String[] args)
+throws Exception {
 
-import org.junit.jupiter.api.Test;
+    // Create Grpc Channel
+    ManagedChannel channel = ManagedChannelBuilder
+            .forAddress(STARGATE_HOST, STARGATE_GRPC_PORT).usePlaintext().build();
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.stargate.grpc.StargateBearerToken;
-import io.stargate.proto.QueryOuterClass;
-import io.stargate.proto.StargateGrpc;
-
-public class GrpcTest {
-
-    @Test
-    public void test_gRPC_Stargate()
-    throws IOException {
-
-        // To get a token:
-        // curl -L -X POST 'http://localhost:8081/v1/auth' -H 'Content-Type: application/json' --data-raw '{ "username": "cassandra", "password": "cassandra" }'
-        String stargateToken = "<your_token>";
-        String stargateHost  = "localhost";
-        int    stargateport  = 8090;
-
-        ManagedChannel mc = ManagedChannelBuilder
-                            .forAddress(stargateHost, stargateport)
-                            .usePlaintext() // <-- Stargate
-                            .build();
-
-        StargateGrpc.StargateBlockingStub blockingStub = StargateGrpc.newBlockingStub(mc)
-                .withDeadlineAfter(10, TimeUnit.SECONDS)
-                .withCallCredentials(new StargateBearerToken(stargateToken));
-    }
-
-}
+    // blocking stub version
+    StargateGrpc.StargateBlockingStub blockingStub =
+        StargateGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(10, TimeUnit.SECONDS)
+            .withCallCredentials(new StargateBearerToken(token));
