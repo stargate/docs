@@ -1,6 +1,6 @@
 == Prerequisites
 
-To use Stargate you need:
+To use a Stargate gRPC client, you need:
 
 * Docker installed and running, if using Docker for Stargate
 * xref:gRPC-using.adoc#_using_bloomrpc[bloomrpc] installed to test queries
