@@ -1,12 +1,11 @@
 = Tooling Resources
 :slug: resources
 
+== Postman resources
 
-== Prerequisite
+=== Prerequisite
 
 * Install link:http://www.postman.com[Postman] to run postman testing
-
-== Postman resources
 
 Postman is a widely-used collaboration platform for API development and testing.
 Using this third-party tool, you can easily test APIs with environments generated
@@ -35,15 +34,15 @@ parameters before use.
 * link:https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate%20Astra%20API%20Environment.postman_environment.json[Astra environment]
 * link:https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate%20OSS%20API%20Environment.postman_environment.json[Stargate OSS environment]
 
-== Postman environment configuration
+=== Postman environment configuration
 
-=== Stargate OSS
+==== Stargate OSS
 
 If you are using non-standard ports, you'll need to
 link:https://learning.postman.com/docs/sending-requests/managing-environments/[change them in the Postman environment].
 You can also edit the JSON file directly, if you prefer.
 
-=== Astra
+==== Astra
 
 There are three items that must be
 link:https://docs.datastax.com/en/astra/docs/manage-application-tokens.html[retrieved from the Astra dashboard] and configured in the Postman environment:
@@ -56,3 +55,39 @@ Open the link:https://learning.postman.com/docs/sending-requests/managing-enviro
 and copy/paste in the appropriate values.
 You can also edit the JSON file directly, if you prefer.
 
+== BloomRPC resources
+
+=== Prerequisite
+
+* Install link:https://github.com/bloomrpc/bloomrpc#installation[BloomRPC] to run gRPC testing
+
+BloomRPC aims to provide the simplest and most efficient developer experience for
+exploring and querying your GRPC services.
+Using this third-party tool, you can easily test gRPC proto files with environments generated
+for your test platforms.
+
+For instance, the proto files can be
+link:https://github.com/stargate/stargate/tree/master/grpc-proto/proto[imported into BloomRPC].
+Select `ExecuteQuery` from the imported files.
+Set the environment to `localhost:8090` if running a Stargate docker container.
+In the metadata, add an authentication token with `{"x-cassandra-token": "<auth_token>"}`.
+If you have followed one of the xref:gRPC-using.adoc[gRPC client] instructions,
+add the following query and push the run button:
+
+[source, plaintext]
+----
+{
+  "cql": "SELECT * FROM users",
+  "values": {
+    "type": 0
+  },
+  "parameters": {
+    "keyspace": {
+      "value": "test"
+    }
+  }
+}
+----
+
+You should get the same results from the database table that you received running
+command-line tools.
