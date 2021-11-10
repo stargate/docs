@@ -19,9 +19,9 @@ public class GrpcTest {
     public void test_gRPC_Astra()
     throws InvalidProtocolBufferException {
 
-        String dbId     = "27db15ce-d2cc-47ce-a7f9-bbff218a68b7";
-        String dbRegion = "europe-west1";
-        String token    = "AstraCS:yNZhDDoXfjIwYADeGRLYKYKp:ff15894eb27859aa66ae91b46388f3018f251764f12f1131221409b5ddbf0425";
+        String dbId     = "<your_db>";
+        String dbRegion = "<your_region>";
+        String token    = "AstraCS:xxxxxxx";
 
         ManagedChannel mc = ManagedChannelBuilder
                             .forAddress(dbId + "-" + dbRegion + ".apps.astra.datastax.com", 443)
