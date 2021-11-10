@@ -1,7 +1,7 @@
 import {
   StargateClient,
   promisifyStargateClient,
-} from "@stargate/stargate-grpc-node-client";
+} from "@stargate-oss/stargate-grpc-node-client";
 
 const stargateClient = new StargateClient(
   "localhost:8090",

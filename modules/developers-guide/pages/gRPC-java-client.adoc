@@ -11,3 +11,6 @@ include::page$java-processing.adoc[]
 include::page$java-full.adoc[]
 
 include::page$java-developing.adoc[]
+
+The Stargate gRPC Java Client repository is located at
+link:https://github.com/stargate/stargate-grpc-java-client[https://github.com/stargate/stargate-grpc-java-client].

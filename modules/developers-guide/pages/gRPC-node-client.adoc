@@ -17,3 +17,6 @@ include::page$node-processing.adoc[]
 include::page$node-full.adoc[]
 
 include::page$node-developing.adoc[]
+
+The Stargate gRPC Node.js Client repository is located at
+link:https://github.com/stargate/stargate-grpc-node-client[https://github.com/stargate/stargate-grpc-node-client].

@@ -3,7 +3,7 @@
 === Prerequisites
 
 * xref:authnz.adoc[Get an application token]
-* * Create a table in your keyspace(optional): xref:rest-using.adoc#_create_a_keyspace[(REST)]  xref:graphql-first-using.adoc#_create_a_keyspace[(GraphQL)]
+* Create a table in your keyspace(optional): xref:rest-using.adoc#_create_a_keyspace[(REST)]  xref:graphql-first-using.adoc#_create_a_keyspace[(GraphQL)]
 * xref:start-stargate.adoc[Start Stargate (optional)]
 
 === Install software

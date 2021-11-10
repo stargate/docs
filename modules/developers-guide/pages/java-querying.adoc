@@ -27,14 +27,5 @@ include::example$java/java-grpc-batch-query.java[]
 ----
 The `ExecuteQuery` function can be used to execute a single query.
 
-If you need to group several commands together as a
-link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
-the client also provides an `ExecuteBatch()` function to execute a batch query:
-
-[source, java]
-----
-include::example$java/java-grpc-batch-query.java[]
-----
-
 This example inserts two values into the keyspace table `test.users`.
 Only `INSERT`, `UPDATE`, and `DELETE` operations can be used in a batch query.

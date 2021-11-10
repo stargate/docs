@@ -1,1 +1,1 @@
-yarn add @stargate/stargate-grpc-node-client
+yarn add @stargate-oss/stargate-grpc-node-client

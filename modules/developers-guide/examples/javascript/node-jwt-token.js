@@ -1,5 +1,5 @@
 // Astra DB configuration
-const astra_uri = "{astra-base-url}-{astra-region}.apps.astra-dev.datastax.com:443";
+const astra_uri = "{astra-base-url}-{astra-region}.apps.astra.datastax.com:443";
 const bearer_token = "AstraCS:xxxxxxx";
 
 // Set up the authenication

@@ -11,3 +11,6 @@ include::page$rust-processing.adoc[]
 include::page$rust-full.adoc[]
 
 include::page$rust-developing.adoc[]
+
+The Stargate gRPC Rust Client repository is located at
+link:https://github.com/stargate/stargate-grpc-rust-client[https://github.com/stargate/stargate-grpc-rust-client].

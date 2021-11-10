@@ -1,1 +1,1 @@
-npm i @stargate/stargate-grpc-node-client
+npm i @stargate-oss/stargate-grpc-node-client
