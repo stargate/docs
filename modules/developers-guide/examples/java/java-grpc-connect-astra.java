@@ -25,8 +25,8 @@ public class GrpcTest {
 
         ManagedChannel mc = ManagedChannelBuilder
                             .forAddress(dbId + "-" + dbRegion + ".apps.astra.datastax.com", 443)
-                            .useTransportSecurity() // <-- Astra
-                            //.usePlaintext() // <-- Stargate
+                            .useTransportSecurity() // SSL
+                            //.usePlaintext()       // Plaintext
                             .build();
 
         StargateGrpc.StargateBlockingStub blockingStub =
@@ -41,8 +41,7 @@ public class GrpcTest {
                     .setCql("SELECT data_center from system.local")
                     .build());
 
-        QueryOuterClass.ResultSet rs =
-                response.getResultSet().getData().unpack(QueryOuterClass.ResultSet.class);
+        QueryOuterClass.ResultSet rs = response.getResultSet();
 
         System.out.println(rs.getRowsList().get(0).getValues(0));
     }

@@ -49,11 +49,11 @@ func main() {
 	fmt.Printf("made client\n")
 
 	// Create a new keyspace
-	createKeyspaceStatement := &pb.Query{
+	createKeyspaceQuery := &pb.Query{
 		Cql: "CREATE KEYSPACE IF NOT EXISTS test WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};",
 	}
 
-	_, err = stargateClient.ExecuteQuery(createKeyspaceStatement)
+	_, err = stargateClient.ExecuteQuery(createKeyspaceQuery)
 	if err != nil {
 		fmt.Printf("error creating keyspace %v", err)
 		return
