@@ -1,9 +1,7 @@
 == Go processing result set
 
-After executing a query, a response returns rows that match the SELECT statement.
-If there are no rows, the returned payload is unset.
-The convenience function `GetResultSet()` is provided to help transform this
-response into a result set that's easier to work with.
+After executing a query a response will be returned containing rows for a SELECT 
+statement, otherwise the returned payload will be unset:
 
 [source, go]
 ----
