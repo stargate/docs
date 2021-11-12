@@ -22,7 +22,7 @@ For your convenience, this project contains a bunch of examples located in the
 examples directory, which demonstrate connecting, creating schemas,
 inserting data and querying.
 You'll need a working instance of a Stargate cluster to run the examples.
-Refer to the official link:https://stargate.io/docs/[Stargate documentation]
+Refer to the official link:https://stargate.io/docs/install/install_overview.html[Stargate Installation documentation]
 for more details on how to setup Stargate.
 
 Each example program accepts an URL of the Stargate coordinator,
@@ -35,13 +35,11 @@ include::example$rust/rust-run-example.rs[]
 
 The authentication token value can be also defined in the SG_TOKEN environment variable.
 
-Here is one example of starting a Cassandra cluster and launching Stargate using
-the link:https://github.com/riptano/ccm[Cassandra Cluster Manager (CCM)]:
+You'll need to start a Stargate instance.
 
-[source, shell]
-----
-include::example$bash/start-sg-ccm.sh[]
-----
+include::page$start-stargate.adoc[]
+
+==== Run examples
 
 Run the `keyspace` example to test the connection and create the test
 keyspace with the default keyspace name of `stargate_examples`:

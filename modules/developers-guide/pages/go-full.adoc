@@ -1,4 +1,4 @@
-== GO full sample script
+== Go full sample script
 
 To put all the pieces together, here is a sample script that combines all the pieces
 shown above:
@@ -8,7 +8,7 @@ shown above:
 Sample script::
 +
 --
-[source, GO]
+[source, go]
 ----
 include::example$go/go-full-script.go[]
 ----
