@@ -1,7 +1,7 @@
 == Node.js querying
 
 A simple query can be performed by passing a CQL query to the client using the
-`ExecuteQuery()` function for standard query execution:
+`executeQuery()` function for standard query execution:
 
 [source, javascript]
 ----
@@ -24,7 +24,7 @@ include::example$javascript/node-parameterized.js[]
 
 If you would like to use a
 link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
-the client also provides an `ExecuteBatch()` function to execute a batch query:
+the client also provides an `executeBatch()` function to execute a batch query:
 
 [source, javascript]
 ----

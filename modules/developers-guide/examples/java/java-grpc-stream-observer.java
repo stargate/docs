@@ -2,7 +2,7 @@ StreamObserver<QueryOuterClass.Response> streamObserver = new StreamObserver<Que
            @Override
            public void onNext(QueryOuterClass.Response response) {
                try {
-                   System.out.println("response:" + response.getResultSet().getData().unpack(QueryOuterClass.ResultSet.class));
+                   System.out.println("response:" + response.getResultSet());
                } catch (InvalidProtocolBufferException e) {
                    throw new RuntimeException(e);
                }

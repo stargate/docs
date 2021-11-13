@@ -10,11 +10,12 @@ try {
     const password = "cassandra";
     const stargate_uri = "localhost:8090";
 
-    // Set up the authenication
+    // Set up the authentication
     // For Stargate OSS: Create a table based auth token Stargate/Cassandra authentication using the default C* username and password
     const credentials = new StargateTableBasedToken({authEndpoint: auth_endpoint, username: username, password: password});
 
-    console.log(credentials);
+    // Uncomment if you need to check the credentials
+// console.log(credentials);
 
     // Create the gRPC client
     // For Stargate OSS: passing it the address of the gRPC endpoint
@@ -87,18 +88,20 @@ try {
 
     // Get the results from the execute query statement
     // and separate into an array to print out the results
-    const resultSet = response.getResultSet();
-    const rows = resultSet.getRowsList();
-
-    // This for loop gets 2 results
-    for ( let i = 0; i < 2; i++) {
-      var valueToPrint = "";
-      for ( let j = 0; j < 2; j++) {
-        var value = rows[i].getValuesList()[j].getString();
-        valueToPrint += value;
-        valueToPrint += " ";
+    if (resultSet) {
+      const resultSet = response.getResultSet();
+      const rows = resultSet.getRowsList();
+    
+      // This for loop gets 2 results
+      for ( let i = 0; i < 2; i++) {
+        var valueToPrint = "";
+        for ( let j = 0; j < 2; j++) {
+          var value = rows[i].getValuesList()[j].getString();
+          valueToPrint += value;
+          valueToPrint += " ";
+        }
+        console.log(valueToPrint);
       }
-      console.log(valueToPrint);
     }
 
     console.log("everything worked!")

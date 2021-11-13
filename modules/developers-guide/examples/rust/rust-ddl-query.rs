@@ -8,7 +8,6 @@ println!("created keyspace");
 
 // For Stargate OSS: create a table
 let create_table = Query::builder()
-    // .keyspace("test")
     .query(
         "CREATE TABLE IF NOT EXISTS test.users \
             (firstname text, lastname text, PRIMARY KEY (firstname, lastname));",
