@@ -1,5 +1,8 @@
 #!/usr/bin/env zx
 
+// This script uses zx - if you wish to rename to index.js and use in a node application
+// remove the line above.
+
 import * as grpc from "@grpc/grpc-js";
 import { StargateClient, StargateTableBasedToken, Query, Batch, BatchQuery, Response, promisifyStargateClient } from "@stargate-oss/stargate-grpc-node-client";
 
