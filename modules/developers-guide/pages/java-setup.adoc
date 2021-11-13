@@ -10,7 +10,7 @@
 
 You'll need to install the following software if it is not already installed:
 
-* link:https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html[Install a Java Development Kit (JDK)]
+* link:https://adoptopenjdk.net/[Install a Java Development Kit (JDK)]
 * link:https://maven.apache.org/install.html[Install Apache Maven]
 
 
