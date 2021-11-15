@@ -4,7 +4,7 @@ const queryString = 'SELECT firstname, lastname FROM test.users;'
 // Set the CQL statement using the string defined in the last line
 query.setCql(queryString);
 
-// For Stargate OSS and Astra DB: execute the query statement
+// For Stargate OSS: execute the query statement
 const response = await promisifiedClient.executeQuery(
   query,
   authenticationMetadata
