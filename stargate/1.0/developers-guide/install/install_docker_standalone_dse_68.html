@@ -241,6 +241,19 @@
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="2">
+    <a class="nav-link" href="../gRPC.html">gRPC API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../gRPC-using.html">Using Stargate gRPC API clients</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="../cql.html">CQL API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -319,7 +332,7 @@ and GraphQL Playground, along with a DataStax Enterprise<sup>&#8482;</sup>  6.8 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.35</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.40</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -338,7 +351,7 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=6.8 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-dse-68:v1.0.35</code></pre>
+  stargateio/stargate-dse-68:v1.0.40</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -369,6 +382,10 @@ meant for development and testing only.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8084</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8090</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC interface for CRUD</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>

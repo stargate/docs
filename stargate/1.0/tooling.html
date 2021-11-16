@@ -242,6 +242,19 @@
 </ul>
   </li>
   <li class="nav-item toggler" data-depth="2">
+    <a class="nav-link" href="developers-guide/gRPC.html">gRPC API</a>
+    <button class="nav-item-toggle">
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="developers-guide/gRPC-using.html">Using Stargate gRPC API clients</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item toggler" data-depth="2">
     <a class="nav-link" href="developers-guide/cql.html">CQL API</a>
     <button class="nav-item-toggle">
       <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -317,8 +330,10 @@
 <article class="doc">
 <h1 class="page">Tooling Resources</h1>
 <div class="sect1">
-<h2 id="_prerequisite"><a class="anchor" href="#_prerequisite"></a><a class="link" href="#_prerequisite">Prerequisite</a></h2>
+<h2 id="_postman_resources"><a class="anchor" href="#_postman_resources"></a><a class="link" href="#_postman_resources">Postman resources</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_prerequisite"><a class="anchor" href="#_prerequisite"></a><a class="link" href="#_prerequisite">Prerequisite</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -326,11 +341,6 @@
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_postman_resources"><a class="anchor" href="#_postman_resources"></a><a class="link" href="#_postman_resources">Postman resources</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Postman is a widely-used collaboration platform for API development and testing.
 Using this third-party tool, you can easily test APIs with environments generated
@@ -380,20 +390,18 @@ parameters before use.</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_postman_environment_configuration"><a class="anchor" href="#_postman_environment_configuration"></a><a class="link" href="#_postman_environment_configuration">Postman environment configuration</a></h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_stargate_oss"><a class="anchor" href="#_stargate_oss"></a><a class="link" href="#_stargate_oss">Stargate OSS</a></h3>
+<h3 id="_postman_environment_configuration"><a class="anchor" href="#_postman_environment_configuration"></a><a class="link" href="#_postman_environment_configuration">Postman environment configuration</a></h3>
+<div class="sect3">
+<h4 id="_stargate_oss"><a class="anchor" href="#_stargate_oss"></a><a class="link" href="#_stargate_oss">Stargate OSS</a></h4>
 <div class="paragraph">
 <p>If you are using non-standard ports, you&#8217;ll need to
 <a href="https://learning.postman.com/docs/sending-requests/managing-environments/">change them in the Postman environment</a>.
 You can also edit the JSON file directly, if you prefer.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_astra"><a class="anchor" href="#_astra"></a><a class="link" href="#_astra">Astra</a></h3>
+<div class="sect3">
+<h4 id="_astra"><a class="anchor" href="#_astra"></a><a class="link" href="#_astra">Astra</a></h4>
 <div class="paragraph">
 <p>There are three items that must be
 <a href="https://docs.datastax.com/en/astra/docs/manage-application-tokens.html">retrieved from the Astra dashboard</a> and configured in the Postman environment:</p>
@@ -415,6 +423,56 @@ You can also edit the JSON file directly, if you prefer.</p>
 <p>Open the <a href="https://learning.postman.com/docs/sending-requests/managing-environments/">environment in Postman</a>
 and copy/paste in the appropriate values.
 You can also edit the JSON file directly, if you prefer.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bloomrpc_resources"><a class="anchor" href="#_bloomrpc_resources"></a><a class="link" href="#_bloomrpc_resources">BloomRPC resources</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prerequisite_2"><a class="anchor" href="#_prerequisite_2"></a><a class="link" href="#_prerequisite_2">Prerequisite</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Install <a href="https://github.com/bloomrpc/bloomrpc#installation">BloomRPC</a> to run gRPC testing</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>BloomRPC aims to provide the simplest and most efficient developer experience for
+exploring and querying your GRPC services.
+Using this third-party tool, you can easily test gRPC proto files with environments generated
+for your test platforms.</p>
+</div>
+<div class="paragraph">
+<p>For instance, the proto files can be
+<a href="https://github.com/stargate/stargate/tree/master/grpc-proto/proto">imported into BloomRPC</a>.
+Select <code>ExecuteQuery</code> from the imported files.
+Set the environment to <code>localhost:8090</code> if running a Stargate docker container.
+In the metadata, add an authentication token with <code>{"x-cassandra-token": "&lt;auth_token&gt;"}</code>.
+If you have followed one of the <a href="#gRPC-using.adoc" class="page unresolved">gRPC client</a> instructions,
+add the following query and push the run button:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "cql": "SELECT * FROM users",
+  "values": {
+    "type": 0
+  },
+  "parameters": {
+    "keyspace": {
+      "value": "test"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should get the same results from the database table that you received running
+command-line tools.</p>
 </div>
 </div>
 </div>
