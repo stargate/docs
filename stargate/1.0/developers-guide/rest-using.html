@@ -2555,7 +2555,20 @@ Note that the inclusion of clustering keys may return a range of rows.</p>
 <div class="tab-pane" aria-labelledby="tabset32_result">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Unresolved include directive in modules/developers-guide/pages/rest-using.adoc - include::example$result/rest_curl_get_users_fields.result[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "count": 1,
+  "data": [
+    {
+      "firstname": "Janesha",
+      "lastname": "Doesha",
+      "top_three_tv_shows": [
+        "The Magicians",
+        "The Librarians",
+        "Agents of SHIELD"
+      ]
+    }
+  ]
+}</code></pre>
 </div>
 </div>
 </div>
