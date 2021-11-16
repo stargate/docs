@@ -1,0 +1,8 @@
+[ ~/CLONES/grpc-go ] (main ✏️ 1) $go run connect-sgoss.go
+made client
+made keyspace
+made table
+insert data
+select executed
+ Jane Doe
+ Serge Provencio

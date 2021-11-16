@@ -80,3 +80,50 @@ docker run --name stargate \
   stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
 ----
 // end::3x_graphql-first[]
+
+// tag::grpc[]
+If you don't already have access to a Stargate deployment, one can be started
+quickly for testing in developer mode.
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
+This `docker run` command also exposes port 8090 for gRPC connections.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 8090:8090 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-40} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
+----
+
+Ensure the local instance of Stargate is running properly by tailing the logs for the container,
+and looking for the message that indicates Stargate is ready for traffic.
+
+[tabs]
+====
+shell command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/docker-logs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/sh_docker-logs.result[]
+----
+--
+====
+// end::grpc[]
