@@ -555,6 +555,7 @@ include::example$result/docapi_curl_get_subdoc_mult_where.result[]
 ----
 --
 ====
+
 ==== Retrieving a specific portion of a document with document-path
 
 To find a particular value, send a `GET` request to
@@ -656,6 +657,10 @@ include::example$result/docapi_curl_get_doc_path_wildcard.result[]
 ----
 --
 ====
+
+// LLP: add example
+// include::example$docapi/curl_get_doc_path_array.sh
+// well for the above, both documents would match {"friends.[0].firstname": { "$eq": "Mary"}}
 
 // end::ReadAdvData[]
 
