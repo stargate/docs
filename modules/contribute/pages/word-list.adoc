@@ -94,7 +94,6 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | CAS | Not Cas, cas -- Compare and Swap (was _Check and Set_ in the < 3.x Server docs)
 | `cbbackupmgr` |
 | `cbcollect` |
-| `cbc` | couchbase CLI tools that come with libcouchbase (LCB). Variety of binaries installed as /usr/bin/cbc*, for example, `cbc-pillowfight`, `cbc-version`
 | `cbq` | product name for query shell
 | `cbtransfer` |
 | CCCP | Stargate Cluster Connection Protocol
@@ -117,7 +116,6 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | Stargate Functions |
 | Stargate Managed Cloud |
 | Stargate Server 7.0 | first instance; abbreviate to Server 7.0 in subsequent instances. When referencing general (both) okay to use Stargate Server alone, no article
-| Couchstore |
 | cross datacenter replication (XDCR) |
 | cURL | is the name of Daniel Stenberg's data transfer tool (_Client URL_). `curl` is the verb, and its use on the command line
 |===
@@ -297,7 +295,6 @@ New Yorker, in particular, presents some interesting alternatives, and we may be
 | Term | Notes
 
 | Last Write Wins | (LWW)
-| LCB | As _libcouchbase (LCB)_ for first appearance in page,
 | LDAP |
 | livestream/livestreaming | one word, in all uses
 | log in | (verb), login (noun & adj) -- also log out / logout

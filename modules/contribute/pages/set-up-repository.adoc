@@ -37,9 +37,9 @@ After you fork the repository, clone it to your device.
 . Go to your repository on GitHub, and click btn:[Clone or download].
 . Click the Clipboard icon to copy the repository's Git URL.
 . In your terminal type `git clone`, paste the copied URL, and press kbd:[Enter].
-For example, to clone your fork of the docs-server repository, you'd enter:
+For example, to clone your fork of the `docs` repository, you'd enter:
 
- $ git clone git@github.com:this-is-you/docs-server.git
+ $ git clone git@github.com:this-is-you/docs.git
 
 . Change into the repository folder created by the clone operation.
 
@@ -54,7 +54,7 @@ You need to connect your local repository to the upstream repository so the two 
 . In your terminal type `git remote add upstream`, paste the copied URL, and press kbd:[Enter].
 For example, to connect to the remote upstream docs-server repository, you'd enter:
 
- $ git remote add upstream git@github.com:couchbase/docs-server.git
+ $ git remote add upstream git@github.com:stargate/docs.git
 
 . View the configured upstream and origin values and confirm the URLs are correct.
 +

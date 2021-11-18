@@ -1,5 +1,5 @@
 = Navigation Menus and Files
-:url-git-ui: https://github.com/couchbase/docs-ui
+:url-git-ui: https://github.com/stargate/antora-ui-stargate
 
 == Component Selector Menu
 
@@ -36,7 +36,7 @@ A navigation file can also include links to external URLs and other content, suc
 * In order to be published in a component menu, a navigation file must be registered in a component descriptor (_antora.yml_).
 * A navigation file must use the AsciiDoc file extension and is typically named `nav.adoc`.
 * A navigation file must contain at least one unordered AsciiDoc list.
-* The Couchbase documentation starts each list with a category title.
+* The Stargate documentation starts each list with a category title.
 See xref:update-nav.adoc[Update a Navigation File] to learn how to create category titles and list items.
 ** Use title case for category titles.
 Write "`and`" as an ampersand (*&*).

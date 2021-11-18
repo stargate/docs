@@ -42,7 +42,7 @@ The order of the values dictates the order the contents of the navigation files 
 
 == Supplemental Component Descriptor Files
 
-The Server component is aggregated from the _docs-server_, _couchbase-cli_, _backup_, and _asterix-opt_ repositories.
+The Server component is aggregated from the _docs-server_, _backup_, and _asterix-opt_ repositories.
 When parts of a component are stored in multiple repositories, one _antora.yml_ file acts as the primary component descriptor.
 The primary file contains the `name`, `title`, `version`, and `nav` configuration.
 The component descriptor files in the other repositories are supplemental.
@@ -50,7 +50,7 @@ They only contain `name` and `version`, so Antora can classify the content files
 
 The following _antora.yml_ file supplements the <<primary,primary component descriptor file>> shown in the previous section.
 
-.Supplemental _antora.yml_ in couchbase-cli repository
+.Supplemental _antora.yml_ in repository
 [source,yaml]
 ----
 name: server
