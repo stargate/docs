@@ -754,7 +754,7 @@ REST API query with <code>cURL</code> to find all the keyspaces:</p>
 <div class="paragraph">
 <p>Send a <code>DELETE</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}</code> to delete
 a keyspace. All data and all table schema will be deleted along with the
-keyspace scheam.</p>
+keyspace schema.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -766,10 +766,20 @@ keyspace scheam.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_a_table"><a class="anchor" href="#_create_a_table"></a><a class="link" href="#_create_a_table">Create a table</a></h3>
+<h3 id="_create_a_user_defined_type_udt"><a class="anchor" href="#_create_a_user_defined_type_udt"></a><a class="link" href="#_create_a_user_defined_type_udt">Create a user-defined type (UDT)</a></h3>
 <div class="paragraph">
-<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables</code> to create a table.
-Set the table name and column definitions in the JSON body.</p>
+<p>A user-defined type, or UDT, consists of two or more values that can be retrieved together.
+UDTs are useful for associating items that are naturally grouped, like an address (street, city, zip code),
+or a review (item reviewed, rating, date reviewed).</p>
+</div>
+<div class="paragraph">
+<p>UDTs are stored in a defined keyspace and can be used in other UDT definitions or
+table columns.</p>
+</div>
+<div class="paragraph">
+<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/types</code>.
+In this example we use <code>address_type</code> for the <code>name</code>. The defined <code>fields</code> describe
+the included items and their data type.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -784,6 +794,156 @@ Set the table name and column definitions in the JSON body.</p>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8080/v2/schemas/keyspaces/users_keyspace/types \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "name": "address_type",
+  "fields":[
+    {
+      "name": "street",
+      "typeDefinition": "text"
+    },
+    {
+      "name": "city",
+      "typeDefinition": "text"
+    },
+    {
+      "name": "state",
+      "typeDefinition": "text"
+    },
+    {
+      "name": "zip",
+      "typeDefinition": "text"
+    }
+  ]
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+    "name": "address_type"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_udt_existence"><a class="anchor" href="#_check_udt_existence"></a><a class="link" href="#_check_udt_existence">Check UDT existence</a></h3>
+<div class="paragraph">
+<p>To check if your UDT exists as expected after creation, use a <code>GET</code> request
+ to <code>/v2/schemas/keyspaces/{keyspace_name}/types</code>.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset7_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET http://localhost:8080/v2/schemas/keyspaces/users_keyspace/types \
+-H "X-Cassandra-Token: $AUTH_TOKEN" \
+-H 'accept: application/json' \
+-H 'content-type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
+  "data":[
+    {
+      "name":"address_type",
+      "keyspace":"users_keyspace",
+      "fields":[
+        {
+          "name":"street",
+          "typeDefinition":"varchar"
+        },
+        {
+          "name":"city",
+          "typeDefinition":"varchar"
+        },
+        {
+          "name":"state",
+          "typeDefinition":"varchar"
+        },
+        {
+          "name":"zip",
+          "typeDefinition":"varchar"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_udt"><a class="anchor" href="#_delete_a_udt"></a><a class="link" href="#_delete_a_udt">Delete a UDT</a></h3>
+<div class="paragraph">
+<p>To delete a UDT, use a <code>DELETE</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/types/{type_name}</code>.
+All UDT schema will be deleted along with the UDT data.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request DELETE http://localhost:8080/v2/schemas/keyspaces/users_keyspace/types/address_type \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_table"><a class="anchor" href="#_create_a_table"></a><a class="link" href="#_create_a_table">Create a table</a></h3>
+<div class="paragraph">
+<p>Send a <code>POST</code> request to <code>/v2/schemas/keyspaces/{keyspace_name}/tables</code> to create a table.
+Set the table name and column definitions in the JSON body.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset9_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
@@ -823,7 +983,7 @@ Set the table name and column definitions in the JSON body.</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset6_result">
+<div class="tab-pane" aria-labelledby="tabset9_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"users"}</code></pre>
@@ -857,15 +1017,15 @@ can add a column by sending a <code>POST</code> request to add the column.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset7_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset7_result"></a>Result</p>
+<p><a id="tabset10_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
@@ -879,7 +1039,7 @@ can add a column by sending a <code>POST</code> request to add the column.</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset7_result">
+<div class="tab-pane" aria-labelledby="tabset10_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{ "name": "email" }</code></pre>
@@ -896,15 +1056,15 @@ sent a <code>PUT</code> request instead:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset8_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset11_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset8_result"></a>Result</p>
+<p><a id="tabset11_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
@@ -916,7 +1076,7 @@ sent a <code>PUT</code> request instead:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset8_result">
+<div class="tab-pane" aria-labelledby="tabset11_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -935,15 +1095,15 @@ set contents, such as <code>text</code>:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset9_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset12_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset9_result"></a>Result</p>
+<p><a id="tabset12_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
@@ -957,7 +1117,7 @@ set contents, such as <code>text</code>:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset9_result">
+<div class="tab-pane" aria-labelledby="tabset12_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"favorite_books"}</code></pre>
@@ -981,15 +1141,15 @@ is ordered:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset13_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset10_result"></a>Result</p>
+<p><a id="tabset13_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset13_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
@@ -1003,7 +1163,7 @@ is ordered:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset10_result">
+<div class="tab-pane" aria-labelledby="tabset13_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"top_three_tv_shows"}</code></pre>
@@ -1020,15 +1180,15 @@ map key and the may value:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset11_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset14_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset11_result"></a>Result</p>
+<p><a id="tabset14_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset14_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
@@ -1042,7 +1202,7 @@ map key and the may value:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset11_result">
+<div class="tab-pane" aria-labelledby="tabset14_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"evaluations"}</code></pre>
@@ -1060,15 +1220,15 @@ A tuple can consist of two or more values that can be retrieved together.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset12_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset15_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset12_result"></a>Result</p>
+<p><a id="tabset15_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset15_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
@@ -1082,7 +1242,7 @@ A tuple can consist of two or more values that can be retrieved together.</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset12_result">
+<div class="tab-pane" aria-labelledby="tabset15_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"name":"current_country"}</code></pre>
@@ -1115,15 +1275,15 @@ For instance, for a UDT created with the following CQL statement:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset13_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset16_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset13_result"></a>Result</p>
+<p><a id="tabset16_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset13_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset16_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
@@ -1132,12 +1292,12 @@ For instance, for a UDT created with the following CQL statement:</p>
 -H "Content-Type: application/json" \
 -d '{
    "name": "address",
-   "typeDefinition": "address"
+   "typeDefinition": "address_type"
 }'</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset13_result">
+<div class="tab-pane" aria-labelledby="tabset16_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{ "name": "address" }</code></pre>
@@ -1158,15 +1318,15 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset14_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset17_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset14_result"></a>Result</p>
+<p><a id="tabset17_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset14_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset17_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
@@ -1176,7 +1336,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset14_result">
+<div class="tab-pane" aria-labelledby="tabset17_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1238,15 +1398,15 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset15_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset18_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset15_result"></a>Result</p>
+<p><a id="tabset18_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset15_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset18_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
@@ -1257,7 +1417,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset15_result">
+<div class="tab-pane" aria-labelledby="tabset18_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1338,15 +1498,15 @@ REST API query with <code>cURL</code> to find all the columns:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset16_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset19_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset16_result"></a>Result</p>
+<p><a id="tabset19_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset16_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset19_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
@@ -1357,7 +1517,7 @@ REST API query with <code>cURL</code> to find all the columns:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset16_result">
+<div class="tab-pane" aria-labelledby="tabset19_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1416,15 +1576,15 @@ REST API query with <code>cURL</code> to find all the columns:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset17_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset20_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset17_result"></a>Result</p>
+<p><a id="tabset20_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset17_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset20_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
@@ -1435,7 +1595,7 @@ REST API query with <code>cURL</code> to find all the columns:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset17_result">
+<div class="tab-pane" aria-labelledby="tabset20_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1530,15 +1690,15 @@ the default is <code>false</code>.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset18_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset21_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset18_result"></a>Result</p>
+<p><a id="tabset21_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset18_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset21_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
@@ -1554,7 +1714,7 @@ the default is <code>false</code>.</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset18_result">
+<div class="tab-pane" aria-labelledby="tabset21_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1572,15 +1732,15 @@ the default is <code>false</code>.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset19_curl-command"></a>cURL command</p>
+<p><a id="tabset22_curl-command"></a>cURL command</p>
 </li>
 <li>
-<p><a id="tabset19_result"></a>Result</p>
+<p><a id="tabset22_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset19_curl-command">
+<div class="tab-pane" aria-labelledby="tabset22_curl-command">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
@@ -1653,7 +1813,7 @@ curl -s --location \
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset19_result">
+<div class="tab-pane" aria-labelledby="tabset22_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -1692,15 +1852,15 @@ curl -s --location \
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset20_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset23_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset20_result"></a>Result</p>
+<p><a id="tabset23_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset20_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset23_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
@@ -1711,7 +1871,7 @@ curl -s --location \
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset20_result">
+<div class="tab-pane" aria-labelledby="tabset23_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">[
@@ -1832,15 +1992,15 @@ The column name/value pairs are passed in the JSON body.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset21_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset24_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset21_result"></a>Result</p>
+<p><a id="tabset24_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset21_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset24_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/users' \
@@ -1864,7 +2024,7 @@ curl -s --location --request POST 'localhost:8082/v2/keyspaces/users_keyspace/us
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset21_result">
+<div class="tab-pane" aria-labelledby="tabset24_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Mookie","lastname":"Betts"}
@@ -1903,124 +2063,6 @@ schema created earlier.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset22_curl-command-v2"></a>cURL command (/v2)</p>
-</li>
-<li>
-<p><a id="tabset22_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset22_curl-command-v2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
--H  "accept: application/json" \
--H  "X-Cassandra-Token: $AUTH_TOKEN" \
--H  "Content-Type: application/json" \
--d '{"firstname": "Janesha",
-  "lastname": "Doesha",
-  "favorite color": "grey",
-  "favorite_books": [ "Emma", "The Color Purple" ]
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset22_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>LIST:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset23_curl-command-v2"></a>cURL command (/v2)</p>
-</li>
-<li>
-<p><a id="tabset23_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset23_curl-command-v2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
--H  "X-Cassandra-Token: $AUTH_TOKEN" \
--H  "Content-Type: application/json" \
--H  "Accept: application/json" \
--d '{"firstname": "Janesha",
-  "lastname": "Doesha",
-  "favorite color": "grey",
-  "top_three_tv_shows": [ "The Magicians", "The Librarians", "Agents of SHIELD" ]
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset23_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>MAP:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset24_curl-command-v2"></a>cURL command (/v2)</p>
-</li>
-<li>
-<p><a id="tabset24_result"></a>Result</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset24_curl-command-v2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
--H  "X-Cassandra-Token: $AUTH_TOKEN" \
--H  "Content-Type: application/json" \
--H  "Accept: application/json" \
--d '{"firstname": "Janesha",
-  "lastname": "Doesha",
-  "favorite color": "grey",
-  "top_three_tv_shows": [ "The Magicians", "The Librarians", "Agents of SHIELD" ],
-  "evaluations": [ {"key":"2020", "value":"good"}, {"key":"2019", "value":"okay"} ]
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset24_result">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>TUPLE:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
 <p><a id="tabset25_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
@@ -2039,7 +2081,7 @@ schema created earlier.</p>
 -d '{"firstname": "Janesha",
   "lastname": "Doesha",
   "favorite color": "grey",
-  "current_country": [ "France", "2016-01-01", "2020-02-02" ]
+  "favorite_books": [ "Emma", "The Color Purple" ]
 }'</code></pre>
 </div>
 </div>
@@ -2054,7 +2096,7 @@ schema created earlier.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>UDT:</p>
+<p>LIST:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -2072,18 +2114,136 @@ schema created earlier.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+-H  "X-Cassandra-Token: $AUTH_TOKEN" \
+-H  "Content-Type: application/json" \
+-H  "Accept: application/json" \
+-d '{"firstname": "Janesha",
+  "lastname": "Doesha",
+  "favorite color": "grey",
+  "top_three_tv_shows": [ "The Magicians", "The Librarians", "Agents of SHIELD" ]
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset26_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>MAP:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset27_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset27_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset27_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+-H  "X-Cassandra-Token: $AUTH_TOKEN" \
+-H  "Content-Type: application/json" \
+-H  "Accept: application/json" \
+-d '{"firstname": "Janesha",
+  "lastname": "Doesha",
+  "favorite color": "grey",
+  "top_three_tv_shows": [ "The Magicians", "The Librarians", "Agents of SHIELD" ],
+  "evaluations": [ {"key":"2020", "value":"good"}, {"key":"2019", "value":"okay"} ]
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset27_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>TUPLE:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset28_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset28_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset28_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -d '{"firstname": "Janesha",
   "lastname": "Doesha",
   "favorite color": "grey",
-  "address": { "street": "1 Main St", "zip": 12345 }
+  "current_country": [ "France", "2016-01-01", "2020-02-02" ]
 }'</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset26_result">
+<div class="tab-pane" aria-labelledby="tabset28_result">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>UDT:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset29_curl-command-v2"></a>cURL command (/v2)</p>
+</li>
+<li>
+<p><a id="tabset29_result"></a>Result</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset29_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+-H  "accept: application/json" \
+-H  "X-Cassandra-Token: $AUTH_TOKEN" \
+-H  "Content-Type: application/json" \
+-d '{"firstname": "Janesha",
+  "lastname": "Doesha",
+  "favorite color": "grey",
+  "address": { "street": "1 Main St", "zip": "12345" }
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset29_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"firstname":"Janesha","lastname":"Doesha"}</code></pre>
@@ -2105,15 +2265,15 @@ that were entered:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset27_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset30_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset27_result"></a>Result</p>
+<p><a id="tabset30_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset27_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset30_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}?where=\{"firstname":\{"$in":\["Janesha","Mookie"\]\}\}' \
@@ -2122,7 +2282,7 @@ that were entered:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset27_result">
+<div class="tab-pane" aria-labelledby="tabset30_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2216,15 +2376,15 @@ to retrieve the row for <code>Mookie</code> using <code>$eq</code>:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset28_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset31_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset28_result"></a>Result</p>
+<p><a id="tabset31_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset28_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset31_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}?where=\{"firstname":\{"$eq":"Mookie"\}\}' \
@@ -2233,7 +2393,7 @@ to retrieve the row for <code>Mookie</code> using <code>$eq</code>:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset28_result">
+<div class="tab-pane" aria-labelledby="tabset31_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2267,15 +2427,15 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset29_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset32_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset29_result"></a>Result</p>
+<p><a id="tabset32_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset29_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset32_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}?where=\{"firstname":\{"$eq":"Janesha"\},"favorite_books":\{"$contains":"Emma"\}\}' \
@@ -2284,7 +2444,7 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset29_result">
+<div class="tab-pane" aria-labelledby="tabset32_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2360,15 +2520,15 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset30_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset33_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset30_result"></a>Result</p>
+<p><a id="tabset33_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset30_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset33_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET {base_url}{base_rest_schema}/{rkeyspace}/{rtable}/Mookie/Betts \
@@ -2378,7 +2538,7 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset30_result">
+<div class="tab-pane" aria-labelledby="tabset33_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2422,15 +2582,15 @@ The <code>pageState</code> is useful for pagination of the results in queries.
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset31_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset34_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset31_result"></a>Result</p>
+<p><a id="tabset34_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset31_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset34_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET {base_url}{base_rest_schema}/{rkeyspace}/{rtable}/rows \
@@ -2440,7 +2600,7 @@ The <code>pageState</code> is useful for pagination of the results in queries.
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset31_result">
+<div class="tab-pane" aria-labelledby="tabset34_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2535,15 +2695,15 @@ Note that the inclusion of clustering keys may return a range of rows.</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset32_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset35_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset32_result"></a>Result</p>
+<p><a id="tabset35_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset32_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset35_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}/Janesha/Doesha?fields=firstname,lastname,top_three_tv_shows \
@@ -2552,7 +2712,7 @@ Note that the inclusion of clustering keys may return a range of rows.</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset32_result">
+<div class="tab-pane" aria-labelledby="tabset35_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2626,15 +2786,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset33_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset36_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset33_result"></a>Result</p>
+<p><a id="tabset36_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset33_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset36_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G {base_url}{base_rest_schema}/{rkeyspace}/{rtable} \
@@ -2649,7 +2809,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset33_result">
+<div class="tab-pane" aria-labelledby="tabset36_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2725,15 +2885,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset34_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset37_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset34_result"></a>Result</p>
+<p><a id="tabset37_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset34_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset37_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
@@ -2748,7 +2908,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset34_result">
+<div class="tab-pane" aria-labelledby="tabset37_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2824,15 +2984,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset35_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset38_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset35_result"></a>Result</p>
+<p><a id="tabset38_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset35_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset38_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
@@ -2847,7 +3007,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset35_result">
+<div class="tab-pane" aria-labelledby="tabset38_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -2923,15 +3083,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset36_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset39_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset36_result"></a>Result</p>
+<p><a id="tabset39_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset36_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset39_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -G -L {base_url}{base_rest_schema}/{rkeyspace}/{rtable} \
@@ -2945,7 +3105,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset36_result">
+<div class="tab-pane" aria-labelledby="tabset39_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{
@@ -3021,15 +3181,15 @@ CREATE CUSTOM INDEX eval_idx
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset37_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset40_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset37_result"></a>Result</p>
+<p><a id="tabset40_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset37_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset40_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G {base_url}{base_rest_schema}/{rkeyspace}/{rtable} \
@@ -3044,7 +3204,7 @@ CREATE CUSTOM INDEX eval_idx
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset37_result">
+<div class="tab-pane" aria-labelledby="tabset40_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Example coming</code></pre>
@@ -3069,15 +3229,15 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset38_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset41_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset38_result"></a>Result</p>
+<p><a id="tabset41_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset38_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset41_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PUT 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
@@ -3089,7 +3249,7 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset38_result">
+<div class="tab-pane" aria-labelledby="tabset41_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"data":{"email":"mookie.betts.new-email@email.com"}}</code></pre>
@@ -3123,15 +3283,15 @@ we want to only change that one column:</p>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset39_curl-command-v2"></a>cURL command (/v2)</p>
+<p><a id="tabset42_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
-<p><a id="tabset39_result"></a>Result</p>
+<p><a id="tabset42_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset39_curl-command-v2">
+<div class="tab-pane" aria-labelledby="tabset42_curl-command-v2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PATCH 'localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
@@ -3143,7 +3303,7 @@ we want to only change that one column:</p>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset39_result">
+<div class="tab-pane" aria-labelledby="tabset42_result">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"data":{"email":"mookie.betts.email@email.com"}}</code></pre>
