@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "72d6c065-9324-4958-b5c6-e316bcad520e",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"AUTH_TOKEN\", jsonData.authToken);"
@@ -45,10 +44,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}"
 						},
 						"url": {
 							"raw": "{{base_auth_url}}/{{base_auth_api_path}}",
@@ -75,8 +71,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "create schema",
@@ -87,7 +82,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4bc368bc-ef4e-4cde-a568-c8c5141e5f2b",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -123,10 +117,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{rkeyspace}}\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{rkeyspace}}\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}",
@@ -144,7 +135,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bfac7a0f-639f-46c0-832e-869da4bf3ae3",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -180,10 +170,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{rkeyspace}}\",\n    \"replicas\": 1\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{rkeyspace}}\",\n    \"replicas\": 1\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}",
@@ -201,7 +188,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ee44ed94-9b90-4662-ad45-f736a0334a49",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -230,10 +216,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}",
@@ -251,7 +234,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8e34b753-748c-463b-b583-a3f67d79dda5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -279,15 +261,65 @@
 							"graphql": {
 								"query": "mutation createAddressUDT {\n  createType(\n    keyspaceName: \"{{rkeyspace}}\"\n    typeName: \"address_type\"\n    fields: [\n      { name: \"street\", type: { basic: TEXT } }\n      { name: \"city\", type: { basic: TEXT } }\n      { name: \"state\", type: { basic: TEXT } }\n      { name: \"zip\", type: { basic: TEXT } }\n    ]\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
-							"raw": "{{gql_base_url}}{{gql_base_schema}}",
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
 							"host": [
-								"{{gql_base_url}}{{gql_base_schema}}"
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user-defined type (UDT) called address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify udt created\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"address_type\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"type": "text",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"address_type\",\n  \"fields\":[\n    {\n      \"name\": \"street\",\n      \"typeDefinition\": \"text\"\n    },\n    {\n      \"name\": \"city\",\n      \"typeDefinition\": \"text\"\n    },\n    {\n      \"name\": \"state\",\n      \"typeDefinition\": \"text\"\n    },\n    {\n      \"name\": \"zip\",\n      \"typeDefinition\": \"text\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/types",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"types"
 							]
 						}
 					},
@@ -299,7 +331,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5b6ea644-ab28-4363-9241-5f0076d3a10a",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -313,6 +344,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -328,10 +362,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"favorite_color\",\n            \"typeDefinition\": \"text\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"lastname\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"favorite_color\",\n            \"typeDefinition\": \"text\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"lastname\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables",
@@ -622,7 +653,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "84b0b766-fa34-4675-ac77-7d36ab523416",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -659,10 +689,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{  \n   \"name\": \"email\",  \n   \"typeDefinition\": \"text\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{  \n   \"name\": \"email\",  \n   \"typeDefinition\": \"text\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
@@ -686,7 +713,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "14819726-9fdc-438a-9b17-c9a7fba44867",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -725,10 +751,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\": \"favorite_books\",\n   \"typeDefinition\": \"set<text>\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n   \"name\": \"favorite_books\",\n   \"typeDefinition\": \"set<text>\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
@@ -752,7 +775,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a6854a75-7a22-4153-aad2-2a3a6fff56ee",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -784,10 +806,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\": \"top_three_tv_shows\",\n   \"typeDefinition\": \"list<text>\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n   \"name\": \"top_three_tv_shows\",\n   \"typeDefinition\": \"list<text>\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
@@ -811,7 +830,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7fe1decf-936b-4cb8-a60d-273fc8b8eed1",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -850,10 +868,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\": \"evaluations\",\n   \"typeDefinition\": \"map<int,text>\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n   \"name\": \"evaluations\",\n   \"typeDefinition\": \"map<int,text>\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
@@ -877,7 +892,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c7379185-818e-4a4e-8d90-621ce5ba4da4",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -909,10 +923,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
@@ -936,7 +947,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "82cd17fa-b672-45d5-9d5a-94d40ab32667",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -968,10 +978,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\": \"address\",\n   \"typeDefinition\": \"address_type\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n   \"name\": \"address\",\n   \"typeDefinition\": \"address_type\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
@@ -995,7 +1002,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1f089ff0-4886-4bf3-b060-0cfc35f15a03",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1027,10 +1033,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n      \"name\": \"first\",\n      \"typeDefinition\": \"varchar\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n      \"name\": \"first\",\n      \"typeDefinition\": \"varchar\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns/:colname",
@@ -1061,7 +1064,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d30cff53-b2ec-47ac-b30c-6951ab987790",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1093,10 +1095,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n      \"name\": \"firstname\",\n      \"typeDefinition\": \"varchar\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n      \"name\": \"firstname\",\n      \"typeDefinition\": \"varchar\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns/:newcolname",
@@ -1127,7 +1126,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "87fcaa5b-5422-4cec-a1f3-5ba21a260d2a",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -1159,10 +1157,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0\n    }\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0\n    }\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}",
@@ -1185,7 +1180,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bddd496b-da80-483a-9f55-28ad6eafc23a",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -1217,10 +1211,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"favorite_color\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"email\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"fapvorite_books\",\n            \"typeDefinition\": \"set<text>\"\n        },\n        {\n            \"name\": \"top_three_tv_shows\",\n            \"typeDefinition\": \"list<text>\"\n        },\n        {\n            \"name\": \"evaluations\",\n            \"typeDefinition\": \"map<int,text>\"\n        },\n        {\n            \"name\": \"current_country\",\n            \"typeDefinition\": \"tuple<text, date, date>\"\n        },\n        {\n            \"name\": \"address\",\n            \"typeDefinition\": \"address_type\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0\n    }\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"favorite_color\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"email\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"fapvorite_books\",\n            \"typeDefinition\": \"set<text>\"\n        },\n        {\n            \"name\": \"top_three_tv_shows\",\n            \"typeDefinition\": \"list<text>\"\n        },\n        {\n            \"name\": \"evaluations\",\n            \"typeDefinition\": \"map<int,text>\"\n        },\n        {\n            \"name\": \"current_country\",\n            \"typeDefinition\": \"tuple<text, date, date>\"\n        },\n        {\n            \"name\": \"address\",\n            \"typeDefinition\": \"address_type\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0\n    }\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}",
@@ -1243,7 +1234,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "77a9a923-4685-43fb-a909-84f9f9ecf1c6",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -1272,10 +1262,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"column\": \"favorite_books\",\n    \"name\": \"fav_books_idx\",\n    \"ifNotExists\": true\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"column\": \"favorite_books\",\n    \"name\": \"fav_books_idx\",\n    \"ifNotExists\": true\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
@@ -1568,7 +1555,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ac524e1f-bbd3-46a7-984d-4f74ceaf401e",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -1597,10 +1583,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n  \"column\": \"top_three_tv_shows\",\n  \"name\": \"tv_idx\",\n  \"ifNotExists\": true\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "\n{\n  \"column\": \"top_three_tv_shows\",\n  \"name\": \"tv_idx\",\n  \"ifNotExists\": true\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
@@ -1893,7 +1876,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4345b626-3681-4bec-b6ec-32d4968a29ad",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -1922,10 +1904,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n  \"column\": \"evaluations\",\n  \"name\": \"evalv_idx\",\n  \"ifNotExists\": true\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "\n{\n  \"column\": \"evaluations\",\n  \"name\": \"evalv_idx\",\n  \"ifNotExists\": true\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
@@ -2218,7 +2197,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b98d230f-b640-47e2-9a5d-79c85609ce0e",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -2247,10 +2225,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n  \"column\": \"evaluations\",\n  \"name\": \"evalk_idx\",\n  \"kind\": \"KEYS\",\n  \"ifNotExists\": true\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "\n{\n  \"column\": \"evaluations\",\n  \"name\": \"evalk_idx\",\n  \"kind\": \"KEYS\",\n  \"ifNotExists\": true\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
@@ -2543,7 +2518,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a055c7cd-3138-4283-b2ff-28abf93a3447",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -2572,10 +2546,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"column\": \"evaluations\",\n  \"name\": \"evale_idx\",\n  \"kind\": \"ENTRIES\",\n  \"ifNotExists\": true\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"column\": \"evaluations\",\n  \"name\": \"evale_idx\",\n  \"kind\": \"ENTRIES\",\n  \"ifNotExists\": true\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
@@ -2868,7 +2839,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f6bd936e-18ff-43f9-82bc-34ea19acc7a1",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -2897,10 +2867,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"column\": \"current_country\",\n  \"name\": \"country_idx\",\n  \"ifNotExists\": true\n}\n",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"column\": \"current_country\",\n  \"name\": \"country_idx\",\n  \"ifNotExists\": true\n}\n"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
@@ -3187,8 +3154,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "retrieve schema",
@@ -3199,7 +3165,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a1a40bf7-9c41-439c-95a4-98fb1fed0b12",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3251,7 +3216,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bf7f2362-78e2-4aaf-a33d-8fddbbb91009",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3300,7 +3264,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "01c8cdcd-8647-4dc4-ae08-99448e21f6a9",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3354,7 +3317,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "78d199a7-024a-4ee4-95c8-f7fb87b32ce9",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3414,7 +3376,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b72c095b-9741-4fa2-9ca7-fd861c9396ca",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3475,7 +3436,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "97cdba3d-2013-44e4-8adf-3c58e24823df",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3528,9 +3488,64 @@
 						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
 					},
 					"response": []
+				},
+				{
+					"name": "Get UDTs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify UDTs\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (var i=0; i <= jsonData.length; i++)",
+									"    {",
+									"        if (jsonData[i].name=== \"address_type\"){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/types",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"types"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "insert data",
@@ -3541,7 +3556,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9d2339ef-e114-445b-90db-bf02f449c709",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -3574,10 +3588,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"{{user1fn}}\",\n    \"lastname\": \"{{user1ln}}\",\n    \"favorite_color\": \"blue\",\n    \"favorite_books\": \"{ 'Native Son', 'The Joy Luck Club' }\",\n    \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Supergirl' ]\",\n    \"evaluations\": \"{ '2020':'excellent', '2019':'brilliant' }\",\n    \"current_country\": \"( 'USA', '2000-01-01', '2021-04-01' )\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"firstname\": \"{{user1fn}}\",\n    \"lastname\": \"{{user1ln}}\",\n    \"favorite_color\": \"blue\",\n    \"favorite_books\": \"{ 'Native Son', 'The Joy Luck Club' }\",\n    \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Supergirl' ]\",\n    \"evaluations\": \"{ '2020':'excellent', '2019':'brilliant' }\",\n    \"current_country\": \"( 'USA', '2000-01-01', '2021-04-01' )\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}",
@@ -3599,7 +3610,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dc4a2dbb-dca4-4f5f-acf9-4d56430f21b2",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -3632,10 +3642,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"firstname\": \"{{user2fn}}\",\n  \"lastname\": \"{{user2ln}}\",\n  \"favorite_color\": \"grey\",\n  \"favorite_books\": \"{ 'Emma', 'The Color Purple' }\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\",\n  \"evaluations\": \"{ 2020:good, 2019:okay }\",\n  \"current_country\": \"( 'France', '2016-01-01', '2020-02-02' )\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\"firstname\": \"{{user2fn}}\",\n  \"lastname\": \"{{user2ln}}\",\n  \"favorite_color\": \"grey\",\n  \"favorite_books\": \"{ 'Emma', 'The Color Purple' }\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\",\n  \"evaluations\": \"{ 2020:good, 2019:okay }\",\n  \"current_country\": \"( 'France', '2016-01-01', '2020-02-02' )\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}",
@@ -3657,7 +3664,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4f4a2cac-4b0f-4d79-9c34-32ca7f7f2e42",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3685,10 +3691,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"mookie.betts.email@email.com\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"email\": \"mookie.betts.email@email.com\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:id",
@@ -3717,7 +3720,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "367cb6cf-43fc-4682-a79c-4a485425208a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3751,10 +3753,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"mookie.betts.new-email@email.com\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"email\": \"mookie.betts.new-email@email.com\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:id",
@@ -3777,8 +3776,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "retrieve data",
@@ -3789,7 +3787,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e0c0de82-0544-4de7-875e-0a1566355721",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3843,7 +3840,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "72be2cad-a056-4b8a-9947-a3ae3b38a9d1",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3897,7 +3893,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "78285aef-ae2e-4b89-9071-234e0c56e4ac",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3962,15 +3957,27 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d9248119-1a9d-4a86-bb3f-f6dc7b84e7f5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"query param\", function () {",
+									"    console.log(pm.request.url.query.all());",
+									"    console.log(pm.request.url.query.toObject().where);",
+									"    console.log(pm.request.url.query.toObject().fields)",
 									"});",
 									"pm.test(\"Verify inserted information\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    // THIS NEXT STATEMENT ONLY WORKS FOR A SINGLE RESPONSE, I NEED TO REWRITE WITH A LOOP",
 									"    pm.expect(jsonData.data[0].favorite_books).to.include('Emma');",
+									"});",
+									"",
+									"pm.test(\"check where\") {",
+									"    pm.expect(pm.request.url.query()).to.include(pm.iterationData.get(\"where-clause\"));",
+									"    // or older notation",
+									"    pm.expect(pm.request.url.query()).to.include(data.where-clause);",
+									"    console.log(\"where-clause to be sent: \" + data[\"where-clause\"]);",
+									"    console.log(\"fields to be sent: \" + data[\"fields\"]);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3990,7 +3997,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={\"favorite_books\":{\"$contains\":\"Emma\"}}&fields=firstname,favorite_books",
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={{where-clause}}&fields={{fields}}",
 							"host": [
 								"{{base_url}}{{base_rest_api}}"
 							],
@@ -4002,7 +4009,8 @@
 								{
 									"key": "where",
 									"value": "{\"favorite_books\":{\"$contains\":\"Emma\"}}",
-									"description": "GET SET item match"
+									"description": "GET SET item match",
+									"disabled": true
 								},
 								{
 									"key": "where",
@@ -4043,7 +4051,16 @@
 								{
 									"key": "fields",
 									"value": "firstname,favorite_books",
-									"description": "Specifiy fields to return"
+									"description": "Specifiy fields to return",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{{where-clause}}"
+								},
+								{
+									"key": "fields",
+									"value": "{{fields}}"
 								}
 							]
 						},
@@ -4051,8 +4068,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "delete data",
@@ -4063,7 +4079,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "29547c3e-c027-4102-a001-4d4eed07bfe3",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -4106,8 +4121,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "delete schema",
@@ -4118,7 +4132,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0a563d27-4708-432e-ab98-7e081a49d092",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -4169,7 +4182,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e26393e4-c375-4db7-8768-c8f74abde53a",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -4216,56 +4228,11 @@
 					"response": []
 				},
 				{
-					"name": "GQL: Drop type address",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "574e5b1d-caea-41df-a1ff-c4486225d53a",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"value": "{{AUTH_TOKEN}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropTypeAddress {\n  dropType(\n      keyspaceName:\"{{rkeyspace}}\" \n      typeName:\"address_type\"\n      ifExists:true\n    )\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{gql_base_schema}}",
-							"host": [
-								"{{gql_base_url}}{{gql_base_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Delete table users",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "95d7b9cc-fbfa-4bd5-baf5-f1bc2855f69e",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -4303,12 +4270,99 @@
 					"response": []
 				},
 				{
+					"name": "GQL: Drop type address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropTypeAddress {\n  dropType(\n      keyspaceName:\"{{rkeyspace}}\" \n      typeName:\"address_type\"\n      ifExists:true\n    )\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete UDT address_type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/types/:udtname",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"types",
+								":udtname"
+							],
+							"variable": [
+								{
+									"key": "udtname",
+									"value": "address_type"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				},
+				{
 					"name": "Delete keyspace users_keyspace  (Stargate OSS only)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "0445d4cd-dae7-4f10-9996-2d1097778637",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {",
 									"    pm.response.to.have.status(204);",
@@ -4343,15 +4397,13 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "a8c7ab41-23e1-4e52-8b7c-31e25011c591",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4361,13 +4413,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "d5e24e72-321b-41f8-b377-9c91ba101d13",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
