@@ -2,8 +2,8 @@
 
 == Create a New AsciiDoc File
 
-. Start Atom.
-. In Atom's Project panel, navigate to the _pages_ folder in the module where you want to add a new page.
+. Start Atom or the text editor of your choice.
+. Navigate to the _pages_ folder in the module where you want to add a new page.
 . Right click on *pages* and select *New File*.
 . Enter a name for the new file in the field.
 The file name becomes the page's URL fragment when it's published to the documentation site.

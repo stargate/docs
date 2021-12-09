@@ -10,7 +10,7 @@ If a document contains incorrect AsciiDoc syntax, you'll see a warning message t
 
  asciidoctor: WARNING: backup-and-restore.adoc: line 12: invalid style for listing block: code
 
-Asciidoctor is the AsciiDoc parser.
+Asciidoctor is what Antora, our static site generator, uses to parse AsciiDoc.
 It reports the syntax errors it encounters when converting the documents to HTML.
 
 == Predefined Attributes and Roles
@@ -29,5 +29,6 @@ These attributes and roles add custom metadata and special processing or styling
 
 == Additional Resources
 
-The https://asciidoctor.org/[Asciidoctor project^] maintains and releases AsciiDoc under the MIT license.
+The link:https://asciidoctor.org/[Asciidoctor project^] maintains and releases AsciiDoc under the MIT license.
 //It is the native markup language of Antora.
+The link:https://antora.org[Antora project^] maintains and releases Antora under the MIT license.
