@@ -18,127 +18,39 @@ A basic preview of the rendered document is displayed in an adjacent pane.
 
 When your edits are complete, you're ready to xref:test-site.adoc[configure a local playbook] to use your changes and build the site on your device.
 
-[#edit-server]
-== Editing a page in the Server Component
+[#edit-docs]
+== Editing a page in stargate/docs
 
-Let's step through editing a Server component page using Atom.
-Now that the documentation has been converted from DITA, you can use all of the features of AsciiDoc to enhance the content and structure of the pages.
+Let's step through editing a stargate/docs component page using Atom.
 The syntax changes described in this section represent some of the improvements you can make.
 
 === 1. Open the File
 
-In the project panel, in the image:repo.svg[,16,role=icon] docs-server repository, go to menu:modules[backup-restore > pages].
-Double click on _backup-restore.adoc_ to open the AsciiDoc file in the editor pane.
+In the project panel, in the image:repo.svg[,16,role=icon] docs repository, go to menu:modules[developers-guide > pages].
+Double click on _graphql-first-using.adoc_ to open the AsciiDoc file in the editor pane.
 
 image::edit-page-in-atom.png[]
 
 === 2. Set and Reference an Attribute
 
-The built-in AsciiDoc `abstract` style is the _Summary_ displayed on the published pages.
-The Docs team wants to use this text in the page's HTML description meta tag.
-
-image::add-description.png[]
-
+The Docs team wants to use some text in the page's HTML description meta-tag.
 Set the `description` attribute in the xref:pages.adoc#doc-title[header of the document].
 
 [source,asciidoc]
 ----
-= Backup and Restore
-:description:
-
-[abstract]
-In a production environment, as part of an overall Disaster Recovery plan, you must [...]
+the Stargate GraphQL API (Schema-first)
+:description: Describes the graphQL schema-first method of using the Stargate GraphQL API.
 ----
 
-Cut ( kbd:[Ctrl,X] ) the paragraph under `+[abstract]+` and paste ( kbd:[Ctrl,V] ) it into the value of `description`.
+If the description is a paragraph, enter a space after the end of the first sentence, then a `\` so the heaader is not broken.
+Descriptions can use xref:pages.adoc#ventilate[ventilated prose (aka sentence per line)], just as the rest of the documentation does.
 
 [source,asciidoc]
 ----
-= Backup and Restore
-:description: In a production environment, as part of an overall Disaster Recovery plan, you must plan to back up your entire cluster periodically.
-This helps ensure that you do not lose information in the event of a serious failure and minimizes data inconsistency when a restore is required.
-
-[abstract]
-
-Stargate provides multiple [...]
+the Stargate GraphQL API (Schema-first)
+:description: Describes the graphQL schema-first method of using the Stargate GraphQL API. \
+If you need to add another sentence to the description, use the `\`.
 ----
-
-To keep the paragraph as xref:pages.adoc#ventilate[ventilated prose (aka sentence per line)] and not break the header, enter a space after the end of the first sentence, then a `\`.
-
-[source,asciidoc]
-----
-= Backup and Restore
-:description: In a production environment, as part of an overall Disaster Recovery plan, you must plan to back up your entire cluster periodically. \
-This helps ensure that you do not lose information in the event of a serious failure and minimizes data inconsistency when a restore is required.
-----
-
-To display the description text in the _Summary_, reference the `description` attribute.
-An attribute is referenced when its name is enclosed by a set of curly brackets (`+{}+`).
-
-[source,asciidoc]
-----
-= Backup and Restore
-:description: In a production environment, as part of an overall Disaster Recovery plan, you must plan to back up your entire cluster periodically. \
-This helps ensure that you do not lose information in the event of a serious failure and minimizes data inconsistency when a restore is required.
-
-[abstract]
-{description}
-
-Stargate provides multiple means to facilitate backup and restore.
-----
-
-=== 3. Replace List Items with Section Headings and Paragraphs
-
-This page doesn't have any section headings, and therefore no *On This Page* sidebar.
-It does have two multi-paragraph bulleted list items that look like good candidates for section headings and section paragraphs.
-
-image::bulleted-list-items.png[]
-
-Remove each list marker (`+*+`) and replace it with two equals signs (`==`).
-This turns the content on those lines into xref:pages.adoc#document-sections[heading 2 section titles].
-
-[source,asciidoc]
-----
-== Using [.cmd]`cbbackupmgr` Tool
-+
-Stargate Backup Manager is an enterprise-grade backup and restore utility that is [...]
-
-== Using [.cmd]`cbbackup` and [.cmd]`cbrestore` Tools
-+
-The [.cmd]`cbbackup` and [.cmd]`cbrestore` tools provide simple yet effective backup and restore capabilities to Stargate Server.
-+
-The cbbackup tool enables you to backup a single node [...]
-----
-
-Since the content is no longer structured as a list, remove the list continuation (`+`) markup between the paragraphs.
-
-[source,asciidoc]
-----
-== Using [.cmd]`cbbackupmgr` Tool
-
-Stargate Backup Manager is an enterprise-grade backup and restore utility that is [...]
-
-== Using [.cmd]`cbbackup` and [.cmd]`cbrestore` Tools
-
-The [.cmd]`cbbackup` and [.cmd]`cbrestore` tools provide simple yet effective backup and restore capabilities to Stargate Server.
-
-The cbbackup tool enables you to backup a single node [...]
-----
-
-=== 4. Find and Replace the `cmd` Role
-
-In the original DITA files, there were lots of inline roles (`cmd`, `ui`, `param`, etc.).
-Some of these roles were mapped to built-in AsciiDoc syntax.
-For instance, when `ui` was assigned to dropdown menu text, it was replaced with the xref:basics.adoc#ui-macros[menu UI macro].
-Other roles were simply carried forward, like `cmd`, but weren't associated with any custom styles in the final UI.
-You can clean up the document by deleting the unused roles.
-
-Press kbd:[Ctrl,F] to open the Find and Replace panel.
-Enter `+[.cmd]+` in the *Find* field and leave the *Replace* field empty.
-
-image::find-and-replace.png[]
-
-Click btn:[Replace All] to delete all of the instances of `+[.cmd]+`.
 
 === 5. Preview and Save the File
 
@@ -149,8 +61,6 @@ image::preview.png[]
 
 Press kbd:[Ctrl,S] to save the file.
 In the project panel, the file name will change color, indicating it's unstaged.
-
-image::unstaged.png[]
 
 Before staging your edits, you need to xref:test-site.adoc[configure a local playbook] to use your changes and build the site on your device.
 
