@@ -12,11 +12,11 @@ organized in a standard directory structure. This may change in the future.
 [#repo-urls]
 // LLP 10.08.21 Not currently used, but when we break out the examples, we'll have
 // multiple repos.
-//== Documentation Repository Roster
+== Documentation Repository Roster
 
-//The following repositories accept contributions via the regular workflow and use a standard branch pattern.
+The following repositories accept contributions via the regular workflow and use a standard branch pattern.
 
-//* {url-git-sgdocs}[Docs^]
+* {url-git-sgdocs}[Stargate Docs^]
 //* {url-git-sgexamples}[Code examples^]
 
 [#dir-structure]

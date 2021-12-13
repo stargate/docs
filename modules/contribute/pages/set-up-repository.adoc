@@ -5,11 +5,12 @@ You only need to do these steps the first time you contribute to a repository.
 == Fork the Repository
 
 Before you can contribute changes to the Stargate documentation, you must fork
-the appropriate repository to your personal GitHub account.
+the appropriate repository to your personal GitHub account. 
+Then you can clone that personal repository to your current working computer.
 
-. Go to the appropriate repository on GitHub and click btn:[Fork].
+Go to the appropriate repository on GitHub and click btn:[Fork].
 See xref:repositories.adoc#repo-urls[Repository Organization] for the list of
-active repositories
+active repositories.
 
 .How to quickly find the right repository
 ****
@@ -20,9 +21,6 @@ Click btn:[Fork].
 
 If there isn't an image:edit.svg[,16,role=icon] edit icon on the page, then the
 repository can't accept changes using the regular workflow.
-See xref:repositories.adoc#repo-special[Repositories that Require Special Handling]
-for more information or propose fixes and improvements using the btn:[Feedback?]
-button at the bottom of the page.
 ****
 
 == Clone the Repository
@@ -43,7 +41,7 @@ For example, to clone your fork of the `docs` repository, you'd enter:
 
 . Change into the repository folder created by the clone operation.
 
- $ cd docs-server
+ $ cd stargate/docs
 
 == Sync with the Upstream Repository
 
@@ -52,7 +50,7 @@ You need to connect your local repository to the upstream repository so the two 
 . Go to the upstream repository on GitHub, and click btn:[Clone or download].
 . Click the Clipboard icon to copy the repository's Git URL.
 . In your terminal type `git remote add upstream`, paste the copied URL, and press kbd:[Enter].
-For example, to connect to the remote upstream docs-server repository, you'd enter:
+For example, to connect to the remote upstream stargate/docs repository, you'd enter:
 
  $ git remote add upstream git@github.com:stargate/docs.git
 
