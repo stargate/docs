@@ -23,7 +23,7 @@ repository:
 or xref:create-branches.adoc#work-branch-cli[from the command line].
 * [ ] xref:edit-pages.adoc[Fix existing documentation]
 or xref:add-pages.adoc[create a new documentation page].
-* [ ] xref:test-site.adoc[Build the site locally and test your changes].
+* [ ] xref:build-site.adoc[Build the site locally and check your changes].
 * [ ] xref:send-pr.adoc#commit[Commit, rebase, and push your changes].
 * [ ] xref:send-pr.adoc#pr[Submit a pull request].
 //* [x] Make revisions to your pull request.

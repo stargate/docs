@@ -11,7 +11,7 @@ After you complete your changes and fixed any warnings and errors reported by An
 
 . Commit your changes.
 
- $ git commit -m "fix magic bucket example"
+ $ git commit -m "fix graphql example"
 
 . Fetch any upstream base branch changes.
 

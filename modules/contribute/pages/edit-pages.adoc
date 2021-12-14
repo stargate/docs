@@ -16,7 +16,7 @@ The <<edit-server,next section>> steps through an editing scenario.
 A basic preview of the rendered document is displayed in an adjacent pane.
 . Press kbd:[Ctrl,S] to save the file.
 
-When your edits are complete, you're ready to xref:test-site.adoc[configure a local playbook] to use your changes and build the site on your device.
+When your edits are complete, you're ready to xref:build-site.adoc[build the site locally] on your device and check changes.
 
 [#edit-docs]
 == Editing a page in stargate/docs
@@ -62,9 +62,9 @@ image::preview.png[]
 Press kbd:[Ctrl,S] to save the file.
 In the project panel, the file name will change color, indicating it's unstaged.
 
-Before staging your edits, you need to xref:test-site.adoc[configure a local playbook] to use your changes and build the site on your device.
+Before submitting your pull request for the changes, you need to xref:build-site.adoc[build the site locally] to check your changes on your device.
 
 == Next Steps
 
-. xref:test-site.adoc[Create a local playbook and build the site using your changes].
+. xref:build-site.adoc[Build the site locally using your changes].
 . xref:send-pr.adoc[Stage and commit your changes].

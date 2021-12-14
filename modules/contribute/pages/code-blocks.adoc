@@ -18,13 +18,10 @@ If the `source` style and a language are assigned to the block, the code is synt
 ....
 include::example$code-blocks.adoc[tag=dl-co]
 ....
-<1> Assign the block style `source` to the first position in the attribute list.
-<2> Assign a source language to the second position.
-<3> Code the contains blank lines must be entered into a delimited listing block (`----`).
 
 Rendered as:
 
-include::example$code-blocks.adoc[tag=dl]
+include::example$code-blocks.adoc[tag=dl-co]
 
 Commands executed in a CLI are assigned the language `console` and lines are preceded by the command prompt (`$`).
 
@@ -37,7 +34,8 @@ Rendered as:
 
 include::example$code-blocks.adoc[tag=console]
 
-Note, using `[source,console]` ensures that the `$` prompt is not copied when the user clicks the clipboard icon that appears upon mouseover above the code block.
+// LLP: 12.14.21 commented out for now. We don't have copy yet.
+//Note, using `[source,console]` ensures that the `$` prompt is not copied when the user clicks the clipboard icon that appears upon mouseover above the code block.
 
 Short code snippets don't need delimiters as long as they don't contain blank lines or callouts.
 
@@ -102,23 +100,33 @@ Just specify the xref:includes.adoc[resource ID of the example file in the direc
 ----
 ....
 
-You will find most of the SDK code samples included in `$examples` directories alongside the `pages` parent to the `.adoc` file that is calling them. 
-Else you will find thim in a special `devguide/examples` module in each SDK docs repo.
+You will find most of the code samples included in `$examples` directories alongside the `pages` parent to the `.adoc` file that is calling them. 
 Using `include::` adds a _Git hub_ link on mouseover, which leads to the code file on the repo.
 
 For a tagged region of a source file, set the tags around the code sample using the comment character appropriate to the source language, such as `//` or `#`:
 
 [source,asciidoc]
 ....
-[source,ruby]
+[source,javascript]
 ----
-# tag::read-only[]
-options = Cluster::QueryOptions.new
-options.readonly = true
-cluster.query(
-    'SELECT COUNT(*) AS airport_count FROM `travel-sample` WHERE type = "airport"',
-    options)
-# end::read-only[]
+# tag::setup[]
+const { ApolloServer, gql } = require("apollo-server");
+const { buildFederatedSchema } = require("@apollo/federation");
+
+const port = 4001;
+# end::setup[]
+
+# tag::schema[]
+const typeDefs = gql`
+
+  # need to declare types used by cql
+  scalar Uuid
+  scalar Date
+
+  type Order @key(fields: "checkout_id reader books") {
+    checkout_id: Int!
+    reader: Reader
+    books: [Book]
 ----
 ....
 
@@ -126,88 +134,14 @@ And add the appropriate `[tag=]` to the `include::`.
 
 [source,asciidoc]
 ....
-.Read-only Query
-[source,json]
+.Get just the setup
+[source,javascript]
 ----
-\include::example$query.rb[tag=read-only]
+\include::example$graphql/1orders.js[tag=setup]
 ----
 ....
 
 Note that we aim to keep all code files in the examples directory runnable -- or at least compilable -- so if you are adding a snippet of code to an existing file, please test it.
-
-== Try It Now
-
-The Stargate documentation integrates with https://couchbase.live to offer an interactive code console called "`Try It Now`".
-This feature can be enabled per code block.
-
-To add a "`Try It Now`" mode to a code block, you need two things:
-
-. A standalone code sample that can be executing on couchbase.live
-. The `try-it` role on the block to indicate that the code is compatible with couchbase.live
-
-When the "`Try It Now`" mode is enabled, a btn:[Run Code] button will appear in the toolbar above the code block.
-When the user clicks on this button, it will split the page into two panes, with the documentation on the left and the output console on the right.
-It will also make the code block editable.
-The reader can either reexecute the code using the refresh button above the output console or by clicking the btn:[Run Code] button again.
-Clicking the btn:[Run Code] button submits the updated code, whereas the refresh button reexecutes the previous code.
-
-Here's an example of a code block with the "`Try It Now`" mode enabled:
-
-[source,asciidoc]
-....
-[source.try-it,js]
-----
-const couchbase = require('couchbase')
-
-const cluster = new couchbase.Cluster('couchbase://127.0.0.1', {
-  username: 'username', password: 'password'
-})
-
-const bucket = cluster.bucket('travel-sample')
-const collection = bucket.defaultCollection()
-
-const getDocument = async (key) => {
-  try {
-    const result = await collection.get(key)
-    console.log(result)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-getDocument('airline_10')
-  .then(() => process.exit(0))
-----
-....
-
-Here's how it appears when rendered:
-
-[source.try-it,js]
-----
-const couchbase = require('couchbase')
-
-const cluster = new couchbase.Cluster('couchbase://127.0.0.1', {
-  username: 'username', password: 'password'
-})
-
-const bucket = cluster.bucket('travel-sample')
-const collection = bucket.defaultCollection()
-
-const getDocument = async (key) => {
-  try {
-    const result = await collection.get(key)
-    console.log(result)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-getDocument('airline_10').then(() => process.exit(0))
-----
-
-The code sample has to be compatible with couchbase.live.
-The one exception is for Java.
-You can use a public class with any class name and the supporting script will rewrite the class name as `Program`.
 
 == Learn More
 

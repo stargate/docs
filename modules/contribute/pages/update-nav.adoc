@@ -7,32 +7,23 @@ When you want visitors to locate a page using the xref:nav-menus-and-files.adoc#
 A navigation file contains one or more unordered AsciiDoc lists.
 Navigation lists must be separated by at least one blank line.
 
-// LLP 10.08.21 is not true.
-Each navigation list in the Stargate documentation starts with a category title.
-A category is represented by a block title (`.Title of Category`).
-
-On the line directly after the category title is a level 1 list item.
 A level 1 list item is marked by a single (`+*+`).
 Each level 1 item can have as many nested items as you need.
 The deepest nested level allowed is level five (`+*****+`).
 
 [source,asciidoc]
 ----
-.Title of Category
 * Level 1 list item
 ** Level 2 list item    <1>
 *** Level 3 list item
 **** Level 4 list item
 ***** Level 5 list item
-                        <2>
-.Another Category
 * Level 1 list item
- ** Level 2 list item   <3>
+ ** Level 2 list item   <2>
 * Level 1 list item
 ----
 <1> Regardless of level, list items can start flush against the left margin.
-<2> Separate lists with one blank line.
-<3> Or, you can indent list items, but this has no impact on how they're displayed in the component menu.
+<2> Or, you can indent list items, but this has no impact on how they're displayed in the component menu.
 
 == Adding, Editing, and Removing List Items
 
@@ -40,11 +31,10 @@ Navigation list items can be xrefs, regular text, inline image macros, or links 
 
 [source,asciidoc]
 ----
-.Category Title
 * xref:name-of-file.adoc[Link Text] <1>
 ** Settings <2>
 *** xref:another-file.adoc[Link Text]
-** https://support.couchbase.com[Link Text] <3>
+** https://support.datastax.com[Link Text] <3>
 ----
 <1> Xref list item.
 <2> Regular text list item.
@@ -53,9 +43,8 @@ Navigation list items can be xrefs, regular text, inline image macros, or links 
 When adding and editing list items, remember the following:
 
 * Enter each list item on its own line.
-* List items must be in a list with a category title.
 * To adjust the nesting level of a list item, use the desired number of asterisks.
-* Write <<nav-text,category, regular, and link text>> according to their style guidelines.
+* Write <<nav-text, regular, and link text>> according to their style guidelines.
 * The link text of any parent list items is displayed in the breadcrumbs at the top of a page.
 * List items that contain a lot of text and/or are deeply nested will wrap in the component menu.
 * To open the nav link in a new tab, use the `window=_blank` attribute.
@@ -78,7 +67,6 @@ If a page and a navigation file are in the same module, then only specify the pa
 
 .Same-module navigation xrefs
 ----
-.Category
 * xref:a-page-in-this-module.adoc[Same-module Page]
 ** xref:topic/page.adoc[Same-module Page in a Topic Folder]
 ** xref:another-page.adoc#and-fragment[Same-module Page Deep Link]
@@ -97,30 +85,18 @@ Enter the component, module, and page coordinates for a page located in another 
 ----
 
 [#nav-text]
-=== Category, Regular, and Link Text Styles
-
-Use title case for category titles.
-For example, *Tuning & Performance* or *Integrations*.
-Write "`and`" as an ampersand (*&*).
+=== Regular, and Link Text Styles
 
 Use title case for the link and regular text in list items.
 Write "`and`" as *and*.
 
-// LLP 10.08.21 Fix the couchbase refs
-.Navigation category, regular, and link text examples
+.Navigation regular, and link text examples
 ----
-.Hello World!
-* xref:rbac-for-admins-and-apps.adoc[Creating and Managing Users with the UI]
-** Query Performance
-*** xref:n1ql/hints.adoc[INDEX]
-**** xref:views:count.adoc[Built-in _count Function]
-** xref:x509certsintro.adoc[X.509 for TLS]
-
-.API References
-* xref:rest-api.adoc[Public REST API]
-
-.Settings, Error Handling & Diagnostics
-* xref:tracing-from-the-sdk.adoc[Tracing from the SDK]
+* xref:graphql-first-using.adoc[Using GraphQL (schema-first)]
+** Troubleshooting
+*** xref:hints.adoc[Hints]
+**** xref:stargate:api.adoc[Stargate APIs]
+** xref:REST.adoc[REST API]
 * Getting Help
 ** https://support.datastax.com[Contact Support]
 ----

@@ -1,50 +1,110 @@
-= Get the Site Playbook Project
+= The site playbooks
 :url-git-playbook: https://github.com/stargate/docs
 
 The Stargate docs playbook project contains the:
 
 * site-local playbook
 * site-publish playbook
-//* site extensions
-//* Home docs component
 
 To generate the documentation site on your device, you need the `site-local.yaml` playbook.
+To generate the documentation site for publication, the `site-publish.yaml` playbook is used by the automated process that uses a Github action.
 The playbook provides the site configuration to Antora.
 
-// LLP 10.08.21 FIX ALL THIS
+== The `site-local.yaml` playbook
 
-== Fork and Clone the Playbook Project
+[source, yaml]
+----
+site:
+  title: Stargate documentation
+  url: /docs/stargate/
+  start_page: stargate::index.adoc
 
-TIP: Go to xref:build-site.adoc[Build the Docs Site] if you've previously forked and cloned the {url-git-playbook}[Docs Site repository^].
-You've already completed the steps on this page.
+content:
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
+  sources:
+    - url: .
+      branches: HEAD
 
-. Go to the {url-git-playbook}[Docs Site repository^] on GitHub and click btn:[Fork].
-. Create or select the local folder where you want to store the repository on your device.
-. Open a terminal and change into the selected folder.
+ui:
+  bundle:
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.4/ui-bundle.zip
+  supplemental_files: ./supplemental-ui
+  # override the default _ dir for assets, as Jekyll will delete them
+  output_dir: assets
 
- $ cd path/to/folder
+asciidoc:
+  attributes:
+    source-highlighter: highlightjs
+    page-pagination: ''
+  extensions:
+  - ./lib/tabs-block.js
+----
 
-. Go to your repository on GitHub, and click btn:[Clone or download].
-. Click the Clipboard icon to copy the repository's Git URL.
-. In your terminal type `git clone`, paste the copied URL, and press kbd:[Enter].
+For a local build, the playbook appends the `url` value to the build directory, `build/site`. 
+For simplicity, the starting page is set to `index.adoc`.
 
- $ git clone git@github.com:this-is-you/docs-site.git
+On the pages where we display "Edit this page", the `edit_url` sets the
+path to which you'll be taken when clicking on this option.
 
-. Change into the repository folder created by the clone operation.
+The `sources` section of the playbook sets the content repositories that will be sourced in creating the documentation. 
+Currently, we use a single location, and have a single branch.
+Since the build is run from the doc source directory, the source `url` is set to `.`, while the branch is set to `HEAD`.
+// LLP 12.13.21d CHANGE THIS SECTION ONCE WE BREAK OUT TO MULT REPOS
 
- $ cd docs-site
+Antora uses a UI file that specifies the CSS, layouts, and helper functions. 
+This UI bundle file is retrieved from the antora UI repository. 
+The bundle is always a zipped file.
 
-== Sync with the Upstream Repository
+Any UI files that differ from the base UI bundle file created in the
+`antora-ui-default` repository are placed in the `supplemental-ui` directory.
+For example, the banner icon for each documentation set is different.
+The PNG file for that banner is placed in `supplemental-ui`. 
+This directory is also useful for testing variations in building the docs, as any file in `supplemental-ui` overrides the file included in the zipped UI bundle file.
 
-You need to connect your local repository to the upstream repository so you can use the latest playbooks and extensions.
+We override the output directory, using `assets`, as Jekyll does not
+handle `dot` directories properly. 
+Some DataStax documentation assets are incorporated into Jekyll websites.
 
-. Go to the {url-git-playbook}[upstream Docs Site repository^] and click btn:[Clone or download].
-. Click the Clipboard icon to copy the repository's Git URL.
-. In your terminal type `git remote add upstream`, paste the copied URL, and press kbd:[Enter].
+There are many AsciiDoc attributes that can be specified and used by 
+Antora to build the docs. 
+The most basic set are included in our site playbooks. 
+Highlighting allows code examples written in supported programming languages to highlight the code appropriately.
+Page pagination automatically inserts `Previous` and `Next` blocks at the bottom of each page.
+The extension `tabs-block.js` is used to allow codeblocks to incorporate tabs.
 
-Now you're ready to run Antora and build the documentation site on your device.
+== The `site-publish.yaml` playbook
+
+[source, yaml]
+----
+site:
+  title: Stargate documentation
+  url: https://stargate.io/docs
+  start_page: stargate:quickstart:quickstart.adoc
+
+content:
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
+  sources:
+    - url: .
+      branches: HEAD
+
+ui:
+  bundle:
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.4/ui-bundle.zip
+  supplemental_files: ./supplemental-ui
+  # override the default _ dir for assets, as Jekyll will delete them
+  output_dir: assets
+
+asciidoc:
+  attributes:
+    source-highlighter: highlightjs
+    page-pagination: ''
+  extensions:
+  - ./lib/tabs-block.js
+----
+
+Literally, the only thing different between these two YAML files is the `url` and the `start_page`. 
+When publishing, we use the public URL for stargate docs, and start the users on the QuickStart page. 
 
 == Next Steps
 
 * xref:build-site.adoc[Build the documentation site].
-* xref:test-site.adoc[Test your changes on the site].

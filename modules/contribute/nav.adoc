@@ -2,41 +2,41 @@
 * xref:index.adoc[Overview]
 
 * Setting Up Your Workspace
- ** xref:install-git-and-editor.adoc[Install Git and an AsciiDoc Editor]
- ** xref:set-up-repository.adoc[Set Up Your Local Repository]
+ ** xref:install-git-and-editor.adoc[Install Git and an AsciiDoc editor]
+ ** xref:set-up-repository.adoc[Set up Your local repository]
 
 * Contributing Workflow
  ** xref:workflow-overview.adoc[Overview]
- ** xref:repositories.adoc[Repository Organization]
- ** xref:create-branches.adoc[Create a Working Branch]
- ** xref:edit-pages.adoc[Edit Existing Documentation]
- ** xref:add-pages.adoc[Add a New Documentation Page]
- ** xref:update-nav.adoc[Update a Navigation File]
- ** xref:test-site.adoc[Test Changes Locally]
- ** xref:send-pr.adoc[Send Changes for Review]
+ ** xref:repositories.adoc[Repository organization]
+ ** xref:create-branches.adoc[Create a working branch]
+ ** xref:edit-pages.adoc[Edit existing documentation]
+ ** xref:add-pages.adoc[Add a new documentation page]
+ ** xref:update-nav.adoc[Update a navigation file]
+ ** xref:build-site.adoc[Build the site locally]
+ ** xref:send-pr.adoc[Send changes for review]
 // ** Team Review Process
 // ** Revise Changes
 
 * Writing Documentation
  ** xref:asciidoc-overview.adoc[Overview]
- ** xref:pages.adoc[Standard Document Structure]
- ** xref:basics.adoc[AsciiDoc Basics]
- ** xref:cross-references.adoc[Cross References]
-  *** xref:ids.adoc[IDs and Same-Page Cross References]
- ** xref:code-blocks.adoc[Code Blocks and Callouts]
+ ** xref:pages.adoc[Standard document structure]
+ ** xref:basics.adoc[AsciiDoc basics]
+ ** xref:cross-references.adoc[Cross references]
+  *** xref:ids.adoc[IDs and same-page cross references]
+ ** xref:code-blocks.adoc[Codeblocks and callouts]
  ** xref:tabs.adoc[Tabs Sets]
- ** xref:attributes-and-roles.adoc[Attributes and Roles]
- ** xref:includes.adoc[Include Examples and Partials]
+ ** xref:attributes-and-roles.adoc[Attributes and roles]
+ ** xref:includes.adoc[Include examples and partials]
 
 * Conventions & Styles
- ** xref:component-configuration.adoc[Component Structure and Configuration]
- ** xref:nav-menus-and-files.adoc[Navigation Menus and Files]
- ** xref:style-and-voice.adoc[Content Style and Voice]
+ ** xref:component-configuration.adoc[Component structure and configuration]
+ ** xref:nav-menus-and-files.adoc[Navigation menus and files]
+ ** xref:style-and-voice.adoc[Content style and voice]
 
 * Testing Locally
 // ** Overview
  ** xref:install-antora.adoc[Install Antora]
- ** xref:playbook.adoc[Get the Site Playbook Project]
- ** xref:build-site.adoc[Build the Site]
+ ** xref:playbook.adoc[The site playbooks]
+ ** xref:build-site.adoc[Build the site locally]
 
 //* Additional Resources (Pending)
