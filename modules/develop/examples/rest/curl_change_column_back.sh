@@ -1,5 +1,5 @@
 curl -s -L \
--X PUT http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/first \
+-X PUT {base_url}{base_rest_schema}/{rkeyspace}/tables/{rtable}/columns/first \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \

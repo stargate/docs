@@ -17,7 +17,7 @@ To use the REST API to create indexes, you'll need the xref:auth.adoc[applicatio
 you generated to create other schema in your keyspace.
 
 Send a `POST` request to
-`/v2/schemas/keyspaces/{keyspace_name}/tables/{table_name}/indexes`
+`{base_rest_schema}/{rkeyspace}/tables/{rtable}/indexes`
 to create an index.
 Set the index definitions in the JSON body in the `--data`. In this example,
 an index name is defined as `fav_books_idx` for the column `favorite_books` in

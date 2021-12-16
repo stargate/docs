@@ -1,4 +1,4 @@
-curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+curl -s -X POST {base_url}{base_rest_schema}/{rkeyspace}/{rtable} \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
