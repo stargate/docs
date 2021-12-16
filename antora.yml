@@ -21,7 +21,7 @@ asciidoc:
     dse-tag-68: '6.8'
     dse-alt-tag-68: '68'
     auth_token: '$AUTH_TOKEN'
-    base_url: 'http://localhost:8080'
+    base_url: 'https://localhost:8080'
     base_rest_schema: '/v2/schemas/keyspaces'
     base_doc_schema: '/v2/schemas/namespaces'
     base_rest_api: '/v2/keyspaces'

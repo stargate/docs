@@ -2,38 +2,44 @@
 :keywords: database, rest, api
 
 // ASTRA
-// {company} {database} includes the Stargate, which is a data gateway deployed between client applications and a database. 
+ifdef::astra[]
+{company} {database} includes the Stargate APIs, which is a data gateway deployed between client applications and a database. 
+endif::[]
 // STARGATE
+ifdef::stargate[]
 {company} {database} is a data gateway deployed between client applications and a database.
+endif::[]
 The REST API plugin that exposes CRUD access to data stored in Cassandra tables.
 
 == Prerequisite
 * `cURL` to run REST queries
 
 // ASTRA
-// [NOTE]
-// ====
-// If you haven't already, create a database using https://astra.datastax.com/[{astra_db}].
-// ====
+ifdef::astra[]
+[NOTE]
+====
+If you haven't already, create a database using https://astra.datastax.com/[{astra_db}].
+====
 
-// Before you get started, set your environment variables to save time developing on your database.
+Before you get started, set your environment variables to save time developing on your database.
 
-// . In link:https://astra.datastax.com[{astra_db}, window="_blank"], select the database to which you want to connect.
-// . In your *Database Dashboard*, select *Connect*.
-// . Select *REST API*.
-// +
-// include::partial$note_multi-region_connect.adoc[]
+. In link:https://astra.datastax.com[{astra_db}, window="_blank"], select the database to which you want to connect.
+. In your *Database Dashboard*, select *Connect*.
+. Select *REST API*.
++
+include::partial$note_multi-region_connect.adoc[]
 
-// . Follow the steps in the prerequisites to get your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] and set up your environment variables.
-// . In your command-line interface associated with your environment, paste the following environment variables copied for your {astra_db} database:
+. Follow the steps in the prerequisites to get your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] and set up your environment variables.
+. In your command-line interface associated with your environment, paste the following environment variables copied for your {astra_db} database:
 
-// [source, shell]
-// ----
-// export ASTRA_DB_ID=<database_id>
-// export ASTRA_DB_REGION=<database_region>
-// export ASTRA_DB_KEYSPACE=<keyspace_name>
-// export ASTRA_DB_APPLICATION_TOKEN=<app_token>
-// ----
+[source, shell]
+----
+export ASTRA_DB_ID=<database_id>
+export ASTRA_DB_REGION=<database_region>
+export ASTRA_DB_KEYSPACE=<keyspace_name>
+export ASTRA_DB_APPLICATION_TOKEN=<app_token>
+----
+endif::[]
 
 == API reference
 To view the API Reference, see link:_attachments/restv2.html[{database} REST API].
@@ -74,13 +80,15 @@ include::develop:page$api-rest/rest-dropping-table.adoc[Dropping a table in your
 
 include::develop:page$api-rest/rest-creating-index.adoc[Creating an index for a table]
 
-include::develop:page$api-rest/rest-dropping-index.adoc[Dropping an index in your keyspace]
+include::develop:page$api-rest/rest-deleting-index.adoc[Deleting an index in your keyspace]
 
 include::develop:page$api-rest/rest-creating-udt.adoc[Creating a user-defined type (UDT) for a keyspace]
 
 include::develop:page$api-rest/rest-deleting-udt.adoc[Deleting a UDT in your keyspace]
 
 include::develop:page$api-rest/rest-adding-columns.adoc[Adding columns to your table]
+
+include::develop:page$api-rest/rest-checking-columns.adoc[Checking columns in your table]
 
 include::develop:page$api-rest/rest-deleting-columns.adoc[Deleting columns in your table]
 
