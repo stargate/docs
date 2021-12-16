@@ -1,0 +1,20 @@
+{
+  "data": {
+    "bookByTitle": [
+      {
+        "title": "Groundswell",
+        "isbn": "978-1422125007",
+        "author": [
+          "Charlene Li"
+        ]
+      },
+      {
+        "title": "Groundswell",
+        "isbn": "978-1439183595",
+        "author": [
+          "Katie Lee"
+        ]
+      }
+    ]
+  }
+}}

@@ -1,0 +1,10 @@
+{
+	"data":{
+		"Janet":{
+			"email":"janet.doe@gmail.com",
+			"favorite color":"grey",
+			"firstname":"Janet",
+			"lastname":"Doe"
+		}
+	}
+}

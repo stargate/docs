@@ -1,0 +1,14 @@
+{
+  "data": {
+    "booksIn": [
+      {
+        "title": "Moby Dick",
+        "author": "Herman Melville"
+      },
+      {
+        "title": "Native Son",
+        "author": "Richard Wright"
+      }
+    ]
+  }
+}

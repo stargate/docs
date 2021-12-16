@@ -6,6 +6,9 @@ asciidoc:
   attributes:
     sectanchors: ''
     sectlinks: ''
+    company: ''
+    stargate: Yes
+    database: Stargate
     stargate-docker-tag: v1.0.41
     stargate-docker-tag-3x: v1.0.41
     stargate-docker-tag-40: v1.0.41
@@ -26,7 +29,10 @@ asciidoc:
     base_gql_schema: '/graphql-schema'
     base_gql_api: '/graphql'
     rkeyspace: 'users_keyspace'
+    rkeyspace-dcs: 'users_keyspace-dcs'
     rtable: 'users'
+    rpartitionkey: 'firstname'
+    rclusteringkey: 'lastname'
     namespace: 'myworld'
     collection: 'fitness'
     gkeyspace: 'library'
