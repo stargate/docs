@@ -12,7 +12,7 @@ You can create different keyspaces for groups of tables.
 . After generating an authorization token, run the following request to get all available keyspaces
 and verify that the keyspace you wish to use is listed in the results:
 
-include::develop/api-rest/rest-checking-keyspace.adoc[]
+include::develop:page$api-rest/rest-checking-keyspace.adoc[]
 
 For example, we'll use `{rkeyspace}` as the keyspace.
 // ASTRA If the keyspace is not listed, go to your {astra_db} dashboard and add the keyspace.
@@ -29,7 +29,7 @@ by adding the following line:
 // tag::CreateTable[]
 === Create a table
 
-Send a `POST` request to `{base_rest_schema}/{rkeyspace}/tables` to create a table.
+Send a `POST` request to `{base_rest_schema}/{keyspace-name}/tables` to create a table.
 Set the table name and column definitions in the JSON body in the `--data` field.
 
 [tabs]

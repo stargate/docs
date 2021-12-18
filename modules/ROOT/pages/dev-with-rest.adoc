@@ -69,7 +69,7 @@ include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace]
 
 // STARGATE ONLY
 ifdef::stargate[]
-include::develop:page$api-rest/rest-dropping-keyspae.adoc[Dropping a keyspace]
+include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace]
 endif::[]
 
 include::develop:page$api-rest/rest-creating-table.adoc[Creating a table in your keyspace]

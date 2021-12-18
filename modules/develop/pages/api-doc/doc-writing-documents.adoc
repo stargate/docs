@@ -1,0 +1,107 @@
+// tag::WriteBasicData[]
+=== Writing documents
+
+All data written with the Document API is stored as JSON documents stored in
+collections.
+
+include::partial$DocAPIBlogPost.adoc[]
+
+==== Add document specifying a collection name
+
+First, let's add a document to a specified collection.
+Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}`
+to add data to the collection `{collection}`.
+The data is passed in the JSON body.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_post_noDocId.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_post_noDocId.result[]
+----
+--
+====
+
+Notice that the `document-id` returned is a UUID if not specified.
+
+==== Add document specifying collection name and document-id
+
+Next, let's add a document to a specified collection, but specify the `document-id`.
+Send a `PUT` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
+to add data to the collection `Janet`.
+The `document-id` can be any string.
+The data is passed in the JSON body.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_put_janet.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_put_janet.result[]
+----
+--
+====
+
+Note the difference between using `POST` and `PUT`. The `POST` request
+is used to insert new documents when you want the system to auto-generate the
+documentId. The `PUT` request is used to insert a new document when you want to
+specify the documentId.
+
+`PUT` requests can also be used to update an existing
+document. Let's look at those examples, next.
+
+// end::WriteBasicData[]
+
+// tag::WriteAdvData[]
+==== Inserting a sub-document
+You can also insert documents that have nested values, or sub-documents.
+Send a `PUT` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
+to add data to the existing collection.
+The data is passed in the JSON body.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_put_joey_subdoc.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_put_joey_subdoc.result[]
+----
+--
+====
+// end::WriteAdvData[]
