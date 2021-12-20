@@ -7,7 +7,7 @@
 // cURL command (/v2)::
 // +
 // --
-// [source,shell]
+// [source,shell, subs="attributes+"]
 // ----
 // include::example$docapi/curl_get_all_docs_w_paging_2.sh[]
 // ----
@@ -31,7 +31,7 @@
 // ==== Retrieving a specific portion of a document with document-path
 
 // To find a particular value, send a `GET` request to
-// `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+// `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
 // to retrieve the type of weights Joey has done in his workout:
 
 // tag::ReadBasicData[]
@@ -39,7 +39,7 @@
 
 ==== Retrieving a specified document
 Let's check that the data was inserted for a particular document.
-Send a `GET` request to `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
+Send a `GET` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
 to retrieve the document:
 
 [tabs]
@@ -71,7 +71,7 @@ retrieve information from a document or a sub-document.
 
 Now let's search for a particular document using a `where` clause.
 Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}?{where-clause}`
+`{base_doc_api}/{namespace_name}/collections/{collections_name}?{where-clause}`
 to get the same information:
 
 [tabs]
@@ -79,7 +79,7 @@ to get the same information:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source,shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_doc_where.sh[]
 ----
@@ -104,7 +104,7 @@ Also, the full document is returned, as opposed to the value of the field specif
 // tag::ReadAdvData[]
 You can also search with a multiple `where` clause.
 Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}?{where-clause}`
+`{base_doc_api}/{namespace_name}/collections/{collections_name}?{where-clause}`
 to get the same information:
 
 [tabs]
@@ -182,7 +182,7 @@ include::example$result/docapi_curl_get_subdoc_mult_where.result[]
 
 ==== Retrieving all documents
 Let's check that the document was inserted. Send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}` to retrieve
+`{base_doc_api}/{namespace_name}/collections/{collections_name}` to retrieve
 all the documents:
 
 [tabs]
@@ -212,7 +212,7 @@ last inserted document.
 ==== Retrieving all documents with Paging
 For large collections, you can page a subset of the results. In this example,
 page-size is set to 5. Send a GET request to
-/v2/namespaces/{namespace_name}/collections/{collections_name}page-size=5 to
+{base_doc_api}/{namespace_name}/collections/{collections_name}page-size=5 to
 retrieve the first five documents (a page) in the collection:
 
 [tabs]
@@ -315,7 +315,7 @@ include::example$result/docapi_curl_post_martha.result[]
 ====
 
 To find particular values, send a `GET` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{json-path}`
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{json-path}`
 to retrieve all the users that have, say, weight reps between 11 and 16:
 
 [tabs]

@@ -1,4 +1,4 @@
-curl --location --request POST '{base_url}{base_doc_api}' \
+curl --location --request POST '{base_doc_url}{base_doc_api}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{

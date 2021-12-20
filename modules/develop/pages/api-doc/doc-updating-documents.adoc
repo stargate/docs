@@ -6,7 +6,7 @@ Data changes, so often it is necessary to update an entire document.
 ==== Replace a document
 
 Send a `PATCH` request to
-`/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}`
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
 to replace data to the existing collection. All fields included will be changed.
 
 [tabs]
@@ -63,7 +63,7 @@ If it does exist, it will be updated with the new document data.
 
 It is also possible to update only part of a document. To partially update, send
 a `PATCH` request to
- `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+ `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 In this example, we want to change just the firstname of the document:
 
 [tabs]
@@ -111,7 +111,7 @@ include::example$result/docapi_curl_patch_check_partial.result[]
 ====
 
 To partially update a sub-document,  send a `PATCH` request to
- `/v2/namespaces/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+ `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
  in the same manner as the last command, but including only sub-document
  information to change and the `document-path` of the sub-document. Include
  all fields that you wish to update.

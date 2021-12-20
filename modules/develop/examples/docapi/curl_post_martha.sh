@@ -1,4 +1,4 @@
-curl -L -X PUT 'localhost:8082/v2/namespaces/myworld/collections/fitness/Martha' \
+curl -L -X PUT '{base_doc_url}{base_doc_api}/{namespace}/collections/{collection}/Martha' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{

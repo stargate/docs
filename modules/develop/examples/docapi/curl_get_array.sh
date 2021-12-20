@@ -1,3 +1,3 @@
-curl -L -X  GET 'localhost:8082/v2/namespaces/myworld/collections/fitness/Joey.weights[0]' \
+curl -L -X  GET '{base_doc_url}{base_doc_api}/{namespace}/collections/{collection}/Joey.weights[0]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json"
