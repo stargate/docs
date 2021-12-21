@@ -1,0 +1,5 @@
+type Book @key @cql_entity(name: "book") @cql_input { // <1> <2> <3>
+ title: String! @cql_column(partitionKey: true, name: "book_title") // <4> <5>
+ isbn: String @cql_column(clusteringOrder: ASC) // <6>
+ author: [String] @cql_index(name: "author_idx", target: VALUES) // <7>
+}

@@ -1,0 +1,30 @@
+# create two tables (book, reader) in library with a single mutation
+# DATA TYPES: TEXT, UUID, SET(TEXT), TUPLE(TEXT, INT, DATE), LIST(UDT)
+mutation createTables {
+  book: createTable(
+    keyspaceName:"library",
+    tableName:"book",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [
+      { name: "author", type: {basic: TEXT} }
+    ]
+  )
+  reader: createTable(
+    keyspaceName:"library",
+    tableName:"reader",
+    partitionKeys: [
+      { name: "name", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "user_id", type: {basic: UUID}, order: "ASC" }
+  	]
+    values: [
+      { name: "birthdate", type: {basic: DATE} }
+      { name: "email", type: {basic: SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "reviews", type: {basic: TUPLE, info: { subTypes: [ { basic: TEXT }, { basic: INT }, { basic: DATE } ] } } }
+      { name: "addresses", type: { basic: LIST, info: { subTypes: [ { basic: UDT, info: { name: "address_type", frozen: true } } ] } } }
+    ]
+  )
+}

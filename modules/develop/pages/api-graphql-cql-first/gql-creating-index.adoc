@@ -1,0 +1,109 @@
+// tag::CreateIndex[]
+=== Create an index
+
+Cassandra supports indexing any regular, non-primary key columns in a table.
+Any column designated as a partition key or clustering column cannot be indexed,
+unless DataStax Enterprise is the defined database.
+
+If you wish to create a table query that uses anything other than the partition key
+to define which row or rows are to be retrieved, a column index must be created
+on each column in order to read the data.
+
+Currently, those indexes can be created with
+//xref:creating-an-index-for-a-table.adoc[REST],
+https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL]
+or GraphQL.
+
+Use the xref:auth.adoc[application token] you generated
+to create schema in your keyspace using the GraphQL playground.
+
+You can create an index using a mutation in `/graphql-schema`.
+In the following example, three indexes are created for the tables `book` and `reader`.
+The table columns for these indexes are created are `author`, `birthdate`, and `email`.
+
+An index name can be defined, such as `author_idx` in this example.
+An additional option, `indexType` can be defined to use SAI indexes if desired.
+
+[tabs]
+====
+graphQL mutation::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/cql-first/createIndexes.graphql[]
+----
+--
+
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$graphql/cql-first/curl_createIndexes.sh[]
+----
+--
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/gql_createIndexes.result[]
+----
+--
+====
+
+Here is an additional example, which creates indexes that could be used in the
+REST API examples:
+
+[tabs]
+====
+cURL command::
++
+--
+[source,shell,subs="attributes+"]
+----
+include::example$rest/curl_createIndexes_gql_astra.sh[]
+----
+--
+
+CQL command::
++
+--
+[source, cql]
+----
+include::example$cql/create_index_set.cql[]
+include::example$cql/create_index_list.cql[]
+include::example$cql/create_index_map.cql[]
+include::example$cql/create_index_tuple.cql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext,subs="attributes+"]
+----
+include::example$result/rest_createIndexes.result[]
+----
+--
+====
+
+The CQL commands for creating these indexes is included here for reference.
+The `cqlsh` tool can be used to create the indexes if desired.
+
+//
+//If you are using DataStax Enterprise, you may optionally use
+//https://docs.datastax.com/en/dse/6.8/cql/cql/cql_reference/cql_commands/cqlCreateCustomIndex.html[Storage-Attached Indexing (SAI)]:
+
+//[source, cql]
+//----
+//include::example$cql/create_index_set_sai.cql[]
+//include::example$cql/create_index_list_sai.cql[]
+//include::example$cql/create_index_map_sai.cql[]
+//----
+
+//SAI does not support tuples. Searches using SAI do not support the operator `$in`.
+//
+
+// end::CreateIndex[]

@@ -1,0 +1,13 @@
+type Book @key @cql_entity(name: "book") @cql_input {
+ title: String! @cql_column(partitionKey: true)
+ isbn: String @cql_column(clusteringOrder: ASC)
+ author: [String] @cql_index(name: "author_idx", target: VALUES)
+}
+
+type InsertBookResponse @cql_payload {
+  applied: Boolean!
+  book: Book!
+}
+type Mutation {
+  insertBookIfNotExists(book: BookInput!): InsertBookResponse
+}

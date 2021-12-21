@@ -1,0 +1,4 @@
+# drop a UDT
+mutation dropType {
+  dropType(keyspaceName:"library", typeName:"address_type", ifExists:true)
+}

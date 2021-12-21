@@ -1,0 +1,15 @@
+# alter a table and add columns
+# DATA TYPES: TEXT, INT, SET(TEXT)
+mutation alterTableAddCols {
+  alterTableAdd(
+    keyspaceName:"library",
+    tableName:"book",
+    toAdd:[
+      { name: "isbn", type: { basic: TEXT } }
+      { name: "language", type: {basic: TEXT} }
+      { name: "pub_year", type: {basic: INT} }
+      { name: "genre", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "format", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+    ]
+  )
+}

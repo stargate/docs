@@ -1,0 +1,9 @@
+mutation insertOneBadge {
+  gold: insertBadges(value: { btype:"Gold", earned: "2020-11-20", category: ["Editor", "Writer"] } ) {
+    value {
+      btype
+      earned
+      category
+    }
+  }
+}

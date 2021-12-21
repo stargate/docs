@@ -1,0 +1,10 @@
+type SelectBookResult @cql_payload { // <1>
+  data: [Book]
+  pagingState: String
+}
+type Query {
+  books(
+    title: String!,
+    pagingState: String @cql_pagingState // <2>
+  ): SelectBookResult @cql_select(pageSize: 10) // <3>
+}

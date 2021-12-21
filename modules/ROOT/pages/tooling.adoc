@@ -2,6 +2,8 @@
 :slug: resources
 
 == Postman resources
+// tag::using-postman[]
+== Using Postman
 
 === Prerequisite
 
@@ -54,6 +56,7 @@ link:https://docs.datastax.com/en/astra/docs/manage-application-tokens.html[retr
 Open the link:https://learning.postman.com/docs/sending-requests/managing-environments/[environment in Postman]
 and copy/paste in the appropriate values.
 You can also edit the JSON file directly, if you prefer.
+// end::using-postman[]
 
 == BloomRPC resources
 

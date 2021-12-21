@@ -1,0 +1,8 @@
+// ASTRA
+ifdef::astra[]
+{company} {database} includes the Stargate APIs, which is a data gateway deployed between client applications and a database. 
+endif::[]
+// STARGATE
+ifdef::stargate[]
+{company} {database} is a data gateway deployed between client applications and a database.
+endif::[]

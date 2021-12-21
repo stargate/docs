@@ -1,15 +1,9 @@
 = Developing with the {database} Document API
 :keywords: database, document, api
 
-// ASTRA
-ifdef::astra[]
-{company} {database} includes the Stargate APIs, which is a data gateway deployed between client applications and a database. 
-endif::[]
-// STARGATE
-ifdef::stargate[]
-{company} {database} is a data gateway deployed between client applications and a database.
-endif::[]
-The Stargate Document API to modify and query data stored as unstructured JSON documents in collections.
+include::partial$stargate-intro-intro.adoc[]
+
+The Stargate Document API modifies and queries data stored as unstructured JSON documents in collections.
 Because the Document API uses schemaless data, no data modeling is required!
 
 The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API, window="_blank"] describes the underlying structure used to store collections.

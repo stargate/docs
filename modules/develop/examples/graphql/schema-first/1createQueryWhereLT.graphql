@@ -1,0 +1,15 @@
+type Query {
+bookLT(
+  title: String
+  isbn: String @cql_where(field: "isbn", predicate: LT)
+): [Book]
+}
+
+# retrieves only one book, by Charlene Li
+query fetchIsbnLT {
+  bookLT(title: "Groundswell", isbn: "978-1422125008") {
+    title
+    isbn
+    author
+  }
+}

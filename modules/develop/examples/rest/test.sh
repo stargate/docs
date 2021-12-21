@@ -2,7 +2,7 @@
 
 # MUST SET THE URL AND PATH SUBSTITUTIONS BEFORE RUNNING THE TESTS
 
-base_url=http://localhost:11082
+base_rest_url=http://localhost:11082
 base_rest_schema=/v2/schemas/keyspaces
 base_rest_api=/v2/keyspaces
 rkeyspace=users_keyspace
@@ -12,7 +12,7 @@ for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{base_url}#$base_url#; s#{base_rest_schema}#$base_rest_schema#; s#{base_rest_api}#$base_rest_api#; s#{rkeyspace}#$rkeyspace#; s#{rtable}#$rtable#; s#{auth_token}#\$AUTH_TOKEN#;" $FILE > $FILE.tmp;
+      gsed "s#{base_rest_url}#$base_rest_url#; s#{base_rest_schema}#$base_rest_schema#; s#{base_rest_api}#$base_rest_api#; s#{rkeyspace}#$rkeyspace#; s#{rtable}#$rtable#; s#{auth_token}#\$AUTH_TOKEN#;" $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
 done

@@ -1,0 +1,9 @@
+mutation updateOneBook {
+  moby: updatebook(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
+    value {
+      title
+      author
+      isbn
+    }
+  }
+}

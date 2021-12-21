@@ -1,0 +1,50 @@
+# Additional library schema
+
+# EarnedBadge is an equivalent of a map that pairs
+# earned level (such as Gold, Silver) with the date
+# the level was earned
+type EarnedBadge @cql_entity(target: UDT) @cql_input {
+      level: String
+      date: Date
+}
+
+type Magazine @key @cql_entity(name: "magazine") @cql_input {
+  title: String! @cql_column(partitionKey: true)
+  pub_yr: Int @cql_column(clusteringOrder: ASC)
+  pub_mon: Int @cql_column(clusteringOrder: ASC)
+  mag_id: Int @cql_column(clusteringOrder: ASC)
+  editor: String
+}
+
+type Article @key @cql_entity(name: "article") @cql_input {
+  title: String! @cql_column(partitionKey: true)
+  mtitle: String @cql_column(clusteringOrder: ASC)
+  authors: [String]
+}
+
+# btype is the type of badge (such as Editor or Writer)
+type Badge @key @cql_entity(name: "badge") @cql_input {
+  btype: String! @cql_column(partitionKey: true)
+  badge_id: Int @cql_column(clusteringOrder: ASC)
+  earned: [EarnedBadge] @cql_index(name: "earned_idx", target: VALUES)
+}
+
+type Query {
+  # magazines by partition key
+  magByTitle(title: String!): [Magazine]
+  # articles by partition key
+  articleByTitle(title: String!): [Article]
+  # badges by partition key
+  badgeByBtype(btype: String!): [Badge]
+}
+type Mutation {
+  insertMagazine(magazine: MagazineInput!): Magazine
+  updateMagazine(magazine: MagazineInput): Boolean @cql_update
+  deleteMagazine(magazine: MagazineInput!): Boolean
+  insertArticle(article: ArticleInput!): Article
+  updateArticle(article: ArticleInput!): Boolean @cql_update
+  deleteArticle(article: ArticleInput!): Boolean
+  insertBadge(badge: BadgeInput!): Badge
+  updateBadge(badge: BadgeInput!): Boolean @cql_update
+  deleteBadge(badge: BadgeInput!): Boolean @cql_delete(ifExists: true)
+}

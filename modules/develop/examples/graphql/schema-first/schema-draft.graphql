@@ -1,0 +1,25 @@
+# **** LLP: new things I'm working on
+
+#type Book @key @cql_entity(name: "book") @cql_input {
+#  random_id: UUID!
+#  title: String
+#  isbn: String
+#  author: [String] @cql_index(name: "author_idx", target: VALUES)
+#}
+# ******** LLP: lib_name - indexed or CC?
+type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
+  type: String! @cql_column(partitionKey: true)
+  lib_id: Int! @cql_column(partitionKey: true)
+  lib_name: String @cql_index(name: "libname_idx")
+}
+#union ReviewResult = Book | Reader
+
+type Query {
+  reviewsByBook(
+    title: ReaderInput! @cql_where(field: "reviews", predicate: CONTAINS)
+  ): [Reader]
+  reviewIt(contains: String): [ReviewResult!]
+}
+type Mutation {
+  setBookIsbn(title: String!, isbn: String!): Boolean @cql_update(targetEntity: "Book")
+}

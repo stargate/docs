@@ -1,0 +1,5 @@
+mutation dropSchema {
+  undeploySchema( 
+    "keyspace": "library" 
+    "expectedVersion": "bd94fb30-e4f5-11eb-9cf6-afef380162ee")
+}

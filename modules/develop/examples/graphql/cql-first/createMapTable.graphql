@@ -1,0 +1,19 @@
+# create a table with a MAP
+# DATA TYPE: TEXT, INT, MAP(TEXT, DATE)
+# Sample: btype=Editor, badge_id=1, earned = [Gold:010120, Silver:020221]
+mutation createMapTable {
+  badge: createTable (
+    keyspaceName:"library",
+    tableName: "badge",
+    partitionKeys: [
+      {name: "btype", type: {basic:TEXT}}
+    ]
+    clusteringKeys: [
+      { name: "badge_id", type: { basic: INT} }
+    ],
+    ifNotExists:true,
+    values: [
+      {name: "earned", type:{basic:LIST { basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}}}}
+    ]
+  )
+}

@@ -29,7 +29,7 @@ generated to access the interface. A REST API token is used for this purpose.
 include::partial$gen_auth_token.adoc[]
 
 You will need to add this token to the GraphQL Playground in order to authorize
-your GraphQL requests. Copy the value after `"authToken"` to use later.
+your GraphQL requests. Copy the value after `authToken` to use later.
 
 // LLP -08.05.21 Do I need a modified note of this partial for cql-first?
 // include::partial$curl_and_graphQL.adoc[]

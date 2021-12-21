@@ -1,0 +1,15 @@
+type Query {
+  readerGT( 
+    name: [String!] 
+    user_id: [Uuid!]
+    @cql_where(field: "user_id", predicate: GT)
+  ): [Reader]
+}
+
+query fetchReadersGT {
+  readerGT( name:"Herman Melville",  user_id: "e0ec47e1-2b46-41ad-961c-70e6de629800" ) {
+    name
+    user_id
+    birthdate
+  }
+}

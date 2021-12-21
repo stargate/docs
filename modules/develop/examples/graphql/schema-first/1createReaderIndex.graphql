@@ -1,0 +1,8 @@
+type Reader @key @cql_entity(name: "reader") @cql_input {
+ name: String! @cql_column(partitionKey: true)
+ user_id: Uuid! @cql_column(clusteringOrder: ASC)
+ birthdate: Date @cql_index(name: "date_idx")
+ email: [String] @cql_column(typeHint: "set<varchar>")
+ reviews: [Review] @cql_index(name: "review_idx", target: FULL)
+ address: [Address]
+}

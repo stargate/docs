@@ -1,0 +1,6 @@
+query fetchBook {
+  book(title: "Native Son") {
+    title
+    author
+  }
+}

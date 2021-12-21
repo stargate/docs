@@ -1,0 +1,18 @@
+query GetTables {
+  keyspace(name: "library") {
+      name
+      tables {
+          name
+          columns {
+              name
+              kind
+              type {
+                  basic
+                  info {
+                      name
+                  }
+              }
+          }
+      }
+  }
+}

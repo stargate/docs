@@ -1,0 +1,208 @@
+# create a keyspace called library
+# *** USED IN QUICKSTART ***
+mutation createKsLibrary {
+  createKeyspace(name:"library", replicas: 1)
+}
+
+# create a user-defined type (UDT)
+# *** ADVANCED ***
+mutation createAddressUDT {
+  createType(
+    keyspaceName: "library"
+    typeName: "address_type"
+    fields: [
+      { name: "street", type: { basic: TEXT } }
+      { name: "city", type: { basic: TEXT } }
+      { name: "state", type: { basic: TEXT } }
+      { name: "zip", type: { basic: TEXT } }
+    ]
+  )
+}
+
+# create two tables (book, reader) in library with a single mutation
+# DATA TYPES: TEXT, UUID, SET(TEXT), TUPLE(TEXT, INT, DATE), LIST(UDT)
+# *** USED IN QUICKSTART ***
+mutation createTables {
+  book: createTable(
+    keyspaceName:"library",
+    tableName:"book",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [
+      { name: "author", type: {basic: TEXT} }
+    ]
+  )
+  reader: createTable(
+    keyspaceName:"library",
+    tableName:"reader",
+    partitionKeys: [
+      { name: "name", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "user_id", type: {basic: UUID}, order: "ASC" }
+  	]
+    values: [
+      { name: "birthdate", type: {basic: DATE} }
+      { name: "email", type: {basic: SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "reviews", type: {basic: TUPLE, info: { subTypes: [ { basic: TEXT }, { basic: INT }, { basic: DATE } ] } } }
+      { name: "addresses", type: { basic: LIST, info: { subTypes: [ { basic: UDT, info: { name: "address_type", frozen: true } } ] } } }
+    ]
+  )
+}
+
+# create two tables, magazine and article, IF THEY DON'T EXIST
+# DATA TYPES: TEXT, INT, LIST(TEXT)
+# *** ADVANCED ***
+mutation createTableIfNotExists {
+  magazine: createTable(
+    keyspaceName:"library",
+    tableName:"magazine",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "pub_yr", type: {basic: INT}, order: "ASC" }
+      { name: "pub_mon", type: {basic: INT} }
+      { name: "mag_id", type: {basic: INT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "editor", type: {basic: TEXT} }
+    ]
+  )
+  article: createTable(
+    keyspaceName:"library",
+    tableName:"article",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "mtitle", type: {basic: TEXT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "authors", type: {basic:LIST, info:{ subTypes: [ { basic: TEXT } ] } } }
+    ]
+  )
+}
+
+# create a table with a MAP
+# DATA TYPE: TEXT, INT, MAP(TEXT, DATE)
+# *** ADVANCED ***
+mutation createMapTable {
+  badge: createTable (
+    keyspaceName:"library",
+    tableName: "badge",
+    partitionKeys: [
+      {name: "badge_type", type: {basic:TEXT}}
+    ]
+    clusteringKeys: [
+      { name: "badge_id", type: { basic: INT} }
+    ],
+    ifNotExists:true,
+    values: [
+      {name: "earned", type:{basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}}}
+    ]
+  )
+}
+
+# alter a table and add columns
+# DATA TYPES: TEXT, INT, SET(TEXT)
+# *** ADVANCED ***
+mutation alterTableAddCols {
+  alterTableAdd(
+    keyspaceName:"library",
+    tableName:"book",
+    toAdd:[
+      { name: "isbn", type: { basic: TEXT } }
+      { name: "language", type: {basic: TEXT} }
+      { name: "pub_year", type: {basic: INT} }
+      { name: "genre", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+      { name: "format", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }
+    ]
+  )
+}
+
+# get keyspace schema information
+# *** USED IN QUICKSTART ***
+query GetKeyspace {
+  keyspace(name: "library") {
+      name
+      dcs {
+          name
+          replicas
+      }
+      tables {
+          name
+          columns {
+              name
+              kind
+              type {
+                  basic
+                  info {
+                      name
+                  }
+              }
+          }
+      }
+  }
+}
+
+# get table schema information
+# *** USED IN QUICKSTART ***
+query GetTables {
+  keyspace(name: "library") {
+      name
+      tables {
+          name
+          columns {
+              name
+              kind
+              type {
+                  basic
+                  info {
+                      name
+                  }
+              }
+          }
+      }
+  }
+}
+
+# drop a column format from a table
+# *** ADVANCED ***
+mutation dropColumnFormat {
+    alterTableDrop(
+    keyspaceName:"library",
+    tableName:"book",
+    toDrop:["format"]
+  )
+}
+
+# drop a table
+# *** USED IN QUICKSTART ***
+mutation dropTableArticle {
+  dropTable(keyspaceName:"library",
+    tableName:"article")
+}
+
+# drop a table if it exists
+# *** ADVANCED ***
+mutation dropTableIfExists {
+  dropTable(keyspaceName:"library",
+    tableName:"magazine",
+  ifExists: true)
+}
+
+# drop a UDT
+# *** ADVANCED ***
+mutation dropType {
+  dropType(keyspaceName:"library", typeName:"address_type", ifExists:true)
+}
+
+# drop a keyspace
+# *** USED IN QUICKSTART ***
+mutation dropKsLibrary {
+  dropKeyspace(name:"library", ifExists: true)
+}

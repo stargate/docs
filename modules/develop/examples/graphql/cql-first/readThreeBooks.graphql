@@ -1,0 +1,9 @@
+# get 3 books using the primary keys with an "in" filter clause of the primary key title
+query ThreeBooks {
+  book(filter: { title: { in: ["Native Son", "Moby Dick", "Catch-22"] } } ) {
+      values {
+      	title
+	author
+     }
+   }
+}

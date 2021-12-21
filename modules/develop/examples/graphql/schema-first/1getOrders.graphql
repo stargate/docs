@@ -1,0 +1,12 @@
+query getOrders { 
+  orders {
+    checkout_id
+    reader {
+      name
+      user_id
+    }
+    books {
+      title
+    }
+  }
+}

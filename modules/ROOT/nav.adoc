@@ -1,5 +1,6 @@
 * xref:dev-with-rest.adoc[Develop with REST]
 * xref:dev-with-doc.adoc[Develop with Document]
+* xref:dev-with-graphql.adoc[Develop with GraphQL]
 * xref:api.adoc[API references]
 * xref:FAQ.adoc[FAQ]
 * xref:tooling.adoc[Tooling Resources]

@@ -1,0 +1,6 @@
+type Address @cql_entity(target: UDT) @cql_input { // <1>
+ street: String
+ city: String
+ state: String
+ zipCode: String @cql_column(name: "zip_code")
+}

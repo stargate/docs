@@ -1,0 +1,15 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  book(value: bookInput, filter: bookFilterInput, orderBy: [bookOrder], options: QueryOptions): bookResult
+  bookFilter(filter: bookFilterInput!, orderBy: [bookOrder], options: QueryOptions): bookResult
+}
+
+type Mutation {
+  insertbook(value: bookInput!, ifNotExists: Boolean, options: UpdateOptions): bookMutationResult
+  updatebook(value: bookInput!, ifExists: Boolean, ifCondition: bookFilterInput, options: UpdateOptions): bookMutationResult
+  deletebook(value: bookInput!, ifExists: Boolean, ifCondition: bookFilterInput, options: UpdateOptions): bookMutationResult
+}

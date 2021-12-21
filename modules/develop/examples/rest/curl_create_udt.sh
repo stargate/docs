@@ -1,4 +1,4 @@
-curl -s -L -X POST {base_url}{base_rest_schema}/{rkeyspace}/types \
+curl -s -L -X POST {base_rest_url}{base_rest_schema}/{rkeyspace}/types \
 -H "X-Cassandra-Token: {auth_token}" \
 -H 'Content-Type: application/json' \
 -d '{

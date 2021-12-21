@@ -1,0 +1,8 @@
+mutation insert2booksSameTitle {
+  groundswell1: insertBook(book: { title: "Groundswell", isbn: "978-1422125007", author: ["Charlene Li"] }) {
+    title
+  }
+  groundswell2: insertBook(book: { title: "Groundswell", isbn: "978-1439183595", author: ["Katie Lee"]}) {
+    title
+  }
+}

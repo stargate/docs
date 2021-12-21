@@ -1,0 +1,18 @@
+type Query {
+  readerCONTAINS(
+    reviews: ReviewInput! @cql_where(field: "reviews", predicate: CONTAINS)
+  ): [Reader]
+}
+
+query fetchReadersCONTAINS {
+  readerCONTAINS( reviews: {
+          bookTitle: "Moby Dick"
+          comment: "It's about a whale."
+          rating: 3
+          reviewDate: "2021-04-01"
+        } ) {
+    name
+    user_id
+    birthdate
+  }
+}

@@ -1,4 +1,4 @@
-curl -s --location --request POST '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}' \
+curl -s --location --request POST '{base_rest_url}{base_rest_schema}/{rkeyspace}/{rtable}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -7,7 +7,7 @@ curl -s --location --request POST '{base_url}{base_rest_schema}/{rkeyspace}/{rta
     "email": "mookie.betts@gmail.com",
     "favorite color": "blue"
 }'
-curl -s --location --request POST '{base_url}{base_rest_schema}/{rkeyspace}/{rtable}' \
+curl -s --location --request POST '{base_rest_url}{base_rest_schema}/{rkeyspace}/{rtable}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{

@@ -1,0 +1,32 @@
+== Using the GraphQL Playground
+
+The easiest way to get started with GraphQL is to use the built-in GraphQL playground.
+ifdef::astra[]
+In {database}, go to the Connect tab for your database, choose GraphQL under the
+`Connect using an API` and you'll see instructions for accessing the playground.
+The GraphQL playground launches the url:
+`https://{base_graphql_url}/api/playground`
+in your browser.
+endif::[]
+ifdef::stargate[]
+In {database}, go to your browser and launch the url:
+`https://{base_graphql_url}/playground`
+endif::[]
+
+Add your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] to the HTTP HEADERS
+section at the lower lefthand corner of the GraphQL Playground window:
+
+{"x-cassandra-token":"$AUTH_TOKEN"}
+
+Once in the playground, you can create new schema and interact with the
+GraphQL APIs. The server paths are structured to provide access to creating and
+querying schema, as well as querying and modifying Cassandra data:
+
+* `/graphql-schema`
+** An API for exploring and creating schema, or Data Definition Language (DDL).
+For example, {database} has queries to create, modify, or drop tables,
+such as `createTable`, or `dropTable`.
+* `/graphql/<keyspace>`
+** An API for querying and modifying your tables using GraphQL fields.
+
+Generally, you will start the playground with `/graphql-schema` to create some schema.

@@ -1,0 +1,6 @@
+# drop a table if it exists
+mutation dropTableIfExists {
+  dropTable(keyspaceName:"library",
+    tableName:"magazine",
+  ifExists: true)
+}

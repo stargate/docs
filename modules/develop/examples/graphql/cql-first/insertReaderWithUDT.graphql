@@ -1,0 +1,22 @@
+# insert a reader record that uses a UDT
+mutation insertReaderWithUDT{
+  ag: insertreader(
+    value: {
+      user_id: "e0ed81c3-0826-473e-be05-7de4b4592f64"
+      name: "Allen Ginsberg"
+      birthdate: "1926-06-03"
+      addresses: [{ street: "Haight St", city: "San Francisco", zip: "94016" }]
+    }
+  ) {
+    value {
+      user_id
+      name
+      birthdate
+      addresses {
+        street
+        city
+        zip
+      }
+    }
+  }
+ }

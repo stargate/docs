@@ -1,15 +1,9 @@
 = Developing with the {database} REST API
 :keywords: database, rest, api
 
-// ASTRA
-ifdef::astra[]
-{company} {database} includes the Stargate APIs, which is a data gateway deployed between client applications and a database. 
-endif::[]
-// STARGATE
-ifdef::stargate[]
-{company} {database} is a data gateway deployed between client applications and a database.
-endif::[]
-The REST API plugin that exposes CRUD access to data stored in Cassandra tables.
+include::partial$stargate-intro-intro.adoc[]
+
+The REST API exposes CRUD access to data stored in Cassandra tables.
 
 == Prerequisite
 * `cURL` to run REST queries

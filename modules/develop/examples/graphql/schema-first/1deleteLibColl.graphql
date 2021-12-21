@@ -1,0 +1,9 @@
+# Note that the lib_id is INCORRECT,
+# SO THIS delete operation will fail
+mutation deleteDHM {
+  deleteLibCollection(libColl: {
+    type:"book",
+    lib_id: 66665,
+    lib_name: "Davis Historical Museum"
+  })
+}

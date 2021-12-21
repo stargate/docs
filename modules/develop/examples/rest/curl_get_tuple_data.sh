@@ -1,4 +1,4 @@
-curl -s -G -L {base_url}{base_rest_schema}/{rkeyspace}/{rtable} \
+curl -s -G -L {base_rest_url}{base_rest_schema}/{rkeyspace}/{rtable} \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
    -H  "Content-Type: application/json" \
    --data-urlencode 'where={
