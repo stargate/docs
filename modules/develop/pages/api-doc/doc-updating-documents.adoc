@@ -3,7 +3,7 @@
  
 Data changes, so often it is necessary to update an entire document.
 
-==== Replace a document
+=== Replace a document
 
 Send a `PATCH` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
@@ -59,7 +59,7 @@ If it does exist, it will be updated with the new document data.
 // end::UpdateBasicData[]
 
 // tag::UpdateAdvData[]
-==== Replace part of of a document or sub-document
+=== Replace part of of a document or sub-document
 
 It is also possible to update only part of a document. To partially update, send
 a `PATCH` request to

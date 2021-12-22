@@ -6,7 +6,7 @@ Stargate is a data gateway deployed between client applications and a database.
 In this QuickStart, you'll be up and running on your local machine with the
 GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-include::developers-guide:partial$GQLAPIBlogPost.adoc[]
+include::develop:partial$GQLAPIBlogPost.adoc[]
 
 // tag::prereqsList[]
 include::developers-guide:partial$prereqs.adoc[]

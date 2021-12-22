@@ -1,2 +1,0 @@
-* xref:api-rest/rest-creating-keyspace.adoc[Creating a keyspace]
-* xref:api-rest/rest-checking-a-keyspace.adoc[Checking a keyspace]

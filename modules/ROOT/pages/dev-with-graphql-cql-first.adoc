@@ -8,24 +8,23 @@ The GraphQL API modifies and queries your table data using GraphQL types, querie
 For every table in your keyspace, a series of GraphQL objects are generated, along
 with queries and mutations for searching and modifying the table data.
 
-include::partial$GQLAPIBlogPost.adoc[]
+include::develop:partial$GQLAPIBlogPost.adoc[]
 
 == Prerequisite
+
 * `cURL` to run REST queries
 
 // ASTRA
 ifdef::astra[]
-* If you haven't already, create a database using https://astra.datastax.com/[{database}].
-endif::[]
 
-ifdef:astra[]
+* If you haven't already, create a database using https://astra.datastax.com/[{database}].
 * Before you get started, set your environment variables to save time developing on your database.
 
-. In link:https://astra.datastax.com[{astra_db}, window="_blank"], select the database to which you want to connect.
+. In link:https://astra.datastax.com[{database}, window="_blank"], select the database to which you want to connect.
 . In your *Database Dashboard*, select *Connect*.
 . Select *REST API*.
 +
-include::partial$note_multi-region_connect.adoc[]
+include::develop:partial$note_multi-region_connect.adoc[]
 
 . Follow the steps in the prerequisites to get your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] and set up your environment variables.
 . In your command-line interface associated with your environment, paste the following environment variables copied for your {astra_db} database:
@@ -77,13 +76,9 @@ to quickly create a random UUID to pass with your requests if you are submitting
 the queries manually using a tool like cURL.
 ====
 
-== API reference
+include::develop:partial$GQLNaming.adoc[]
 
-To view the API Reference, see link:_attachments/restv2.html[{database} REST API].
-
-include::partial$GQLNaming.adoc[]
-
-== Mapping {database} tables to GraphQL fields and types
+== Mapping {database} tables to GraphQL fields and types in CQL-first
 
 The {database} GraphQL API generates fields and types for each table in your database.
 For example, for an {database} table named `book` the following fields and types
@@ -91,7 +86,7 @@ are generated.
 
 [source, plaintext,subs="attributes+"]
 ----
-include::develop:example$graphql/generatedApi.graphql[]
+include::develop:example$graphql/cql-first/generatedApi.graphql[]
 ----
 
 === Generated query types
@@ -148,6 +143,12 @@ include::develop:page$api-graphql-cql-first/gql-schema-data-types.adoc[Schema an
 
 include::develop:page$api-graphql-cql-first/gql-creating-table.adoc[Creating table schema]
 
+include::develop:page$api-graphql-cql-first/gql-adding-columns.adoc[Adding columns to a table]
+
+include::develop:page$api-graphql-cql-first/gql-checking-table.adoc[Checking table and column schema]
+
+include::develop:page$api-graphql-cql-first/gql-dropping-columns.adoc[Dropping column schema]
+
 include::develop:page$api-graphql-cql-first/gql-dropping-table.adoc[Dropping table schema]
 
 include::develop:page$api-graphql-cql-first/gql-creating-index.adoc[Creating an index]
@@ -158,9 +159,10 @@ include::develop:page$api-graphql-cql-first/gql-creating-udt.adoc[Creating a use
 
 include::develop:page$api-graphql-cql-first/gql-dropping-udt.adoc[Dropping a user-defined type (UDT)]
 
-include::develop:page$api-graphql-cql-first/graphql-dropping-schema.adoc[Dropping user-defined types (UDTs), tables or columns using GraphQL]
+//include::develop:page$api-graphql-cql-first/graphql-dropping-schema.adoc[Dropping user-defined types (UDTs), tables or columns using GraphQL]
 
-include::develop:page$api-graphql-cql-first/gql-api-generation.adoc[API generation]
+// LLP: 12.22.21 This information is included earlier on this page.
+//include::develop:page$api-graphql-cql-first/gql-api-generation.adoc[API generation]
 
 include::develop:page$api-graphql-cql-first/gql-adding-rows.adoc[Adding rows to your table]
 
