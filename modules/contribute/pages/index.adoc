@@ -10,7 +10,7 @@ Thank you for taking the time and effort to improve the Stargate documentation.
 == Reporting Bugs and Requesting Enhancements
 
 All bugs and enhancements for the Stargate documentation are tracked using the {url-issues-doc}[GitHub issues in the repo].
-If you find an error, or see room for improvement on a page, please don't keep it to yourself.
+If you find an error or see room for improvement on a page, please don't keep it to yourself.
 Even if you don't plan to make the change yourself, we would still like to know what it is!
 Raise an issue and someone on the team will look at it.
 
