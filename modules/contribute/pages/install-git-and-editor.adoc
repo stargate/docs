@@ -6,7 +6,7 @@
 
 == Create a GitHub account
 
-The Stargate documentation is stored on GitHub, so if you don't have a GitHub account, you need to https://github.com/join[create one^].
+The Stargate documentation is stored on GitHub. If you don't have a GitHub account, you need to https://github.com/join[create one^].
 
 == Download and install Git
 
