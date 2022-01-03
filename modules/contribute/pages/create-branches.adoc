@@ -72,7 +72,7 @@ These instructions assume you've xref:set-up-repository.adoc[forked, cloned, and
  $ git checkout -b sgdocs-####
 
 The name of a working branch should pair it with the issue it resolves.
-For example, if you're resolving stargate/docs issue #6500, you could name the working branch `sgdocs-6500`.
+For example, if you're resolving `stargate/docs` issue #6500, you could name the working branch `sgdocs-6500`.
 --
 
 == Next Steps
