@@ -3,7 +3,7 @@
 
 * Setting Up Your Workspace
  ** xref:install-git-and-editor.adoc[Install Git and an AsciiDoc editor]
- ** xref:set-up-repository.adoc[Set up Your local repository]
+ ** xref:set-up-repository.adoc[Set up your local repository]
 
 * Contributing Workflow
  ** xref:workflow-overview.adoc[Overview]
