@@ -16,7 +16,7 @@
 [options="header"]
 |===
 |Stargate |Cassandra |DSE
-|0.1 |4.0, 3.x |6.8
+|1.0 |4.0, 3.x |6.8
 |===
 
 // == Download
@@ -41,7 +41,7 @@ New issues may be reported using https://github.com/stargate/docs/issues[GitHub 
 
 == Questions, comments, and feedback
 
-Go to our https://groups.google.com/a/lists.stargate.io/g/stargate-users[Google group] to discuss Stargate with the community.
+Go to our https://github.com/stargate/stargate/discussions[Github discussions page] to discuss Stargate with the community.
 
 // == Contributing
 //
