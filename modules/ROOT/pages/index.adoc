@@ -5,7 +5,7 @@
 [cols=",",options="header",]
 |===
 |What |Where
-|Community | https://groups.google.com/a/lists.stargate.io/g/stargate-users[Chat with us]
+|Community | https://github.com/stargate/stargate/discussions[Chat with us]
 
 |===
 
