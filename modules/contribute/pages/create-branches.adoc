@@ -44,7 +44,7 @@ In the modal window, click btn:[New Branch], and enter the name of the new worki
 image::new-branch.png[,380,align=left]
 
 The name of a working branch should pair it with the issue it resolves.
-For example, if you're resolving stargate/docs issue #6500, you could name the working branch `sgdocs-6500`.
+For example, if you're resolving `stargate/docs` issue #6500, you could name the working branch `sgdocs-6500`.
 --
 
 Now you're ready to <<next-steps,write or edit documentation>>.
