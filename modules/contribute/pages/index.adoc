@@ -31,7 +31,7 @@ For example,
 We strongly encourage you to to contribute the changes you want to see to resolve an issue!
 
 You can submit simple changes, such as typo fixes and minor clarifications, using the <<simple>> workflow.
-For more extensive content additions and updates, or if you prefer to work locally, see the xref:workflow-overview.adoc[Contributing Workflow].
+For more extensive content changes or if you prefer to work locally, see the xref:workflow-overview.adoc[Contributing Workflow].
 
 [#simple]
 == Simple Online Edits
