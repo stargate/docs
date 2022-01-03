@@ -28,6 +28,7 @@ AsciiDoc packages for an enhanced experience.
 Atom is an open source, extensible text editor for Linux, macOS, or Windows.
 
 . Go to the https://atom.io/[Atom home page^].
++
 The Atom home page should detect your operating system automatically and provide
 the correct download options.
 . Download and install Atom.
