@@ -28,7 +28,7 @@ For example,
 
 == Contributing Changes
 
-If you want to contribute the changes to resolve an issue yourself, then this is greatly encouraged!
+We strongly encourage you to to contribute the changes you want to see to resolve an issue!
 
 You can submit simple changes, such as typo fixes and minor clarifications, using the <<simple>> workflow.
 For more extensive content additions and updates, or if you prefer to work locally, see the xref:workflow-overview.adoc[Contributing Workflow].
