@@ -7,7 +7,7 @@
 //Stargate uses Antora to manage and build stargate.io/docs.
 
 The Stargate documentation is stored in a single repository that is
-organized in a standard directory structure. This may change in the future.
+organized in a standard directory structure.
 
 [#repo-urls]
 // LLP 10.08.21 Not currently used, but when we break out the examples, we'll have
