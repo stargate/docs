@@ -22,7 +22,7 @@ and files nested under it are part of a component.
 
 Component Descriptor::
 A component must contain a component descriptor file named _antora.yaml_.
-When Antora finds _antora.yaml_ in a repository, it knows it has located a component (or part of component).
+When Antora finds _antora.yaml_ in a repository, it knows it has located a component or part of component.
 The component descriptor tags the files under its hierarchy with the specified component name and version.
 
 // LLP 10.08.21 Versioning is not currently used in Stargate
