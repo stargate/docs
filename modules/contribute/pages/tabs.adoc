@@ -1,7 +1,7 @@
-= Tabs Sets
+= Tabs sets
 :tabs:
 
-== Set and Create Tabs
+== Set and create tabs
 
 To use the tabs block in a page, set the `tabs` attribute in the document header.
 

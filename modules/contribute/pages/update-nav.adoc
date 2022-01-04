@@ -1,8 +1,8 @@
-= Update a Navigation File
+= Update a navigation file
 
 When you want visitors to locate a page using the xref:nav-menus-and-files.adoc#component-menu[component menu], you must add a cross reference (`\xref:page-id.adoc[link content]`) to that page in the appropriate navigation file.
 
-== Creating a Navigation List
+== Creating a navigation list
 
 A navigation file contains one or more unordered AsciiDoc lists.
 Navigation lists must be separated by at least one blank line.
@@ -85,7 +85,7 @@ Enter the component, module, and page coordinates for a page located in another 
 ----
 
 [#nav-text]
-=== Regular, and Link Text Styles
+=== Regular and link text styles
 
 Use title case for the link and regular text in list items.
 Write "`and`" as *and*.

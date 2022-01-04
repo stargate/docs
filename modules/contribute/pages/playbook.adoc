@@ -105,6 +105,6 @@ asciidoc:
 Literally, the only thing different between these two YAML files is the `url` and the `start_page`. 
 When publishing, we use the public URL for stargate docs, and start the users on the QuickStart page. 
 
-== Next Steps
+== Next step
 
 * xref:build-site.adoc[Build the documentation site].

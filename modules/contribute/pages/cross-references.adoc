@@ -1,4 +1,4 @@
-= Cross References
+= Cross references
 :url-docs-antora: https://docs.antora.org/antora/2.0
 :url-docs-adoc: https://asciidoctor.org/docs/user-manual
 :url-pageid: {url-docs-antora}/page/page-id/#important
@@ -8,7 +8,7 @@ To link between documentation pages, use the cross reference macro (commonly cal
 The number of page ID coordinates you need to specify in the xref depends on the location of the current page in relation to the location of the destination page (i.e., the page you want to link to).
 The closer the two files are, the shorter the page ID.
 
-== Link to a Page in the Same Module
+== Link to a page in the same module
 
 To link to a page in the same module as the current page, all you need to know is the file name of the document.
 
@@ -32,7 +32,7 @@ xref:concept/index.adoc[Key Concepts]
 [source,asciidoc]
 xref:3.3@error-handling.adoc#message-list[error messages]
 
-== Link to a Page in the Same Component
+== Link to a page in the same component
 
 To link to a page in the same component as the current page, but in a different module, you need to know the file name of the document and the module name.
 The module name is the name of the top-level folder in the modules directory the document is stored in.
@@ -50,7 +50,7 @@ This renders as:
 Let's go to the xref:ROOT:index.adoc[documentation home page].
 
 [#component-coordinate]
-== Link to a Page in a Different Component
+== Link to a page in a different component
 
 To link to a page in a different component, you need to know the destination component's name, module name, and file name.
 
@@ -82,7 +82,7 @@ This renders as:
 xref:server:introduction:whats-new.adoc[What's new] in Stargate?
 
 [#link-to-element]
-== Link to an Element in a Page
+== Link to an element in a page
 
 To link to a specific element in another page, you need to know the element's ID.
 Add a hash (`#`) directly after the file name, followed by the ID of the element.
@@ -95,17 +95,17 @@ This renders as:
 
 See xref:basics.adoc#images[Images].
 
-== Cross Reference Best Practices
+== Cross reference best practices
 
 * Create attributes for long page ID coordinates to improve the source readability for other contributors.
 * Create attributes for page ID coordinates used several times on the same page.
 
-== Learn More
+== Learn more
 
 * Refer to xref:ids.adoc[Element IDs and Same-Page Cross References] to learn how to create element IDs.
 * Refer to xref:attributes-and-roles.adoc[Attributes] to learn how to create document attributes.
 
-== Additional Resources
+== Additional resources
 
 * {url-pageid}[Why is the page ID important?^]
 * {url-xref}[More xref usage examples^]

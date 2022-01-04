@@ -7,7 +7,7 @@
 
 Thank you for taking the time and effort to improve the Stargate documentation.
 
-== Reporting Bugs and Requesting Enhancements
+== Reporting bugs and requesting enhancements
 
 All bugs and enhancements for the Stargate documentation are tracked using the {url-issues-doc}[GitHub issues in the repo].
 If you find an error or see room for improvement on a page, please don't keep it to yourself.
@@ -34,7 +34,7 @@ You can submit simple changes, such as typo fixes and minor clarifications, usin
 For more extensive content changes or if you prefer to work locally, see the xref:workflow-overview.adoc[Contributing Workflow].
 
 [#simple]
-== Simple Online Edits
+== Simple online edits
 
 For simple changes, like fixing a typo or reworking a sentence, you can edit the content directly
 on GitHub by clicking the btn:[Edit this page]
@@ -45,7 +45,7 @@ Once you've made your edits, replace the default commit message with a short des
 of your change, and click btn:[Commit Changes].
 Then follow the on-screen instructions to open a pull request.
 
-== Next Steps
+== Next steps
 
 . xref:install-git-and-editor.adoc[Install Git and an AsciiDoc editor].
 . xref:set-up-repository.adoc[Set up your local repository].

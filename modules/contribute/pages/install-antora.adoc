@@ -5,7 +5,7 @@
 :url-windows: {url-docs-antora}/install/windows-requirements/
 :url-install: {url-docs-antora}/install/install-antora/
 
-== Install System Prerequisites
+== Install system prerequisites
 
 Antora runs on all Linux distributions, macOS, and Windows.
 If you've never used Antora, you may first need to instal Node using nvm.
@@ -15,7 +15,7 @@ Follow the instructions below that correspond to your operating system:
 * {url-macos}[macOS: Install Node^]
 * {url-windows}[Windows: Install Node^]
 
-== Install the Antora CLI and Site Generator
+== Install the Antora CLI and site generator
 
 To generate the Stargate documentation, you need the Antora command line interface (CLI) and the Antora site generator.
 
@@ -34,6 +34,6 @@ If installation was successful, you should see the Antora version number display
 
  $ npm i -g @antora/site-generator-default
 
-== Next Step
+== Next step
 
 xref:playbook.adoc[Get the Stargate documentation site playbook].

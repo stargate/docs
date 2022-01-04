@@ -1,8 +1,8 @@
-= Set Up Your Local Repository
+= Set up your local repository
 
 You only need to do these steps the first time you contribute to a repository.
 
-== Fork the Repository
+== Fork the repository
 
 Before you can contribute changes to the Stargate documentation, you must fork
 the appropriate repository to your personal GitHub account. 
@@ -23,7 +23,7 @@ If there isn't an image:edit.svg[,16,role=icon] edit icon on the page, then the
 repository can't accept changes using the regular workflow.
 ****
 
-== Clone the Repository
+== Clone the repository
 
 After you fork the repository, clone it to your device.
 
@@ -33,7 +33,7 @@ After you fork the repository, clone it to your device.
  $ cd path/to/folder
 
 . Go to your repository on GitHub, and click btn:[Clone or download].
-. Click the Clipboard icon to copy the repository's Git URL.
+. Click the clipboard icon to copy the repository's Git URL.
 . In your terminal type `git clone`, paste the copied URL, and press kbd:[Enter].
 For example, to clone your fork of the `docs` repository, you'd enter:
 
@@ -43,12 +43,12 @@ For example, to clone your fork of the `docs` repository, you'd enter:
 
  $ cd stargate/docs
 
-== Sync with the Upstream Repository
+== Sync with the upstream repository
 
 You need to connect your local repository to the upstream repository so the two repositories can stay in sync.
 
 . Go to the upstream repository on GitHub, and click btn:[Clone or download].
-. Click the Clipboard icon to copy the repository's Git URL.
+. Click the clipboard icon to copy the repository's Git URL.
 . In your terminal type `git remote add upstream`, paste the copied URL, and press kbd:[Enter].
 For example, to connect to the remote upstream stargate/docs repository, you'd enter:
 
@@ -59,7 +59,10 @@ For example, to connect to the remote upstream stargate/docs repository, you'd e
 --
  $ git remote -v
 
-The origin URLs should point to your personal fork, and the upstream URLs should point to the repository in the Stargate organization.
+The origin URLs should point to your personal fork, and the upstream URLs should point to the repository in the Stargate organization, such as:
+
+ origin  git@github.com:stargate/docs.git (fetch)
+ origin  git@github.com:stargate/docs.git (push)
 --
 
 . Download upstream changes.
@@ -68,7 +71,7 @@ The origin URLs should point to your personal fork, and the upstream URLs should
 
 Now you're ready to start working on the documentation.
 
-== Next Steps
+== Next steps
 
 . xref:workflow-overview.adoc[Get an overview of the entire contributing workflow].
 . xref:create-branches.adoc#base-branch[Choose a base branch].

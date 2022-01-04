@@ -16,13 +16,13 @@ For instance, in the future, we may aggregate the Developer Guide component from
 _developers_guide_ and _code_examples_ repositories.
 
 A component isn't recognized by a repository or directory.
-Instead, the presence of a file named _antora.yaml_ indicates that the directories
+Instead, the presence of a file named `antora.yaml` indicates that the directories
 and files nested under it are part of a component.
 --
 
 Component Descriptor::
-A component must contain a component descriptor file named _antora.yaml_.
-When Antora finds _antora.yaml_ in a repository, it knows it has located a component or part of component.
+A component must contain a component descriptor file named `antora.yaml`.
+When Antora finds `antora.yaml` in a repository, it knows it has located a component or part of component.
 The component descriptor tags the files under its hierarchy with the specified component name and version.
 
 // LLP 10.08.21 Versioning is not currently used in Stargate

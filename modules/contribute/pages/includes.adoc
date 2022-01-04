@@ -1,4 +1,4 @@
-= Include Examples and Partials
+= Include examples and partials
 :url-docs-antora: https://docs.antora.org/antora/2.3
 :url-docs-adoc: https://asciidoctor.org/docs/user-manual
 :url-resource: {url-docs-antora}/page/resource-id/
@@ -9,7 +9,7 @@
 :url-indent: {url-docs-adoc}/#normalize-block-indentation
 :url-leveloffset: {url-docs-adoc}/#include-partitioning
 
-== Example Files
+== Example files
 
 Examples are non-AsciiDoc files that contain reusable content, such as source code
 or programmatic output, that is often inserted into xref:code-blocks.adoc[code blocks].
@@ -24,7 +24,7 @@ page in your documentation site using the include directive and the example file
 \include::version@component:module:example$file.ext[]
 ----
 
-== Partial Files
+== Partial files
 
 Partials are AsciiDoc files that contain reusable snippets of content.
 They're saved in the xref:component-configuration.adoc#partials-dir[_partials_ directory of a module].
@@ -38,7 +38,7 @@ in your documentation site using the include directive and the partial file's re
 \include::version@component:module:partial$file.adoc[]
 ----
 
-== Insert an Example or a Partial
+== Insert an example or a partial
 
 An entire example or partial (or a portion of) is inserted into a page using the
 include directive and file's resource ID.
@@ -75,7 +75,7 @@ the partial or example are related, the less coordinates you have to specify.
 ----
 
 [#tag-region]
-== Insert Tagged Content from an Example or Partial
+== Insert tagged content from an example or partial
 
 To include a snippet of content from an example or partial (instead of the whole file), use the `tag` directive.
 
@@ -124,7 +124,7 @@ For example, if you tag code in a YAML file, place a hash (`+#+`) before the tag
 // LLP 10.08.21 Need to decide on developer preview partial and whether it would be useful
 == Stargate Documentation Partials
 
-=== Developer Preview Partial
+=== Developer preview partial
 
 To call out a section of a page as Developer Preview, use the `developer-preview` partial.
 Otherwise if the whole page is Developer Preview content, you can use the
@@ -138,12 +138,12 @@ Renders as:
 
 include::home:ROOT:partial$developer-preview.adoc[]
 
-== Learn More
+== Learn more
 
 * xref:code-blocks.adoc#include-code[Insert examples into code blocks with the include directive].
 * Browse the source files in the SDK language and common components on GitHub for numerous examples of partial includes and tagging.
 
-== Additional Resources
+== Additional resources
 
 The Antora and Asciidoctor documentation provide more information about including partials, examples, and standard pages as well as optional attributes such as `indent` and `leveloffset`.
 

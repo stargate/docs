@@ -1,17 +1,17 @@
-= Workflow Overview
+= Workflow overview
 
 This workflow is for frequent contributors and Stargate Docs team members who
 make major changes, add documents, examples, and images, and plan to work on the
 same set of changes over several days before requesting sign-off.
 
-== Workflow Steps
+== Workflow steps
 
 These steps, described under Setting Up Your Workspace, only need to be done
 once or the first time you plan to contribute to a repository:
 
-* [ ] Fork the repository into your GitHub account.
-* [ ] Create a clone of the repository on your device.
-* [ ] Connect your local repository with the upstream repository.
+* [ ] xref:set-up-repository.adoc#fork-the-repository[Fork the repository] into your GitHub account.
+* [ ] xref:set-up-repository.adoc#clone-the-repository[Create a clone of the repository] on your device.
+* [ ] xref:set-up-repository.adoc#sync-with-the-upstream-repository[Connect your local repository with the upstream] repository.
 
 Most of the following steps are completed each time you make a contribution to a
 repository:

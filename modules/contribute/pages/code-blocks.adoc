@@ -1,4 +1,4 @@
-= Code Blocks and Callouts
+= Code blocks and callouts
 :url-docs-antora: https://docs.antora.org/antora/2.0
 :url-docs-adoc: https://asciidoctor.org/docs/user-manual
 :url-examplesdir: {url-docs-antora}/modules/#examples-dir
@@ -60,7 +60,7 @@ Rendered as:
 include::example$code-blocks.adoc[tag=group-code-blocks]
 
 [#callouts]
-== Callout Numbers
+== Callout numbers
 
 Callouts add annotations to lines in code blocks.
 The first callout number must be placed after the final character on a code line.
@@ -143,14 +143,14 @@ And add the appropriate `[tag=]` to the `include::`.
 
 Note that we aim to keep all code files in the examples directory runnable -- or at least compilable -- so if you are adding a snippet of code to an existing file, please test it.
 
-== Learn More
+== Learn more
 
 * xref:ids.adoc#code-block-id[Assign an ID to a code block].
 * xref:tabs.adoc[Create a tabs set].
 * xref:includes.adoc[Include examples].
 * xref:includes.adoc#tag-region[Tag regions of an example file].
 
-== Additional Resources
+== Additional resources
 
 The Antora and Asciidoctor documentation provide more information about including code examples.
 

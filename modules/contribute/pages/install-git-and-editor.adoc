@@ -1,4 +1,4 @@
-= Install Git and an AsciiDoc Editor
+= Install Git and an AsciiDoc editor
 :url-atom-docs: https://flight-manual.atom.io/getting-started/sections/installing-atom
 :url-linux: {url-atom-docs}/#platform-linux
 :url-mac: {url-atom-docs}/#platform-mac
@@ -13,6 +13,7 @@ The Stargate documentation is stored on GitHub. If you don't have a GitHub accou
 To clone and work with Git repositories on your device, i.e., local repositories,
 install Git using your operating system's package manager.
 Alternatively, you can download it from the https://git-scm.com/downloads[Git project^].
+For more information, see https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[Getting started installing git].
 
 == Install an AsciiDoc editor
 

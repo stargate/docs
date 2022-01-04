@@ -1,11 +1,11 @@
-= Component Structure and Configuration
+= Component structure and configuration
 
-== Terminology and Structure
+== Terminology and structure
 
 include::partial$component-terms.adoc[]
 
 [#config]
-== Configuring a Component
+== Configuring a component
 
 Usually, you only edit the component descriptor file, _antora.yml_, when cutting a release branch and registering or deregistering a navigation file.
 The component descriptor assigns metadata to each component-version and used to build its page IDs, navigation menus, and URL segments.
@@ -62,7 +62,7 @@ The order of the values dictates the order the contents of the navigation files 
 // Before releasing a new version of the Stargate Server component to the production site, all of the repositories that contribute documentation to Server must have a branch containing a matching component-version.
 // Otherwise, the new version will be missing pages and contain broken links.
 
-== Learn More
+== Learn more
 
 * xref:cross-references.adoc#component-coordinate[Reference (xref) a page in another component].
 * xref:update-nav.adoc[Update a navigation file].

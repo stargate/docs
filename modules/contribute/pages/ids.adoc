@@ -1,4 +1,4 @@
-= Element IDs and Same-Page Cross References
+= Element IDs and same-page cross references
 
 An ID is a unique name for an element.
 That name can only be used once in a document.
@@ -6,7 +6,7 @@ Typically, an ID is used to create a cross reference and link anchor for an elem
 //It can also reference a style or script used by the output processor.
 
 [#assign-id]
-== Assigning an Element ID
+== Assigning an element ID
 
 An ID can be assigned to a block or inline element.
 The ID name is prefixed with a hash (`#`) and, in most cases, placed in the first position of an attribute list.
@@ -56,7 +56,7 @@ $ curl localhost:8092
 
 When a block has a style, like the above code block (`source`) example, the ID is attached to the end of the style.
 
-== Regular Text and List Item IDs
+== Regular text and list item IDs
 
 You can assign IDs to regular text and list items, but the syntax is slightly different.
 
@@ -79,7 +79,7 @@ Place the ID directly in front of the term.
 The priority to be assigned to the current bucket's background tasks.
 ----
 
-== Creating a Link to an Element in the Same Page
+== Creating a link to an element in the same page
 
 Links between two elements on the same page are created with the same-page cross reference (also referred to as a same-page xref).
 Before you can reference a destination element from a same-page xref, you must <<assign-id,assign it an ID>>.
@@ -107,7 +107,7 @@ This example renders as:
 
 Before you can reference a destination element from a same-page xref, you must <<assign-id>>.
 
-== Learn More
+== Learn more
 
 IDs are also used by the cross reference macro (`xref:[]`) to link from one page to an element in another page.
 See xref:cross-references.adoc#link-to-element[Cross References] for an example and more information.

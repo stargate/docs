@@ -1,4 +1,4 @@
-= AsciiDoc Basics
+= AsciiDoc basics
 :url-docs-antora: https://docs.antora.org/antora/2.3
 :url-docs-adoc: https://asciidoctor.org/docs/user-manual
 :url-pages: {url-docs-antora}/page/

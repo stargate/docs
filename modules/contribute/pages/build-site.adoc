@@ -1,4 +1,4 @@
-= Build the Documentation Site Locally
+= Build the documentation site locally
 :experimental:
 
 == Run Antora using npm

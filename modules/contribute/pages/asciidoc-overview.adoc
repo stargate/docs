@@ -1,4 +1,4 @@
-= Writing Documentation Overview
+= Writing documentation overview
 
 == AsciiDoc and Asciidoctor
 
@@ -13,12 +13,12 @@ If a document contains incorrect AsciiDoc syntax, you'll see a warning message t
 Asciidoctor is what Antora, our static site generator, uses to parse AsciiDoc.
 It reports the syntax errors it encounters when converting the documents to HTML.
 
-== Predefined Attributes and Roles
+== Predefined attributes and roles
 
 The Stargate documentation uses a number of predefined AsciiDoc attributes and roles.
 These attributes and roles add custom metadata and special processing or styling behaviors to certain pages.
 
-== Learn More
+== Learn more
 
 * xref:pages.adoc[Learn how to name and structure an AsciiDoc document].
 * xref:basics.adoc[Mark up common content elements, like lists and tables, with AsciiDoc].
@@ -27,7 +27,7 @@ These attributes and roles add custom metadata and special processing or styling
 * xref:code-blocks.adoc[Add source code examples to a document].
 * xref:tabs.adoc[Create a tabs set].
 
-== Additional Resources
+== Additional resources
 
 The link:https://asciidoctor.org/[Asciidoctor project^] maintains and releases AsciiDoc under the MIT license.
 //It is the native markup language of Antora.

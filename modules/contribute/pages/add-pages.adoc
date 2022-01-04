@@ -1,6 +1,6 @@
-= Add a New Documentation Page
+= Add a new documentation page
 
-== Create a New AsciiDoc File
+== Create a new AsciiDoc file
 
 . Start Atom or the text editor of your choice.
 . Navigate to the _pages_ folder in the module where you want to add a new page.
@@ -23,7 +23,7 @@ For AsciiDoc help, see xref:basics.adoc[AsciiDoc Basics].
 
 Any AsciiDoc file that is saved in a _pages_ directory in an Antora documentation component is automatically published to the site.
 
-== Next Steps
+== Next steps
 
 * xref:update-nav.adoc[Add a page to a component navigation menu].
 * xref:build-site.adoc[Build the docs site locally to test and preview your changes].

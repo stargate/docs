@@ -1,6 +1,6 @@
-= Attributes and Roles
+= Attributes and roles
 
-== Setting and Referencing Document Attributes
+== Setting and referencing document attributes
 
 AsciiDoc attributes are optional key-value pairs that can be used to hold names, URLs, and reusable content phrases.
 Some attributes are built-in to link:https://asciidoctor.org[Asciidoctor]; others are defined especially for the Stargate documentation.
@@ -39,7 +39,7 @@ In this case, the tabs feature is turned on by setting `tabs`.
 <5> Reference an attribute in the body of the document by entering the attribute name inside a set of curly brackets (`+{attribute-name}+`).
 <6> Code blocks are assigned the source language `javascript`.
 
-== Unsetting a Document Attribute
+== Unsetting a document attribute
 
 Some built-in attributes are set (turned on) by default and set for all of the Stargate document in the playbook.
 
@@ -58,14 +58,14 @@ See the `site-local.yaml` and `site-publish.yaml` Antora playbooks in the link:h
 AsciiDoc attributes are currently set and unset for all of the Stargate documentation pages.
 
 // LLP 10.08.21 Need to decide on custom roles and whether they are needed
-== Using Roles
+== Using roles
 
 A role applies alternative or additional CSS styles to a document, block, or phrase.
 The styles for each role are defined by the UI.
 A role is applied to a block or phrase by prefixing the role name with a dot and
 inserting it between a set of square brackets (`[.role-name]`).
 
-=== Page Role
+=== Page role
 
 Assign a role to the page works a little differently.
 When set, the `page-role` attribute applies one or more roles to the entire page.
@@ -94,7 +94,7 @@ You can see the `tiles -toc` page role combination in action on the xref:server:
 The tiles role arranges the secondary section titles as tiles (in two columns).
 The -toc role tells the UI template not to add a table of contents (TOC) to the page.
 
-== Using Page Attributes
+== Using page attributes
 
 Certain document attributes are reserved specifically for use with Antora.
 These are known as page attributes.
@@ -105,7 +105,7 @@ For the most part, it's up to the UI to decide how to use this information.
 There are several built-in page attribute in Antora and a few others that the
 Stargate UI already recognized.
 
-=== Built-in Page Attributes
+=== Built-in page attributes
 
 The built-in page attributes in Antora are as follows:
 

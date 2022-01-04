@@ -1,4 +1,4 @@
-= Style and Voice
+= Style and voice
 
 Below is our documentation style guide:
 

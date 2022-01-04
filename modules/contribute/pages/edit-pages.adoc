@@ -2,7 +2,7 @@
 
 The following sections describe the document editing process using the Atom editor; however, you can write AsciiDoc in the plain text editor or integrated development environment (IDE) of your choice.
 
-== General Editing Steps Using Atom
+== General editing steps using Atom
 
 . Make sure you've added the repository directory to the *Project* panel, xref:create-branches.adoc[created a working branch], and switched to it.
 The name of your working branch is displayed next to the image:git-branch.svg[,16,role=icon] branch icon at the bottom of the editor.
@@ -24,14 +24,14 @@ When your edits are complete, you're ready to xref:build-site.adoc[build the sit
 Let's step through editing a stargate/docs component page using Atom.
 The syntax changes described in this section represent some of the improvements you can make.
 
-=== 1. Open the File
+=== 1. Open the file
 
 In the project panel, in the image:repo.svg[,16,role=icon] docs repository, go to menu:modules[developers-guide > pages].
 Double click on _graphql-first-using.adoc_ to open the AsciiDoc file in the editor pane.
 
 image::edit-page-in-atom.png[]
 
-=== 2. Set and Reference an Attribute
+=== 2. Set and reference an attribute
 
 The Docs team wants to use some text in the page's HTML description meta-tag.
 Set the `description` attribute in the xref:pages.adoc#doc-title[header of the document].
@@ -52,7 +52,7 @@ the Stargate GraphQL API (Schema-first)
 If you need to add another sentence to the description, use the `\`.
 ----
 
-=== 5. Preview and Save the File
+=== 5. Preview and save the file
 
 If you installed the  xref:install-git-and-editor.adoc#adoc-packages[AsciiDoc Preview package], go to menu:Packages[AsciiDoc Preview > Toggle Preview].
 A basic preview of the rendered document is displayed in an adjacent pane.
@@ -64,7 +64,7 @@ In the project panel, the file name will change color, indicating it's unstaged.
 
 Before submitting your pull request for the changes, you need to xref:build-site.adoc[build the site locally] to check your changes on your device.
 
-== Next Steps
+== Next steps
 
 . xref:build-site.adoc[Build the site locally using your changes].
 . xref:send-pr.adoc[Stage and commit your changes].
