@@ -4,5 +4,5 @@ curl -s -L -X POST localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/use
 -H "Content-Type: application/json" \
 -d '{
    "name": "address",
-   "typeDefinition": "address"
+   "typeDefinition": "address_type"
 }'

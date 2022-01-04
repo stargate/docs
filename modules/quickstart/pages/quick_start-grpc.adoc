@@ -1,0 +1,81 @@
+= Stargate gRPC API QuickStart
+
+*Time to complete: 5 minutes*
+
+// LLP - REWRITE FOR GRPC
+// INCLUDE EXAMPLES WITH BLOOMRPC
+
+Stargate is a data gateway deployed between client applications and a database.
+In this QuickStart, you'll be up and running on your local machine with the
+gRPC API plugin that exposes ???
+
+include::developers-guide:partial$GQLAPIBlogPost.adoc[]
+
+// tag::prereqsList[]
+include::developers-guide:partial$prereqs.adoc[]
+// end::prereqsList[]
+
+include::developers-guide:partial$astra_tip.adoc[]
+
+// tag::getDockerImage[]
+include::developers-guide:partial$docker_pull.adoc[tag=3x]
+// end::getDockerImage[]
+
+// tag::startDocker[]
+include::developers-guide:partial$docker_run.adoc[tag=3x]
+// end::startDocker[]
+
+== Using the Auth API to generate an auth token
+In order to use the Stargate Document API, an authorization token must be
+generated to access the interface. A REST API token is used for this purpose.
+
+// generate the auth token
+include::developers-guide:partial$gen_auth_token.adoc[]
+
+You will need to add this token to the GraphQL Playground in order to authorize
+your GraphQL requests. Copy the value after `"authToken"` to use later.
+
+// using GraphQL Playground
+include::developers-guide:page$graphql.adoc[tag=UsingGraphQLPlayground]
+
+// using Postman
+include::developers-guide:page$graphql.adoc[tag=UsingPostman]
+
+== Creating schema
+
+In order to use the GraphQL API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.
+
+// create namespace
+include::developers-guide:page$graphql-using.adoc[tag=CreateKS]
+
+// create collection
+include::developers-guide:page$graphql-using.adoc[tag=CreateTable]
+
+// check NS and collections exist
+include::developers-guide:page$graphql-using.adoc[tag=CheckKS]
+include::developers-guide:page$graphql-using.adoc[tag=CheckTables]
+
+== Interacting with tables
+
+// API generation
+include::developers-guide:page$graphql-using.adoc[tag=APIGeneration]
+
+// write document data
+include::developers-guide:page$graphql-using.adoc[tag=WriteData]
+
+// read document data
+include::developers-guide:page$graphql-using.adoc[tag=ReadData]
+
+// update document data
+include::developers-guide:page$graphql-using.adoc[tag=UpdateData]
+
+// delete document data
+include::developers-guide:page$graphql-using.adoc[tag=DeleteData]
+
+For more information on the GraphQL API,
+see xref:developers-guide:graphql-using.adoc[Using the GraphQL API] in the
+Developing with Stargate section.

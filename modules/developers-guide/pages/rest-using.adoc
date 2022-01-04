@@ -220,7 +220,7 @@ include::example$result/rest_curl_get_particular_ks.result[]
 
 Send a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}` to delete
 a keyspace. All data and all table schema will be deleted along with the
-keyspace scheam.
+keyspace schema.
 
 [source, bash]
 ----
@@ -228,8 +228,91 @@ include::example$rest/curl_drop_ks.sh[]
 ----
 // end::DropKS[]
 
-// LLP: 05.24.21 ADD CREATE UDT HERE
-// LLP: 05.24.21 ADD DELETE UDT HERE
+// tag::CreateUDT[]
+=== Create a user-defined type (UDT)
+
+A user-defined type, or UDT, consists of two or more values that can be retrieved together.
+UDTs are useful for associating items that are naturally grouped, like an address (street, city, zip code),
+or a review (item reviewed, rating, date reviewed).
+
+UDTs are stored in a defined keyspace and can be used in other UDT definitions or
+table columns.
+
+Send a `POST` request to `/v2/schemas/keyspaces/{keyspace_name}/types`.
+In this example we use `address_type` for the `name`. The defined `fields` describe
+the included items and their data type.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$rest/curl_create_udt.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_create_udt.result[]
+----
+--
+====
+// end::CreateUDT[]
+
+// LLP: 05.26.21 Need to add a UPDATE UDT here
+
+// tag::GetUDT[]
+=== Check UDT existence
+
+To check if your UDT exists as expected after creation, use a `GET` request
+ to `/v2/schemas/keyspaces/{keyspace_name}/types`.
+
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$rest/curl_get_udt.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_get_udt.result[]
+----
+--
+====
+// end::GetUDT[]
+
+// tag::DeleteUDT[]
+=== Delete a UDT
+
+To delete a UDT, use a `DELETE` request to `/v2/schemas/keyspaces/{keyspace_name}/types/{type_name}`.
+All UDT schema will be deleted along with the UDT data.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$rest/curl_delete_udt.sh[]
+----
+--
+====
+// end::DeleteUDT[]
 
 // tag::CreateTable[]
 === Create a table
@@ -792,11 +875,6 @@ The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
 The primary key of the table can be used in the `WHERE` clause, but non-primary
 key columns cannot be used unless indexed.
 
-[NOTE]
-====
-A query for table rows must include a `WHERE` clause or a primary key to retrieve
-rows.
-====
 // end::ReadData[]
 
 // tag::ReadAdvData[]
@@ -850,7 +928,8 @@ include::example$result/rest_curl_get_users_mult_where.result[]
 --
 ====
 
-Finally, a primary key can be supplied to retrieve a row:
+A primary key can be supplied to retrieve a row:
+
 
 [tabs]
 ====
@@ -869,6 +948,65 @@ Result::
 [source,plaintext, subs="attributes+"]
 ----
 include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+
+Adding `/rows` instead of a `WHERE` clause or primary key returns all table rows. 
+
+CAUTION: Returning *all* rows in a large table can negatively impact your database.
+The `page-size` parameter limits the number of results returned, and is recommended for large tables.
+The `pageState` is useful for pagination of the results in queries.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_all.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_all.result[]
+----
+--
+====
+
+In this example both `Mookie` and `Betts` are supplied in the path. `Mookie` is
+the partition key `firstname` and `Betts` is the clustering key `lastname`. Together
+these keys form the primary key of a row. To retrieve any rows using the partition
+keys and clustering keys, the primary key can be part of the request, in order
+and separated by a forward slash, such as `pk1/pk2/ck1/ck2/....` Each key must
+be included in order, but subsequent clustering keys do not have to be included.
+Note that the inclusion of clustering keys may return a range of rows.
+
+
+To return only desired fields in a response object, use the `fields` query parameter:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell]
+----
+include::example$rest/curl_get_users_fields.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_fields.result[]
 ----
 --
 ====

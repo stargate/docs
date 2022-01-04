@@ -1,0 +1,16 @@
+// Each client should have the following sections:
+
+// ==Setup
+include::page$lang-setup.adoc[]
+// ==Connecting
+include::page$lang-connecting.adoc[]
+// ==Querying
+// ===Standard
+// ===Batch
+include::page$lang-querying.adoc[]
+// ==Processing result sets
+include::page$lang-processing.adoc[]
+// ==Developing
+// ===Building
+// ===Testing
+include::page$lang-developing.adoc[]

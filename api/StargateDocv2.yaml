@@ -830,7 +830,7 @@ components:
          value: ""
    page-size:
      name: page-size
-     description: restrict the number of returned items (max 100)
+     description: restrict the number of returned items (max 1000)
      in: query
      schema:
        type: integer

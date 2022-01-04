@@ -1,0 +1,15 @@
+== Go processing result set
+
+After executing a query, a response returns rows that match the SELECT statement.
+You can call `getResultSet()` on the response to grab a `ResultSet` to process. 
+Note the function may return `undefined` if no `ResultSet` is returned; check if it is defined or cast.
+
+[source, go]
+----
+include::example$go/go-toResultSet.go[]
+----
+
+Since the result type is known, the `ToString` function transforms the value into a native string.
+Additional functions also exist for other types such as `int`, `map`, and `blob`.
+The full list can be found in
+link:https://github.com/stargate/stargate-grpc-go-client/tree/add-readme/stargate/pkg/client[values.go].

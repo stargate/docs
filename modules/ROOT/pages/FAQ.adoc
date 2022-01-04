@@ -31,7 +31,7 @@ in the Stargate repo first. To get started building a new storage extension,
 check out the
 https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11[persistence-cassandra-3.11 implementation].
 Once you have an idea of what you want to build, shoot us a note on the
-https://groups.google.com/a/lists.stargate.io/g/stargate-users[mailing list] to discuss.
+https://github.com/stargate/stargate/discussions[Github discussion page] to discuss.
 
 **Note** that the internal APIs are under active development and they are
 likely to change before the first version is released.

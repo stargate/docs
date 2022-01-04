@@ -1,0 +1,18 @@
+Finished dev [unoptimized + debuginfo] target(s) in 0.04s
+Running `target/debug/examples/basic`
+Connected to http://127.0.0.2:8090
+Created schema
+Inserted data. Now querying.
+All rows:
+2 user_2 ["user_2@example.net", "user_2@mail.example.net"]
+3 user_3 ["user_3@example.net", "user_3@mail.example.net"]
+7 user_7 ["user_7@example.net", "user_7@mail.example.net"]
+9 user_9 ["user_9@example.net", "user_9@mail.example.net"]
+4 user_4 ["user_4@example.net", "user_4@mail.example.net"]
+0 user_0 ["user_0@example.net", "user_0@mail.example.net"]
+8 user_8 ["user_8@example.net", "user_8@mail.example.net"]
+5 user_5 ["user_5@example.net", "user_5@mail.example.net"]
+6 user_6 ["user_6@example.net", "user_6@mail.example.net"]
+1 user_1 ["user_1@example.net", "user_1@mail.example.net"]
+Row with id = 1:
+1 user_1 ["user_1@example.net", "user_1@mail.example.net"]
