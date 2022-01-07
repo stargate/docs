@@ -47,4 +47,4 @@ Go to our https://github.com/stargate/stargate/discussions[Github discussions pa
 //
 // == License
 //
-// This project uses the https://github.com/stargate/docs/blob/master/LICENSE[Apache 2.0 license].
+// This project uses the https://github.com/stargate/docs/blob/main/LICENSE[Apache 2.0 license].
