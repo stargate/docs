@@ -11,7 +11,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.5/ui-bundle.zip
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v.0.7/ui-bundle.zip
   supplemental_files: ./supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
