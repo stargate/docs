@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cd7975de-4369-4a0f-81d3-9ade8e20ebe1",
+		"_postman_id": "fe9f5320-d95d-45d7-a436-eba0268dfe87",
 		"name": "Stargate-OSS-Astra-REST-API:users_keyspace",
 		"description": "Sample schema and queries for Stargate's REST API using:\n\nkeyspace: users_keyspace\ntable: users",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -225,50 +225,6 @@
 							]
 						},
 						"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
-					},
-					"response": []
-				},
-				{
-					"name": "GQL: Create a user-defined type (UDT) called address",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify udt name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.createType).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"type": "text",
-								"value": "{{AUTH_TOKEN}}"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation createAddressUDT {\n  createType(\n    keyspaceName: \"{{rkeyspace}}\"\n    typeName: \"address_type\"\n    fields: [\n      { name: \"street\", type: { basic: TEXT } }\n      { name: \"city\", type: { basic: TEXT } }\n      { name: \"state\", type: { basic: TEXT } }\n      { name: \"zip\", type: { basic: TEXT } }\n    ]\n  )\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
 					},
 					"response": []
 				},
@@ -1128,7 +1084,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify column name\", function () {",
 									"    var jsonData = pm.response.json();",
@@ -1182,7 +1138,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify column name\", function () {",
 									"    var jsonData = pm.response.json();",
@@ -3971,14 +3927,7 @@
 									"    // THIS NEXT STATEMENT ONLY WORKS FOR A SINGLE RESPONSE, I NEED TO REWRITE WITH A LOOP",
 									"    pm.expect(jsonData.data[0].favorite_books).to.include('Emma');",
 									"});",
-									"",
-									"pm.test(\"check where\") {",
-									"    pm.expect(pm.request.url.query()).to.include(pm.iterationData.get(\"where-clause\"));",
-									"    // or older notation",
-									"    pm.expect(pm.request.url.query()).to.include(data.where-clause);",
-									"    console.log(\"where-clause to be sent: \" + data[\"where-clause\"]);",
-									"    console.log(\"fields to be sent: \" + data[\"fields\"]);",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -3997,7 +3946,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={{where-clause}}&fields={{fields}}",
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={\"evaluations\":{\"$containsKey\":\"2020\"}}&fields=firstname,favorite_books",
 							"host": [
 								"{{base_url}}{{base_rest_api}}"
 							],
@@ -4021,8 +3970,7 @@
 								{
 									"key": "where",
 									"value": "{\"evaluations\":{\"$containsKey\":\"2020\"}}",
-									"description": "GET MAP KEY match",
-									"disabled": true
+									"description": "GET MAP KEY match"
 								},
 								{
 									"key": "where",
@@ -4051,16 +3999,17 @@
 								{
 									"key": "fields",
 									"value": "firstname,favorite_books",
-									"description": "Specifiy fields to return",
-									"disabled": true
+									"description": "Specifiy fields to return"
 								},
 								{
 									"key": "where",
-									"value": "{{where-clause}}"
+									"value": "{{where-clause}}",
+									"disabled": true
 								},
 								{
 									"key": "fields",
-									"value": "{{fields}}"
+									"value": "{{fields}}",
+									"disabled": true
 								}
 							]
 						},
