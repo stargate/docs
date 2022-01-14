@@ -1,0 +1,4372 @@
+{
+	"info": {
+		"_postman_id": "fe9f5320-d95d-45d7-a436-eba0268dfe87",
+		"name": "Stargate-OSS-Astra-REST-API:users_keyspace",
+		"description": "Sample schema and queries for Stargate's REST API using:\n\nkeyspace: users_keyspace\ntable: users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authenticate",
+			"item": [
+				{
+					"name": "Create a auth token (Stargate OSS only)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"AUTH_TOKEN\", jsonData.authToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_auth_url}}/{{base_auth_api_path}}",
+							"host": [
+								"{{base_auth_url}}"
+							],
+							"path": [
+								"{{base_auth_api_path}}"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "cassandra",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "cassandra",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create schema",
+			"item": [
+				{
+					"name": "Create a simple keyspace users_keyspace (Stargate OSS only)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify keyspace name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"rkeyspace\"));",
+									";",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{rkeyspace}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a keyspace with replica set to 1 (Stargate OSS only)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify keyspace name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"rkeyspace\"));",
+									";",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true,
+							"accept-encoding": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{rkeyspace}}\",\n    \"replicas\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace\",\n    \"replicas\": 1\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a keyspace users_keyspace_dcs with DCs  (Stargate OSS only)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify keyspace name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"users_keyspace_dcs\";",
+									";",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user-defined type (UDT) called address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify udt created\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"address_type\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"type": "text",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"address_type\",\n  \"fields\":[\n    {\n      \"name\": \"street\",\n      \"typeDefinition\": \"text\"\n    },\n    {\n      \"name\": \"city\",\n      \"typeDefinition\": \"text\"\n    },\n    {\n      \"name\": \"state\",\n      \"typeDefinition\": \"text\"\n    },\n    {\n      \"name\": \"zip\",\n      \"typeDefinition\": \"text\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/types",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a table users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"rtable\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"favorite_color\",\n            \"typeDefinition\": \"text\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"lastname\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						},
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a column email (TEXT)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"email\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n   \"name\": \"email\",  \n   \"typeDefinition\": \"text\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{  \n   \"name\": \"email\",  \n   \"typeDefinition\": \"text\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a column  favorite_books (SET)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"favorite_books\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"favorite_books\",\n   \"typeDefinition\": \"set<text>\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"favorite_books\",\n   \"typeDefinition\": \"set<text>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a column top_three_tv_shows (LIST)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql('top_three_tv_shows');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"top_three_tv_shows\",\n   \"typeDefinition\": \"list<text>\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"top_three_tv_shows\",\n   \"typeDefinition\": \"list<text>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a column evaluations (MAP)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql('evaluations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"evaluations\",\n   \"typeDefinition\": \"map<int,text>\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"evaluations\",\n   \"typeDefinition\": \"map<int,text>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a column current_country (TUPLE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql('current_country');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a column address (UDT)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql('address');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"address\",\n   \"typeDefinition\": \"address_type\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Change the column firstname to first",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql('first');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"name\": \"first\",\n      \"typeDefinition\": \"varchar\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns/:colname",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns",
+								":colname"
+							],
+							"variable": [
+								{
+									"key": "colname",
+									"value": "firstname"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Change the column first back to firstname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql('firstname');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"name\": \"firstname\",\n      \"typeDefinition\": \"varchar\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns/:newcolname",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns",
+								":newcolname"
+							],
+							"variable": [
+								{
+									"key": "newcolname",
+									"value": "first"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Change the table definition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"rtable\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Change the table definition back again",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify column name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(pm.variables.get('rtable'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{rtable}}\",\n    \"columnDefinitions\": [\n        {\n            \"name\": \"firstname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"lastname\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"favorite_color\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"email\",\n            \"typeDefinition\": \"text\"\n        },\n        {\n            \"name\": \"fapvorite_books\",\n            \"typeDefinition\": \"set<text>\"\n        },\n        {\n            \"name\": \"top_three_tv_shows\",\n            \"typeDefinition\": \"list<text>\"\n        },\n        {\n            \"name\": \"evaluations\",\n            \"typeDefinition\": \"map<int,text>\"\n        },\n        {\n            \"name\": \"current_country\",\n            \"typeDefinition\": \"tuple<text, date, date>\"\n        },\n        {\n            \"name\": \"address\",\n            \"typeDefinition\": \"address_type\"\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"firstname\"\n        ],\n        \"clusteringKey\": [\n            \"lastname\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns\n\n{\n   \"name\": \"current_country\",\n   \"typeDefinition\": \"tuple<text, date, date>\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a table index fav_books_idx (SET)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"column\": \"favorite_books\",\n    \"name\": \"fav_books_idx\",\n    \"ifNotExists\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						},
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create table index tv_idx (LIST)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"column\": \"top_three_tv_shows\",\n  \"name\": \"tv_idx\",\n  \"ifNotExists\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create table index evalv_idx (VALUES)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"column\": \"evaluations\",\n  \"name\": \"evalv_idx\",\n  \"ifNotExists\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create table index evalk_idx (KEYS)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"column\": \"evaluations\",\n  \"name\": \"evalk_idx\",\n  \"kind\": \"KEYS\",\n  \"ifNotExists\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create table index evale_idx (ENTRIES)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"column\": \"evaluations\",\n  \"name\": \"evale_idx\",\n  \"kind\": \"ENTRIES\",\n  \"ifNotExists\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						},
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create table index country_idx (TUPLE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"column\": \"current_country\",\n  \"name\": \"country_idx\",\n  \"ifNotExists\": true\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": "<boolean>",
+									"description": "format results",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables\n\n{\n        \"name\": \"users\",\n        \"columnDefinitions\":\n          [\n        {\n              \"name\": \"firstname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"lastname\",\n              \"typeDefinition\": \"text\"\n            },\n        {\n              \"name\": \"favorite color\",\n              \"typeDefinition\": \"text\"\n            }\n          ],\n        \"primaryKey\":\n          {\n            \"partitionKey\": [\"firstname\"],\n            \"clusteringKey\": [\"lastname\"]\n          },\n        \"tableOptions\":\n          {\n            \"defaultTimeToLive\": 0,\n            \"clusteringExpression\":\n              [{ \"column\": \"lastname\", \"order\": \"ASC\" }]\n          }\n }"
+					},
+					"response": [
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
+						},
+						{
+							"name": "Internal server error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
+						},
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
+						},
+						{
+							"name": "resource created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"users\",\n    \"ifNotExists\": false,\n    \"columnDefinitions\": [\n        {\n            \"name\": \"emailaddress\",\n            \"typeDefinition\": \"text\",\n            \"static\": false\n        }\n    ],\n    \"primaryKey\": {\n        \"partitionKey\": [\n            \"string\"\n        ],\n        \"clusteringKey\": [\n            \"string\"\n        ]\n    },\n    \"tableOptions\": {\n        \"defaultTimeToLive\": 0,\n        \"clusteringExpression\": [\n            {\n                \"column\": \"string\",\n                \"order\": \"ASC\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces/:keyspace-id/tables?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces",
+										":keyspace-id",
+										"tables"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									],
+									"variable": [
+										{
+											"key": "keyspace-id"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"users\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "retrieve schema",
+			"item": [
+				{
+					"name": "Get a listing of keyspaces",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify keyspace users_keyspace\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (var i=0; i <= jsonData.data.length; i++)",
+									"    {",
+									"        if (jsonData.data[i].name=== pm.variables.get(\"rkeyspace\")){",
+									"            result=true;",
+									"            //console.log(jsonData.data[i].name)",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Get info for users_keyspace",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify keyspace users_keyspace\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.name).to.eql(pm.variables.get(\"rkeyspace\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"user-agent": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a listing of all tables with defined columns",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify keyspace users_keyspace\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (var i=0; i <= jsonData.data.length; i++)",
+									"    {",
+									"        if (jsonData.data[i].name=== pm.variables.get(\"rtable\")){",
+									"            result=true;",
+									"            //console.log(jsonData.data[i].name)",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a listing of all columns in table users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify column firstname\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (var i=0; i <= jsonData.data.length; i++)",
+									"    {",
+									"        if (jsonData.data[i].name=== \"firstname\"){",
+									"            result=true;",
+									"            //console.log(jsonData.data[i].name)",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns"
+					},
+					"response": []
+				},
+				{
+					"name": "Get column email info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify column firstname\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.name).to.eql(\"email\");",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns/:colName",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns",
+								":colName"
+							],
+							"variable": [
+								{
+									"key": "colName",
+									"value": "email"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Get table indexes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify indexes\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (var i=0; i <= jsonData.length; i++)",
+									"    {",
+									"        if (jsonData[i].index_name=== \"fav_books_idx\"){",
+									"            result=true;",
+									"            //console.log(jsonData.[i].index_name)",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Get UDTs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify UDTs\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (var i=0; i <= jsonData.length; i++)",
+									"    {",
+									"        if (jsonData[i].name=== \"address_type\"){",
+									"            result=true;",
+									"            break;",
+									"        }",
+									"    }",
+									"    pm.expect(true).to.eql(result);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/types",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"types"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "insert data",
+			"item": [
+				{
+					"name": "Insert Mookie Betts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.firstname).to.eql(pm.variables.get(\"user1fn\"));",
+									"    pm.expect(jsonData.lastname).to.eql(pm.variables.get(\"user1ln\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{user1fn}}\",\n    \"lastname\": \"{{user1ln}}\",\n    \"favorite_color\": \"blue\",\n    \"favorite_books\": \"{ 'Native Son', 'The Joy Luck Club' }\",\n    \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Supergirl' ]\",\n    \"evaluations\": \"{ '2020':'excellent', '2019':'brilliant' }\",\n    \"current_country\": \"( 'USA', '2000-01-01', '2021-04-01' )\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}"
+							]
+						},
+						"description": "NOT WORKING, NEED TO FIGURE OUT\n\n,\n    \"address\": \"{ 'street': '345 Clark Ave', 'city': 'Chicago', 'state': 'Illinois', 'zip': '54321' }\"{{base_url}}/v2/keyspaces/users_keyspace/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Janesha Doesha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.firstname).to.eql(pm.variables.get(\"user2fn\"));",
+									"    pm.expect(jsonData.lastname).to.eql(pm.variables.get(\"user2ln\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"firstname\": \"{{user2fn}}\",\n  \"lastname\": \"{{user2ln}}\",\n  \"favorite_color\": \"grey\",\n  \"favorite_books\": \"{ 'Emma', 'The Color Purple' }\",\n  \"top_three_tv_shows\": \"[ 'The Magicians', 'The Librarians', 'Agents of SHIELD' ]\",\n  \"evaluations\": \"{ 2020:good, 2019:okay }\",\n  \"current_country\": \"( 'France', '2016-01-01', '2020-02-02' )\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}"
+							]
+						},
+						"description": "NOT WORKING, NEED TO FIGURE OUT:\n,\n  \"address\": \"{ 'street': '1 Main St', 'city': 'San Francisco', 'state': 'California', 'zip': '12345' }\""
+					},
+					"response": []
+				},
+				{
+					"name": "Patch user: Mookie Betts with email value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.email).to.eql('mookie.betts.email@email.com');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"mookie.betts.email@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:id",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{user1fn}}/{{user1ln}}"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users/Mookie/Betts\n\n{\n    \"email\": \"mookie.betts.email@email.com\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Put user: Mookie Betts email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.email).to.eql('mookie.betts.new-email@email.com');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"mookie.betts.new-email@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:id",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{user1fn}}/{{user1ln}}"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users/Mookie/Betts\n\n{\n    \"email\": \"mookie.betts.new-email@email.com\"\n}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "retrieve data",
+			"item": [
+				{
+					"name": "Get row using partition key only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0].firstname).to.eql(pm.variables.get(\"user1fn\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:partitionKey",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}",
+								":partitionKey"
+							],
+							"variable": [
+								{
+									"key": "partitionKey",
+									"value": "{{user1fn}}"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users?where={\"firstname\":{\"$eq\":\"Mookie\"}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get record for user using primary key in path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0].firstname).to.eql(pm.variables.get(\"user1fn\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:id",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{user1fn}}/{{user1ln}}",
+									"description": "Primary key is firstname/lastname"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users/Mookie/Betts"
+					},
+					"response": []
+				},
+				{
+					"name": "Get row with WHERE clause (EQ, IN) simple queries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user1fn\")) || pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user2fn\"))  ;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={\"firstname\":{\"$eq\":\"{{user1fn}}\"}}",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}"
+							],
+							"query": [
+								{
+									"key": "where",
+									"value": "{\"firstname\":{\"$eq\":\"{{user1fn}}\"}}",
+									"description": "GET row where firstname=Mookie"
+								},
+								{
+									"key": "where",
+									"value": "{\"firstname\":{\"$eq\":\"{{user2fn}}\"}}",
+									"description": "GET row where firstname=Janesha",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{\"firstname\":{\"$in\":[\"{{user1fn}}\",\"{{user2fn}}\"]}}",
+									"description": "GET row where firstname IN two values",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users?where={\"firstname\":{\"$eq\":\"Mookie\"}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get row with WHERE clause (EQ, CONTAINS, CONTAINSKEY, CONTAINSENTRY) for collections, tuples, UDTs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"query param\", function () {",
+									"    console.log(pm.request.url.query.all());",
+									"    console.log(pm.request.url.query.toObject().where);",
+									"    console.log(pm.request.url.query.toObject().fields)",
+									"});",
+									"pm.test(\"Verify inserted information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    // THIS NEXT STATEMENT ONLY WORKS FOR A SINGLE RESPONSE, I NEED TO REWRITE WITH A LOOP",
+									"    pm.expect(jsonData.data[0].favorite_books).to.include('Emma');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={\"evaluations\":{\"$containsKey\":\"2020\"}}&fields=firstname,favorite_books",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}"
+							],
+							"query": [
+								{
+									"key": "where",
+									"value": "{\"favorite_books\":{\"$contains\":\"Emma\"}}",
+									"description": "GET SET item match",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{\"top_three_tv_shows\":{\"$contains\":\"The%20Magicians\"}}",
+									"description": "GET LIST item match",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{\"evaluations\":{\"$containsKey\":\"2020\"}}",
+									"description": "GET MAP KEY match"
+								},
+								{
+									"key": "where",
+									"value": "{\"evaluations\":{\"$contains\":\"okay\"}}",
+									"description": "GET MAP VALUE match",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{\"evaluations\":{\"$containsEntry\":{\"key\":\"2020\",\"value\":\"good\"}}}",
+									"description": "GET MAP ENTRY match",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{\"current_country\":{\"$eq\":\"('France','2016-01-01','2020-02-02')\"}}",
+									"description": "GET TUPLE match",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "{\"address\":{\"$eq\":{\"street\":\"1%20Main%20St\",\"city\":\"San%20Francisco\",\"state\":\"California\",\"zip\":12345}}}",
+									"description": "GET UDT match\n",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "firstname,favorite_books",
+									"description": "Specifiy fields to return"
+								},
+								{
+									"key": "where",
+									"value": "{{where-clause}}",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "{{fields}}",
+									"disabled": true
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users?where={\"firstname\":{\"$eq\":\"Mookie\"}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete data",
+			"item": [
+				{
+					"name": "Delete record of user: Mookie Betts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}/:id",
+							"host": [
+								"{{base_url}}{{base_rest_api}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"{{rtable}}",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{user1fn}}/{{user1ln}}"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/keyspaces/users_keyspace/users/Mookie/Betts"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete schema",
+			"item": [
+				{
+					"name": "Delete column email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/columns/:colName",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"columns",
+								":colName"
+							],
+							"variable": [
+								{
+									"key": "colName",
+									"value": "email"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Drop table index fav_books_idx",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}/indexes/:idxname",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}",
+								"indexes",
+								":idxname"
+							],
+							"variable": [
+								{
+									"key": "idxname",
+									"value": "fav_books_idx",
+									"description": "Change idxname to any index name to delete the index.\n"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete table users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/tables/{{rtable}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"tables",
+								"{{rtable}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users"
+					},
+					"response": []
+				},
+				{
+					"name": "GQL: Drop type address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropTypeAddress {\n  dropType(\n      keyspaceName:\"{{rkeyspace}}\" \n      typeName:\"address_type\"\n      ifExists:true\n    )\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete UDT address_type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}/types/:udtname",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}",
+								"types",
+								":udtname"
+							],
+							"variable": [
+								{
+									"key": "udtname",
+									"value": "address_type"
+								}
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users/columns/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete keyspace users_keyspace  (Stargate OSS only)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_rest_schema}}/{{rkeyspace}}",
+							"host": [
+								"{{base_url}}{{base_rest_schema}}"
+							],
+							"path": [
+								"{{rkeyspace}}"
+							]
+						},
+						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
