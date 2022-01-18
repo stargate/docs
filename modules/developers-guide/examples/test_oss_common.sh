@@ -55,7 +55,7 @@ fi
 
 # No token provided so generate one
 if [[ -z $token ]]; then
-    token=$(curl -s -L -X POST 'http://localhost:8081/v1/auth' \
+    token=$(curl -s -L -X POST 'https://localhost:8081/v1/auth' \
     -H 'Content-Type: application/json' \
     --data-raw '{
       "username": "$username",

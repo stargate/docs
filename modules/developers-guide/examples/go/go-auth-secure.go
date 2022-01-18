@@ -10,7 +10,7 @@ conn, err := grpc.Dial(grpcEndpoint, grpc.WithTransportCredentials(credentials.N
   grpc.WithBlock(),
   grpc.WithPerRPCCredentials(
     auth.NewTableBasedTokenProvider(
-      fmt.Sprintf("http://%s/v1/auth", authEndpoint), username, passwd,
+      fmt.Sprintf("https://%s/v1/auth", authEndpoint), username, passwd,
     ),
   ),
 )

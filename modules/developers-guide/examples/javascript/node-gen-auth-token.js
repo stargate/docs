@@ -4,5 +4,5 @@ const stargateClient = new StargateClient(
 const promisifiedClient = promisifyStargateClient(stargateClient);
 
 const authenticationMetadata = await creds.generateMetadata(
-  {service_url: 'http://localhost:8081/v1/auth'});
+  {service_url: 'https://localhost:8081/v1/auth'});
 await promisifiedClient.executeQuery(query, authenticationMetadata);

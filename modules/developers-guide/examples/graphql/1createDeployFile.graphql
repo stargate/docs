@@ -1,4 +1,4 @@
-curl http://localhost:8080/graphql-admin \
+curl https://localhost:8080/graphql-admin \
   -H "X-Cassandra-Token: $AUTH_TOKEN" \
   -F operations='
 {

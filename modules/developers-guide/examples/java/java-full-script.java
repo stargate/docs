@@ -20,7 +20,7 @@ public class ConnectStargate {
     private static final String STARGATE_PASSWORD      = "cassandra";
     private static final String STARGATE_HOST          = "localhost";
     private static final int    STARGATE_GRPC_PORT     = 8090;
-    private static final String STARGATE_AUTH_ENDPOINT = "http://" + STARGATE_HOST+ ":8081/v1/auth";
+    private static final String STARGATE_AUTH_ENDPOINT = "https://" + STARGATE_HOST+ ":8081/v1/auth";
 
     public static void main(String[] args)
     throws Exception {

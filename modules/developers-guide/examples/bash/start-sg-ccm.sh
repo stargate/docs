@@ -3,7 +3,7 @@ ccm create stargate -v 3.11.8 -n 1 -s -b
           --listen 127.0.0.2 --bind-to-listen-address --simple-snitch
 Obtain the authentication token:
 
-curl -L -X POST 'http://127.0.0.2:8081/v1/auth' \
+curl -L -X POST 'https://127.0.0.2:8081/v1/auth' \
      -H 'Content-Type: application/json' \
      --data-raw '{
         "username": "cassandra",
