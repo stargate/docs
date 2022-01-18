@@ -45,11 +45,17 @@ jobs:
     name: "Deploy GitHub Pages"
     steps:
      - name: Setup Node.js for use with actions
-       uses: actions/setup-node@v1
+       uses: actions/setup-node@v2
        with:
          version: 14.x
      - name: Checkout
        uses: actions/checkout@v2
+     - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
      - name: Download generated site
        uses: actions/download-artifact@v2
        with:
