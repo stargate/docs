@@ -395,7 +395,7 @@ and implemented.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Both methods can be used simultaneously in <a href="http://astra.datastax.com">Astra, DataStax&#8217;s Database-as-a-Service</a>.
+Both methods can be used simultaneously in <a href="https://astra.datastax.com">Astra, DataStax&#8217;s Database-as-a-Service</a>.
 </td>
 </tr>
 </table>
@@ -537,7 +537,7 @@ for GraphQL mutations.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<a href="http:///astra.datastax.com">Astra, DataStax&#8217;s Database-as-a-Service</a>, is backed
+<a href="https:///astra.datastax.com">Astra, DataStax&#8217;s Database-as-a-Service</a>, is backed
 by Keycloak internally, and roles and permissions can be implemented with Astra&#8217;s dashboard.
 </td>
 </tr>
@@ -629,7 +629,7 @@ install Docker Desktop for Mac or Windows.
  # Wait until stargate is up before bringing up the metrics tools
  echo ""
  echo "Waiting for stargate to start up..." <i class="conum" data-value="5"></i><b>(5)</b>
- while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8082/health)" != "200" ]]; do
+ while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' https://localhost:8082/health)" != "200" ]]; do
      printf '.'
      sleep 5
  done
@@ -736,7 +736,7 @@ the network that all nodes are attached to.</p>
         - 9045:9042
       mem_limit: 2G
       environment: <i class="conum" data-value="6"></i><b>(6)</b>
-        - JAVA_OPTS=-XX:+CrashOnOutOfMemoryError -Xmx750M -Xms64M -Dstargate.auth_id=AuthJwtService -Dstargate.auth.jwt_provider_url=http://keycloak:4444/auth/realms/stargate/protocol/openid-connect/certs
+        - JAVA_OPTS=-XX:+CrashOnOutOfMemoryError -Xmx750M -Xms64M -Dstargate.auth_id=AuthJwtService -Dstargate.auth.jwt_provider_url=https://keycloak:4444/auth/realms/stargate/protocol/openid-connect/certs
         - CLUSTER_NAME=backend-cluster
         - CLUSTER_VERSION=3.11
         - SEED=cass-1
@@ -854,9 +854,9 @@ If you used the docker-compose <a href="https://github.com/stargate/docker-image
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TOKEN=$(curl -s --data "username=admin&amp;password=admin&amp;grant_type=password&amp;client_id=admin-cli" http://localhost:4444/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token') <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TOKEN=$(curl -s --data "username=admin&amp;password=admin&amp;grant_type=password&amp;client_id=admin-cli" https://localhost:4444/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token') <i class="conum" data-value="1"></i><b>(1)</b>
 
-curl -L -X POST 'http://localhost:4444/auth/admin/realms/stargate/users' \
+curl -L -X POST 'https://localhost:4444/auth/admin/realms/stargate/users' \
 -H "Content-Type: application/json" \
 -H "Authorization: bearer $TOKEN" \ <i class="conum" data-value="2"></i><b>(2)</b>
 --data-raw '{
@@ -944,7 +944,7 @@ claim <code>x-stargate-userid</code>.</p>
 <div class="tab-pane" aria-labelledby="tabset2_access-is-granted">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token') <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" https://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token') <i class="conum" data-value="1"></i><b>(1)</b>
 
 curl -sL 'localhost:8082/v1/keyspaces/store/tables/shopping_cart/rows/9876' \
 -H "X-Cassandra-Token: $USER_TOKEN" | jq . <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
@@ -1003,7 +1003,7 @@ curl -sL 'localhost:8082/v1/keyspaces/store/tables/shopping_cart/rows/9876' \
 <div class="tab-pane" aria-labelledby="tabset3_access-is-not-granted">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" https://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 
 curl -sL 'localhost:8082/v1/keyspaces/store/tables/shopping_cart/rows/1234' \
 -H "X-Cassandra-Token: $USER_TOKEN" | jq .</code></pre>
@@ -1043,7 +1043,7 @@ curl -sL 'localhost:8082/v1/keyspaces/store/tables/shopping_cart/rows/1234' \
 <div class="tab-pane" aria-labelledby="tabset4_access-is-granted">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" https://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 
 curl -sL -X GET 'localhost:8082/v2/keyspaces/store/shopping_cart/9876' \
 -H "Content-Type: application/json" \
@@ -1081,7 +1081,7 @@ curl -sL -X GET 'localhost:8082/v2/keyspaces/store/shopping_cart/9876' \
 <div class="tab-pane" aria-labelledby="tabset5_access-is-granted">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" https://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 
 curl --location --request GET 'localhost:8082/v2/schemas/namespaces' \
  --header "X-Cassandra-Token: $USER_TOKEN" \
@@ -1109,7 +1109,7 @@ header of GraphQL queries.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export USER_TOKEN=$(curl -s --data "username=testuser1&amp;password=testuser1&amp;grant_type=password&amp;client_id=user-service" https://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 printenv | grep USER_TOKEN</code></pre>
 </div>
 </div>

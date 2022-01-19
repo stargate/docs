@@ -1080,7 +1080,7 @@ sent a <code>PUT</code> request instead:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
--X PUT http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname \
+-X PUT https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -2086,7 +2086,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset25_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
@@ -2125,7 +2125,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset26_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \
@@ -2164,7 +2164,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset27_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \
@@ -2204,7 +2204,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset28_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
@@ -2243,7 +2243,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset29_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
@@ -2908,7 +2908,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset37_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/keyspaces/users_keyspace/users \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
    -H  "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -3007,7 +3007,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset38_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/keyspaces/users_keyspace/users \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
    -H  "Content-Type: application/json" \
     -H "Accept: application/json" \

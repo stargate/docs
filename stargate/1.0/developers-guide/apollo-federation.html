@@ -458,7 +458,7 @@ run the following cURL command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-files/cql_directives.graphql \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl https://localhost:8080/graphql-files/cql_directives.graphql \
   --header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
 </div>
 </div>
@@ -824,10 +824,10 @@ class StargateGraphQLDataSource extends RemoteGraphQLDataSource {
   serviceList: [
 
     // Stargate:
-    { name: "library", url: "http://127.0.0.1:8080/graphql/library"},
+    { name: "library", url: "https://127.0.0.1:8080/graphql/library"},
 
     // External service (mock):
-    { name: "orders", url: "http://localhost:4001/graphql" }
+    { name: "orders", url: "https://localhost:4001/graphql" }
   ],
 
   introspectionHeaders: {
@@ -944,10 +944,10 @@ const gateway = new ApolloGateway({
   serviceList: [
 
     // Stargate:
-    { name: "library", url: "http://127.0.0.1:8080/graphql/library"},
+    { name: "library", url: "https://127.0.0.1:8080/graphql/library"},
 
     // External service (mock):
-    { name: "orders", url: "http://localhost:4001/graphql" }
+    { name: "orders", url: "https://localhost:4001/graphql" }
   ],
 
   introspectionHeaders: {

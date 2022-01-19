@@ -580,7 +580,7 @@ with replication.</p>
 </div>
 <div class="paragraph">
 <p>Inside the GraphQL playground, navigate to
-<a href="http://localhost:8080/graphql-schema">http://localhost:8080/graphql-schema</a>
+<a href="https://localhost:8080/graphql-schema">https://localhost:8080/graphql-schema</a>
 and create a keyspace by executing the following mutation:</p>
 </div>
 <div class="listingblock">
@@ -1246,7 +1246,7 @@ After a schema is deployed, the keyspace should be accessed as schema-first.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>Inside the GraphQL playground, navigate to <a href="http://localhost:8080/graphql-admin" class="bare">http://localhost:8080/graphql-admin</a> and create
+<p>Inside the GraphQL playground, navigate to <a href="https://localhost:8080/graphql-admin" class="bare">https://localhost:8080/graphql-admin</a> and create
 the schema to deploy to a previously defined keyspace:</p>
 </div>
 <div class="tabset is-loading">
@@ -1613,7 +1613,7 @@ with a cURL command:</p>
 <div class="tab-pane" aria-labelledby="tabset9_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-admin \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl https://localhost:8080/graphql-admin \
   -H "X-Cassandra-Token: $AUTH_TOKEN" \
   -F operations='
 {
@@ -1664,7 +1664,7 @@ to get the current version.</p>
 <div class="tab-pane" aria-labelledby="tabset10_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-admin \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl https://localhost:8080/graphql-admin \
   -H "X-Cassandra-Token: $AUTH_TOKEN" \
   -F operations='
 {
@@ -1698,7 +1698,7 @@ Either the GraphQL Playground or the cURL command can be used to update the sche
 <div class="sect2">
 <h3 id="_check_the_keyspace_schema"><a class="anchor" href="#_check_the_keyspace_schema"></a><a class="link" href="#_check_the_keyspace_schema">Check the keyspace schema</a></h3>
 <div class="paragraph">
-<p>To check if the schema exists, execute a GraphQL check in <a href="http://localhost:8080/graphql-admin" class="bare">http://localhost:8080/graphql-admin</a>:</p>
+<p>To check if the schema exists, execute a GraphQL check in <a href="https://localhost:8080/graphql-admin" class="bare">https://localhost:8080/graphql-admin</a>:</p>
 </div>
 <div class="paragraph">
 <p>For all versions of a keyspace schema:</p>
@@ -1901,7 +1901,7 @@ One option is available, <code>force</code>, to force an erasure of the schema.<
 <div class="paragraph">
 <p>First, let&#8217;s navigate to your new keyspace <code>library</code> inside the playground.
 Change the location to
-<a href="http://localhost:8080/graphql/library">http://localhost:8080/graphql/library</a>
+<a href="https://localhost:8080/graphql/library">https://localhost:8080/graphql/library</a>
 and add a couple of books:</p>
 </div>
 <div class="tabset is-loading">
@@ -2132,7 +2132,7 @@ array items.</p>
 <div class="paragraph">
 <p>Let&#8217;s check that the data was inserted.
 Use the query <code>book</code> with the primary key to find a book based on its title.
-Use <a href="http://localhost:8080/graphql/library">http://localhost:8080/graphql/library</a>
+Use <a href="https://localhost:8080/graphql/library">https://localhost:8080/graphql/library</a>
 to execute the query in GraphQL playground:</p>
 </div>
 <div class="tabset is-loading">
@@ -3227,7 +3227,7 @@ run the following cURL command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-files/cql_directives.graphql \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl https://localhost:8080/graphql-files/cql_directives.graphql \
   --header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
 </div>
 </div>

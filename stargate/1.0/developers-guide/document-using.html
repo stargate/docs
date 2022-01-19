@@ -1729,7 +1729,7 @@ In this example, we want to change just the firstname of the document:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X PATCH 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
+-X PATCH 'https://localhost:8082/v2/namespaces/myworld/collections/fitness/Joey/weights' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -1805,7 +1805,7 @@ In this example, we want to change just the firstname of the document:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
--X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness/3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b' \
+-X DELETE 'https://localhost:8082/v2/namespaces/myworld/collections/fitness/3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -1831,7 +1831,7 @@ to delete a collection. All data will be deleted along with the collection schem
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
--X DELETE 'http://localhost:8082/v2/namespaces/myworld/collections/fitness' \
+-X DELETE 'https://localhost:8082/v2/namespaces/myworld/collections/fitness' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
