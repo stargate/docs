@@ -31,8 +31,8 @@ Two environments are also available, one for the open-source Stargate docker ima
 A small amount of configuration is necessary in the single environment to set your
 parameters before use.
 
-* link:https://github.com/stargate/docs/blob/main/modules/developers-guide/examples/json/Stargate%20Astra%20API%20Environment.postman_environment.json[Astra environment]
-* link:https://github.com/stargate/docs/blob/main/modules/developers-guide/examples/json/Stargate%20OSS%20API%20Environment.postman_environment.json[Stargate OSS environment]
+* link:https://github.com/stargate/docs/blob/main/modules/developers-guide/examples/json/Stargate-Astra-API-Environment.postman_environment.json[Astra environment]
+* link:https://github.com/stargate/docs/blob/main/modules/developers-guide/examples/json/Stargate-OSS-API-Environment.postman_environment.json[Stargate OSS environment]
 
 === Postman environment configuration
 
