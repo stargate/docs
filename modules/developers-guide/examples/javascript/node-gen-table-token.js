@@ -1,5 +1,5 @@
 // Stargate OSS configuration for locally hosted docker image
-const auth_endpoint = "https://localhost:8081/v1/auth";
+const auth_endpoint = "http://localhost:8081/v1/auth";
 const username = "cassandra";
 const password = "cassandra";
 const stargate_uri = "localhost:8090";

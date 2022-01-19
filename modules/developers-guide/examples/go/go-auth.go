@@ -6,7 +6,7 @@ passwd := "cassandra"
 conn, err := grpc.Dial(grpcEndpoint, grpc.WithInsecure(), grpc.WithBlock(),
   grpc.WithPerRPCCredentials(
     auth.NewTableBasedTokenProviderUnsafe(
-      fmt.Sprintf("https://%s/v1/auth", authEndpoint), username, passwd,
+      fmt.Sprintf("http://%s/v1/auth", authEndpoint), username, passwd,
     ),
   ),
 )
