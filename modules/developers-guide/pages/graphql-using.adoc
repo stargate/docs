@@ -53,7 +53,7 @@ keyspace and at least one table in your database. If you are connecting to a
 Cassandra database with existing schema, you can skip this step.
 
 Inside the GraphQL playground, navigate to
-http://localhost:8080/graphql-schema[http://localhost:8080/graphql-schema]
+https://localhost:8080/graphql-schema[https://localhost:8080/graphql-schema]
 and create a keyspace by executing the following mutation:
 
 [source, plaintext]
@@ -743,7 +743,7 @@ or read data.
 
 First, let's navigate to your new keyspace `library` inside the playground.
 Change the location to
-http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
+https://localhost:8080/graphql/library[https://localhost:8080/graphql/library]
 and add a couple of books to the `book` table:
 
 [tabs]
@@ -922,7 +922,7 @@ Now let's search for a particular record using a `WHERE` clause. The primary
 key of the table can be used in the `WHERE` clause, but non-primary key columns
 cannot be used unless indexed.
 The following query, looking at the location
-http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
+https://localhost:8080/graphql/library[https://localhost:8080/graphql/library]
 will get both the `title` and the `author` for the specified book `WHERE
 title:"Moby Dick"`:
 

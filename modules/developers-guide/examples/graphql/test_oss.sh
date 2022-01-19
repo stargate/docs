@@ -4,7 +4,7 @@ cd -P -- "$(dirname -- "$0")" # switch to this dir
 source ../test_oss_common.sh
 
 # SET VARIABLES FOR STARGATE
-base_url=http://localhost:8080
+base_url=https://localhost:8080
 base_gql_schema=/graphql-schema
 base_gql_admin=/graphql-admin
 base_gql_api=/graphql

@@ -10,8 +10,8 @@
 
 You'll need to install the following software if it is not already installed:
 
-* link:https://adoptopenjdk.net/[Install a Java Development Kit (JDK)]
-* link:https://maven.apache.org/install.html[Install Apache Maven]
+* https://adoptopenjdk.net/[Install a Java Development Kit (JDK)]
+* https://maven.apache.org/install.html[Install Apache Maven]
 
 
 === Add dependencies

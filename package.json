@@ -9,7 +9,8 @@
     "build:restapi": "redoc-cli bundle api/StargateRESTv2.yaml --output modules/ROOT/attachments/restv2.html",
     "build:restapiv1": "redoc-cli bundle api/StargateRESTv1.yaml --output modules/ROOT/attachments/restv1.html",
     "build:docapi": "npx redoc-cli bundle api/StargateDocv2.yaml --output modules/ROOT/attachments/docv2.html",
-    "build:oaslinter": "npx @redocly/openapi-cli lint api/StargateRESTv2.yaml && npx @redocly/openapi-cli lint api/StargateRESTv1.yaml && npx @redocly/openapi-cli lint api/StargateDocv2.yaml && npx @redocly/openapi-cli lint api/DevOpsv2.yaml"
+    "build:oaslinter": "npx @redocly/openapi-cli lint api/StargateRESTv2.yaml && npx @redocly/openapi-cli lint api/StargateRESTv1.yaml && npx @redocly/openapi-cli lint api/StargateDocv2.yaml && npx @redocly/openapi-cli lint api/DevOpsv2.yaml",
+    "build:linkinator": "npx linkinator https://stargate.io/docs --recurse --skip ' https://localhost?'"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
     "@antora/cli": "^2.3.4",
     "@antora/site-generator-default": "^2.3.4",
     "@openapitools/openapi-generator-cli": "^2.1.23",
+    "linkinator": "^3.0.3",
     "mobx": "^6.1.0",
     "openapi-generator": "^0.1.39",
     "react": "^16.8.4",

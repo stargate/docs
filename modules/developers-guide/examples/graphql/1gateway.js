@@ -25,10 +25,10 @@ const gateway = new ApolloGateway({
   serviceList: [
 
     // Stargate:
-    { name: "library", url: "http://127.0.0.1:8080/graphql/library"},
+    { name: "library", url: "https://127.0.0.1:8080/graphql/library"},
 
     // External service (mock):
-    { name: "orders", url: "http://localhost:4001/graphql" }
+    { name: "orders", url: "https://localhost:4001/graphql" }
   ],
 
   introspectionHeaders: {

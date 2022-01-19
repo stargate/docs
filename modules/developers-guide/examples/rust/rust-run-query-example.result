@@ -1,6 +1,6 @@
 Finished dev [unoptimized + debuginfo] target(s) in 0.04s
 Running `target/debug/examples/basic`
-Connected to http://127.0.0.2:8090
+Connected to https://127.0.0.2:8090
 Created schema
 Inserted data. Now querying.
 All rows:
