@@ -3,7 +3,7 @@ name: Generate Antora site
 on:
   push:
     branches:
-      - master
+      - main
       
 env:
   SITE_DIR: 'site'
