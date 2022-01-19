@@ -6,7 +6,7 @@
     <title>Stargate concepts :: Stargate documentation</title>
     <link rel="prev" href="../quickstart/quick_start-graphql.html">
     <link rel="next" href="../developers-guide/install/install_overview.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
   </head>
@@ -318,7 +318,7 @@
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
-        <li class="version is-current is-latest">
+        <li class="version is-current">
           <a href="../index.html">1.0</a>
         </li>
       </ul>
@@ -337,7 +337,7 @@
     <li><a href="concepts.html">Concepts</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/concepts/pages/concepts.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/concepts/pages/concepts.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -398,7 +398,7 @@ These extensions use both the Authentication Extensions and the Persistence Exte
 <p>The REST API uses the <a href="https://github.com/stargate/stargate/tree/master/auth-api">auth-api</a> to handle token access to the endpoints that are exposed by the Jetty-based Web Server. The GraphQL API also uses the token created with REST in
 the GrahpQL http header request to access the endpoints.
 The <a href="https://github.com/stargate/stargate/tree/master/persistence-api">persistence-api</a> is used to dispatch converted requests to the underlying storage engine.
-In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/resources/v2/RowsResource.java">RowsResource</a>.</p>
+In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java">RowsResource</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -516,6 +516,7 @@ You can see an example of this in the <a href="https://github.com/stargate/starg
         license</a></p>
   </div>
 </footer>
+<script>window.uiRootPath = '../../../assets'</script>
 <script src="../../../assets/js/site.js"></script>
 <script async src="../../../assets/js/vendor/highlight.js"></script>
   </body>

@@ -6,7 +6,7 @@
     <title>Stargate REST API QuickStart :: Stargate documentation</title>
     <link rel="prev" href="quick_start-document.html">
     <link rel="next" href="quick_start-graphql.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
   </head>
@@ -318,7 +318,7 @@
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
-        <li class="version is-current is-latest">
+        <li class="version is-current">
           <a href="../index.html">1.0</a>
         </li>
       </ul>
@@ -338,7 +338,7 @@
     <li><a href="quick_start-rest.html">REST API QuickStart</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/quickstart/pages/quick_start-rest.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/quickstart/pages/quick_start-rest.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -472,7 +472,7 @@ in the <code>X-Cassandra-Token</code> header. Note the port for the auth service
 <p>If you prefer, you can use Postman as a client interface for exploring REST APIs
 (<a href="https://www.postman.com/downloads/">download here</a>).
 We&#8217;ve provided a
-<a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_REST_v2_API_users_keyspace.postman_collection.json">Stargate REST API Postman Collection</a> that you can import in Postman to play with the examples shown in this walkthrough.</p>
+<a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/examples/json/Stargate_REST_v2_API_users_keyspace.postman_collection.json">Stargate REST API Postman Collection</a> that you can import in Postman to play with the examples shown in this walkthrough.</p>
 </div>
 <div class="paragraph">
 <p>Now you&#8217;re ready to use the REST API for CRUD operations.</p>
@@ -764,7 +764,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
--H "Accept: application/json"</code></pre>
+-H "Accept: application/json" </code></pre>
 </div>
 </div>
 </div>
@@ -1309,7 +1309,7 @@ clustering column <code>lastname</code>, so we delete all data with <code>Mookie
 </div>
 <div class="paragraph">
 <p>Voila! For more information on the REST API, see the see the
-<a href="../developers-guide/rest-using.html" class="page">Using the REST API</a>
+<a href="../developers-guide/rest-using.html" class="xref page">Using the REST API</a>
 or the <a href="https://stargate.io/docs/stargate/1.0/attachments/restv2.html">REST API</a> in the
 API references section.</p>
 </div>
@@ -1387,6 +1387,7 @@ API references section.</p>
         license</a></p>
   </div>
 </footer>
+<script>window.uiRootPath = '../../../assets'</script>
 <script src="../../../assets/js/site.js"></script>
 <script async src="../../../assets/js/vendor/highlight.js"></script>
   </body>

@@ -6,7 +6,7 @@
     <title>Using the Stargate GraphQL API (Schema-first) :: Stargate documentation</title>
     <link rel="prev" href="graphql-using.html">
     <link rel="next" href="apollo-federation.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
   </head>
@@ -318,7 +318,7 @@
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
-        <li class="version is-current is-latest">
+        <li class="version is-current">
           <a href="../index.html">1.0</a>
         </li>
       </ul>
@@ -339,7 +339,7 @@
     <li><a href="graphql-first-using.html">Using the GraphQL API (Schema-first)</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/graphql-first-using.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/graphql-first-using.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -391,13 +391,13 @@ If you are a GraphQL developer, this approach is for you.</p>
 <p>Docker installed and running, if using Docker</p>
 </li>
 <li>
-<p><a href="graphql.html#_using_the_graphql_playground" class="page">GraphQL Playground</a> running to deploy schema, and execute mutations and queries</p>
+<p><a href="graphql.html#_using_the_graphql_playground" class="xref page">GraphQL Playground</a> running to deploy schema, and execute mutations and queries</p>
 </li>
 <li>
 <p>Optional: <code>cURL</code> to run GraphQL queries from command-line</p>
 </li>
 <li>
-<p>Optional: <a href="graphql.html#_using_postman" class="page">Postman collections</a> if you wish to execute mutations and queries
+<p>Optional: <a href="graphql.html#_using_postman" class="xref page">Postman collections</a> if you wish to execute mutations and queries
 in Postman</p>
 </li>
 </ul>
@@ -518,9 +518,9 @@ the data:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">{"query":
-  "mutation createKsLibrary {
+  "mutation createKsLibrary { 
     createKeyspace(
-      name: \"library\",
+      name: \"library\", 
       replicas: 1)
 }",
 "variables":{}}</code></pre>
@@ -858,7 +858,7 @@ Required if the field is a set or list.</td>
 <div class="paragraph">
 <p>The fields <code>author</code>, <code>reviews</code>, <code>address</code> are defined as arrays by the addition of square brackets,
 <code>reviews: [Review]</code>.
-Note that <code>reviews</code> and <code>addresses</code> are arrays of <a href="#graphql-first-using.adoc_create_a_user_defined_type_udt">UDTs</a>
+Note that <code>reviews</code> and <code>addresses</code> are arrays of <a href="#graphql-first-using.adoc_create_a_user_defined_type_udt" class="xref unresolved">UDTs</a>
 whereas <code>author</code> is a list of Strings to name each author.</p>
 </div>
 </div>
@@ -1238,7 +1238,7 @@ submitted.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A keyspace will be created as <a href="graphql-using.html" class="page">CQL-first</a> unless a schema is deployed.
+<p>A keyspace will be created as <a href="graphql-using.html" class="xref page">CQL-first</a> unless a schema is deployed.
 After a schema is deployed, the keyspace should be accessed as schema-first.</p>
 </div>
 </td>
@@ -1863,8 +1863,8 @@ Either the GraphQL Playground or the cURL command can be used to update the sche
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mutation dropSchema {
-  undeploySchema(
-    "keyspace": "library"
+  undeploySchema( 
+    "keyspace": "library" 
     "expectedVersion": "bd94fb30-e4f5-11eb-9cf6-afef380162ee")
 }</code></pre>
 </div>
@@ -2448,14 +2448,14 @@ with the following arguments:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">type Query {
-  booksIn(
+  booksIn( 
     title: [String!] @cql_where(field: "title", predicate: IN)
   ): [Book]
 }
 
 query fetchBooksIn {
   booksIn(title:["Native Son", "Moby Dick"]) {
-      title
+      title 
       author
   }
 }</code></pre>
@@ -2505,7 +2505,7 @@ can be supplied:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">type Query {
   libcoll(type: String!, lib_id: Int!): [LibCollection]
-  libCollIn(
+  libCollIn( 
     type: [String!] @cql_where(field: "type", predicate: IN)
     lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
   ): [LibCollection]
@@ -2513,7 +2513,7 @@ can be supplied:</p>
 
 query fetchLibCollIn {
   libCollIn(type:[ "photo", "book" ], lib_id: [ 12345, 12543 ]) {
-      type
+      type 
       lib_id
       lib_name
   }
@@ -2570,8 +2570,8 @@ possible values for the clustering field:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">type Query {
-  readerGT(
-    name: [String!]
+  readerGT( 
+    name: [String!] 
     user_id: [Uuid!]
     @cql_where(field: "user_id", predicate: GT)
   ): [Reader]
@@ -3306,6 +3306,7 @@ run the following cURL command:</p>
         license</a></p>
   </div>
 </footer>
+<script>window.uiRootPath = '../../../assets'</script>
 <script src="../../../assets/js/site.js"></script>
 <script async src="../../../assets/js/vendor/highlight.js"></script>
   </body>

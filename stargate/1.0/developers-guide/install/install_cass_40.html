@@ -6,7 +6,7 @@
     <title>Cassandra 4.0 :: Stargate documentation</title>
     <link rel="prev" href="install_cass_3x.html">
     <link rel="next" href="install_dse_68.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../../../assets/css/site.css">
     <link rel="icon" href="../../../../assets/img/favicon.ico" type="image/x-icon"> 
   </head>
@@ -318,7 +318,7 @@
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
-        <li class="version is-current is-latest">
+        <li class="version is-current">
           <a href="../../index.html">1.0</a>
         </li>
       </ul>
@@ -338,7 +338,7 @@
     <li><a href="install_cass_40.html">Cassandra 4.0</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/install/install_cass_40.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/install/install_cass_40.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -382,7 +382,7 @@ Stargate jar files and install.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Stargate, you are ready to try one of the  Stargate <a href="../../quickstart/quickstart.html" class="page">QuickStarts</a>.</p>
+<p>Once you have installed Stargate, you are ready to try one of the  Stargate <a href="../../quickstart/quickstart.html" class="xref page">QuickStarts</a>.</p>
 </div>
 </div>
 </div>
@@ -523,7 +523,7 @@ When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to Cassandra clusters running within the same Docker
 environment. To run Stargate so that it can connect to a cluster running outside
 of a containerized environment,
-see the <a href="install_vm_cass_40.html" class="page">Installing on VMs or bare metal</a> documentation.
+see the <a href="install_vm_cass_40.html" class="xref page">Installing on VMs or bare metal</a> documentation.
 </td>
 </tr>
 </table>
@@ -700,7 +700,7 @@ A typical method is using wget:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">wget https://github.com/stargate/stargate/releases/download/v1.0.41/stargate-jars.zip</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">wget https://github.com/stargate/stargate/releases/download/v1.0.41/stargate-jars.zip </code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -708,7 +708,7 @@ A typical method is using wget:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">unzip stargate-jars.zip</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">unzip stargate-jars.zip </code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -722,13 +722,13 @@ and configuring Stargate:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">./starctl --cluster-name &lt;cluster name&gt; \
---cluster-seed &lt;seed node to connect to&gt; \
---cluster-version &lt;version&gt; \
---listen &lt;ip address for stargate to listen on&gt; \
---dc &lt;data center name&gt; \
---rack &lt;rack name of node to connect to&gt; \
---dse #for DSE only, delete for Cassandra \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">./starctl --cluster-name &lt;cluster name&gt; \  
+--cluster-seed &lt;seed node to connect to&gt; \  
+--cluster-version &lt;version&gt; \  
+--listen &lt;ip address for stargate to listen on&gt; \  
+--dc &lt;data center name&gt; \  
+--rack &lt;rack name of node to connect to&gt; \  
+--dse #for DSE only, delete for Cassandra \  
 --enable-auth</code></pre>
 </div>
 </div>
@@ -738,12 +738,12 @@ and configuring Stargate:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">./starctl
---cluster-name stargate_test_cluster \
---cluster-seed 172.31.29.170 \
---cluster-version 4.0 \
---listen 172.31.29.175 \
---dc DC1 \
---rack RACK1 \
+--cluster-name stargate_test_cluster \  
+--cluster-seed 172.31.29.170 \  
+--cluster-version 4.0 \  
+--listen 172.31.29.175 \  
+--dc DC1 \  
+--rack RACK1 \  
 --enable-auth</code></pre>
 </div>
 </div>
@@ -767,7 +767,7 @@ and configuring Stargate:</p>
 </li>
 <li>
 <p><code>RACK1</code> is the name of the data center of the Cassandra node
-The full set of options are described in <a href="starctl.html" class="page">the <code>starctl</code> documentation</a>.</p>
+The full set of options are described in <a href="starctl.html" class="xref page">the <code>starctl</code> documentation</a>.</p>
 </li>
 </ul>
 </div>
@@ -792,7 +792,7 @@ If you get a binding error, then you may have tried to start Stargate incorrectl
 Terminate that process and start it again.</p>
 </div>
 <div class="paragraph">
-<p>That&#8217;s it! You are ready to try a Stargate <a href="../../quickstart/quickstart.html" class="page">QuickStart</a>.</p>
+<p>That&#8217;s it! You are ready to try a Stargate <a href="../../quickstart/quickstart.html" class="xref page">QuickStart</a>.</p>
 </div>
 </div>
 </div>
@@ -867,6 +867,7 @@ Terminate that process and start it again.</p>
         license</a></p>
   </div>
 </footer>
+<script>window.uiRootPath = '../../../../assets'</script>
 <script src="../../../../assets/js/site.js"></script>
 <script async src="../../../../assets/js/vendor/highlight.js"></script>
   </body>

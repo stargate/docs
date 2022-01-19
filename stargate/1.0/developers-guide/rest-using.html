@@ -6,7 +6,7 @@
     <title>Using the Stargate REST API :: Stargate documentation</title>
     <link rel="prev" href="rest.html">
     <link rel="next" href="graphql.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
   </head>
@@ -318,7 +318,7 @@
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
-        <li class="version is-current is-latest">
+        <li class="version is-current">
           <a href="../index.html">1.0</a>
         </li>
       </ul>
@@ -339,7 +339,7 @@
     <li><a href="rest-using.html">Using the REST API</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/rest-using.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/rest-using.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -479,7 +479,7 @@ in the <code>X-Cassandra-Token</code> header. Note the port for the auth service
 <div class="paragraph">
 <p>If you prefer, you can use Postman as a client interface for exploring the REST API
 (<a href="https://www.postman.com/downloads/">download here</a>).
-See <a href="../tooling.html" class="page">Tooling Resources</a> for links to downloadable collections and environments.
+See <a href="../tooling.html" class="xref page">Tooling Resources</a> for links to downloadable collections and environments.
 Instructions for configuring the environments for Stargate OSS and <a href="https://astra.datastax.com">Astra</a> are available.
 You can immediately import the documentation code examples and explore!</p>
 </div>
@@ -1344,7 +1344,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
--H "Accept: application/json"</code></pre>
+-H "Accept: application/json" </code></pre>
 </div>
 </div>
 </div>
@@ -1668,10 +1668,10 @@ on each column to read the data.</p>
 <div class="paragraph">
 <p>Currently, those indexes can be created with REST,
 <a href="https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index">CQL</a>,
-or <a href="graphql-using.html#_create-an-index" class="page">GraphQL</a>.</p>
+or <a href="graphql-using.html#_create-an-index" class="xref page">GraphQL</a>.</p>
 </div>
 <div class="paragraph">
-<p>To use the REST API to create indexes, you&#8217;ll need the <a href="auth.html" class="page">application token</a>
+<p>To use the REST API to create indexes, you&#8217;ll need the <a href="auth.html" class="xref page">application token</a>
 you generated to create other schema in your keyspace.</p>
 </div>
 <div class="paragraph">
@@ -2627,7 +2627,7 @@ The <code>pageState</code> is useful for pagination of the results in queries.
       "email": "mookie.betts.new-email@email.com",
       "lastname": "Betts",
       "favorite_books": []
-    },
+    }, 
     {
       "firstname": "Janesha",
       "evaluations": [
@@ -2774,8 +2774,8 @@ CREATE INDEX country_idx ON users_keyspace.users (VALUES (current_country));</co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-cql hljs" data-lang="cql">CREATE CUSTOM INDEX books_idx
-  ON users_keyspace.users (VALUES(favorite_books))
+<pre class="highlightjs highlight"><code class="language-cql hljs" data-lang="cql">CREATE CUSTOM INDEX books_idx 
+  ON users_keyspace.users (VALUES(favorite_books)) 
   USING 'StorageAttachedIndex'
   WITH OPTIONS = ('case_sensitive': 'false');
 CREATE CUSTOM INDEX tv_idx
@@ -3414,6 +3414,7 @@ clustering column <code>lastname</code>, so we delete all data with <code>Mookie
         license</a></p>
   </div>
 </footer>
+<script>window.uiRootPath = '../../../assets'</script>
 <script src="../../../assets/js/site.js"></script>
 <script async src="../../../assets/js/vendor/highlight.js"></script>
   </body>

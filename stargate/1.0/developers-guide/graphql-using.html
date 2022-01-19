@@ -6,7 +6,7 @@
     <title>Using the Stargate GraphQL API (CQL-first) :: Stargate documentation</title>
     <link rel="prev" href="graphql.html">
     <link rel="next" href="graphql-first-using.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../../assets/css/site.css">
     <link rel="icon" href="../../../assets/img/favicon.ico" type="image/x-icon"> 
   </head>
@@ -318,7 +318,7 @@
     <li class="component is-current">
       <span class="title">Stargate</span>
       <ul class="versions">
-        <li class="version is-current is-latest">
+        <li class="version is-current">
           <a href="../index.html">1.0</a>
         </li>
       </ul>
@@ -339,7 +339,7 @@
     <li><a href="graphql-using.html">Using the GraphQL API (CQL-first)</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/master/modules/developers-guide/pages/graphql-using.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/stargate/docs/blob/main/modules/developers-guide/pages/graphql-using.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -386,13 +386,13 @@ If you are familiar with Cassandra, you might prefer this approach.</p>
 <p>Docker installed and running, if using Docker</p>
 </li>
 <li>
-<p><a href="graphql.html#_using_the_graphql_playground" class="page">GraphQL Playground</a> running to deploy schema, and execute mutations and queries</p>
+<p><a href="graphql.html#_using_the_graphql_playground" class="xref page">GraphQL Playground</a> running to deploy schema, and execute mutations and queries</p>
 </li>
 <li>
 <p>Optional: <code>cURL</code> to run GraphQL queries from command-line</p>
 </li>
 <li>
-<p>Optional: <a href="graphql.html#_using_postman" class="page">Postman collections</a> if you wish to execute mutations and queries
+<p>Optional: <a href="graphql.html#_using_postman" class="xref page">Postman collections</a> if you wish to execute mutations and queries
 in Postman</p>
 </li>
 </ul>
@@ -914,7 +914,7 @@ such as <code>camelCase</code>, that the underlying Cassandra storage tables wil
 quoting to preserve the capitalization. If a naming conflict occurs, an error
 results that the table already exists.</p>
 </div>
-<table class="tableblock frame-topbot grid-all stretch">
+<table class="tableblock frame-ends grid-all stretch">
 <caption class="title">Table 1. GraphQL naming convention</caption>
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1475,7 +1475,7 @@ on each column in order to read the data.</p>
 or GraphQL.</p>
 </div>
 <div class="paragraph">
-<p>Use the <a href="auth.html" class="page">application token</a> you generated
+<p>Use the <a href="auth.html" class="xref page">application token</a> you generated
 to create schema in your keyspace using the GraphQL playground.</p>
 </div>
 <div class="paragraph">
@@ -3103,6 +3103,7 @@ the book using <code>deleteBooks()</code> to illustrate deleting data:</p>
         license</a></p>
   </div>
 </footer>
+<script>window.uiRootPath = '../../../assets'</script>
 <script src="../../../assets/js/site.js"></script>
 <script async src="../../../assets/js/vendor/highlight.js"></script>
   </body>
