@@ -48,6 +48,7 @@ jobs:
        uses: actions/setup-node@v2
        with:
          version: 14.x
+         cache: 'npm'
      - name: Checkout
        uses: actions/checkout@v2
      - name: Download generated site
