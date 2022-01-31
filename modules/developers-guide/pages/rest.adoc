@@ -1,4 +1,5 @@
 = REST API
+:page-tag: stargate,dev,develop
 
 The Stargate REST API is implemented to use REST queries with any Cassandra
 deployment.

@@ -1,4 +1,5 @@
 = Using metrics with Stargate
+:page-tag: stargate,dev,develop
 
 Stargate is a data gateway deployed between client applications and a database.
 Metrics can be monitored using Prometheus and Grafana. A

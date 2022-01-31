@@ -1,4 +1,5 @@
 == Node.js setup
+:page-tag: stargate,dev,develop
 
 === Prerequisites
 

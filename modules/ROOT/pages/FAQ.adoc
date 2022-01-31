@@ -1,5 +1,7 @@
 = Frequently asked questions
 
+:page-tag: stargate,dev,develop,planner
+
 == What should I do if I find a bug?
 
 - If you've found an issue while using Stargate, please file a bug in the

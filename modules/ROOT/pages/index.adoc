@@ -1,4 +1,5 @@
 = Stargate
+:page-tag: stargate,dev,develop
 
 == Quick Links
 

@@ -1,5 +1,7 @@
 = gRPC Java Client
 
+:page-tag: stargate,dev,develop
+
 include::page$java-setup.adoc[]
 
 include::page$java-connecting.adoc[]

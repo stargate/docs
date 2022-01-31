@@ -1,4 +1,5 @@
 == Go full sample script
+:page-tag: stargate,dev,develop
 
 To put all the pieces together, here is a sample script that combines all the pieces
 shown above:

@@ -1,5 +1,6 @@
 [#standalone_docker_dse_68]
 == Stargate Standalone with Docker
+:page-tag: stargate,dev,develop
 
 include::developers-guide:partial$docker_pull.adoc[tag=dse_68]
 

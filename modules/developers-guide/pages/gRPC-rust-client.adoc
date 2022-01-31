@@ -1,4 +1,5 @@
 = gRPC Rust Client
+:page-tag: stargate,dev,develop
 
 include::page$rust-setup.adoc[]
 

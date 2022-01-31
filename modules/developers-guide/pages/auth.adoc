@@ -1,4 +1,5 @@
 = Auth API
+:page-tag: stargate,dev,develop,security,secure
 
 The Stargate Auth API is implemented using REST queries with any Cassandra
 deployment to generate authorization tokens for the REST, GraphQL, and

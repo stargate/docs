@@ -1,4 +1,5 @@
 == Rust set-up
+:page-tag: stargate,dev,develop
 
 === Prerequisites
 

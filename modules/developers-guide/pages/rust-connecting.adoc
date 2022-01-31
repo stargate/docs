@@ -1,4 +1,5 @@
 == Rust connecting
+:page-tag: stargate,security,secure,dev,develop
 
 === Authentication
 

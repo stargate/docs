@@ -1,4 +1,5 @@
 = Document API
+:page-tag: stargate,dev,develop
 
 The Stargate Document API is implemented to use schemaless document REST queries
  with any Cassandra deployment.

@@ -1,3 +1,4 @@
 = Developing with Stargate
+:page-tag: stargate,dev,develop
 
 The Developer Guide for Stargate will show you how to use the Data APIs to create applications.
