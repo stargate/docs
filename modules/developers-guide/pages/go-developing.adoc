@@ -1,4 +1,5 @@
 == Go developing
+:page-tag: stargate,dev,develop
 
 === Getting started
 

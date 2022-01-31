@@ -1,4 +1,5 @@
 = Authentication and Authorization
+:page-tag: stargate,dev,develop,security,secure
 
 Systems establish authentication first, with authorization following if implemented.
 

@@ -1,4 +1,5 @@
 == Java gRPC processing result set
+:page-tag: stargate,dev,develop
 
 After executing a query, a response returns rows that match the SELECT statement.
 If there are no rows, the returned payload is unset.

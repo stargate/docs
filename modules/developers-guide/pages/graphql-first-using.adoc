@@ -1,4 +1,5 @@
 = Using the Stargate GraphQL API (Schema-first)
+:page-tag: stargate,dev,develop
 
 Stargate is a data gateway deployed between client applications and a database.
 The GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.

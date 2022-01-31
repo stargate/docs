@@ -1,6 +1,8 @@
 = API References
 
-Stargate  provides APIs to manage database resources.
+:page-tag: stargate,dev,develop
+
+Stargate provides APIs to manage database resources.
 
 == Stargate
 

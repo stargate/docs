@@ -1,4 +1,5 @@
 = The starctl command
+:page-tag: stargate,dev,develop
 
 The `starctl` command controls and configures Stargate nodes.
 

@@ -1,4 +1,5 @@
 == Rust processing result set
+:page-tag: stargate,dev,develop
 
 The result set comes back as a collection of rows.
 A row can be easily unpacked:

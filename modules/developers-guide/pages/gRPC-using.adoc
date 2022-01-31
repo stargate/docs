@@ -1,5 +1,6 @@
 = Using Stargate gRPC API clients
 :slug: grpc-using
+:page-tag: stargate,dev,develop
 
 Stargate is a data gateway deployed between client applications and a database.
 link:https://grpc.io/docs/what-is-grpc/introduction/[gRPC] is a modern, open source remote procedure call (RPC) framework.

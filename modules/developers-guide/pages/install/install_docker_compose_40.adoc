@@ -1,5 +1,6 @@
 [#docker_compose_40]
 == Stargate with Docker compose
+:page-tag: stargate,dev,install
 
 This installation method can be used to either:
 

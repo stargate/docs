@@ -1,4 +1,5 @@
 == Node.js querying
+:page-tag: stargate,dev,develop
 
 A simple query can be performed by passing a CQL query to the client using the
 `executeQuery()` function for standard query execution:

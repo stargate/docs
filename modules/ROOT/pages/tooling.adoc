@@ -1,5 +1,6 @@
 = Tooling Resources
 :slug: resources
+:page-tag: stargate,dev,develop
 
 == Postman resources
 

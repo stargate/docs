@@ -1,4 +1,5 @@
 = GraphQL API
+:page-tag: stargate,dev,develop
 
 == Overview
 

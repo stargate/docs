@@ -1,4 +1,5 @@
 = Installing Stargate
+:page-tag: stargate,dev,install
 
 Products with which Stargate works:
 
