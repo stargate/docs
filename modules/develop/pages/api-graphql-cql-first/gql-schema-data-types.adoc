@@ -25,6 +25,6 @@ to the CQL types of the same name:
 Uuid, TimeUuid, Inet, Date, Duration, BigInt, Counter, Ascii, Decimal, Varint,
 Float32, Blob, SmallInt, TinyInt, Timestamp, Time, Set, List, Map, Tuple.
 
-Lastly, xref:graphql-using.adoc#_create_a_user_defined_type_udt[user-defined types (UDTs)]
+Lastly, xref:graphql-using.adoc#create-a-user-defined-type-udt[user-defined types (UDTs)]
 are supported.
 // end::DataTypes[]

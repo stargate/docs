@@ -11,7 +11,7 @@ on each column to read the data.
 
 Currently, those indexes can be created with REST,
 https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL],
-or xref:graphql-using.adoc#_create-an-index[GraphQL].
+or xref:graphql-using.adoc#create-an-index[GraphQL].
 
 To use the REST API to create indexes, you'll need the xref:auth.adoc[application token]
 you generated to create other schema in your keyspace.

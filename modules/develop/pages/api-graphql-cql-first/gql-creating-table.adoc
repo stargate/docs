@@ -30,7 +30,7 @@ Information about partition keys and clustering keys can be found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 
 The second table, `reader`, also defines a column using a
-xref:graphql-using.adoc#_creating_a_user-defined_type (UDT)[user-defined type (UDT)].
+xref:graphql-using.adoc#creating-a-user-defined-type-udt[user-defined type (UDT)].
 
 // end::CreateTable[]
 

@@ -125,7 +125,7 @@ In this example, the schema file supplied is located in `/tmp/schema.graphql`.
 
 In order to deploy a schema file again, you'll need to supply the `expectedVersion`
 for the schema to be replaced.
-xref:graphql-first-using.adoc#_check_the_keyspace_schema[Check the keyspace schema]
+xref:graphql-first-using.adoc#check-the-keyspace_schema[Check the keyspace schema]
 to get the current version.
 
 [tabs]

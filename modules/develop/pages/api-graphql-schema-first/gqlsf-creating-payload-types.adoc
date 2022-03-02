@@ -31,7 +31,7 @@ page if the query is paginated, with an Integer input.
 Another parameter is also available, `limit: 10`, which is the maximum total number of
 results to return, with an Integer input.
 
-An example of retrieving data using this query is found xref:graphql-first-using.adoc#_retrieve_data[below].
+An example of retrieving data using this query is found xref:graphql-first-using.adoc#retrieve-data[below].
 
 Often, you wish to know if an operation was successful. Creating a payload type that
 uses a boolean field `applied` can definitively answer if a conditional operation

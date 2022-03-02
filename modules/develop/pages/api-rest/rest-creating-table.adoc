@@ -8,7 +8,7 @@ You can create different keyspaces for groups of tables.
 
 === Prerequisites
 
-. xref:manage:org/managing-org.adoc#_manage_application_tokens[Manage application token].
+. xref:manage:org/managing-org.adoc#manage-application-tokens[Manage application token].
 . After generating an authorization token, run the following request to get all available keyspaces
 and verify that the keyspace you wish to use is listed in the results:
 
@@ -64,7 +64,7 @@ Non-primary key::
 Optional, but zero, one or more columns that are not a partition key or clustering key can be defined.
 `favorite_color` is the non-primary key column.
 
-Notice that each column must have a xref:dev-with-rest-api.adoc#data-types[data type] specified.
+Notice that each column must have a xref:develop:api-rest/rest-data-types.adoc[data type] specified.
 
 
 // ASTRA

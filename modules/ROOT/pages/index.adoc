@@ -16,7 +16,7 @@
 [options="header"]
 |===
 |Stargate |Cassandra |DSE
-|0.1 |4.0, 3.x |6.8
+|1.0 |4.0, 3.x |6.8
 |===
 
 // == Download
