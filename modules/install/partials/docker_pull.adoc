@@ -1,0 +1,31 @@
+=== Pull the Docker image
+
+// tag::3x[]
+This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
+and GraphQL Playground, along with an Apache Cassandra^(TM)^ {cass-tag-3x} backend.
+
+[source,bash,subs="attributes+"]
+----
+docker pull stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
+----
+// end::3x[]
+
+// tag::40[]
+This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
+and GraphQL Playground, along with an Apache Cassandra^(TM)^ {cass-tag-40} backend.
+
+[source,bash,subs="attributes+"]
+----
+docker pull stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
+----
+// end::40[]
+
+// tag::dse_68[]
+This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
+and GraphQL Playground, along with a DataStax Enterprise^(TM)^  {dse-tag-68} backend.
+
+[source,bash,subs="attributes+"]
+----
+docker pull stargateio/stargate-dse-{dse-alt-tag-68}:{stargate-docker-tag-68}
+----
+// end::dse_68[]

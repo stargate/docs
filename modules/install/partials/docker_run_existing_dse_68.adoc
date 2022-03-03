@@ -1,0 +1,65 @@
+=== Starting Stargate with existing DataStaxEnterprse cluster
+
+To illustrate how a DSE cluster can be started, and thus exist before a
+Stargate node is added, a single node could be started with:
+
+[source,bash,subs="attributes+"]
+----
+docker network create cass-net --driver bridge
+
+docker run --name cass1 \
+--network cass-net \
+-e CASSANDRA_CLUSTER_NAME=stargate-cluster \
+-d datastax/dse-server:{dse-server-tag-68}
+----
+
+Here, a network is created with docker.
+Then a DSE node is started on that network, specifying a cluster name.
+Additional DSE nodes could be added to the cluster, if desired.
+
+Now Stargate can be added to that existing DSE cluster operating in a
+containerized environment with the following command:
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  --network cass-net \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 9049:9042 \
+  -e CLUSTER_NAME=stargate-cluster \
+  -e CLUSTER_VERSION={dse-tag-68} \
+  -e SEED=cass1 \
+  -e SIMPLE_SNITCH=true \
+  -e ENABLE_AUTH=true \
+  -d stargateio/stargate-dse-{dse-alt-tag-68}:{stargate-docker-tag-68}
+----
+
+where
+
+  * `cass-net` must be replaced with the existing DSE cluster network name
+  * the port `9042` should be mapped to an alternative port (example shows `9049`)
+  * `CLUSTER_NAME` identifies the DSE cluster name used at cluster creation
+  * `CLUSTER_VERSION` is set to the version of DSE running in the cluster
+  * `SEED` is set to the IP address or docker name of a running DSE seed node (`cass1`)
+  * `SIMPLE_SNITCH` sets the snitch on the Stargate node
+  * `ENABLE_AUTH` enables `PasswordAuthenticator` in the cluster
+
+[NOTE]
+====
+Use the `SIMPLE_SNITCH` option if the
+  link:https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962[endpoint_snitch]
+  setting in the cluster is set to *SimpleSnitch*. If the cluster uses a
+  different `endpoint_snitch` use the `--dc` and `--rack` options to define the
+  topology of the node.
+====
+
+include::develop:partial$ports.adoc[]
+
+[NOTE]
+====
+Specifying the `LISTEN_ADDRESS` is not required in docker, because the `starctl`
+script will determine the correct port on which to listen. The ports do not need to
+be set if standard ports are used.
+====

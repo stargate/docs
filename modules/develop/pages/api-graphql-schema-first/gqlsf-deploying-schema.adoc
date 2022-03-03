@@ -9,7 +9,7 @@ submitted.
 
 [NOTE]
 ====
-A keyspace will be created as xref:graphql-using.adoc[CQL-first] unless a schema is deployed.
+A keyspace will be created as xref:api-graphql-cql-first/gql-creating-table.adoc[CQL-first] unless a schema is deployed.
 After a schema is deployed, the keyspace should be accessed as schema-first.
 ====
 
@@ -115,6 +115,7 @@ include::example$result/gql_1createDeployFile.result[]
 ----
 --
 ====
+
 The operations part contains the GraphQL payload. It consists of a
 parameterized mutation, which takes a single `$file` argument (note that we
   leave it as null in the payload, because it's going to be set another way).
@@ -125,7 +126,7 @@ In this example, the schema file supplied is located in `/tmp/schema.graphql`.
 
 In order to deploy a schema file again, you'll need to supply the `expectedVersion`
 for the schema to be replaced.
-xref:graphql-first-using.adoc#check-the-keyspace_schema[Check the keyspace schema]
+xref:api-graphql-schema-first/gqlsf-checking-keyspace-schema.adoc[Check the keyspace schema]
 to get the current version.
 
 [tabs]

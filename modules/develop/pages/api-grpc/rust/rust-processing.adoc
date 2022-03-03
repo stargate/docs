@@ -1,0 +1,9 @@
+== Rust processing result set
+
+The result set comes back as a collection of rows.
+A row can be easily unpacked:
+
+[source, rust]
+----
+include::example$rust/rust-processing.rs[]
+----

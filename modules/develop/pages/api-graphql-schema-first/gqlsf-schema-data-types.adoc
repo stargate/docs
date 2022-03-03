@@ -1,7 +1,7 @@
 === A note about what schema is
 
 A full GraphQL schema that will be
-xref:graphql-first-using.adoc#deploy-schema[deployed] can
+xref:api-graphql-schema-first/gqlsf-deploying-schema.adoc[deployed] can
 include user-defined types (UDTs), object types, indexes, queries, mutations, and payload
 types. The next sections describes the definition of these items before discussing
 how to deploy the schema once created.
@@ -9,7 +9,7 @@ how to deploy the schema once created.
 [TIP]
 ====
 Do you want to understand deployment first?
-Read xref:graphql-first-using.adoc#deploy-schema[Deploy Schema].
+Read xref:api-graphql-schema-first/gqlsf-deploying-schema.adoc[Deploy Schema].
 ====
 
 // tag::DataTypes[]

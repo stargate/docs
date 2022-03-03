@@ -1,6 +1,6 @@
 == Create or delete schema
 
-In order to use the GraphQL API, you must xref:graphql-first-using.adoc#deploy-schema[deploy schema]
+In order to use the GraphQL API, you must xref:api-graphql-schema-first/gqlsf-deploying-schema.adoc[deploy schema]
 that defines the types, mutations, and queries.
 
 // tag::CreateKS[]

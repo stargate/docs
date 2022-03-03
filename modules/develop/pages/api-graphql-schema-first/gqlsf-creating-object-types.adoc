@@ -66,7 +66,7 @@ Note that the parameter `target` is required for arrays (set, list).
 Required if queries will use the field as a parameter to retrieve data.
 <8> Reader: `@cql_index(name: "date_idx")` creates an index of the birthdates.
 Note that no target is required.
-The `@cql_index` is discussed in xref:graphql-first-using.adoc#create-indexes[Create indexes].
+The `@cql_index` is discussed in xref:api-graphql-schema-first/gqlsf-creating-index.adoc[Create indexes].
 Not required.
 <9> Reader: `@cql_column(typeHint: "set<varchar>")` sets the column data type to a set.
 The only valid defaults are `set` or making a CQL type `frozen`.
@@ -74,6 +74,6 @@ Required if the field is a set or list.
 
 The fields `author`, `reviews`, `address` are defined as arrays by the addition of square brackets,
 `reviews: [Review]`.
-Note that `reviews` and `addresses` are arrays of xref:graphql-first-using.adoc#create-a-user-defined-type-udt[UDTs]
+Note that `reviews` and `addresses` are arrays of xref:api-graphql-schema-first/gqlsf-creating-udt.adoc[UDTs]
 whereas `author` is a list of Strings to name each author.
 // end::CreateObjectTypes[]
