@@ -20,5 +20,6 @@ asciidoc:
   attributes:
     source-highlighter: highlightjs
     page-pagination: ''
+    product: 'Stargate'
   extensions:
   - ./lib/tabs-block.js

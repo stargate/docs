@@ -68,13 +68,12 @@ Notice that each column must have a xref:develop:api-rest/rest-data-types.adoc[d
 
 
 // ASTRA
-ifdef::astra[]
-// Information about primary keys (partition keys and clustering keys) are found in the
-// link:https://docs.datastax.com/en/astra-cql/doc/cql/cql_using/wherePK.html
-[Cassandra Query Language (CQL) reference, window="_blank"].
+ifeval::["{product}" == "Astra"]
+Information about primary keys (partition keys and clustering keys) are found in the
+https://docs.datastax.com/en/astra-cql/doc/cql/cql_using/wherePK.html[Cassandra Query Language (CQL) reference, window="_blank"].
 endif::[]
 // STARGATE
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 Information about partition keys and clustering keys are found in the
 https://cassandra.apache.org/doc/latest/cql/[CQL reference].
 endif::[]
