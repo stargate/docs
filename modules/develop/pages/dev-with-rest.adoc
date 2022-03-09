@@ -55,14 +55,14 @@ To view the API Reference, see link:_attachments/restv2.html[{database} REST API
 include::develop:page$dev-postman.adoc[Using Postman as a tooling resource]
 
 // STARGATE ONLY
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace]
 endif::[]
 
 include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace]
 
 // STARGATE ONLY
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace]
 endif::[]
 
