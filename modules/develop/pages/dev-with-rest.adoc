@@ -1,0 +1,99 @@
+= Developing with the {database} REST API
+:keywords: database, rest, api
+
+include::partial$stargate-intro-intro.adoc[]
+
+The REST API exposes CRUD access to data stored in Cassandra tables.
+
+== Prerequisite
+* `cURL` to run REST queries
+
+// ASTRA
+ifdef::astra[]
+[NOTE]
+====
+If you haven't already, create a database using https://astra.datastax.com/[{astra_db}].
+====
+
+Before you get started, set your environment variables to save time developing on your database.
+
+. In link:https://astra.datastax.com[{astra_db}, window="_blank"], select the database to which you want to connect.
+. In your *Database Dashboard*, select *Connect*.
+. Select *REST API*.
++
+include::partial$note_multi-region_connect.adoc[]
+
+. Follow the steps in the prerequisites to get your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] and set up your environment variables.
+. In your command-line interface associated with your environment, paste the following environment variables copied for your {astra_db} database:
+
+[source, shell]
+----
+export ASTRA_DB_ID=<database_id>
+export ASTRA_DB_REGION=<database_region>
+export ASTRA_DB_KEYSPACE=<keyspace_name>
+export ASTRA_DB_APPLICATION_TOKEN=<app_token>
+----
+endif::[]
+
+== API reference
+To view the API Reference, see link:_attachments/restv2.html[{database} REST API].
+
+
+// LLP: NEED TO FIX - POINT TO THE tooling.adoc page
+// // tag::UsingPostman[]
+// == Using Postman
+
+// If you prefer, you can use Postman as a client interface for exploring REST APIs
+// (https://www.postman.com/downloads/[download here]).
+// We've provided a
+// https://raw.githubusercontent.com/stargate/docs/master/modules/developers-guide/examples/json/Stargate_REST_API_users_keyspace_Astra.postman_collection.json[Stargate REST API Postman Collection]
+// that you can import in Postman to play with the examples shown in this walkthrough.
+
+// Now you're ready to use the REST API for CRUD operations.
+// // end::UsingPostman[]
+
+include::develop:page$dev-postman.adoc[Using Postman as a tooling resource]
+
+// STARGATE ONLY
+ifdef::stargate[]
+include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace]
+endif::[]
+
+include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace]
+
+// STARGATE ONLY
+ifdef::stargate[]
+include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace]
+endif::[]
+
+include::develop:page$api-rest/rest-creating-table.adoc[Creating a table in your keyspace]
+
+include::develop:page$api-rest/rest-checking-table.adoc[Checking a table]
+
+include::develop:page$api-rest/rest-dropping-table.adoc[Dropping a table in your keyspace]
+
+include::develop:page$api-rest/rest-creating-index.adoc[Creating an index for a table]
+
+include::develop:page$api-rest/rest-deleting-index.adoc[Deleting an index in your keyspace]
+
+include::develop:page$api-rest/rest-creating-udt.adoc[Creating a user-defined type (UDT) for a keyspace]
+
+include::develop:page$api-rest/rest-deleting-udt.adoc[Deleting a UDT in your keyspace]
+
+include::develop:page$api-rest/rest-adding-columns.adoc[Adding columns to your table]
+
+include::develop:page$api-rest/rest-checking-columns.adoc[Checking columns in your table]
+
+include::develop:page$api-rest/rest-deleting-columns.adoc[Deleting columns in your table]
+
+include::develop:page$api-rest/rest-adding-rows.adoc[Adding rows to your table]
+
+include::develop:page$api-rest/rest-retrieving-rows.adoc[Retrieving rows from your table]
+
+include::develop:page$api-rest/rest-updating-rows.adoc[Updating rows in your table]
+
+include::develop:page$api-rest/rest-deleting-rows.adoc[Deleting rows in your table]
+
+include::develop:partial$nodejs-client-env.adoc[Using Node.js client]
+
+include::develop:page$api-rest/rest-nodejs-client.adoc[Node.js REST client]

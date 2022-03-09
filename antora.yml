@@ -1,7 +1,9 @@
-name: stargate
-title: Stargate
-version: '1.0'
-display_version: '1.0'
+name: docs
+#title: Stargate
+#version: '1.0'
+#display_version: '1.0'
+version: master
+display_version: 'Latest'
 asciidoc:
   attributes:
     sectanchors: ''

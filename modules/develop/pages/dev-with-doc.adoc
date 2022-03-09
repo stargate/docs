@@ -1,0 +1,95 @@
+= Developing with the {database} Document API
+:keywords: database, document, api
+
+include::partial$stargate-intro-intro.adoc[]
+
+The Stargate Document API modifies and queries data stored as unstructured JSON documents in collections.
+Because the Document API uses schemaless data, no data modeling is required!
+
+The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API, window="_blank"] describes the underlying structure used to store collections.
+
+== Information about namespaces and collections.
+
+To use the Document API, you must define the namespace that will store  collections.
+Collections store unstructured JSON documents.
+Documents can themselves hold multiple documents.
+Multiple collections are contained in a namespace, but a collection cannot be
+contained in multiple namespaces.
+
+Only namespaces need to specifically created.
+Collections are specified when a document is inserted.
+
+// tag::swaggerUI[]
+== Swagger UI for the Document API
+
+You can access the Document API in a browser with Swagger UI at
+ifdef::astra[]
+`https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com/api/rest/swagger-ui/`.
+endif::[]
+ifdef::stargate[]
+`https://localhost/swagger-ui`
+endif::[]
+Adding parameter information, you can generate `cURL` commands to execute and
+display results that will return.
+// end::swaggerUI[]
+
+
+// LLP 12.17.21 figure out
+// // tag::UsingPostman[]
+// == Using Postman
+
+// If you prefer, you can use Postman as a client interface for exploring the Document API
+// (https://www.postman.com/downloads/[download here]).
+// We've provided a
+// https://raw.githubusercontent.com/stargate/docs/master/modules/developers-guide/examples/json/Stargate_Document_API_users_Astra.postman_collection.json[Stargate Document API Postman Astra Collection]
+// that you can import in Postman to play with the examples shown in this walkthrough.
+// // end::UsingPostman[]
+
+== Prerequisites
+
+* `cURL` to run REST queries
+
+ifdef::astra[]
+Before you get started, set your environment variables to save time developing
+on your database.
+
+. In link:https://astra.datastax.com[Astra, window="_blank"], select the database to which you want to connect.
+. In your *Database Dashboard*, select *Connect*.
+. Select *Document API*.
+. Follow the steps in the prerequisites to get your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] and set up your environment variables.
+. In your command-line interface associated with your environment, paste the following environment variables copied for your Astra database:
+
+[source, shell]
+----
+export ASTRA_DB_ID=<database_id>
+export ASTRA_DB_REGION=<database_region>
+export ASTRA_DB_KEYSPACE=<keyspace_name>
+export ASTRA_DB_APPLICATION_TOKEN=<app_token>
+----
+endif::[]
+
+To view the API Reference, see link:_attachments/docv2.html[{database} Document API].
+
+// include::develop:page$dev-postman.adoc[Using Postman as a tooling resource]
+
+// STARGATE ONLY
+ifdef::stargate[]
+include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace]
+endif::[]
+
+include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace]
+
+// STARGATE ONLY
+ifdef::stargate[]
+include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace]
+endif::[]
+
+include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents]
+
+include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents]
+
+include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents]
+
+include::develop:page$api-doc/doc-deleting-documents.adoc[Deleting documents and collections]
+
+include::develop:page$api-doc/doc-nodejs-client.adoc[Node.js Collection Client]
