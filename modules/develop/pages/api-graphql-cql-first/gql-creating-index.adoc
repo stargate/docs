@@ -14,7 +14,7 @@ Currently, those indexes can be created with
 https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL]
 or GraphQL.
 
-Use the xref:auth.adoc[application token] you generated
+Use the xref:secure:auth.adoc[application token] you generated
 to create schema in your keyspace using the GraphQL playground.
 
 You can create an index using a mutation in `/graphql-schema`.

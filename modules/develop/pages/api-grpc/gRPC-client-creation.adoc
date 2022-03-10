@@ -7,7 +7,7 @@ a language not yet supported.
 
 == Client creation
 
-This quote from link:https://grpc.io/docs/what-is-grpc/introduction/[gRPC.io]
+This quote from https://grpc.io/docs/what-is-grpc/introduction/[gRPC.io]
 provides context to why you might wish to create a gRPC client:
 
 ====
@@ -30,10 +30,10 @@ The `batch` service executes a batch of CQL queries.
 
 === Proto files
 
-The link:https://github.com/stargate/stargate/blob/master/grpc-proto/proto/stargate.proto[`stargate.proto`]
+The https://github.com/stargate/stargate/blob/master/grpc-proto/proto/stargate.proto[`stargate.proto`]
 file provides these services that interact with a Stargate coordinator to execute
 CQL queries.
-The link:https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto[`query.proto`]
+The https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto[`query.proto`]
 file identifies the relevant messages required to interact with CQL.
 These include:
 
@@ -81,5 +81,5 @@ The generated files generated are:
 
 === Client code
 
-Examples of some xref:gRPC-using.adoc[gRPC clients] written for Stargate exist to provide samples of how
+Examples of some xref:develop:api-grpc/gRPC-using.adoc[gRPC clients] written for Stargate exist to provide samples of how
 a new client can be created.

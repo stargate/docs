@@ -1,0 +1,61 @@
+site:
+  title: Stargate documentation
+  url: /docs/stargate/
+  start_page: stargate::index.adoc
+
+content:
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
+  sources:
+    - url: .
+      branches: HEAD
+
+ui:
+  bundle:
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.4/ui-bundle.zip
+  supplemental_files: ./supplemental-ui
+  # override the default _ dir for assets, as Jekyll will delete them
+  output_dir: assets
+
+asciidoc:
+  attributes:
+    source-highlighter: highlightjs
+    page-pagination: ''
+    sectanchors: ''
+    sectlinks: ''
+    company: ''
+    product: 'Stargate'
+    stargate: Yes
+    database: Stargate
+    stargate-docker-tag: v1.0.41
+    stargate-docker-tag-3x: v1.0.41
+    stargate-docker-tag-40: v1.0.41
+    stargate-docker-tag-68: v1.0.40
+    cass-tag-3x: '3.11'
+    cass-alt-tag-3x: '3_11'
+    cass-tag-40: '4.0'
+    cass-alt-tag-40: '4_0'
+    dse-server-tag-68: '6.8.9'
+    dse-tag-68: '6.8'
+    dse-alt-tag-68: '68'
+    auth_token: '$AUTH_TOKEN'
+    base_url: 'https://localhost:8080'
+    base_auth_url: 'https://localhost:8081'
+    base_rest_url: 'https://localhost:8082'
+    base_doc_url: 'https://localhost:8082'
+    base_graphql_url: 'https://localhost:8080'
+    base_rest_schema: '/v2/schemas/keyspaces'
+    base_doc_schema: '/v2/schemas/namespaces'
+    base_rest_api: '/v2/keyspaces'
+    base_doc_api: '/v2/namespaces'
+    base_gql_schema: '/graphql-schema'
+    base_gql_api: '/graphql'
+    rkeyspace: 'users_keyspace'
+    rkeyspace-dcs: 'users_keyspace-dcs'
+    rtable: 'users'
+    rpartitionkey: 'firstname'
+    rclusteringkey: 'lastname'
+    namespace: 'myworld'
+    collection: 'fitness'
+    gkeyspace: 'library'
+  extensions:
+  - ./lib/tabs-block.js

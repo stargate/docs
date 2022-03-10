@@ -7,17 +7,17 @@ In this QuickStart, you'll be up and running on your local machine with the REST
 plugin that exposes CRUD access to data stored in Cassandra tables.
 
 // tag::prereqsList[]
-include::developers-guide:partial$prereqs.adoc[]
+include::develop:partial$prereqs.adoc[]
 // end::prereqsList[]
 
-include::developers-guide:partial$astra_tip.adoc[]
+include::develop:partial$astra_tip.adoc[]
 
 // tag::getDockerImage[]
-include::developers-guide:partial$docker_pull.adoc[tag=3x]
+include::install:partial$docker_pull.adoc[tag=3x]
 // end::getDockerImage[]
 
 // tag::startDocker[]
-include::developers-guide:partial$docker_run.adoc[tag=3x]
+include::install:partial$docker_run.adoc[tag=3x]
 // end::startDocker[]
 
 == Using the Auth API to generate an auth token
@@ -25,10 +25,10 @@ In order to use the Stargate Document API, an authorization token must be
 generated to access the interface.
 
 // generate the auth token
-include::developers-guide:partial$gen_auth_token.adoc[]
+include::secure:partial$gen_auth_token.adoc[]
 
 // using the auth token
-include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
+include::develop:page$dev-with-doc.adoc[tag=UseAuthToken]
 
 // tag::startUsingPostman[]
 == Using Postman
@@ -36,7 +36,7 @@ include::developers-guide:page$document-using.adoc[tag=UseAuthToken]
 If you prefer, you can use Postman as a client interface for exploring REST APIs
 (https://www.postman.com/downloads/[download here]).
 We've provided a
-https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate_REST_v2_API_users_keyspace.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
+https://github.com/stargate/docs/blob/master/modules/develop/examples/json/Stargate_REST_v2_API_users_keyspace.postman_collection.json[Stargate REST API Postman Collection] that you can import in Postman to play with the examples shown in this walkthrough.
 
 Now you're ready to use the REST API for CRUD operations.
 // tag::endUsingPostman[]
@@ -50,33 +50,33 @@ Tables consist of columns that have a defined data type. Multiple tables are con
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
 // create keyspace
-include::developers-guide:page$rest-using.adoc[tag=CreateKS]
+include::develop:page$dev-with-rest.adoc[tag=CreateKS]
 
 // check keyspaces exist
-include::developers-guide:page$rest-using.adoc[tag=CheckKS]
+include::develop:page$dev-with-rest.adoc[tag=CheckKS]
 
 // create table
-include::developers-guide:page$rest-using.adoc[tag=CreateTable]
+include::develop:page$dev-with-rest.adoc[tag=CreateTable]
 
 // check tables and columns exist
-include::developers-guide:page$rest-using.adoc[tag=CheckTables]
+include::develop:page$dev-with-rest.adoc[tag=CheckTables]
 
 == Interacting with data stored in tables
 
 // write table data
-include::developers-guide:page$rest-using.adoc[tag=WriteData]
+include::develop:page$dev-with-rest.adoc[tag=WriteData]
 
 // read table data
-include::developers-guide:page$rest-using.adoc[tag=ReadData]
+include::develop:page$dev-with-rest.adoc[tag=ReadData]
 
 // update table data
-include::developers-guide:page$rest-using.adoc[tag=UpdateData]
+include::develop:page$dev-with-rest.adoc[tag=UpdateData]
 
 // delete table data
-include::developers-guide:page$rest-using.adoc[tag=DeleteData]
+include::develop:page$dev-with-rest.adoc[tag=DeleteData]
 
 
 Voila! For more information on the REST API, see the see the
-xref:developers-guide:rest-using.adoc[Using the REST API]
-or the link:https://stargate.io/docs/stargate/1.0/attachments/restv2.html[REST API] in the
+xref:develop:dev-with-rest.adoc[Using the REST API]
+or the https://stargate.io/docs/stargate/1.0/attachments/restv2.html[REST API] in the
 API references section.

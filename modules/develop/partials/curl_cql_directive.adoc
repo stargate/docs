@@ -5,6 +5,6 @@ run the following cURL command:
 
 [source,shell, subs="attributes+"]
 ----
-include::example$graphql/1curl_cql_directive.graphql[]
+include::example$graphql/schema-first/1curl_cql_directive.graphql[]
 ----
 ****

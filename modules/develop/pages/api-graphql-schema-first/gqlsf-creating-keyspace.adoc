@@ -16,7 +16,7 @@ and create a keyspace by executing the following mutation:
 
 [source, plaintext]
 ----
-include::example$graphql/schema-first/createKeyspace.graphql[]
+include::example$graphql/cql-first/createKeyspace.graphql[]
 ----
 For each keyspace created in your Cassandra schema, a new path is created under
 the `graphql-path` root (default is: `/graphql`). For example, the mutation just

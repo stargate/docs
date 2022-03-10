@@ -6,6 +6,6 @@ the keyspace schema.
 
 [source, plaintext]
 ----
-include::example$graphql/schema-first/dropKeyspace.graphql[]
+include::example$graphql/cql-first/dropKeyspace.graphql[]
 ----
 // end::DeleteKS[]
