@@ -17,15 +17,15 @@
     "url": "git+https://github.com/stargate/docs.git"
   },
   "dependencies": {
-    "@antora/cli": "^2.3.4",
-    "@antora/site-generator-default": "^2.3.4",
-    "@openapitools/openapi-generator-cli": "^2.1.23",
-    "mobx": "^6.1.0",
+    "@antora/cli": "^3.0.0",
+    "@antora/site-generator-default": "^3.0.0",
+    "@openapitools/openapi-generator-cli": "^2.4.23",
+    "mobx": "^6.3.12",
     "openapi-generator": "^0.1.39",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "redoc": "^2.0.0-rc.48",
-    "redoc-cli": "^0.10.4",
+    "redoc": "^2.0.0-rc.59",
+    "redoc-cli": "^0.13.2",
     "styled-components": "^5.1.1"
   }
 }
