@@ -32,14 +32,14 @@ If you prefer to learn using a QuickStart, try out the xref:quickstart:quick_sta
 To view the API Reference, see xref:ROOT:attachment$docv2.html[{database} Document API, window="_blank"].
 
 // STARGATE ONLY
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace]
 endif::[]
 
 include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace]
 
 // STARGATE ONLY
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace]
 endif::[]
 

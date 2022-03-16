@@ -55,13 +55,13 @@ include::develop:page$using-graphql-playground.adoc[]
 
 include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
 
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 include::develop:page$api-graphql-schema-first/gqlsf-creating-keyspace.adoc[Creating keyspace schema]
 endif::[]
 
 //include::develop:page$api-graphql-schema-first/gql-checking-keyspace.adoc[Checking keyspace schema]
 
-ifdef::stargate[]
+ifeval::["{product}" == "Stargate"]
 include::develop:page$api-graphql-schema-first/gqlsf-deleting-keyspace.adoc[Dropping keyspace schema]
 endif::[]
 
