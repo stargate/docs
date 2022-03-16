@@ -1,17 +1,1 @@
-* xref:install:install_overview.adoc[Installing Stargate]
-** xref:install:install_astra.adoc[Astra]
-** xref:install:install_cass_3x.adoc[Cassandra 3.x]
-** xref:install:install_cass_40.adoc[Cassandra 4.0]
-** xref:install:install_dse_68.adoc[DSE 6.8]
-** xref:install:starctl.adoc[The starctl command]
-** xref:install:building.adoc[Building Stargate from source]
-
-* Develop
-** xref:dev-with-rest.adoc[Develop with REST]
-** xref:dev-with-doc.adoc[Develop with Document]
-** xref:dev-with-graphql-cql-first.adoc[Develop with GraphQL (CQL-first)]
-** xref:dev-with-graphql-schema-first.adoc[Develop with GraphQL (Schema-first)]
-** xref:dev-with-grpc.adoc[Develop with gRPC]
-* xref:api.adoc[API references]
 * xref:FAQ.adoc[FAQ]
-* xref:tooling.adoc[Tooling Resources]
