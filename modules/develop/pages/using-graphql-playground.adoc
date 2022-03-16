@@ -5,12 +5,12 @@ ifeval::["{product}" == "Astra DB for DSE"]
 In {database}, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 The GraphQL playground launches the url:
-`https://{base_graphql_url}/api/playground`
+`{base_graphql_url}/api/playground`
 in your browser.
 endif::[]
 ifeval::["{product}" == "Stargate"]
 In {database}, go to your browser and launch the url:
-`https://{base_graphql_url}/playground`
+`{base_graphql_url}/playground`
 endif::[]
 
 Add your xref:manage:org/managing-org.adoc#managing-application-tokens[application token] to the HTTP HEADERS
@@ -30,5 +30,4 @@ For example, {database} has queries to create, modify, or drop tables,
 such as `createTable`, or `dropTable`.
 * `{base_gql_api}/<keyspace>`
 ** An API for querying and modifying your tables using GraphQL fields.
-
 Generally, you will start the playground with `{base_gql_schema}` to create some schema.
