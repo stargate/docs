@@ -1,4 +1,4 @@
-* Develop
+* xref:developing.adoc[Developing with Stargate APIs]
 ** xref:dev-with-rest.adoc[Develop with REST]
 ** xref:dev-with-doc.adoc[Develop with Document]
 ** xref:graphql.adoc[Develop with GraphQL]
