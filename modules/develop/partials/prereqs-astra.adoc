@@ -1,0 +1,20 @@
+// ASTRA
+ifeval::["{product}" == "Astra DB"]
+[NOTE]
+====
+If you haven't already, create a database using https://astra.datastax.com/[{astra_db}].
+====
+
+include::develop:partial$prereqs-curl.adoc[]
+include::develop:partial$prereqs-postman-gql-playground.adoc[]
+
+Before you get started, set your environment variables to save time developing on your database. There are four environment variables, three of which you will get from the Astra dashboard (database id, region, and keyspace), and one that you must create (token).
+
+. In https://astra.datastax.com[{astra_db}, window="_blank"], select the database to which you want to connect.
+. In your *Database Dashboard*, select *Connect*.
+. Select your API.
++
+include::partial$note_multi-region_connect.adoc[]
+
+. Follow the steps to get your xref:manage:org/managing-org.adoc#managing-application-tokens.adoc[application token, window="_blank"] and set up your environment variables. Or if you have an older Astra Classic database, follow the steps in xref:manage:org/managing-org.adoc#managing-classic-database-authentication[Authentication for classic databases, window="_blank"].
+endif::[]

@@ -13,4 +13,4 @@ include::page$api-grpc/go/go-full.adoc[]
 include::page$api-grpc/go/go-developing.adoc[]
 
 The Stargate gRPC Go Client repository is located at
-link:https://github.com/stargate/stargate-grpc-go-client[https://github.com/stargate/stargate-grpc-go-client]. 
+https://github.com/stargate/stargate-grpc-go-client[https://github.com/stargate/stargate-grpc-go-client]. 

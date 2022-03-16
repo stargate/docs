@@ -22,6 +22,8 @@ asciidoc:
     page-pagination: ''
     sectanchors: ''
     sectlinks: ''
+    idprefix: ''
+    idseparator: '-'
     company: ''
     product: 'Stargate'
     stargate: Yes

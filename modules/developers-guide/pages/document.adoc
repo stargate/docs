@@ -1,8 +1,0 @@
-= Document API
-
-The Stargate Document API is implemented to use schemaless document REST queries
- with any Cassandra deployment.
-
-* xref:quickstart:quick_start-document.adoc[Document API QuickStart]
-* xref:document-using.adoc[Using the Document API]
-* link:https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API reference]

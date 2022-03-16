@@ -1,6 +1,6 @@
 == gRPC Java client setup
 
-include::partial$grpc-prereqs.adoc[]
+//include::partial$grpc-prereqs.adoc[]
 
 === Install software
 

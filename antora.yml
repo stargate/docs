@@ -45,5 +45,12 @@ asciidoc:
 nav:
 - modules/quickstart/nav.adoc
 - modules/concepts/nav.adoc
-- modules/developers-guide/nav.adoc
+- modules/install/nav.adoc
+- modules/plan/nav.adoc
+- modules/connect/nav.adoc
+- modules/develop/nav.adoc
+- modules/manage/nav.adoc
+- modules/secure/nav.adoc
+- modules/migrate/nav.adoc
+#- modules/developers-guide/nav.adoc
 - modules/ROOT/nav.adoc

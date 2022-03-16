@@ -1,6 +1,6 @@
 == Go set-up
 
-include::partial$grpc-prereqs.adoc[]
+//include::partial$grpc-prereqs.adoc[]
 
 === Add dependencies
 

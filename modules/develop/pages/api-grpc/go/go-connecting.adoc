@@ -5,7 +5,7 @@
 This example assumes that you're running Stargate locally with the default credentials
 of `cassandra/cassandra`.
 For more information regarding authentication please see the
-xref:manage:authnz.adoc[Stargate authentication and authorization docs].
+xref:secure:authnz.adoc[Stargate authentication and authorization docs].
 
 The following code snippet can be used to generate the table-based auth token
 in the client code:

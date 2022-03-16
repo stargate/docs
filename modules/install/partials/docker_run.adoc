@@ -1,7 +1,7 @@
 === Start the Stargate container
 
 // tag::3x[]
-Start the Stargate container in developer mode.
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate Cassandra instance and is
 meant for development and testing only.
 
@@ -21,7 +21,7 @@ docker run --name stargate \
 // end::3x[]
 
 // tag::40[]
-Start the Stargate container in developer mode.
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate Cassandra instance and is
 meant for development and testing only.
 
@@ -41,7 +41,7 @@ docker run --name stargate \
 // end::40[]
 
 // tag::dse_68[]
-Start the Stargate container in developer mode.
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate DSE instance and is
 meant for development and testing only.
 
@@ -61,7 +61,7 @@ docker run --name stargate \
 // end::dse_68[]
 
 // tag::3x_graphql-first[]
-Start the Stargate container in developer mode.
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate Cassandra instance and is
 meant for development and testing only.
 
@@ -83,7 +83,7 @@ docker run --name stargate \
 
 // tag::grpc[]
 If you don't already have access to a Stargate deployment, one can be started
-quickly for testing in developer mode.
+quickly for testing in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate Cassandra instance and is
 meant for development and testing only.
 This `docker run` command also exposes port 8090 for gRPC connections.

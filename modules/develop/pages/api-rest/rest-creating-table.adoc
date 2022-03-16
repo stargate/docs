@@ -6,14 +6,6 @@ Use the application token you generated to create a table in your keyspace.
 A keyspace is like a bucket that holds your tables.
 You can create different keyspaces for groups of tables.
 
-=== Prerequisites
-
-ifeval::["{product}" == "Stargate"]
-Generate a token -- LLP: FIX THIS!
-endif::[]
-ifeval::["{product}" == "Astra DB"]
-. xref:manage:org/managing-org.adoc#manage-application-tokens[Manage application token].
-endif::[]
 . After generating an authorization token, run the following request to get all available keyspaces
 and verify that the keyspace you wish to use is listed in the results:
 

@@ -81,5 +81,5 @@ The generated files generated are:
 
 === Client code
 
-Examples of some xref:develop:api-grpc/gRPC-using.adoc[gRPC clients] written for Stargate exist to provide samples of how
+Examples of some xref:develop:dev-with-grpc.adoc[gRPC clients] written for Stargate exist to provide samples of how
 a new client can be created.

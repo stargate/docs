@@ -1,4 +1,4 @@
-= Stargate GraphQL API QuickStart
+= Stargate GraphQL CQL-first API QuickStart
 
 *Time to complete: 5 minutes*
 
@@ -8,35 +8,19 @@ GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
 
 include::develop:partial$GQLAPIBlogPost.adoc[]
 
-// tag::prereqsList[]
-include::developers-guide:partial$prereqs.adoc[]
-// end::prereqsList[]
+== Prerequisites
 
-include::developers-guide:partial$astra_tip.adoc[]
-
-// tag::getDockerImage[]
-include::developers-guide:partial$docker_pull.adoc[tag=3x]
-// end::getDockerImage[]
-
-// tag::startDocker[]
-include::developers-guide:partial$docker_run.adoc[tag=3x]
-// end::startDocker[]
-
-== Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
-generated to access the interface. A REST API token is used for this purpose.
-
-// generate the auth token
-include::developers-guide:partial$gen_auth_token.adoc[]
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
 
 You will need to add this token to the GraphQL Playground in order to authorize
 your GraphQL requests. Copy the value after `"authToken"` to use later.
 
 // using GraphQL Playground
-include::developers-guide:page$graphql.adoc[tag=UsingGraphQLPlayground]
+include::develop:page$using-graphql-playground.adoc[]
 
 // using Postman
-include::developers-guide:page$graphql.adoc[tag=UsingPostman]
+include::develop:page$tooling.adoc[tag=UsingPostman]
 
 == Creating schema
 
@@ -47,32 +31,32 @@ Tables consist of columns that have a defined data type. Multiple tables are con
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
 // create namespace
-include::developers-guide:page$graphql-using.adoc[tag=CreateKS]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=CreateKS]
 
 // create collection
-include::developers-guide:page$graphql-using.adoc[tag=CreateTable]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=CreateTable]
 
 // check NS and collections exist
-include::developers-guide:page$graphql-using.adoc[tag=CheckKS]
-include::developers-guide:page$graphql-using.adoc[tag=CheckTables]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=CheckKS]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=CheckTables]
 
 == Interacting with tables
 
 // API generation
-include::developers-guide:page$graphql-using.adoc[tag=APIGeneration]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=APIGeneration]
 
 // write document data
-include::developers-guide:page$graphql-using.adoc[tag=WriteData]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=WriteData]
 
 // read document data
-include::developers-guide:page$graphql-using.adoc[tag=ReadData]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=ReadData]
 
 // update document data
-include::developers-guide:page$graphql-using.adoc[tag=UpdateData]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=UpdateData]
 
 // delete document data
-include::developers-guide:page$graphql-using.adoc[tag=DeleteData]
+include::develop:page$dev-with-graphql-cql-first.adoc[tag=DeleteData]
 
 For more information on the GraphQL API,
-see xref:developers-guide:graphql-using.adoc[Using the GraphQL API] in the
+see xref:develop:dev-with-graphql-cql-first.adoc[Using the GraphQL API] in the
 Developing with Stargate section.

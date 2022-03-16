@@ -1,6 +1,6 @@
 = DataStax Enterprise (DSE) 6.8
 
-include::developers-guide:partial$astra_tip.adoc[]
+include::develop:partial$astra_tip.adoc[]
 
 There are several ways that Stargate can be used with DataStax Enterprise.
 

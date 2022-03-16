@@ -9,50 +9,15 @@ include::develop:partial$graphql-schema-first-desc.adoc[]
 
 include::develop:partial$GQLAPIBlogPost.adoc[]
 
-// tag::prereqsList[]
-include::develop:partial$gql-prereqs.adoc[]
-// end::prereqsList[]
+== Prerequisites
 
-// not in astra yet
-//include::develop:partial$astra_tip.adoc[]
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
 
-// tag::getDockerImage[]
-include::develop:partial$docker_pull.adoc[tag=3x]
-// end::getDockerImage[]
+== API reference
 
-// tag::startDocker[]
-include::develop:partial$docker_run.adoc[tag=3x_graphql-first]
-// end::startDocker[]
-
-// LLP: Consider making the oss and astra prereqs into develop:partial for all dev-with-*** files
-// == Prerequisite
-// * `cURL` to run REST queries
-
-// // ASTRA
-// ifdef::astra[]
-// * If you haven't already, create a database using https://astra.datastax.com/[{database}].
-// endif::[]
-
-// ifdef:astra[]
-// * Before you get started, set your environment variables to save time developing on your database.
-
-// . In link:https://astra.datastax.com[{astra_db}, window="_blank"], select the database to which you want to connect.
-// . In your *Database Dashboard*, select *Connect*.
-// . Select *REST API*.
-// +
-// include::partial$note_multi-region_connect.adoc[]
-
-// . Follow the steps in the prerequisites to get your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] and set up your environment variables.
-// . In your command-line interface associated with your environment, paste the following environment variables copied for your {astra_db} database:
-
-// [source, shell]
-// ----
-// export ASTRA_DB_ID=<database_id>
-// export ASTRA_DB_REGION=<database_region>
-// export ASTRA_DB_KEYSPACE=<keyspace_name>
-// export ASTRA_DB_APPLICATION_TOKEN=<app_token>
-// ----
-// endif::[]
+// LLP: 03.16.22 Need to create a schema-first Quickstart
+//If you prefer to learn using a QuickStart, try out the xref:quickstart:quick_start-graphql.adoc[Stargate GraphQL CQL-first QuickStart, window="_blank"].
 
 == About the GraphQL API endpoints
 
@@ -60,34 +25,19 @@ There are three {database} GraphQL API endpoints, one for creating schema in sch
 The URLS are:
 
 Schema::
-ifdef::astra[]
-`{base_graphql_url}/api/graphql-schema`
-endif::[]
-ifdef::stargate[]
-`{base_graphql_url}/graphql-schema`
-endif::[]
+`{base_graphql_url}{base_gql_schema}`
 
 Admin::
-ifdef::astra[]
-`{base_graphql_url}/api/graphql-admin`
-endif::[]
-ifdef::stargate[]
-`{base_graphql_url}/graphql-admin`
-endif::[]
+`{base_graphql_url}{base_gql_admin}`
 
 Querying::
-ifdef::astra[]
-`{base_graphql_url}/api/graphql/{keyspace_name}`
-endif::[]
-ifdef::stargate[]
-`{base_graphql_url}/graphql/{keyspace_name}`
-endif::[]
+`{base_graphql_url}{base_gql_api}/{keyspace_name}`
 
 The schema endpoint is used to create or alter CQL schema in the schema-first GraphQL using direct schema manipulation. 
 The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL which will indirectly modify underlying CQL schema. 
 The querying endpoint is constructed in the same manner for both graphql-first and schema-first.
 
-Each request must have a valid xref:manage:org/managing-org.adoc#_manage_application_tokens[application token].
+Each request must have a valid xref:manage:org/managing-org.adoc#managing-application-tokens[application token].
 Each request can also have an optional unique request id.
 The request id is recommended in a production environment and can be useful in troubleshooting issues.
 
@@ -101,14 +51,9 @@ the queries manually using a tool like cURL.
 
 include::develop:partial$GQLNaming.adoc[]
 
-include::page$using-graphql-playground.adoc[]
+include::develop:page$using-graphql-playground.adoc[]
 
-include::page$tooling.adoc[Using Postman as a tool, tag=using-postman]
-
-// LLP 12.21.21 NEED TO SORT OUT AUTH/APP TOKEN FOR STARGATE AND ASTRA
-// SUSPECT THAT manage will be sg in sg docs, and astra in astra-docs
-
-include::page$manage/manage-application-tokens.adoc[Get an application token]
+include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
 
 ifdef::stargate[]
 include::develop:page$api-graphql-schema-first/gqlsf-creating-keyspace.adoc[Creating keyspace schema]
@@ -155,4 +100,3 @@ include::develop:page$api-graphql-schema-first/gqlsf-updating-data.adoc[Updating
 include::develop:page$api-graphql-schema-first/gqlsf-deleting-data.adoc[Deleting data]
 
 include::develop:page$api-graphql-schema-first/gqlsf-directives.adoc[Directives]
-

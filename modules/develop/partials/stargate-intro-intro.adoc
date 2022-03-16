@@ -1,0 +1,8 @@
+// ASTRA
+ifeval::["{product}"" == "Astra DB"]
+{company} {database} includes the Stargate APIs, which is a data gateway deployed between client applications and a database. 
+endif::[]
+// STARGATE
+ifeval::["{product}" == "Stargate"]
+{company} {database} is a data gateway deployed between client applications and a database.
+endif::[]

@@ -1,8 +1,8 @@
 [#standalone_docker_dse_68]
 == Stargate Standalone with Docker
 
-include::developers-guide:partial$docker_pull.adoc[tag=dse_68]
+include::install:partial$docker_pull.adoc[tag=dse_68]
 
-include::developers-guide:partial$docker_run.adoc[tag=dse_68]
+include::install:partial$docker_run.adoc[tag=dse_68]
 
-include::developers-guide:partial$ports.adoc[]
+include::install:partial$ports.adoc[]

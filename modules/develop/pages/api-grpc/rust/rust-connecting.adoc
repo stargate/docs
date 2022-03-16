@@ -5,7 +5,7 @@
 This example assumes that you're running Stargate locally with the default credentials
 of `cassandra/cassandra`.
 For more information regarding authentication please see the
-xref:manage:authnz.adoc[Stargate authentication and authorization docs].
+xref:secure:authnz.adoc[Stargate authentication and authorization docs].
 
 You'll need to generate a token to insert into the client connection code:
 

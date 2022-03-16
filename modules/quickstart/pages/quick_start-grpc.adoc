@@ -11,35 +11,10 @@ gRPC API plugin that exposes ???
 
 include::develop:partial$GQLAPIBlogPost.adoc[]
 
-// tag::prereqsList[]
-include::develop:partial$prereqs.adoc[]
-// end::prereqsList[]
+== Prerequisites
 
-include::develop:partial$astra_tip.adoc[]
-
-// tag::getDockerImage[]
-include::install:partial$docker_pull.adoc[tag=3x]
-// end::getDockerImage[]
-
-// tag::startDocker[]
-include::install:partial$docker_run.adoc[tag=3x]
-// end::startDocker[]
-
-== Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
-generated to access the interface. A REST API token is used for this purpose.
-
-// generate the auth token
-include::secure:partial$gen_auth_token.adoc[]
-
-You will need to add this token to the GraphQL Playground in order to authorize
-your GraphQL requests. Copy the value after `"authToken"` to use later.
-
-// using GraphQL Playground
-include::develop:page$using-graphql-playground.adoc[]
-
-// using Postman
-include::develop:page$tooling.adoc[tag=UsingPostman]
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
 
 == Creating schema
 

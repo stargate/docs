@@ -1,6 +1,6 @@
 == Rust set-up
 
-include::partial$grpc-prereqs.adoc[]
+//include::partial$grpc-prereqs.adoc[]
 
 === Set up a Rust project
 

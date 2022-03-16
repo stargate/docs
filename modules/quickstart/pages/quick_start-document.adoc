@@ -5,38 +5,12 @@
 
 Stargate is a data gateway deployed between client applications and a database.
 In this QuickStart, you'll be up and running on your local machine with the
-// LLP: Is it really CRUD access? need to think about this one
 Document API plugin that exposes CRUD access to data stored in Cassandra tables.
 
-// tag::prereqsList[]
-include::developers-guide:partial$prereqs.adoc[]
-// end::prereqsList[]
+== Prerequisites
 
-include::developers-guide:partial$astra_tip.adoc[]
-
-// tag::getDockerImage[]
-include::developers-guide:partial$docker_pull.adoc[tag=3x]
-// end::getDockerImage[]
-
-// tag::startDocker[]
-include::developers-guide:partial$docker_run.adoc[tag=3x]
-// end::startDocker[]
-
-// using the Document API Swagger UI
-include::developers-guide:page$document-using.adoc[tag=swaggerUI]
-
-== Using the Auth API to generate an auth token
-In order to use the Stargate Document API, an authorization token must be
-generated to access the interface.
-
-// generate the auth token
-include::developers-guide:partial$gen_auth_token.adoc[]
-
-// tag::UseAuthToken[]
-include::developers-guide:partial$use_auth_token_rest_document.adoc[]
-
-// using Postman
-include::developers-guide:page$document-using.adoc[tag=UsingPostman]
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
 
 == Creating schema
 
@@ -48,35 +22,35 @@ hold multiple documents. Multiple collections are contained
 in a namespace, but a collection cannot be contained in multiple namespaces.
 
 // create namespace
-include::developers-guide:page$document-using.adoc[tag=CreateNS]
+include::develop:page$dev-with-doc.adoc[tag=CreateNS]
 
 // Doesn't exist yet
 // create collection
-//include::developers-guide:page$document-using.adoc[tag=CreateColl]
+//include::develop:page$dev-with-doc.adoc[tag=CreateColl]
 
 // check NS exist
-include::developers-guide:page$document-using.adoc[tag=CheckNS]
+include::develop:page$dev-with-doc.adoc[tag=CheckNS]
 
 // delete NS
-include::developers-guide:page$document-using.adoc[tag=DeleteNS]
+include::develop:page$dev-with-doc.adoc[tag=DeleteNS]
 
 == Interacting with data stored in collections
 
 // write document data
-include::developers-guide:page$document-using.adoc[tag=WriteBasicData]
+include::develop:page$dev-with-doc.adoc[tag=WriteBasicData]
 
-include::developers-guide:partial$DocAPIBlogPost.adoc[]
+include::develop:partial$DocAPIBlogPost.adoc[]
 
 // read document data
-include::developers-guide:page$document-using.adoc[tag=ReadBasicData]
+include::develop:page$dev-with-doc.adoc[tag=ReadBasicData]
 
 // update document data
-include::developers-guide:page$document-using.adoc[tag=UpdateBasicData]
+include::develop:page$dev-with-doc.adoc[tag=UpdateBasicData]
 
 // delete document data
-include::developers-guide:page$document-using.adoc[tag=DeleteBasicData]
+include::develop:page$dev-with-doc.adoc[tag=DeleteBasicData]
 
 Voila! For more information on the Document API, see the
-xref:developers-guide:document-using.adoc[Using the Document API]
-or the link:https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API] in the
+xref:develop:dev-with-doc.adoc[Using the Document API]
+or the https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API] in the
 API references section.

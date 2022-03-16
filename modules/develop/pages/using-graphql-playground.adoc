@@ -13,7 +13,7 @@ In {database}, go to your browser and launch the url:
 `https://{base_graphql_url}/playground`
 endif::[]
 
-Add your xref:manage:org/managing-org.adoc#_manage_application_tokens[application token] to the HTTP HEADERS
+Add your xref:manage:org/managing-org.adoc#managing-application-tokens[application token] to the HTTP HEADERS
 section at the lower lefthand corner of the GraphQL Playground window:
 
 {"x-cassandra-token":"$AUTH_TOKEN"}

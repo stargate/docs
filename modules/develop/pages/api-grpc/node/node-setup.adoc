@@ -1,6 +1,6 @@
 == Node.js setup
 
-include::partial$grpc-prereqs.adoc[]
+//include::partial$grpc-prereqs.adoc[]
 
 === Install the package
 
