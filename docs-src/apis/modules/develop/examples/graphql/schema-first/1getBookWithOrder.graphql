@@ -1,0 +1,9 @@
+query getBook {
+  bookByTitle(title: "Moby Dick") {
+    title
+    isbn
+    orders {
+      checkout_id
+    }
+  }
+}

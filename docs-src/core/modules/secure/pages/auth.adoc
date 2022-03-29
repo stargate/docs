@@ -1,0 +1,8 @@
+= Auth API
+
+The Stargate Auth API is implemented using REST queries with any Cassandra
+deployment to generate authorization tokens for the REST, GraphQL, and
+Document APIs.
+
+// generate the auth token
+include::partial$gen_auth_token.adoc[]

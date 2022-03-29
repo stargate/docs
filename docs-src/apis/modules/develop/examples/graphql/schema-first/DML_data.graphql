@@ -1,0 +1,312 @@
+# insert 2 books in one mutation
+# *** USED IN QUICKSTART ***
+mutation insert2Books {
+  moby: insertbook(value: {title:"Moby Dick", author:"Herman Melville"}) {
+    value {
+      title
+    }
+  }
+  catch22: insertbook(value: {title:"Catch-22", author:"Joseph Heller"}) {
+    value {
+      title
+    }
+  }
+}
+
+# insert a book and set the option for consistency level and TTL
+# *** ADVANCED ***
+mutation insertBookWithOption {
+  nativeson: insertbook(value: {title:"Native Son", author:"Richard Wright"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {
+    value {
+      title
+    }
+  }
+}
+
+# insert an article USING A LIST (authors)
+# *** ADVANCED ***
+mutation insertArticle {
+  magarticle: insertarticle(value: {title:"How to use GraphQL", authors: ["First author", "Second author"], mtitle:"Database Magazine"}) {
+    value {
+      title
+      mtitle
+      authors
+    }
+  }
+}
+
+# insert a badge record USING A MAP (earned)
+# *** ADVANCED ***
+mutation insertOneBadge {
+  gold: insertbadge(
+    value: {
+      badge_type: "Gold"
+      badge_id: 100
+      earned: [{ key: "Writer", value: "2020-11-20" }]
+    }
+  ) {
+    value {
+      badge_type
+      badge_id
+      earned {
+        key
+        value
+      }
+    }
+  }
+}
+
+# insert a reader record that uses a UDT
+# *** ADVANCED ***
+mutation insertReaderWithUDT{
+  ag: insertreader(
+    value: {
+      user_id: "e0ed81c3-0826-473e-be05-7de4b4592f64"
+      name: "Allen Ginsberg"
+      birthdate: "1926-06-03"
+      addresses: [{ street: "Haight St", city: "San Francisco", zip: "94016" }]
+    }
+  ) {
+    value {
+      user_id
+      name
+      birthdate
+      addresses {
+        street
+        city
+        zip
+      }
+    }
+  }
+ }
+
+# insert a reader record that uses a TUPLE
+# *** ADVANCED ***
+mutation insertJaneWithTuple{
+   jane: insertreader(
+     value: {
+       user_id: "b5b5666b-2a37-4d0b-a5eb-053e54fc242b"
+       name: "Jane Doe"
+       birthdate: "2000-01-01"
+       email: ["janedoe@gmail.com", "janedoe@yahoo.com"]
+       reviews: { item0: "Moby Dick", item1: 5, item2: "2020-12-01" }
+     }
+   ) {
+     value {
+       user_id
+       name
+       birthdate
+       reviews {
+        item0
+        item1
+        item2
+      }
+     }
+   }
+}
+
+# update one book, adding an ISBN value
+# *** USED IN QUICKSTART ***
+mutation updateOneBook {
+  moby: updatebook(value: {title:"Moby Dick", author:"Herman Melville", isbn: "9780140861723"}, ifExists: true ) {
+    value {
+      title
+      author
+      isbn
+    }
+  }
+}
+
+# update one book, adding a SET (genre)
+# *** ADVANCED ***
+mutation updateOneBookAgain {
+ moby: updatebook(value: {title:"Moby Dick", author:"Herman Melville", genre: ["Drama", "Classic lit"]}, ifExists: true ) {
+   value {
+     title
+     author
+     genre
+   }
+ }
+}
+
+# get one book using the primary key title with a value
+# *** USED IN QUICKSTART ***
+query oneBook {
+    book (value: {title:"Moby Dick"}) {
+      values {
+      	title
+      	author
+      }
+    }
+}
+
+# get 3 books using the primary keys with an "in" filter clause of the primary key title
+# *** ADVANCED ***
+query readThreeBooks {
+  book(filter: { title: { in: ["Native Son", "Moby Dick", "Catch-22"] } } ) {
+      values {
+      	title
+ 	author
+     }
+   }
+}
+
+# query the author to see the UDT
+# *** ADVANCED ***
+query getReaderWithUDT{
+  reader(value: { name:"Allen Ginsberg" user_id: "e0ed81c3-0826-473e-be05-7de4b4592f64" }) {
+    values {
+      name
+      birthdate
+      addresses {
+        street
+        city
+        zip
+      }
+    }
+  }
+}
+
+# query a badge record that has a MAP (earned) with only the partition key
+# *** ADVANCED ***
+query oneGoldBadge {
+  badge(value: { badge_type: "Gold" } ) {
+      values {
+      	badge_type
+        badge_id
+        earned {
+        key
+        value
+      }
+     }
+  }
+}
+
+# // NEED EXAMPLES FOR USING THE FILTERS: EQ NEQ,GT, GTE,LT, LTE, IN, CONTAINS (FOR MAP?)
+
+# query a badge record that has a MAP (earned) with the partition key and the clustering key
+# *** ADVANCED ***
+query oneGold100Badge {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100}} ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}
+# query a badge record that has a MAP (earned) with the partition key and the clustering key
+# gt:100 will fail
+# *** ADVANCED ***
+query oneGold100BadgeGTFail {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {gt:100}} ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}
+
+# query a badge record that has a MAP (earned) with the partition key, clustering key, and a MAP key
+# CREATE INDEX badge_idx ON library.badge(KEYS(earned));
+# *** ADVANCED ***
+query oneWriterBadge {
+  badge(filter: { badge_type: {eq:"Gold"} badge_id: {eq:100} earned: { containsKey: "Writer"} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}
+
+# **** OR ****
+# query a badge record that has a MAP (earned) with only a MAP key
+# CREATE INDEX badge_idx ON library.badge(KEYS(earned));
+# *** ADVANCED ***
+query oneWriterKeyBadge {
+  badge(filter: { earned: { containsKey: "Writer"} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}
+
+# **** OR ****
+# query a badge record that has a MAP (earned) with only a MAP value
+# CREATE INDEX badge2_idx ON library.badge(VALUES(earned));
+# *** ADVANCED ***
+query oneWriterValueBadge {
+  badge(filter: { earned: { contains: "2020-11-20"} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}
+
+# **** OR ****
+# query a badge record that has a MAP (earned) with only a MAP entry
+# CREATE INDEX badge3_idx ON library.badge(ENTRIES(earned));
+# *** ADVANCED ***
+query oneWriterEntryBadge {
+  badge(filter: { earned: { containsEntry: {key:"Writer", value:"2020-11-20"}} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}
+
+# insert a book to use in demonstrating deletebooks
+# *** USED IN QUICKSTART ***
+mutation insertPap {
+  PaP: insertbook(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+    value {
+      title
+    }
+  }
+}
+
+# delete a book
+# *** USED IN QUICKSTART ***
+mutation deleteOneBook {
+  PaP: deletebook(value: {title:"Pride and Prejudice", author:"Jane Austen"}, ifExists: true ) {
+    value {
+      title
+    }
+  }
+}
+
+# delete a book with consistency set
+# *** ADVANCED ***
+mutation deleteOneBookCL {
+  PaP: deletebook(value: {title:"Pride and Prejudice", author:"Jane Austen"}, ifExists: true, options: {consistency: LOCAL_ONE }) {
+    value {
+      title
+    }
+  }
+}

@@ -1,0 +1,46 @@
+== Node.js querying
+
+A simple query can be performed by passing a CQL query to the client using the
+`executeQuery()` function for standard query execution:
+
+[source, javascript]
+----
+include::example$javascript/node-simple-query.js[]
+----
+
+Data definition (DDL) queries are supported in the same manner:
+
+[source, javascript]
+----
+include::example$javascript/node-ddl-query.js[]
+----
+
+Parameterized queries are also supported:
+
+[source, javascript]
+----
+include::example$javascript/node-parameterized.js[]
+----
+
+If you would like to use a
+link:https://cassandra.apache.org/doc/latest/cassandra/cql/dml.html#batch_statement[batch statement],
+the client also provides an `executeBatch()` function to execute a batch query:
+
+[source, javascript]
+----
+include::example$javascript/node-batch.js[]
+----
+
+=== Promise support
+
+The Node gRPC implementation uses callbacks by default.
+If you'd prefer promises, this library provides a utility function to create a
+promisified version of the Stargate gRPC client.
+The promise will reject if an error occurs:
+
+[source, javascript]
+----
+include::example$javascript/node-query-promisify.js[]
+----
+
+The `metadata` and `callOptions` arguments are both optional.

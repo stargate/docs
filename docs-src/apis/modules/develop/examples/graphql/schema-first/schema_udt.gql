@@ -1,0 +1,12 @@
+type Address @cql_entity(target: UDT) @cql_input {
+      street: String
+      city: String
+      state: String
+      zipCode: String @cql_column(name: "zip_code")
+}
+type Review @cql_entity(target: UDT) @cql_input {
+  bookTitle: String @cql_column(name: "book_title")
+  comment: String
+  rating: Int
+  reviewDate: Date @cql_column(name: "review_date")
+}

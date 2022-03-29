@@ -1,0 +1,19 @@
+type LibCollection @key @cql_entity(name: "lib_collection") @cql_input {
+  type: String! @cql_column(partitionKey: true)
+  lib_id: Int! @cql_column(partitionKey: true)
+  lib_name: String @cql_column(clusteringOrder: ASC)
+}
+
+# type Mutation {
+#   insertLibCollection(libColl: LibCollectionInput!): LibCollection
+#   updateLibCollection(libColl: LibCollectionInput!): Boolean @cql_update
+#   deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists: true)
+# }
+#
+# type Query {
+#   libcoll(type: String!, lib_id: Int!): [LibCollection]
+#   libCollIn(
+#     type: [String!] @cql_where(field: "type", predicate: IN)
+#     lib_id: [Int!] @cql_where(field: "lib_id", predicate: IN)
+#   ): [LibCollection]
+# }

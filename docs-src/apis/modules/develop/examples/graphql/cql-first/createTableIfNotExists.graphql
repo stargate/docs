@@ -1,0 +1,35 @@
+# create two tables, magazine and article, IF THEY DON'T EXIST
+# DATA TYPES: TEXT, INT, LIST(TEXT)
+
+mutation createTableIfNotExists {
+  magazine: createTable(
+    keyspaceName:"library",
+    tableName:"magazine",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "pub_yr", type: {basic: INT}, order: "ASC" }
+      { name: "pub_mon", type: {basic: INT} }
+      { name: "mag_id", type: {basic: INT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "editor", type: {basic: TEXT} }
+    ]
+  )
+  article: createTable(
+    keyspaceName:"library",
+    tableName:"article",
+    partitionKeys: [ # The keys required to access your data
+      { name: "title", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [ # Secondary key used to access values within the partition
+      { name: "mtitle", type: {basic: TEXT} }
+    ],
+    ifNotExists: true,
+    values: [ # The values associated with the keys
+      { name: "authors", type: {basic:LIST, info:{ subTypes: [ { basic: TEXT } ] } } }
+    ]
+  )
+}

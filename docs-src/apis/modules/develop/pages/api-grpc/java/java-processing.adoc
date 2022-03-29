@@ -1,0 +1,16 @@
+== Java gRPC processing result set
+
+After executing a query, a response returns rows that match the SELECT statement.
+If there are no rows, the returned payload is unset.
+The convenience function `getResultSet()` is provided to help transform this
+response into a result set that's easier to work with.
+
+[source, java]
+----
+include::example$java/java-grpc-processing.java[]
+----
+
+Since the result type is known, the `getString` function transforms the value into a native string.
+Additional functions also exist for other types such as `int`, `map`, and `blob`.
+The full list can be found in
+link:https://github.com/stargate/stargate/blob/master/grpc-proto/src/main/java/io/stargate/grpc/Values.java[Values.java].

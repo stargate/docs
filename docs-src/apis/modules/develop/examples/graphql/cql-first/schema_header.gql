@@ -1,0 +1,6 @@
+mutation {
+  deploySchema(
+    keyspace: "library"
+   # expectedVersion: "1da4f190-b7fd-11eb-8258-1ff1380eaff5"
+    schema: """
+      # Write your query or mutation here

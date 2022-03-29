@@ -1,0 +1,6 @@
+name: docs
+#title: Stargate
+version: master
+nav:
+- modules/ROOT/anav.adoc
+- modules/develop/nav.adoc

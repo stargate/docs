@@ -1,0 +1,13 @@
+# query a badge record that has a MAP (earned) with only the partition key
+query oneGoldBadge {
+  badge(value: { badge_type: "Gold" } ) {
+      values {
+      	badge_type
+        badge_id
+        earned {
+        key
+        value
+      }
+     }
+  }
+}

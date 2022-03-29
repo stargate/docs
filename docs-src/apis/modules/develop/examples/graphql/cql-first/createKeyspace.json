@@ -1,0 +1,7 @@
+{"query":
+  "mutation createKsLibrary { 
+    createKeyspace(
+      name: \"library\", 
+      replicas: 1)
+}",
+"variables":{}}

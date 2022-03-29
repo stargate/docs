@@ -1,0 +1,59 @@
+type Book @key @cql_entity(name: "book") @cql_input {
+  title: String! @cql_column(partitionKey: true)
+  isbn: String! @cql_column(clusteringOrder: ASC)
+  author: [String] @cql_column(typeHint: "list<varchar>") @cql_index(name: "author_idx", target: VALUES)
+  genre: [String] @cql_column(typeHint: "set<varchar>")
+  format: [String] @cql_column(typeHint: "set<varchar>")
+  languages: [String] @cql_column(typeHint: "set<varchar>")
+}
+type SelectBookResult @cql_payload {
+  data: [Book]
+  pagingState: String
+}
+
+# type Mutation {
+#   insertBook(book: BookInput!): Book
+#   updateBook(book: BookInput): Boolean @cql_update
+#   deleteBook(book: BookInput!): Boolean
+# }
+#
+# type Query {
+#   book(title:String!, isbn:String): [Book]
+#   books(
+#     title: String!,
+#     pagingState: String @cql_pagingState
+#   ): SelectBookResult @cql_select(pageSize: 10)
+#   booksByAuthor(
+#    author: String @cql_where(field: "author", predicate: CONTAINS)
+#   ): [Book]
+#   booksIn(
+#     title: [String!] @cql_where(field: "title", predicate: IN)
+#   ): [Book]
+#   bookGT(
+#     title: String!
+#     isbn: String @cql_where(field: "isbn", predicate: GT)
+#   ): [Book]
+#   bookLT(
+#     title: String!
+#     isbn: String @cql_where(field: "isbn", predicate: LT)
+#   ): [Book]
+# }
+ extend type Query {
+   bookReview(title: String!): Review
+ }
+
+ {
+  bookReview(bookTitle: "Moby Dick") {
+    book {
+      title
+      isbn
+      genre
+    }
+    reader {
+      reviews {
+        rating
+        comment
+      }
+    }
+  }
+}

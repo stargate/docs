@@ -1,0 +1,15 @@
+== Go set-up
+
+//include::partial$grpc-prereqs.adoc[]
+
+=== Add dependencies
+
+To begin, add the required dependency to your project:
+
+[source, shell]
+----
+include::example$bash/go-get-grpc-go-client.sh[]
+----
+
+The next sections explain the parts of a script to use the Stargate functionality.
+A xref:api-grpc/gRPC-go-client.adoc#_go_full_sample_script[full working script] is included below.

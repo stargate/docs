@@ -1,0 +1,24 @@
+# Works in localhost:8080/graphql-schema
+# for either CQL-first or schema-first
+query GetKeyspace {
+  keyspace(name: "library") {
+      name
+      dcs {
+          name
+          replicas
+      }
+      tables {
+          name
+          columns {
+              name
+              kind
+              type {
+                  basic
+                  info {
+                      name
+                  }
+              }
+          }
+      }
+  }
+}

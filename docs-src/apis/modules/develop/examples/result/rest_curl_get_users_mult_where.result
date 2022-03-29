@@ -1,0 +1,61 @@
+{
+  "count": 1,
+  "data": [
+    {
+      "firstname": "Janesha",
+      "evaluations": [
+        {
+          "key": 2019,
+          "value": "okay"
+        },
+        {
+          "key": 2020,
+          "value": "good"
+        }
+      ],
+      "top_three_tv_shows": [
+        "The Magicians",
+        "The Librarians",
+        "Agents of SHIELD"
+      ],
+      "favorite color": "grey",
+      "current_country": [
+        "France",
+        {
+          "year": 2016,
+          "month": "JANUARY",
+          "dayOfMonth": 1,
+          "dayOfWeek": "FRIDAY",
+          "era": "CE",
+          "dayOfYear": 1,
+          "leapYear": true,
+          "monthValue": 1,
+          "chronology": {
+            "calendarType": "iso8601",
+            "id": "ISO"
+          }
+        },
+        {
+          "year": 2020,
+          "month": "FEBRUARY",
+          "dayOfMonth": 2,
+          "dayOfWeek": "SUNDAY",
+          "era": "CE",
+          "dayOfYear": 33,
+          "leapYear": true,
+          "monthValue": 2,
+          "chronology": {
+            "calendarType": "iso8601",
+            "id": "ISO"
+          }
+        }
+      ],
+      "email": "janesha.doesha@gmail.com",
+      "lastname": "Doesha",
+      "favorite_books": [
+        "Emma",
+        "The Color Purple"
+      ]
+    }
+  ]
+}

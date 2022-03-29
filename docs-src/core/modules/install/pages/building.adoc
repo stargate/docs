@@ -1,0 +1,25 @@
+= Building Stargate from source
+
+In order to build Stargate, you'll need to have https://adoptopenjdk.net/[Java 8 (jdk8)] installed.
+
+
+In a terminal:
+
+. Clone the https://github.com/stargate/stargate repository:
++
+[source,bash]
+----
+git clone https://github.com/stargate/stargate
+----
+. Navigate to the `stargate` directory.
++
+[source,bash]
+----
+cd stargate
+----
+. Build Stargate using the `mvnw` command.
++
+[source,bash]
+----
+./mvnw clean package
+----

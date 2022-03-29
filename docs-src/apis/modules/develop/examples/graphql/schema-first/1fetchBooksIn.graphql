@@ -1,0 +1,7 @@
+query fetchBooksIn {
+  booksIn(title:["Native Son","The City and the Ship"]) {
+    title
+    isbn
+    author
+  }
+}

@@ -1,0 +1,7 @@
+mutation deleteOneBookCL {
+  PaP: deletebook(value: {title:"Pride and Prejudice", author: "Jane Austen"}, ifExists: true, options: {consistency: LOCAL_ONE }) {
+    value {
+      title
+    }
+  }
+}

@@ -1,0 +1,65 @@
+mutation {
+  deploySchema(
+    keyspace: "library"
+    expectedVersion: "1da4f190-b7fd-11eb-8258-1ff1380eaff5"
+    schema: """
+    # Stargate does not require definition of fields in @key,
+    # it uses the primary key
+    type Book @key @cql_entity(name: "book") @cql_input {
+      title: String! @cql_column(partitionKey: true, name: "book_title")
+      isbn: String @cql_column(clusteringOrder: ASC)
+      author: [String] @cql_index(name: "author_idx", target: VALUES)
+    }
+
+    type SelectBookResult @cql_payload {
+      data: [Book]
+      pagingState: String
+    }
+
+    type InsertBookResponse @cql_payload {
+      applied: Boolean!
+      book: Book!
+    }
+
+    type Query {
+      # books by partition key
+      bookByTitle(title: String!): [Book]
+      # books by partition key + clustering column (primary key)
+      bookByTitleAndIsbn( title: String!, isbn: String): [Book]
+      # books by indexed column author
+      bookByAuthor(
+        author: String @cql_where(field: "author", predicate: CONTAINS)
+      ): [Book]
+      # books by partition key + indexed column author
+      bookByTitleAndAuthor(title: String!, author: String @cql_where(field: "author", predicate: CONTAINS)
+      ): [Book]
+      booksWithPaging(
+        title: String!,
+        pagingState: String @cql_pagingState
+      ): SelectBookResult @cql_select(pageSize: 10)
+      # books by partition key WHERE title is IN a list
+      booksIn(title: [String] @cql_where(field: "title", predicate: IN)
+      ): [Book]
+      # books by author WHERE author is CONTAINED in the author array (list)
+      booksContainAuthor(author: String @cql_where(field: "author", predicate: CONTAINS)
+      ): [Book]
+      bookGT(
+        title: String
+        isbn: String @cql_where(field: "isbn", predicate: GT)
+      ): [Book]
+      bookLT(
+        title: String
+        isbn: String @cql_where(field: "isbn", predicate: LT)
+      ): [Book]
+    }
+    type Mutation {
+      insertBook(book: BookInput!): Book
+      updateBook(book: BookInput): Boolean @cql_update
+      deleteBook(book: BookInput!): Boolean
+    }
+    """
+  ) {
+    version
+    cqlChanges
+  }
+}

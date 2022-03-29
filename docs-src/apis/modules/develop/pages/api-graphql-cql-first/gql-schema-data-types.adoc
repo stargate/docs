@@ -1,0 +1,30 @@
+=== A note about what schema is
+
+A full GraphQL table schema can include user-defined types (UDTs) and indexes.
+Queries and mutations are automatically generated based on the schema.
+The next sections describes the definition of these items.
+
+// tag::DataTypes[]
+=== Data types
+
+A column's CQL data type is inferred from the GraphQL table column type.
+GraphQL's built-in scalar types are mapped:
+
+[options="header",footer"]
+|====
+| GraphQL | CQL
+| ID      | uuid
+| String  | varchar
+| Int     | int
+| Float   | double
+| Boolean | boolean
+|====
+
+In addition, Stargate provides a set of custom scalar types that map directly
+to the CQL types of the same name:
+Uuid, TimeUuid, Inet, Date, Duration, BigInt, Counter, Ascii, Decimal, Varint,
+Float32, Blob, SmallInt, TinyInt, Timestamp, Time, Set, List, Map, Tuple.
+
+Lastly, xref:api-graphql-cql-first/gql-creating-udt.adoc[user-defined types (UDTs)]
+are supported.
+// end::DataTypes[]

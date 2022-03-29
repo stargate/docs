@@ -1,0 +1,7 @@
+query fetchSameBook {
+  bookByTitle(title: "Groundswell") {
+    title
+    isbn
+    author
+  }
+}

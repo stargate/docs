@@ -1,0 +1,10 @@
+# insert an article USING A LIST (authors)
+mutation insertArticle {
+  magarticle: insertarticle(value: {title:"How to use GraphQL", authors: ["First author", "Second author"], mtitle:"Database Magazine"}) {
+    value {
+      title
+      mtitle
+      authors
+    }
+  }
+}

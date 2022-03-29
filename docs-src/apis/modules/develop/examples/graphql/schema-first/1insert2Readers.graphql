@@ -1,0 +1,58 @@
+mutation insert2Readers {
+  janedoe: insertReader(
+    reader: {
+      name: "Jane Doe"
+      user_id: "f02e2894-db48-4347-8360-34f28f958590"
+      reviews: [
+        {
+          bookTitle: "Moby Dick"
+          comment: "It's about a whale."
+          rating: 3
+          reviewDate: "2021-04-01"
+        }
+        {
+          bookTitle: "Native Son"
+          comment: "An awesome work of art."
+          rating: 5
+          reviewDate: "2021-01-01"
+        }
+      ]
+    }
+  ) {
+    name
+    user_id
+    birthdate
+    email
+    address {
+      street
+      city
+      state
+      zipCode
+    }
+  }
+  herman: insertReader(
+    reader: {
+      name: "Herman Melville"
+      user_id: "e0ec47e1-2b46-41ad-961c-70e6de629810"
+      birthdate: "1900-01-01"
+      email: ["hermy@mobydick.org", "herman.melville@gmail.com"]
+      address: {
+        street: "100 Main St"
+        city: "Boston"
+        state: "MA"
+        zipCode: "50050"
+      }
+    }
+  ) {
+    name
+    user_id
+    birthdate
+    email
+    address {
+      street
+      city
+      state
+      zipCode
+    }
+  }
+}

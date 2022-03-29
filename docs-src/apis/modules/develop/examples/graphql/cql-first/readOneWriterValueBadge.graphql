@@ -1,0 +1,14 @@
+# query a badge record that has a MAP (earned) with only a MAP value
+# Requires: CREATE INDEX badge2_idx ON library.badge(VALUES(earned));
+query oneWriterValueBadge {
+  badge(filter: { earned: { contains: "2020-11-20"} } ) {
+      values {
+      	badge_type
+        badge_id
+      	earned {
+          key
+          value
+        }
+     }
+   }
+}

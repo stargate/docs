@@ -1,0 +1,13 @@
+# create a user-defined type (UDT)
+mutation createAddressUDT {
+  createType(
+    keyspaceName: "library"
+    typeName: "address_type"
+    fields: [
+      { name: "street", type: { basic: TEXT } }
+      { name: "city", type: { basic: TEXT } }
+      { name: "state", type: { basic: TEXT } }
+      { name: "zip", type: { basic: TEXT } }
+    ]
+  )
+}

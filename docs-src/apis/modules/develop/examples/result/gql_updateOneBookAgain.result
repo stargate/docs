@@ -1,0 +1,14 @@
+{
+  "data": {
+    "moby": {
+      "value": {
+        "title": "Moby Dick",
+        "author": "Herman Melville",
+        "genre": [
+          "Drama",
+          "Classic lit"
+        ]
+      }
+    }
+  }
+}

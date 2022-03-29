@@ -1,0 +1,7 @@
+= CQL API
+
+The Stargate Cassandra Query Language (CQL) API is implemented to use the same CQL syntax, tools, and native language drivers you would use with any Cassandra
+deployment.
+
+* xref:dev-with-cql.adoc[Using the CQL API]
+* https://cassandra.apache.org/doc/latest/cql/[CQL reference]

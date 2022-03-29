@@ -1,0 +1,85 @@
+= Stargate gRPC API client creation
+
+Stargate has a gRPC server implemented as part of the gRPC API.
+You can create a gRPC client to use Stargate in any language that gRPC supports.
+This section provides information to developers that wish to create a client in
+a language not yet supported.
+
+== Client creation
+
+This quote from https://grpc.io/docs/what-is-grpc/introduction/[gRPC.io]
+provides context to why you might wish to create a gRPC client:
+
+====
+In gRPC, a client application can directly call a method on a server application
+on a different machine as if it were a local object, making it easier for you to
+create distributed applications and services.
+As in many RPC systems, gRPC is based around the idea of defining a service,
+specifying the methods that can be called remotely with their parameters and
+return types.
+On the server side, the server implements this interface and runs a gRPC server
+to handle client calls.
+On the client side, the client has a stub (referred to as just a client in some
+languages) that provides the same methods as the server.
+====
+
+The Stargate gRPC API implements two query services, `standard` and `batch`.
+
+The `standard` service executes a single Cassandra Query Language (CQL) query.
+The `batch` service executes a batch of CQL queries.
+
+=== Proto files
+
+The https://github.com/stargate/stargate/blob/master/grpc-proto/proto/stargate.proto[`stargate.proto`]
+file provides these services that interact with a Stargate coordinator to execute
+CQL queries.
+The https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto[`query.proto`]
+file identifies the relevant messages required to interact with CQL.
+These include:
+
+* Type values, including some special elements that need additional message definitions
+* Values
+* Query strings
+* Query parameters
+* Metadata about columns
+* Tracing information
+* Schema change information, including the object (keyspace, table, etc.) changed
+* Query response
+* ResultSet of values returned from a query
+* Batch queries
+* Batch parameters
+* Errors
+
+When a language-specific proto file is generated from these two files, the services
+provided allow a gRPC client to interact with Apache Cassandra through Stargate.
+
+=== Generate gRPC classes for a language
+
+This section is possibly the most “black-boxed” part of the whole process.
+Each language has special tools to automatically generate classes from the proto files.
+When the appropriate tools are run, new files will be generated.
+
+For example, in Python, the following commands are run to generate the required protobuf files:
+
+[source, python]
+----
+$ pip install grpcio
+$ pip install grpcio-tools
+
+$ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. stargate.proto
+$ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. query.proto
+----
+
+The generated files generated are:
+
+* query_pb2.py — contains message classes
+* query_grpc_pb2.py — contains server and client classes
+
+* stargate_pb2.py - contains message classes
+* stargate_pb2_grpc.py — contains server and client classes
+
+
+=== Client code
+
+Examples of some xref:develop:dev-with-grpc.adoc[gRPC clients] written for Stargate exist to provide samples of how
+a new client can be created.

@@ -1,0 +1,9 @@
+type Mutation {
+  insertBook(book:BookInput!): Book  // <1>
+  updateBook(book:BookInput!): Boolean @cql_update // <2> <3>
+  deleteBook(book:BookInput!): Boolean
+  insertReader(reader:ReaderInput!): Reader
+  deleteReader(reader:ReaderInput!): Boolean
+  insertLibCollection(libColl: LibCollectionInput!): LibCollection
+  deleteLibCollection(libColl: LibCollectionInput!): Boolean
+}

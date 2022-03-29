@@ -1,0 +1,16 @@
+{
+  "data": {
+    "book": {
+      "values": [
+        {
+          "title": "Catch-22",
+          "author": "Joseph Heller"
+        },
+        {
+          "title": "Moby Dick",
+          "author": "Herman Melville"
+        }
+      ]
+    }
+  }
+}

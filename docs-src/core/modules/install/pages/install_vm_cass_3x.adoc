@@ -1,0 +1,72 @@
+[#vm_3x]
+== Stargate on virtual machine or bare metal
+
+Stargate can be installed alongside an existing Cassandra cluster using a virtual
+machine or bare metal.
+
+[Optional] Make sure Cassandra is up and running.
+Stargate requires authentication, so be sure to enable it in the
+https://cassandra.apache.org/doc/latest/configuration/cass_yaml_file.html#authenticator[cassandra.yaml] file.
+If you don't have a cluster running, use these instructions to install
+https://cassandra.apache.org/doc/latest/getting_started/installing.html#choosing-an-installation-method[Cassandra 3.11].
+
+Next, prepare a virtual machine to install Stargate on. You'll need to be sure
+Java 8 is installed.
+
+Once you have a machine ready,
+download the https://github.com/stargate/stargate/releases/download/{stargate-docker-tag-3x}/stargate-jars.zip[Stargate zip file].
+This file will provide the jar files that are required to run Stargate.
+A typical method is using wget:
+
+[source, shell, subs="attributes+"]
+----
+include::example$bash/wget_sg_jars_cass_3x.sh[]
+----
+
+Unzip the files:
+
+[source, shell]
+----
+include::example$bash/unzip_sg_jars.sh[]
+----
+
+Make sure that `port 7000` is open on the Stargate machine. This port is the
+default inter-node communication port that Cassandra and Stargate use to
+pass communications.
+
+Now start Stargate using the `starctl` command, the main command for starting
+and configuring Stargate:
+
+[source, shell]
+----
+include::example$bash/start_vm_syntax.sh[]
+----
+
+For example:
+
+[source, shell]
+----
+include::example$bash/start_vm_3x.sh[]
+----
+
+where
+
+* `stargate_test_cluster` is the name of the Cassandra cluster
+* `172.31.29.170` is the IP address of the Cassandra node
+* `172.31.29.175` is the IP address of the Stargate node
+(Stargate uses this IP address to broadcast itself, to join a Cassandra cluster as a coordinator node) 
+* `DC1` is the name of the data center of the Cassandra node
+* `RACK1` is the name of the data center of the Cassandra node
+The full set of options are described in xref:install:starctl.adoc[the `starctl` documentation].
+
+[TIP]
+====
+If you are unsure of the datacenter and rack, run `nodetool status` on the Cassandra node you are connected to.
+====
+
+After a few seconds, you should see that Stargate has started.
+You will see log output in your terminal display.  
+If you get a binding error, then you may have tried to start Stargate incorrectly and the process is still running.
+Terminate that process and start it again.
+
+That's it! You are ready to try a Stargate xref:quickstart:quickstart.adoc[QuickStart].

@@ -1,0 +1,44 @@
+// tag::DeleteIndex[]
+=== Delete an index
+:slug: delete-an-index-rest
+
+// == Prerequisites
+
+//. xref:auth.adoc[Get an application token].
+//. xref:creating-a-table-in-your-keyspace.adoc[Create a table in your keyspace].
+//. xref:creating-an-index-for-a-table.adoc[Create an index in your keyspace].
+
+You may wish to list all the indexes to verify the index name you wish to delete:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$rest/curl_get_indexes.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_get_indexes.result[]
+----
+--
+====
+
+Send a `DELETE` request to
+`{base_rest_schema}/{rkeyspace}/tables/{rtable}/indexes/{index_name}`
+to delete an index. All index data will be deleted along with the index schema.
+
+[source, bash, subs="attributes+"]
+----
+include::example$rest/curl_delete_index.sh[]
+----
+
+If the call is successful, a `204` message is returned.
+// end::DeleteIndex[]

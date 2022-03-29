@@ -1,0 +1,40 @@
+query fetchJane {
+  readerByNameAndUserid(
+      name: "Jane Doe",
+      user_id: "f02e2894-db48-4347-8360-34f28f958590"
+    ) {
+    name
+    user_id
+    birthdate
+    email
+    address {
+      street
+      city
+      state
+      zipCode
+    }
+    reviews {
+      bookTitle
+      comment
+      rating
+      reviewDate
+    }
+  }
+}
+query fetchHerman {
+  readerByNameAndUserid(
+    name: "Herman Melville"
+    user_id: "e0ec47e1-2b46-41ad-961c-70e6de629810"
+  ) {
+    name
+    user_id
+    birthdate
+    email
+    address {
+      street
+      city
+      state
+      zipCode
+    }
+  }
+}

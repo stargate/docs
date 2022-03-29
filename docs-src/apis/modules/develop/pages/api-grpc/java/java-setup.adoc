@@ -1,0 +1,28 @@
+== gRPC Java client setup
+
+//include::partial$grpc-prereqs.adoc[]
+
+=== Install software
+
+You'll need to install the following software if it is not already installed:
+
+* link:https://adoptopenjdk.net/[Install a Java Development Kit (JDK)]
+* link:https://maven.apache.org/install.html[Install Apache Maven]
+
+
+=== Add dependencies
+
+To begin, add the required dependency to your project `pom.xml`:
+
+[source, xml]
+----
+include::example$xml/java-setup.xml[]
+----
+
+If you do not add it, you will observe the following error:
+
+[source, shell]
+----
+No functional channel service provider found.
+Try adding a dependency on the grpc-okhttp, grpc-netty, or grpc-netty-shaded artifact.
+----

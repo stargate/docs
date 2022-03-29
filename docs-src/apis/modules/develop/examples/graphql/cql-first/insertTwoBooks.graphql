@@ -1,0 +1,13 @@
+# insert 2 books in one mutation
+mutation insert2Books {
+  moby: insertbook(value: {title:"Moby Dick", author:"Herman Melville"}) {
+    value {
+      title
+    }
+  }
+  catch22: insertbook(value: {title:"Catch-22", author:"Joseph Heller"}) {
+    value {
+      title
+    }
+  }
+}

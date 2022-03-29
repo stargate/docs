@@ -1,0 +1,22 @@
+response:columns {
+  type {
+    basic: VARCHAR
+  }
+  name: "k"
+}
+columns {
+  type {
+    basic: INT
+  }
+  name: "v"
+}
+rows {
+  values {
+    string: "a"
+  }
+  values {
+    int: 1
+  }
+}
+
+completed

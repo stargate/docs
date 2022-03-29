@@ -1,0 +1,129 @@
+=== Start the Stargate container
+
+// tag::3x[]
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-3x} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
+----
+// end::3x[]
+
+// tag::40[]
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-40} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
+----
+// end::40[]
+
+// tag::dse_68[]
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
+Developer mode removes the need to set up a separate DSE instance and is
+meant for development and testing only.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={dse-tag-68} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-dse-{dse-alt-tag-68}:{stargate-docker-tag-68}
+----
+// end::dse_68[]
+
+// tag::3x_graphql-first[]
+Start the Stargate container in xref:install:starctl.adoc[developer mode].
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-3x} \
+  -e DEVELOPER_MODE=true \
+  -e JAVA_OPTS="-Dstargate.graphql_first.enabled=true" \
+  stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
+----
+// end::3x_graphql-first[]
+
+// tag::grpc[]
+If you don't already have access to a Stargate deployment, one can be started
+quickly for testing in xref:install:starctl.adoc[developer mode].
+Developer mode removes the need to set up a separate Cassandra instance and is
+meant for development and testing only.
+This `docker run` command also exposes port 8090 for gRPC connections.
+
+[source,bash,subs="attributes+"]
+----
+docker run --name stargate \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -p 8090:8090 \
+  -p 127.0.0.1:9042:9042 \
+  -d \
+  -e CLUSTER_NAME=stargate \
+  -e CLUSTER_VERSION={cass-tag-40} \
+  -e DEVELOPER_MODE=true \
+  stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
+----
+
+Ensure the local instance of Stargate is running properly by tailing the logs for the container,
+and looking for the message that indicates Stargate is ready for traffic.
+
+[tabs]
+====
+shell command (/v2)::
++
+--
+[source,shell]
+----
+include::example$bash/docker-logs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/sh_docker-logs.result[]
+----
+--
+====
+// end::grpc[]

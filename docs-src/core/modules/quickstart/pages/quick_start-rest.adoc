@@ -1,0 +1,52 @@
+= Stargate REST API QuickStart
+
+*Time to complete: 5 minutes*
+
+Stargate is a data gateway deployed between client applications and a database.
+In this QuickStart, you'll be up and running on your local machine with the REST API
+plugin that exposes CRUD access to data stored in Cassandra tables.
+
+== Prerequisites
+
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
+
+== Creating schema
+
+In order to use the REST API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.
+
+// create keyspace
+include::develop:page$dev-with-rest.adoc[tag=CreateKS]
+
+// check keyspaces exist
+include::develop:page$dev-with-rest.adoc[tag=CheckKS]
+
+// create table
+include::develop:page$dev-with-rest.adoc[tag=CreateTable]
+
+// check tables and columns exist
+include::develop:page$dev-with-rest.adoc[tag=CheckTables]
+
+== Interacting with data stored in tables
+
+// write table data
+include::develop:page$dev-with-rest.adoc[tag=WriteData]
+
+// read table data
+include::develop:page$dev-with-rest.adoc[tag=ReadData]
+
+// update table data
+include::develop:page$dev-with-rest.adoc[tag=UpdateData]
+
+// delete table data
+include::develop:page$dev-with-rest.adoc[tag=DeleteData]
+
+
+Voila! For more information on the REST API, see the see the
+xref:develop:dev-with-rest.adoc[Using the REST API]
+or the https://stargate.io/docs/stargate/1.0/attachments/restv2.html[REST API] in the
+API references section.
