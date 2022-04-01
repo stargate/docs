@@ -1,4 +1,4 @@
-# Works in localhost:8080/graphql-admin
+# Works in {base_graphql_url}{base_gql_admin}
 {
   schemas(keyspace: "library") {
     version
