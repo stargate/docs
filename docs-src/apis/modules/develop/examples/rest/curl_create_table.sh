@@ -1,6 +1,6 @@
 curl -s --location \
 --request POST {base_rest_url}{base_rest_schema}/{rkeyspace}/tables \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header "X-Cassandra-Token: {auth_token}" \
 --header "Content-Type: application/json" \
 --header "Accept: application/json" \
 --data '{
