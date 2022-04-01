@@ -22,6 +22,7 @@ asciidoc:
     dse-server-tag-68: '6.8.9'
     dse-tag-68: '6.8'
     dse-alt-tag-68: '68'
+
     base_auth_url: 'https://localhost:8081'
     base_auth_api_path: '/v1/auth'
     auth_token: '$AUTH_TOKEN'
@@ -37,11 +38,12 @@ asciidoc:
 #    base_doc_schema: '/v2/schemas/namespaces'
 #    base_gql_schema: '/graphql-schema'
 
+#    base_gql_admin: '/graphql-admin'
+
 #    base_rest_api: '/v2/keyspaces'
 #    base_doc_api: '/v2/namespaces'
-
 #    base_gql_api: '/graphql'
-     base_gql_admin: '/graphql-admin'
+    
 
 #    rkeyspace: 'users_keyspace'
 #    rkeyspace-dcs: 'users_keyspace-dcs'

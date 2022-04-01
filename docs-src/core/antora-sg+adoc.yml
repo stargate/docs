@@ -1,0 +1,15 @@
+name: stargate
+title: Stargate Documentation
+version: ~
+nav:
+- modules/ROOT/cnav.adoc
+- modules/quickstart/nav.adoc
+- modules/concepts/nav.adoc
+- modules/install/nav.adoc
+- modules/plan/nav.adoc
+- modules/connect/nav.adoc
+- modules/develop/nav.adoc
+- modules/manage/nav.adoc
+- modules/secure/nav.adoc
+- modules/migrate/nav.adoc
+- modules/contribute/nav.adoc
