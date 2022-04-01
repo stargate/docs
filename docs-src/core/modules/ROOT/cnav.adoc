@@ -1,1 +1,1 @@
-* xref:api-info.adoc[Stargate APIs]
+* xref:apis:ROOT:api-index.adoc[Stargate APIs]
