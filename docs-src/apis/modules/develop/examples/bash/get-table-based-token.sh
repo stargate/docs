@@ -1,6 +1,6 @@
-curl -L -X POST 'http://localhost:8081/v1/auth' \
+curl -L -X POST '{base_auth_url}{base_auth_api_path}' \
   -H 'Content-Type: application/json' \
   --data-raw '{
-    "username": "cassandra",
-    "password": "cassandra"
+    "username": "{cass_user}",
+    "password": "{cass_passwd}"
 }'
