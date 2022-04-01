@@ -82,7 +82,13 @@ The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL
 which will indirectly modify underlying CQL schema.
 The querying endpoint is constructed in the same manner for both graphql-first and cql-first.
 
-Each request must have a valid xref:manage:org/managing-org.adoc#manage-application-tokens[application token].
+Each request must have a valid 
+ifeval::["{product}" == "Astra DB for DSE"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token].
+endif::[]
+ifeval::["{product}" == "Stargate"]
+xref:secure:authnz.adoc#table-based-authenticationauthorization[application token].
+endif::[]
 Each request can also have an optional unique request id.
 The request id is recommended in a production environment and can be useful in troubleshooting issues.
 
@@ -98,5 +104,5 @@ include::partial$GQLNaming.adoc[]
 
 include::develop:page$using-graphql-playground.adoc[]
 
-include::develop:tooling.adoc#using-postman.adoc[]
+include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
 // tag::UsingPostman[]

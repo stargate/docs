@@ -74,7 +74,14 @@ ifeval::["{product}" == "Stargate"]
 The GraphQL playground launches the url `http://localhost:8080/playground` in your browser.
 endif::[]
 
-Add your xref:manage:org/manage-org.adoc#managing-application-tokens[application token] to the HTTP HEADERS
+Add your 
+ifeval::["{product}" == "Astra DB for DSE"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token]
+endif::[]
+ifeval::["{product}" == "Stargate"]
+xref:secure:authnz.adoc#table-based-authenticationauthorization[application token]
+endif::[]
+ to the HTTP HEADERS
 section at the lower lefthand corner of the GraphQL Playground window:
 
 {"x-cassandra-token":"$AUTH_TOKEN"}

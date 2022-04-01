@@ -13,7 +13,14 @@ In {database}, go to your browser and launch the url:
 `{base_graphql_url}/playground`
 endif::[]
 
-Add your xref:manage:org/managing-org.adoc#managing-application-tokens[application token] to the HTTP HEADERS
+Add your 
+ifeval::["{product}" == "Astra DB for DSE"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token]
+endif::[]
+ifeval::["{product}" == "Stargate"]
+xref:secure:authnz.adoc#table-based-authenticationauthorization[application token]
+endif::[] 
+to the HTTP HEADERS
 section at the lower lefthand corner of the GraphQL Playground window:
 [source, plaintext, sub="attributes+"]
 ----
