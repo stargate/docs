@@ -1,5 +1,1 @@
-name: stargate
-version: ~
-nav:
-- modules/ROOT/anav.adoc
-- modules/develop/nav.adoc
+antora-sg.yml
