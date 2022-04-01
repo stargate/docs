@@ -37,7 +37,7 @@ The schema endpoint is used to create or alter CQL schema in the schema-first Gr
 The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL which will indirectly modify underlying CQL schema. 
 The querying endpoint is constructed in the same manner for both graphql-first and schema-first.
 
-Each request must have a valid xref:manage:org/managing-org.adoc#managing-application-tokens[application token].
+Each request must have a valid xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token].
 Each request can also have an optional unique request id.
 The request id is recommended in a production environment and can be useful in troubleshooting issues.
 

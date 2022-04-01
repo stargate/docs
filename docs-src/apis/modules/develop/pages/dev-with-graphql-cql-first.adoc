@@ -39,7 +39,7 @@ The schema endpoint is used to create or alter CQL schema in GraphQL cql-first
 using direct schema manipulation.
 The querying and mutating endpoint is constructed using a particular keyspace name.
 
-Each request must have a valid xref:manage:org/managing-org.adoc#managing-application-tokens[application token].
+Each request must have a valid xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token].
 Each request can also have an optional unique request id.
 The request id is recommended in a production environment and can be useful in troubleshooting issues.
 
