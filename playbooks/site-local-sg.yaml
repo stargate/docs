@@ -32,8 +32,9 @@ asciidoc:
     idseparator: '-'
     company: ''
     product: 'Stargate'
-    stargate: Yes
-    database: Stargate
+    stargate: 'Yes'
+    database: 'Stargate'
+
     stargate-docker-tag: v1.0.41
     stargate-docker-tag-3x: v1.0.41
     stargate-docker-tag-40: v1.0.41
@@ -46,9 +47,9 @@ asciidoc:
     dse-tag-68: '6.8'
     dse-alt-tag-68: '68'
 
+    auth_token: '$AUTH_TOKEN'
     base_auth_url: 'https://localhost:8081'
     base_auth_api_path: '/v1/auth'
-    auth_token: '$AUTH_TOKEN'
     cass_user: 'cassandra' # switch to auth_username
     cass_passwd: 'cassandra' # switch to auth_password
 
@@ -87,6 +88,8 @@ asciidoc:
     gkeyspace: 'library'
     gtable1: 'book'
     gtable2: 'reader'
+
+    stargate_docs_base_url: 'https://stargate.io/docs'
 
   extensions:
     - ~/CLONES/stargate/docs/lib/tabs-block.js

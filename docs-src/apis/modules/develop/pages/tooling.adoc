@@ -66,6 +66,14 @@ The easiest way to get started with GraphQL is to use the built-in GraphQL playg
 
 === Prerequisites
 
+ifeval::["{product}" == "Astra DB Classic"]
+In Astra, go to the Connect tab for your database, choose GraphQL under the
+`Connect using an API` and you'll see instructions for accessing the playground.
+endif::[]
+ifeval::["{product}" == "Astra DB Serverless"]
+In Astra, go to the Connect tab for your database, choose GraphQL under the
+`Connect using an API` and you'll see instructions for accessing the playground.
+endif::[]
 ifeval::["{product}" == "Astra DB for DSE"]
 In Astra, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.
@@ -75,6 +83,12 @@ The GraphQL playground launches the url `http://localhost:8080/playground` in yo
 endif::[]
 
 Add your 
+ifeval::["{product}" == "Astra DB Classic"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token]
+endif::[]
+ifeval::["{product}" == "Astra DB Serverless"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token]
+endif::[]
 ifeval::["{product}" == "Astra DB for DSE"]
 xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token]
 endif::[]
@@ -107,6 +121,16 @@ The Swagger UI allows you to interact with the REST and Document APIs in a web b
  
 === Using the Swagger UI
 
+ifeval::["{product}" == "Astra DB Classic"]
+In Astra, go to the Connect tab for your database, choose GraphQL under the
+`Connect using an API` and you'll see instructions for accessing the playground.
+In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
+endif::[]
+ifeval::["{product}" == "Astra DB Serverless"]
+In Astra, go to the Connect tab for your database, choose GraphQL under the
+`Connect using an API` and you'll see instructions for accessing the playground.
+In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
+endif::[]
 ifeval::["{product}" == "Astra DB for DSE"]
 In Astra, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.

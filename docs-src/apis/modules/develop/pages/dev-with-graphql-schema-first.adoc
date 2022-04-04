@@ -38,6 +38,12 @@ The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL
 The querying endpoint is constructed in the same manner for both graphql-first and schema-first.
 
 Each request must have a valid 
+ifeval::["{product}" == "Astra DB Classic"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token].
+endif::[]
+ifeval::["{product}" == "Astra DB Serverless"]
+xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token].
+endif::[]
 ifeval::["{product}" == "Astra DB for DSE"]
 xref:core:manage:org/managing-org.adoc#managing-application-tokens[application token].
 endif::[]
