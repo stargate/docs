@@ -2,4 +2,4 @@ name: stargate
 version: ~
 nav:
 - modules/ROOT/anav.adoc
-- modules/develop/nav.adoc
+- modules/develop/dnav.adoc

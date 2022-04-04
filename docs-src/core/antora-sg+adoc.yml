@@ -8,7 +8,7 @@ nav:
 - modules/install/nav.adoc
 - modules/plan/nav.adoc
 - modules/connect/nav.adoc
-- modules/develop/nav.adoc
+- modules/develop/dnav.adoc
 - modules/manage/nav.adoc
 - modules/secure/nav.adoc
 - modules/migrate/nav.adoc
