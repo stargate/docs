@@ -6,5 +6,5 @@
 *** xref:dev-with-graphql-schema-first.adoc[Develop with GraphQL (Schema-first)]
 ** xref:dev-with-grpc.adoc[Develop with gRPC]
 ** xref:dev-with-cql.adoc[Develop with CQL]
+** xref:tooling.adoc[Tooling Resources]
 * xref:api.adoc[API references]
-* xref:tooling.adoc[Tooling Resources]
