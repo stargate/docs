@@ -24,9 +24,9 @@ with Postman.
 
 For Stargate development, three collections that correspond to the documentation code examples are available:
 
-* https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate-OSS-Astra-REST-API-users_keyspace.postman_collection.json[REST collection]
-* https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate-OSS-Astra-Document-API-myworld.postman_collection.json[Document collection]
-* https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate-OSS-Astra-GraphQL-API-library.postman_collection.json[GraphQL collection]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-REST-API-users_keyspace.postman_collection.json[REST collection]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-Document-API-myworld.postman_collection.json[Document collection]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-GraphQL-API-library.postman_collection.json[GraphQL collection]
 
 Each collection lets you try out creation, insertion, and deletion of both data and schema, as required.
 
@@ -37,8 +37,8 @@ Two environments are also available, one for the open-source Stargate docker ima
 A small amount of configuration is necessary in the single environment to set your
 parameters before use.
 
-* https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate%20Astra%20API%20Environment.postman_environment.json[Astra environment]
-* https://github.com/stargate/docs/blob/master/modules/developers-guide/examples/json/Stargate%20OSS%20API%20Environment.postman_environment.json[Stargate OSS environment]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-Astra-API-Environment.postman_environment.json[Astra environment]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-API-Environment.postman_environment.json[Stargate OSS environment]
 
 ==== Stargate OSS
 
@@ -157,7 +157,7 @@ Using this third-party tool, you can easily test gRPC proto files with environme
 for your test platforms.
 
 For instance, the proto files can be
-https://github.com/stargate/stargate/tree/master/grpc-proto/proto[imported into BloomRPC].
+https://github.com/stargate/stargate/tree/main/grpc-proto/proto[imported into BloomRPC].
 Select `ExecuteQuery` from the imported files.
 Set the environment to `localhost:8090` if running a Stargate docker container.
 In the metadata, add an authentication token with `{"x-cassandra-token": "<auth_token>"}`.
