@@ -1,6 +1,0 @@
-=== Prerequisites
-
-* xref:manage:authnz.adoc[Get an application token]
-* Create a table in your keyspace (optional): xref:api-rest/rest-creating-keyspace.adoc[(REST)]  xref:api-graphql-cql-first/gql-creating-keyspace.adoc[(GraphQL)]
-* xref:manage:start-stargate.adoc[Start Stargate (optional)]
-* xref:gRPC-using.adoc#_using_bloomrpc[bloomrpc] installed to test queries

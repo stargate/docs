@@ -1,5 +1,0 @@
-[TIP]
-====
-For more information about the GraphQL API, see
-https://stargate.io/2020/10/05/hello-graphql.html[the blog post on the GraphQL API].
-====

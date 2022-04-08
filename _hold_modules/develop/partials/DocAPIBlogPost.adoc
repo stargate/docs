@@ -1,5 +1,0 @@
-[TIP]
-====
-For more information about the database design of the Document API, see
-https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[the blog post on the Documents API].
-====

@@ -1,3 +1,0 @@
-* Secure
-** xref:secure:authnz.adoc[Authentication and authorization]
-** xref:secure:auth.adoc[Authentication]

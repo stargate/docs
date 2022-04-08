@@ -1,5 +1,0 @@
-== Start Stargate
-
-// tag::startDocker[]
-include::install:partial$docker_run.adoc[tag=grpc]
-// end::startDocker[]

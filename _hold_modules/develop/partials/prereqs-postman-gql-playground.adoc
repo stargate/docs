@@ -1,7 +1,0 @@
-
-
-
-* _[Optional]_ If you prefer, you can xref:develop:tooling.adoc#using-postman[use Postman, window="_blank"] as a client interface for exploring the APIs
-** You will also find links to downloadable collections and environments in xref:develop:tooling.adoc#postman-resources[Using Postman]
-* _[Optional]_ If you going to use the GraphQL API, you will want to xref:develop:tooling.adoc#graphql-resources[use the GraphQL Playground, window="_blank"] to deploy schema and execute mutations and queries.
-* _[Optional]_ For the REST and Document APIs, you can use the xref:develop:tooling.adoc#swagger-resources[Swagger UI, window="_blank"].

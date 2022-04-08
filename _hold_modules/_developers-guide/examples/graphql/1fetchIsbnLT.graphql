@@ -1,7 +1,0 @@
-query fetchIsbnLT {
-  bookLT(title: "Groundswell", isbn: "978-1422125008") {
-    title
-    isbn
-    author
-  }
-}

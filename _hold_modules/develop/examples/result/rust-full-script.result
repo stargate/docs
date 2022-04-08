@@ -1,8 +1,0 @@
-created client StargateClient { inner: Grpc { inner: InterceptedService { inner: Channel, f: stargate_grpc::client::AuthToken } } }
-created keyspace
-created table
-insert data
-select executed
-Jane Doe
-Serge Provencio
-everything worked!

@@ -1,5 +1,0 @@
-# drop a table
-mutation dropTableBook {
-  dropTable(keyspaceName:"library",
-    tableName:"article")
-}

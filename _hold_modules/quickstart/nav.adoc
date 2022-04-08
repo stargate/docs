@@ -1,4 +1,0 @@
-* xref:quickstart.adoc[Stargate QuickStarts]
-** xref:quick_start-document.adoc[Document API QuickStart]
-** xref:quick_start-rest.adoc[REST API QuickStart]
-** xref:quick_start-graphql.adoc[GraphQL API QuickStart]

@@ -1,8 +1,0 @@
-[#standalone_docker_40]
-== Stargate Standalone with Docker
-
-include::install:partial$docker_pull.adoc[tag=40]
-
-include::install:partial$docker_run.adoc[tag=40]
-
-include::install:partial$ports.adoc[]

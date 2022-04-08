@@ -1,4 +1,0 @@
-[NOTE]
-====
-If you have multiple regions, select the region you want to connect to from the dropdown menu for instructions.
-====

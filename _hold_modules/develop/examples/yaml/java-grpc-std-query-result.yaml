@@ -1,6 +1,0 @@
-result_set {
-  data {
-    type_url: "type.googleapis.com/stargate.ResultSet"
-    value: "some_binary_data"
-  }
-}

@@ -1,8 +1,0 @@
-# drop a column format from a table
-mutation dropColumnFormat {
-    alterTableDrop(
-    keyspaceName:"library",
-    tableName:"book",
-    toDrop:["format"]
-  )
-}

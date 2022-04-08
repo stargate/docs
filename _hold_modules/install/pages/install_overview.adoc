@@ -1,8 +1,0 @@
-= Installing Stargate
-
-Products with which Stargate works:
-
-* xref:install_astra.adoc[Astra]
-* xref:install_cass_3x.adoc[Cassandra 3.x]
-* xref:install_cass_40.adoc[Cassandra 4.0]
-* xref:install_dse_68.adoc[DSE 6.8]

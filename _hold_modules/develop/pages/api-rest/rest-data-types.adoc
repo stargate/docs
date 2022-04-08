@@ -1,9 +1,0 @@
-// tag::DataTypes[]
-==== Data types
-Many common data types are supported by the REST API, such as collections (set, list, map),
-tuples, and user-defined types (UDTs).
-In addition, collections can be specified as `frozen` collections.
-Columns can be set to these data types in the original table creation,
-or be added later.
-Look in the next section for some examples of adding columns.
-// end::DataTypes[]

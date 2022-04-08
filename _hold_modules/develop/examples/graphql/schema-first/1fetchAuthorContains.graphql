@@ -1,7 +1,0 @@
-query fetchAuthorContains {
-  booksContainAuthor(author: "Richard Wright") {
-    title 
-    isbn
-    author
-  }
-}

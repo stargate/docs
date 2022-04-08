@@ -1,3 +1,0 @@
-mutation dropKsLibrary {
-  dropKeyspace(name:"library", ifExists: true)
-}

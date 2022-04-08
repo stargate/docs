@@ -1,6 +1,0 @@
-Keyspace 'test' has been created.
-Table 'users' has been created.
-2 rows have been inserted in table users.
-FirstName=Serge, lastname=Provencio
-FirstName=Jane, lastname=Doe
-Everything worked!
