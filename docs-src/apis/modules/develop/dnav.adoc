@@ -8,3 +8,5 @@
 ** xref:dev-with-cql.adoc[Develop with CQL]
 ** xref:tooling.adoc[Tooling Resources]
 * xref:api.adoc[API references]
+** https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document v2 API]
+** https://stargate.io/docs/stargate/1.0/attachments/restv2.html[REST v2 API]

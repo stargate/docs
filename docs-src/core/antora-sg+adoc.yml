@@ -5,11 +5,12 @@ nav:
 - modules/ROOT/cnav.adoc
 - modules/quickstart/nav.adoc
 - modules/concepts/nav.adoc
-- modules/install/nav.adoc
 - modules/plan/nav.adoc
+- modules/install/nav.adoc
 - modules/connect/nav.adoc
-- modules/develop/dnav.adoc
 - modules/manage/nav.adoc
 - modules/secure/nav.adoc
 - modules/migrate/nav.adoc
+- modules/develop/dnav.adoc
+- modules/ROOT/FAQ.adoc
 - modules/contribute/nav.adoc

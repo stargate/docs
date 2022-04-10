@@ -10,4 +10,4 @@ Check out the following choices:
 * xref:develop:dev-with-grpc.adoc[gRPC API]
 
 If you haven't installed Stargate yet, go check out
- xref:install:install_overview.adoc[methods].
+ xref:install:install-overview.adoc[methods].

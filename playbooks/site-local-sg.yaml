@@ -2,22 +2,29 @@ site:
   title: Stargate documentation
   start_page: core::core-index.adoc
 
+output: 
+  dir: ~/CLONES/stargate/docs/build/stargate+adoc
+
 content:
-  #edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
+    # - url: ~/CLONES/adoc-howto
+    #   branches: [add-yml-files]
+    # - url: .
+    #   branches: [main]
     - url: ~/CLONES/stargate/docs
       branches: [test-multi-repos]
       start_path: docs-src/apis
+    # - url: .
+    #   branches: [main]
     - url: ~/CLONES/stargate/docs
       branches: [test-multi-repos]
       start_path: docs-src/core
 
-output: 
-  dir: ~/CLONES/stargate/docs/build/stargate-all
-
 ui:
   bundle:
-    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.4/ui-bundle.zip
+    url: https://github.com/stargate/antora-ui-stargate/releases/download/v.0.7/ui-bundle.zip
+  # supplemental_files: ./supplemental-ui
   supplemental_files: ~/CLONES/stargate/docs/supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
@@ -92,4 +99,5 @@ asciidoc:
     stargate_docs_base_url: 'https://stargate.io/docs'
 
   extensions:
+    # - ./lib/tabs-block.js
     - ~/CLONES/stargate/docs/lib/tabs-block.js

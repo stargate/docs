@@ -8,7 +8,7 @@ The Stargate docs are organized into three Antora modules:
 
 * The ROOT module, with general project infomation.
 * A quickstart module, with basic documentation to get new users started.
-* The developers-guide module with more extensive topics on all the features of Stargate.
+* The develop module with more extensive topics on all the features of Stargate.
 
 == Dependencies
 
@@ -63,4 +63,4 @@ To use a different secret:
 
 == Reporting bugs
 
-File a https://github.com/stargate/docs/issues[GitHub issue] or let us know in our https://groups.google.com/a/lists.stargate.io/g/stargate-users[Google group].
+File a https://github.com/stargate/docs/issues[GitHub issue].

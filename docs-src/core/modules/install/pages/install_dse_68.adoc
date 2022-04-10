@@ -17,7 +17,7 @@ CAUTION: At this time Stargate does not support advanced workloads such as Graph
 using any sort of search index in the keyspace you plan to use with Stargate they will need to be removed
 before Stargate deployment.
 
-Once you have installed Stargate, you are ready to try one of the  Stargate xref:quickstart:quickstart.adoc[QuickStarts].
+Once you have installed Stargate, you are ready to try one of the  Stargate xref:quickstart:quickstart-overview.adoc[QuickStarts].
 
 include::install_docker_standalone_dse_68.adoc[Docker]
 include::install_docker_compose_dse_68.adoc[Docker Compose]
