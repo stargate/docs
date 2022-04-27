@@ -18,8 +18,7 @@ content:
 ui:
   bundle:
     url: https://github.com/stargate/antora-ui-stargate/releases/download/v.0.7/ui-bundle.zip
-  # supplemental_files: ./supplemental-ui
-  supplemental_files: ~/CLONES/stargate/docs/supplemental-ui
+   supplemental_files: ./supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
 
@@ -93,5 +92,4 @@ asciidoc:
     stargate_docs_base_url: 'https://stargate.io/docs'
 
   extensions:
-    # - ./lib/tabs-block.js
-    - ~/CLONES/stargate/docs/lib/tabs-block.js
+     - ./lib/tabs-block.js
