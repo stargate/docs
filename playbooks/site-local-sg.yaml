@@ -3,23 +3,17 @@ site:
   start_page: core::core-index.adoc
 
 output: 
-  dir: ~/CLONES/stargate/docs/build/stargate+adoc
+  dir: ~/CLONES/stargate/docs/build/stargate
 
 content:
   edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
-    # - url: ~/CLONES/adoc-howto
-    #   branches: [add-yml-files]
-    # - url: .
-    #   branches: [main]
     - url: ~/CLONES/stargate/docs
       branches: [test-multi-repos]
-      start_path: docs-src/apis
-    # - url: .
-    #   branches: [main]
+      start_path: docs-src/stargate-develop
     - url: ~/CLONES/stargate/docs
       branches: [test-multi-repos]
-      start_path: docs-src/core
+      start_path: docs-src/stargate-core
 
 ui:
   bundle:

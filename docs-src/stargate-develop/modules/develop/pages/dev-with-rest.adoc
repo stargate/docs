@@ -1,0 +1,60 @@
+= Developing with the {database} REST API
+:keywords: database, rest, api
+
+include::develop:partial$stargate-intro-intro.adoc[]
+The REST API exposes CRUD access to data stored in Cassandra tables.
+
+== Prerequisites
+
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
+
+== API reference
+
+If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-rest.adoc[Stargate REST QuickStart, window="_blank"].
+To view the API Reference, see xref:develop:attachment$restv2.html[{database} REST API, window="_blank"].
+
+// STARGATE ONLY
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace]
+endif::[]
+
+include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace]
+
+// STARGATE ONLY
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace]
+endif::[]
+
+include::develop:page$api-rest/rest-creating-table.adoc[Creating a table in your keyspace]
+
+include::develop:page$api-rest/rest-checking-table.adoc[Checking a table]
+
+include::develop:page$api-rest/rest-dropping-table.adoc[Dropping a table in your keyspace]
+
+include::develop:page$api-rest/rest-creating-index.adoc[Creating an index for a table]
+
+include::develop:page$api-rest/rest-deleting-index.adoc[Deleting an index in your keyspace]
+
+include::develop:page$api-rest/rest-creating-udt.adoc[Creating a user-defined type (UDT) for a keyspace]
+
+include::develop:page$api-rest/rest-deleting-udt.adoc[Deleting a UDT in your keyspace]
+
+include::develop:page$api-rest/rest-adding-columns.adoc[Adding columns to your table]
+
+include::develop:page$api-rest/rest-checking-columns.adoc[Checking columns in your table]
+
+include::develop:page$api-rest/rest-deleting-columns.adoc[Deleting columns in your table]
+
+include::develop:page$api-rest/rest-adding-rows.adoc[Adding rows to your table]
+
+include::develop:page$api-rest/rest-retrieving-rows.adoc[Retrieving rows from your table]
+
+include::develop:page$api-rest/rest-updating-rows.adoc[Updating rows in your table]
+
+include::develop:page$api-rest/rest-deleting-rows.adoc[Deleting rows in your table]
+
+// MOVE THIS STUFF TO SDKs and create a page there.
+//include::develop:partial$nodejs-client-env.adoc[Using Node.js client]
+
+//include::develop:page$sdks/rest-nodejs-client.adoc[Node.js REST client]
