@@ -8,10 +8,10 @@ output:
 content:
   edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
-    - url: ~/CLONES/stargate/docs
+    - url: ./..
       branches: [test-multi-repos]
       start_path: docs-src/stargate-develop
-    - url: ~/CLONES/stargate/docs
+    - url: ./..
       branches: [test-multi-repos]
       start_path: docs-src/stargate-core
 

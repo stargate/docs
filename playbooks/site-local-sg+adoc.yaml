@@ -10,10 +10,10 @@ content:
   sources:
     - url: ~/CLONES/adoc-howto
       branches: [add-yml-files]
-    - url: ~/CLONES/stargate/docs
+    - url: ./..
       branches: [test-multi-repos]
       start_path: docs-src/stargate-develop
-    - url: ~/CLONES/stargate/docs
+    - url: ./..
       branches: [test-multi-repos]
       start_path: docs-src/stargate-core
 
