@@ -35,9 +35,11 @@ include::example$rust/rust-run-example.rs[]
 
 The authentication token value can be also defined in the SG_TOKEN environment variable.
 
+ifeval::["{product}" == "Stargate"]
 You'll need to start a Stargate instance.
 
 include::manage:page$start-stargate.adoc[]
+endif::[]
 
 ==== Run examples
 

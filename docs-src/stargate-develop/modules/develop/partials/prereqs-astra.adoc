@@ -16,5 +16,5 @@ Before you get started, set your environment variables to save time developing o
 +
 include::partial$note_multi-region_connect.adoc[]
 
-. Follow the steps to get your xref:manage:org/managing-org.adoc#managing-application-tokens.adoc[application token, window="_blank"] and set up your environment variables. Or if you have an older Astra Classic database, follow the steps in xref:manage:org/managing-org.adoc#managing-classic-database-authentication[Authentication for classic databases, window="_blank"].
+. Follow the steps to get your xref:manage:org/manage-tokens.adoc#manage-application-tokens.adoc[application token, window="_blank"] and set up your environment variables. Or if you have an older Astra Classic database, follow the steps in xref:manage:org/manage-classic-database-authentication.adoc[Authentication for classic databases, window="_blank"].
 endif::[]

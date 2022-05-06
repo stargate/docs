@@ -12,13 +12,14 @@ on each column to read the data.
 Currently, those indexes can be created with REST,
 https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL],
 or xref:develop:api-graphql-cql-first/gql-creating-index.adoc[GraphQL].
+To use the REST API to create indexes, you'll need the 
 ifeval::["{product}" == "Stargate"]
-To use the REST API to create indexes, you'll need the xref:secure:auth.adoc[application token]
-you generated to create other schema in your keyspace.
+xref:secure:auth.adoc[application token]
 endif::[]
 ifeval::["{product}" == "Astra DB"]
-// . xref:manage:org/managing-org.adoc#manage-application-tokens[Manage application token].
+xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token]
 endif::[]
+you generated to create other schema in your keyspace.
 
 
 Send a `POST` request to
