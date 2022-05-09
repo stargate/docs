@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ed8f5dda-c446-46e2-a9f0-c13d9ab32809",
+		"_postman_id": "df3efab8-35c0-4dc2-b777-d230d5d3e9e4",
 		"name": "Stargate-OSS-Astra-Document-API:myworld",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "73d81ed7-e2a5-41e8-949b-7ad3badcf985",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"AUTH_TOKEN\", jsonData.authToken);"
@@ -44,10 +43,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}"
 						},
 						"url": {
 							"raw": "{{base_auth_url}}/{{base_auth_api_path}}",
@@ -74,8 +70,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "create schema",
@@ -86,7 +81,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9027ead1-bdbc-4c39-ba42-3ba522222146",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -116,10 +110,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{namespace}}\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{namespace}}\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_schema}}",
@@ -362,7 +353,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8d87e904-7850-4fa8-a9a0-e8bc98d7d9c1",
 								"exec": [
 									""
 								],
@@ -372,7 +362,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2746ed32-47f4-4923-b889-3109487b4019",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -380,282 +369,6 @@
 									"pm.test(\"Verify namespace name\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"namespace\"));",
-									";",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-								"key": "X-Cassandra-Token",
-								"value": "{{authToken}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{namespace}}\",\n    \"replicas\": 1\n}",
-							"options": {
-								"raw": {}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}{{base_doc_schema}}",
-							"host": [
-								"{{base_url}}{{base_doc_schema}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Internal server error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
-						},
-						{
-							"name": "Invalid input",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": 400,\n \"description\": \"Invalid input\"\n}"
-						},
-						{
-							"name": "resource created",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"name\": \"killrvideo\"\n}"
-						},
-						{
-							"name": "Unauthorized",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
-						},
-						{
-							"name": "Conflict",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Conflict",
-							"code": 409,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Create a namespace myworld_dcs with DCs (Stargate OSS only)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7c56c288-9377-40b8-a3f3-ec294b92d45c",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"pm.test(\"Verify namespace name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.name).to.eql(\"myworld_dcs\");",
 									";",
 									"});"
 								],
@@ -678,10 +391,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"myworld_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"name\": \"{{namespace}}\",\n    \"replicas\": 1\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_schema}}",
@@ -735,96 +445,6 @@
 							],
 							"cookie": [],
 							"body": "{\n \"code\": 500,\n \"description\": \"Internal server error\"\n}"
-						},
-						{
-							"name": "Conflict",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Conflict",
-							"code": 409,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
-						},
-						{
-							"name": "Unauthorized",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
-										"key": "X-Cassandra-Token",
-										"value": "<string>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"killrvideo\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v2",
-										"schemas",
-										"keyspaces"
-									],
-									"query": [
-										{
-											"key": "pretty",
-											"value": "<boolean>"
-										}
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
 						},
 						{
 							"name": "Invalid input",
@@ -915,11 +535,100 @@
 							],
 							"cookie": [],
 							"body": "{\n \"name\": \"killrvideo\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"killrvideo\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 401,\n \"description\": \"Unauthorized\"\n}"
+						},
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) The token returned from the authorization endpoint. Use this token in each request to the database.",
+										"key": "X-Cassandra-Token",
+										"value": "<string>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"killrvideo\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v2/schemas/keyspaces?pretty=<boolean>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v2",
+										"schemas",
+										"keyspaces"
+									],
+									"query": [
+										{
+											"key": "pretty",
+											"value": "<boolean>"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 409,\n \"description\": \"resource already exists.\"\n}"
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "retrieve schema",
@@ -930,7 +639,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9634b1da-4cf3-4b29-a04d-cb91a83daf41",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -970,10 +678,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_schema}}",
@@ -1216,14 +921,12 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "500c90d9-917f-40b1-b52c-1accb8d4422c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify namespace myworld\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
 									"    pm.expect(jsonData.data.name).to.eql(pm.variables.get(\"namespace\"));",
 									"});"
 								],
@@ -1249,10 +952,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_schema}}/{{namespace}}",
@@ -1492,8 +1192,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "insert data",
@@ -1504,14 +1203,12 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "66909104-f55a-4826-9193-c71c1cd91bfd",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
 									"pm.test(\"Verify document is made\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
 									"    pm.expect(jsonData.documentId).exist;",
 									";",
 									"});"
@@ -1535,10 +1232,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"some-stuff\",\n  \"other\": \"This is nonsensical stuff.\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"id\": \"some-stuff\",\n  \"other\": \"This is nonsensical stuff.\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}",
@@ -1786,7 +1480,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5d8efdb6-90f8-4122-9972-565e56973c8f",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1816,10 +1509,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstname\": \"{{user1}}\",\n  \"lastname\": \"Doe\",\n  \"email\": \"janet.doe@gmail.com\",\n  \"favorite color\": \"grey\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"firstname\": \"{{user1}}\",\n  \"lastname\": \"Doe\",\n  \"email\": \"janet.doe@gmail.com\",\n  \"favorite color\": \"grey\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user1}}",
@@ -2068,7 +1758,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "681e2caf-0fc6-4035-a0e4-f28794909827",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2097,10 +1786,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstname\": \"{{user3}}\",\n  \"lastname\": \"Doe\",\n  \"email\": \"janet.doe@gmail.com\",\n  \"favorite color\": \"grey\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"firstname\": \"{{user3}}\",\n  \"lastname\": \"Doe\",\n  \"email\": \"janet.doe@gmail.com\",\n  \"favorite color\": \"grey\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user3}}",
@@ -2349,7 +2035,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "acdd7258-db9d-4dbb-b46c-75b17d3595b5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2378,10 +2063,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"{{user2}}\",\n    \"lastname\": \"Doe\",\n    \"weights\": {\n      \"type\": \"bench press\",\n      \"weight\": 150,\n      \"reps\": 15\n  }\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"firstname\": \"{{user2}}\",\n    \"lastname\": \"Doe\",\n    \"weights\": {\n      \"type\": \"bench press\",\n      \"weight\": 150,\n      \"reps\": 15\n  }\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user2}}",
@@ -2630,7 +2312,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "993b8cd1-b99e-442e-aab6-ee32236de660",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2659,10 +2340,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n      \"firstname\": \"Joseph\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n      \"firstname\": \"Joseph\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user2}}",
@@ -2911,7 +2589,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0074560c-71d0-47b6-8667-beadf44755c7",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2940,10 +2617,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"reps\": 10,\n    \"type\": \"squat\",\n    \"weight\": 350\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"reps\": 10,\n    \"type\": \"squat\",\n    \"weight\": 350\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user2}}/weights",
@@ -3193,7 +2867,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c1eb58ce-6fcd-48fd-9122-018f20dfbff4",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3222,10 +2895,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"JanetLee\",\n    \"lastname\": \"Doe\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"firstname\": \"JanetLee\",\n    \"lastname\": \"Doe\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user1}}",
@@ -3468,8 +3138,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "retrieve data",
@@ -3480,14 +3149,12 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "47bb6bbc-83b5-4381-a230-260fc8d4d422",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify documents\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
 									"    pm.expect(jsonData.data.Joey.firstname).to.eql(\"Joseph\");",
 									"});"
 								],
@@ -3513,10 +3180,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}?page-size=3",
@@ -3770,14 +3434,12 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "05230794-8ad1-48dd-a107-a9f4b4ff3c92",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify documents\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
 									"    pm.expect(jsonData.data.firstname).to.eql(\"Joseph\");",
 									"});"
 								],
@@ -3803,10 +3465,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user2}}",
@@ -4055,14 +3714,12 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "004655d5-634d-4adc-8498-46e90a1b474a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify documents\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
 									"    pm.expect(jsonData.data.weight).to.eql(350);",
 									"});"
 								],
@@ -4088,10 +3745,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user2}}/weights",
@@ -4341,14 +3995,12 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2d536ec5-0b42-48f5-acdf-757fc2d2cca9",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify squat\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
 									"    pm.expect(jsonData.data).to.eql(\"squat\");",
 									"});"
 								],
@@ -4374,10 +4026,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user2}}/weights/type",
@@ -4628,15 +4277,18 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c581e258-311e-4225-8420-02f656121226",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"pm.test(\"Verify Janet\", function () {",
+									"pm.test(\"Verify Firstname\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    // fix next line",
-									"    pm.expect(jsonData.data.Joey.firstname).to.eql(pm.variables.get(\"user2a\"));",
+									"    ",
+									"    pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user1\")) || ",
+									"    pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user2a\")) || ",
+									"    pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user3\")) || ",
+									"    pm.expect(jsonData.data).to.eql(\"squat\") || ",
+									"    pm.expect(jsonData.data).to.eql(\"bench press\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -4661,13 +4313,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
-							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}?where={\"firstname\":{\"$eq\":\"{{user2a}}\"}}&fields=[\"firstname\", \"lastname\",\"weights\"]",
+							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}?where={\"firstname\":{\"$eq\":\"{{user1}}\"}}&fields=[\"firstname\", \"lastname\",\"weights\"]",
 							"host": [
 								"{{base_url}}{{base_doc_api}}"
 							],
@@ -4680,20 +4329,18 @@
 								{
 									"key": "where",
 									"value": "{\"firstname\":{\"$eq\":\"{{user1}}\"}}",
-									"disabled": true
+									"description": "Get document where firstname = Janet"
 								},
 								{
 									"key": "where",
-									"value": "{\"firstname\":{\"$eq\":\"{{user2a}}\"}}"
+									"value": "{\"firstname\":{\"$eq\":\"{{user2a}}\"}}",
+									"description": "Get document where firstname = Joseph",
+									"disabled": true
 								},
 								{
 									"key": "where",
 									"value": "{\"firstname\":{\"$eq\":\"{{user3}}\"}}",
-									"disabled": true
-								},
-								{
-									"key": "where",
-									"value": "{\"firstname\":{\"$eq\":\"JanetLee\"}}",
+									"description": "Get document where firstname = Martha",
 									"disabled": true
 								},
 								{
@@ -4941,19 +4588,75 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "delete data",
-			"item": [],
-			"protocolProfileBehavior": {}
+			"item": [
+				{
+					"name": "Delete the document Janet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}} ",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{user1}}",
+							"host": [
+								"{{base_url}}{{base_doc_api}}"
+							],
+							"path": [
+								"{{namespace}}",
+								"collections",
+								"{{collection}}",
+								"{{user1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "delete schema",
 			"item": [
 				{
 					"name": "Delete namespaces myworld (Stargate OSS only)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -4969,10 +4672,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{base_url}}{{base_doc_schema}}/{{namespace}}",
@@ -5212,15 +4912,13 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "fc951e88-f1be-4f5b-aa3d-4c5972da22a0",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -5230,13 +4928,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "b9a8cb97-1c10-4030-bab3-1b59dc4bd998",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

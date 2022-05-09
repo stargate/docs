@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fe9f5320-d95d-45d7-a436-eba0268dfe87",
+		"_postman_id": "47ab5f0d-407e-48cf-aa11-c51d129f1eef",
 		"name": "Stargate-OSS-Astra-REST-API:users_keyspace",
 		"description": "Sample schema and queries for Stargate's REST API using:\n\nkeyspace: users_keyspace\ntable: users",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -179,52 +179,6 @@
 							]
 						},
 						"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace\",\n    \"replicas\": 1\n}"
-					},
-					"response": []
-				},
-				{
-					"name": "Create a keyspace users_keyspace_dcs with DCs  (Stargate OSS only)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"pm.test(\"Verify keyspace name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.name).to.eql(\"users_keyspace_dcs\";",
-									";",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"value": "{{AUTH_TOKEN}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}{{base_rest_schema}}",
-							"host": [
-								"{{base_url}}{{base_rest_schema}}"
-							]
-						},
-						"description": "{{base_url}}/v2/schemas/keyspaces\n\n{\n    \"name\": \"users_keyspace_dcs\",\n    \"datacenters\": [ {\"name\": \"dc1\"}, {\"name\": \"dc2\", \"replicas\": 5} ]\n}"
 					},
 					"response": []
 				},
@@ -3855,7 +3809,7 @@
 									"});",
 									"pm.test(\"Verify inserted information\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user1fn\")) || pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user2fn\"))  ;",
+									"    pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user1fn\")) || pm.expect(jsonData.data.firstname).to.eql(pm.variables.get(\"{{user2fn\")) ;",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3917,15 +3871,56 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
+									"",
 									"pm.test(\"query param\", function () {",
 									"    console.log(pm.request.url.query.all());",
 									"    console.log(pm.request.url.query.toObject().where);",
 									"    console.log(pm.request.url.query.toObject().fields)",
 									"});",
+									"",
 									"pm.test(\"Verify inserted information\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    // THIS NEXT STATEMENT ONLY WORKS FOR A SINGLE RESPONSE, I NEED TO REWRITE WITH A LOOP",
-									"    pm.expect(jsonData.data[0].favorite_books).to.include('Emma');",
+									"    var jsonData = pm.response.json();    ",
+									"    console.log(jsonData);",
+									"    pm.request.url.query.all().forEach((param) => { ",
+									"        // This test is valid on single as well as multiple where clauses.",
+									"        // To select multiple where clauses, you can include the ones from params.",
+									"",
+									"        // To adapt to the functionality of including multiple where clauses, this test has additional snippets that include processing of param string and matching of fields. ",
+									"",
+									"        var x = param.value;",
+									"        if (param.key == \"where\") ",
+									"        {",
+									"            const arr = [0,1,2,3,4,5,7,8];",
+									"            var j = 0;",
+									"            for(var i=0; i<x.length; i++) {",
+									"                if(x[i] == '%') {",
+									"                    arr[j] = i;",
+									"                    j++;",
+									"                }",
+									"            }",
+									"",
+									"            // String Processing",
+									"            var str1 = x.substr(arr[0]+3, arr[1]-arr[0]-3);",
+									"            console.log(str1);",
+									"            var str2 = x.substr(arr[4]+3);",
+									"            while(str2.search('%20') != -1) {",
+									"                str2 = str2.replace('%20',\" \");",
+									"            } ",
+									"            while(str2.search('%22') != -1) {",
+									"                str2 = str2.replace('%22',\"\");",
+									"            }",
+									"            while(str2.search('}') != -1) {",
+									"                str2 = str2.replace('}',\"\");",
+									"            }",
+									"            Object.keys(jsonData.data[0]).forEach(function(key) {",
+									"                console.log(key);",
+									"                if(key==str1) {",
+									"                    pm.expect(jsonData.data[0][key]).to.include(str2);",
+									"                }",
+									"                ",
+									"            });",
+									"        }",
+									"        });",
 									"});",
 									""
 								],
@@ -3946,7 +3941,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={\"evaluations\":{\"$containsKey\":\"2020\"}}&fields=firstname,favorite_books",
+							"raw": "{{base_url}}{{base_rest_api}}/{{rkeyspace}}/{{rtable}}?where={\"favorite_books\":{\"$contains\":\"Emma\"}}&fields=firstname,favorite_books",
 							"host": [
 								"{{base_url}}{{base_rest_api}}"
 							],
@@ -3958,8 +3953,7 @@
 								{
 									"key": "where",
 									"value": "{\"favorite_books\":{\"$contains\":\"Emma\"}}",
-									"description": "GET SET item match",
-									"disabled": true
+									"description": "GET SET item match"
 								},
 								{
 									"key": "where",
@@ -3970,7 +3964,8 @@
 								{
 									"key": "where",
 									"value": "{\"evaluations\":{\"$containsKey\":\"2020\"}}",
-									"description": "GET MAP KEY match"
+									"description": "GET MAP KEY match",
+									"disabled": true
 								},
 								{
 									"key": "where",
@@ -4000,16 +3995,6 @@
 									"key": "fields",
 									"value": "firstname,favorite_books",
 									"description": "Specifiy fields to return"
-								},
-								{
-									"key": "where",
-									"value": "{{where-clause}}",
-									"disabled": true
-								},
-								{
-									"key": "fields",
-									"value": "{{fields}}",
-									"disabled": true
 								}
 							]
 						},
@@ -4215,46 +4200,6 @@
 							]
 						},
 						"description": "{{base_url}}/v2/schemas/keyspaces/users_keyspace/tables/users"
-					},
-					"response": []
-				},
-				{
-					"name": "GQL: Drop type address",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"value": "{{AUTH_TOKEN}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropTypeAddress {\n  dropType(\n      keyspaceName:\"{{rkeyspace}}\" \n      typeName:\"address_type\"\n      ifExists:true\n    )\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
 					},
 					"response": []
 				},
