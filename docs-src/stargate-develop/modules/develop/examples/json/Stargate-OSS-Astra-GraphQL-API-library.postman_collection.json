@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d1390739-bb92-467f-8870-e87e5cdffa7f",
+		"_postman_id": "65da5c64-561a-449b-a0e8-0318575f6871",
 		"name": "Stargate-OSS-Astra-GraphQL-API:library",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "131d620e-90a7-4b13-a543-ff6e9dd9a879",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"AUTH_TOKEN\", jsonData.authToken);"
@@ -44,10 +43,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"username\": \"{{auth_username}}\",\n    \"password\": \"{{auth_password}}\"\n}"
 						},
 						"url": {
 							"raw": "{{base_auth_url}}/{{base_auth_api_path}}",
@@ -74,8 +70,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "schema",
@@ -86,7 +81,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "342262d0-f999-4ff6-82b9-609cf81b9774",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -115,9 +109,6 @@
 							"graphql": {
 								"query": "mutation createKsLibrary {\n  createKeyspace(name:\"{{gkeyspace}}\", replicas: 1)\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -135,7 +126,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c67645a0-b431-4384-bd63-07798e5f3caf",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -164,9 +154,6 @@
 							"graphql": {
 								"query": "mutation createAddressUDT {\n  createType(\n    keyspaceName: \"{{gkeyspace}}\"\n    typeName: \"address_type\"\n    fields: [\n      { name: \"street\", type: { basic: TEXT } }\n      { name: \"city\", type: { basic: TEXT } }\n      { name: \"state\", type: { basic: TEXT } }\n      { name: \"zip\", type: { basic: TEXT } }\n    ]\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -184,7 +171,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "86c6af49-f53a-4ce0-97e0-c0fd49bfb67e",
 								"exec": [
 									" pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -213,9 +199,6 @@
 							"graphql": {
 								"query": "mutation createTables {\n  book: createTable(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"{{gtable1}}\",\n    partitionKeys: [ # The keys required to access your data\n      { name: \"title\", type: {basic: TEXT} }\n    ]\n    clusteringKeys: [\n      { name: \"author\", type: {basic: TEXT} }\n    ]\n  )\n  reader: createTable(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"{{gtable2}}\",\n    partitionKeys: [\n      { name: \"name\", type: {basic: TEXT} }\n    ]\n    clusteringKeys: [ # Secondary key used to access values within the partition\n      { name: \"user_id\", type: {basic: UUID}, order: \"ASC\" }\n        ]\n    values: [\n      { name: \"birthdate\", type: {basic: DATE} }\n      { name: \"email\", type: {basic: SET, info:{ subTypes: [ { basic: TEXT } ] } } }\n      { name: \"reviews\", type: {basic: TUPLE, info: { subTypes: [ { basic: TEXT }, { basic: INT }, { basic: DATE } ] } } }\n      { name: \"addresses\", type: { basic: LIST, info: { subTypes: [ { basic: UDT, info: { name: \"address_type\", frozen: true } } ] } } }\n    ]\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -233,7 +216,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d566f2aa-21bb-4228-879e-6206330ff2d8",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -262,9 +244,6 @@
 							"graphql": {
 								"query": "mutation createTableIfNotExists {\n  magazine: createTable(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"magazine\",\n    partitionKeys: [ # The keys required to access your data\n      { name: \"title\", type: {basic: TEXT} }\n    ]\n    clusteringKeys: [ # Secondary key used to access values within the partition\n      { name: \"pub_yr\", type: {basic: INT}, order: \"ASC\" }\n      { name: \"pub_mon\", type: {basic: INT} }\n      { name: \"mag_id\", type: {basic: INT} }\n    ],\n    ifNotExists: true,\n    values: [ # The values associated with the keys\n      { name: \"editor\", type: {basic: TEXT} }\n    ]\n  )\n  article: createTable(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"article\",\n    partitionKeys: [ # The keys required to access your data\n      { name: \"title\", type: {basic: TEXT} }\n    ]\n    clusteringKeys: [ # Secondary key used to access values within the partition\n      { name: \"mtitle\", type: {basic: TEXT} }\n    ],\n    ifNotExists: true,\n    values: [ # The values associated with the keys\n      { name: \"authors\", type: {basic:LIST, info:{ subTypes: [ { basic: TEXT } ] } } }\n    ]\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -282,7 +261,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bfc4458c-e399-4912-b173-5e208e8b86f3",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -311,9 +289,6 @@
 							"graphql": {
 								"query": "mutation createMapTable {\n  badge: createTable (\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName: \"badge\",\n    partitionKeys: [\n      { name: \"user_id\", type: {basic: UUID} },\n      { name: \"badge_type\", type: {basic:TEXT} }\n    ]\n    clusteringKeys: [\n      { name: \"badge_id\", type: { basic: INT}, order: \"ASC\"}\n    ],\n    ifNotExists:true\n    values: [ \n        { name: \"earned\", type:{basic:MAP, info:{ subTypes: [ { basic: TEXT }, {basic: DATE}]}} }\n    ]\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -331,7 +306,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "52c00d1b-7d76-417d-bf6b-023c5f71248b",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -360,58 +334,6 @@
 							"graphql": {
 								"query": "mutation createIndexes {\n  book: createIndex(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"{{gtable1}}\",\n    columnName:\"author\",\n    indexName:\"author_idx\"\n  )\n  reader: createIndex(\n      keyspaceName:\"{{gkeyspace}}\",\n      tableName:\"{{gtable2}}\",\n      columnName:\"birthdate\",\n      indexName:\"reader_bdate_idx\"\n  )\n  reader2: createIndex(\n      keyspaceName:\"{{gkeyspace}}\",\n      tableName:\"{{gtable2}}\",\n      columnName:\"email\",\n      indexName:\"reader_email_idx\"\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create indexes for REST",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "5ba03d07-2527-4272-8828-cf44b874d673",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify indexes\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.users).to.eql(true);",
-									";",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"type": "text",
-								"value": "{{AUTH_TOKEN}}"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation createIndexes {\n  user1: createIndex(\n    keyspaceName:\"{{rkeyspace}}\",\n    tableName:\"{{rtable}}\",\n    columnName:\"favorite_books\",\n    indexName:\"fav_books_idx\",\n    indexKind: VALUES\n  )\n  user2:createIndex(\n    keyspaceName:\"{{rkeyspace}}\",\n    tableName:\"{{rtable}}\",\n    columnName:\"top_three_tv_shows\",\n    indexName:\"tv_idx\",\n    indexKind: VALUES\n  )\n  user3:createIndex(\n    keyspaceName:\"{{rkeyspace}}\",\n    tableName:\"{{rtable}}\",\n    columnName:\"evaluations\",\n    indexName:\"evalv_idx\",\n    indexKind: VALUES\n  )\n   user4:createIndex(\n    keyspaceName:\"{{rkeyspace}}\",\n    tableName:\"{{rtable}}\",\n    columnName:\"evaluations\",\n    indexName:\"evalk_idx\",\n    indexKind: KEYS\n  )\n   user5:createIndex(\n    keyspaceName:\"{{rkeyspace}}\",\n    tableName:\"{{rtable}}\",\n    columnName:\"evaluations\",\n    indexName:\"evale_idx\",\n    indexKind: ENTRIES\n  )\n    users6: createIndex(\n    keyspaceName:\"{{rkeyspace}}\",\n    tableName:\"{{rtable}}\",\n    columnName:\"current_country\",\n    indexName:\"country_idx\"\n  )\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -429,7 +351,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "abd398cf-46bd-402b-bd78-7ef8043ed278",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -458,9 +379,6 @@
 							"graphql": {
 								"query": "mutation alterTableAddCols {\n  alterTableAdd(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"{{gtable1}}\",\n    toAdd:[\n      { name: \"isbn\", type: { basic: TEXT } }\n      { name: \"language\", type: {basic: TEXT} }\n      { name: \"pub_year\", type: {basic: INT} }\n      { name: \"genre\", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }\n      { name: \"format\", type: {basic:SET, info:{ subTypes: [ { basic: TEXT } ] } } }\n    ]\n  )\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -472,8 +390,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "retrieve schema",
@@ -484,7 +401,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "15b47433-1768-4cbe-858b-e66767972cd2",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -512,9 +428,6 @@
 							"graphql": {
 								"query": "query GetKeyspace {\n  keyspace(name: \"{{gkeyspace}}\") {\n      name\n      dcs {\n          name\n          replicas\n      }\n      tables {\n          name\n          columns {\n              name\n              kind\n              type {\n                  basic\n                  info {\n                      name\n                  }\n              }\n          }\n      }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -532,7 +445,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2cad93df-4dc8-472c-8e9a-616b03d6a26c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -568,9 +480,6 @@
 							"graphql": {
 								"query": "query GetTables {\n  keyspace(name: \"{{gkeyspace}}\") {\n      name\n      tables {\n          name\n          columns {\n              name\n              kind\n              type {\n                  basic\n                  info {\n                      name\n                  }\n              }\n          }\n      }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -582,8 +491,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "insert data",
@@ -594,7 +502,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fd6f005b-1a66-4154-b831-1f399f747d45",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -622,9 +529,6 @@
 							"graphql": {
 								"query": "mutation insertReaderWithUDT{\n  ag: insertreader(\n    value: {\n      user_id: \"e0ed81c3-0826-473e-be05-7de4b4592f64\"\n      name: \"Allen Ginsberg\"\n      birthdate: \"1926-06-03\"\n      addresses: [{ street: \"Haight St\", city: \"San Francisco\", zip: \"94016\" }]\n    }\n  ) {\n    value {\n      user_id\n      name\n      birthdate\n      addresses {\n        street\n        city\n        zip\n      }\n    }\n  }\n }",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -642,7 +546,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f7932910-184f-4d0e-9573-62ed926ec5b8",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -670,9 +573,6 @@
 							"graphql": {
 								"query": "mutation insertBookWithOption {\n  nativeson: insertbook(value: {title:\"Native Son\", author:\"Richard Wright\"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {\n    value {\n      title\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -690,7 +590,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e31c1b23-26ad-4944-975a-9b87da1125b5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -718,9 +617,6 @@
 							"graphql": {
 								"query": "mutation insertBookWithOption {\n  PaP: insertbook(value: {title:\"Pride and Prejudice\", author:\"Jane Austen\"}, options: {consistency: LOCAL_QUORUM, ttl:86400}) {\n    value {\n      title\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -738,7 +634,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3dde84d8-9941-4231-a576-0396296e8f06",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -766,9 +661,6 @@
 							"graphql": {
 								"query": "mutation insert2Books {\n  moby: insertbook(value: {title:\"Moby Dick\", author:\"Herman Melville\"}) {\n    value {\n      title\n    }\n  }\n  catch22: insertbook(value: {title:\"Catch-22\", author:\"Joseph Heller\"}) {\n    value {\n      title\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -786,7 +678,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ef04e5db-7670-4090-8520-690d3eb19b5c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -814,9 +705,6 @@
 							"graphql": {
 								"query": "mutation insertArticle {\n  magarticle: insertarticle(value: {title:\"How to use GraphQL\", authors: [\"First author\", \"Second author\"], mtitle:\"Database Magazine\"}) {\n    value {\n      title\n      mtitle\n      authors\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -834,14 +722,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5c3efdf9-f351-4e09-a5eb-62b5bfe3d6b3",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify table name\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    //pm.expect(jsonData.data.name).to.eql(\"FIX THIS\");",
+									"    pm.expect(jsonData.data.editor1).exist;",
 									"});"
 								],
 								"type": "text/javascript"
@@ -862,9 +749,6 @@
 							"graphql": {
 								"query": "mutation insertOneBadge {\n  editor1: insertbadge(\n      value: { \n          user_id: \"e0ed81c3-0826-473e-be05-7de4b4592f64\"\n          badge_type: \"Editor\"\n          badge_id: 100\n          earned: { key: \"Gold\", value: \"2020-11-20\" }\n        } \n    ) {\n    value {\n      user_id\n      badge_type\n      badge_id\n      earned {\n          key\n          value\n      }\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -882,7 +766,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c210c5f7-6815-4495-a689-b5e575c2ccd2",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -910,9 +793,6 @@
 							"graphql": {
 								"query": "# insert a reader record that uses a TUPLE\nmutation insertJaneWithTuple{\n   jane: insertreader(\n     value: {\n       user_id: \"b5b5666b-2a37-4d0b-a5eb-053e54fc242b\"\n       name: \"Jane Doe\"\n       birthdate: \"2000-01-01\"\n       email: [\"janedoe@gmail.com\", \"janedoe@yahoo.com\"]\n       reviews: { item0: \"Moby Dick\", item1: 5, item2: \"2020-12-01\" }\n     }\n   ) {\n     value {\n       user_id\n       name\n       birthdate\n       reviews {\n        item0\n        item1\n        item2\n      }\n     }\n   }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -930,7 +810,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cdaf4f77-15c2-4976-8180-27a40e771914",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -958,9 +837,6 @@
 							"graphql": {
 								"query": "mutation updateOneBook {\n  moby: updatebook(value: {title:\"Moby Dick\", author:\"Herman Melville\", isbn: \"9780140861723\"}, ifExists: true ) {\n    value {\n      title\n      author\n      isbn\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -978,7 +854,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8046d09e-82be-4c0b-a755-ad38c17c26e2",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1013,9 +888,6 @@
 							"graphql": {
 								"query": "mutation updateOneBookAgain {\n moby: updatebook(value: {title:\"Moby Dick\", author:\"Herman Melville\", genre: [\"Drama\", \"Classic lit\"]}, ifExists: true ) {\n   value {\n     title\n     author\n     genre\n   }\n }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1027,8 +899,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "retrieve data",
@@ -1039,7 +910,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "24c333a0-3462-4187-8e71-3706cb1eb3ca",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1074,9 +944,6 @@
 							"graphql": {
 								"query": "# get one book using the primary key title with a value\nquery oneBook {\n    {{gtable1}}(value: {title:\"Moby Dick\"}) {\n      values {\n        title\n        author\n      }\n    }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1094,7 +961,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8f5c3c47-abb9-419e-9c21-53c73c6d8449",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1130,9 +996,6 @@
 							"graphql": {
 								"query": "query ThreeBooks {\n  {{gtable1}}(filter: { title: { in: [\"Native Son\", \"Moby Dick\", \"Catch-22\"] } } ) {\n      values {\n        title\n        author\n     }\n   }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1150,7 +1013,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "097fb103-4f3f-46f7-a6bd-a5b8d2ece6d4",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1185,9 +1047,6 @@
 							"graphql": {
 								"query": "# query the author to see the UDT\nquery getReaderWithUDT{\n  {{gtable2}}(value: { name:\"Allen Ginsberg\" user_id: \"e0ed81c3-0826-473e-be05-7de4b4592f64\" }) {\n    values {\n      name\n      birthdate\n      addresses {\n        street\n        city\n        zip\n      }\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1199,8 +1058,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "delete data",
@@ -1209,9 +1067,17 @@
 					"name": "Delete one book",
 					"event": [
 						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
 							"listen": "test",
 							"script": {
-								"id": "2cb06d27-1ff2-40f2-8545-dd746c74f99f",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1219,7 +1085,8 @@
 									"pm.test(\"Verify book name\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.data.PaP.value.title).to.eql(\"Pride and Prejudice\");",
-									"});"
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1239,9 +1106,6 @@
 							"graphql": {
 								"query": "mutation deleteOneBook {\n  PaP: deletebook(value: {title:\"Pride and Prejudice\", author: \"Jane Austen\"}, ifExists: true ) {\n    value {\n      title\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1259,15 +1123,30 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ea8c1ec5-585e-4157-905e-5a24d5439f15",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify table name\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.PaP.value.title).to.eql(\"Pride and Prejudice\");",
+									"    pm.expect(jsonData.data.PaP.value.title).to.eql(\"Moby Dick\");",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var x_title = jsonData.data.PAP.value.title;",
+									"    console.log(x_title.content);",
+									"    var x_author = jsonData.data.PAP.value.author;",
+									"    pm.variables.set(\"x_title\",\"Pride and Prejudice\");",
+									"});",
+									"*/ "
 								],
 								"type": "text/javascript"
 							}
@@ -1285,11 +1164,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation deleteOneBookCL {\n  PaP: deletebook(value: {title:\"Pride and Prejudice\", author: \"Jane Austen\"}, ifExists: true, options: {consistency: LOCAL_QUORUM }) {\n    value {\n      title\n    }\n  }\n}",
+								"query": "mutation deleteOneBookCL {\n  PaP: deletebook(value: {title:\"Moby Dick\", author: \"Herman Melville\"}, ifExists: true, options: {consistency: LOCAL_QUORUM }) {\n    value {\n      title\n    }\n  }\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1301,8 +1177,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "delete schema",
@@ -1313,7 +1188,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "07cc848b-8979-4de5-85a7-611c41071e83",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1341,249 +1215,6 @@
 							"graphql": {
 								"query": "mutation dropTableBook {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"article\")\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Drop type",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "30efd785-7183-4dad-9da0-11b72042afcb",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify table name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.dropType).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"value": "{{AUTH_TOKEN}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropType {\n  dropType(keyspaceName:\"{{gkeyspace}}\", typeName:\"address_type\", ifExists:true)\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Drop a column from a table",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "06354975-6d03-480d-aff8-f25352fdfe12",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify table name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.alterTableDrop).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"value": "{{AUTH_TOKEN}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropColumnFormat {\n    alterTableDrop(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"{{gtable1}}\",\n    toDrop:[\"format\"]\n  )\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Drop table IF EXISTS",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7033ffc0-074b-4b9a-84a3-28b5dbef1a43",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify table name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.dropTable).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"value": "{{AUTH_TOKEN}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropTableIfExists {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"magazine\",\n  ifExists: true)\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Drop table article",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "271e7f1e-69a1-4132-a8fc-1319312b3f26",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify table name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.dropTable).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"type": "text",
-								"value": "{{AUTH_TOKEN}}"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropArticle {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"article\",\n  ifExists: true)\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
-							}
-						},
-						"url": {
-							"raw": "{{gql_base_url}}{{base_gql_schema}}",
-							"host": [
-								"{{gql_base_url}}{{base_gql_schema}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Drop table book",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "1b4ed8ab-94ec-4cd4-b2e5-164c27fef0f6",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Verify table name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.dropTable).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Cassandra-Token",
-								"type": "text",
-								"value": "{{AUTH_TOKEN}}"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation dropTableIfExists {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"book\",\n  ifExists: true)\n}",
-								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1601,7 +1232,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9f1c562a-25f0-4eb7-93b3-706d01d7b91e",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1629,9 +1259,226 @@
 							"graphql": {
 								"query": "mutation dropTableIfExists {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"reader\",\n  ifExists: true)\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drop type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.dropType).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropType {\n  dropType(keyspaceName:\"{{gkeyspace}}\", typeName:\"address_type\", ifExists:true)\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drop a column from a table",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.alterTableDrop).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropColumnFormat {\n    alterTableDrop(\n    keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"{{gtable1}}\",\n    toDrop:[\"format\"]\n  )\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drop table IF EXISTS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.dropTable).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropTableIfExists {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"magazine\",\n  ifExists: true)\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drop table article",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.dropTable).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"type": "text",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropArticle {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"article\",\n  ifExists: true)\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{gql_base_url}}{{base_gql_schema}}",
+							"host": [
+								"{{gql_base_url}}{{base_gql_schema}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drop table book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify table name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.dropTable).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Cassandra-Token",
+								"type": "text",
+								"value": "{{AUTH_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation dropTableIfExists {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"book\",\n  ifExists: true)\n}",
+								"variables": ""
 							}
 						},
 						"url": {
@@ -1649,7 +1496,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a1204dac-ff0b-46d6-9ff7-a04cf31b4626",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1677,9 +1523,6 @@
 							"graphql": {
 								"query": "mutation dropTableIfExists {\n  dropTable(keyspaceName:\"{{gkeyspace}}\",\n    tableName:\"badge\",\n  ifExists: true)\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1697,14 +1540,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ad6b1fe2-aa27-4960-98a6-e993ce406ccf",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"pm.test(\"Verify table name\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.dropKeysapce).to.eql(true);",
+									"    pm.expect(jsonData.data.dropKeyspace).to.eql(true);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1725,9 +1567,6 @@
 							"graphql": {
 								"query": "mutation dropKsLibrary {\n  dropKeyspace(name:\"{{gkeyspace}}\", ifExists: true)\n}",
 								"variables": ""
-							},
-							"options": {
-								"graphql": {}
 							}
 						},
 						"url": {
@@ -1739,15 +1578,13 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "c0487ffa-7d86-4632-9b4e-a97a45486e27",
 				"type": "text/javascript",
 				"exec": [
 					"",
@@ -1758,13 +1595,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "57f5fdda-68be-43d3-a5eb-938496d825d8",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
