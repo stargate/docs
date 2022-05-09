@@ -8,7 +8,7 @@ output:
 content:
   #edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
-    - url: ~/CLONES/adoc-howto
+    - url: ./../../../adoc-howto
       branches: [add-yml-files]
     - url: ./..
       branches: [test-multi-repos]
