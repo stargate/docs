@@ -2,3 +2,4 @@ build
 node_modules
 venv
 .DS_Store
+package-lock.json
