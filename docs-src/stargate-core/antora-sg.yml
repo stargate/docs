@@ -11,4 +11,4 @@ nav:
 - modules/connect/nav.adoc
 - modules/secure/nav.adoc
 - modules/migrate/nav.adoc
-- modules/develop/dnav.adoc
+- modules/develop/snav.adoc
