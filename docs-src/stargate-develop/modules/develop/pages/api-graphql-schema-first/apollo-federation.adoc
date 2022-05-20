@@ -89,7 +89,7 @@ Set the port for the server to `4001`.
 Orders setup::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1orders.js[tag=setup]
 ----
@@ -106,7 +106,7 @@ required to insert data and make queries.
 Orders schema::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1orders.js[tag=schema]
 ----
@@ -146,7 +146,7 @@ requires resolver definition.
 Orders resolvers::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1orders.js[tag=resolvers]
 ----
@@ -161,7 +161,7 @@ Data is provided on the orders that are inserted into the service.
 Orders server::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1orders.js[tag=server]
 ----
@@ -175,7 +175,7 @@ The full script:
 Orders.js::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1orders.js[]
 ----
@@ -192,7 +192,7 @@ Let's break this script down as well, into three parts.
 Gateway1::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1gateway.js[tag=gateway1]
 ----
@@ -200,7 +200,7 @@ include::example$graphql/schema-first/1gateway.js[tag=gateway1]
 Gateway2::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1gateway.js[tag=gateway2]
 ----
@@ -208,7 +208,7 @@ include::example$graphql/schema-first/1gateway.js[tag=gateway2]
 Gateway3::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1gateway.js[tag=gateway3]
 ----
@@ -241,7 +241,7 @@ The full script:
 gateway.js::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1gateway.js[]
 ----
@@ -265,7 +265,7 @@ pointed to the URL where the gateway is running, or `localhost:4000` in this cas
 Get a checkout order by ID::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1fetchOrderById.graphql[]
 ----
@@ -273,7 +273,7 @@ include::example$graphql/schema-first/1fetchOrderById.graphql[]
 Result::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$result/gql_1fetchOrderById.result[]
 ----

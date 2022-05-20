@@ -21,7 +21,7 @@ include::example$xml/java-setup.xml[]
 
 If you do not add it, you will observe the following error:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 No functional channel service provider found.
 Try adding a dependency on the grpc-okhttp, grpc-netty, or grpc-netty-shaded artifact.

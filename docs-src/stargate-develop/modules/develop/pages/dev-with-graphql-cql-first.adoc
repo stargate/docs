@@ -40,7 +40,7 @@ using direct schema manipulation.
 The querying and mutating endpoint is constructed using a particular keyspace name.
 
 Each request must have a valid 
-ifeval::["{product}" == "Astra DB Classic"]
+ifeval::["{product}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
 endif::[]
 ifeval::["{product}" == "Astra DB Serverless"]

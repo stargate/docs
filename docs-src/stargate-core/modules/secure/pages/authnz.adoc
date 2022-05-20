@@ -40,7 +40,7 @@ use, the token will no longer exist.
 The length of time to persist the token is configurable using the system property stargate.auth_tokenttl. For example,
 set the token to persist for 100 seconds:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 JAVA_OPTS='-Dstargate.auth_tokenttl=100' ./starctl \
 --developer-mode --cluster-name test --cluster-version 3.11 --enable-auth
@@ -58,7 +58,7 @@ REST or Document API(/v2)::
 --
 Store the auth token in an environment variable to make it easy to use with `cURL`.
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 export AUTH_TOKEN={auth-token}
 ----
@@ -119,13 +119,13 @@ Although most of the files will be explained here, for the demo, it is easiest t
 the github repository, so that all the required files are available.
 
 To clone the repository:
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 git clone https://github.com/stargate/docker-images.git
 ----
 
 Go to the stargate-jwt example:
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 cd <clone_location>/examples/stargate-jwt
 ----
@@ -134,14 +134,14 @@ IMPORTANT: Before starting the demo, be sure that Docker is running on your plat
 install Docker Desktop for Mac or Windows.
 
 To start the demo, run the startup script:
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 ./start_jwt.sh
 ----
 
 The script includes the following commands:
 
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
  #!/bin/sh
 
@@ -326,7 +326,7 @@ GRANT SELECT ON TABLE library.authors TO web_user;
 Create a keycloak user, so that the user's JWT can be used to verify authentication and authorization later when a query is made.
 If you used the docker-compose https://github.com/stargate/docker-images/blob/master/examples/stargate-jwt-auth/start_jwt.sh[startup script], this step has already completed.
 
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 TOKEN=$(curl -s --data "username=admin&password=admin&grant_type=password&client_id=admin-cli" http://localhost:4444/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token') //<1>
 
@@ -379,7 +379,7 @@ claim `x-stargate-userid`.
 Access is granted::
 +
 --
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token') //<1>
 
@@ -419,7 +419,7 @@ This next query should fail, because the `userid=1234` that the user `testuser1`
 Access is not granted::
 +
 --
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 
@@ -450,7 +450,7 @@ Note that either REST v1 or REST v2 can be used with the JWT:
 Access is granted::
 +
 --
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 export USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 
@@ -480,7 +480,7 @@ The Document API can also use JWTs to access data:
 Access is granted::
 +
 --
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 export USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 
@@ -507,7 +507,7 @@ Result::
 GraphQL can also use the JWTs for authentication and authorization, if the `USER_TOKEN` is copied to the
 header of GraphQL queries.
 
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 export USER_TOKEN=$(curl -s --data "username=testuser1&password=testuser1&grant_type=password&client_id=user-service" http://localhost:4444/auth/realms/stargate/protocol/openid-connect/token | jq -r '.access_token')
 printenv | grep USER_TOKEN

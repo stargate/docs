@@ -111,7 +111,7 @@ to get the same information:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_doc_mult_where.sh[]
 ----
@@ -139,7 +139,7 @@ You can also retrieve documents using a `WHERE` clause that searches sub-documen
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_subdoc_where.sh[]
 ----
@@ -163,7 +163,7 @@ Here, a numerical value between to values is sought:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_subdoc_mult_where.sh[]
 ----
@@ -189,7 +189,7 @@ all the documents:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_all_docs.sh[]
 ----
@@ -219,7 +219,7 @@ retrieve the first five documents (a page) in the collection:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_all_docs_w_paging_1.sh[]
 ----
@@ -247,7 +247,7 @@ parameter set to the first page's pageState:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_joey.sh[]
 ----
@@ -272,7 +272,7 @@ In this case, the sub-document `weights` is the
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_joey_weights.sh[]
 ----
@@ -297,7 +297,7 @@ Let's add another record for the next example:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_post_martha.sh[]
 ----
@@ -322,7 +322,7 @@ to retrieve all the users that have, say, weight reps between 11 and 16:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_doc_path_wildcard.sh[]
 ----

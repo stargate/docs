@@ -10,7 +10,7 @@ that were entered:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_users.sh[]
 ----
@@ -43,7 +43,7 @@ to retrieve the row for `Mookie` using `$eq`:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_users_where.sh[]
 ----
@@ -69,7 +69,7 @@ to retrieve the row for `Janesha` using `$eq`, and `Emma` using `$contains`:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_users_mult_where.sh[]
 ----
@@ -93,7 +93,7 @@ A primary key can be supplied to retrieve a row:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_primKey.sh[]
 ----
@@ -120,7 +120,7 @@ The `pageState` is useful for pagination of the results in queries.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_all.sh[]
 ----
@@ -152,7 +152,7 @@ To return only desired fields in a response object, use the `fields` query param
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_users_fields.sh[]
 ----
@@ -205,7 +205,7 @@ SET:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_set_data.sh[]
 ----
@@ -227,7 +227,7 @@ LIST:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_list_data.sh[]
 ----
@@ -249,7 +249,7 @@ MAP:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_map_data.sh[]
 ----
@@ -271,7 +271,7 @@ TUPLE:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_tuple_data.sh[]
 ----
@@ -293,7 +293,7 @@ UDT:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_udt_data.sh[]
 ----

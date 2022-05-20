@@ -17,7 +17,7 @@ to work with the Apollo gateway.
 Book type::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createTableBook.graphql[]
 ----
@@ -26,7 +26,7 @@ include::example$graphql/schema-first/1createTableBook.graphql[]
 Reader type::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createTableReader.graphql[]
 ----

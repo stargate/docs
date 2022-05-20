@@ -13,7 +13,7 @@ and a UDT called `Review` that includes a book title, comment, rating and review
 Address UDT::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createUDTAddress.graphql[]
 ----
@@ -22,7 +22,7 @@ include::example$graphql/schema-first/1createUDTAddress.graphql[]
 Review UDT::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createUDTReview.graphql[]
 ----

@@ -9,7 +9,7 @@ For this example, two tables are created:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/createTables.graphql[]
 ----
@@ -45,7 +45,7 @@ table if it does not already exist:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/createTableIfNotExists.graphql[]
 ----

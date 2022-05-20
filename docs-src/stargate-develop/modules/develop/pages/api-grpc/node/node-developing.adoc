@@ -4,7 +4,7 @@
 
 Clone the repo, then install dependencies:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 npm i
 ----
@@ -17,7 +17,7 @@ details based on your platform.
 
 Then run the tests:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 npm test
 ----
@@ -33,7 +33,7 @@ See the integration tests at `src/client/client.test.ts` for more example uses o
 Should the Stargate protobuf files change and you need to generate new gRPC code,
 this project has an NPM script you can use:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 npm run gen
 ----
@@ -53,7 +53,7 @@ You can use link:https://github.com/wclr/yalc[the yalc library] to publish
 changes to this client locally and test with a consuming application.
 Assuming you have `yalc` installed and you've already made your changes, do the following:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 (In your local copy of this repo)
 npm run compile

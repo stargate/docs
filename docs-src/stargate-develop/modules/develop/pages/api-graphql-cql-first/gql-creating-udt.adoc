@@ -12,7 +12,7 @@ first.
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/createUDT.graphql[]
 ----

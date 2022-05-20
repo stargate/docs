@@ -8,7 +8,7 @@ To undeploy an existing schema, use the following mutation.
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1Undeploy.graphql[]
 ----

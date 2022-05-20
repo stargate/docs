@@ -4,14 +4,14 @@
 
 .Install Rust toolchain:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/rust-build1.sh[]
 ----
 
 .Run build in the root directory of the project:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/rust-build2.sh[]
 ----

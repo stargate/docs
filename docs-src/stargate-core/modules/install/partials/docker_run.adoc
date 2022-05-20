@@ -111,7 +111,7 @@ and looking for the message that indicates Stargate is ready for traffic.
 shell command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/docker-logs.sh[]
 ----

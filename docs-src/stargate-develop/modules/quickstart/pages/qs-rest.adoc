@@ -19,31 +19,33 @@ tables that will store the data. A keyspace is a container for which a
 Tables consist of columns that have a defined data type. Multiple tables are contained
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
+ifeval::["{product}" == "Stargate"]
 // create keyspace
-include::develop:page$dev-with-rest.adoc[tag=CreateKS]
+include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace,tag=CreateKS]
+endif::[]
 
 // check keyspaces exist
-include::develop:page$dev-with-rest.adoc[tag=CheckKS]
+include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace,tag=CheckKS]
 
 // create table
-include::develop:page$dev-with-rest.adoc[tag=CreateTable]
+include::develop:page$api-rest/rest-creating-table.adoc[Creating a table in your keyspace,tag=CreateTable]
 
 // check tables and columns exist
-include::develop:page$dev-with-rest.adoc[tag=CheckTables]
+include::develop:page$api-rest/rest-checking-table.adoc[Checking a table,tag=CheckTables]
 
 == Interacting with data stored in tables
 
 // write table data
-include::develop:page$dev-with-rest.adoc[tag=WriteData]
+include::develop:page$api-rest/rest-adding-rows.adoc[Adding rows to your table,tag=WriteData]
 
 // read table data
-include::develop:page$dev-with-rest.adoc[tag=ReadData]
+include::develop:page$api-rest/rest-retrieving-rows.adoc[Retrieving rows from your table,tag=ReadData]
 
 // update table data
-include::develop:page$dev-with-rest.adoc[tag=UpdateData]
+include::develop:page$api-rest/rest-updating-rows.adoc[Updating rows in your table,tag=UpdateData]
 
 // delete table data
-include::develop:page$dev-with-rest.adoc[tag=DeleteData]
+include::develop:page$api-rest/rest-deleting-rows.adoc[Deleting rows in your table,tag=DeleteData]
 
 
 Voila! For more information on the REST API, see the see the

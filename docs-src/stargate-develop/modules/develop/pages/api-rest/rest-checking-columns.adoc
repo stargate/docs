@@ -6,7 +6,7 @@ REST API query with `cURL` to find all the columns:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_check_column_exists.sh[]
 ----
@@ -29,7 +29,7 @@ To get a particular column, specify the column in the URL:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_get_particular_column.sh[]
 ----

@@ -14,7 +14,7 @@ to replace data to the existing collection. All fields included will be changed.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_patch_janet.sh[]
 ----
@@ -37,7 +37,7 @@ A `GET` request will show that the data has been replaced in the document:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_patch_check_janet.sh[]
 ----
@@ -71,7 +71,7 @@ In this example, we want to change just the firstname of the document:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_patch_partial.sh[]
 ----
@@ -94,7 +94,7 @@ and a `GET` will show that only the `weights` has been changed.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_patch_check_partial.sh[]
 ----
@@ -121,7 +121,7 @@ To partially update a sub-document,  send a `PATCH` request to
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_patch_subdoc.sh[]
 ----
@@ -144,7 +144,7 @@ and a `GET` will show that only the `weights` has been changed.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_patch_check_subdoc.sh[]
 ----

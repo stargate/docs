@@ -6,7 +6,7 @@
 
 To begin, add the required dependency to your project:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/go-get-grpc-go-client.sh[]
 ----

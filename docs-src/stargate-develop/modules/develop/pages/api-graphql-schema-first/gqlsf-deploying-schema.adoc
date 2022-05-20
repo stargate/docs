@@ -21,7 +21,7 @@ the schema to deploy to a previously defined keyspace:
 Simple graphQL schema command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createDeploySimple.graphql[]
 ----
@@ -39,7 +39,7 @@ include::example$result/gql_1createDeploy.result[]
 Full schema command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createDeploy.graphql[]
 ----
@@ -100,7 +100,7 @@ with a cURL command:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createDeployFile.graphql[]
 ----
@@ -134,7 +134,7 @@ to get the current version.
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1DeployFileAgain.graphql[]
 ----

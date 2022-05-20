@@ -10,7 +10,7 @@ Install `stargate-grpc-node-client` using either `npm` or `yarn`:
 npm command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/node-npm.sh[]
 ----

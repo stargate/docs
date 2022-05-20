@@ -9,7 +9,7 @@ can remove a column.  All column data will be deleted along with the column sche
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/dropColumnFormat.graphql[]
 ----

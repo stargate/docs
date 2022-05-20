@@ -1,3 +1,3 @@
-= Secure Stargate
+= Securing Stargate
 
 * xref:authnz.adoc[Authentication and Authorization]

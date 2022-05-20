@@ -66,7 +66,7 @@ The easiest way to get started with GraphQL is to use the built-in GraphQL playg
 
 === Prerequisites
 
-ifeval::["{product}" == "Astra DB Classic"]
+ifeval::["{product}" == "Astra DB"]
 In Astra, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 endif::[]
@@ -83,7 +83,7 @@ The GraphQL playground launches the url `http://localhost:8080/playground` in yo
 endif::[]
 
 Add your 
-ifeval::["{product}" == "Astra DB Classic"]
+ifeval::["{product}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token]
 endif::[]
 ifeval::["{product}" == "Astra DB Serverless"]
@@ -121,7 +121,7 @@ The Swagger UI allows you to interact with the REST and Document APIs in a web b
  
 === Using the Swagger UI
 
-ifeval::["{product}" == "Astra DB Classic"]
+ifeval::["{product}" == "Astra DB"]
 In Astra, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`

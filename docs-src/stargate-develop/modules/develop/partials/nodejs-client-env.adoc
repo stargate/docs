@@ -9,7 +9,7 @@ The {database} REST Client connects to the {database} REST API and the {database
 === Set up your environment
 . Install the {database} JS Collection:
 +
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 npm install @astrajs/rest
 ----
@@ -26,14 +26,14 @@ https://astra.datastax.com/org/{org-Id}/database/{databaseid}
 
 . Add the **Cluster ID** as an environment variable with the following command:
 +
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 export ASTRA_DB_ID={databaseid}
 ----
 +
 *Example*
 +
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 export ASTRA_DB_ID=b5285f63-8da5-4c6e-afd8-ade371a48795
 ----
@@ -42,7 +42,7 @@ export ASTRA_DB_ID=b5285f63-8da5-4c6e-afd8-ade371a48795
 . Add the *Region* as an environment variable with the following command:
 
 +
-[source, bash]
+[source, shell, subs="attributes+"]
 ----
 export ASTRA_DB_REGION={region}
 ----
@@ -56,7 +56,7 @@ export ASTRA_DB_REGION=us-east1
 
 . Add your application token as environment variables with the following command:
 +
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 export ASTRA_DB_APPLICATION_TOKEN={token}
 ----

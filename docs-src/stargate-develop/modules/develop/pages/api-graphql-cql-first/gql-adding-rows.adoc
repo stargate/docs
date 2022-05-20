@@ -14,7 +14,7 @@ and add a couple of books to the `book` table:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/insertTwoBooks.graphql[]
 ----
@@ -54,7 +54,7 @@ An example insertion that sets the consistency level and TTL:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/insertBookWithOption.graphql[]
 ----
@@ -82,7 +82,7 @@ Inserting a collection is simple. An example of inserting a list:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/insertArticle.graphql[]
 ----
@@ -105,7 +105,7 @@ A map is slightly more complex:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/insertOneBadge.graphql[]
 ----
@@ -131,7 +131,7 @@ and so on, to insert the parts of the tuple
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/insertJaneWithTuple.graphql[]
 ----
@@ -156,7 +156,7 @@ Inserting a UDT requires taking careful note of the brackets used:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/insertReaderWithUDT.graphql[]
 ----

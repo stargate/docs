@@ -13,7 +13,7 @@ Indexed fields can be used as parameters in queries.
 Reader type::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createReaderIndex.graphql[]
 ----

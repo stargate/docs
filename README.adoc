@@ -14,7 +14,7 @@ The Stargate docs are organized into three Antora modules:
 
 Antora requires NodeJS, install it and then install the project dependencies:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 npm install
 ----
@@ -36,14 +36,14 @@ The `.github/workflows/antora.yml` GitHub action will generate and publish the d
 The docs can be generated locally during development, to check work. 
 To generate only the docs (faster if you don't need to check the OpenAPI docs):
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 npm run build:local
 ----
 
 To generate the docs and OpenAPI docs:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 npm run build:dev
 ----

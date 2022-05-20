@@ -10,7 +10,7 @@ For all versions of a keyspace schema:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1getAllKsSchema.graphql[]
 ----
@@ -35,7 +35,7 @@ For a particular version of a keyspace schema:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1getParticularKsSchema.graphql[]
 ----

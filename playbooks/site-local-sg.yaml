@@ -1,12 +1,12 @@
 site:
   title: Stargate documentation
-  start_page: core::core-index.adoc
+  start_page: stargate-core::core-index.adoc
 
 output: 
-  dir: ~/CLONES/stargate/docs/build/stargate
+  dir: ./../build/stargate
 
 content:
-  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
+#  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
     - url: ./..
       branches: [test-multi-repos]

@@ -9,7 +9,7 @@ can add a column by sending a `POST` request to add the column.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_add_column.sh[]
 ----
@@ -33,7 +33,7 @@ sent a `PUT` request instead:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_change_column.sh[]
 ----
@@ -57,7 +57,7 @@ set contents, such as `text`:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_add_set_to_table.sh[]
 ----
@@ -87,7 +87,7 @@ is ordered:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_add_list_to_table.sh[]
 ----
@@ -111,7 +111,7 @@ map key and the may value:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_add_map_to_table.sh[]
 ----
@@ -136,7 +136,7 @@ A tuple can consist of two or more values that can be retrieved together.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_add_tuple_to_table.sh[]
 ----
@@ -173,7 +173,7 @@ we can add a UDT column to our table:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_add_udt_to_table.sh[]
 ----

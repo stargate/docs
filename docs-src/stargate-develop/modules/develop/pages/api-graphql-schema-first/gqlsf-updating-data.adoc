@@ -16,7 +16,7 @@ For example, the following mutation and associated query will update a single ro
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1queryUpdate.graphql[]
 ----

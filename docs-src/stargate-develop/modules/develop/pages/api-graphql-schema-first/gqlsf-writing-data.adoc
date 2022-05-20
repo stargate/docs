@@ -13,7 +13,7 @@ and add a couple of books:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1insert2Books.graphql[]
 ----
@@ -47,7 +47,7 @@ This same operation can update stored data, as insertions are upserts in all cas
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createPayloadConditional.graphql[]
 ----
@@ -78,7 +78,7 @@ include::example$result/gql_1createPayloadConditional.result[]
 //graphQL command::
 //+
 //--
-//[source,shell]
+//[source, shell, subs="attributes+"]
 //----
 //include::example$graphql/schema-first/insertBookWithOption.graphql[]
 //----
@@ -106,7 +106,7 @@ Inserting arrays and UDTs requires a few extra embellishments:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1insert2Readers.graphql[]
 ----

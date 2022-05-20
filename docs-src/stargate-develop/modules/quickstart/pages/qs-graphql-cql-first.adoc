@@ -30,33 +30,38 @@ tables that will store the data. A keyspace is a container for which a
 Tables consist of columns that have a defined data type. Multiple tables are contained
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
-// create namespace
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=CreateKS]
+// create keyspace
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-graphql-cql-first/gql-creating-keyspace.adoc[Creating keyspace schema,tag=CreateKS]
+endif::[]
 
-// create collection
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=CreateTable]
+include::develop:page$api-graphql-cql-first/gql-checking-keyspace.adoc[Checking keyspace schema, tag=CheckKS]
 
-// check NS and collections exist
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=CheckKS]
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=CheckTables]
+// create tables
+include::develop:page$api-graphql-cql-first/gql-creating-table.adoc[Creating table schema,tag=CreateTable]
+
+include::develop:page$api-graphql-cql-first/gql-adding-columns.adoc[Adding columns to a table]
+
+// check tables
+include::develop:page$api-graphql-cql-first/gql-checking-table.adoc[Checking table and column schema, tag=CheckTables]
 
 == Interacting with tables
 
 // API generation
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=APIGeneration]
+include::develop:page$api-graphql-cql-first/gql-api-generation.adoc[API generation,tag=APIGeneration]
 
-// write document data
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=WriteData]
+// write data
+include::develop:page$api-graphql-cql-first/gql-adding-rows.adoc[Adding rows to your table, tag=WriteData]
 
-// read document data
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=ReadData]
+// read data
+include::develop:page$api-graphql-cql-first/gql-retrieving-rows.adoc[Retrieving rows from your table,tag=ReadData]
 
-// update document data
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=UpdateData]
+// update data
+include::develop:page$api-graphql-cql-first/gql-updating-rows.adoc[Updating rows in your table, tag=UpdateData]
 
-// delete document data
-include::develop:page$dev-with-graphql-cql-first.adoc[tag=DeleteData]
+// delete data
+include::develop:page$api-graphql-cql-first/gql-deleting-rows.adoc[Deleting rows in your table,tag=DeleteData]
 
-For more information on the GraphQL API,
-see xref:develop:dev-with-graphql-cql-first.adoc[Using the GraphQL API] in the
-Developing with Stargate section.
+For more information on the GraphQL API (CQL-first),
+see xref:develop:dev-with-graphql-cql-first.adoc[Using the GraphQL API (CQL-first)] in the
+Developing with Stargate APIs section.

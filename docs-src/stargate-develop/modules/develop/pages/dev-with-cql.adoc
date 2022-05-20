@@ -45,7 +45,7 @@ ifeval::["{database}" == "Stargate"]
 Install a standalone cqlsh docker image to access Stargate. First, pull the
 following docker image:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 docker pull nuvo/docker-cqlsh
 ----
@@ -53,7 +53,7 @@ Get the IP address of your Stargate docker container (assuming the Stargate
  container name is "stargate"). This command assumes the stargate docker
  container is running:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' stargate
 ----
@@ -61,7 +61,7 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sta
 Connect to your Stargate container using `cqlsh` using the IP address from the
 last command:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 docker run --rm -it nuvo/docker-cqlsh cqlsh {ip-address} --cqlversion=3.4.5
 ----

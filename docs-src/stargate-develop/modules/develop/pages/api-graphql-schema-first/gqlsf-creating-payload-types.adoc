@@ -15,7 +15,7 @@ as input, and will return an array of books along with the `pagingState`.
 Payload type::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryPageSize.graphql[]
 ----
@@ -44,7 +44,7 @@ Create a payload type that uses your standard object type as a field, along with
 Payload type with conditional::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createPayloadConditional.graphql[]
 ----

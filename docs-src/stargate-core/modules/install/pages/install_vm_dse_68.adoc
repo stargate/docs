@@ -25,7 +25,7 @@ include::example$bash/wget_sg_jars_dse_68.sh[]
 
 Unzip the files:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/unzip_sg_jars.sh[]
 ----
@@ -37,14 +37,14 @@ pass communications.
 Now start Stargate using the `starctl` command, the main command for starting
 and configuring Stargate:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/start_vm_syntax.sh[]
 ----
 
 For example:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$bash/start_vm_68.sh[]
 ----

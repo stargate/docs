@@ -20,7 +20,7 @@ mutation insertAnotherBook {
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/deleteOneBook.graphql[]
 ----
@@ -61,7 +61,7 @@ mutation insertAnotherBook {
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/deleteOneBookCL.graphql[]
 ----

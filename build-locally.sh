@@ -73,6 +73,7 @@ case $1 in
     cd docs-src/stargate-core
     rm antora.yml; ln -s antora-sg.yml antora.yml
     cd ../stargate-develop
+    rm antora.yml; ln -s antora-sg.yml antora.yml
     cd ../..
 
     echo "Run the sg build."

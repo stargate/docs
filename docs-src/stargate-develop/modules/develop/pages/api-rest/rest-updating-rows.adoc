@@ -13,7 +13,7 @@ thus, we use `/Mookie/Betts` as the `{path}` in our request.
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_update_users.sh[]
 ----
@@ -48,7 +48,7 @@ we want to only change that one column:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_patch_users.sh[]
 ----

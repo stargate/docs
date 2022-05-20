@@ -23,7 +23,7 @@ the book using `deleteBook()` to illustrate deleting data:
 insert book::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1insertPapBook.graphql[]
 ----
@@ -32,7 +32,7 @@ include::example$graphql/schema-first/1insertPapBook.graphql[]
 delete book::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1deleteBook.graphql[]
 ----
@@ -56,7 +56,7 @@ This example shows the use of the directive `@cql_delete( ifExists: true)`:
 mutation::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists: true)
 ----
@@ -65,7 +65,7 @@ deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists:
 insert library collection::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1insert4LibColls.graphql[]
 ----
@@ -74,7 +74,7 @@ include::example$graphql/schema-first/1insert4LibColls.graphql[]
 delete book with ifExists::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1deleteLibColl.graphql[]
 ----

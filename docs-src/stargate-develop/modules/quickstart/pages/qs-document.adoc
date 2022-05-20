@@ -21,34 +21,38 @@ Collections consist of unstructured JSON documents. Documents can themselves
 hold multiple documents. Multiple collections are contained
 in a namespace, but a collection cannot be contained in multiple namespaces.
 
+ifeval::["{product}" == "Stargate"]
 // create namespace
-include::develop:page$dev-with-doc.adoc[tag=CreateNS]
+include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace,tag=CreateNS]
+endif::[]
 
 // Doesn't exist yet
 // create collection
 //include::develop:page$dev-with-doc.adoc[tag=CreateColl]
 
 // check NS exist
-include::develop:page$dev-with-doc.adoc[tag=CheckNS]
+include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace,tag=CheckNS]
 
-// delete NS
-include::develop:page$dev-with-doc.adoc[tag=DeleteNS]
+// STARGATE ONLY
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace,tag=DeleteNS]
+endif::[]
 
 == Interacting with data stored in collections
 
 // write document data
-include::develop:page$dev-with-doc.adoc[tag=WriteBasicData]
+include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents,tag=WriteBasicData]
 
 include::develop:partial$DocAPIBlogPost.adoc[]
 
 // read document data
-include::develop:page$dev-with-doc.adoc[tag=ReadBasicData]
+include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents,tag=ReadBasicData]
 
 // update document data
-include::develop:page$dev-with-doc.adoc[tag=UpdateBasicData]
+include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents,tag=UpdateBasicData]
 
 // delete document data
-include::develop:page$dev-with-doc.adoc[tag=DeleteBasicData]
+include::develop:page$api-doc/doc-deleting-documents.adoc[Deleting documents and collections,tag=DeleteBasicData]
 
 Voila! For more information on the Document API, see the
 xref:develop:dev-with-doc.adoc[Using the Document API]

@@ -9,7 +9,7 @@ Document API query with `cURL` to find all the namespaces:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_check_ns_exists.sh[]
 ----
@@ -32,7 +32,7 @@ To get a particular namespace, specify the namespace in the URL:
 cURL command (/v2)::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$docapi/curl_get_particular_ns.sh[]
 ----

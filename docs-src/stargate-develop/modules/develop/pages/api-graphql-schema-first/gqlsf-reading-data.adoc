@@ -11,7 +11,7 @@ to execute the query in GraphQL playground:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1fetchBook.graphql[]
 ----
@@ -40,7 +40,7 @@ then a listing of all books that match can be retrieved:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1fetchSameBooks.graphql[]
 ----
@@ -66,7 +66,7 @@ embedded fields in the values designated as return values in this query to retri
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1fetchReaders.graphql[]
 ----
@@ -118,7 +118,7 @@ IN example, that finds the books that are listed in the supplied array:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryWhereIN.graphql[]
 ----
@@ -142,7 +142,7 @@ can be supplied:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryWhereIN2PartKey.graphql[]
 ----
@@ -166,7 +166,7 @@ possible values for the clustering field:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryWhereGT.graphql[]
 ----
@@ -190,7 +190,7 @@ greater than the value supplied:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryWhereGT-2.graphql[]
 ----
@@ -214,7 +214,7 @@ less than the value supplied:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryWhereLT.graphql[]
 ----
@@ -238,7 +238,7 @@ supplied review:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQueryWhereCONTAINS.graphql[]
 ----

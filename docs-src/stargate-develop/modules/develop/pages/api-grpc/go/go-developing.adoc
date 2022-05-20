@@ -4,7 +4,7 @@
 
 Clone the repo, then install dependencies:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 go mod download
 ----
@@ -13,7 +13,7 @@ go mod download
 
 The tests for this project can be run from the root using the following command:
 
-[source, shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$go/go-run-test.go[]
 ----

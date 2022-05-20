@@ -4,7 +4,7 @@ The `starctl` command controls and configures Stargate nodes.
 
 == Starting Stargate using starctl
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 starctl --cluster-name stargate \
   --cluster-seed 127.0.0.1 \

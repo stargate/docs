@@ -9,7 +9,7 @@ An input and output is defined.
 Mutations::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createOperations.graphql[]
 ----

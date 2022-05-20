@@ -11,7 +11,7 @@ Including a collection in a table has a couple of extra parts:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/createMapTable.graphql[]
 ----
@@ -41,7 +41,7 @@ can add one or more columns:
 graphQL command::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/cql-first/alterTableAddCols.graphql[]
 ----

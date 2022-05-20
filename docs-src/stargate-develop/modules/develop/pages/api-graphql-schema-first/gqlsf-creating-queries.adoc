@@ -13,7 +13,7 @@ Queries
 Queries::
 +
 --
-[source,shell]
+[source, shell, subs="attributes+"]
 ----
 include::example$graphql/schema-first/1createQuery.graphql[]
 ----

@@ -6,7 +6,7 @@ To delete a row, send a `DELETE` request to
 For this example, the primary key consists of a partition key `{rpartitionkey}` and
 clustering column `{rclusteringkey}`, so we delete all data with `Mookie/Betts`:
 
-[source,bash]
+[source, shell, subs="attributes+"]
 ----
 include::example$rest/curl_delete_row.sh[]
 ----
