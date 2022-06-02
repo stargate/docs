@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # get the product docset that is going to be run
-
 # First - do you need to rebuild the APIs (REST, Document, DevOps) as part of your build?
 
 read -p 'Do you need to rebuild the APIs? (Y or N)' api
