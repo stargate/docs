@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Attribution for functions that I am using: https://github.com/hitta-skyddsrum/services/blob/78db77d36a5eddef8ef8b4f8178b64e63e0171d9/e2e/shelters.sh
+
 # MUST SET THE URL AND PATH SUBSTITUTIONS BEFORE RUNNING THE TESTS
 
 base_rest_url=http://localhost:8082
@@ -138,17 +140,23 @@ echo "check table users"
 response=$(./curl_get_particular_table.sh.tmp)
 assert_equals "$(get_json_value "$response" ".data[].name")" "users"
 #./curl_get_particular_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_table.result)
-echo "==================="
 echo "email test 1"
 response=$(./curl_check_column_exists.sh.tmp)
 assert_equals "$(get_json_value "$response" ".data[4].name")" "email"
 #./curl_check_column_exists.sh.tmp | jq '.data[].name | test("email")'
-echo "==================="
-echo "email test 2"
-./curl_check_column_exists.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_check_column_exists.result)
-echo "check column email"
-./curl_get_particular_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_column.result)
 
+echo "check column email"
+response=$(./curl_get_particular_column.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "email"
+#./curl_get_particular_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_column.result)
+
+echo "create indexes"
+response=$(./curl_create_index.sh.tmp)
+assert_equals "$(get_json_value "$response" "success")" "true"
+echo "create additional indexes
+response=$(./curl_create_addl_indexes.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "fav_books_idx"
+echo "==================="
 # CQL INDEXES ARE REQUIRED FOR SOME DML, MUST CREATE IN CQLSH
 # CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
 # CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
