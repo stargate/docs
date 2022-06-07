@@ -13,7 +13,7 @@ jobs:
         with:
           token: ${{ secrets.PUBLISH_STARGATE_DOCS }}
           cron: |
-            0 10 * * 2
+            0 10 * * 3
           # optional: set workflow id or file name
           #workflow: my-workflow.yml
           # optional: Defaults to "ci($WORKFLOW_NAME): update cron schedule: $CRON_EXPRESSIONS".
