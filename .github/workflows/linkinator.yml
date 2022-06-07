@@ -1,21 +1,21 @@
 name: Run linkinator on a schedul
 on:
   schedule:
-    - cron: "0 10 * * 2"
+    - cron: "0 10 * * 2,3,4"
 
 jobs:
-  reminder:
+  run_linkinator:
     runs-on: [ubuntu-latest]
     steps:
       - name: Linkinator
       - run: npm run build:linkinator
-      - uses: gr2m/set-cron-schedule-action@v2
-        with:
-          token: ${{ secrets.PUBLISH_STARGATE_DOCS }}
-          cron: |
-            0 10 * * 3
+      #- uses: gr2m/set-cron-schedule-action@v2
+       # with:
+        #  token: ${{ secrets.PUBLISH_STARGATE_DOCS }}
+        #  cron: |
+        #    0 10 * * 2,3,4
           # optional: set workflow id or file name
           #workflow: my-workflow.yml
           # optional: Defaults to "ci($WORKFLOW_NAME): update cron schedule: $CRON_EXPRESSIONS".
           #           $WORKFLOW_NAME and $CRON_EXPRESSIONS will be replaced.
-          message: "Run cron job for linkinator every Tues at 10:00 hrs"
+        #  message: "Run cron job for linkinator every Tues at 10:00 hrs"
