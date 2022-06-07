@@ -36,6 +36,10 @@ get_json_value () {
   echo $1 | jq -r $2
 }
 
+get_json_array_length () {
+  echo $1 | jq ". | length"
+}
+
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
@@ -74,7 +78,6 @@ echo "drop ks to clear all data: "
 echo "create keyspace "
 response=$(./curl_create_ks.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "users_keyspace"
-#./curl_create_ks.sh.tmp | jq -r '.name | test("users_keyspace")'
 
 # HOW TO TEST THE ALTERNATE CREATE_KS?? NEED TO FIGURE IT OUT
 #./curl_simple_ks.sh.tmp | jq -r '.name | test("users_keyspace")'
@@ -84,45 +87,63 @@ assert_equals "$(get_json_value "$response" ".name")" "users_keyspace"
 echo "create udt "
 response=$(./curl_create_udt.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "address_type"
-#./curl_create_udt.sh.tmp | jq -r '.name | test("address_type")'
 
 echo "create table and add columns "
 response=$(./curl_create_table.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "users"
-#./curl_create_table.sh.tmp | jq -r '.name | test("users")'
 echo "add_column: "
 response=$(./curl_add_column.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "email"
-#./curl_add_column.sh.tmp | jq -r '.' > .; diff <(gron HOLD) <(gron ../result/rest_curl_add_column.result)
 echo "add_set_to_table: "
-./curl_add_set_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_set_to_table.result)
+response=$(./curl_add_set_to_table.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "favorite_books"
 echo "add_list_to_table: "
-./curl_add_list_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_list_to_table.result)
+response=$(./curl_add_list_to_table.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "top_three_tv_shows"
 echo "add map to table: "
-./curl_add_map_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_map_to_table.result)
+response=$(./curl_add_map_to_table.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "evaluations"
 echo "add tuple to table: "
-./curl_add_tuple_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_tuple_to_table.result)
+response=$(./curl_add_tuple_to_table.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "current_country"
 echo "add udt to table: "
-./curl_add_udt_to_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_add_udt_to_table.result)
+response=$(./curl_add_udt_to_table.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "address"
 
 # NEED TO CHECK CURL_CHANGE_COLUMN.sh.tmp, BUT IT MESSES UP REST OF WORK, SO CHANGE BACK
 echo "Change column and back: "
-./curl_change_column.sh.tmp
-./curl_change_column_back.sh.tmp
+response=$(./curl_change_column.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "first"
+response=$(./curl_change_column_back.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "firstname"
+#./curl_change_column.sh.tmp
+#./curl_change_column_back.sh.tmp
 
 # CHECK EXISTENCE OF SCHEMA
-echo "check existence"
-#test $(./curl_check_ks_exists.sh.tmp | jq '.| length') -eq 1 && echo "PASS" || echo "FAIL"
-./curl_check_ks_exists.sh.tmp | jq -r '.data[].name | test("users_keyspace")'
+echo "check keyspace existence: "
+response=$(./curl_check_ks_exists.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "1"
 echo "check ks users_keyspace"
-./curl_get_particular_ks.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_ks.result)
-./curl_check_table_exists.sh.tmp | jq '.data[].name | test("users")'
+response=$(./curl_get_particular_ks.sh.tmp)
+assert_equals "$(get_json_value "$response" ".name")" "users_keyspace"
+#./curl_get_particular_ks.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_ks.result)
+echo "check table existence"
+response=$(./curl_check_table_exists.sh.tmp)
+assert_equals "$(get_json_value "$response" ".data[].name")" "users"
 echo "check udt address_type"
-./curl_get_udt.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt.result)
+response=$(./curl_get_udt.sh.tmp)
+assert_equals "$(get_json_value "$response" ".data[].name")" "address_type"
+#./curl_get_udt.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt.result)
 echo "check table users"
-./curl_get_particular_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_table.result)
+response=$(./curl_get_particular_table.sh.tmp)
+assert_equals "$(get_json_value "$response" ".data[].name")" "users"
+#./curl_get_particular_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_table.result)
+echo "==================="
 echo "email test 1"
-./curl_check_column_exists.sh.tmp | jq '.data[].name | test("email")'
+response=$(./curl_check_column_exists.sh.tmp)
+assert_equals "$(get_json_value "$response" ".data[4].name")" "email"
+#./curl_check_column_exists.sh.tmp | jq '.data[].name | test("email")'
+echo "==================="
 echo "email test 2"
 ./curl_check_column_exists.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_check_column_exists.result)
 echo "check column email"
@@ -181,3 +202,9 @@ echo "get users mult where"
 #./curl_drop_table.sh.tmp
 #./curl_delete_udt.sh.tmp
 #./curl_drop_ks.sh.tmp
+
+if [ "$Errors" -gt "0" ]; then
+  exit 1
+else
+  exit 0
+fi

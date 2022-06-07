@@ -1,15 +1,15 @@
 {
   "data": {
-    "name": "{rtable}",
-    "keyspace": "{rkeyspace}",
+    "name": "users",
+    "keyspace": "users_keyspace",
     "columnDefinitions": [
       {
-        "name": "{rpartitionkey}",
+        "name": "firstname
         "typeDefinition": "varchar",
         "static": false
       },
       {
-        "name": "{rclusteringkey}",
+        "name": "lastname",
         "typeDefinition": "varchar",
         "static": false
       },
