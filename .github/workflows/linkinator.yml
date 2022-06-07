@@ -1,10 +1,10 @@
 name: Run linkinator on a schedul
 on:
   schedule:
-    - cron: "0 10 * * 2"
+    - cron: "0 10 * * 2,3,4"
 
 jobs:
-  reminder:
+  run_linkinator:
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
@@ -12,3 +12,4 @@ jobs:
       - name: "run linkinator" 
         run: |
           npm run build:linkinator
+
