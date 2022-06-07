@@ -8,6 +8,7 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Linkinator
+      - run: npm run build:linkinator
       - uses: gr2m/set-cron-schedule-action@v2
         with:
           token: ${{ secrets.PUBLISH_STARGATE_DOCS }}
@@ -18,4 +19,3 @@ jobs:
           # optional: Defaults to "ci($WORKFLOW_NAME): update cron schedule: $CRON_EXPRESSIONS".
           #           $WORKFLOW_NAME and $CRON_EXPRESSIONS will be replaced.
           message: "Run cron job for linkinator every Tues at 10:00 hrs"
-      - run: npm run build:linkinator
