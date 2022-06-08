@@ -1,4 +1,4 @@
-curl -s -L -X POST {base_rest_url}{base_rest_schema}/{rkeyspace}/{rtable} \
+curl -s -L -X POST {base_rest_url}{base_rest_api}/{rkeyspace}/{rtable} \
 -H  "X-Cassandra-Token: {auth_token}" \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \

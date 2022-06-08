@@ -1,0 +1,41 @@
+{
+  "count": 1,
+  "data": [
+    {
+      "firstname": "Janesha",
+      "address": {
+        "street": "1 Main St",
+        "city": null,
+        "state": null,
+        "zip": "12345"
+      },
+      "evaluations": [
+        {
+          "key": 2019,
+          "value": "okay"
+        },
+        {
+          "key": 2020,
+          "value": "good"
+        }
+      ],
+      "top_three_tv_shows": [
+        "The Magicians",
+        "The Librarians",
+        "Agents of SHIELD"
+      ],
+      "favorite color": "grey",
+      "current_country": [
+        "France",
+        "2016-01-01",
+        "2020-02-02"
+      ],
+      "email": "janesha.doesha@gmail.com",
+      "lastname": "Doesha",
+      "favorite_books": [
+        "Emma",
+        "The Color Purple"
+      ]
+    }
+  ]
+}

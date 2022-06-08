@@ -42,6 +42,10 @@ get_json_array_length () {
   echo $1 | jq ". | length"
 }
 
+get_json_select () {
+  echo $1 | jq '.[] | select(.$2=="$3")'
+}
+
 for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
@@ -111,15 +115,12 @@ assert_equals "$(get_json_value "$response" ".name")" "current_country"
 echo "add udt to table: "
 response=$(./curl_add_udt_to_table.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "address"
-
-# NEED TO CHECK CURL_CHANGE_COLUMN.sh.tmp, BUT IT MESSES UP REST OF WORK, SO CHANGE BACK
+# CHECK CHANGING COLUMN NAME
 echo "Change column and back: "
 response=$(./curl_change_column.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "first"
 response=$(./curl_change_column_back.sh.tmp)
 assert_equals "$(get_json_value "$response" ".name")" "firstname"
-#./curl_change_column.sh.tmp
-#./curl_change_column_back.sh.tmp
 
 # CHECK EXISTENCE OF SCHEMA
 echo "check keyspace existence: "
@@ -127,82 +128,115 @@ response=$(./curl_check_ks_exists.sh.tmp)
 assert_equals "$(get_json_array_length "$response" )" "1"
 echo "check ks users_keyspace"
 response=$(./curl_get_particular_ks.sh.tmp)
-assert_equals "$(get_json_value "$response" ".name")" "users_keyspace"
-#./curl_get_particular_ks.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_ks.result)
+assert_equals "$(get_json_value "$response" ".data.name")" "users_keyspace"
 echo "check table existence"
 response=$(./curl_check_table_exists.sh.tmp)
 assert_equals "$(get_json_value "$response" ".data[].name")" "users"
 echo "check udt address_type"
 response=$(./curl_get_udt.sh.tmp)
 assert_equals "$(get_json_value "$response" ".data[].name")" "address_type"
-#./curl_get_udt.sh.tmp | jq '.'> HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt.result)
 echo "check table users"
 response=$(./curl_get_particular_table.sh.tmp)
 assert_equals "$(get_json_value "$response" ".data[].name")" "users"
-#./curl_get_particular_table.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_table.result)
-echo "email test 1"
+echo "check column existence"
+#++++++++++++++++ FIX NEXT ITEM +++++++++++++++
 response=$(./curl_check_column_exists.sh.tmp)
-assert_equals "$(get_json_value "$response" ".data[4].name")" "email"
+assert_equals "$(get_json_select "$response" "success" "true")"
 #./curl_check_column_exists.sh.tmp | jq '.data[].name | test("email")'
-
+#++++++++++++++++ FIX NEXT ITEM +++++++++++++++
 echo "check column email"
 response=$(./curl_get_particular_column.sh.tmp)
-assert_equals "$(get_json_value "$response" ".name")" "email"
+assert_equals "$(get_json_value "$response" ".data[0].name")" "email"
 #./curl_get_particular_column.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_particular_column.result)
 
 echo "create indexes"
 response=$(./curl_create_index.sh.tmp)
-assert_equals "$(get_json_value "$response" "success")" "true"
-echo "create additional indexes
+assert_equals "$(get_json_value "$response" ".success")" "true"
+#++++++++++++++++ FIX NEXT ITEM +++++++++++++++
+#  RETURN 5 {success: true} and messes up assertion
+echo "create additional indexes"
 response=$(./curl_create_addl_indexes.sh.tmp)
-assert_equals "$(get_json_value "$response" ".name")" "fav_books_idx"
+assert_equals "$(get_json_value "$response" ".success")" "true"
 echo "==================="
-# CQL INDEXES ARE REQUIRED FOR SOME DML, MUST CREATE IN CQLSH
-# CREATE INDEX books_idx ON users_keyspace.users (VALUES(favorite_books));
-# CREATE INDEX tv_idx ON users_keyspace.users (VALUES (top_three_tv_shows));
-# CREATE INDEX eval_idx ON users_keyspace.users (KEYS (evaluations));
-# CREATE INDEX country_idx ON users_keyspace.users (current_country);
 
 # RUN THE DML
+#++++++++++++++++ FIX NEXT ITEM +++++++++++++++
 echo "write users"
-./curl_write_users.sh.tmp|jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_write_users.result)
+response=$(./curl_write_users.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_write_users.sh.tmp|jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_write_users.result)
 echo "write set"
-./curl_insert_set_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_set_data.result)
+response=$(./curl_insert_set_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_insert_set_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_set_data.result)
 echo "write list"
-./curl_insert_list_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_list_data.result)
+response=$(./curl_insert_list_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_insert_list_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_list_data.result)
 echo "write map"
-./curl_insert_map_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_map_data.result)
+response=$(./curl_insert_map_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_insert_map_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_map_data.result)
 echo "write tuple"
-./curl_insert_tuple_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_tuple_data.result)
+response=$(./curl_insert_tuple_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_insert_tuple_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_tuple_data.result)
 echo "write udt"
-./curl_insert_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_udt_data.result)
+response=$(./curl_insert_udt_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_insert_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_insert_udt_data.result)
 
 echo "patch users"
-./curl_patch_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_patch_users.result)
+response=$(./curl_patch_users.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "1"
+#./curl_patch_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_patch_users.result)
 echo "update users"
-./curl_update_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_update_users.result)
+response=$(./curl_update_users.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "1"
+#./curl_update_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_update_users.result)
 
 echo "get prim key"
-./curl_get_primKey.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_primKey.result)
+response=$(./curl_get_primKey.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_get_primKey.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_primKey.result)
 # THESE NEED 2i
 echo "get set"
-./curl_get_set_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_set_data.result)
+response=$(./curl_get_set_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_get_set_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_set_data.result)
 echo "get list"
-./curl_get_list_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_list_data.result)
+response=$(./curl_get_list_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+#./curl_get_list_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_list_data.result)
 echo "get map"
-./curl_get_map_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_map_data.result)
+response=$(./curl_get_map_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+# ./curl_get_map_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_map_data.result)
 echo "get tuple"
-./curl_get_tuple_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_tuple_data.result)
+response=$(./curl_get_tuple_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+# ./curl_get_tuple_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_tuple_data.result)
 # END OF NEED 2i
 echo "get udt"
-./curl_get_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt_data.result)
+response=$(./curl_get_udt_data.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+# ./curl_get_udt_data.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_udt_data.result)
 
 echo "get users"
-./curl_get_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users.result)
+response=$(./curl_get_users.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+# ./curl_get_users.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users.result)
 echo "get users where"
-./curl_get_users_where.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_where.result)
-echo "get users mult where"
-./curl_get_users_mult_where.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_mult_where.result)
+response=$(./curl_get_users_where.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+# ./curl_get_users_where.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_where.result)
+echo "get users multi where"
+response=$(./curl_get_users_mult_where.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
+# ./curl_get_users_multi_where.sh.tmp | jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/rest_curl_get_users_mult_where.result)
+echo "get users fields"
+response=$(./curl_get_users_fields.sh.tmp)
+assert_equals "$(get_json_array_length "$response" )" "2"
 
 # DROP/DELETE ALL SCHEMA
 #./curl_delete_row.sh.tmp
