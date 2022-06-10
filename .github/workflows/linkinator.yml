@@ -1,7 +1,7 @@
 name: Run linkinator on a schedule
 on:
   schedule:
-    - cron: "0,15,30,45 8,12,17 * * 0-7"
+    - cron: "0,15,30,45 8,12,17 * * 1,2,3,4,5"
 
 jobs:
   run_linkinator:
