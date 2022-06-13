@@ -70,22 +70,22 @@ case $1 in
     echo "You are building the sg docset."
     echo "Remove and remake the antora.yml symlinks."
     cd docs-src/stargate-core
-    rm antora.yml; ln -s antora-sg.yml antora.yml
+    rm antora.yml; ln -s antora-stargate.yml antora.yml
     cd ../stargate-develop
-    rm antora.yml; ln -s antora-sg.yml antora.yml
+    rm antora.yml; ln -s antora-stargate.yml antora.yml
     cd ../..
 
-    echo "Run the sg build."
-    npm run build:localsg
+    echo "Run the stargate build."
+    npm run build:local:stargate
     ;;
 
   dev-sg)
     echo "You are building the dev-sg docset."
     echo "Remove and remake the antora.yml symlinks."
     cd docs-src/stargate-core
-    rm antora.yml; ln -s antora-sg.yml antora.yml
+    rm antora.yml; ln -s antora-stargate.yml antora.yml
     cd ../stargate-develop
-    rm antora.yml; ln -s antora-sg.yml antora.yml
+    rm antora.yml; ln -s antora-stargate.yml antora.yml
     cd ../..
 
     echo "Run the dev-sg build."
