@@ -1,12 +1,11 @@
 {
   "name": "stargate-docs",
   "scripts": {
-    "build:prod": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:publish",
-    "build:prodlint": "npm run build:oaslinter && npm run build:prod",
+    "build:prod:stargate": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:publish:stargate",
+    "build:prodlint": "npm run build:oaslinter && npm run build:prod:stargate",
     "build:dev": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:local",
-    "build:publish": "antora --fetch --clean site-publish.yaml",
-    "build:local": "antora --log-level error --stacktrace --fetch --clean site-local.yaml",
-    "build:localsg": "antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg.yaml",
+    "build:publish:stargate": "antora --fetch --clean site-publish-stargate.yaml",
+    "build:local:stargate": "antora --log-level error --stacktrace --fetch --clean site-local-stargate.yaml",
     "build:local-devsg": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg.yaml",
     "build:localsg+adoc": "antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg+adoc.yaml",
     "build:local-devsg+adoc": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg+adoc.yaml",
