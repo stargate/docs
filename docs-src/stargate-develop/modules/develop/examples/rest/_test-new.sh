@@ -43,7 +43,7 @@ get_json_array_length () {
 }
 
 get_json_select () {
-  echo $1 | jq '.[] | select(.$2=="$3")'
+  echo $1 | jq '.[] | select($2==$3)'
 }
 
 for FILE in *;
