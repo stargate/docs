@@ -17,12 +17,12 @@ jobs:
         uses: actions/checkout@v2
       - name: "Render redoc"
         run: |
-          npm install -g redoc-cli
+          npm install --location=global redoc-cli
 
-          redoc-cli bundle api/StargateRESTv2.yaml --output modules/ROOT/attachments/restv2.html
-          redoc-cli bundle api/StargateRESTv1.yaml --output modules/ROOT/attachments/restv1.html
-          redoc-cli bundle api/StargateDocv2.yaml --output modules/ROOT/attachments/docv2.html
-      - name: Switch antora.yml
+          redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-core/modules/ROOT/attachments/restv2.html
+          redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-core/modules/ROOT/attachments/restv1.html
+          redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-core/modules/ROOT/attachments/docv2.html
+      - name: "Switch antora.yml"
         run: |
           rm docs-src/stargate-core/antora.yml
           ln -s docs-src/stargate-core/antora-sg.yml antora.yml
