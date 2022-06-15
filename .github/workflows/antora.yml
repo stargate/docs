@@ -4,7 +4,7 @@ name: Generate Antora site
 on:
   push:
     branches:
-      - master
+      - test-multi-repos
 
 env:
   SITE_DIR: 'site'
