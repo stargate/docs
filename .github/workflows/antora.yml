@@ -25,13 +25,13 @@ jobs:
       - name: "Switch antora.yml"
         run: |
           FILE=antora.yml
-          cd docs-src/stargate-core
+          cd $GITHUB_WORKSPACE/docs-src/stargate-core
             if [  -f "$FILE" ]; then
             rm antora.yml;
             echo "antora.yml removed"
           fi
           ln -s antora-stargate.yml antora.yml
-          cd docs-src/stargate-develop
+          cd $GITHUB_WORKSPACE/docs-src/stargate-develop
             if [  -f "$FILE" ]; then
             rm antora.yml;
             echo "antora.yml removed"
