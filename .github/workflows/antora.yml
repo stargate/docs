@@ -1,13 +1,12 @@
 name: Generate Antora site
 
-
 on:
   push:
     branches:
       - test-multi-repos
 
 env:
-  SITE_DIR: 'site'
+  SITE_DIR: 'stargate/stargate'
 jobs:
   build_site:
     name: "Build site with Antora"
@@ -44,13 +43,13 @@ jobs:
          antora_playbook: playbooks/site-local-stargate.yaml 
       - name: "List folder"
         run: |
-          ls -ltra $GITHUB_WORKSPACE/build/stargate/stargate
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
       - name: "Fix attachments"
         run: |
-          sudo mv $GITHUB_WORKSPACE/build/stargate/stargate/develop/_attachments $GITHUB_WORKSPACE/build/stargate/stargate/develop/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/stargate/stargate/develop/api.html
-          ls -ltra $GITHUB_WORKSPACE/build/stargate/stargate
-          grep attachment $GITHUB_WORKSPACE/build/stargate/stargate/develop/api.html
+          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/develop/attachments
+          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
       - name: "Upload generated site"
         uses: actions/upload-artifact@v2
         with:
