@@ -51,7 +51,7 @@ jobs:
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
           grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: site
           path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
@@ -67,7 +67,7 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v3
      - name: Download generated site
-       uses: actions/download-artifact@v2
+       uses: actions/download-artifact@v3
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
