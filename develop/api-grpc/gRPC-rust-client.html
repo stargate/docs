@@ -90,6 +90,19 @@
                 fill="currentColor" />
             </svg>
           </a>
+<!--          
+	  <a class="navbar-item social-icon" href="https://groups.google.com/a/lists.stargate.io/g/stargate-users"
+            target="_blank">
+            <svg width="1.5em" height="1.5em" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Group" fill="currentColor">
+                  <path
+                    d="M17,0 C26.3888,0 34,7.61116 34,17 C34,26.3888 26.3888,34 17,34 C7.61116,34 0,26.3888 0,17 C0,7.61116 7.61116,0 17,0 Z M25,9 L9,9 C7.9,9 7,9.9 7,11 L7,11 L7,23 C7,24.1 7.9,25 9,25 L9,25 L25,25 C26.1,25 27,24.1 27,23 L27,23 L27,11 C27,9.9 26.1,9 25,9 L25,9 Z M27,11 L17,18 L7,11 L27,11 Z" />
+                </g>
+              </g>
+            </svg>
+          </a>
+-->
           <a class="navbar-item social-icon" href="https://github.com/stargate" target="_blank"
             rel="noopener noreferrer">
             <svg width="1.5em" height="1.5em" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -450,7 +463,7 @@ The simplest way to obtain an instance is to use the provided <code>builder</cod
 use std::str::FromStr;
 
 // Set the Stargate OSS configuration for a locally running docker container:
-let sg_uri = "http://localhost:8090/";
+let sg_uri = "https://localhost:8090/";
 let auth_token = "06251024-5aeb-4200-a132-5336e73e5b6e";
 
 // For Stargate OSS: create a client
@@ -637,7 +650,7 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
     let mut client = StargateClient::builder()
 
     // For Stargate OSS running locally in docker container, set connect information:
-    .uri("http://localhost:8090/")?                           // replace with a proper address
+    .uri("https://localhost:8090/")?                           // replace with a proper address
     .auth_token(AuthToken::from_str("721e9c04-e121-4bf4-b9a6-887ebeae2bc5")?)    // replace with a proper token
     .connect()
     .await?;
@@ -745,8 +758,10 @@ cargo build</code></pre>
 <p>For your convenience, this project contains a bunch of examples located in the
 examples directory, which demonstrate connecting, creating schemas,
 inserting data and querying.
-You&#8217;ll need a working instance of a Stargate cluster to run the examples.
-Refer to the official <a href="https://stargate.io/docs/install/install_overview.html">Stargate Installation documentation</a>
+You&#8217;ll need a working instance of a Stargate cluster to run the examples.</p>
+</div>
+<div class="paragraph">
+<p>Refer to the official link: <a href="../../install/install-overview.html" class="xref page">Stargate Installation documentation</a>
 for more details on how to setup Stargate.</p>
 </div>
 <div class="paragraph">
@@ -852,7 +867,7 @@ keyspace with the default keyspace name of <code>stargate_examples</code>:</p>
 <div class="tab-pane" aria-labelledby="tabset4_result">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Connected to http://127.0.0.2:8090
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Connected to https://127.0.0.2:8090
 Created keyspace stargate_examples</code></pre>
 </div>
 </div>
@@ -887,7 +902,7 @@ select data to check the insertion:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Finished dev [unoptimized + debuginfo] target(s) in 0.04s
 Running `target/debug/examples/basic`
-Connected to http://127.0.0.2:8090
+Connected to https://127.0.0.2:8090
 Created schema
 Inserted data. Now querying.
 All rows:
