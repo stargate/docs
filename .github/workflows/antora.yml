@@ -13,7 +13,7 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: "Render redoc"
         run: |
           npm install --location=global redoc-cli
@@ -61,18 +61,18 @@ jobs:
     name: "Deploy GitHub Pages"
     steps:
      - name: Setup Node.js for use with actions
-       uses: actions/setup-node@v1
+       uses: actions/setup-node@v3
        with:
-         version: 14.x
+         version: 14
      - name: Checkout
-       uses: actions/checkout@v2
+       uses: actions/checkout@v3
      - name: Download generated site
        uses: actions/download-artifact@v2
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
      - name: Deploy to GitHub Pages
-       uses: JamesIves/github-pages-deploy-action@3.7.1
+       uses: JamesIves/github-pages-deploy-action@4.3.3
        with:
         # ACCESS_TOKEN: # optional
         GITHUB_TOKEN: "${{ github.token}}"
