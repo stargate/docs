@@ -38,7 +38,7 @@ jobs:
           fi          
           ln -s antora-stargate.yml antora.yml
       - name: "Generate site using antora site action"
-        uses: kameshsampath/antora-site-action@master
+        uses: riptano/antora-site-action@main
         with:
          antora_playbook: playbooks/site-local-stargate.yaml
          #site_sources_path: 
