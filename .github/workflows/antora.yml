@@ -3,13 +3,9 @@ name: Generate Antora site
 on:
   push:
     branches:
-<<<<<<< HEAD
+
       - test-multi-repos
 
-=======
-      - main
-      
->>>>>>> main
 env:
   SITE_DIR: 'stargate/stargate'
 jobs:
@@ -18,17 +14,11 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
-<<<<<<< HEAD
         uses: actions/checkout@v3
-=======
-        uses: actions/checkout@v2
 
->>>>>>> main
       - name: "Render redoc"
         run: |
           npm install --location=global redoc-cli
-
-<<<<<<< HEAD
           redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
           redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
           redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
@@ -48,16 +38,9 @@ jobs:
           fi          
           ln -s antora-stargate.yml antora.yml
           cd $GITHUB_WORKSPACE
-=======
-          redoc-cli bundle api/StargateRESTv2.yaml --output modules/ROOT/attachments/restv2.html
-          redoc-cli bundle api/StargateRESTv1.yaml --output modules/ROOT/attachments/restv1.html
-          redoc-cli bundle api/StargateDocv2.yaml --output modules/ROOT/attachments/docv2.html
-
->>>>>>> main
       - name: "Generate site using antora site action"
         uses: riptano/antora-site-action@main
         with:
-<<<<<<< HEAD
          antora_playbook: playbooks/site-local-stargate.yaml 
       - name: "List folder"
         run: |
@@ -68,22 +51,6 @@ jobs:
           sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
           grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
-=======
-         antora_playbook: site-local.yaml
-         site_sources_path: ./
-
-      - name: "List folder"
-        run: |
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
-
-      - name: "Fix attachments"
-        run: |
-          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
-
->>>>>>> main
       - name: "Upload generated site"
         uses: actions/upload-artifact@v3
         with:
@@ -96,21 +63,11 @@ jobs:
     name: "Deploy GitHub Pages"
     steps:
      - name: Setup Node.js for use with actions
-<<<<<<< HEAD
        uses: actions/setup-node@v3
        with:
          version: 14
      - name: Checkout
        uses: actions/checkout@v3
-=======
-       uses: actions/setup-node@v2
-       with:
-         node-version: '16'
-
-     - name: Checkout
-       uses: actions/checkout@v2
-
->>>>>>> main
      - name: Download generated site
        uses: actions/download-artifact@v3
        with:
@@ -118,11 +75,7 @@ jobs:
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
 
      - name: Deploy to GitHub Pages
-<<<<<<< HEAD
        uses: JamesIves/github-pages-deploy-action@v4.3.3
-=======
-       uses: JamesIves/github-pages-deploy-action@v4
->>>>>>> main
        with:
         # ACCESS_TOKEN: # optional
         GITHUB_TOKEN: "${{ github.token}}"
