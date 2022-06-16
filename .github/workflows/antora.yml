@@ -47,10 +47,10 @@ jobs:
           ls -ltra $GITHUB_WORKSPACE/build/stargate/stargate
       - name: "Fix attachments"
         run: |
-          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
+          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/stargate/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/stargate/attachments
+          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/stargate/api.html
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/stargate
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/stargate/api.html
       - name: "Upload generated site"
         uses: actions/upload-artifact@v2
         with:
