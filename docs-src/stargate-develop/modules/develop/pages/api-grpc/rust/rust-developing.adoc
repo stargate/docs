@@ -22,11 +22,12 @@ include::example$bash/rust-build2.sh[]
 For your convenience, this project contains a bunch of examples located in the
 examples directory, which demonstrate connecting, creating schemas,
 inserting data and querying.
+ifeval::["{product}== "Stargate"]
 You'll need a working instance of a Stargate cluster to run the examples.
 
 Refer to the official link: xref:install:install-overview.adoc[Stargate Installation documentation]
 for more details on how to setup Stargate.
-
+endif::[]
 Each example program accepts an URL of the Stargate coordinator,
 the authentication token and the keyspace name:
 
