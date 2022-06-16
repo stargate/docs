@@ -1,4 +1,5 @@
 == Node.js processing result set
+:page-tag: stargate,dev,develop
 
 After executing a query a response will be returned containing rows for a SELECT statement,
 otherwise the returned payload will be unset.

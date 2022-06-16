@@ -1,4 +1,5 @@
 = Stargate gRPC API client creation
+:page-tag: stargate,dev,develop
 
 Stargate has a gRPC server implemented as part of the gRPC API.
 You can create a gRPC client to use Stargate in any language that gRPC supports.

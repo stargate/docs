@@ -1,4 +1,5 @@
 = Stargate concepts
+:page-tag: stargate,dev,develop
 
 Stargate is a framework used to customize all aspects of data access.
 It is deployed between client applications and a database to provide an abstraction layer that can be used to shape your data access to fit your application's needs.
@@ -29,7 +30,7 @@ These extensions use both the Authentication Extensions and the Persistence Exte
 The REST API uses the https://github.com/stargate/stargate/tree/master/auth-api[auth-api] to handle token access to the endpoints that are exposed by the Jetty-based Web Server. The GraphQL API also uses the token created with REST in
 the GrahpQL http header request to access the endpoints.
 The https://github.com/stargate/stargate/tree/master/persistence-api[persistence-api] is used to dispatch converted requests to the underlying storage engine.
-In the case of the REST API, you can see what this looks like in the https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/resources/v2/RowsResource.java[RowsResource].
+In the case of the REST API, you can see what this looks like in the https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java[RowsResource].
 
 
 === Persistence extensions

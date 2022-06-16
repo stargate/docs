@@ -10,7 +10,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let mut client = StargateClient::builder()
 
     // For Stargate OSS running locally in docker container, set connect information:
-    .uri("http://localhost:8090/")?                           // replace with a proper address
+    .uri("https://localhost:8090/")?                           // replace with a proper address
     .auth_token(AuthToken::from_str("721e9c04-e121-4bf4-b9a6-887ebeae2bc5")?)    // replace with a proper token
     .connect()
     .await?;

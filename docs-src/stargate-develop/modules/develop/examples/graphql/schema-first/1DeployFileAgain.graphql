@@ -1,5 +1,10 @@
+<<<<<<< HEAD:docs-src/stargate-develop/modules/develop/examples/graphql/schema-first/1DeployFileAgain.graphql
 curl {base_graphql_url}{base_gql_admin} \
   -H "X-Cassandra-Token: {auth_token}" \
+=======
+curl https://localhost:8080/graphql-admin \
+  -H "X-Cassandra-Token: $AUTH_TOKEN" \
+>>>>>>> main:modules/developers-guide/examples/graphql/1DeployFileAgain.graphql
   -F operations='
 {
   "query": "mutation($file: Upload!) { deploySchemaFile( keyspace: \"library\" expectedVersion: \"cb0b25f0-ef36-11eb-9cf6-afef380162ee\" schemaFile: $file) { version } }",

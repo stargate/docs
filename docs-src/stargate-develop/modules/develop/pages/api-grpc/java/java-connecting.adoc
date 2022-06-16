@@ -1,4 +1,5 @@
 == Java connecting
+:page-tag: stargate,dev,secure,develop
 
 === Authentication
 

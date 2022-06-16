@@ -1,4 +1,5 @@
 == Rust querying
+:page-tag: stargate,dev,develop
 
 Use QueryBuilder to create a query, bind query values and pass query parameters.
 The query is followed by the execute commands that actually run the command and

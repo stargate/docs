@@ -1,4 +1,5 @@
 = DataStax Enterprise (DSE) 6.8
+:page-tag: stargate,dev,develop
 
 include::develop:partial$astra_tip.adoc[]
 

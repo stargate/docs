@@ -1,5 +1,7 @@
 // Each client should have the following sections:
 
+:page-tag: stargate,dev,develop
+
 // ==Setup
 include::page$lang-setup.adoc[]
 // ==Connecting

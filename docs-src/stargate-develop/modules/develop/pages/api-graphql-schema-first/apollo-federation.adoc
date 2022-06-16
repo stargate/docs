@@ -1,5 +1,5 @@
-
 = Apollo data federation for GraphQL schema-first
+:page-tag: stargate,dev,develop
 
 Data federation is the creation of a virtual database that aggregates data from
 distributed sources, giving them a common data model.

@@ -1,4 +1,5 @@
 = The starctl command
+:page-tag: stargate,dev,develop
 
 The `starctl` command controls and configures Stargate nodes.
 
@@ -13,7 +14,12 @@ starctl --cluster-name stargate \
   --simple-snitch
 ----
 
+<<<<<<< HEAD:docs-src/stargate-core/modules/install/pages/starctl.adoc
 CAUTION: When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host's network. To run Stargate in a containerized environment, see the xref:install:install_cass_40.adoc#starting-stargate-with-existing-cassandra-cluster[Installing Stargate with an existing Cassandra cluster] documentation.
+=======
+CAUTION: When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host's network. 
+To run Stargate in a containerized environment, see the xref:install/install_cass_40.adoc#_starting_stargate_with_existing_cassandra_cluster[Installing Stargate with an existing Cassandra cluster] documentation.
+>>>>>>> main:modules/developers-guide/pages/install/starctl.adoc
 
 == starctl options
 

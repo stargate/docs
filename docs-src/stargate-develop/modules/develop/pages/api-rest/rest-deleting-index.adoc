@@ -1,6 +1,7 @@
 // tag::DeleteIndex[]
 === Delete an index
 :slug: delete-an-index-rest
+:page-tag: stargate,dev,develop
 
 // == Prerequisites
 

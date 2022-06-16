@@ -1,4 +1,5 @@
 == Go querying
+:page-tag: stargate,dev,develop
 
 A simple query can be performed by passing a CQL query to the client using the
 `ExecuteQuery()` function for standard query execution:

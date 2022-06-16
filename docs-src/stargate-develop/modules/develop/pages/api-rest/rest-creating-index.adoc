@@ -1,6 +1,7 @@
 // tag::CreateIndex[]
 === Create an index
 :slug: create-an-index-rest
+:page-tag: stargate,dev,develop
 
 Tables can contain partition keys and clustering keys, both of which define the
 primary key. A table can also include non-primary keys.

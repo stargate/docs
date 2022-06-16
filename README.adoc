@@ -29,7 +29,7 @@ version 2.6.1. You will need to downgrade that package before building if you en
 
 The current development version of the docs are generated and published at https://stargate.github.io/docs/.
 
-The `.github/workflows/antora.yml` GitHub action will generate and publish the development docs on pushes to the master branch. Development docs use the `site-local.yaml` Antora site configuration file.
+The `.github/workflows/antora.yml` GitHub action will generate and publish the development docs on pushes to the main branch. Development docs use the `site-local.yaml` Antora site configuration file.
 
 == Generating and viewing the HTML output locally
 

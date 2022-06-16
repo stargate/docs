@@ -1,5 +1,6 @@
 [#vm_3x]
 == Stargate on virtual machine or bare metal
+:page-tag: stargate,dev,install
 
 Stargate can be installed alongside an existing Cassandra cluster using a virtual
 machine or bare metal.

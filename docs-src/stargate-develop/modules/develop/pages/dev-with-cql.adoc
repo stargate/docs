@@ -1,4 +1,5 @@
 = Using the CQL API
+:page-tag: stargate,dev,develop
 
 To use Stargate's Cassandra Query Language (CQL) API you can use the same CQL
 syntax, tools and native language drivers that you would with a normal
