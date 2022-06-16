@@ -12,4 +12,3 @@ jobs:
       - name: "run linkinator" 
         run: |
           npm run build:linkinator
-
