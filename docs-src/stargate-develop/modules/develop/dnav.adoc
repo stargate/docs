@@ -12,6 +12,3 @@
 //*** xref:gRPC-client-creation.adoc[Creating new Stargate gRPC clients]
 ** xref:dev-with-cql.adoc[Develop with CQL]
 ** xref:tooling.adoc[Tooling Resources]
-//* xref:api.adoc[API references]
-//** xref:attachment$docv2.html[Document v2 API]
-//** xref:attachment$restv2.html[REST v2 API]

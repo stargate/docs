@@ -2,13 +2,14 @@
 
 # The product you wish to build is the first argument on the command line
 
-#read -p "Which docset to build? (classic, serverless, ad4d}" product
 read -p 'Do you need to rebuild the APIs? (Y or N)' api
 product=$1
 
 if [ $api == "Y" ] || [ $api == "y" ];
   then
     product="dev-stargate";
+  else
+    product="stargate";
 fi
 echo "product: $product"
 
@@ -61,12 +62,12 @@ version_greater_equal "${antoraversion}" 3.0.1 || echo "Updating antora"; npm up
 # - set the antora symlinks to the correct product docset
 # - finally, run the corresponding product docset playbook
 
-case $1 in
+case $product in
 
   stargate)
     echo "You are building the stargate docset."
     echo "Remove and make antora.yml symlinks."
-    FILE=antora.ym
+    FILE=antora.yml
     cd docs-src/stargate-core
     if test -f "$FILE"; then
       rm antora.yml;
