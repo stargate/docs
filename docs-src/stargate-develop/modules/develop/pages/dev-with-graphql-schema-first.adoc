@@ -81,14 +81,17 @@ include::develop:page$api-graphql-schema-first/gqlsf-schema-data-types.adoc[Sche
 
 include::develop:page$api-graphql-schema-first/gqlsf-creating-object-types.adoc[Creating object types]
 
+// Dropping schema in schema-first means reloading or dropping all schema
 // include::develop:page$api-graphql-schema-first/gql-dropping-table.adoc[Dropping table schema]
 
 include::develop:page$api-graphql-schema-first/gqlsf-creating-index.adoc[Creating an index]
 
+// Dropping schema in schema-first means reloading or dropping all schema
 // include::develop:page$api-graphql-schema-first/gql-deleting-index.adoc[Deleting an index]
 
 include::develop:page$api-graphql-schema-first/gqlsf-creating-udt.adoc[Creating a user-defined type (UDT)]
 
+// Dropping schema in schema-first means reloading or dropping all schema
 // include::develop:page$api-graphql-schema-first/gql-dropping-udt.adoc[Dropping a user-defined type (UDT)]
 
 include::develop:page$api-graphql-schema-first/gqlsf-creating-queries.adoc[Creating queries]
