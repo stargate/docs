@@ -113,16 +113,17 @@ echo "Create document for multiple readers with batch"
 echo "Create document for multiple books with batch"
 ./curl-document-post-mult-books.sh.tmp | jq -r '.'
 
+#############FINISH INSERTS
+#############PATCH update data at the root of a document (uses document-id)
+#############PUT replace data at a path in a document (document-path)
+#############PATCH update data at a path in a document (document-path)
+#############POST execute a built-in function (push, pop) in a document-path in a particular doc (uses document-id)
 
-#############search documents in a collection using a where
-
-# LIST DOCUMENTS
+# LIST DOCUMENTS - SEARCHING FOR DOCUMENTS IN A COLLECTION
 echo "Get all documents"
 ./curl-document-get-all.sh.tmp | jq -r '.'
 echo "Get one particular document using documentId"
 ./curl-document-get-one.sh.tmp | jq -r '.'
-
-#############get a document with a doc id using where
 
 # DECORATIONS FOR GET DOCUMENTS: PAGING-SIZE, PAGING-STATE, FIELDS
 echo "Get 6 documents with paging-size set"
@@ -131,14 +132,19 @@ echo "Get 6 documents with paging-size set"
 #############get documents with paging-state
 #############get document with fields 
 
+
+
+# LIST DOCUMENTS USING WHERE CLAUSES
+
+#############get a document with a doc id using where
+
+#############search documents in a collection using a where
+
+# LIST DOCUMENTS - SEARCHING FOR DATA IN A DOCUMENT
+
 # LIST A DOCUMENT-PATH
 #############get a path in a document (uses document-id) ??
 
-#############FINISH INSERTS
-#############PATCH update data at the root of a document (uses document-id)
-#############PUT replace data at a path in a document (document-path)
-#############PATCH update data at a path in a document (document-path)
-#############POST execute a built-in function (push, pop) in a document-path in a particular doc (uses document-id)
 
 echo "put janet"
 ./curl_put_janet.sh.tmp|jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/docapi_curl_put_janet.result)
