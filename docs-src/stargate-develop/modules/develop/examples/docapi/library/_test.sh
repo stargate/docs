@@ -10,6 +10,7 @@ base_doc_api=/v2/namespaces
 namespace=test
 dcnamespace=test-dcs
 collection=library
+collection2=library2
 user1=Jane
 user2=Amy
 docid=2545331a-aaad-45d2-b084-9da3d8f4c311
@@ -24,6 +25,7 @@ for FILE in *;
       s#{namespace}#$namespace#; \
       s#{dcnamespace}#$dcnamespace#; 
       s#{collection}#$collection#; \
+      s#{collection2}#$collection2#; \
       s#{user1}#$user1#; \
       s#{user1}#$user1#; \
       s#{user2}#$user2#; \
@@ -79,11 +81,25 @@ echo "Get built-in functions for a particular namespace"
 
 # RUN THE DML
 
-echo "Create collection/documents" 
+# CREATE COLLECTIONS
+echo "Create collections" 
 echo "Create an empty collection called library"
 ./curl-collection-post-empty.sh.tmp | jq -r '.'
-echo "List all collections, to check that library collection is made."
+echo "Create an empty collection called library2"
+./curl-collection2-post-empty.sh.tmp | jq -r '.'
+
+# CREATE COLLECTION WITH JSON SCHEMA
+echo "Put JSON schema for a particular collection"
+./curl-collection-put-json-schema.sh.tmp | jq -r '.'
+
+# LIST COLLECTIONS
+echo "Get all collections, to check that the 2 collections are made."
 ./curl-collection-get-all.sh.tmp|jq -r '.'
+# LIST JSON SCHEMA FOR A PARTICULAR COLLECTION
+echo "Get JSON schema for a particular collection"
+./curl-collection-get-json-schema.sh.tmp | jq -r '.'
+
+# INSERT DOCUMENTS
 echo "Create a document in the collection with a document-id"
 ./curl-document-post-withDocId.sh.tmp | jq -r '.' 
 echo "Create a document in the collection with no document-id"
@@ -97,17 +113,32 @@ echo "Create document for multiple readers with batch"
 echo "Create document for multiple books with batch"
 ./curl-document-post-mult-books.sh.tmp | jq -r '.'
 
-# LIST COLLECTIONS
-echo "Get all collections"
-./curl-collection-get-all.sh.tmp|jq -r '.'
+
+#############search documents in a collection using a where
 
 # LIST DOCUMENTS
 echo "Get all documents"
 ./curl-document-get-all.sh.tmp | jq -r '.'
 echo "Get one particular document using documentId"
 ./curl-document-get-one.sh.tmp | jq -r '.'
+
+#############get a document with a doc id using where
+
+# DECORATIONS FOR GET DOCUMENTS: PAGING-SIZE, PAGING-STATE, FIELDS
 echo "Get 6 documents with paging-size set"
 ./curl-document-get-6.sh.tmp | jq -r '.'
+
+#############get documents with paging-state
+#############get document with fields 
+
+# LIST A DOCUMENT-PATH
+#############get a path in a document (uses document-id) ??
+
+#############FINISH INSERTS
+#############PATCH update data at the root of a document (uses document-id)
+#############PUT replace data at a path in a document (document-path)
+#############PATCH update data at a path in a document (document-path)
+#############POST execute a built-in function (push, pop) in a document-path in a particular doc (uses document-id)
 
 echo "put janet"
 ./curl_put_janet.sh.tmp|jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/docapi_curl_put_janet.result)
@@ -148,15 +179,11 @@ echo "patch subdoc"
 echo "check patch subdoc"
 ./curl_patch_check_subdoc.sh.tmp| jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/docapi_curl_patch_check_subdoc.result)
 
-# COLLECTIONS WITH JSON SCHEMA
-echo "Put JSON schema for a particular collection"
-./curl-collection-put-json-schema.sh.tmp | jq -r '.'
-echo "Get JSON schema for a particular collection"
-./curl-collection-get-json-schema.sh.tmp | jq -r '.'
 
 
-# DROP/DELETE ALL SCHEMA
-#./curl_delete_doc.sh.tmp
+
+# DELETE ALL SCHEMA and DATA
+#./curl-document-delete.sh.tmp
 #./curl_delete_doc_where.sh.tmp
 #./curl-collection-delete.sh.tmp
 #./curl-ns-delete.sh.tmp
