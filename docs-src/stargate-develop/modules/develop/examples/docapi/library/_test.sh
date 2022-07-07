@@ -100,21 +100,37 @@ echo "Get JSON schema for a particular collection"
 ./curl-collection-get-json-schema.sh.tmp | jq -r '.'
 
 # INSERT DOCUMENTS
-echo "Create a document in the collection with a document-id"
+echo "Create a document in the collection with a document-id with POST"
 ./curl-document-post-withDocId.sh.tmp | jq -r '.' 
-echo "Create a document in the collection with no document-id"
+echo "Create a document in the collection with no document-id with POST"
 ./curl-document-post-noDocId.sh.tmp | jq -r '.' 
 #> HOLD; diff <(gron HOLD) <(gron ../result/docapi_curl_post_noDocId.result)
-echo "Create document for one reader"
+echo "Create document for one reader with POST"
 ./curl-document-post-one-reader.sh.tmp|jq -r '.' 
-echo "Create document for multiple readers with batch"
+echo "Create document for multiple readers with batch POST"
 ./curl-document-post-mult-readers.sh.tmp | jq -r '.'
 # SET UP THE REST OF THE DATA FOR FURTHER WORK
-echo "Create document for multiple books with batch"
+echo "Create document for multiple books with batch POST"
 ./curl-document-post-mult-books.sh.tmp | jq -r '.'
 
+# MODIFY DOCUMENTS
+echo "Update/replace a document with a document-id with PUT"
+
+# MODIFY DOCUMENTS WITH BUILT-IN FUNCTIONS
+# FIRST, VIEW THE BUILT-IN FUNCTIONS
+echo "Get built-in functions for a particular namespace"
+./curl-ns-get-functions.sh.tmp | jq -r '.'
+echo "Push an array element into a document"
+./curl-document-post-push-book.sh.tmp | jq -r '.'
+echo "Pop an array element into a document"
+./curl-document-post-pop-book.sh.tmp | jq -r '.'
+
 #############FINISH INSERTS
-#############PATCH update data at the root of a document (uses document-id)
+#############PUT create or update (really replace) a document (uses document-id)
+#############PATCH update (augment) data at the root of a document (uses document-id)
+############# BIG PATCH WARNING: 
+############# One thing to note: PATCH expects that the data present at the path is already a JSON object {}. if you have an array or some scalar value, 
+############# those values will be blown away and overwritten
 #############PUT replace data at a path in a document (document-path)
 #############PATCH update data at a path in a document (document-path)
 #############POST execute a built-in function (push, pop) in a document-path in a particular doc (uses document-id)
@@ -132,8 +148,6 @@ echo "Get 6 documents with paging-size set"
 #############get documents with paging-state
 #############get document with fields 
 
-
-
 # LIST DOCUMENTS USING WHERE CLAUSES
 
 #############get a document with a doc id using where
@@ -143,7 +157,8 @@ echo "Get 6 documents with paging-size set"
 # LIST DOCUMENTS - SEARCHING FOR DATA IN A DOCUMENT
 
 # LIST A DOCUMENT-PATH
-#############get a path in a document (uses document-id) ??
+#############get a path in a document (uses document-id)
+Like GET /v2/namespaces/X/collections/Y/1/a/b
 
 
 echo "put janet"
