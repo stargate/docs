@@ -1,3 +1,4 @@
-curl -L -X  GET '{base_doc_url}{base_doc_api}/{namespace}/collections/{collection}?where=\{"name":\{"$eq":"Amy Smith"\}\}' \
+curl --location -g --request GET '{base_doc_url}{base_doc_api}/{namespace}/collections/{collection}?where={"reader.name":{"$eq":"Amy%20Smith"}}' \
 --header "X-Cassandra-Token: {auth_token}" \
---header 'Content-Type: application/json'
+--header 'Content-Type: application/json' \
+--data-raw ''
