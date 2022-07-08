@@ -50,5 +50,32 @@ curl --location --request POST '{base_doc_url}{base_doc_api}/{namespace}/collect
              "French"
          ]
      }
- }
+ },
+     {
+        "book": {
+            "title": "The Art of French Cooking",
+            "isbn": "19922",
+            "author": [
+                "Julia Child",
+                "Simone Beck",
+                "Louisette Bertholle"
+            ],
+            "pub-year": 1960,
+            "genre": [
+                "cooking",
+                "French cuisine"
+            ],
+            "format": [
+                "hardback",
+                "paperback",
+                "epub"
+            ],
+            "languages": [
+                "English",
+                "German",
+                "French",
+                "Belgian"
+            ]
+        }
+    }
 ]'

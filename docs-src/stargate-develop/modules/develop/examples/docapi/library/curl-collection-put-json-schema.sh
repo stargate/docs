@@ -1,5 +1,5 @@
 curl --location --request PUT '{base_doc_url}{base_doc_api}/{namespace}/collections/{collection2}/json-schema' \
---header 'X-Cassandra-Token: 448523ac-5444-464b-9e7a-a02099edb26a' \
+--header "X-Cassandra-Token: {auth_token}" \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "title": "Person",
