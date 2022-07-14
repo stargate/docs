@@ -155,6 +155,11 @@ echo "Create document for multiple readers with batch POST"
 echo "Create document for multiple books with batch POST"
 ./curl-document-post-mult-books.sh.tmp | jq -r '.'
 
+############# BIG PATCH WARNING: 
+############# One thing to note: PATCH expects that the data present at the path is 
+############# already a JSON object {}. if you have an array or some scalar value, 
+############# those values will be blown away and overwritten
+
 # MODIFY DOCUMENTS
 echo "Replace a document with a PUT using document-id"
 ./curl-document-put-replace.sh.tmp | jq -r '.'
@@ -179,36 +184,27 @@ echo "Patch some more information with TTL using document-id"
 echo "Check that 4th data is included"
 ./curl-document-get-one.sh.tmp | jq -r '.'
 
-# MODIFY DOCUMENTS WITH BUILT-IN FUNCTIONS
-# FIRST, VIEW THE BUILT-IN FUNCTIONS
-echo "Get built-in functions for a particular namespace"
-./curl-ns-get-functions.sh.tmp | jq -r '.'
-echo "Push an array element into a document"
-./curl-document-post-push-book.sh.tmp | jq -r '.'
-echo "Look at the array"
-./curl-document-get-array-change.sh.tmp | jq -r '.'
-echo "Pop an array element into a document"
-./curl-document-post-pop-book.sh.tmp | jq -r '.'
-echo "Look at the array"
-./curl-document-get-array-change.sh.tmp | jq -r '.'
-
 # WRITE INSERTS WITH DOCUMENT-PATH
 # DOCUMENT-PATCH DEFINES WHERE IN A DOCUMENT YOU WANT TO EXECUTE SOMETHING
 # EX: PUT {{base_rest_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{bookdocid}}/book/genre
+echo "Put a document with document-path; replaces current data"
+./curl-document-put-book-with-path.sh.tmp | jq -r '.'
+echo "Patch a document with document-path - overwrites"
+./curl-document-patch-book-with-path.sh.tmp | jq -r '.'
 
-echo "Put a document"
-#############PUT replace data at a path in a document (document-path)
-echo "Patch a document"
-#############PATCH update data at a path in a document (document-path)
-echo "Push to an array"
-#############POST execute a built-in function (push, pop) in a document-path in a particular doc (uses document-id)
-echo "Pop to an array"
-#############POST execute a built-in function (push, pop) in a document-path in a particular doc (uses document-id)
-
-############# BIG PATCH WARNING: 
-############# One thing to note: PATCH expects that the data present at the path is 
-############# already a JSON object {}. if you have an array or some scalar value, 
-############# those values will be blown away and overwritten
+# MODIFY DOCUMENTS WITH BUILT-IN FUNCTIONS WITH DOCUMENT-PATH
+# FIRST, VIEW THE BUILT-IN FUNCTIONS
+echo "Get built-in functions for a particular namespace"
+./curl-ns-get-functions.sh.tmp | jq -r '.'
+# PUSH AND POP REQUIRE A DOCUMENT-PATH
+echo "Push an array element into a document at a document-path"
+./curl-document-post-push-book.sh.tmp | jq -r '.'
+echo "Look at the array"
+./curl-document-get-array-change.sh.tmp | jq -r '.'
+echo "Pop an array element into a document at a document-path"
+./curl-document-post-pop-book.sh.tmp | jq -r '.'
+echo "Look at the array"
+./curl-document-get-array-change.sh.tmp | jq -r '.'
 
 # LIST DOCUMENTS - SEARCHING FOR DOCUMENTS IN A COLLECTION
 echo "Get all documents"
@@ -241,16 +237,16 @@ echo "Get a document where names are in field"
 ./curl-document-get-where-name-in.sh.tmp | jq -r '.'
 echo "Get a document where names are in field but one name fails"
 ./curl-document-get-where-name-in-1fail.sh.tmp | jq -r '.'
-############# NEED A $NIN EXAMPLE
+echo "Get a document where names are not in ($nin) field"
+./curl-document-get-where-name-nin.sh.tmp | jq -r '.'
 
 # LIST A PARTICULAR DOCUMENT USING DOCUMENTID AND CONDITIONS
 echo "Get one particular document using documentId"
 ./curl-document-get-one.sh.tmp | jq -r '.'
-
-
-#############get a document with a doc id using where
-
-CANNOT SEARCH ON ARRAY DIRECTLY, since * or [*] cannot BE THE LAST IN A PATH
+# LIST DOCUMENTS - SEARCHING FOR DATA IN A DOCUMENT
+################## /book/title?WHERE title = "Native Son"
+### SEARCH USING DOCUMENTID WITH WHERE CLAUSE
+# CANNOT SEARCH ON ARRAY DIRECTLY, since * or [*] cannot BE THE LAST IN A PATH
 echo "Get a document where a value is contained in an array"
 ./curl-document-get-where-contains.sh.tmp | jq -r '.'
 
