@@ -4,20 +4,82 @@ This repo contains the source files for the Stargate documentation.
 
 The docs are written in AsciiDoc and use Antora to generate the output.
 
-The Stargate docs are organized into three Antora modules:
+The Stargate docs are organized into two Antora components:
 
-* The ROOT module, with general project infomation.
-* A quickstart module, with basic documentation to get new users started.
-* The develop module with more extensive topics on all the features of Stargate.
+* stargate-core
+ ** ROOT module: general information pages, plus attachments
+ ** concepts module: how Stargate works
+ ** plan module: To be completed
+ ** install module: how to install Stargate
+ ** connect module: how to connect to Stargate
+ ** manage module: management information
+ ** secure module: how to secure Stargate
+ ** migrate module: To be completed
+* stargate-develop
+ ** develop module: complete API documentation
+ ** quickstart module: basic documentation to get new users started
 
-== Dependencies
+== How do you contribute?
 
-Antora requires NodeJS, install it and then install the project dependencies:
+. Fork the https://github.com/stargate/docs[stargate/docs] github repository.
+. If you have previously cloned the repo, switch to the main branch and do a `git pull` to get the latest changes.
+. Create a working branch in your fork with `git checkout -b <working-branch>`.
+Use a branch with a description or issue number.
+. Make your edits to the existing topics. Add your new topic to the appropriate location in the `docs-src` directory`.
+. Update the appropriate navigation menu (nav.adoc) for your new topic.
+. Create your pull request at https://github.com/stargate/docs/pulls[stargate/docs/pulls].
+. Assign @polandll as a reviewer for quick turnaround.
+
+== Generating and viewing the HTML output locally
+
+If you wish to build locally to check a docset build, use `build-locally.sh`.
+
+There are two options (dev-stargate, stargate). One builds the API references in addition to the documentation. 
+Run the command with:
+
+----
+./build-locally.sh stargate
+----
+
+The script will check for dependencies and install or update any software required for the build.
+
+Open `build/site/<docset>`, such as `build/site/stargate`, a web browser to view the output.
+
+== Repo Dependencies
+
+The `build-locally.sh` script should take care of installations required to build the docs.
+However, if you get a message that you need to install NodeJS, run the following commands (Mac OSX):
 
 [source, shell, subs="attributes+"]
 ----
+brew install node
 npm install
 ----
+
+== Dependencies in package.json
+
+There are some key dependencies for building the documentation with Antora.
+
+[source, plaintext]
+----
+  "dependencies": {
+    "@antora/cli": "^3.0.1",
+    "@antora/site-generator-default": "^3.0.1",
+    "@redocly/cli": "1.0.0-beta.102",
+    "async": "3.2.4",
+    "mobx": "^6.3.12",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "redoc": "^2.0.0-rc.70",
+    "redoc-cli": "^0.13.14",
+    "rxjs": "7.0.1",
+    "styled-components": "^5.1.1"
+  }
+----
+
+`@antora/cli` and `@antora/site-generator-default` are requirements to build with Antora.
+`redoc` and `redoc-cli` are requirements to build the 3-panel API references.
+`@redocly/cli` is a requirement for the OpenAPI linter that is used to validate the OpenAPI YAML specification files used to build the 3-panel API references.
 
 [IMPORTANT]
 ====
@@ -25,30 +87,12 @@ It has been reported that the GraphQL functionality will not work if `node-fetch
 version 2.6.1. You will need to downgrade that package before building if you encounter errors.
 ====
 
-== Viewing the current HTML output
+== Viewing the current published HTML output
 
 The current development version of the docs are generated and published at https://stargate.github.io/docs/.
 
-The `.github/workflows/antora.yml` GitHub action will generate and publish the development docs on pushes to the main branch. Development docs use the `site-local.yaml` Antora site configuration file.
+The `.github/workflows/antora.yml` GitHub action will generate and publish the development docs on pushes to the main branch. Development docs use the `playbooks/site-local-<docset>.yaml` Antora site configuration file.
 
-== Generating and viewing the HTML output locally
-
-The docs can be generated locally during development, to check work. 
-To generate only the docs (faster if you don't need to check the OpenAPI docs):
-
-[source, shell, subs="attributes+"]
-----
-npm run build:local
-----
-
-To generate the docs and OpenAPI docs:
-
-[source, shell, subs="attributes+"]
-----
-npm run build:dev
-----
-
-Open `build/site/index.html` in a web browser to view the output.
 
 == Publishing to the Stargate website
 
