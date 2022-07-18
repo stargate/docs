@@ -149,6 +149,12 @@ echo "Create document for one book with PUT"
 ./curl-document-put-one-book.sh.tmp|jq -r '.'
 echo "Get one book document using documentId"
 ./curl-document-get-one-book.sh.tmp | jq -r '.'
+
+# NOTES from https://github.com/stargate/stargate/pull/1043
+# Add an endpoint to allow writing multiple documents in a single request.
+# Data sent to this endpoint is expected to be in JSON lines format (1 document per line)
+# Additionally, you can supply an id-path query parameter to use the value at a particular path in each document as the document's key in the database, so if all your documents have an id field, you could set id-path=id and treat the value in id as the document's key. You can also use any valid path syntax (globs not allowed), e.g. id-path=user.emails.[0].id
+# If id-path is excluded, random UUID's will be assigned to every document, and the response will have the ID's created corresponding in the same order as the documents were supplied in.
 echo "Create document for multiple readers with batch POST"
 ./curl-document-post-mult-readers.sh.tmp | jq -r '.'
 # SET UP THE REST OF THE DATA FOR FURTHER WORK
@@ -215,6 +221,7 @@ echo "Get 6 documents with paging-size set"
 ./curl-document-get-6.sh.tmp | jq -r '.'
 echo "Get a document with fields"
 ./curl-document-get-one-with-fields.sh.tmp | jq '.'
+############## using fields without a WHERE - https://github.com/stargate/stargate/issues/1046
 #############echo "Get documents with paging-state set"
 #############get documents with paging-state 
 ### SEARCH COLLECTION FOR DOCUMENTS WITH WHERE CLAUSE
@@ -233,6 +240,11 @@ echo "Get all documents where book title eq a particular book in reviews"
 ./curl-document-get-where-book-eq.sh.tmp | jq -r '.'
 echo "Get all documents where the reader rating is gt 3 and lte 5"
 ./curl-document-get-where-rating-gt3-lte5.sh.tmp | jq -r '.'
+# $ne selects the documents where the value of the field is not equal to the specified value. 
+# This includes documents that do not contain the field.
+# $nin selects the documents where: the field value is not in the specified array or the 
+# field does not exist.
+###### Document search with path segment and $in may require a note: https://github.com/stargate/stargate/issues/1049
 echo "Get a document where names are in field"
 ./curl-document-get-where-name-in.sh.tmp | jq -r '.'
 echo "Get a document where names are in field but one name fails"
