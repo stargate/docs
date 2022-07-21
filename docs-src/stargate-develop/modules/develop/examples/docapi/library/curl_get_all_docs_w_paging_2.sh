@@ -1,4 +1,2 @@
-curl --location \
---request GET '{base_doc_url}{base_doc_api}/{namespace}/collections/{collection}?page-size=5&page-state=JGNlYjczMDc5LTE1NTItNGQyNS1hM2ExLWE2MzgxNWVlYTAyMADwf_____B_____ \' \
---header "X-Cassandra-Token: {auth_token}" \
---header 'Content-Type: application/json'
+curl --location --request GET '{base_doc_url}{bse_doc_api}/{namespace}/collections/{collection}?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
+--header "X-Cassandra-Token: {auth_token}"
