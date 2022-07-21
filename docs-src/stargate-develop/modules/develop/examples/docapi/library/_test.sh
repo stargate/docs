@@ -45,6 +45,7 @@ user1=Jane
 user2=Amy
 docid=2545331a-aaad-45d2-b084-9da3d8f4c311
 bookdocid=native-son-doc-id
+readerdocid=John-Smith
 
 for FILE in *;
  do
@@ -63,6 +64,7 @@ for FILE in *;
       s#{user2}#$user2#; \
       s#{docid}#$docid#; \
       s#{bookdocid}#$bookdocid#; \
+      s#{readerdocid}#$readerdocid#; \
       s#{auth_token}#\$AUTH_TOKEN#;" \
       $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
@@ -161,6 +163,8 @@ echo "Create document for multiple readers with batch POST"
 # SET UP THE REST OF THE DATA FOR FURTHER WORK
 echo "Create document for multiple books with batch POST"
 ./curl-document-post-mult-books.sh.tmp | jq -r '.'
+echo "Write one reader with an document-id for later use"
+./curl-document-put-one-reader-with-id.sh.tmp | jq -r '.'
 
 ############# BIG PATCH WARNING: 
 ############# One thing to note: PATCH expects that the data present at the path is 
@@ -224,7 +228,7 @@ echo "Get a document with fields, without a WHERE clause"
 ./curl-document-get-one-with-fields.sh.tmp | jq '.'
 ##### HOW CAN I GET THE PAGING STATE DYNAMICALLY?? OTHERWISE THIS NEXT TEST WILL FAIL
 echo "Get documents with paging-state set"
-./curl_get_all_docs_w_paging_2.sh.tmp | jq '.'
+./curl-document-get-all-docs-with-paging.sh.tmp | jq '.'
 ### SEARCH COLLECTION FOR DOCUMENTS WITH WHERE CLAUSE
 echo "Get all documents where name eq a particular reader"
 ./curl-document-get-where-name.sh.tmp | jq -r '.'
@@ -257,12 +261,20 @@ echo "Get a document where names are in field but one name fails"
 echo "Get a document where names are not in ($nin) field"
 ./curl-document-get-where-name-nin.sh.tmp | jq -r '.'
 
-########## where={"n,m.value": {"$in": [5]}}
-
 # LIST A PARTICULAR DOCUMENT USING DOCUMENTID AND CONDITIONS
 echo "Get one particular document using documentId"
 ./curl-document-get-one.sh.tmp | jq -r '.'
+
+# LIST A DOCUMENT-PATH
+
+echo "Get a book title using a document-id and document path"
+./curl-document-get-path-in-document.sh.tmp  | jq -r '.'
+### USED ABOVE, ANOTHER EXAMPLE: ./curl-document-get-array-change.sh
+echo "Get the second book-title in a reader's reviews by array number using a document-id and document path"
+./curl-document-get-path-array-in-document.sh.tmp  | jq -r '.'
+
 # LIST DOCUMENTS - SEARCHING FOR DATA IN A DOCUMENT
+
 ################## /book/title?WHERE title = "Native Son"
 ### SEARCH USING DOCUMENTID WITH WHERE CLAUSE
 # CANNOT SEARCH ON ARRAY DIRECTLY, since * or [*] cannot BE THE LAST IN A PATH
@@ -273,13 +285,6 @@ echo "Get a document with a where wildcard on book format"
 ./curl-document-get-wildcard.sh.tmp | jq -r '.'
 ### EXAMPLES WITH ARRAYS BY NUMBER OR WILDCARD (*)
 #### MULTI WHERE, WITH EXPLANATIONS OF WHEN OR WHERE THEY CAN BE USED
-
-# LIST DOCUMENTS - SEARCHING FOR DATA IN A DOCUMENT
-
-# LIST A DOCUMENT-PATH
-#############get a path in a document (uses document-id)
-#####Like GET /v2/namespaces/X/collections/Y/1/a/b
-##### ./curl-document-get-array-change.sh IS THIS TYPE, USED ABOVE
 
 
 # echo "put janet"
