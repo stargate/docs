@@ -1,3 +1,0 @@
-curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&fields=["reader.name","reader.user_id","reader.birthdate"]&page-size=6' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \

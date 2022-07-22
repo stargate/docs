@@ -1,6 +1,0 @@
-curl --location --request PUT 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-raw ' {
-  "okaydokie": "Now I have done it! We have a TTL at last!"
-}'

@@ -1,4 +1,0 @@
-curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.reviews.[*].book-title":{"$eq":"Moby%20Dick"}}&fields=["reader.name","reader.address","reader.reviews"]&page-size=6' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header 'Content-Type: application/json' \
---data-raw ''
