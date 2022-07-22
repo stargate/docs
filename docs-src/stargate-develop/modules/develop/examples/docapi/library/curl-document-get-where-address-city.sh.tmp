@@ -1,0 +1,4 @@
+curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.address.primary,secondary.city":{"$eq":"Evertown"}}&fields=["reader.name","reader.address","reader.reviews"]' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ''

@@ -1,0 +1,28 @@
+curl --location --request PUT 'http://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '     {
+        "book": {
+            "title": "Native Son",
+            "isbn": "12322",
+            "author": [
+                "Richard Wright"
+            ],
+            "pub-year": 1930,
+            "genre": [
+                "slavery",
+                "action"
+            ],
+            "format": [
+                "hardback",
+                "paperback",
+                "epub"
+            ],
+            "languages": [
+                "English",
+                "German",
+                "French"
+            ]
+        }
+    }
+'

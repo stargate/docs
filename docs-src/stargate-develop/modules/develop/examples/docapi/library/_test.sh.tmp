@@ -51,21 +51,21 @@ for FILE in *;
  do
     if [[ "$FILE" != "test"* ]]
     then
-      gsed "s#{base_doc_url}#$base_doc_url#; \
-      s#{base_doc_schema}#$base_doc_schema#; \
-      s#{base_doc_api}#$base_doc_api#; \
-      s#{namespace}#$namespace#; \
-      s#{dcnamespace}#$dcnamespace#; 
-      s#{collection}#$collection#; \
-      s#{collection2}#$collection2#; \
-      s#{user1}#$user1#; \
-      s#{user1}#$user1#; \
-      s#{user2}#$user2#; \
-      s#{user2}#$user2#; \
-      s#{docid}#$docid#; \
-      s#{bookdocid}#$bookdocid#; \
-      s#{readerdocid}#$readerdocid#; \
-      s#{auth_token}#\$AUTH_TOKEN#;" \
+      gsed "s#http://localhost:8082#$base_doc_url#; \
+      s#/v2/schemas/namespaces#$base_doc_schema#; \
+      s#/v2/namespaces#$base_doc_api#; \
+      s#test#$namespace#; \
+      s#test-dcs#$dcnamespace#; 
+      s#library#$collection#; \
+      s#library2#$collection2#; \
+      s#Jane#$user1#; \
+      s#Jane#$user1#; \
+      s#Amy#$user2#; \
+      s#Amy#$user2#; \
+      s#2545331a-aaad-45d2-b084-9da3d8f4c311#$docid#; \
+      s#native-son-doc-id#$bookdocid#; \
+      s#John-Smith#$readerdocid#; \
+      s#$AUTH_TOKEN#\$AUTH_TOKEN#;" \
       $FILE > $FILE.tmp;
       chmod 755 $FILE.tmp;
     fi
@@ -197,7 +197,7 @@ echo "Check that 4th data is included"
 
 # WRITE INSERTS WITH DOCUMENT-PATH
 # DOCUMENT-PATCH DEFINES WHERE IN A DOCUMENT YOU WANT TO EXECUTE SOMETHING
-# EX: PUT {{base_rest_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{bookdocid}}/book/genre
+# EX: PUT {{base_rest_url}}{/v2/namespaces}/{test}/collections/{library}/{native-son-doc-id}/book/genre
 echo "PUT a document with document-path; replaces current data"
 ./curl-document-put-book-with-path.sh.tmp | jq -r '.'
 echo "PATCH a document with document-path - overwrites"
@@ -268,7 +268,7 @@ echo "Get a document where names are in field but one name fails"
 ./curl-document-get-where-name-in-1fail.sh.tmp | jq -r '.'
 # $nin selects the documents where: the field value is not in the specified array or the 
 # field does not exist.
-echo "Get a document where names are not in (\$nin) field"
+echo "Get a document where names are not in ($nin) field"
 ./curl-document-get-where-name-nin.sh.tmp | jq -r '.'
 
 # LIST A PARTICULAR DOCUMENT USING DOCUMENTID AND CONDITIONS

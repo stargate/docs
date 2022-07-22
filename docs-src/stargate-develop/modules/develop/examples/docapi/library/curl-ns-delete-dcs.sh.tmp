@@ -1,0 +1,3 @@
+curl -L -X DELETE 'http://localhost:8082/v2/schemas/namespaces/test-dcs' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'

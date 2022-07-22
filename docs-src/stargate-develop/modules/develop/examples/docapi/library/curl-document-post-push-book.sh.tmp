@@ -1,0 +1,6 @@
+curl --location --request POST 'http://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+ "operation": "$push", "value": "culture" 
+}'

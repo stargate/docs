@@ -1,0 +1,3 @@
+curl --location --globoff --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Jane%20Doe"}}&fields=["reader.name", "reader.address","reader.reviews"]' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'

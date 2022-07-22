@@ -1,0 +1,4 @@
+curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library/John-Smith/reader/reviews/[1]' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ''

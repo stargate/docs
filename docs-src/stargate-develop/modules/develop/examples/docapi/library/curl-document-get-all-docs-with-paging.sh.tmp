@@ -1,0 +1,2 @@
+curl --location --request GET 'http://localhost:8082{bse_doc_api}/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
+--header "X-Cassandra-Token: $AUTH_TOKEN"

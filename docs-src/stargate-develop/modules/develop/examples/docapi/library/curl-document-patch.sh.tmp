@@ -1,0 +1,6 @@
+curl --location --request PATCH 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+  "yet-another-field": "Hopefully, I haven'\''t lost my other two fields!"
+}'
