@@ -8,11 +8,14 @@ output:
 content:
 #  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
+    - url: ./../../../guide-docs
+      branches: [glossary]
+      start_path: docs-src/glossary
     - url: ./..
-      branches: [test-multi-repos]
+      branches: HEAD
       start_path: docs-src/stargate-develop
     - url: ./..
-      branches: [test-multi-repos]
+      branches: HEAD
       start_path: docs-src/stargate-core
 
 ui:
@@ -78,8 +81,10 @@ asciidoc:
     user2fn: 'Janesha'
     user2ln: 'Doesha'
 
-    namespace: 'myworld'
-    collection: 'fitness'
+    # namespace: 'myworld'
+    namespace: 'test'
+    #collection: 'fitness'
+    collection: 'library'
     user1: 'Janet'
     user2: 'Joey'
     user2a: 'Joseph'

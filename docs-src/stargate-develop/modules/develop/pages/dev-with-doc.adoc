@@ -5,14 +5,14 @@ include::develop:partial$stargate-intro-intro.adoc[]
 The Stargate Document API modifies and queries data stored as unstructured JSON documents in collections.
 Because the Document API uses schemaless data, no data modeling is required!
 
-If the Document API is used with Apache Cassandra, the document indexing is accomplished
-with secondary indexes. 
+If the Document API is used with Apache Cassandra, document indexing is accomplished with https://cassandra.apache.org/doc/trunk/cassandra/cql/indexes.html[Cassandra secondary indexes].
+ // LLP 07.25.2022 Add a link to SAI when it is added and published in the CQL doc. 
 If the Document API is used with DataStax Enterprise, SAI indexing is used. 
 The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API] describes the underlying structure used to store collections.
 
 == Information about namespaces and collections.
 
-To use the Document API, you must define the namespace that will store  collections.
+To use the Document API, you must define a namespace that will store  collections.
 Collections store unstructured JSON documents.
 Documents can themselves hold multiple documents.
 Multiple collections are contained in a namespace, but a collection cannot be
@@ -27,19 +27,20 @@ include::develop:partial$prereqs-astra.adoc[]
 include::develop:partial$prereqs-stargate.adoc[]
 
 == API reference
+
 If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-document.adoc[Stargate Document QuickStart, window="_blank"].
 To view the API Reference, see xref:develop:attachment$docv2.html[{database} Document API, window="_blank"].
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace]
+include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace, leveloffset=+1]
 endif::[]
 
-include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace]
+include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace, leveloffset=+1]
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace]
+include::develop:page$api-doc/doc-deleting-namespace.adoc[Deleting a namespace, leveloffset=+1]
 endif::[]
 
 include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents]
