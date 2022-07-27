@@ -46,7 +46,7 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-include::example$result/docapi/library/curl-document-get-one.result[]
+include::example$result/docapi/library/curl-document-get-one-2.result[]
 ----
 --
 ====
@@ -97,7 +97,7 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-include::example$result/docapi/library/curl-document-get-one.result[]
+include::example$result/docapi/library/curl-document-get-one-3.result[]
 ----
 --
 ====
@@ -149,7 +149,7 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-include::example$result/docapi/library/curl-document-get-one.result[]
+include::example$result/docapi/library/curl-document-get-one-4.result[]
 ----
 --
 ====
