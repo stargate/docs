@@ -1,0 +1,106 @@
+// tag::CreateColl[]
+= Creating a collection
+
+// LLP 07.25.2022 I want to link glossary terms, once we decide on best way.
+In the Document API, collections are created in a xref:glossary:ROOT:glossary/gloss_namespace.adoc[namespace]. 
+Collections store documents.
+Multiple collections are contained in a namespace, but a collection cannot be
+contained in multiple namespaces.
+
+Only namespaces need to be specifically created. 
+Collections can be created either as an empty collection first, or created with the first document creation in a collection.
+
+== Creating an empty collection
+
+Send a `POST` request to `{base_doc_api}`.
+In this example we use `{collection}` for the `name`.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-collection-post-empty.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-collection-post-empty.result[]
+----
+--
+====
+
+// LLP 07.25.2022 Do I need to make this a partial and include on all create pages, or
+// put it somewhere else and just link to it?
+The xref:secure:auth.adoc[generated authorization token] and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name for the namespace is passed as JSON data using `--data`.
+
+`cURL` can use any of the shortcut or longhand flags:
+
+[cols="1,1,2,3",grid="all",frame="all"]
+|===
+|Shortcut | Longhand | Example | Description
+
+| `-L`
+| `--location`
+| `-L {base_doc_url}`
+| Retrieves the URL listed, even if it has moved
+
+| `-X`
+| `--request`
+| `-X PUT`
+| Defines the type of REST operation, such as `POST`, `GET`, and `DELETE`
+
+| `-H`
+| '--header'
+| '-H "X-Cassandra-Token: {auth_token}"'
+| Passes header information, such as auth tokens and the content type
+
+| '-d'
+| '--data'
+| -d '{ "name": "{namespace}", "replicas": 1 }'
+| Passes data as part of the request body
+
+| '-g'
+| '--globoff'
+| No argument
+| The `-globoff` flag switches off the `URL globbing parser`, and you can specify URLs that contain the characters `{}[]` without having curl interpret them.
+This option is handy for making the URLs for Document API calls cleaner to read, with less escaping.
+|===
+// end::CreateColl[]
+
+// tag::CreateCollextra[]
+== Add JSON schema to a collection
+
+To set JSON schema that a collection's documents will use, send a `PUT` request to `{base_doc_api}/{namespace}/collections/{collection}`.
+In this example, a collection is created to store a Person object that has three properties: first name, last name, and age:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-collection-put-json-schema.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-collection-put-json-schema.result[]
+----
+--
+====
+// end::CreateCollextra[]

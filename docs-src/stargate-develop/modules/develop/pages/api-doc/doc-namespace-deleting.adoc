@@ -9,4 +9,6 @@ namespace.
 ----
 include::example$docapi/library/curl-ns-delete.sh[]
 ----
+
+include::develop:partial$deletion-no-return-data.adoc[]
 // end::DeleteNS[]

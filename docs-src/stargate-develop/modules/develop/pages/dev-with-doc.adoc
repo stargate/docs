@@ -31,23 +31,32 @@ include::develop:partial$prereqs-stargate.adoc[]
 If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-document.adoc[Stargate Document QuickStart, window="_blank"].
 To view the API Reference, see xref:develop:attachment$docv2.html[{database} Document API, window="_blank"].
 
+// NAMESPACES
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace, leveloffset=+1]
+include::develop:page$api-doc/doc-namespace-creating.adoc[Creating a namespace, leveloffset=+1]
 endif::[]
 
-include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace, leveloffset=+1]
+include::develop:page$api-doc/doc-namespace-checking.adoc[Checking namespaces, leveloffset=+1]
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-deleting-namespace.adoc[Deleting a namespace, leveloffset=+1]
+include::develop:page$api-doc/doc-namespace-deleting.adoc[Deleting a namespace, leveloffset=+1]
 endif::[]
 
-include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents]
+// COLLECTIONS
+include::develop:page$api-doc/doc-collection-creating.adoc[Creating a collection, leveloffset=+1]
+
+include::develop:page$api-doc/doc-collection-checking.adoc[Checking collections, leveloffset=+1]
+
+include::develop:page$api-doc/doc-collection-deleting.adoc[Deleting a collection, leveloffset=+1]
+
+// DOCUMENTS
+include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents, leveloffset=+1]
+
+include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents, leveloffset=+1]
 
 include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents]
-
-include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents]
 
 include::develop:page$api-doc/doc-deleting-documents.adoc[Deleting documents and collections]
 

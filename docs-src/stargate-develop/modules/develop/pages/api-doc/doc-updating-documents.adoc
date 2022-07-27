@@ -1,13 +1,69 @@
+# MODIFY DOCUMENTS
+
+echo "PATCH some more information into a document using document-id"
+./curl-document-patch2.sh.tmp | jq -r '.'
+echo "Check that 2nd data is included"
+./curl-document-get-one.sh.tmp | jq -r '.'
+
 // tag::UpdateBasicData[]
-== Update documents
+= Update documents
  
-Data changes, so often it is necessary to update an entire document.
+Data changes, so often it is necessary to update or modify an entire document.
 
-=== Replace a document
+== Replace a document with PUT
 
-Send a `PATCH` request to
-`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
-to replace data to the existing collection. All fields included will be changed.
+A `PUT` request using a document-id will replace a document found in a collection.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-put-replace.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-put-replace.result[]
+----
+--
+====
+
+To check if the data is changed, `GET` the document:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-one.sh.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-one.result[]
+----
+--
+====
+
+== Replace some data in a document with PATCH and document-id
+
+A 'PATCH' request using a document-id will replace the targeted data in a JSON object contained in the document. 
+JSON objects are delimited by `{ }` in the data.
+If you have an array, delimited by '[ ]' in the JSON object targeted, or a scalar value,
+the values will be overwritten.
 
 [tabs]
 ====
@@ -30,7 +86,7 @@ include::example$result/docapi_curl_patch_janet.result[]
 --
 ====
 
-A `GET` request will show that the data has been replaced in the document:
+To check if the data is changed, `GET` the document:
 
 [tabs]
 ====
@@ -39,7 +95,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/curl_patch_check_janet.sh[]
+include::example$docapi/library/curl-document-get-one.sh.sh[]
 ----
 --
 
@@ -48,18 +104,67 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-include::example$result/docapi_curl_patch_check_janet.result[]
+include::example$result/docapi/library/curl-document-get-one.result[]
 ----
 --
 ====
 
-NOTE: `PATCH` updates are upserts. If the document doesn't exist, it will be created.
+[WARNING]
+====
+ `PATCH` updates are upserts. If the document doesn't exist, it will be created.
 If it does exist, it will be updated with the new document data.
+====
+
+== Another example with PATCH
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-patch2.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-patch2.result[]
+----
+--
+====
+
+To check if the data is changed, `GET` the document:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-one.sh.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-one.result[]
+----
+--
+====
 
 // end::UpdateBasicData[]
 
 // tag::UpdateAdvData[]
-=== Replace part of of a document or sub-document
+== Replace part of of a document or sub-document
 
 It is also possible to update only part of a document. To partially update, send
 a `PATCH` request to
