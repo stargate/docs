@@ -9,10 +9,10 @@ content:
 #  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
     - url: ~/work/docs
-      branches: [test-multi-repos]
+      branches: HEAD
       start_path: docs-src/stargate-develop
     - url: ~/work/docs
-      branches: [test-multi-repos]
+      branches: HEAD
       start_path: docs-src/stargate-core
 
 ui:
