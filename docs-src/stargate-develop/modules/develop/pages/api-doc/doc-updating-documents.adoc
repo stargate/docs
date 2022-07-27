@@ -156,106 +156,65 @@ include::example$result/docapi/library/curl-document-get-one-4.result[]
 
 // end::UpdateBasicData[]
 
-// // tag::UpdateAdvData[]
-// == Replace part of of a document or sub-document
+// tag::UpdateAdvData[]
 
-// It is also possible to update only part of a document. To partially update, send
-// a `PATCH` request to
-//  `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
-// In this example, we want to change just the firstname of the document:
+== Write data to a document-path with PUT
 
-// [tabs]
-// ====
-// cURL command (/v2)::
-// +
-// --
-// [source, shell, subs="attributes+"]
-// ----
-// include::example$docapi/curl_patch_partial.sh[]
-// ----
-// --
+// LLP NEED WORDS ABOUT WHAT A DOCUMENT-PATH IS
 
-// Result::
-// +
-// --
-// [source,plaintext, subs="attributes+"]
-// ----
-// include::example$result/docapi_curl_patch_partial.result[]
-// ----
-// --
-// ====
+It is also possible to update only part of a document.
+Using a `PUT` request, you can replace current data in a document. 
+To partially update, send a `PUT` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+This example will change the book title from `Native Son` to `Native Daughter`:
 
-// and a `GET` will show that only the `weights` has been changed.
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-put-book-with-path.sh[]
+----
+--
 
-// [tabs]
-// ====
-// cURL command (/v2)::
-// +
-// --
-// [source, shell, subs="attributes+"]
-// ----
-// include::example$docapi/curl_patch_check_partial.sh[]
-// ----
-// --
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-put-book-with-path.result[]
+----
+--
+====
 
-// Result::
-// +
-// --
-// [source,plaintext, subs="attributes+"]
-// ----
-// include::example$result/docapi_curl_patch_check_partial.result[]
-// ----
-// --
-// ====
+== Write data to a document-path with PATCH
 
-// To partially update a sub-document,  send a `PATCH` request to
-//  `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
-//  in the same manner as the last command, but including only sub-document
-//  information to change and the `document-path` of the sub-document. Include
-//  all fields that you wish to update.
+Using a `PATCH` request, you can overwrite current data in a document. 
+To partially update, send a `PATCH` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+This example overwrites a book's information:
 
-// [tabs]
-// ====
-// cURL command (/v2)::
-// +
-// --
-// [source, shell, subs="attributes+"]
-// ----
-// include::example$docapi/curl_patch_subdoc.sh[]
-// ----
-// --
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-patch-book-with-path.sh[]
+----
+--
 
-// Result::
-// +
-// --
-// [source,plaintext, subs="attributes+"]
-// ----
-// include::example$result/docapi_curl_patch_subdoc.result[]
-// ----
-// --
-// ====
-
-// and a `GET` will show that only the `weights` has been changed.
-
-// [tabs]
-// ====
-// cURL command (/v2)::
-// +
-// --
-// [source, shell, subs="attributes+"]
-// ----
-// include::example$docapi/curl_patch_check_subdoc.sh[]
-// ----
-// --
-
-// Result::
-// +
-// --
-// [source,plaintext, subs="attributes+"]
-// ----
-// include::example$result/docapi_curl_patch_check_subdoc.result[]
-// ----
-// --
-// ====
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-patch-book-with-path.result[]
+----
+--
+====
 
 // end::UpdateAdvData[]

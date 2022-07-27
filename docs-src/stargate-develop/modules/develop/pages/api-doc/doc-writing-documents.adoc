@@ -366,32 +366,4 @@ include::example$result/docapi/library/curl-document-get-one-6.result[]
 ====
 
 
-// ############ DONE TO HERE ##################
-// ==== Inserting a sub-document
-// You can also insert documents that have nested values, or sub-documents.
-// Send a `PUT` request to
-// `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
-// to add data to the existing collection.
-// The data is passed in the JSON body.
-
-// [tabs]
-// ====
-// cURL command (/v2)::
-// +
-// --
-// [source,shell, subs="attributes+"]
-// ----
-// include::example$docapi/library/curl_put_joey_subdoc.sh[]
-// ----
-// --
-
-// Result::
-// +
-// --
-// [source,plaintext, subs="attributes+"]
-// ----
-// include::example$result/docapi/library/curl_put_joey_subdoc.result[]
-// ----
-// --
-// ====
 // end::WriteAdvData[]
