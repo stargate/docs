@@ -78,8 +78,8 @@ asciidoc:
     user2fn: 'Janesha'
     user2ln: 'Doesha'
 
-    namespace: 'myworld'
-    collection: 'fitness'
+    namespace: 'test'
+    collection: 'library'
     user1: 'Janet'
     user2: 'Joey'
     user2a: 'Joseph'
