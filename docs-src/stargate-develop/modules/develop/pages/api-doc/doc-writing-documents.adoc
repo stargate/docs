@@ -264,6 +264,108 @@ include::example$result/docapi/library/curl-document-put-one-reader-with-id.resu
 --
 ====
 
+== Decorations for writing documents: Time-to-live (TTL) and profiling
+
+Both TTL and profiling can be used as options for `POST`, `PUT`, and `PATCH` requests.
+TTL will add a time-to-live value in the database, so that the entry will be marked for deletion when the TTL expires.
+
+Profiling will return the CQL that is implemented in the back-end when a request is executed.
+
+=== Profiling
+
+Adding `profile=true` to a request will return the CQL that is executed. For this example, a `PATCH` request, an insertion of data is made, and a deletion of data is done, to change the data written.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-patch3-profiling.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-patch3-profiling.result[]
+----
+--
+====
+
+To check if the data is changed, `GET` the document:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-one.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-one-5.result[]
+----
+--
+====
+
+=== TTL
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-put-ttl.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-put-ttl.result[]
+----
+--
+====
+
+To check if the data is changed, `GET` the document:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-one.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-one-6.result[]
+----
+--
+====
+
+
 // ############ DONE TO HERE ##################
 // ==== Inserting a sub-document
 // You can also insert documents that have nested values, or sub-documents.
