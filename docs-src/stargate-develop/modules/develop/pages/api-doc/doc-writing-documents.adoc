@@ -69,8 +69,7 @@ Notice that the `document-id` returned is a UUID if not specified, by default.
 
 == Add a document with data
 
-// LLP 07-25-2022 ADD the XREF
-Documents can be added with varying JSON data, unless a xref:???[JSON schema is specified].
+Documents can be added with varying JSON data, unless a xref:dev-with-doc.adoc#add-JSON-schema-to-a-collection[JSON schema is specified].
 Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}` similar to the last example, but add more JSON data to the body of the request:
 
 [tabs]

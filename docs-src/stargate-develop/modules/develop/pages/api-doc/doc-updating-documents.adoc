@@ -104,7 +104,7 @@ include::example$result/docapi/library/curl-document-get-one-3.result[]
 
 [WARNING]
 ====
- `PATCH` updates are upserts. If the document doesn't exist, it will be created.
+`PATCH` updates are upserts. If the document doesn't exist, it will be created.
 If it does exist, it will be updated with the new document data.
 ====
 
@@ -140,7 +140,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh.sh[]
+include::example$docapi/library/curl-document-get-one.sh[]
 ----
 --
 
