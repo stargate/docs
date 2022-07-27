@@ -1,0 +1,49 @@
+{
+  "pageState": "JDI1NDUzMzFhLWFhYWQtNDVkMi1iMDg0LTlkYTNkOGY0YzMxMQDwf_____B_____",
+  "data": {
+    "6348fe50-3f19-4224-946b-88acdacd539b": {
+      "reader": {
+        "birthdate": "06-11-2000",
+        "name": "John Jones",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "Boring book that I had to read for class.",
+            "rating": 2,
+            "review-date": "03-15-2020"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "Another boring book.",
+            "rating": 2,
+            "review-date": "0-02-2020"
+          }
+        ]
+      }
+    },
+    "f9fa7e41-e576-48b7-a589-65b7f6be3cb9": {},
+    "John-Smith": {
+      "reader": {
+        "birthdate": "11-01-1992",
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "29307102-01c8-4dd3-8b1a-a886026b9f0f": {},
+    "57b06ec9-e222-47e4-a976-4666581f17a5": {},
+    "2545331a-aaad-45d2-b084-9da3d8f4c311": {}
+  }
+}
