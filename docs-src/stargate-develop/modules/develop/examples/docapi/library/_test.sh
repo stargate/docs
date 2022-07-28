@@ -196,7 +196,7 @@ echo "Check that 4th data is included"
 ./curl-document-get-one.sh.tmp | jq -r '.'
 
 # WRITE INSERTS WITH DOCUMENT-PATH
-# DOCUMENT-PATCH DEFINES WHERE IN A DOCUMENT YOU WANT TO EXECUTE SOMETHING
+# DOCUMENT-PATH DEFINES WHERE IN A DOCUMENT YOU WANT TO EXECUTE SOMETHING
 # EX: PUT {{base_rest_url}}{{base_doc_api}}/{{namespace}}/collections/{{collection}}/{{bookdocid}}/book/genre
 echo "PUT a document with document-path; replaces current data"
 ./curl-document-put-book-with-path.sh.tmp | jq -r '.'
