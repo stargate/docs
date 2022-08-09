@@ -221,15 +221,6 @@ echo "Look at the array"
 echo "Get all documents"
 ./curl-document-get-all.sh.tmp | jq -r '.'
 
-############# NOT WORKING - FIX IT!
-########## CANNOT SEARCH ON ARRAY DIRECTLY, since * or [*] cannot BE THE LAST IN A PATH
-echo "Get a document where a value is contained in an array"
-./curl-document-get-where-contains.sh.tmp | jq -r '.'
-echo "Get a document with a where wildcard on book format"
-./curl-document-get-wildcard.sh.tmp | jq -r '.'
-### EXAMPLES WITH ARRAYS BY NUMBER OR WILDCARD (*)
-#### MULTI WHERE, WITH EXPLANATIONS OF WHEN OR WHERE THEY CAN BE USED
-
 ### DECORATIONS FOR GET DOCUMENTS: PAGING-SIZE, PAGING-STATE, FIELDS
 echo "Get 6 documents with paging-size set"
 ./curl-document-get-6.sh.tmp | jq -r '.'
@@ -270,6 +261,15 @@ echo "Get a document where names are in field but one name fails"
 # field does not exist.
 echo "Get a document where names are not in (\$nin) field"
 ./curl-document-get-where-name-nin.sh.tmp | jq -r '.'
+
+############# NOT WORKING - FIX IT!
+########## CANNOT SEARCH ON ARRAY DIRECTLY, since * or [*] cannot BE THE LAST IN A PATH
+echo "Get a document where a value is contained in an array"
+./curl-document-get-where-contains.sh.tmp | jq -r '.'
+echo "Get a document with a where wildcard on book format"
+./curl-document-get-wildcard.sh.tmp | jq -r '.'
+### EXAMPLES WITH ARRAYS BY NUMBER OR WILDCARD (*)
+#### MULTI WHERE, WITH EXPLANATIONS OF WHEN OR WHERE THEY CAN BE USED
 
 # LIST A PARTICULAR DOCUMENT USING DOCUMENTID AND CONDITIONS
 echo "Get one particular document using documentId"

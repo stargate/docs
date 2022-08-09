@@ -1,4 +1,55 @@
-== Reading documents
+= Reading documents
+
+You can either search in collections for documents, or you can search within documents.
+
+== List all documents in a collection
+
+curl-document-get-all.sh
+
+
+== Decorations for getting documents - paging-size, paging-state, fields
+
+=== Paging-size
+
+The `page-size` parameter has a default value of 3 and a maximum value of 20.
+
+curl-document-get-6.sh
+
+=== Paging-state
+
+curl-document-get-all-docs-with-paging.sh
+
+=== Fields
+
+curl-document-get-one-with-fields.sh
+
+== Search collection for documents with a simple WHERE clause
+
+Get all documents where a Name equals a particular reader
+
+curl-document-get-where-name.sh
+
+== Search collection for documents with a simple WHERE clause with fields
+
+Get all documents where name eq a particular reader with fields.
+
+curl-document-get-where-name-eq.sh
+
+== Search collections for documents with operators: eq, ne, or, not, gt, gte, lt, lte, in, nin
+
+=== eq
+
+=== ne
+
+=== or
+
+=== not
+
+=== gt, gte, lt, lte
+
+=== in
+
+=== nin
  
 // NEED AN INTRO HERE
 
@@ -35,7 +86,7 @@
 // to retrieve the type of weights Joey has done in his workout:
 
 // tag::ReadBasicData[]
-=== Retrieving a specified document
+== Retrieving a specified document
 Let's check that the data was inserted for a particular document.
 Send a `GET` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
 to retrieve the document:
@@ -65,7 +116,7 @@ It is possible to get a value for a particular field in a document using one of
 two methods, either a `where` clause or a `document-path`. These methods can
 retrieve information from a document or a sub-document.
 
-=== Retrieving a document using a where clause
+== Retrieving a document using a where clause
 
 Now let's search for a particular document using a `where` clause.
 Send a `GET` request to
@@ -100,7 +151,7 @@ Also, the full document is returned, as opposed to the value of the field specif
 // end::ReadBasicData[]
 
 // tag::ReadAdvData[]
-=== Read with `where`
+== Read with `where`
 You can also search with a multiple `where` clause.
 Send a `GET` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}?{where-clause}`
@@ -179,7 +230,7 @@ include::example$result/docapi_curl_get_subdoc_mult_where.result[]
 --
 ====
 
-=== Retrieving all documents
+== Retrieving all documents
 Let's check that the document was inserted. Send a `GET` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}` to retrieve
 all the documents:
@@ -208,7 +259,7 @@ include::example$result/docapi_curl_get_all_docs.result[]
 The `page-size` parameter is included to get all the documents, rather than the
 last inserted document.
 
-=== Retrieving all documents with Paging
+== Retrieving all documents with Paging
 For large collections, you can page a subset of the results. In this example,
 page-size is set to 5. Send a GET request to
 {base_doc_api}/{namespace_name}/collections/{collections_name}page-size=5 to
@@ -288,7 +339,7 @@ include::example$result/docapi_curl_get_joey_weights.result[]
 --
 ====
 
-=== Retrieving a specific portion of a document with document-path
+== Retrieving a specific portion of a document with document-path
 
 Let's add another record for the next example:
 

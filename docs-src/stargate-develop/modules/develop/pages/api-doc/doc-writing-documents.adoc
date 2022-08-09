@@ -4,6 +4,15 @@
 All data written with the Document API is stored as JSON documents stored in
 collections.
 
+A few terms will help your understanding as you prepare to write and read documents:
+
+document-id:: An ID that you can either assign as a string when creating a document, or a random
+UUID that is assigned if an ID is not assigned during document creation.
+
+document-path:: An endpoint (resource) that exposes your API, such as /book or /book/genre.
+
+operation:: An HTTP method used to manipulate the path, such as `GET`, `POST`, or `DELETE`.
+
 include::partial$DocAPIBlogPost.adoc[]
 
 == Add document with a document-id

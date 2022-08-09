@@ -160,8 +160,6 @@ include::example$result/docapi/library/curl-document-get-one-4.result[]
 
 == Write data to a document-path with PUT
 
-// LLP NEED WORDS ABOUT WHAT A DOCUMENT-PATH IS
-
 It is also possible to update only part of a document.
 Using a `PUT` request, you can replace current data in a document. 
 To partially update, send a `PUT` request to
@@ -218,3 +216,5 @@ include::example$result/docapi/library/curl-document-patch-book-with-path.result
 ====
 
 // end::UpdateAdvData[]
+
+include::develop:page$api-doc/doc-document-push-pop-array.adoc[Using built-in array functions push and pop, leveloffset=+1]
