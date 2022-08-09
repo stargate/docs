@@ -245,11 +245,6 @@ echo "Get all documents where name equals Amy Smith OR Jane Doe"
 ./curl-document-get-where-names-or.sh.tmp | jq -r '.'
 echo "Get all documents where book title does not equal Moby Dick"
 ./curl-document-get-where-books-not.sh.tmp | jq -r '.'
-### Next example also demonstrates the use of multiple fields with a comma: reader.address.primary,secondary.city
-echo "Get all documents where the address.primary,secondary.city eq a value"
-./curl-document-get-where-address-city.sh.tmp | jq -r '.'
-echo "Get all documents where book title eq a particular book in reviews"
-./curl-document-get-where-book-eq.sh.tmp | jq -r '.'
 echo "Get all documents where the reader rating is gt 3 and lte 5"
 ./curl-document-get-where-rating-gt3-lte5.sh.tmp | jq -r '.'
 ### Document search with path segment and $in may require a note: https://github.com/stargate/stargate/issues/1049
@@ -262,14 +257,23 @@ echo "Get a document where names are in field but one name fails"
 echo "Get a document where names are not in (\$nin) field"
 ./curl-document-get-where-name-nin.sh.tmp | jq -r '.'
 
+#### MULTI WHERE, WITH EXPLANATIONS OF WHEN OR WHERE THEY CAN BE USED
+### Next example also demonstrates the use of multiple fields with a comma: reader.address.primary,secondary.city
+echo "Get all documents where the address.primary,secondary.city eq a value"
+./curl-document-get-where-address-city.sh.tmp | jq -r '.'
+### EXAMPLES WITH ARRAYS BY NUMBER OR WILDCARD (*)
+echo "Get all documents where book title eq a particular book in reviews"
+./curl-document-get-where-book-eq.sh.tmp | jq -r '.'
+
+########## NEED ARRAY ExAMPLE WITH NUMBER - THERE IS A IN-DOC example below
+
 ############# NOT WORKING - FIX IT!
 ########## CANNOT SEARCH ON ARRAY DIRECTLY, since * or [*] cannot BE THE LAST IN A PATH
 echo "Get a document where a value is contained in an array"
 ./curl-document-get-where-contains.sh.tmp | jq -r '.'
 echo "Get a document with a where wildcard on book format"
 ./curl-document-get-wildcard.sh.tmp | jq -r '.'
-### EXAMPLES WITH ARRAYS BY NUMBER OR WILDCARD (*)
-#### MULTI WHERE, WITH EXPLANATIONS OF WHEN OR WHERE THEY CAN BE USED
+
 
 # LIST A PARTICULAR DOCUMENT USING DOCUMENTID AND CONDITIONS
 echo "Get one particular document using documentId"
