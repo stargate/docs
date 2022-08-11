@@ -1,5 +1,5 @@
 // tag::CheckColl[]
-= Checking collection existence
+== Checking collection existence
 
 To check if a collection exists, execute a `GET` request to find all the collections:
 
@@ -24,7 +24,7 @@ include::example$result/docapi/library/curl-collection-get-all.result[]
 --
 ====
 
-= Checking collection JSON schema existence
+== Checking collection JSON schema existence
 
 To check the JSON schema for a particular collection, execute a `GET` request:
 

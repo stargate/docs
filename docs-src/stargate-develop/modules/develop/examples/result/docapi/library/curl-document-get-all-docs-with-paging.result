@@ -1,0 +1,100 @@
+{
+  "data": {
+    "e7221abd-94b8-4080-b094-7ab0c222c3fd": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "100 Main St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "10-01-1980",
+        "email": {
+          "primary": "jdoe@gmail.com",
+          "secondary": "jane.doe@aol.com"
+        },
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ],
+        "user_id": "12345"
+      }
+    },
+    "37fb3076-e413-43cb-8645-545aa13b72b0": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Paradise",
+            "state": "CA",
+            "street": "4593 Webster Ave",
+            "zip-code": 95534
+          }
+        },
+        "birthdate": "06-11-2000",
+        "email": {
+          "primary": "jjones@gmail.com",
+          "secondary": "johnnyj@aol.com"
+        },
+        "name": "John Jones",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "Boring book that I had to read for class.",
+            "rating": 2,
+            "review-date": "03-15-2020"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "Another boring book.",
+            "rating": 2,
+            "review-date": "0-02-2020"
+          }
+        ],
+        "user_id": "54321"
+      }
+    },
+    "native-son-doc-id": {
+      "book": {
+        "author": [
+          "Richard Wright"
+        ],
+        "format": [
+          "hardback",
+          "paperback",
+          "epub"
+        ],
+        "genre": [
+          "slavery",
+          "action"
+        ],
+        "isbn": "12322",
+        "languages": [
+          "English",
+          "German",
+          "French"
+        ],
+        "pub-year": 1930,
+        "title": "Native Son"
+      }
+    }
+  }
+}

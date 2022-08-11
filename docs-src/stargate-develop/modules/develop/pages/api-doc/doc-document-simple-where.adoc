@@ -1,4 +1,4 @@
-= Search collection for documents with a simple WHERE clause
+== Search collection for documents with a simple WHERE clause
 
 A `WHERE` clause is used to search for documents that have a particular value that
 matches the corresponding operator. 
@@ -31,7 +31,7 @@ In this example, `where={"reader.name":{"$eq":"Amy%20Smith"}}`, note that the wh
 specified string must be encoded with `%20`.
 The full documents are returned in this example.
 
-= Search collection for documents with a simple WHERE clause with fields
+== Search collection for documents with a simple WHERE clause with fields
 
 If you wish to just return some fields, use a `WHERE` clause in conjunction with the `fields` option.
 Get all documents where name eq a particular reader with the fields reader name and reader birthdate:

@@ -15,7 +15,7 @@ The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.htm
 == Information about namespaces and collections.
 
 To use the Document API, you must define a namespace that will store  collections.
-Collections store unstructured JSON documents.
+Collections can store either unstructured JSON documents or documents with a defined JSON schema.
 Documents can themselves hold multiple documents.
 Multiple collections are contained in a namespace, but a collection cannot be
 contained in multiple namespaces.
@@ -58,7 +58,7 @@ include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents, leve
 
 include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents, leveloffset=+1]
 
-// ACTUALLY NEED SEARCH COLLEcTIONS FOR DOCUMENTs BEFORE SEARCHING/READING IN DOCUMENTS
+// ACTUALLY NEED SEARCH COLLECTIONS FOR DOCUMENTS BEFORE SEARCHING/READING IN DOCUMENTS
 
 include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents, leveloffset=+1]
 

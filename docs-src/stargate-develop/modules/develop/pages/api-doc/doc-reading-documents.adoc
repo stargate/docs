@@ -34,7 +34,7 @@ include::example$result/docapi/library/curl-document-get-all.result[]
 
 include::develop:page$api-doc/doc-document-decorations.adoc[leveloffset=+1]
 
-include::develop:page$api-doc/doc-document-simple-where.adoc[leveloffset=+1]
+include::develop:page$api-doc/doc-document-simple-where.adoc[leveloffset=+0]
 
 include::develop:page$api-doc/doc-document-operators.adoc[leveloffset=+1]
 
