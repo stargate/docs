@@ -8,6 +8,9 @@ output:
 content:
 #  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
+    - url: ~/work/guide-docs
+      branches: [glossary]
+      start_path: docs-src/glossary
     - url: ~/work/docs
       branches: HEAD
       start_path: docs-src/stargate-develop
@@ -91,6 +94,7 @@ asciidoc:
 
     stargate_docs_base_url: 'https://stargate.io/docs'
     docs: 'ssh://github.com/stargate/docs.git'
+    guide-docs: 'ssh://github.com/riptano/guide-docs.git'
 
   extensions:
      - ~/work/docs/playbooks/lib/tabs-block.js
