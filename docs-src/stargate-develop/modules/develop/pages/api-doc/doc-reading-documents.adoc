@@ -32,7 +32,7 @@ include::example$result/docapi/library/curl-document-get-all.result[]
 --
 ====
 
-include::develop:page$api-doc/doc-document-decoration.adoc[leveloffset=+1]
+include::develop:page$api-doc/doc-document-decorations.adoc[leveloffset=+1]
 
 include::develop:page$api-doc/doc-document-simple-where.adoc[leveloffset=+1]
 
@@ -117,7 +117,7 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/curl-document-get-one.sh[]
+include::example$docapi/library/curl-document-get-one.sh[]
 ----
 --
 

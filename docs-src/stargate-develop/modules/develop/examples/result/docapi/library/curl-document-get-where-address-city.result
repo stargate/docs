@@ -1,0 +1,103 @@
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "9195f8c9-1bd8-4ee5-b812-7075f9343331": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ]
+      }
+    },
+    "a5e54626-fd69-43ec-836d-115166e6d60b": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "100 Main St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}
