@@ -2,7 +2,7 @@
 = Creating a collection
 
 // LLP 07.25.2022 I want to link glossary terms, once we decide on best way.
-In the Document API, collections are created in a xref:glossary:ROOT:glossary/gloss_namespace.adoc[namespace]. 
+In the Document API, collections are created in a xref:gloss:gloss_namespace.adoc[namespace]. 
 Collections store documents.
 Multiple collections are contained in a namespace, but a collection cannot be
 contained in multiple namespaces.
