@@ -1,0 +1,115 @@
+{
+  "pageState": "JDdjMDFmYmY0LTc1Y2YtNGQzNi1iZWVmLTkxODU5ZTExZmQ0ZADwf_____B_____",
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "11-01-1992",
+        "email": {
+          "primary": "jsmith@gmail.com",
+          "secondary": "john.smith@aol.com"
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ],
+        "user_id": "12346"
+      }
+    },
+    "9195f8c9-1bd8-4ee5-b812-7075f9343331": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "10-01-1980",
+        "email": {
+          "primary": "asmith@gmail.com",
+          "secondary": "amyispolite@aol.com"
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ],
+        "user_id": "12345"
+      }
+    },
+    "cea50938-8279-44a9-b30d-41ee9a64be37": {
+      "book": {
+        "author": [
+          "Herman Melville"
+        ],
+        "format": [
+          "hardback",
+          "paperback",
+          "epub"
+        ],
+        "genre": [
+          "adventure",
+          "ocean",
+          "action"
+        ],
+        "isbn": "12345",
+        "languages": [
+          "English",
+          "German",
+          "French"
+        ],
+        "pub-year": 1899,
+        "title": "Moby Dick"
+      }
+    },
+    "2545331a-aaad-45d2-b084-9da3d8f4c311": {
+      "okaydokie": "Now I have done it! We have a TTL at last!"
+    },
+    "7c01fbf4-75cf-4d36-beef-91859e11fd4d": {
+      "id": "some-stuff",
+      "other": "This is nonsensical stuff."
+    }
+  }
+}
