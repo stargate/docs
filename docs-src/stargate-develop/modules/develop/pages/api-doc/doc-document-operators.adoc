@@ -47,7 +47,7 @@ include::example$result/docapi/library/curl-document-get-where-name-eq.result[]
 --
 ====
 
-=== ne
+== ne
 
 The `ne` operator matches any field value that does not equal a supplied value.
 The results also include documents that do not contain the field.
