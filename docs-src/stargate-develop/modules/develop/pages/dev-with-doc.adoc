@@ -62,7 +62,9 @@ include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents, le
 
 include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents, leveloffset=+1]
 
-include::develop:page$api-doc/doc-document-deleting.adoc[Deleting documents, leveloffset=+1]
+include::develop:page$api-doc/doc-document-deleting.adoc[Deleting a document, leveloffset=+1]
+
+include::develop:page$api-doc/doc-collection-deleting.adoc[Deleting a document, leveloffset=+1]
 
 // MOVE THIS STUFF TO SDKs and create a page there.
 //include::develop:page$api-doc/doc-nodejs-client.adoc[Node.js Collection Client]
