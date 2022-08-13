@@ -9,7 +9,7 @@ content:
 #  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
     - url: ~/work/guide-docs
-      branches: HEAD
+      branches: [glossary]
       start_path: docs-src/glossary
     - url: ~/work/docs
       branches: HEAD
