@@ -80,7 +80,7 @@ jobs:
        uses: JamesIves/github-pages-deploy-action@v4.3.3
        with:
         # ACCESS_TOKEN: # optional
-        GITHUB_TOKEN: "${{ github.token}}"
-        FOLDER: "${{ env.SITE_DIR }}"
-        BRANCH: 'gh-pages'
-        COMMIT_MESSAGE: "[CI] Publish documentation for ${{ github.sha }}"
+        token: "${{ github.token}}"
+        folder: "${{ env.SITE_DIR }}"
+        branch: 'gh-pages'
+        commit-message: "[CI] Publish documentation for ${{ github.sha }}"
