@@ -1,0 +1,57 @@
+// tag::CreatePayloadTypes[]
+=== Create payload types
+
+Payloads types are not mapped to the database, and only serve as wrappers of an operation's response.
+They typically pass a more complex object than just an entity. For example,
+you can add fields that check the `applied` status for a conditional query, or
+the `pagingState`.
+
+In this example, a payload type `SelectBookResult` is created that accepts an array
+of books as the input. The associated query can use the required `title` and optional `pagingState`
+as input, and will return an array of books along with the `pagingState`.
+
+[tabs]
+====
+Payload type::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryPageSize.graphql[]
+----
+--
+====
+
+Directives in example:
+
+<1> The `@cql_payload` directive defines the type as a payload.
+<2> The `@cql_pagingState` directive defines the fields as a storing a paging state.
+<3> The `@cql_select(pageSize: 10)` directive defines how many results to return by
+page if the query is paginated, with an Integer input.
+Another parameter is also available, `limit: 10`, which is the maximum total number of
+results to return, with an Integer input.
+
+An example of retrieving data using this query is found xref:api-graphql-schema-first/gqlsf-reading-data.adoc[below].
+
+Often, you wish to know if an operation was successful. Creating a payload type that
+uses a boolean field `applied` can definitively answer if a conditional operation
+completes correctly.
+
+Create a payload type that uses your standard object type as a field, along with `applied`:
+
+[tabs]
+====
+Payload type with conditional::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createPayloadConditional.graphql[]
+----
+--
+====
+
+If the conditional insert is successful (the row did not exist), then applied
+will be true and book will echo back the data that was just inserted;
+otherwise, applied will be false and book will be the existing data.
+// end::CreatePayloadTypes[]

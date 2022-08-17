@@ -1,0 +1,2 @@
+curl  {base_graphql_url}/graphql-files/cql_directives.graphql \
+  --header "X-Cassandra-Token: {auth_token}"

@@ -1,0 +1,31 @@
+// tag::CreateUDT[]
+=== Create a user-defined type (UDT)
+
+Optional user-defined types (UDTs) can be created and used in table definitions.
+This example creates a UDT called `address_type` that includes a street, city,
+state, and zipcode.
+If you plan to use UDTs as a data type for columns in your table, create the UDT
+first.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/createUDT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createUDT.result[]
+----
+--
+====
+
+// end::CreateUDT[]

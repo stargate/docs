@@ -1,0 +1,20 @@
+
+The step below uses `cURL` to access the REST interface to generate the needed
+token.
+
+=== Generate an auth token
+
+First generate an auth token that is required in each subsequent request
+in the `X-Cassandra-Token` header. Note the port for the auth service is 8081.
+
+[source, shell, subs="attributes+"]
+----
+include::example$bash/get-table-based-token.sh[]
+----
+
+You should receive a token in the response.
+
+[source,json]
+----
+{"authToken":"{auth-token}"}
+----

@@ -1,0 +1,36 @@
+// tag::CreateUDT[]
+=== Create a user-defined type (UDT)
+
+User-defined types (UDTs) can be created as GraphQL object types.
+UDTs are optional, but if you wish to use a UDT in another object type definition,
+you'll want to create the UDT first.
+Once created, you can include the type in the schema deployed via the GraphQL playground.
+Here are two examples that create a UDT called `Address` that includes a street, city, state, and zipcode,
+and a UDT called `Review` that includes a book title, comment, rating and review data.
+
+[tabs]
+====
+Address UDT::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createUDTAddress.graphql[]
+----
+--
+
+Review UDT::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createUDTReview.graphql[]
+----
+--
+====
+
+Directives in example:
+
+<1> The `@cql_entity(target: UDT)` denotes that the type is stored as a user-defined type (UDT)
+in the underlying database table.
+// end::CreateUDT[]

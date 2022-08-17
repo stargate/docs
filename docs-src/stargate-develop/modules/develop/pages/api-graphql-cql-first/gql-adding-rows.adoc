@@ -1,0 +1,175 @@
+// tag::WriteData[]
+=== Insert data
+
+Any of the created APIs can be used to interact with the GraphQL data, to write
+or read data.
+
+First, let's navigate to your new keyspace `library` inside the playground.
+Change the location to
+http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
+and add a couple of books to the `book` table:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/insertTwoBooks.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertTwoBooks.result[]
+----
+--
+====
+
+Note that the keyword `value` is used twice in the mutation.
+The first use defines the value that the record is set to, for instance, the title
+to Moby Dick and the author to Herman Melville.
+The second use defines the values that will be displayed after the success
+of the mutation, so that proper insertion can be verified.
+This same method is valid for updates and read queries.
+// end::WriteData[]
+
+// tag::WriteAdvData[]
+==== Insertion options
+
+Three insertion options are configurable during data insertion or updating:
+
+* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigConsistency.html[consistency level]
+* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigSerialConsistency.html[serial consistency level]
+* https://docs.datastax.com/en/dse/6.8/cql/cql/cql_using/useExpire.html[time-to-live (TTL)]
+
+An example insertion that sets the consistency level and TTL:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/insertBookWithOption.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertBookWithOption.result[]
+----
+--
+====
+
+The serial consistency can also be set with `serialConsistency` in the options,
+if needed.
+
+==== Insert collections (set, list, map)
+
+Inserting a collection is simple. An example of inserting a list:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/insertArticle.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertArticle.result[]
+----
+--
+====
+
+A map is slightly more complex:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/insertOneBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertOneBadge.result[]
+----
+--
+====
+
+==== Insert a tuple
+
+Inserting a tuple involves inserting an object; note the use of `item0`, `item`1`,
+and so on, to insert the parts of the tuple
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/insertJaneWithTuple.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertJaneWithTuple.result[]
+----
+--
+====
+
+==== Insert a user-defined type (UDT)
+
+Inserting a UDT requires taking careful note of the brackets used:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/insertReaderWithUDT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_insertReaderWithUDT.result[]
+----
+--
+====
+
+// end::WriteAdvData[]

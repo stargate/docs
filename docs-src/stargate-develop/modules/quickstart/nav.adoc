@@ -1,0 +1,4 @@
+* xref:quickstart-overview.adoc[Stargate QuickStarts]
+** xref:qs-document.adoc[Document API QuickStart]
+** xref:qs-rest.adoc[REST API QuickStart]
+** xref:qs-graphql-cql-first.adoc[GraphQL API CQL-first QuickStart]

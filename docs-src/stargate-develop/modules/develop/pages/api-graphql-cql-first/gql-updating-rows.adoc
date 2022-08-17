@@ -1,0 +1,58 @@
+// tag::UpdateData[]
+=== Update data
+
+Using the column that we added earlier, the data for a book is updated with the
+`ISBN` value:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/updateOneBook.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_updateOneBook.result[]
+----
+--
+====
+
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
+If it does exist, it will be updated with the new row data.
+====
+// end::UpdateData[]
+
+// tag::UpdateAdvData[]
+It is also possible to update other types of data, such as a set:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/updateOneBookAgain.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_updateOneBookAgain.result[]
+----
+--
+====
+// end::UpdateAdvData[]

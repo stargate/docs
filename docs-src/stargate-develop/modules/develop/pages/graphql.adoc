@@ -1,0 +1,108 @@
+= GraphQL API
+
+== Overview
+
+The Stargate GraphQL API is implemented to easily modify and query your table data
+using GraphQL types, mutations, and queries with any Cassandra deployment.
+
+The Stargate GraphQL API has two modes, one developed from native GraphQL schema principles,
+and one developed with the Cassandra Query Language (CQL) in mind.
+To distinguish these two modes, the rest of the documentation will refer to the
+modes as `schema-first` and `cql-first`.
+
+include::partial$cql-first-desc.adoc[]
+
+include::partial$graphql-first-desc.adoc[]
+
+include::partial$compare-orientations.adoc[]
+
+include::partial$GQLAPIBlogPost.adoc[]
+
+You can start with a xref:quickstart:qs-graphql-cql-first.adoc[GraphQL CQL-first QuickStart] or
+follow the full instructions: xref:dev-with-graphql-schema-first.adoc[(schema-first)] xref:dev-with-graphql-cql-first.adoc[(cql-first)] .
+
+We'll show you you how to:
+
+ifeval::["{product}" == "Stargate"]
+. Create a keyspace
+xref:dev-with-graphql-schema-first#_create_a_keyspace.adoc[(schema-first)]
+xref:dev-with-graphql-cql-first#_create_a_keyspace.adoc[(cql-first)]
+. Delete a keyspace
+xref:dev-with-graphql-schema-first#_delete_a_keyspace.adoc[(schema-first)]
+xref:dev-with-graphql-cql-first#_delete_a_keyspace.adoc[(cql-first)]
+endif::[]
+. _Optional_ Create a user-defined type (UDT)
+xref:dev-with-graphql-schema-first.adoc#_create_a_user_defined_type_udt[(schema-first)]
+xref:dev-with-graphql-cql-first.adoc#_create_a_user_defined_type_udt[(cql-first)]
+. _Optional_ Delete a UDT
+xref:dev-with-graphql-cql-first.adoc#_delete_a_user_defined_type_UDT[(cql-first)]
+. Create object types
+xref:dev-with-graphql-schema-first.adoc#_create_object_types[(schema-first)]
+. Create table schema
+xref:dev-with-graphql-cql-first.adoc#_create_a_table[(cql-first)]
+. Delete table schema
+xref:dev-with-graphql-cql-first.adoc#_delete_a_table[(cql-first)]
+. _Optional_ Create indexes
+xref:dev-with-graphql-schema-first.adoc#_create_indexes[(schema-first)]
+xref:dev-with-graphql-cql-first.adoc#_create_indexes[(cql-first)]
+. Deploy schema
+xref:dev-with-graphql-schema-first.adoc#_deploy_schema[(schema-first)]
+. Undeploy schema
+xref:dev-with-graphql-schema-first.adoc#_undeploy_schema[(schema-first)]
+. Add data
+xref:dev-with-graphql-schema-first.adoc#_insert_data[(schema-first)]
+xref:dev-with-graphql-cql-first.adoc#_write_data[(cql-first)]
+. Get data
+xref:dev-with-graphql-schema-first.adoc#_retrieve_data[(schema-first)]
+xref:dev-with-graphql-cql-first.adoc#_read_data[(cql-first)]
+. Update data
+xref:dev-with-graphql-schema-first.adoc#_update_data[(schema-first)]
+xref:dev-with-graphql-cql-first.adoc#_update_data[(cql-first)]
+. Delete data
+xref:dev-with-graphql-schema-first.adoc#_delete_data[(schema-first)]
+xref:dev-with-graphql-cql-first.adoc#_delete_data[(cql-first)]
+
+== About the GraphQL API endpoints
+
+There are three Stargate GraphQL API endpoints, one for creating schema in cql-first,
+one for deploying schema in the graphql-first, and the third for querying or mutating a keyspace.
+The URLS are:
+
+Schema::
+`{base_graphql_url}{base_gql_schema}`
+
+Admin::
+`{base_graphql_url}{base_gql_admin}`
+Querying::
+`{base_graphql_url}{base_gql_api}/{keyspace}`
+
+The schema endpoint is used to create or alter CQL schema in the cql-first GraphQL
+using direct schema manipulation.
+The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL
+which will indirectly modify underlying CQL schema.
+The querying endpoint is constructed in the same manner for both graphql-first and cql-first.
+
+Each request must have a valid 
+ifeval::["{product}" == "Astra DB for DSE"]
+xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
+endif::[]
+ifeval::["{product}" == "Stargate"]
+xref:secure:authnz.adoc#table-based-authenticationauthorization[application token].
+endif::[]
+Each request can also have an optional unique request id.
+The request id is recommended in a production environment and can be useful in troubleshooting issues.
+
+[TIP]
+====
+**Generating UUIDs**
+Consider using a tool like this https://www.uuidgenerator.net/[online UUID generator, window="_blank"]
+to quickly create a random UUID to pass with your requests if you are submitting
+the queries manually using a tool like cURL.
+====
+
+include::partial$GQLNaming.adoc[]
+
+include::develop:page$using-graphql-playground.adoc[]
+
+include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
+// tag::UsingPostman[]

@@ -1,0 +1,15 @@
+= Stargate QuickStarts
+
+Want a quick introduction to how you can use
+https://github.com/stargate/stargate[Stargate] to write applications using APIs?
+Check out the following choices:
+
+* xref:qs-document.adoc[Document API]
+* xref:qs-rest.adoc[REST API]
+* xref:qs-graphql-cql-first.adoc[GraphQL API]
+//* xref:develop:dev-with-grpc.adoc[gRPC API]
+
+ifeval::["{product}" == "Stargate"]
+If you haven't installed Stargate yet, go check out
+ xref:install:install-overview.adoc[methods].
+endif::[]

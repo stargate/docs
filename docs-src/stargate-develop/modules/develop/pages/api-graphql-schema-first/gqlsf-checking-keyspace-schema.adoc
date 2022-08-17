@@ -1,0 +1,54 @@
+// tag::CheckKSSchema[]
+=== Check the keyspace schema
+
+To check if the schema exists, execute a GraphQL check in http://localhost:8080/graphql-admin:
+
+For all versions of a keyspace schema:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1getAllKsSchema.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1getAllKsSchema.result[]
+----
+--
+====
+
+Note that the result lists the current schema version for every loaded schema.
+
+For a particular version of a keyspace schema:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1getParticularKsSchema.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1getParticularKsSchema.result[]
+----
+--
+====
+
+// end::CheckKSSchema[]

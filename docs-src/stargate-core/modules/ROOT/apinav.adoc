@@ -1,0 +1,4 @@
+* xref:api.adoc[API References]
+// ** xref:attachment$devopsv2.html[DevOps REST API v2]
+** xref:attachment$docv2.html[Stargate Document API v2]
+** xref:attachment$restv2.html[Stargate REST API v2]

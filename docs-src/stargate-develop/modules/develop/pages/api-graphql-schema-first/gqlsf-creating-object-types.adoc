@@ -1,0 +1,79 @@
+// tag::CreateObjectTypes[]
+=== Create object types
+
+The most basic components of a GraphQL schema are object types, which just
+represent a kind of object you can fetch from your service, and specify the
+fields contained in the object.
+Object types also have
+link:https://www.graphql-tools.com/docs/schema-directives/[directives], which
+are identifiers preceded by an `@` character.
+Directives are GraphQL server-specific, and implemented in the server.
+Stargate implements directives that are specific to the Apache Cassandra
+backend, as well as Apollo data federation-specific directives that allow Stargate
+to work with the Apollo gateway.
+
+[tabs]
+====
+Book type::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createTableBook.graphql[]
+----
+--
+
+Reader type::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createTableReader.graphql[]
+----
+--
+====
+
+Directives in example:
+
+<1> Book: `@key` defines the fields that uniquely identify an object.
+Stargate assigns primary key fields automatically as `@key` fields.
+For other servers, the fields must be identified in a string, such as `@key(fields: "title isbn")`.
+Required for Apollo data federation.
+<2> Book: `@cql_entity(name: "book")` defines an alternate table name for the underlying database.
+Cassandra, Astra DB, and DataStax Enterprise all require double-quotes around table names
+that are CamelCase.
+Changing the name to lowercase makes the object name both  GraphQL-friendly (`Book`) and CQL-friendly (`book`).
+Not required.
+<3> Book: `@cql_input` generates a `BookInput` type with the same fields as the type `Book`
+in the GraphQL schema, without duplicating the object type in the schema.
+Not required but strongly suggested to make writing queries and mutations easier.
+<4> Book: `@cql_column(partitionKey: true)` sets the field to a partition key in the underlying database table.
+This directive must be used for each field that comprises the partition key.
+*IMPORTANT:* If no field has a `partitionKey: true`, but the first field is of data type
+ID, Uuid, or TimeUuid, then that field is used as the partition key in the database.
+Information about partition keys and clustering keys can be found in the
+https://cassandra.apache.org/doc/latest/cql/[CQL reference].
+<5> Book: `@cql_column(partitionKey: true, name: "book_title")` also sets the field name to an
+alternate value that is CQL-friendly. Note the comma-separated items in @cql_column.
+Column renaming is not required.
+<6> Book: `@cql_column(clusteringOrder: ASC)` sets the field to a clustering column in the underlying database table.
+This directive must be used for each field that is a clustering column.
+The default clustering order is `ASC`, or ascending.
+Not required.
+<7> Book: `@cql_index(name: "author_idx", target: VALUES)` creates an index of the list of author names,
+using the values listed in the array.
+Note that the parameter `target` is required for arrays (set, list).
+Required if queries will use the field as a parameter to retrieve data.
+<8> Reader: `@cql_index(name: "date_idx")` creates an index of the birthdates.
+Note that no target is required.
+The `@cql_index` is discussed in xref:api-graphql-schema-first/gqlsf-creating-index.adoc[Create indexes].
+Not required.
+<9> Reader: `@cql_column(typeHint: "set<varchar>")` sets the column data type to a set.
+The only valid defaults are `set` or making a CQL type `frozen`.
+Required if the field is a set or list.
+
+The fields `author`, `reviews`, `address` are defined as arrays by the addition of square brackets,
+`reviews: [Review]`.
+Note that `reviews` and `addresses` are arrays of xref:api-graphql-schema-first/gqlsf-creating-udt.adoc[UDTs]
+whereas `author` is a list of Strings to name each author.
+// end::CreateObjectTypes[]

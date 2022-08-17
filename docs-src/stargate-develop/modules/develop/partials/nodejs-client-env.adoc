@@ -1,0 +1,64 @@
+// LLP - 12.17.21 THIS IS ALL ASTRA DB RIGHT NOW - NEED TO MODIFY!
+[[nodejs-client-env]]
+== Node.js REST Client
+
+Connect your app to {company} {database} using a REST interface from node.js.
+
+The {database} REST Client connects to the {database} REST API and the {database} Document API.
+
+=== Set up your environment
+. Install the {database} JS Collection:
++
+[source, shell, subs="attributes+"]
+----
+npm install @astrajs/rest
+----
+
+. Open a browser, navigate to https://astra.datastax.com/[{astra_db}], and log in.
+. From your *Dashboard* page, select your database.
+. Copy the **Cluster ID** of your database.
+You can also find the **Cluster ID** in the URL, which is the last UUID in the path:
++
+[source, HTML]
+----
+https://astra.datastax.com/org/{org-Id}/database/{databaseid}
+----
+
+. Add the **Cluster ID** as an environment variable with the following command:
++
+[source, shell, subs="attributes+"]
+----
+export ASTRA_DB_ID={databaseid}
+----
++
+*Example*
++
+[source, shell, subs="attributes+"]
+----
+export ASTRA_DB_ID=b5285f63-8da5-4c6e-afd8-ade371a48795
+----
+
+. Copy the *Region* of your database, the region where your database is located.
+. Add the *Region* as an environment variable with the following command:
+
++
+[source, shell, subs="attributes+"]
+----
+export ASTRA_DB_REGION={region}
+----
++
+*Example*
++
+[source]
+----
+export ASTRA_DB_REGION=us-east1
+----
+
+. Add your application token as environment variables with the following command:
++
+[source, shell, subs="attributes+"]
+----
+export ASTRA_DB_APPLICATION_TOKEN={token}
+----
+
+. Use `printenv` to ensure the environment variables were exported.

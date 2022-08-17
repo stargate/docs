@@ -1,0 +1,11 @@
+// tag::DropTable[]
+=== Delete a table
+
+Send a `DELETE` request to `{base_rest_schema}/{keyspace_name}/tables/{table_name}`
+to delete a table. All data will be deleted along with the table schema.
+
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_drop_table.sh[]
+----
+// end::DropTable[]

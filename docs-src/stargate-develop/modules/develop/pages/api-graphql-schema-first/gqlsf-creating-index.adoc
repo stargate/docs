@@ -1,0 +1,32 @@
+// tag::CreateIndex[]
+=== Create an index
+
+Cassandra supports indexing any regular, non-primary key fields in an object type.
+Any field designated as a partition key or clustering column cannot be indexed,
+unless DataStax Enterprise is the defined database.
+A field will  be indexed if `@cql_index` is added to the field definition.
+Indexed fields can be used as parameters in queries.
+
+[tabs]
+====
+
+Reader type::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createReaderIndex.graphql[]
+----
+--
+====
+
+The directive `@cql_index` has the following optional arguments:
+
+|====
+| Argument  | Default | Description
+| name | Generated | Custom index name.
+| class | Secondary index | Custom index class, such as SAI.
+| target | VALUES | Specifies set and list index type. Options are FULL and VALUES.
+| options | N/A | Any options to pass to the underlying index query.
+|====
+// end::CreateIndex[]

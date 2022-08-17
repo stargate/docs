@@ -1,0 +1,12 @@
+// tag::DropKS[]
+=== Delete a keyspace
+
+Send a `DELETE` request to `{base_rest_schema}/{keyspace_name}` to delete
+a keyspace. All data and all table schema will be deleted along with the
+keyspace schema.
+
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_drop_ks.sh[]
+----
+// end::DropKS[]

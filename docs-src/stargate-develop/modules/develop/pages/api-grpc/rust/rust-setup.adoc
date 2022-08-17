@@ -1,0 +1,40 @@
+== Rust set-up
+:page-tag: stargate,dev,develop
+
+//include::partial$grpc-prereqs.adoc[]
+
+=== Set up a Rust project
+
+Use the following command to initialize a Rust project in an empty directory:
+
+[source, rust]
+----
+include::example$rust/rust-init.rs[]
+----
+
+Two files will be created, `Cargo.toml` and `src/main.rs`.
+
+=== Add dependencies
+
+. Add required dependencies to the `Cargo.toml` file in your Rust project.
+You'll need at least `stargate-grpc` and an async framework, such as link:https://tokio.rs/[tokio]:
++
+[source, rust]
+----
+include::example$rust/rust-setup-dependencies.rs[]
+----
+// LLP: The stargate version may need to be changed.
++
+. Build the project with `cargo build` and fetch and compile the dependencies.
++
+. Add the following line to the includes in the source code of your app, such as `main.rs`:
++
+[source, rust]
+----
+include::example$rust/rust-setup-use.rs[]
+----
+
+This set-up will make all the Stargate gRPC functionality available.
+
+The next sections explain the parts of a script to use the Stargate functionality.
+A xref:api-grpc/gRPC-rust-client.adoc#rust-full-sample-script[full working script] is included below.

@@ -1,0 +1,59 @@
+One of these tables includes creating a column with the data type `LIST`, an
+ordered collection of text values.
+// end::CreateAdvTable[]
+
+==== Collection (set, list, map) columns
+
+Including a collection in a table has a couple of extra parts:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/createMapTable.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createMapTable.result[]
+----
+--
+====
+
+This example shows a map. A previous example shows a list.
+In the next example, a set will be defined.
+
+// tag:AddColumns[]
+=== Add columns to table schema
+
+If you need to add more attributes to something you are storing in a table, you
+can add one or more columns:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/alterTableAddCols.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_alterTableAddCols.result[]
+----
+--
+====
+// end:AddColumns[]

@@ -1,0 +1,32 @@
+// tag::CheckTables[]
+=== Check table and column existence
+
+To check if a table or particular table columns exist, execute a
+GraphQL query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/getTables.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getTables.result[]
+----
+--
+====
+
+Because these queries are named, the GraphQL playground will allow you to select
+which query to run. The first query will return information about the keyspace
+`library` and the tables within it. The second query will return just information
+about the tables in that keyspace.
+// end::CheckTables[]

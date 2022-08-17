@@ -1,0 +1,13 @@
+// tag::DeleteData[]
+=== Delete data
+
+To delete a row, send a `DELETE` request to
+`/v2/keyspaces/{keyspace_name}/{table_name}/{primaryKey}`.
+For this example, the primary key consists of a partition key `{rpartitionkey}` and
+clustering column `{rclusteringkey}`, so we delete all data with `Mookie/Betts`:
+
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_delete_row.sh[]
+----
+// end::DeleteData[]

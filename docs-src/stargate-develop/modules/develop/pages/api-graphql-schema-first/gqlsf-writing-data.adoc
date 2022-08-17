@@ -1,0 +1,128 @@
+// tag::WriteData[]
+=== Insert data
+
+If you have created schema for insertion, now you are ready to write data into the database.
+
+First, let's navigate to your new keyspace `library` inside the playground.
+Change the location to
+http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
+and add a couple of books:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1insert2Books.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1insert2Books.result[]
+----
+--
+====
+
+The insertion is straightforward.
+The title and author are specified, and the title is returned in response to a
+successful insertion.
+Only the required fields must be specified, and any fields can be returned in
+the response.
+This same operation can update stored data, as insertions are upserts in all cases.
+
+// LLP: ********** I  NEED TO ADD A CONDITIONAL IFNOTEXISTS INSERT! ********
+// end::WriteData[]
+
+// tag::WriteAdvData[]
+==== Conditional insertion
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createPayloadConditional.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createPayloadConditional.result[]
+----
+--
+====
+
+//==== Insertion options
+
+//Three insertion options are configurable during data insertion or updating:
+
+//* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigConsistency.html[consistency level]
+//* https://docs.datastax.com/en/dse/6.8/dse-arch/datastax_enterprise/dbInternals/dbIntConfigSerialConsistency.html[serial consistency level]
+//* https://docs.datastax.com/en/dse/6.8/cql/cql/cql_using/useExpire.html[time-to-live (TTL)]
+
+//An example insertion that sets the consistency level and TTL:
+
+//[tabs]
+//====
+//graphQL command::
+//+
+//--
+//[source, shell, subs="attributes+"]
+//----
+//include::example$graphql/schema-first/insertBookWithOption.graphql[]
+//----
+//--
+
+//Result::
+//+
+//--
+//[source,plaintext]
+//----
+//include::example$result/gql_insertBookWithOption.result[]
+//----
+//--
+//====
+
+//The serial consistency can also be set with `serialConsistency` in the options,
+//if needed.
+
+==== Insert arrays and UDTs
+
+Inserting arrays and UDTs requires a few extra embellishments:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1insert2Readers.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1insert2Readers.result[]
+----
+--
+====
+
+Note the use of square brackets around arrays of objects, with commas separating
+array items.
+
+// end::WriteAdvData[]

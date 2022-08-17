@@ -1,0 +1,118 @@
+site:
+  title: DataStax Astra DB for DSE Documentation
+#  url: /astra-docs/astra
+
+output: 
+  dir: '~/work/astra-docs/build/site'
+
+content:
+  edit_url: ~
+  sources:
+  - url: '~/work/docs'
+    branches: [test-multi-repos]  
+    start_path: docs-src/stargate-develop
+  - url: '~/work/dse68-docs'
+    branches: [test-multi-repos]
+    start_path: docs-src/graph
+  - url: '~/work/dse68-docs'
+    branches: [test-multi-repos]
+    start_path: docs-src/search
+  - url: '~/work/astra-docs'
+    branches: HEAD
+    start_path: docs-src/astra-core
+
+ui:
+  bundle:
+    url: 'https://github.com/riptano/antora-ui-docs/raw/main/releases/download/v0.8/ui-bundle.zip'
+    snapshot: true
+  # LLP WILL NEED TO FIGURE OUT SUPPLEMENTAL FOR DIFF ASTRA PRODUCTS  
+  supplemental_files: '~/work/astra-docs/playbooks/supplemental-ui'
+  output_dir: assets
+
+asciidoc:
+  attributes:
+    source-highlighter: highlightjs
+    page-pagination: ''
+    sectanchors: ''
+    sectlinks: ''
+    # id-prefix: ''
+    # id-separator: '-'
+    company: 'DataStax'
+    product: 'Astra DB for DSE'
+    database: 'Astra DB'
+    astra_db: 'Astra DB'
+    astra_generic: 'Astra'
+    classic: 'classic'
+    classic_cap: 'Classic'
+    serverless: 'serverless'
+    serverless_cap: 'Serverless'
+    astra_stream: 'Astra Streaming'
+    advanced: 'no'
+
+    stargate-docker-tag: v1.0.41
+    stargate-docker-tag-3x: v1.0.41
+    stargate-docker-tag-40: v1.0.41
+    stargate-docker-tag-68: v1.0.40
+    cass-tag-3x: '3.11'
+    cass-alt-tag-3x: '3_11'
+    cass-tag-40: '4.0'
+    cass-alt-tag-40: '4_0'
+    dse-server-tag-68: '6.8.9'
+    dse-tag-68: '6.8'
+    dse-alt-tag-68: '68'
+
+    ASTRA_CLUSTER_ID: '8319febd-e7cf-4595-81e3-34f45d332d2a'
+    ASTRA_REGION: 'us-east1'
+    ASTRA_USERNAME: 'polandll'
+    ASTRA_PASSWORD: '12345abcd'
+
+    auth_token: '$ASTRA_DB_APPLICATION_TOKEN'
+    base_auth_url: 'http://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com:8081'
+    base_auth_api_path: '/v1/auth'
+    cass_user: 'cassandra' # switch to auth_username
+    cass_passwd: 'cassandra' # switch to auth_password
+
+    base_rest_url: 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com'
+    base_doc_url: 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com'
+    base_graphql_url: 'https://$ASTRA_CLUSTER_ID-$ASTRA_REGION.apps.astra.datastax.com:8080'
+    
+    base_rest_schema: '/api/rest/v2/schemas/keyspaces'
+    base_doc_schema: '/api/rest/v2/schemas/namespaces'
+    base_gql_schema: '/api/graphql-schema'
+
+    base_gql_admin: '/api/graphql-admin'
+
+    base_rest_api: '/api/rest/v2/keyspaces'
+    base_doc_api: '/api/rest/v2/namespaces'
+    base_gql_api: '/api/graphql'
+
+    rkeyspace: 'users_keyspace'
+    rkeyspace-dcs: 'users_keyspace-dcs'
+    rpartitionkey: 'firstname'
+    rclusteringkey: 'lastname'
+    rtable: 'users'
+    user1fn: 'Mookie'
+    user1ln: 'Betts'
+    user2fn: 'Janesha'
+    user2ln: 'Doesha'
+
+    namespace: 'myworld'
+    collection: 'fitness'
+    user1: 'Janet'
+    user2: 'Joey'
+    user2a: 'Joseph'
+    user3: 'Martha'
+
+    gkeyspace: 'library'
+    gtable1: 'book'
+    gtable2: 'reader'
+
+    support_url: 'https://houston.datastax.com/hc/requests/new'
+    astra_docs_base_url: 'https://docs.datastax.com/en/astra/docs'
+    
+    astra-docs: 'ssh://github.com/riptano/astra-docs.git'
+    dse68-docs: 'ssh://github.com/riptano/dse68-docs.git'
+    docs: 'ssh://github.com/stargate/docs.git'
+
+  extensions:
+  - '~/work/astra-docs/playbooks/lib/tabs-block.js'

@@ -1,0 +1,8 @@
+# Works in {base_graphql_url}{base_gql_admin}
+{
+  schemas(keyspace: "library") {
+    version
+    deployDate
+    contents
+  }
+}

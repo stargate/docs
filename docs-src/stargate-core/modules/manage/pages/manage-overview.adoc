@@ -1,0 +1,4 @@
+= Manage Stargate
+
+* xref:metrics.adoc[Metrics with Prometheus and Grafana]
+* xref:start-stargate.adoc[Start Stargate]

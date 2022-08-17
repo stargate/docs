@@ -1,0 +1,49 @@
+// tag::UpdateData[]
+=== Update data
+
+A mutation can be turned into a update operation by starting the mutation
+name with `update`.
+A mutation will also be an update operation if it is annotated with `@cql_update`.
+The mutation must take a single argument that is an input type for a mapped entity.
+If successful, the mutation will return a Boolean value.
+In order to execute the mutation, all primary key fields and at least one non-primary key
+field must be input.
+
+For example, the following mutation and associated query will update a single row:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1queryUpdate.graphql[]
+----
+--
+
+Result of command::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1queryUpdate.result[]
+----
+--
+
+New record::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1queryUpdate-2.result[]
+----
+--
+====
+
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
+If it does exist, it will be updated with the new row data.
+====
+// end::UpdateData[]

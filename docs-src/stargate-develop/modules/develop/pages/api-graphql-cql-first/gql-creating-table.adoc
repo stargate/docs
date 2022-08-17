@@ -1,0 +1,66 @@
+// tag::CreateTable[]
+=== Create a table
+
+After the keyspace exists, you can create a table by executing mutations.
+For this example, two tables are created:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/createTables.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createTables.result[]
+----
+--
+====
+
+It is worth noting that one mutation is used to create two tables.
+Information about partition keys and clustering keys can be found in the
+https://cassandra.apache.org/doc/latest/cql/[CQL reference].
+
+The second table, `reader`, also defines a column using a
+xref:develop:api-graphql-cql-first/gql-creating-udt.adoc[user-defined type (UDT)].
+
+// end::CreateTable[]
+
+// tag::CreateAdvTable[]
+==== IF NOT EXISTS option
+
+A table can be created with an option `ifNotExists` that will only create the
+table if it does not already exist:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/createTableIfNotExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_createTableIfNotExists.result[]
+----
+--
+====
+
+One of these tables includes creating a column with the data type `LIST`, an
+ordered collection of text values.
+// end::CreateAdvTable[]

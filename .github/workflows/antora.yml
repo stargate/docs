@@ -3,45 +3,58 @@ name: Generate Antora site
 on:
   push:
     branches:
-      - main
-      
+
+      - test-multi-repos
+
 env:
-  SITE_DIR: 'site'
+  SITE_DIR: 'stargate/stargate'
 jobs:
   build_site:
     name: "Build site with Antora"
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: "Render redoc"
         run: |
-          npm install -g redoc-cli
-
-          redoc-cli bundle api/StargateRESTv2.yaml --output modules/ROOT/attachments/restv2.html
-          redoc-cli bundle api/StargateRESTv1.yaml --output modules/ROOT/attachments/restv1.html
-          redoc-cli bundle api/StargateDocv2.yaml --output modules/ROOT/attachments/docv2.html
-
+          npm install --location=global redoc-cli
+          redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
+          redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
+          redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
+      - name: "Switch antora.yml"
+        run: |
+          FILE=antora.yml
+          cd $GITHUB_WORKSPACE/docs-src/stargate-core
+            if [  -f "$FILE" ]; then
+            rm antora.yml;
+            echo "antora.yml removed"
+          fi
+          ln -s antora-stargate.yml antora.yml
+          echo "symlink created"
+          cd $GITHUB_WORKSPACE/docs-src/stargate-develop
+            if [  -f "$FILE" ]; then
+            rm antora.yml;
+            echo "antora.yml removed"
+          fi          
+          ln -s antora-stargate.yml antora.yml
+          echo "symlink created"
+          cd $GITHUB_WORKSPACE
       - name: "Generate site using antora site action"
-        uses: kameshsampath/antora-site-action@master
+        uses: riptano/antora-site-action@main
         with:
-         antora_playbook: site-local.yaml
-         site_sources_path: ./
-
+         antora_playbook: playbooks/site-local-stargate.yaml 
       - name: "List folder"
         run: |
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
-
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
       - name: "Fix attachments"
         run: |
-          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/api.html
-
+          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/develop/attachments
+          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: site
           path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
@@ -52,24 +65,22 @@ jobs:
     name: "Deploy GitHub Pages"
     steps:
      - name: Setup Node.js for use with actions
-       uses: actions/setup-node@v2
+       uses: actions/setup-node@v3
        with:
-         node-version: '16'
-
+         node-version: 16
      - name: Checkout
-       uses: actions/checkout@v2
-
+       uses: actions/checkout@v3
      - name: Download generated site
-       uses: actions/download-artifact@v2
+       uses: actions/download-artifact@v3
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
 
      - name: Deploy to GitHub Pages
-       uses: JamesIves/github-pages-deploy-action@v4
+       uses: JamesIves/github-pages-deploy-action@v4.3.3
        with:
         # ACCESS_TOKEN: # optional
-        GITHUB_TOKEN: "${{ github.token}}"
-        FOLDER: "${{ env.SITE_DIR }}"
-        BRANCH: 'gh-pages'
-        COMMIT_MESSAGE: "[CI] Publish documentation for ${{ github.sha }}"
+        token: "${{ github.token}}"
+        folder: "${{ env.SITE_DIR }}"
+        branch: 'gh-pages'
+        commit-message: "[CI] Publish documentation for ${{ github.sha }}"

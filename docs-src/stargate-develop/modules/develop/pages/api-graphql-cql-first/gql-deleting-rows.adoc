@@ -1,0 +1,80 @@
+// tag::DeleteData[]
+=== Delete data
+
+After adding the book "Pride and Prejudice" with an `insertBooks()`, you can delete
+the book using `deleteBooks()` to illustrate deleting data:
+
+////
+The insertion is:
+mutation insertAnotherBook {
+  PaP: insertbook(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+    value {
+      title
+    }
+  }
+}
+////
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/deleteOneBook.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_deleteOneBook.result[]
+----
+--
+====
+
+Note the use of `ifExists` to validate that the book exists before deleting it.
+// end::DeleteData[]
+
+// tag::DeleteAdvData[]
+==== Deletion options
+
+Similar to the option `ifExists`, you can delete a book using `consistency`,
+`serialConsistency`, or `ttl`, similar to insertions:
+
+////
+The insertion is:
+mutation insertAnotherBook {
+  PaP: insertbook(value: {title:"Pride and Prejudice", author:"Jane Austen"}) {
+    value {
+      title
+    }
+  }
+}
+////
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/deleteOneBookCL.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_deleteOneBookCL.result[]
+----
+--
+====
+
+// end::DeleteAdvData[]

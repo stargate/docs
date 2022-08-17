@@ -1,0 +1,154 @@
+// tag::WriteData[]
+=== Write data
+
+First, let's add some data to the `{rtable}` table that you created.
+Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+to add data to the table.
+The column name/value pairs are passed in the JSON body.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_write_users.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_write_users.result[]
+----
+--
+====
+
+[NOTE]
+====
+Notice that, unlike schema creation, data queries do not require `tables` in the
+URI, only the `{tableName}`.
+====
+
+// end::WriteData[]
+
+// tag::WriteAdvData[]
+==== Collections, tuples, and UDTs
+
+Some data types require special handling to write the data.
+Examples of `set`, `list`, `map`, `tuple`, and `udt` are shown, using the column
+schema created earlier.
+
+SET:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_insert_set_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_set_data.result[]
+----
+--
+====
+
+LIST:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_insert_list_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_list_data.result[]
+----
+--
+====
+
+MAP:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_insert_map_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_map_data.result[]
+----
+--
+====
+
+TUPLE:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_insert_tuple_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_tuple_data.result[]
+----
+--
+====
+
+UDT:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_insert_udt_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_insert_udt_data.result[]
+----
+--
+====
+// end::WriteAdvData[]

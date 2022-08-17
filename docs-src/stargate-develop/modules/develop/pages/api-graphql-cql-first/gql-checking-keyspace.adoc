@@ -1,0 +1,26 @@
+// tag::CheckKS[]
+=== Check keyspace existence
+
+To check if a keyspace exists, execute a GraphQL query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/getKs.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_getKs.result[]
+----
+--
+====
+// end::CheckKS[]

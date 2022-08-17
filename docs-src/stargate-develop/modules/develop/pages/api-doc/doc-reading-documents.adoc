@@ -1,0 +1,341 @@
+== Reading documents
+ 
+// NEED AN INTRO HERE
+
+// [tabs]
+// ====
+// cURL command (/v2)::
+// +
+// --
+// [source,shell, subs="attributes+"]
+// ----
+// include::example$docapi/curl_get_all_docs_w_paging_2.sh[]
+// ----
+// --
+
+// Result::
+// +
+// --
+// [source,plaintext, subs="attributes+"]
+// ----
+// include::example$result/docapi_curl_get_all_docs_w_paging_2.result[]
+// ----
+// --
+// ====
+
+// Repeat the process for following pages by adding the `page-state` parameter
+// returned from each successive result set.
+
+// The `page-size` parameter has a default value of 1 and a maximum value of 20.
+
+// ==== Retrieving a specific portion of a document with document-path
+
+// To find a particular value, send a `GET` request to
+// `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+// to retrieve the type of weights Joey has done in his workout:
+
+// tag::ReadBasicData[]
+=== Retrieving a specified document
+Let's check that the data was inserted for a particular document.
+Send a `GET` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
+to retrieve the document:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_one_doc.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_one_doc.result[]
+----
+--
+====
+
+It is possible to get a value for a particular field in a document using one of
+two methods, either a `where` clause or a `document-path`. These methods can
+retrieve information from a document or a sub-document.
+
+=== Retrieving a document using a where clause
+
+Now let's search for a particular document using a `where` clause.
+Send a `GET` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}?{where-clause}`
+to get the same information:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_doc_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_doc_where.result[]
+----
+--
+====
+
+Note that the `where` clause must be url encoded, so curly brackets are escaped
+with `\` and spaces must be replaced with `%20`.
+Also, the full document is returned, as opposed to the value of the field specified in the
+`{document-path}` like the next command.
+// end::ReadBasicData[]
+
+// tag::ReadAdvData[]
+=== Read with `where`
+You can also search with a multiple `where` clause.
+Send a `GET` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}?{where-clause}`
+to get the same information:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_doc_mult_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_doc_mult_where.result[]
+----
+--
+====
+
+Note that the `where` clause must be url encoded, so curly brackets are escaped
+with `\` and spaces must be replaced with `%20`.
+Also, the full document is returned, as opposed to the value of the field specified in the
+`{document-path}` like the next command.
+
+You can also retrieve documents using a `WHERE` clause that searches sub-documents:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_subdoc_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_subdoc_where.result[]
+----
+--
+====
+
+Multiple `where` can be used in a variety of cases.
+Here, a numerical value between to values is sought:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_subdoc_mult_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_subdoc_mult_where.result[]
+----
+--
+====
+
+=== Retrieving all documents
+Let's check that the document was inserted. Send a `GET` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}` to retrieve
+all the documents:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_all_docs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs.result[]
+----
+--
+====
+
+The `page-size` parameter is included to get all the documents, rather than the
+last inserted document.
+
+=== Retrieving all documents with Paging
+For large collections, you can page a subset of the results. In this example,
+page-size is set to 5. Send a GET request to
+{base_doc_api}/{namespace_name}/collections/{collections_name}page-size=5 to
+retrieve the first five documents (a page) in the collection:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_all_docs_w_paging_1.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_all_docs_w_paging_1.result[]
+----
+--
+====
+
+Pay close attention to the `pageState` value in the results. The `pageState` is
+a string representation a location in the result set. It is essentially an encoded
+shortcut that allows the final result set to be built from a specific point.
+
+In order to get the next five documents, re-run the request with page-state
+parameter set to the first page's pageState:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_joey.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_joey.result[]
+----
+--
+====
+
+In this case, the sub-document `weights` is the
+`document-path` specified to retrieve that data about the `reps`, `type`, and
+`weight`.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_joey_weights.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_joey_weights.result[]
+----
+--
+====
+
+=== Retrieving a specific portion of a document with document-path
+
+Let's add another record for the next example:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_post_martha.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_post_martha.result[]
+----
+--
+====
+
+To find particular values, send a `GET` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
+to retrieve all the users that have, say, weight reps between 11 and 16:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_get_doc_path_wildcard.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_get_doc_path_wildcard.result[]
+----
+--
+====
+
+// end::ReadAdvData[]

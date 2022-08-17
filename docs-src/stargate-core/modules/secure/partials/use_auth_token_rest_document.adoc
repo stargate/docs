@@ -1,0 +1,7 @@
+=== Use the auth token
+Store the auth token in an environment variable to make it easy to use with `cURL`.
+
+[source, shell, subs="attributes+"]
+----
+export AUTH_TOKEN={auth-token}
+----

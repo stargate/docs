@@ -1,0 +1,191 @@
+// tag: AddColumn[]
+==== Add columns to table schema
+
+If you need to add an attribute to something you are storing in a table, you
+can add a column by sending a `POST` request to add the column.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_add_column.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_column.result[]
+----
+--
+====
+
+To change the name or data type of an existing column, use a similar command, but
+sent a `PUT` request instead:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_change_column.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_change_column.result[]
+----
+--
+====
+
+To add a set to a table, specify the data type `set` along with the data type of the
+set contents, such as `text`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_add_set_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_set_to_table.result[]
+----
+--
+====
+
+To add a `set` as a frozen set, specify `"typeDefinition": "frozen<set<text>>"`
+with the keyword `frozen`. In the following examples, both lists and maps can
+also be specified as frozen.
+
+To add a list to a table, specify the data type `list` along with the data type of the
+set contents, such as `text`.
+The difference between a set and a list is that a set is unordered, whereas a list
+is ordered:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_add_list_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_list_to_table.result[]
+----
+--
+====
+
+To add a map to a table, specify the data type `map` along with the data type of the
+map key and the may value:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_add_map_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_map_to_table.result[]
+----
+--
+====
+
+To add a tuple to a table, specify the data type `tuple` along with the data type of the
+each item in the tuple.
+A tuple can consist of two or more values that can be retrieved together.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_add_tuple_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_tuple_to_table.result[]
+----
+--
+====
+
+To add a user-defined type (UDT) to a table, specify the data type `udt` along with the data type of the
+each item in the UDT.
+A UDT can consist of two or more values that can be retrieved together.
+
+UDTs must currently be created in CQL before specifying for a column in the REST API.
+For instance, for a UDT created with the following CQL statement:
+
+[source, plaintext]
+----
+CREATE TYPE IF NOT EXISTS users_keyspace.address (
+  street text,
+  zip int
+);
+----
+we can add a UDT column to our table:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_add_udt_to_table.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/rest_curl_add_udt_to_table.result[]
+----
+--
+====
+// end: AddColumn[]

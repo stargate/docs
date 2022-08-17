@@ -1,0 +1,67 @@
+= Stargate GraphQL CQL-first API QuickStart
+
+*Time to complete: 5 minutes*
+
+Stargate is a data gateway deployed between client applications and a database.
+In this QuickStart, you'll be up and running on your local machine with the
+GraphQL API plugin that exposes CRUD access to data stored in Cassandra tables.
+
+include::develop:partial$GQLAPIBlogPost.adoc[]
+
+== Prerequisites
+
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
+
+You will need to add this token to the GraphQL Playground in order to authorize
+your GraphQL requests. Copy the value after `"authToken"` to use later.
+
+// using GraphQL Playground
+include::develop:page$using-graphql-playground.adoc[]
+
+// using Postman
+include::develop:page$tooling.adoc[tag=UsingPostman]
+
+== Creating schema
+
+In order to use the GraphQL API, you must create schema that defines the keyspace and
+tables that will store the data. A keyspace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Tables consist of columns that have a defined data type. Multiple tables are contained
+in a keyspace, but a table cannot be contained in multiple keyspaces.
+
+// create keyspace
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-graphql-cql-first/gql-creating-keyspace.adoc[Creating keyspace schema,tag=CreateKS]
+endif::[]
+
+include::develop:page$api-graphql-cql-first/gql-checking-keyspace.adoc[Checking keyspace schema, tag=CheckKS]
+
+// create tables
+include::develop:page$api-graphql-cql-first/gql-creating-table.adoc[Creating table schema,tag=CreateTable]
+
+include::develop:page$api-graphql-cql-first/gql-adding-columns.adoc[Adding columns to a table]
+
+// check tables
+include::develop:page$api-graphql-cql-first/gql-checking-table.adoc[Checking table and column schema, tag=CheckTables]
+
+== Interacting with tables
+
+// API generation
+include::develop:page$api-graphql-cql-first/gql-api-generation.adoc[API generation,tag=APIGeneration]
+
+// write data
+include::develop:page$api-graphql-cql-first/gql-adding-rows.adoc[Adding rows to your table, tag=WriteData]
+
+// read data
+include::develop:page$api-graphql-cql-first/gql-retrieving-rows.adoc[Retrieving rows from your table,tag=ReadData]
+
+// update data
+include::develop:page$api-graphql-cql-first/gql-updating-rows.adoc[Updating rows in your table, tag=UpdateData]
+
+// delete data
+include::develop:page$api-graphql-cql-first/gql-deleting-rows.adoc[Deleting rows in your table,tag=DeleteData]
+
+For more information on the GraphQL API (CQL-first),
+see xref:develop:dev-with-graphql-cql-first.adoc[Using the GraphQL API (CQL-first)] in the
+Developing with Stargate APIs section.

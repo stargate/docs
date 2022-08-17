@@ -1,0 +1,65 @@
+// tag::UpdateData[]
+=== Update data
+
+Data changes, so often it is necessary to update an entire row.
+To update a row, send a `PUT` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+The `{path}` is comprised of the primary key values.
+In this example, the partition key is `firstname` "Mookie" and the
+clustering key is `lastname` "Betts";
+thus, we use `/Mookie/Betts` as the `{path}` in our request.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_update_users.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_update_users.result[]
+----
+--
+====
+
+[NOTE]
+====
+Updates are upserts. If the row doesn't exist, it will be created.
+If it does exist, it will be updated with the new row data.
+====
+// end::UpdateData[]
+
+// LLP: The update PUT and the PATCH do the same thing. I need to figure out
+// the difference.
+It is also possible to update only part of a row. To partially update, send
+a `PATCH` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+In this example, we realize we should not have changed the email address, and
+we want to only change that one column:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_patch_users.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_patch_users.result[]
+----
+--
+====

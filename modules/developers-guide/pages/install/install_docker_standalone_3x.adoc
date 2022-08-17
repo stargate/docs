@@ -1,9 +1,0 @@
-[#standalone_docker_3x]
-== Stargate Standalone with Docker
-:page-tag: stargate,dev,develop
-
-include::developers-guide:partial$docker_pull.adoc[tag=3x]
-
-include::developers-guide:partial$docker_run.adoc[tag=3x]
-
-include::developers-guide:partial$ports.adoc[]

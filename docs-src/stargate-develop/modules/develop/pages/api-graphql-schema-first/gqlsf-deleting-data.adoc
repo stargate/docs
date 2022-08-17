@@ -1,0 +1,93 @@
+// tag::DeleteData[]
+=== Delete data
+
+A mutation can be turned into a delete operation by starting the mutation
+name with `delete` or `remove`.
+A mutation will also be a delete operation if it is annotated with `@cql_delete`.
+The mutation must take a single argument that is an input type for a mapped entity,
+or individual primary key arguments like retrieving operations.
+If successful, the mutation will return a Boolean value.
+
+At runtime, all partition key fields must be present, and a prefix of the
+clustering columns can be present (if using a single object argument, other
+  fields will be ignored).
+The delete operation targets a single row if it operates on a full primary key,
+or multiple rows otherwise.
+
+Let's add another book "Pride and Prejudice" with an `insertBook()`, so that you can delete
+the book using `deleteBook()` to illustrate deleting data:
+
+[tabs]
+====
+
+insert book::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1insertPapBook.graphql[]
+----
+--
+
+delete book::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1deleteBook.graphql[]
+----
+--
+
+delete result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1deleteBook.result[]
+----
+--
+====
+
+To check for the existence of a record before deleting, use either method discussed above.
+This example shows the use of the directive `@cql_delete( ifExists: true)`:
+
+[tabs]
+====
+mutation::
++
+--
+[source, shell, subs="attributes+"]
+----
+deleteLibCollection(libColl: LibCollectionInput!): Boolean @cql_delete(ifExists: true)
+----
+--
+
+insert library collection::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1insert4LibColls.graphql[]
+----
+--
+
+delete book with ifExists::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1deleteLibColl.graphql[]
+----
+--
+
+delete result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1deleteLibColl.result[]
+----
+--
+====
+
+// end::DeleteData[]

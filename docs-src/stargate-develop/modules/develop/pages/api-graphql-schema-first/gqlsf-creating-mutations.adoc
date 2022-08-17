@@ -1,0 +1,37 @@
+// tag::CreateMutations[]
+=== Create mutations
+
+Mutations work in a similar way  to queries.
+An input and output is defined.
+
+[tabs]
+====
+Mutations::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createOperations.graphql[]
+----
+--
+====
+
+<1> An input of `BookInput!` is required, and must include the required fields as defined
+by the `Book` object type. The output is a `Book` object.
+<2> An input of `BookInput!` is required, and must include the required fields as defined
+by the `Book` object type. The output is a Boolean value.
+<3> The `@cql_update` directive makes this mutation an update, rather than an insert.
+
+The `insert` mutation will insert an object of the specified type, and the `update`
+and `delete` mutations will return a Boolean value.
+If the `update` or `delete` mutation names begin with those words, the `@cql_update` directive
+is not required.
+
+==== Conditional insertion
+
+A mutation can be turned into a conditional insertion operation by ending the mutation
+name with `ifNotExists`.
+However, it may be useful to know if the insertion is successfully applied.
+In that case, see payload type below to see how a boolean field `applied` can
+be added to the response from insertions or annotating it with `@cql_insert(ifNotExists: true)`.
+// end::CreateMutations[]

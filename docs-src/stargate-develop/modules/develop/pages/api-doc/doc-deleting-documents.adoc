@@ -1,0 +1,33 @@
+// tag::DeleteBasicData[]
+== Delete a document
+To delete a document, send a `DELETE` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`.
+
+[source,bash, subs="attributes+"]
+----
+include::example$docapi/curl_delete_doc.sh[]
+----
+// end::DeleteBasicData[]
+
+// tag::DeleteAdvData[]
+To delete a document, based on a document path, send a `DELETE` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_delete_doc_where.sh[]
+----
+
+// tag::deleteColl[]
+
+== Delete a collection
+
+Send a `DELETE` request to `{base_doc_api}/namespaces/{namespace_name}/collections/{collection_name}`
+to delete a collection. All data will be deleted along with the collection schema.
+
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_delete_collection.sh[]
+----
+// end::deleteColl[]
+// end::DeleteAdvData[]

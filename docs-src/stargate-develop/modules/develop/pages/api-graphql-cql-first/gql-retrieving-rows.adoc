@@ -1,0 +1,287 @@
+// tag::ReadData[]
+=== Retrieve data
+
+Let's check that the data was inserted.
+
+// LLP: Get all book data - add a query
+
+Now let's search for a particular record using a `WHERE` clause. The primary
+key of the table can be used in the `WHERE` clause, but non-primary key columns
+cannot be used unless indexed.
+The following query, looking at the location
+http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
+will get both the `title` and the `author` for the specified book `WHERE
+title:"Moby Dick"`:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneBook.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneBook.result[]
+----
+--
+====
+
+// end::ReadData[]
+
+// tag::ReadAdvData[]
+
+To find multiple books, an addition to the `WHERE` clause is required, to denote that
+the list of titles desired is `IN` a group:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readThreeBooks.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readThreeBooks.result[]
+----
+--
+====
+
+To display the contents of a UDT, notice the inclusion of `addresses` in the values displayed for this read query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readReaderWithUDT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readReaderWithUDT.result[]
+----
+--
+====
+
+To display the contents of a map collection, notice the inclusion of `earned` in the values displayed for this read query:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneGoldBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneGoldBadge.result[]
+----
+--
+====
+==== Filter options for reading
+
+It's possible to customize the condition of each parameter with `WHERE`
+with the following arguments:
+
+* column: the GraphQL column name to which the condition applies
+* predicate: the conditional predicate to use
+
+The filters available are:
+
+|====
+| Predicate | columns that can have condition applied
+| eq (equal) | partition key, clustering column, regular indexed column
+| notEq (not equal) | partition key, clustering column, regular indexed column; allowed in conditional updates, but not selects
+| in (within)  | partition key, clustering column, regular indexed column
+| gt (greater than) | clustering column
+| gte (greater than or equal to) | clustering column
+| lt (less than) | clustering column
+| lte (less than or equal to) | clustering column
+| contains | regular indexed column  that is a , set or list, and has an index target of VALUES
+| containsKey | map contains the specified key
+| containsEntry | map contains the specified key:value pair
+|====
+
+Note that these can only be used with primary key columns, just like in Cassandra, unless
+indexing is created.
+
+The next examples will query the same table, `badge`, using a variety of filters to illustrate
+the versatility of such filters.
+The first example finds the record that has the partition key `badge_type` equal to `Gold`, and
+the `badge_id` equal to `100`:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneGold100Badge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneGold100Badge.result[]
+----
+--
+====
+
+Now if we use a different operator `gt` with the same query, notice that the query will fail,
+because no `badge_id` greater than a value of 100 is found:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneGoldGT100Badge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneGoldGT100Badge.result[]
+----
+--
+====
+
+In order to use filters for any columns that are not part of the primary key, currently
+you need to use CQL to create a secondary index using the CQL shell.
+The next three examples show the CQL creation of an index in order to query a column
+that is a map collection.
+
+In this example, an index is created on the keys of the map `earned`, so the `containsKey`
+filter can be used to query in GraphQL.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneWriterBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneWriterBadge.result[]
+----
+--
+====
+
+Because the index now exists, it is also possible to just filter based on the map key itself:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneWriterKeyBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneWriterKeyBadge.result[]
+----
+--
+====
+
+In this next example, an index is created on the values of the map `earned`, so the `contains`
+filter can be used to query in GraphQL.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneWriterValueBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneWriterValueBadge.result[]
+----
+--
+====
+
+To make a complete set of filters, an index is created on the entries of the map `earned`, so the `containsEntry`
+filter can be used to query in GraphQL.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/readOneWriterEntryBadge.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_readOneWriterEntryBadge.result[]
+----
+--
+====
+
+// end::ReadAdvData[]

@@ -1,0 +1,55 @@
+
+// tag::DropTable[]
+=== Delete a table
+
+You can delete a table. All data will be deleted along with the table schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/dropTableArticle.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableArticle.result[]
+----
+--
+====
+// end::DropTable[]
+
+// tag::DropAdvTable[]
+==== IF EXISTS option
+
+You can delete a table after checking that it exists with the `ifExists` option.
+All data will be deleted along with the table schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/dropTableIfExists.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropTableIfExists.result[]
+----
+--
+====
+// end::DropAdvTable[]

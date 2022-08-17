@@ -1,0 +1,311 @@
+// tag::ReadData[]
+=== Read data
+
+Let's check that the data was inserted. Send a `GET` request to
+`/v2/keyspaces/{keyspace_name}/{table_name}?where={searchPath}` to retrieve the two users
+that were entered:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_users.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users.result[]
+----
+--
+====
+
+This query uses `$in` to find the two users.
+The `WHERE` clause can be used with other valid search terms: `$eq`, `$lt`,
+`$lte`, `$gt`, `$gte`, `$ne`, and `$exists`, if applicable.
+The primary key of the table can be used in the `WHERE` clause, but non-primary
+key columns cannot be used unless indexed.
+
+// end::ReadData[]
+
+// tag::ReadAdvData[]
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+to retrieve the row for `Mookie` using `$eq`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_users_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_where.result[]
+----
+--
+====
+
+If the CQL indexes exist, a multiple `WHERE` can be used:
+
+Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+to retrieve the row for `Janesha` using `$eq`, and `Emma` using `$contains`:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_users_mult_where.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_mult_where.result[]
+----
+--
+====
+
+A primary key can be supplied to retrieve a row:
+
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_primKey.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_primKey.result[]
+----
+--
+====
+
+Adding `/rows` instead of a `WHERE` clause or primary key returns all table rows. 
+
+CAUTION: Returning *all* rows in a large table can negatively impact your database.
+The `page-size` parameter limits the number of results returned, and is recommended for large tables.
+The `pageState` is useful for pagination of the results in queries.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_all.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_all.result[]
+----
+--
+====
+
+In this example both `Mookie` and `Betts` are supplied in the path. `Mookie` is
+the partition key `firstname` and `Betts` is the clustering key `lastname`. Together
+these keys form the primary key of a row. To retrieve any rows using the partition
+keys and clustering keys, the primary key can be part of the request, in order
+and separated by a forward slash, such as `pk1/pk2/ck1/ck2/....` Each key must
+be included in order, but subsequent clustering keys do not have to be included.
+Note that the inclusion of clustering keys may return a range of rows.
+
+
+To return only desired fields in a response object, use the `fields` query parameter:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_users_fields.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_users_fields.result[]
+----
+--
+====
+
+==== Collections, tuples, and UDTs
+
+Some data types require special handling to read the data.
+Examples of `set`, `list`, `map`, `tuple`, and `udt` are shown, using the column
+schema created earlier.
+Because these columns are not part of the partition or clustering key, an index
+is required to read the data.
+Currently, for Cassandra, those indexes must be created with
+https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL].
+Here are the indexes created for use in the following examples:
+
+[source, cql]
+----
+include::example$cql/create_index_set.cql[]
+include::example$cql/create_index_list.cql[]
+include::example$cql/create_index_map.cql[]
+include::example$cql/create_index_tuple.cql[]
+----
+
+If you are using DataStax Enterprise, you may optionally use
+https://docs.datastax.com/en/dse/6.8/cql/cql/cql_reference/cql_commands/cqlCreateCustomIndex.html[Storage-Attached Indexing (SAI)]:
+
+[source, cql]
+----
+include::example$cql/create_index_set_sai.cql[]
+include::example$cql/create_index_list_sai.cql[]
+include::example$cql/create_index_map_sai.cql[]
+----
+
+SAI does not support tuples. Searches using SAI do not support the operator `$in`.
+
+SET:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_set_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_set_data.result[]
+----
+--
+====
+
+LIST:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_list_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_list_data.result[]
+----
+--
+====
+
+MAP:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_map_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_map_data.result[]
+----
+--
+====
+
+TUPLE:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_tuple_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_tuple_data.result[]
+----
+--
+====
+
+UDT:
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_get_udt_data.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/rest_curl_get_udt_data.result[]
+----
+--
+====
+// end::ReadAdvData[]

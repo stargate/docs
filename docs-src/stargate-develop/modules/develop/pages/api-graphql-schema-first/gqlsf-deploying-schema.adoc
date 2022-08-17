@@ -1,0 +1,159 @@
+// tag::DeploySchema[]
+== Deploy or undeploy schema
+
+=== Deploy schema manually
+
+Now that you have created GraphQL types, queries, and mutations, it's time to deploy the schema.
+Recall that the corresponding CQL schema is inferred and created from the GraphQL schema
+submitted.
+
+[NOTE]
+====
+A keyspace will be created as xref:api-graphql-cql-first/gql-creating-table.adoc[CQL-first] unless a schema is deployed.
+After a schema is deployed, the keyspace should be accessed as schema-first.
+====
+
+Inside the GraphQL playground, navigate to http://localhost:8080/graphql-admin and create
+the schema to deploy to a previously defined keyspace:
+
+[tabs]
+====
+Simple graphQL schema command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createDeploySimple.graphql[]
+----
+--
+
+Simple result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createDeploy.result[]
+----
+--
+
+Full schema command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createDeploy.graphql[]
+----
+--
+====
+
+A defined mutation `deploySchema` is executed.
+The keyspace is specified, along with the schema, specified between triple quotes (`"""`).
+
+A number of additional options are used in the following manner:
+
+|====
+| Option | Default | Description
+| expectedVersion | N/A | Each schema is assigned a unique version number. If the current deployment is a modification, the version must be supplied.
+| dryRun | false | To test in a dryrun, use `dryRun: true`
+| force | false |Force a schema change
+| migrationStrategy | ADD_MISSING_TABLES_AND_COLUMNS | USE_EXISTING, ADD_MISSING_TABLES, ADD_MISSING_TABLES_AND_COLUMNS, DROP_AND_RECREATE_ALL, DROP_AND_RECREATE_IF_MISMATCH
+|====
+
+Two items are returned in this example, the `version` that is assigned to the schema,
+and `cqlChanges`, the status of whether CQL changes occurred due to the schema deployment.
+Other responses are `logs` and `query`.
+
+The `migrationStrategy` option needs further explanation on how `deploySchema`
+updates the underlying CQL schema, based on the options argument.
+The available strategies are:
+
+ADD_MISSING_TABLES_AND_COLUMNS (default)::
+Create CQL tables and UDTs that don't already exist.
+For those that exist, add any missing columns.
+Partition keys and clustering columns cannot be added after initial creation.
+This strategy will fail if the column already exists with a different data type.
+USE_EXISTING::
+Don't do anything. This is the most conservative strategy.
+All CQL tables and UDTs must match, otherwise the deployment is aborted.
+ADD_MISSING_TABLES::
+Create CQL tables and UDTs that don't already exist.
+Those that exist must match, otherwise the deployment is aborted.
+DROP_AND_RECREATE_ALL::
+Drop and recreate all CQL tables and UDTs.
+This is a destructive operation: any existing data will be lost.
+DROP_AND_RECREATE_IF_MISMATCH::
+Drop and recreate only the CQL tables and UDTs that don't match.
+This is a destructive operation: any existing data in the recreated tables will be lost.
+Tables that are not recreated will retain their data.
+
+=== Deploy schema file using cURL
+
+Schema can also be deployed to a keyspace using a schema file upload.
+This mutation must be executed with a multipart request (note that your operations
+  part must declare MIME type application/json).
+
+In this case, `deploySchemaFile` is executed. This query must be executed in the command line
+with a cURL command:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createDeployFile.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createDeployFile.result[]
+----
+--
+====
+
+The operations part contains the GraphQL payload. It consists of a
+parameterized mutation, which takes a single `$file` argument (note that we
+  leave it as null in the payload, because it's going to be set another way).
+The `filePart` argument contains the file.
+The `map` argument specifies that the file specified by `filePart` will map
+to the `variables.file` setting.
+In this example, the schema file supplied is located in `/tmp/schema.graphql`.
+
+In order to deploy a schema file again, you'll need to supply the `expectedVersion`
+for the schema to be replaced.
+xref:api-graphql-schema-first/gqlsf-checking-keyspace-schema.adoc[Check the keyspace schema]
+to get the current version.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1DeployFileAgain.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1DeployFileAgain.result[]
+----
+--
+====
+
+=== Modify schema
+
+To modify the current schema, simply deploy again, supplying the `expectedVersion` as the
+current schema's version if you wish to overwrite the definitions.
+Otherwise, a new schema with a new version id will be created.
+Either the GraphQL Playground or the cURL command can be used to update the schema.
+// end::DeploySchema[]

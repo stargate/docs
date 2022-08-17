@@ -1,0 +1,29 @@
+// tag::UndeploySchema[]
+=== Undeploy schema
+
+To undeploy an existing schema, use the following mutation.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1Undeploy.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1Undeploy.result[]
+----
+--
+====
+
+The keyspace name and schema version must be supplied.
+One option is available, `force`, to force an erasure of the schema.
+// end::UndeploySchema[]

@@ -1,0 +1,84 @@
+name: Publish docs
+
+on:
+  push:
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+env:
+  SITE_DIR: 'stargate/stargate'
+jobs:
+  build_site:
+    name: "Build site with Antora"
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: "Render redoc"
+        run: |
+          npm install -g redoc-cli
+
+          redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
+          redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
+          redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
+      - name: "Switch antora.yml"
+        run: |
+          FILE=antora.yml
+          cd $GITHUB_WORKSPACE/docs-src/stargate-core
+            if [  -f "$FILE" ]; then
+            rm antora.yml;
+            echo "antora.yml removed"
+          fi
+          ln -s antora-stargate.yml antora.yml
+          cd $GITHUB_WORKSPACE/docs-src/stargate-develop
+            if [  -f "$FILE" ]; then
+            rm antora.yml;
+            echo "antora.yml removed"
+          fi          
+          ln -s antora-stargate.yml antora.yml
+          cd $GITHUB_WORKSPACE      
+      - name: "Generate site using antora site action"
+        uses: riptano/antora-site-action@main
+        with:
+         antora_playbook: playbooks/site-publish-stargate.yaml
+      - name: "List folder"
+        run: |
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+      - name: "Fix attachments"
+        run: |
+          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/develop/attachments
+          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/develop/api.html
+      - name: "Upload generated site"
+        uses: actions/upload-artifact@v3
+        with:
+          name: site
+          path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
+
+  deploy_site:
+    runs-on: [ubuntu-latest]
+    needs: [build_site]
+    name: "Deploy GitHub Pages"
+    steps:
+     - name: Setup Node.js for use with actions
+       uses: actions/setup-node@v3
+       with:
+         node-version: 16
+     - name: Checkout
+       uses: actions/checkout@v3
+     - name: Download generated site
+       uses: actions/download-artifact@v3
+       with:
+         name: site
+         path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
+         
+     - name: Deploy to GitHub Pages
+       uses: peaceiris/actions-gh-pages@v3
+       with:
+          personal_token: "${{ secrets.PUBLISH_STARGATE_DOCS }}"
+          external_repository: stargate/website
+          publish_branch: 'gh-pages'
+          publish_dir: "${{ env.SITE_DIR }}"
+          destination_dir: docs
+          disable_nojekyll: true

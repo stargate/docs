@@ -1,0 +1,60 @@
+= Stargate Document API QuickStart
+:docid : 3ffc7ae6-c42d-46de-b52b-b5e77ae6a87b
+
+*Time to complete: 5 minutes*
+
+Stargate is a data gateway deployed between client applications and a database.
+In this QuickStart, you'll be up and running on your local machine with the
+Document API plugin that exposes CRUD access to data stored in Cassandra tables.
+
+== Prerequisites
+
+include::develop:partial$prereqs-astra.adoc[]
+include::develop:partial$prereqs-stargate.adoc[]
+
+== Creating schema
+
+In order to use the Document API, you must create schema that defines the namespace
+and collections that will store the data. A namespace is a container for which a
+`replication factor` defines the number of data replicas the database will store.
+Collections consist of unstructured JSON documents. Documents can themselves
+hold multiple documents. Multiple collections are contained
+in a namespace, but a collection cannot be contained in multiple namespaces.
+
+ifeval::["{product}" == "Stargate"]
+// create namespace
+include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace,tag=CreateNS]
+endif::[]
+
+// Doesn't exist yet
+// create collection
+//include::develop:page$dev-with-doc.adoc[tag=CreateColl]
+
+// check NS exist
+include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace,tag=CheckNS]
+
+// STARGATE ONLY
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace,tag=DeleteNS]
+endif::[]
+
+== Interacting with data stored in collections
+
+// write document data
+include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents,tag=WriteBasicData]
+
+include::develop:partial$DocAPIBlogPost.adoc[]
+
+// read document data
+include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents,tag=ReadBasicData]
+
+// update document data
+include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents,tag=UpdateBasicData]
+
+// delete document data
+include::develop:page$api-doc/doc-deleting-documents.adoc[Deleting documents and collections,tag=DeleteBasicData]
+
+Voila! For more information on the Document API, see the
+xref:develop:dev-with-doc.adoc[Using the Document API]
+or the https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API] in the
+API references section.

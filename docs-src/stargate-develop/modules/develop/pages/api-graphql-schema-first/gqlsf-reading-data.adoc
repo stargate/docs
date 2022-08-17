@@ -1,0 +1,257 @@
+// tag::ReadData[]
+=== Retrieve data
+
+Let's check that the data was inserted.
+Use the query `book` with the primary key to find a book based on its title.
+Use http://localhost:8080/graphql/library[http://localhost:8080/graphql/library]
+to execute the query in GraphQL playground:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1fetchBook.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1fetchBook.result[]
+----
+--
+====
+
+// end::ReadData[]
+
+// tag::ReadAdvData[]
+
+It is also possible to find books with a partial primary key. If more than one book
+has the same title (partition key), for instance, but different isbn codes (clustering key),
+then a listing of all books that match can be retrieved:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1fetchSameBooks.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1fetchSameBooks.result[]
+----
+--
+====
+
+In both queries, the `title`, `isbn`, and `author` are specified as return results.
+
+To display the contents of a UDT, notice the inclusion of `addresses` and its
+embedded fields in the values designated as return values in this query to retrieve the readers:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1fetchReaders.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1fetchReaders.result[]
+----
+--
+====
+
+In this example, the primary key consists of both `name` and `user_id`, to distinguish
+readers who might have the same name.
+
+Stargate only allows combinations of fields that have:
+* at most one indexed field in the query
+* if no indexed field is present, then all partition key fields must be present
+** it's possible to omit some or all of the clustering fields (in which case
+  the query may return multiple rows
+
+==== **Filter options for reads**
+
+It's possible to customize the CQL condition of each parameter with `@cql_where`
+with the following arguments:
+
+* field: the GraphQL field name to which the condition applies
+* predicate: the conditional predicate to use
+
+The filters available are:
+
+|====
+| Predicate | GraphQL fields that can have condition applied
+| EQ (equal) | partition key, clustering key, regular indexed field
+| IN (within)  | partition key, clustering key, regular indexed field
+| GT (greater than) | clustering key
+| GTE (greater than or equal to) | clustering key
+| LT (less than) | clustering key
+| LTE (less than or equal to) | clustering key
+| CONTAINS | regular indexed field that is a list and has an index target of VALUES
+|====
+
+IN example, that finds the books that are listed in the supplied array:
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryWhereIN.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereIN.result[]
+----
+--
+====
+
+IN example with 2 partition keys, demonstrating that values for each
+can be supplied:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryWhereIN2PartKey.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereIN2PartKey.result[]
+----
+--
+====
+
+GT example, that looks for equality on the partition key, and then a range of
+possible values for the clustering field:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryWhereGT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereGT.result[]
+----
+--
+====
+
+GT example #2, that looks for a book with a title and an isbn code that is
+greater than the value supplied:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryWhereGT-2.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereGT-2.result[]
+----
+--
+====
+
+LT example, that looks for a book with the same title and an isbn code that is
+less than the value supplied:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryWhereLT.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereLT.result[]
+----
+--
+====
+
+CONTAINS example that shows how to retrieve a reader that submitted a
+supplied review:
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQueryWhereCONTAINS.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_1createQueryWhereCONTAINS.result[]
+----
+--
+====
+
+// end::ReadAdvData[]

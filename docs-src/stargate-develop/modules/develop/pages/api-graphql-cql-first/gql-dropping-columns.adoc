@@ -1,0 +1,27 @@
+// tag::DropColumns[]
+=== Delete columns from table schema
+
+If you find an attribute is no longer required in a table, you
+can remove a column.  All column data will be deleted along with the column schema.
+
+[tabs]
+====
+graphQL command::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/cql-first/dropColumnFormat.graphql[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/gql_dropColumnFormat.result[]
+----
+--
+====
+// end::DropColumns[]

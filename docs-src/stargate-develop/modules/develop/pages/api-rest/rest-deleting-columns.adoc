@@ -1,0 +1,12 @@
+// tag::RemoveColumn[]
+=== Delete columns from table schema
+
+If you find an attribute is no longer required in a table, you
+can delete a column by sending a `DELETE` request. All
+column data will be deleted along with the column schema.
+
+[source, shell, subs="attributes+"]
+----
+include::example$rest/curl_drop_column.sh[]
+----
+// end::RemoveColumn[]

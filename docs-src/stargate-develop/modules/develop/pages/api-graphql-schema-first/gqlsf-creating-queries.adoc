@@ -1,0 +1,27 @@
+// tag::CreateQueries[]
+=== Create queries
+
+Most types in your schema will just be normal object types, but there are two types
+that are special, the Query type and the Mutation type.
+Every GraphQL service has at least one query type.
+Mutation types are optional.
+
+Queries
+
+[tabs]
+====
+Queries::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$graphql/schema-first/1createQuery.graphql[]
+----
+--
+====
+
+<1> This query is named `bookByTitleAndIsbn`, with inputs `title` (non-null String value) and `isbn` (String value),
+and outputs an array of objects of type Book.
+<2> This query is named `readerByNameAndUserid`, with inputs `name` (non-null String value) and `user_id` (Uuid value),
+and outputs an array of objects of type Reader.
+// end::CreateQueries[]
