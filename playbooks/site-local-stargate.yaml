@@ -6,13 +6,13 @@ output:
   dir: ./../build/stargate
 
 content:
-#  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
+  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
     - url: ./..
-      branches: [test-multi-repos]
+      branches: HEAD
       start_path: docs-src/stargate-develop
     - url: ./..
-      branches: [test-multi-repos]
+      branches: HEAD
       start_path: docs-src/stargate-core
 
 ui:
@@ -90,6 +90,7 @@ asciidoc:
     gtable2: 'reader'
 
     stargate_docs_base_url: 'https://stargate.io/docs'
+    docs: 'ssh://github.com/stargate/docs.git'
 
   extensions:
      - ./lib/tabs-block.js
