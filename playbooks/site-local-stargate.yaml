@@ -92,6 +92,7 @@ asciidoc:
 
     stargate_docs_base_url: 'https://stargate.io/docs'
     docs: 'ssh://github.com/stargate/docs.git'
+    glossary-url: 'https://docs.datastax.com/en/glossary/'
 
   extensions:
      - ./lib/tabs-block.js

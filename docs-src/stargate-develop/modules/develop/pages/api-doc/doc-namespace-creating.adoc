@@ -2,7 +2,7 @@
 = Creating a namespace
 
 // LLP 07.25.2022 I want to link glossary terms, once we decide on best way.
-In order to use the Document API, you must create the xref:gloss:gloss_namespace.adoc[namespace,window="_blank"] as a container
+In order to use the Document API, you must create the {glossary_url}gloss_namespace.html[namespace,window="_blank"] as a container
 that will store collections, which in turn store documents.
 Documents can themselves hold multiple documents.
 Multiple collections are contained in a namespace, but a collection cannot be
