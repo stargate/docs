@@ -1,0 +1,70 @@
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "e32bc819-cd07-4ef6-a501-cace6869dcca": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "100 Main St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}

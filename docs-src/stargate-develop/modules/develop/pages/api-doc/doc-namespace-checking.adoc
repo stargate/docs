@@ -1,5 +1,5 @@
 // tag::CheckNS[]
-=== Checking namespace existence
+= Checking namespace existence
 
 To check if a namespaces exist, execute a
 Document API query with `cURL` to find all the namespaces:
@@ -11,7 +11,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/curl_check_ns_exists.sh[]
+include::example$docapi/library/curl-ns-get-all.sh[]
 ----
 --
 
@@ -20,7 +20,7 @@ Result::
 --
 [source,plaintext]
 ----
-include::example$result/docapi_curl_check_ns_exists.result[]
+include::example$result/docapi/library/curl-ns-get-all.result[]
 ----
 --
 ====
@@ -34,7 +34,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/curl_get_particular_ns.sh[]
+include::example$docapi/library/curl-ns-get-particular.sh[]
 ----
 --
 
@@ -43,7 +43,7 @@ Result::
 --
 [source,plaintext]
 ----
-include::example$result/docapi_curl_get_particular_ns.result[]
+include::example$result/docapi/library/curl-ns-get-particular.result[]
 ----
 --
 ====

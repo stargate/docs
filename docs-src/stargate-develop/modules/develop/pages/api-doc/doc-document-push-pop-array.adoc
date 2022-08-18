@@ -1,0 +1,139 @@
+// tag::PushPopArrays[]
+= Using built-in functions push and pop for arrays
+ 
+Two built-in functions, push and pop, can be used to modify an array in a document.
+
+== View built-in functions for a particular namespace
+
+A `GET` request with the endpoint `functions` will return the built-in functions with their descriptions:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-ns-get-functions.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-ns-get-functions.result[]
+----
+--
+====
+
+== Push an array element into a document using a document-path
+
+Let's check the data in an array of book genre before we change it:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-array-change.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-array-change1.result[]
+----
+--
+====
+
+A `POST` using push will add the desired data to the end of the array specified in the 
+document-path. Notice that structure of the data passed:
+
+----
+"operation": "$push", "value": "culture"
+----
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-post-push-book.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-post-push-book.result[]
+----
+--
+====
+
+== Pop an array element off a document using a document-path
+
+A `POST` using pop will remove the last element from the end of the array specified in the 
+document-path. Notice that structure of the data passed:
+
+----
+"operation": "$pop"
+----
+
+without any value assigned.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-post-pop-book.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-post-pop-book.result[]
+----
+--
+====
+
+To check if the data is changed, `GET` the document:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-array-change.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-array-change3.result[]
+----
+--
+====
+
+// end::PushPopArrays[]

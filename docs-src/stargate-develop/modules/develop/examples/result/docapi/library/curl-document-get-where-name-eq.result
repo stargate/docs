@@ -1,0 +1,43 @@
+{
+  "data": {
+    "9195f8c9-1bd8-4ee5-b812-7075f9343331": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "10-01-1980",
+        "email": {
+          "primary": "asmith@gmail.com",
+          "secondary": "amyispolite@aol.com"
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ],
+        "user_id": "12345"
+      }
+    }
+  }
+}

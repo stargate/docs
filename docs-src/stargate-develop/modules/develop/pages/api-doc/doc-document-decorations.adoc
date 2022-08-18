@@ -1,0 +1,93 @@
+= Decorations for getting documents - paging-size, paging-state, fields
+
+== Paging-size
+
+The `page-size` parameter has a default value of 3 and a maximum value of 20.
+You can set the value in the REST query:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-6.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-6.result[]
+----
+--
+====
+
+== Paging-state
+
+The paging state allows a user to page through the returned documents. 
+For large collections, you can page a subset of the results.
+If more than the allowed paging size of documents are returned, paging-state can be used to get 
+subsequent pages of documents.
+Send a GET request to
+{base_doc_api}/{namespace_name}/collections/{collections_name}?page-size=5 to
+retrieve the first five documents (a page) in the collection
+
+The paging state value must be retrieved from the previous JSON results.
+Pay close attention to the `pageState` value in the results. The `pageState` is
+a string representing a location in the result set. It is essentially an encoded
+shortcut that allows the final result set to be built from a specific point.
+In order to get the next five documents, re-run the request with page-state
+parameter set to the first page's pageState:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-all-docs-with-paging.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-all-docs-with-paging.result[]
+----
+--
+====
+
+== Fields
+
+Entire documents are returned in JSON format, unless the `fields` option is used.
+You can specify the fields that you wish returned in the REST query:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-one-with-fields.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-one-with-fields.result[]
+----
+--
+====
+
+In this example, `fields=["book.title","book.genre"]`, the book title (a string) and the book genre (an array) are the only fields returned in the results.

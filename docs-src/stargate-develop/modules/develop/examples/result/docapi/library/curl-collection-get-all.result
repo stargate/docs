@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "name": "library",
+      "upgradeAvailable": false
+    },
+    {
+      "name": "library2",
+      "upgradeAvailable": false
+    }
+  ]
+}

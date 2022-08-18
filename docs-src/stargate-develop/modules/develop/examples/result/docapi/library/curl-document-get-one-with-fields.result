@@ -1,0 +1,12 @@
+{
+  "documentId": "native-son-doc-id",
+  "data": {
+    "book": {
+      "genre": [
+        "slavery",
+        "action"
+      ],
+      "title": "Native Son"
+    }
+  }
+}

@@ -1,0 +1,1220 @@
+Set auth token
+Delete namespace to clear all data: 
+Create simple namespace
+[0;32m ✔ Success [0m
+Set replicas on ns
+[0;32m ✔ Success [0m
+Create namespace with DCs
+[0;31m Failed [0m
+[0;31m Expected null to equal test-dcs [0m
+{"code":404,"message":"HTTP 404 Not Found"}Create namespace for test
+[0;32m ✔ Success [0m
+Get all namespaces
+{
+  "data": [
+    {
+      "name": "system_schema"
+    },
+    {
+      "name": "system"
+    },
+    {
+      "name": "system_auth"
+    },
+    {
+      "name": "system_distributed"
+    },
+    {
+      "name": "system_traces"
+    },
+    {
+      "name": "stargate_system"
+    },
+    {
+      "name": "data_endpoint_auth"
+    },
+    {
+      "name": "test"
+    }
+  ]
+}
+Get a particular namespace
+{
+  "data": {
+    "name": "test"
+  }
+}
+Create collections
+Create an empty collection called library
+Create an empty collection called library2
+Put JSON schema for a particular collection
+{
+  "schema": {
+    "title": "Person",
+    "type": "object",
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "description": "The person's first name."
+      },
+      "lastName": {
+        "type": "string",
+        "description": "The person's last name."
+      },
+      "age": {
+        "description": "Age in years which must be equal to or greater than zero.",
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  }
+}
+Get all collections, to check that the 2 collections are made.
+{
+  "data": [
+    {
+      "name": "library",
+      "upgradeAvailable": false
+    },
+    {
+      "name": "library2",
+      "upgradeAvailable": false
+    }
+  ]
+}
+Get JSON schema for a particular collection
+{
+  "schema": {
+    "title": "Person",
+    "type": "object",
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "description": "The person's first name."
+      },
+      "lastName": {
+        "type": "string",
+        "description": "The person's last name."
+      },
+      "age": {
+        "description": "Age in years which must be equal to or greater than zero.",
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  }
+}
+Create a document in the collection with a document-id with PUT
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311"
+}
+Create a document in the collection with no document-id with POST
+{
+  "documentId": "0c88a952-ea0b-4000-83ba-57d293b8e345"
+}
+Create document for one reader with POST
+{
+  "documentId": "9a47dcbc-2a41-429e-bd1b-fad26ac23b00"
+}
+Create document for one book with PUT
+{
+  "documentId": "native-son-doc-id"
+}
+Get one book document using documentId
+{
+  "documentId": "native-son-doc-id",
+  "data": {
+    "book": {
+      "author": [
+        "Richard Wright"
+      ],
+      "format": [
+        "hardback",
+        "paperback",
+        "epub"
+      ],
+      "genre": [
+        "slavery",
+        "action"
+      ],
+      "isbn": "12322",
+      "languages": [
+        "English",
+        "German",
+        "French"
+      ],
+      "pub-year": 1930,
+      "title": "Native Son"
+    }
+  }
+}
+Create document for multiple readers with batch POST
+{
+  "documentIds": [
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6",
+    "2dc4364c-e64d-4860-8f0a-1b5ca9bd3549"
+  ]
+}
+Create document for multiple books with batch POST
+{
+  "documentIds": [
+    "3d0e2f71-dfe9-4ab3-8099-9ee7acca0b7f",
+    "5744a0a9-9aa0-4b56-bcb6-436b63b8cfd6",
+    "cd95de08-5732-4f95-9675-efe72cde2594"
+  ]
+}
+Write one reader with an document-id for later use
+{
+  "documentId": "John-Smith"
+}
+Replace a document with a PUT using document-id
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311"
+}
+Check that data is included
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "id": "some-other-stuff",
+    "other": "This is changed nonsensical stuff."
+  }
+}
+PATCH some information into a document using document-id
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311"
+}
+Check that data is included
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "id": "some-other-stuff",
+    "other": "This is changed nonsensical stuff.",
+    "yet-another-field": "Hopefully, I haven't lost my other two fields!"
+  }
+}
+PATCH some more information into a document using document-id
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311"
+}
+Check that 2nd data is included
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "id": "some-other-stuff",
+    "languages": [
+      "English",
+      "German",
+      "French"
+    ],
+    "other": "This is changed nonsensical stuff.",
+    "yet-another-field": "Hopefully, I haven't lost my other two fields!"
+  }
+}
+Patch some more information with profiling using document-id
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "profile": {
+    "description": "root",
+    "queries": [],
+    "nested": [
+      {
+        "description": "ASYNC PATCH",
+        "queries": [
+          {
+            "cql": "INSERT INTO test.library (key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42, p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53, p54, p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf, text_value, dbl_value, bool_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) USING TTL ? AND TIMESTAMP ?",
+            "executionCount": 5,
+            "rowCount": 5
+          },
+          {
+            "cql": "DELETE FROM test.library USING TIMESTAMP ? WHERE key = ? AND p0 = ? AND p1 = ? AND p2 = ? AND p3 = ? AND p4 = ? AND p5 = ? AND p6 = ? AND p7 = ? AND p8 = ? AND p9 = ? AND p10 = ? AND p11 = ? AND p12 = ? AND p13 = ? AND p14 = ? AND p15 = ? AND p16 = ? AND p17 = ? AND p18 = ? AND p19 = ? AND p20 = ? AND p21 = ? AND p22 = ? AND p23 = ? AND p24 = ? AND p25 = ? AND p26 = ? AND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 = ? AND p34 = ? AND p35 = ? AND p36 = ? AND p37 = ? AND p38 = ? AND p39 = ? AND p40 = ? AND p41 = ? AND p42 = ? AND p43 = ? AND p44 = ? AND p45 = ? AND p46 = ? AND p47 = ? AND p48 = ? AND p49 = ? AND p50 = ? AND p51 = ? AND p52 = ? AND p53 = ? AND p54 = ? AND p55 = ? AND p56 = ? AND p57 = ? AND p58 = ? AND p59 = ? AND p60 = ? AND p61 = ? AND p62 = ? AND p63 = ?",
+            "executionCount": 1,
+            "rowCount": 1
+          },
+          {
+            "cql": "DELETE FROM test.library USING TIMESTAMP ? WHERE key = ? AND p0 IN ?",
+            "executionCount": 1,
+            "rowCount": 0
+          },
+          {
+            "cql": "DELETE FROM test.library USING TIMESTAMP ? WHERE key = ? AND p0 >= ? AND p0 <= ?",
+            "executionCount": 1,
+            "rowCount": 0
+          }
+        ],
+        "nested": []
+      }
+    ]
+  }
+}
+Check that 3rd data is included
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "choices": [
+      "eeny",
+      "meeny",
+      "meiny",
+      "mo"
+    ],
+    "id": "some-other-stuff",
+    "languages": [
+      "English",
+      "German",
+      "French"
+    ],
+    "other": "This is changed nonsensical stuff.",
+    "yet-another-field": "Hopefully, I haven't lost my other two fields!"
+  }
+}
+Patch some more information with TTL using document-id
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311"
+}
+Check that 4th data is included
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "okaydokie": "Now I have done it! We have a TTL at last!"
+  }
+}
+PUT a document with document-path; replaces current data
+PATCH a document with document-path - overwrites
+Get built-in functions for a particular namespace
+{
+  "functions": [
+    {
+      "name": "$push",
+      "description": "Appends data to the end of an array"
+    },
+    {
+      "name": "$pop",
+      "description": "Removes data from the end of an array, returning it"
+    }
+  ]
+}
+Push an array element into a document at a document-path
+{
+  "documentId": "native-son-doc-id",
+  "data": [
+    "slavery",
+    "action",
+    "culture"
+  ]
+}
+Look at the array
+{
+  "documentId": "native-son-doc-id",
+  "data": [
+    "slavery",
+    "action",
+    "culture"
+  ]
+}
+Pop an array element into a document at a document-path
+{
+  "documentId": "native-son-doc-id",
+  "data": "culture"
+}
+Look at the array
+{
+  "documentId": "native-son-doc-id",
+  "data": [
+    "slavery",
+    "action"
+  ]
+}
+Get all documents
+{
+  "pageState": "JDNkMGUyZjcxLWRmZTktNGFiMy04MDk5LTllZTdhY2NhMGI3ZgDwf_____B_____",
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "10-01-1980",
+        "email": {
+          "primary": "asmith@gmail.com",
+          "secondary": "amyispolite@aol.com"
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ],
+        "user_id": "12345"
+      }
+    },
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "11-01-1992",
+        "email": {
+          "primary": "jsmith@gmail.com",
+          "secondary": "john.smith@aol.com"
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ],
+        "user_id": "12346"
+      }
+    },
+    "3d0e2f71-dfe9-4ab3-8099-9ee7acca0b7f": {
+      "book": {
+        "author": [
+          "Herman Melville"
+        ],
+        "format": [
+          "hardback",
+          "paperback",
+          "epub"
+        ],
+        "genre": [
+          "adventure",
+          "ocean",
+          "action"
+        ],
+        "isbn": "12345",
+        "languages": [
+          "English",
+          "German",
+          "French"
+        ],
+        "pub-year": 1899,
+        "title": "Moby Dick"
+      }
+    }
+  }
+}
+Get a document where a value is contained in an array
+{
+  "description": "Operation '$contains' is not supported.",
+  "code": 400
+}
+Get a document with a where wildcard on book format
+Get 6 documents with paging-size set
+{
+  "pageState": "JGNkOTVkZTA4LTU3MzItNGY5NS05Njc1LWVmZTcyY2RlMjU5NADwf_____B_____",
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "10-01-1980",
+        "email": {
+          "primary": "asmith@gmail.com",
+          "secondary": "amyispolite@aol.com"
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ],
+        "user_id": "12345"
+      }
+    },
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "11-01-1992",
+        "email": {
+          "primary": "jsmith@gmail.com",
+          "secondary": "john.smith@aol.com"
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ],
+        "user_id": "12346"
+      }
+    },
+    "3d0e2f71-dfe9-4ab3-8099-9ee7acca0b7f": {
+      "book": {
+        "author": [
+          "Herman Melville"
+        ],
+        "format": [
+          "hardback",
+          "paperback",
+          "epub"
+        ],
+        "genre": [
+          "adventure",
+          "ocean",
+          "action"
+        ],
+        "isbn": "12345",
+        "languages": [
+          "English",
+          "German",
+          "French"
+        ],
+        "pub-year": 1899,
+        "title": "Moby Dick"
+      }
+    },
+    "0c88a952-ea0b-4000-83ba-57d293b8e345": {
+      "id": "some-stuff",
+      "other": "This is nonsensical stuff."
+    },
+    "cd95de08-5732-4f95-9675-efe72cde2594": {
+      "book": {
+        "author": [
+          "Julia Child",
+          "Simone Beck",
+          "Louisette Bertholle"
+        ],
+        "format": [
+          "hardback",
+          "paperback",
+          "epub"
+        ],
+        "genre": [
+          "cooking",
+          "French cuisine"
+        ],
+        "isbn": "19922",
+        "languages": [
+          "English",
+          "German",
+          "French",
+          "Belgian"
+        ],
+        "pub-year": 1960,
+        "title": "The Art of French Cooking"
+      }
+    }
+  }
+}
+Get a document with fields, without a WHERE clause
+{
+  "documentId": "native-son-doc-id",
+  "data": {
+    "book": {
+      "genre": [
+        "slavery",
+        "action"
+      ],
+      "title": "Native Son"
+    }
+  }
+}
+Get documents with paging-state set
+Get all documents where name eq a particular reader
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "birthdate": "10-01-1980",
+        "email": {
+          "primary": "asmith@gmail.com",
+          "secondary": "amyispolite@aol.com"
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ],
+        "user_id": "12345"
+      }
+    }
+  }
+}
+Get all documents where name eq a particular reader with fields
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Amy Smith"
+      }
+    }
+  }
+}
+Get all documents where name ne using  a particular reader
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "birthdate": "11-01-1992",
+        "name": "John Smith",
+        "user_id": "12346"
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Jane Doe",
+        "user_id": "12345"
+      }
+    },
+    "2dc4364c-e64d-4860-8f0a-1b5ca9bd3549": {
+      "reader": {
+        "birthdate": "06-11-2000",
+        "name": "John Jones",
+        "user_id": "54321"
+      }
+    }
+  }
+}
+Get all documents where name ne using multi a particular reader
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "birthdate": "11-01-1992",
+        "name": "John Smith",
+        "user_id": "12346"
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Jane Doe",
+        "user_id": "12345"
+      }
+    },
+    "2dc4364c-e64d-4860-8f0a-1b5ca9bd3549": {
+      "reader": {
+        "birthdate": "06-11-2000",
+        "name": "John Jones",
+        "user_id": "54321"
+      }
+    }
+  }
+}
+Get all documents where name equals Amy Smith OR Jane Doe
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Amy Smith",
+        "user_id": "12345"
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Jane Doe",
+        "user_id": "12345"
+      }
+    }
+  }
+}
+Get all documents where book title does not equal Moby Dick
+{
+  "pageState": "JDI1NDUzMzFhLWFhYWQtNDVkMi1iMDg0LTlkYTNkOGY0YzMxMQDwf_____B_____",
+  "data": {
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {},
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {},
+    "John-Smith": {},
+    "0c88a952-ea0b-4000-83ba-57d293b8e345": {},
+    "cd95de08-5732-4f95-9675-efe72cde2594": {
+      "book": {
+        "title": "The Art of French Cooking"
+      }
+    },
+    "2545331a-aaad-45d2-b084-9da3d8f4c311": {}
+  }
+}
+Get all documents where the address.primary,secondary.city eq a value
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ]
+      }
+    },
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "100 Main St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}
+Get all documents where book title eq a particular book in reviews
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Nevertown",
+            "state": "MA",
+            "street": "200 Antigone St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ]
+      }
+    },
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "100 Main St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "2dc4364c-e64d-4860-8f0a-1b5ca9bd3549": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Paradise",
+            "state": "CA",
+            "street": "4593 Webster Ave",
+            "zip-code": 95534
+          }
+        },
+        "name": "John Jones",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "Boring book that I had to read for class.",
+            "rating": 2,
+            "review-date": "03-15-2020"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "Another boring book.",
+            "rating": 2,
+            "review-date": "0-02-2020"
+          }
+        ]
+      }
+    }
+  }
+}
+Get all documents where the reader rating is gt 3 and lte 5
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ]
+      }
+    },
+    "John-Smith": {
+      "reader": {
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}
+Get a document where names are in field
+{
+  "data": {
+    "9a47dcbc-2a41-429e-bd1b-fad26ac23b00": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ]
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}
+Get a document where names are in field but one name fails
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "200 Z St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "36614a34-c203-4d9f-a0d8-8fbbd07c18a6": {
+      "reader": {
+        "address": {
+          "primary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "100 Main St",
+            "zip-code": 55555
+          },
+          "secondary": {
+            "city": "Evertown",
+            "state": "MA",
+            "street": "850 2nd St",
+            "zip-code": 55556
+          }
+        },
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}
+Get a document where names are not in ($nin) field
+{
+  "pageState": "EW5hdGl2ZS1zb24tZG9jLWlkAPB_____8H____8=",
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "birthdate": "11-01-1992",
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "3d0e2f71-dfe9-4ab3-8099-9ee7acca0b7f": {},
+    "0c88a952-ea0b-4000-83ba-57d293b8e345": {},
+    "cd95de08-5732-4f95-9675-efe72cde2594": {},
+    "2545331a-aaad-45d2-b084-9da3d8f4c311": {},
+    "native-son-doc-id": {}
+  }
+}
+Get one particular document using documentId
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "okaydokie": "Now I have done it! We have a TTL at last!"
+  }
+}
+Get a book title using a document-id and document path
+{
+  "documentId": "native-son-doc-id",
+  "data": "Native Son"
+}
+Get the second book-title in a reader's reviews by array number using a document-id and document path
+{
+  "documentId": "John-Smith",
+  "data": {
+    "book-title": "Pride and Prejudice",
+    "comment": "It was a wonderful book! I loved reading it.",
+    "rating": 5,
+    "review-date": "03-02-2002"
+  }
+}
+Get data from a document using a WHERE clause and the document-path
+{
+  "documentId": "John-Smith",
+  "data": [
+    {
+      "book-title": "Moby Dick",
+      "comment": "It was okay.",
+      "rating": 3,
+      "review-date": "02-02-2002"
+    },
+    {
+      "book-title": "Pride and Prejudice",
+      "comment": "It was a wonderful book! I loved reading it.",
+      "rating": 5,
+      "review-date": "03-02-2002"
+    }
+  ]
+}

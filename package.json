@@ -18,8 +18,8 @@
     "url": "git+https://github.com/stargate/docs.git"
   },
   "dependencies": {
-    "@antora/cli": "^3.0.1",
-    "@antora/site-generator-default": "^3.0.1",
+    "@antora/cli": "^3.0.3",
+    "@antora/site-generator-default": "^3.0.3",
     "@redocly/cli": "1.0.0-beta.102",
     "antora": "^3.0.3",
     "linkinator": "^3.0.3",

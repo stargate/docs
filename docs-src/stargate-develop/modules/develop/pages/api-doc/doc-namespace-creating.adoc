@@ -1,0 +1,138 @@
+// tag::CreateNS[]
+= Creating a namespace
+
+// LLP 07.25.2022 I want to link glossary terms, once we decide on best way.
+In order to use the Document API, you must create the xref:gloss:gloss_namespace.adoc[namespace,window="_blank"] as a container
+that will store collections, which in turn store documents.
+Documents can themselves hold multiple documents.
+Multiple collections are contained in a namespace, but a collection cannot be
+contained in multiple namespaces.
+
+Only namespaces need to be specifically created. 
+Collections are specified when a document is inserted. 
+An optional setting, `replicas`, defines the number of data replicas the database will store for the namespace.
+If no replica is defined, then for a namespace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.
+
+== Simple namespace
+
+Send a `POST` request to `{base_doc_schema}`.
+In this example we use `{namespace}` for the `name`, and no `replicas` setting, to default to 1.
+docs/build/stargate/stargate/develop/api-doc/doc-creating-namespace.html
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-ns-simple.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-ns-simple.result[]
+----
+--
+====
+
+The xref:secure:auth.adoc[generated authorization token] and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name for the namespace is passed as JSON data using `--data`.
+
+`cURL` can use any of the shortcut or longhand flags:
+
+[cols="1,1,2,3",grid="all",frame="all"]
+|===
+|Shortcut | Longhand | Example | Description
+
+| `-L`
+| `--location`
+| `-L {base_doc_url}`
+| Retrieves the URL listed, even if it has moved
+
+| `-X`
+| `--request`
+| `-X PUT`
+| Defines the type of REST operation, such as `POST`, `GET`, and `DELETE`
+
+| `-H`
+| '--header'
+| '-H "X-Cassandra-Token: {auth_token}"'
+| Passes header information, such as auth tokens and the content type
+
+| '-d'
+| '--data'
+| -d '{ "name": "{namespace}", "replicas": 1 }'
+| Passes data as part of the request body
+
+| '-g'
+| '--globoff'
+| No argument
+| The `-globoff` flag switches off the `URL globbing parser`, and you can specify URLs that contain the characters `{}[]` without having curl interpret them.
+This option is handy for making the URLs for Document API calls cleaner to read, with less escaping.
+|===
+// end::CreateNS[]
+
+// tag::CreateNSextra[]
+== Set replicas in simple namespace
+
+To set the replicas, send a `POST` request to `{base_doc_schema}`.
+In this example we use `{namespace}` for the `name`,
+and `2` for the number of data `replicas`.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-ns-set-replicas.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-ns-set-replicas.result[]
+----
+--
+====
+
+== Namespace for multiple datacenters
+
+For a multiple-datacenter cluster, a namespace is defined `datacenters`.
+Send a `POST` request to `{base_doc_schema}`.
+In this example we use `myworld-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
+where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-ns-dcs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-ns-dcs.result[]
+----
+--
+====
+// end::CreateNSextra[]

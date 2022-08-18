@@ -1,0 +1,58 @@
+== Search collection for documents with a simple WHERE clause
+
+A `WHERE` clause is used to search for documents that have a particular value that
+matches the corresponding operator. 
+A `GET` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}?{where-clause}`
+is the basic form of the query.
+For one of the simplest `WHERE` clasues, get all documents where a name *equals* a particular reader's name:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name.result[]
+----
+--
+====
+
+In this example, `where={"reader.name":{"$eq":"Amy%20Smith"}}`, note that the whitespace in the
+specified string must be encoded with `%20`.
+The full documents are returned in this example.
+
+== Search collection for documents with a simple WHERE clause with fields
+
+If you wish to just return some fields, use a `WHERE` clause in conjunction with the `fields` option.
+Get all documents where name eq a particular reader with the fields reader name and reader birthdate:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-eq.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-eq.result[]
+----
+--
+====

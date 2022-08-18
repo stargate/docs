@@ -1,0 +1,61 @@
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "name": "John Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    },
+    "9195f8c9-1bd8-4ee5-b812-7075f9343331": {
+      "reader": {
+        "name": "Amy Smith",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was better than I thought.",
+            "rating": 4,
+            "review-date": "04-25-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was just like the movie.",
+            "rating": 2,
+            "review-date": "12-02-2002"
+          }
+        ]
+      }
+    },
+    "a5e54626-fd69-43ec-836d-115166e6d60b": {
+      "reader": {
+        "name": "Jane Doe",
+        "reviews": [
+          {
+            "book-title": "Moby Dick",
+            "comment": "It was okay.",
+            "rating": 3,
+            "review-date": "02-02-2002"
+          },
+          {
+            "book-title": "Pride and Prejudice",
+            "comment": "It was a wonderful book! I loved reading it.",
+            "rating": 5,
+            "review-date": "03-02-2002"
+          }
+        ]
+      }
+    }
+  }
+}
