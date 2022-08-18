@@ -39,7 +39,6 @@ include::develop:partial$prereqs-astra.adoc[]
 include::develop:partial$prereqs-stargate.adoc[]
 
 == API reference
-<<<<<<< HEAD
 
 If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-document.adoc[Stargate Document QuickStart, window="_blank"].
 To view the API Reference, see xref:develop:attachment$docv2.html[{database} Document API, window="_blank"].
@@ -76,30 +75,6 @@ include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents, leve
 include::develop:page$api-doc/doc-document-deleting.adoc[Deleting a document, leveloffset=+1]
 
 include::develop:page$api-doc/doc-collection-deleting.adoc[Deleting a document, leveloffset=+1]
-=======
-If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-document.adoc[Stargate Document QuickStart, window="_blank"].
-To view the API Reference, see xref:develop:attachment$docv2.html[{database} Document API, window="_blank"].
-
-// STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace]
-endif::[]
-
-include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace]
-
-// STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace]
-endif::[]
-
-include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents]
-
-include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents]
-
-include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents]
-
-include::develop:page$api-doc/doc-deleting-documents.adoc[Deleting documents and collections]
->>>>>>> main
 
 // MOVE THIS STUFF TO SDKs and create a page there.
 //include::develop:page$api-doc/doc-nodejs-client.adoc[Node.js Collection Client]

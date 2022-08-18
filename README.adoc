@@ -6,11 +6,6 @@ The docs are written in AsciiDoc and use Antora to generate the output.
 
 The Stargate docs are organized into two Antora components:
 
-<<<<<<< HEAD
-* The ROOT module, with general project infomation.
-* A quickstart module, with basic documentation to get new users started.
-* The develop module with more extensive topics on all the features of Stargate.
-=======
 * stargate-core
  ** ROOT module: general information pages, plus attachments
  ** concepts module: how Stargate works
@@ -23,7 +18,6 @@ The Stargate docs are organized into two Antora components:
 * stargate-develop
  ** develop module: complete API documentation
  ** quickstart module: basic documentation to get new users started
->>>>>>> main
 
 == How do you contribute?
 
@@ -43,17 +37,14 @@ If you wish to build locally to check a docset build, use `build-locally.sh`.
 There are two options (dev-stargate, stargate). One builds the API references in addition to the documentation. 
 Run the command with:
 
-<<<<<<< HEAD
 [source, shell, subs="attributes+"]
-=======
->>>>>>> main
 ----
 ./build-locally.sh stargate
 ----
 
 The script will check for dependencies and install or update any software required for the build.
 
-Open `build/site/<docset>`, such as `build/site/stargate`, a web browser to view the output.
+Open `build/site/<docset>`, such as `build/site/stargate`, in a web browser to view the output.
 
 == Repo Dependencies
 
@@ -102,28 +93,6 @@ version 2.6.1. You will need to downgrade that package before building if you en
 The current development version of the docs are generated and published at https://stargate.github.io/docs/.
 
 The `.github/workflows/antora.yml` GitHub action will generate and publish the development docs on pushes to the main branch. Development docs use the `playbooks/site-local-<docset>.yaml` Antora site configuration file.
-
-<<<<<<< HEAD
-== Generating and viewing the HTML output locally
-
-The docs can be generated locally during development, to check work. 
-To generate only the docs (faster if you don't need to check the OpenAPI docs):
-
-[source, shell, subs="attributes+"]
-----
-npm run build:local
-----
-
-To generate the docs and OpenAPI docs:
-
-[source, shell, subs="attributes+"]
-----
-npm run build:dev
-----
-
-Open `build/site/index.html` in a web browser to view the output.
-=======
->>>>>>> main
 
 == Publishing to the Stargate website
 

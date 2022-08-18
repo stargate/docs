@@ -1,14 +1,9 @@
 // tag::WriteBasicData[]
-<<<<<<< HEAD
 = Writing documents
-=======
-=== Writing documents
->>>>>>> main
 
 All data written with the Document API is stored as JSON documents stored in
 collections.
 
-<<<<<<< HEAD
 A few terms will help your understanding as you prepare to write and read documents:
 
 document-id:: An ID that you can either assign as a string when creating a document, or a random
@@ -54,13 +49,6 @@ Notice that the `document-id` is returned.
 == Add a document without a document-id
 
 Suppose you want each document to be assigned a random UUID. 
-=======
-include::partial$DocAPIBlogPost.adoc[]
-
-==== Add document specifying a collection name
-
-First, let's add a document to a specified collection.
->>>>>>> main
 Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}`
 to add data to the collection `{collection}`.
 The data is passed in the JSON body.
@@ -72,11 +60,7 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-post-noDocId.sh[]
-=======
-include::example$docapi/curl_post_noDocId.sh[]
->>>>>>> main
 ----
 --
 
@@ -85,34 +69,17 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-post-noDocId.result[]
-=======
-include::example$result/docapi_curl_post_noDocId.result[]
->>>>>>> main
 ----
 --
 ====
 
-<<<<<<< HEAD
 Notice that the `document-id` returned is a UUID if not specified, by default.
 
 == Add a document with data
 
 Documents can be added with varying JSON data, unless a xref:develop:dev-with-doc.adoc#add-JSON-schema-to-a-collection[JSON schema is specified].
 Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}` similar to the last example, but add more JSON data to the body of the request:
-=======
-Notice that the `document-id` returned is a UUID if not specified.
-
-==== Add document specifying collection name and document-id
-
-Next, let's add a document to a specified collection, but specify the `document-id`.
-Send a `PUT` request to
-`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
-to add data to the collection `Janet`.
-The `document-id` can be any string.
-The data is passed in the JSON body.
->>>>>>> main
 
 [tabs]
 ====
@@ -121,14 +88,9 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-post-one-reader.sh[]
 ----
 
-=======
-include::example$docapi/curl_put_janet.sh[]
-----
->>>>>>> main
 --
 
 Result::
@@ -136,16 +98,11 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-post-one-reader.result[]
-=======
-include::example$result/docapi_curl_put_janet.result[]
->>>>>>> main
 ----
 --
 ====
 
-<<<<<<< HEAD
 // LLP 97.25.2022 CHECK THIS INFO
 // Note the difference between using `POST` and `PUT`. The `POST` request
 // is used to insert new documents when you want the system to auto-generate the
@@ -159,20 +116,10 @@ include::example$result/docapi_curl_put_janet.result[]
 // ############# One thing to note: PATCH expects that the data present at the path is 
 // ############# already a JSON object {}. if you have an array or some scalar value, 
 // ############# those values will be blown away and overwritten
-=======
-Note the difference between using `POST` and `PUT`. The `POST` request
-is used to insert new documents when you want the system to auto-generate the
-documentId. The `PUT` request is used to insert a new document when you want to
-specify the documentId.
-
-`PUT` requests can also be used to update an existing
-document. Let's look at those examples, next.
->>>>>>> main
 
 // end::WriteBasicData[]
 
 // tag::WriteAdvData[]
-<<<<<<< HEAD
 
 == Add another document (used in examples)
 
@@ -208,14 +155,6 @@ include::example$result/docapi/library/curl-document-put-one-book.result[]
 
 You are probably wondering how you get data back from a document. 
 Let's read the data from the last example with a `GET` request:
-=======
-==== Inserting a sub-document
-You can also insert documents that have nested values, or sub-documents.
-Send a `PUT` request to
-`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
-to add data to the existing collection.
-The data is passed in the JSON body.
->>>>>>> main
 
 [tabs]
 ====
@@ -224,11 +163,7 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-get-one-book.sh[]
-=======
-include::example$docapi/curl_put_joey_subdoc.sh[]
->>>>>>> main
 ----
 --
 
@@ -237,7 +172,6 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-get-one-book.result[]
 ----
 --
@@ -441,10 +375,4 @@ include::example$result/docapi/library/curl-document-get-one-6.result[]
 ====
 
 
-=======
-include::example$result/docapi_curl_put_joey_subdoc.result[]
-----
---
-====
->>>>>>> main
 // end::WriteAdvData[]

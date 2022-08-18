@@ -1,5 +1,4 @@
 // tag::UpdateBasicData[]
-<<<<<<< HEAD
 = Update/modify documents
  
 Data changes, so often it is necessary to update or modify an entire document.
@@ -7,17 +6,6 @@ Data changes, so often it is necessary to update or modify an entire document.
 == Replace a document with PUT
 
 A `PUT` request using a document-id will replace a document found in a collection.
-=======
-== Update documents
- 
-Data changes, so often it is necessary to update an entire document.
-
-=== Replace a document
-
-Send a `PATCH` request to
-`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`
-to replace data to the existing collection. All fields included will be changed.
->>>>>>> main
 
 [tabs]
 ====
@@ -26,11 +14,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-put-replace.sh[]
-=======
-include::example$docapi/curl_patch_janet.sh[]
->>>>>>> main
 ----
 --
 
@@ -39,20 +23,12 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-put-replace.result[]
-=======
-include::example$result/docapi_curl_patch_janet.result[]
->>>>>>> main
 ----
 --
 ====
 
-<<<<<<< HEAD
 To check if the data is changed, `GET` the document:
-=======
-A `GET` request will show that the data has been replaced in the document:
->>>>>>> main
 
 [tabs]
 ====
@@ -61,11 +37,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-get-one.sh[]
-=======
-include::example$docapi/curl_patch_check_janet.sh[]
->>>>>>> main
 ----
 --
 
@@ -74,16 +46,11 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-get-one-2.result[]
-=======
-include::example$result/docapi_curl_patch_check_janet.result[]
->>>>>>> main
 ----
 --
 ====
 
-<<<<<<< HEAD
 == Replace some data in a document with PATCH and document-id
 
 A 'PATCH' request using a document-id will replace the targeted data in a JSON object contained in the document. 
@@ -186,15 +153,10 @@ include::example$result/docapi/library/curl-document-get-one-4.result[]
 ----
 --
 ====
-=======
-NOTE: `PATCH` updates are upserts. If the document doesn't exist, it will be created.
-If it does exist, it will be updated with the new document data.
->>>>>>> main
 
 // end::UpdateBasicData[]
 
 // tag::UpdateAdvData[]
-<<<<<<< HEAD
 
 == Write data to a document-path with PUT
 
@@ -203,14 +165,6 @@ Using a `PUT` request, you can replace current data in a document.
 To partially update, send a `PUT` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 This example will change the book title from `Native Son` to `Native Daughter`:
-=======
-=== Replace part of of a document or sub-document
-
-It is also possible to update only part of a document. To partially update, send
-a `PATCH` request to
- `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
-In this example, we want to change just the firstname of the document:
->>>>>>> main
 
 [tabs]
 ====
@@ -219,11 +173,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-put-book-with-path.sh[]
-=======
-include::example$docapi/curl_patch_partial.sh[]
->>>>>>> main
 ----
 --
 
@@ -232,25 +182,17 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-put-book-with-path.result[]
-=======
-include::example$result/docapi_curl_patch_partial.result[]
->>>>>>> main
 ----
 --
 ====
 
-<<<<<<< HEAD
 == Write data to a document-path with PATCH
 
 Using a `PATCH` request, you can overwrite current data in a document. 
 To partially update, send a `PATCH` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 This example overwrites a book's information:
-=======
-and a `GET` will show that only the `weights` has been changed.
->>>>>>> main
 
 [tabs]
 ====
@@ -259,11 +201,7 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$docapi/library/curl-document-patch-book-with-path.sh[]
-=======
-include::example$docapi/curl_patch_check_partial.sh[]
->>>>>>> main
 ----
 --
 
@@ -272,69 +210,11 @@ Result::
 --
 [source,plaintext, subs="attributes+"]
 ----
-<<<<<<< HEAD
 include::example$result/docapi/library/curl-document-patch-book-with-path.result[]
-=======
-include::example$result/docapi_curl_patch_check_partial.result[]
->>>>>>> main
 ----
 --
 ====
 
-<<<<<<< HEAD
 // end::UpdateAdvData[]
 
 include::develop:page$api-doc/doc-document-push-pop-array.adoc[Using built-in array functions push and pop, leveloffset=+1]
-=======
-To partially update a sub-document,  send a `PATCH` request to
- `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`
- in the same manner as the last command, but including only sub-document
- information to change and the `document-path` of the sub-document. Include
- all fields that you wish to update.
-
-[tabs]
-====
-cURL command (/v2)::
-+
---
-[source, shell, subs="attributes+"]
-----
-include::example$docapi/curl_patch_subdoc.sh[]
-----
---
-
-Result::
-+
---
-[source,plaintext, subs="attributes+"]
-----
-include::example$result/docapi_curl_patch_subdoc.result[]
-----
---
-====
-
-and a `GET` will show that only the `weights` has been changed.
-
-[tabs]
-====
-cURL command (/v2)::
-+
---
-[source, shell, subs="attributes+"]
-----
-include::example$docapi/curl_patch_check_subdoc.sh[]
-----
---
-
-Result::
-+
---
-[source,plaintext, subs="attributes+"]
-----
-include::example$result/docapi_curl_patch_check_subdoc.result[]
-----
---
-====
-
-// end::UpdateAdvData[]
->>>>>>> main
