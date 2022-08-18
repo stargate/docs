@@ -3,12 +3,7 @@ name: Generate Antora site
 on:
   push:
     branches:
-
-<<<<<<< HEAD
-      - test-multi-repos
-=======
       - main
->>>>>>> main
 
 env:
   SITE_DIR: 'stargate/stargate'
@@ -35,20 +30,15 @@ jobs:
             echo "antora.yml removed"
           fi
           ln -s antora-stargate.yml antora.yml
-<<<<<<< HEAD
-=======
           echo "symlink created"
->>>>>>> main
+
           cd $GITHUB_WORKSPACE/docs-src/stargate-develop
             if [  -f "$FILE" ]; then
             rm antora.yml;
             echo "antora.yml removed"
           fi          
           ln -s antora-stargate.yml antora.yml
-<<<<<<< HEAD
-=======
           echo "symlink created"
->>>>>>> main
           cd $GITHUB_WORKSPACE
       - name: "Generate site using antora site action"
         uses: riptano/antora-site-action@main
@@ -77,11 +67,7 @@ jobs:
      - name: Setup Node.js for use with actions
        uses: actions/setup-node@v3
        with:
-<<<<<<< HEAD
-         version: 14
-=======
          node-version: 16
->>>>>>> main
      - name: Checkout
        uses: actions/checkout@v3
      - name: Download generated site

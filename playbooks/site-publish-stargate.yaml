@@ -6,16 +6,8 @@ output:
   dir: ~/work/docs/build/site
 
 content:
-<<<<<<< HEAD
-#  edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
-  sources:
-    - url: ~/work/guide-docs
-      branches: [glossary]
-      start_path: docs-src/glossary
-=======
   edit_url: 'https://github.com/stargate/docs/blob/master/{path}'
   sources:
->>>>>>> main
     - url: ~/work/docs
       branches: HEAD
       start_path: docs-src/stargate-develop
@@ -86,13 +78,8 @@ asciidoc:
     user2fn: 'Janesha'
     user2ln: 'Doesha'
 
-<<<<<<< HEAD
     namespace: 'test'
     collection: 'library'
-=======
-    namespace: 'myworld'
-    collection: 'fitness'
->>>>>>> main
     user1: 'Janet'
     user2: 'Joey'
     user2a: 'Joseph'
@@ -104,10 +91,6 @@ asciidoc:
 
     stargate_docs_base_url: 'https://stargate.io/docs'
     docs: 'ssh://github.com/stargate/docs.git'
-<<<<<<< HEAD
-    guide-docs: 'ssh://github.com/riptano/guide-docs.git'
-=======
->>>>>>> main
 
   extensions:
      - ~/work/docs/playbooks/lib/tabs-block.js
