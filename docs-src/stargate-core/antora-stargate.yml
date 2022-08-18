@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: docs
+=======
+name: stargate
+>>>>>>> main
 title: Stargate Documentation
 version: ~
 nav:

@@ -1,0 +1,12 @@
+// tag::DeleteNS[]
+=== Deleting a namespace
+
+Send a `DELETE` request to `{base_doc_schema}/{namespace_name}` to delete
+a namespace. All collections and documents will be deleted along with the
+namespace.
+
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/curl_delete_ns.sh[]
+----
+// end::DeleteNS[]

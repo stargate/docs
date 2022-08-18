@@ -1,0 +1,110 @@
+// tag::CreateNS[]
+== Creating a namespace
+
+In order to use the Document API, you must create the namespace as a container
+that will store collections, which in turn store documents.
+Documents can themselves hold multiple documents.
+Multiple collections are contained in a namespace, but a collection cannot be
+contained in multiple namespaces.
+
+Only namespaces need to be specifically created. Collections are specified when a document
+is inserted. An optional setting, `replicas`, defines
+the number of data replicas the database will store for the namespace.
+If no replica is defined, then for a namespace in a single datacenter cluster,
+the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
+datacenter.
+
+=== Simple namespace
+
+Send a `POST` request to `{base_doc_schema}`.
+In this example we use `{namespace}` for the `name`, and no `replicas` setting, to default to 1.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_simple_ns.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_create_ns.result[]
+----
+--
+====
+
+The authorization token and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name for the namespace is passed as JSON data using `--data`.
+For shorthand, `cURL` can use:
+
+* `-L` for `--location`
+* `-X` for `--request`
+* `-H` for `--header`
+* `-d` for `--data`
+// end::CreateNS[]
+
+// tag::CreateNSextra[]
+=== Set replicas in simple namespace
+
+To set the replicas, send a `POST` request to `{base_doc_schema}`.
+In this example we use `{namespace}` for the `name`,
+and `2` for the number of data `replicas`.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_create_ns.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_create_ns.result[]
+----
+--
+====
+
+==== Namespace for multiple datacenters
+
+For a multiple-datacenter cluster, a namespace is defined `datacenters`.
+Send a `POST` request to `{base_doc_schema}`.
+In this example we use `myworld-dcs` for the `name`, the datacenters are `dc1` and `dc2`,
+where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/curl_ns_dcs.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi_curl_ns_dcs.result[]
+----
+--
+====
+// end::CreateNSextra[]

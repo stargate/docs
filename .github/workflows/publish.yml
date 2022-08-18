@@ -1,14 +1,9 @@
-name: Generate Antora site
+name: Publish docs
 
 on:
   push:
-    branches:
-
-<<<<<<< HEAD
-      - test-multi-repos
-=======
-      - main
->>>>>>> main
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 env:
   SITE_DIR: 'stargate/stargate'
@@ -19,10 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: "Render redoc"
         run: |
-          npm install --location=global redoc-cli
+          npm install -g redoc-cli
+
           redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
           redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
           redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
@@ -35,25 +30,17 @@ jobs:
             echo "antora.yml removed"
           fi
           ln -s antora-stargate.yml antora.yml
-<<<<<<< HEAD
-=======
-          echo "symlink created"
->>>>>>> main
           cd $GITHUB_WORKSPACE/docs-src/stargate-develop
             if [  -f "$FILE" ]; then
             rm antora.yml;
             echo "antora.yml removed"
           fi          
           ln -s antora-stargate.yml antora.yml
-<<<<<<< HEAD
-=======
-          echo "symlink created"
->>>>>>> main
-          cd $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE      
       - name: "Generate site using antora site action"
         uses: riptano/antora-site-action@main
         with:
-         antora_playbook: playbooks/site-local-stargate.yaml 
+         antora_playbook: playbooks/site-publish-stargate.yaml
       - name: "List folder"
         run: |
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
@@ -77,11 +64,7 @@ jobs:
      - name: Setup Node.js for use with actions
        uses: actions/setup-node@v3
        with:
-<<<<<<< HEAD
-         version: 14
-=======
          node-version: 16
->>>>>>> main
      - name: Checkout
        uses: actions/checkout@v3
      - name: Download generated site
@@ -89,12 +72,13 @@ jobs:
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
-
+         
      - name: Deploy to GitHub Pages
-       uses: JamesIves/github-pages-deploy-action@v4.3.3
+       uses: peaceiris/actions-gh-pages@v3
        with:
-        # ACCESS_TOKEN: # optional
-        token: "${{ github.token}}"
-        folder: "${{ env.SITE_DIR }}"
-        branch: 'gh-pages'
-        commit-message: "[CI] Publish documentation for ${{ github.sha }}"
+          personal_token: "${{ secrets.PUBLISH_STARGATE_DOCS }}"
+          external_repository: stargate/website
+          publish_branch: 'gh-pages'
+          publish_dir: "${{ env.SITE_DIR }}"
+          destination_dir: docs
+          disable_nojekyll: true

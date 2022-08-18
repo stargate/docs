@@ -3,12 +3,18 @@
   "scripts": {
     "build:prod:stargate": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:publish:stargate",
     "build:prodlint": "npm run build:oaslinter && npm run build:prod:stargate",
+<<<<<<< HEAD
     "build:dev:stargate": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:local:stargate",
     "build:publish:stargate": "antora --log-level error --fetch --clean playbooks/site-publish-stargate.yaml",
     "build:local:stargate": "antora --log-level error --stacktrace --fetch --clean playbooks/site-local-stargate.yaml",
     "build:local-devstargate": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg.yaml",
     "build:localsg+adoc": "antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg+adoc.yaml",
     "build:local-devsg+adoc": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && antora --log-level error --stacktrace --fetch --clean playbooks/site-local-sg+adoc.yaml",
+=======
+    "build:publish:stargate": "antora --log-level error --fetch --clean playbooks/site-publish-stargate.yaml",
+    "build:local:stargate": "antora --log-level error --stacktrace --fetch --clean playbooks/site-local-stargate.yaml",
+    "build:dev:stargate": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:local:stargate",
+>>>>>>> main
     "build:restapi": "redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html",
     "build:restapiv1": "redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html",
     "build:docapi": "npx redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html",
@@ -21,8 +27,13 @@
     "url": "git+https://github.com/stargate/docs.git"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@antora/cli": "^3.0.3",
     "@antora/site-generator-default": "^3.0.3",
+=======
+    "@antora/cli": "^3.0.1",
+    "@antora/site-generator-default": "^3.0.1",
+>>>>>>> main
     "@redocly/cli": "1.0.0-beta.102",
     "antora": "^3.0.3",
     "linkinator": "^3.0.3",
