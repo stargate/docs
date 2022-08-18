@@ -236,7 +236,7 @@ include::example$result/docapi/library/curl-document-get-where-name-in.result[]
 
 A second example gets documents where the names are `in` the field, but one name fails:
 
- [tabs]
+[tabs]
 ====
 cURL command (/v2)::
 +
