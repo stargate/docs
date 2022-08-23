@@ -7,17 +7,20 @@ To delete a document, send a `DELETE` request to
 ----
 include::example$docapi/curl_delete_doc.sh[]
 ----
+
+include::partial$deletion-no-return-data.adoc[]
 // end::DeleteBasicData[]
 
 // tag::DeleteAdvData[]
-To delete a document, based on a document path, send a `DELETE` request to
-`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+To delete a document, based on a document-id and using a WHERE clause, send a `DELETE` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/?{where-clause}`.
 
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/curl_delete_doc_where.sh[]
+include::example$docapi/library/curl-document-delete-where.sh[]
 ----
 
+include::partial$deletion-no-return-data.adoc[]
 // tag::deleteColl[]
 
 == Delete a collection
@@ -27,7 +30,9 @@ to delete a collection. All data will be deleted along with the collection schem
 
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/curl_delete_collection.sh[]
+include::example$docapi/library/curl-collection-delete.sh[]
 ----
+
+include::partial$deletion-no-return-data.adoc[]
 // end::deleteColl[]
 // end::DeleteAdvData[]

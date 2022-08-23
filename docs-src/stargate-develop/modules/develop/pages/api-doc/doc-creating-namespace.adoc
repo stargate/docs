@@ -1,7 +1,7 @@
 // tag::CreateNS[]
 == Creating a namespace
 
-In order to use the Document API, you must create the namespace as a container
+In order to use the Document API, you must create the {glossary-url}/gloss_namespace.html[namespace, window="_blank"] as a container
 that will store collections, which in turn store documents.
 Documents can themselves hold multiple documents.
 Multiple collections are contained in a namespace, but a collection cannot be

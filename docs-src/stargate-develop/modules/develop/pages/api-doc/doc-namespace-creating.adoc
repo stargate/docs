@@ -1,8 +1,7 @@
 // tag::CreateNS[]
 = Creating a namespace
 
-// LLP 07.25.2022 I want to link glossary terms, once we decide on best way.
-In order to use the Document API, you must create the {glossary_url}gloss_namespace.html[namespace,window="_blank"] as a container
+In order to use the Document API, you must create the {glossary-url}gloss_namespace.html[namespace,window="_blank"] as a container
 that will store collections, which in turn store documents.
 Documents can themselves hold multiple documents.
 Multiple collections are contained in a namespace, but a collection cannot be
@@ -46,38 +45,7 @@ token must be identified as `X-Cassandra-Token` so that cluster recognizes the t
 and its value.
 The specified name for the namespace is passed as JSON data using `--data`.
 
-`cURL` can use any of the shortcut or longhand flags:
-
-[cols="1,1,2,3",grid="all",frame="all"]
-|===
-|Shortcut | Longhand | Example | Description
-
-| `-L`
-| `--location`
-| `-L {base_doc_url}`
-| Retrieves the URL listed, even if it has moved
-
-| `-X`
-| `--request`
-| `-X PUT`
-| Defines the type of REST operation, such as `POST`, `GET`, and `DELETE`
-
-| `-H`
-| '--header'
-| '-H "X-Cassandra-Token: {auth_token}"'
-| Passes header information, such as auth tokens and the content type
-
-| '-d'
-| '--data'
-| -d '{ "name": "{namespace}", "replicas": 1 }'
-| Passes data as part of the request body
-
-| '-g'
-| '--globoff'
-| No argument
-| The `-globoff` flag switches off the `URL globbing parser`, and you can specify URLs that contain the characters `{}[]` without having curl interpret them.
-This option is handy for making the URLs for Document API calls cleaner to read, with less escaping.
-|===
+include::partial$curl-flags.adoc[]
 // end::CreateNS[]
 
 // tag::CreateNSextra[]

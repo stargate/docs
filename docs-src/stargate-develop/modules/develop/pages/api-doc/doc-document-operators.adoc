@@ -50,7 +50,6 @@ include::example$result/docapi/library/curl-document-get-where-name-eq.result[]
 == ne
 
 The `ne` operator matches any field value that does not equal a supplied value.
-The results also include documents that do not contain the field.
 
 [tabs]
 ====
@@ -157,7 +156,8 @@ include::example$result/docapi/library/curl-document-get-where-names-or.result[]
 
 == not
 
-The `not` operator ???
+The `not` operator returns any documents that do not match the supplied value for a field.
+The results also include documents that do not contain the field.
 
 [tabs]
 ====

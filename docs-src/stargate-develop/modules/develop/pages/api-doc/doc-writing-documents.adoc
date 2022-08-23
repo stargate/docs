@@ -103,19 +103,15 @@ include::example$result/docapi/library/curl-document-post-one-reader.result[]
 --
 ====
 
-// LLP 97.25.2022 CHECK THIS INFO
-// Note the difference between using `POST` and `PUT`. The `POST` request
-// is used to insert new documents when you want the system to auto-generate the
-// documentId. The `PUT` request is used to insert a new document when you want to
-// specify the documentId.
+Note the difference between using `POST` and `PUT`.
+The `POST` request is used to insert new documents when you want the system to auto-generate the document-dd. 
+The `PUT` request is used to insert a new document when you want to specify the document-id.
+These commands can also be used to xref:api-doc/doc-updating-documents.adoc[update existing documents].
 
-// `PUT` requests can also be used to update an existing
-// document. Let's look at those examples, next.
-
-// ############# BIG PATCH WARNING: 
-// ############# One thing to note: PATCH expects that the data present at the path is 
-// ############# already a JSON object {}. if you have an array or some scalar value, 
-// ############# those values will be blown away and overwritten
+A 'PATCH' request using a document-id will replace the targeted data in a JSON object contained in the document. 
+JSON objects are delimited by `{ }` in the data.
+If you have an array, delimited by '[ ]' in the JSON object targeted, or a scalar value,
+the values will be overwritten.
 
 // end::WriteBasicData[]
 
@@ -126,20 +122,19 @@ include::example$result/docapi/library/curl-document-post-one-reader.result[]
 This document insertion is used in later examples. 
 It is a `PUT` request:
 
+.Click to hide code
+[%collapsible%open]
+=====
 [tabs]
 ====
 cURL command (/v2)::
 +
-.Click to see code
-[%collapsible]
-=====
 --
 [source,shell, subs="attributes+"]
 ----
 include::example$docapi/library/curl-document-put-one-book.sh[]
 ----
 --
-=====
 
 Result::
 +
@@ -150,6 +145,7 @@ include::example$result/docapi/library/curl-document-put-one-book.result[]
 ----
 --
 ====
+=====
 
 == Check a document with GET request
 
@@ -182,36 +178,33 @@ include::example$result/docapi/library/curl-document-get-one-book.result[]
 It is often convenient to insert several documents into a collection with one request.
 The Document API has an endpoint that allows for batches of JSON documents to be inserted
 into the same collection.
+Data sent to the endpoint `{base_doc_api}/{namespace_name}/collections/{collection_name}/batch` is expected to be in JSON lines format (1 document per line).
 This feature was added with https://github.com/stargate/stargate/pull/1043[https://github.com/stargate/stargate/pull/1043].
 
 
 .*More advanced use of batch*
 [%collapsible]
-====
-Data sent to the endpoint `{base_doc_api}/{namespace_name}/collections/{collection_name}/batch` is expected to be in JSON lines format (1 document per line)
-// LLP 07.25.2022 DIDN'T I WRITE AN EXAMPLE USING THE ID-PATH? 
-
+=====
 Additionally, you can supply an id-path query parameter to use the value at a particular path in each document as the document's key in the database.
 So if all your documents have an id field, you could set `id-path=id` and treat the value in id as the document's key. 
 You can also use any valid path syntax (globs not allowed), e.g. `id-path=user.emails.[0].id`.
 
 If id-path is excluded, random UUIDs will be assigned to every document, and the response will have the document-ids created corresponding in the same order as the documents were supplied in.
-====
+=====
 
+.Click to hide code
+[%collapsible%open]
+=====
 [tabs]
 ====
 cURL command (/v2)::
 +
-.Click to see code
-[%collapsible]
-=====
 --
 [source,shell, subs="attributes+"]
 ----
 include::example$docapi/library/curl-document-post-mult-readers.sh[]
 ----
 --
-=====
 
 Result::
 +
@@ -222,23 +215,23 @@ include::example$result/docapi/library/curl-document-post-mult-readers.result[]
 ----
 --
 ====
+=====
 
 == Add more documents in a BATCH (used in examples)
 
+.Click to hide code
+[%collapsible%open]
+=====
 [tabs]
 ====
 cURL command (/v2)::
 +
-.Click to see code
-[%collapsible]
-=====
 --
 [source,shell, subs="attributes+"]
 ----
 include::example$docapi/library/curl-document-post-mult-books.sh[]
 ----
 --
-=====
 
 Result::
 +
@@ -249,6 +242,7 @@ include::example$result/docapi/library/curl-document-post-mult-books.result[]
 ----
 --
 ====
+=====
 
 == Add a reader document with document-id [need in examples]
 
