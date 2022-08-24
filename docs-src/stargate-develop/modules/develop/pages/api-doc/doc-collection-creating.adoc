@@ -70,4 +70,10 @@ include::example$result/docapi/library/curl-collection-put-json-schema.result[]
 ----
 --
 ====
+
+[NOTE]
+====
+JSON schema support is experimental.
+Also, partial updates of data are not allowed if JSON schema is defined.
+====
 // end::CreateCollextra[]

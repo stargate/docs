@@ -10,7 +10,7 @@ curl --location --request PUT '{base_doc_url}{base_doc_api}/{namespace}/collecti
             ],
             "pub-year": 1930,
             "genre": [
-                "slavery",
+                "poverty",
                 "action"
             ],
             "format": [

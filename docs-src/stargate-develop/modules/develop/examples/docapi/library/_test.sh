@@ -132,8 +132,9 @@ echo "Put JSON schema for a particular collection"
 echo "Get all collections, to check that the 2 collections are made."
 ./curl-collection-get-all.sh.tmp|jq -r '.'
 # LIST JSON SCHEMA FOR A PARTICULAR COLLECTION
-echo "Get JSON schema for a particular collection"
-./curl-collection-get-json-schema.sh.tmp | jq -r '.'
+# LLP - EricB says this code was deleted
+#echo "Get JSON schema for a particular collection"
+#./curl-collection-get-json-schema.sh.tmp | jq -r '.'
 
 # INSERT DOCUMENTS
 # IF A SPECIFIC DOCUMENT-ID IS REQUIRED, PUT IS USED, NOT POST

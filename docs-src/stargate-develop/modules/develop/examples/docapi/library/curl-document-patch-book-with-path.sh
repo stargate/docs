@@ -12,7 +12,7 @@ curl -X 'PATCH' \
     ],
     "pub-year": 1930,
     "genre": [
-        "slavery",
+        "poverty",
         "action"
     ],
     "format": [

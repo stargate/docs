@@ -24,28 +24,29 @@ include::example$result/docapi/library/curl-collection-get-all.result[]
 --
 ====
 
-== Checking collection JSON schema existence
+// LLP - EricB tells me that this was deleted from the code.
+// == Checking collection JSON schema existence
 
-To check the JSON schema for a particular collection, execute a `GET` request:
+// To check the JSON schema for a particular collection, execute a `GET` request:
 
-[tabs]
-====
-cURL command (/v2)::
-+
---
-[source, shell, subs="attributes+"]
-----
-include::example$docapi/library/curl-collection-get-json-schema.sh[]
-----
---
+// [tabs]
+// ====
+// cURL command (/v2)::
+// +
+// --
+// [source, shell, subs="attributes+"]
+// ----
+// include::example$docapi/library/curl-collection-get-json-schema.sh[]
+// ----
+// --
 
-Result::
-+
---
-[source,plaintext]
-----
-include::example$result/docapi/library/curl-collection-get-json-schema.result[]
-----
---
-====
+// Result::
+// +
+// --
+// [source,plaintext]
+// ----
+// include::example$result/docapi/library/curl-collection-get-json-schema.result[]
+// ----
+// --
+// ====
 // end::CheckColl[]
