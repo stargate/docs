@@ -13,12 +13,28 @@ include::develop:partial$deletion-no-return-data.adoc[]
 // end::DeleteBasicData[]
 
 // tag::DeleteAdvData[]
-To delete a document, based on a document path, send a `DELETE` request to
+
+== Delete data in a document
+
+To delete a document path in a document, send a `DELETE` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
+In this example, the secondary address for the user John Smith is deleted from the document.
+
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-delete-path.sh[]
+----
+
+include::develop:partial$deletion-no-return-data.adoc[]
+
+To delete a document, based on a WHERE clause, send a `DELETE` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/?{where-clause}`.
 
 [source, shell, subs="attributes+"]
 ----
 include::example$docapi/library/curl-document-delete-where.sh[]
 ----
+
+include::develop:partial$deletion-no-return-data.adoc[]
 
 // end::DeleteAdvData[]
