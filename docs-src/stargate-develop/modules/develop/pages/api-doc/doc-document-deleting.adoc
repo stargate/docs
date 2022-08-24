@@ -26,7 +26,7 @@ include::develop:partial$deletion-no-return-data.adoc[]
 
 
 
-== Delete a document using a WHERE clause
+== Delete a full document using a WHERE clause
 
 To delete a document, based on a WHERE clause, send a `DELETE` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/?{where-clause}`.
