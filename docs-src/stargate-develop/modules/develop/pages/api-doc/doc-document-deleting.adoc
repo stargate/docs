@@ -1,18 +1,5 @@
 // tag::DeleteBasicData[]
-= Delete a document
-To delete a document, send a `DELETE` request to
-`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`.
-
-[source,bash, subs="attributes+"]
-----
-include::example$docapi/library/curl-document-delete.sh[]
-----
-
-include::develop:partial$deletion-no-return-data.adoc[]
-
-// end::DeleteBasicData[]
-
-// tag::DeleteAdvData[]
+= Delete a document or part of a document
 
 == Delete data in a document
 
@@ -25,7 +12,21 @@ In this example, the secondary address for the user John Smith is deleted from t
 include::example$docapi/library/curl-document-delete-path.sh[]
 ----
 
+== Delete full document using a document-id
+
+To delete a document, send a `DELETE` request to
+`{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`.
+
+[source,bash, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-delete.sh[]
+----
+
 include::develop:partial$deletion-no-return-data.adoc[]
+
+
+
+== Delete a document using a WHERE clause
 
 To delete a document, based on a WHERE clause, send a `DELETE` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/?{where-clause}`.
@@ -35,6 +36,4 @@ To delete a document, based on a WHERE clause, send a `DELETE` request to
 include::example$docapi/library/curl-document-delete-where.sh[]
 ----
 
-include::develop:partial$deletion-no-return-data.adoc[]
-
-// end::DeleteAdvData[]
+// end::DeleteBasicData[]
