@@ -166,10 +166,10 @@ echo "Create document for multiple books with batch POST"
 echo "Write one reader with an document-id for later use"
 ./curl-document-put-one-reader-with-id.sh.tmp | jq -r '.'
 
-############# BIG PATCH WARNING: 
-############# One thing to note: PATCH expects that the data present at the path is 
-############# already a JSON object {}. if you have an array or some scalar value, 
-############# those values will be blown away and overwritten
+# BIG PATCH WARNING: 
+# One thing to note: PATCH expects that the data present at the path is 
+# already a JSON object {}. if you have an array or some scalar value, 
+# those values will be blown away and overwritten
 
 # MODIFY DOCUMENTS
 echo "Replace a document with a PUT using document-id"
@@ -274,7 +274,6 @@ echo "Get a document where a value is contained in an array"
 echo "Get a document with a where wildcard on book format"
 ./curl-document-get-wildcard.sh.tmp | jq -r '.'
 
-
 # LIST A PARTICULAR DOCUMENT USING DOCUMENTID AND CONDITIONS
 echo "Get one particular document using documentId"
 ./curl-document-get-one.sh.tmp | jq -r '.'
@@ -287,10 +286,6 @@ echo "Get the second book-title in a reader's reviews by array number using a do
 ./curl-data-get-path-array-in-document.sh.tmp  | jq -r '.'
 echo "Get data from a document using a WHERE clause and the document-path"
 ./curl-data-where-with-document-path.sh.tmp  | jq -r '.'
-
-##### EXAMPLE OF GRON IF I NEED IT
-# echo "check patch subdoc"
-# ./curl_patch_check_subdoc.sh.tmp| jq -r '.' > HOLD; diff <(gron HOLD) <(gron ../result/docapi_curl_patch_check_subdoc.result)
 
 # DELETE ALL SCHEMA and DATA
 # DELETES DO NOT RETURN ANYTHING

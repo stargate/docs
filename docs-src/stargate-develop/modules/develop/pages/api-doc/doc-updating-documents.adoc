@@ -1,5 +1,5 @@
 // tag::UpdateBasicData[]
-= Update/modify documents
+= Updating documents
  
 Data changes, so often it is necessary to update or modify an entire document.
 
@@ -215,6 +215,6 @@ include::example$result/docapi/library/curl-document-patch-book-with-path.result
 --
 ====
 
-// end::UpdateAdvData[]
-
 include::develop:page$api-doc/doc-document-push-pop-array.adoc[Using built-in array functions push and pop, leveloffset=+1]
+
+// end::UpdateAdvData[]
