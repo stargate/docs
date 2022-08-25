@@ -106,7 +106,7 @@ include::example$result/docapi/library/curl-document-post-one-reader.result[]
 Note the difference between using `POST` and `PUT`.
 The `POST` request is used to insert new documents when you want the system to auto-generate the document-dd. 
 The `PUT` request is used to insert a new document when you want to specify the document-id.
-These commands can also be used to xref:api-doc/doc-updating-documents.adoc[update existing documents].
+These commands can also be used to xref:develop:api-doc/doc-updating-documents.adoc[update existing documents].
 
 A 'PATCH' request using a document-id will replace the targeted data in a JSON object contained in the document. 
 JSON objects are delimited by `{ }` in the data.
