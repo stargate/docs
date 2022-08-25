@@ -132,9 +132,8 @@ echo "Put JSON schema for a particular collection"
 echo "Get all collections, to check that the 2 collections are made."
 ./curl-collection-get-all.sh.tmp|jq -r '.'
 # LIST JSON SCHEMA FOR A PARTICULAR COLLECTION
-# LLP - EricB says this code was deleted
-#echo "Get JSON schema for a particular collection"
-#./curl-collection-get-json-schema.sh.tmp | jq -r '.'
+echo "Get JSON schema for a particular collection"
+./curl-collection-get-json-schema.sh.tmp | jq -r '.'
 
 # INSERT DOCUMENTS
 # IF A SPECIFIC DOCUMENT-ID IS REQUIRED, PUT IS USED, NOT POST
@@ -206,8 +205,9 @@ echo "PATCH a document with document-path - overwrites"
 
 # MODIFY DOCUMENTS WITH BUILT-IN FUNCTIONS WITH DOCUMENT-PATH
 # FIRST, VIEW THE BUILT-IN FUNCTIONS
-echo "Get built-in functions for a particular namespace"
-./curl-ns-get-functions.sh.tmp | jq -r '.'
+# ERICB said this is deleted
+# echo "Get built-in functions for a particular namespace"
+# ./curl-ns-get-functions.sh.tmp | jq -r '.'
 # PUSH AND POP REQUIRE A DOCUMENT-PATH
 echo "Push an array element into a document at a document-path"
 ./curl-document-post-push-book.sh.tmp | jq -r '.'
