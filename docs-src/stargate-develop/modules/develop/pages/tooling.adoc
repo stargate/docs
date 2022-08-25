@@ -28,8 +28,9 @@ with Postman.
 For Stargate development, three collections that correspond to the documentation code examples are available:
 
 * https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-REST-API-users_keyspace.postman_collection.json[REST collection]
-* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-Document-API-myworld.postman_collection.json[Document collection]
-* Document API - library: image:https://run.pstmn.io/button.svg[link={docapi-postman}]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-Document-API-myworld.postman_collection.json[Document collection - old myworld examples]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-Document-API-library.postman_collection.json[Document collection - current library examples]
+// * Document API - library: image:https://run.pstmn.io/button.svg[link={docapi-postman}]
 * https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-Astra-GraphQL-API-library.postman_collection.json[GraphQL collection]
 
 Each collection lets you try out creation, insertion, and deletion of both data and schema, as required.
@@ -43,6 +44,7 @@ parameters before use.
 
 * https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-Astra-API-Environment.postman_environment.json[Astra environment]
 * https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-API-Environment.postman_environment.json[Stargate OSS environment]
+* https://github.com/stargate/docs/blob/main/docs-src/apis/modules/develop/examples/json/Stargate-OSS-API-Environment-LIBRARY.postman_environment.json[Stargate OSS environment for current examples]
 
 ==== Stargate OSS
 
