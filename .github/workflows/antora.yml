@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: "Render redoc"
+      - name: "Render redoc with cli"
         run: |
           npm install --location=global redoc-cli
           redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
