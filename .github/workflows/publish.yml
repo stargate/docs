@@ -40,7 +40,7 @@ jobs:
       - name: "Generate site using antora site action"
         uses: riptano/antora-site-action@main
         with:
-         antora_playbook: playbooks/site-publish-stargate.yaml
+         antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
       - name: "List folder"
         run: |
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
