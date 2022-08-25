@@ -6,7 +6,7 @@ on:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 env:
-  SITE_DIR: 'stargate/stargate'
+  SITE_DIR: 'stargate'
 jobs:
   build_site:
     name: "Build site with Antora"

@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  SITE_DIR: 'stargate/stargate'
+  SITE_DIR: 'stargate'
 jobs:
   build_site:
     name: "Build site with Antora"
