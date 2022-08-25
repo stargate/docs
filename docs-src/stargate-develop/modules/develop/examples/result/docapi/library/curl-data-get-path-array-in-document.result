@@ -1,0 +1,9 @@
+{
+  "documentId": "John-Smith",
+  "data": {
+    "book-title": "Pride and Prejudice",
+    "comment": "It was a wonderful book! I loved reading it.",
+    "rating": 5,
+    "review-date": "03-02-2002"
+  }
+}

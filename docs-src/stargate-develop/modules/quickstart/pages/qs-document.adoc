@@ -23,36 +23,36 @@ in a namespace, but a collection cannot be contained in multiple namespaces.
 
 ifeval::["{product}" == "Stargate"]
 // create namespace
-include::develop:page$api-doc/doc-creating-namespace.adoc[Creating a namespace,tag=CreateNS]
+include::develop:page$api-doc/doc-namespace-creating.adoc[Creating a namespace,tag=CreateNS,leveloffset=+1]
 endif::[]
 
-// Doesn't exist yet
+
 // create collection
-//include::develop:page$dev-with-doc.adoc[tag=CreateColl]
+include::develop:page$api-doc/doc-collection-creating.adoc[Creating a collection, leveloffset=+1]
 
 // check NS exist
-include::develop:page$api-doc/doc-checking-namespace.adoc[Checking for namespace,tag=CheckNS]
+include::develop:page$api-doc/doc-namespace-checking.adoc[Checking for namespace,tag=CheckNS,leveloffset=+1]
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-doc/doc-deleting-namespace.adoc[Dropping a namespace,tag=DeleteNS]
+include::develop:page$api-doc/doc-namespace-deleting.adoc[Dropping a namespace,tag=DeleteNS,leveloffset=+1]
 endif::[]
 
 == Interacting with data stored in collections
 
 // write document data
-include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents,tag=WriteBasicData]
+include::develop:page$api-doc/doc-writing-documents.adoc[Writing documents,tag=WriteBasicData,leveloffset=+1]
 
 include::develop:partial$DocAPIBlogPost.adoc[]
 
 // read document data
-include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents,tag=ReadBasicData]
+include::develop:page$api-doc/doc-reading-documents.adoc[Reading documents,tag=ReadBasicData,leveloffset=+1]
 
 // update document data
-include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents,tag=UpdateBasicData]
+include::develop:page$api-doc/doc-updating-documents.adoc[Updating documents,tag=UpdateBasicData,leveloffset=+1]
 
 // delete document data
-include::develop:page$api-doc/doc-deleting-documents.adoc[Deleting documents and collections,tag=DeleteBasicData]
+include::develop:page$api-doc/doc-document-deleting.adoc[Deleting documents and collections,tag=DeleteBasicData,leveloffset=+1]
 
 Voila! For more information on the Document API, see the
 xref:develop:dev-with-doc.adoc[Using the Document API]

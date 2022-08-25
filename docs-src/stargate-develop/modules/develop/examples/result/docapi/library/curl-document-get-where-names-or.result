@@ -1,0 +1,18 @@
+{
+  "data": {
+    "9195f8c9-1bd8-4ee5-b812-7075f9343331": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Amy Smith",
+        "user_id": "12345"
+      }
+    },
+    "a5e54626-fd69-43ec-836d-115166e6d60b": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Jane Doe",
+        "user_id": "12345"
+      }
+    }
+  }
+}

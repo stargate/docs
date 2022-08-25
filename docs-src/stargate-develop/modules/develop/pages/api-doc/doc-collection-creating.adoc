@@ -1,0 +1,79 @@
+// tag::CreateColl[]
+= Creating a collection
+
+In the Document API, collections are created in a {glossary_url}gloss_namespace.html[namespace]. 
+Collections store documents.
+Multiple collections are contained in a namespace, but a collection cannot be
+contained in multiple namespaces.
+
+Only namespaces need to be specifically created. 
+Collections can be created either as an empty collection first, or created with the first document creation in a collection.
+
+== Creating an empty collection
+
+Send a `POST` request to `{base_doc_api}`.
+In this example we use `{collection}` for the `name`.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-collection-post-empty.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-collection-post-empty.result[]
+----
+--
+====
+
+The xref:secure:auth.adoc[generated authorization token] and the content type are passed with  `--header`. The
+token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
+and its value.
+The specified name for the namespace is passed as JSON data using `--data`.
+
+include::partial$curl-flags.adoc[]
+
+// end::CreateColl[]
+
+// tag::CreateCollextra[]
+== Add JSON schema to a collection
+
+To set JSON schema that a collection's documents will use, send a `PUT` request to `{base_doc_api}/{namespace}/collections/{collection}`.
+In this example, a collection is created to store a Person object that has three properties: first name, last name, and age:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-collection-put-json-schema.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-collection-put-json-schema.result[]
+----
+--
+====
+
+[NOTE]
+====
+JSON schema support is experimental.
+Also, partial updates of data are not allowed if JSON schema is defined.
+====
+// end::CreateCollextra[]

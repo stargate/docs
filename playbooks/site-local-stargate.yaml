@@ -78,8 +78,9 @@ asciidoc:
     user2fn: 'Janesha'
     user2ln: 'Doesha'
 
-    namespace: 'myworld'
-    collection: 'fitness'
+    # namespace: 'myworld'
+    namespace: 'test'
+    collection: 'library'
     user1: 'Janet'
     user2: 'Joey'
     user2a: 'Joseph'
@@ -91,6 +92,7 @@ asciidoc:
 
     stargate_docs_base_url: 'https://stargate.io/docs'
     docs: 'ssh://github.com/stargate/docs.git'
+    glossary-url: 'https://docs.datastax.com/en/glossary/docs/'
 
   extensions:
      - ./lib/tabs-block.js

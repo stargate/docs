@@ -1,0 +1,52 @@
+// tag::CheckColl[]
+== Checking collection existence
+
+To check if a collection exists, execute a `GET` request to find all the collections:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-collection-get-all.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext]
+----
+include::example$result/docapi/library/curl-collection-get-all.result[]
+----
+--
+====
+
+// LLP - EricB tells me that this was deleted from the code.
+// == Checking collection JSON schema existence
+
+// To check the JSON schema for a particular collection, execute a `GET` request:
+
+// [tabs]
+// ====
+// cURL command (/v2)::
+// +
+// --
+// [source, shell, subs="attributes+"]
+// ----
+// include::example$docapi/library/curl-collection-get-json-schema.sh[]
+// ----
+// --
+
+// Result::
+// +
+// --
+// [source,plaintext]
+// ----
+// include::example$result/docapi/library/curl-collection-get-json-schema.result[]
+// ----
+// --
+// ====
+// end::CheckColl[]

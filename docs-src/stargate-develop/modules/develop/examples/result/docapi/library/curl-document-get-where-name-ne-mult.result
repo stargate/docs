@@ -1,0 +1,25 @@
+{
+  "data": {
+    "John-Smith": {
+      "reader": {
+        "birthdate": "11-01-1992",
+        "name": "John Smith",
+        "user_id": "12346"
+      }
+    },
+    "6bcecbcd-4eb3-4fc7-ba8a-9eb781b3af5f": {
+      "reader": {
+        "birthdate": "06-11-2000",
+        "name": "John Jones",
+        "user_id": "54321"
+      }
+    },
+    "a5e54626-fd69-43ec-836d-115166e6d60b": {
+      "reader": {
+        "birthdate": "10-01-1980",
+        "name": "Jane Doe",
+        "user_id": "12345"
+      }
+    }
+  }
+}

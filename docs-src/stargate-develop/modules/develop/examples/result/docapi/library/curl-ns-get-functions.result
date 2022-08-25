@@ -1,0 +1,12 @@
+{
+  "functions": [
+    {
+      "name": "$push",
+      "description": "Appends data to the end of an array"
+    },
+    {
+      "name": "$pop",
+      "description": "Removes data from the end of an array, returning it"
+    }
+  ]
+}

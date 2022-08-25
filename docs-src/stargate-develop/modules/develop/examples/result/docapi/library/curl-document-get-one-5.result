@@ -1,0 +1,19 @@
+{
+  "documentId": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "data": {
+    "choices": [
+      "eeny",
+      "meeny",
+      "meiny",
+      "mo"
+    ],
+    "id": "some-other-stuff",
+    "languages": [
+      "English",
+      "German",
+      "French"
+    ],
+    "other": "This is changed nonsensical stuff.",
+    "yet-another-field": "Hopefully, I haven't lost my other two fields!"
+  }
+}

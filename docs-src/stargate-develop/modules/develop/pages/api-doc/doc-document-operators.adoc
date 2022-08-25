@@ -1,0 +1,284 @@
+= Search collections for documents with operators: eq, ne, or, and, not, gt, gte, lt, lte, in, nin
+
+Several operators can be used to search for documents within collections.
+
+|===
+|Operator |Description
+
+| eq | A specified value equals a field in a returned document
+
+| ne | A specified value does not equal a field in a returned document
+
+| or | One of the specified statements equals a field in a returned document
+
+| and | All of the specified statements equals a field in a returned document
+
+| not |All the specified statements not equalling a field, or a non-existent field, in a returned document
+
+| gt, gte, lt, lte | Greater than, greater than or equal, less than, less than or equal - the typical mathematical functions
+
+| in | All specified values are individually used to equal a field in a returned document
+
+| nin | All specified values are individually used to not equal a field in a returned document
+|===
+
+== eq
+
+The `eq` operator matches any field value with a supplied value.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-eq.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-eq.result[]
+----
+--
+====
+
+== ne
+
+The `ne` operator matches any field value that does not equal a supplied value.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-ne-and.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-ne-and.result[]
+----
+--
+====
+
+`{"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}` will match
+if the reader name is not equal to "Amy Smith" AND the reader name exists.
+
+Another example of using the `ne` operator explores using a multiple `WHERE` query to 
+accomplish the same thing as the `and` operator in the last example:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-ne-mult.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-ne-mult.result[]
+----
+--
+====
+
+`{"reader.name":{"$ne":"Amy%20Smith","$exists":true}}` compacts same clause as the `and` statement above, since the two items checked, the reader's name and the existence, are matching the same
+field, `reader.name`.
+
+== and
+
+The `and` operator is used when two or more fields are matched to obtain the returned documents.
+Both matches must exist in order for a document to be returned.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-ne-and.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-ne-and.result[]
+----
+--
+====
+
+== or
+
+The `and` operator is used when two or more fields are matched to obtain the returned documents.
+Either match must exist in order for a document to be returned.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-names-or.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-names-or.result[]
+----
+--
+====
+
+== not
+
+The `not` operator returns any documents that do not match the supplied value for a field.
+The results also include documents that do not contain the field.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-books-not.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-books-not.result[]
+----
+--
+====
+
+== gt, gte, lt, lte
+
+The `gt`, `gte`, `lt`, and `lte` operator check if the specified value is greater than, 
+greater than or equal, less than, or less than or equal, respectively.
+
+This example looks for documents that have book review ratings that are greater than 3 and
+less than or equal to 5 (all values that are 4 or 5):
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-rating-gt3-lte5.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-rating-gt3-lte5.result[]
+----
+--
+====
+
+== in
+
+The `in` operator matches specified values if they are in the field checked.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-in.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-in.result[]
+----
+--
+====
+
+A second example gets documents where the names are `in` the field, but one name fails:
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-in-1fail.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-in-1fail.result[]
+----
+--
+====
+
+== nin
+
+The `nin` operator selects the documents there the specified value is not in the specified array
+or the fields does not exist.
+
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/curl-document-get-where-name-nin.sh[]
+----
+--
+
+Result::
++
+--
+[source,plaintext, subs="attributes+"]
+----
+include::example$result/docapi/library/curl-document-get-where-name-nin.result[]
+----
+--
+====

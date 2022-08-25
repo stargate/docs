@@ -1,0 +1,27 @@
+{
+  "documentId": "native-son-doc-id",
+  "data": {
+    "book": {
+      "author": [
+        "Richard Wright"
+      ],
+      "format": [
+        "hardback",
+        "paperback",
+        "epub"
+      ],
+      "genre": [
+        "slavery",
+        "action"
+      ],
+      "isbn": "12322",
+      "languages": [
+        "English",
+        "German",
+        "French"
+      ],
+      "pub-year": 1930,
+      "title": "Native Son"
+    }
+  }
+}
