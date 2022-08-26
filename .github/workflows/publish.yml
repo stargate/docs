@@ -46,10 +46,10 @@ jobs:
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
       - name: "Fix attachments"
         run: |
-          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/docs/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/docs/develop/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/docs/develop/api.html
+          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/docs/develop/attachments
+          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/develop/api.html
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/docs/develop/api.html
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/develop/api.html
       - name: "Upload generated site"
         uses: actions/upload-artifact@v3
         with:
