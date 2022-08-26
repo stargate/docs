@@ -1,6 +1,6 @@
 name: stargate
 title: Stargate Documentation
-version: 1.0
+version: '1.0'
 nav:
 - modules/ROOT/cnav.adoc
 - modules/quickstart/nav.adoc
