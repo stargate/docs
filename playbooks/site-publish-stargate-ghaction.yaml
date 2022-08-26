@@ -1,5 +1,6 @@
 site:
   title: Stargate documentation
+  url: https://stargate.io/
   start_page: stargate-core::core-index.adoc
   
 output: 
