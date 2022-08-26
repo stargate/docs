@@ -43,7 +43,7 @@ jobs:
          antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
       - name: "List folder"
         run: |
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/
       - name: "Fix attachments"
         run: |
           sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/stargate/1.0/develop/attachments
