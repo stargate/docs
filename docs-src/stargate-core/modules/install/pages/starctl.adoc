@@ -4,7 +4,7 @@
 == starctl v2.0
 
 .starctl v2.0
-[%collapsible%open]
+[%collapsible%open,asciidoc]
 =====
 The `starctl` command controls and configures Stargate nodes.
 In Stargate v2, the `starctl` command runs three commands:
@@ -63,7 +63,7 @@ The last command starts the Coordinator service.
 | `STARGATE_REST_PORT`
 | 8082
 | Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `AVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_REST_PORT")`
+| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_REST_PORT")`
 
 |===
 
@@ -73,18 +73,23 @@ The last command starts the Coordinator service.
 |===
 | Option | Environment Variable | Default | Description | Example
 
-| `--listen _listen IP address_`
-| `LISTEN`
-| 127.0.0.1
-| IP address Stargate services should listen on. This options value must match the regular expression
-`^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$`. Must be a valid IP address.
-| `--listen-address 192.168.0.1`
-
 | `--seed-port _port number_`
-| `SEED_PORT`
-| 7000
+| `STARGATE_BRIDGE_HOST`
+| localhost
 | Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
 | `--seed-port 7001`
+
+| `--seed-port _port number_`
+| `STARGATE_BRIDGE_PORT`
+| 8091
+| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| `--seed-port 7001`
+
+| `--seed-port _port number_`
+| `STARGATE_GRAPHQL_PORT`
+| 9080
+| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_GRAPHQL_PORT")`
 
 |===
 
@@ -169,14 +174,63 @@ The last command starts the Coordinator service.
 | Use proxy protocol to determine the public address and port of CQL requests.
 | `export USE_PROXY_PROTOCOL=true`
 
+| `--proxy-dns-name`
+| `| `--use-proxy-protocol`
+| `PROXY_DNS_NAME`
+| unset, or false
+| Use proxy protocol to determine the public address and port of CQL requests.
+| `export USE_PROXY_PROTOCOL=true`
+
+| `--proxy-port`
+| `PROXY_POR`
+| unset, or false
+| Use proxy protocol to determine the public address and port of CQL requests.
+| `export USE_PROXY_PROTOCOL=true`
+
 | `--developer-mode`
 | `DEVELOPER_MODE`
 | unset, or false
 | Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.
 | `export DEVELOPER_MODE=true`
 
+|`--emulate-dbaas-defaults`
+| `EMULATE_DBAAS_DEFAULTS`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
 |`--bind-to-listen-address`
 | `BIND_TO_LISTEN_ADDRESS`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--jmx-port`
+| `JMX_PORT`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--disable-dynamic-snitch`
+| `DISABLE_DYNAMIC_SNITCH`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--disable-mbean-registration`
+| `DISABLE_MBEAN_REGISTRATION`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--disable-bundles-watch`
+| `DISABLE_BUNDLES_WATCH`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--host-id`
+| `HOST_ID`
 | unset, or false
 | If set bind the web services to the listen address only.
 | `export BIND_TO_LISTEN_ADDRESS=true`
@@ -185,7 +239,7 @@ The last command starts the Coordinator service.
 
 == starctl v1.0
 .starctl v1.0
-[%collapsible%open]
+[%collapsible]
 =====
 The `starctl` command controls and configures Stargate nodes.
 
