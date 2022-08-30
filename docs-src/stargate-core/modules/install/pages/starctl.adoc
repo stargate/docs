@@ -1,8 +1,9 @@
 = The starctl command
 :page-tag: stargate,dev,develop
 
-== starctl v2.0
+== Starting Stargate using starctl
 
+=== starctl v2.0
 .starctl v2.0
 [%collapsible%open,asciidoc]
 =====
@@ -15,17 +16,19 @@ In Stargate v2, the `starctl` command runs three commands:
 
 The first two commands listed start the REST API and GraphQL API services, respectively.
 The last command starts the Coordinator service.
+The `starctl-coordinator` command includes most of the options that pertained to the `starctl` command in Stargate v1.0.
+Thus, the command can be run:
 
-=== Starting Stargate using starctl
+[source, shell, subs="attributes+"]
+----
+starctl --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch
+----
 
-// [source, shell, subs="attributes+"]
-// ----
-// starctl --cluster-name stargate \
-//   --cluster-seed 127.0.0.1 \
-//   --cluster-version 3.11 \
-//   --listen 127.0.0.2 \
-//   --simple-snitch
-// ----
+and the options are passed to the `starctl-coordinator` command.
 
 // [CAUTION]
 // ====
@@ -34,67 +37,7 @@ The last command starts the Coordinator service.
 // To run Stargate in a containerized environment, see the xref:install:install_cass_40.adoc#starting-stargate-with-existing-cassandra-cluster[Installing Stargate with an existing Cassandra cluster] documentation.
 // ====
 
-=== starctl-service-rest options
-
-.starctl-service-rest options
-|===
-| Option | Environment Variable | Default | Description | Example
-
-| `--listen _listen IP address_`
-| `STARGATE_HOME`
-| 127.0.0.1
-| IP address Stargate services should listen on. This options value must match the regular expression
-`^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$`. Must be a valid IP address.
-| `--listen-address 192.168.0.1`
-
-| `--seed-port _port number_`
-| `STARGATE_BRIDGE_HOST`
-| localhost
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `--seed-port 7001`
-
-| `--seed-port _port number_`
-| `STARGATE_BRIDGE_PORT`
-| 8091
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `--seed-port 7001`
-
-| `--seed-port _port number_`
-| `STARGATE_REST_PORT`
-| 8082
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_REST_PORT")`
-
-|===
-
-=== starctl-service-graphql options
-
-.starctl-service-graphql options
-|===
-| Option | Environment Variable | Default | Description | Example
-
-| `--seed-port _port number_`
-| `STARGATE_BRIDGE_HOST`
-| localhost
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `--seed-port 7001`
-
-| `--seed-port _port number_`
-| `STARGATE_BRIDGE_PORT`
-| 8091
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `--seed-port 7001`
-
-| `--seed-port _port number_`
-| `STARGATE_GRAPHQL_PORT`
-| 9080
-| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
-| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_GRAPHQL_PORT")`
-
-|===
-
-===
- starctl-coordinator options
+The following tables detail the options available for each service.
 
 .starctl-coordinator options
 |===
@@ -111,7 +54,6 @@ The last command starts the Coordinator service.
 |
 | The IP address of the seed node of the cluster.
 | `--cluster-seed 192.168.0.1`
-
 
 | `--cluster-version _Cassandra version_`
 | `CLUSTER_VERSION`
@@ -177,15 +119,15 @@ The last command starts the Coordinator service.
 | `--proxy-dns-name`
 | `| `--use-proxy-protocol`
 | `PROXY_DNS_NAME`
-| unset, or false
-| Use proxy protocol to determine the public address and port of CQL requests.
-| `export USE_PROXY_PROTOCOL=true`
+| 
+| Use proxy DNS name to determine the public DNS name for CQL requests.
+| `export PROXY_DNS_NAME=proxy`
 
 | `--proxy-port`
-| `PROXY_POR`
-| unset, or false
-| Use proxy protocol to determine the public address and port of CQL requests.
-| `export USE_PROXY_PROTOCOL=true`
+| `PROXY_PORT`
+| 
+| Use proxy port to determine the public port of CQL requests.
+| `export PROXY_PORT=9000`
 
 | `--developer-mode`
 | `DEVELOPER_MODE`
@@ -207,43 +149,88 @@ The last command starts the Coordinator service.
 
 |`--jmx-port`
 | `JMX_PORT`
-| unset, or false
-| If set bind the web services to the listen address only.
-| `export BIND_TO_LISTEN_ADDRESS=true`
+| 
+| Port to which JMX is bound
+| `export JMX_PORT=10000`
 
 |`--disable-dynamic-snitch`
 | `DISABLE_DYNAMIC_SNITCH`
 | unset, or false
-| If set bind the web services to the listen address only.
-| `export BIND_TO_LISTEN_ADDRESS=true`
+| If set disable the dynamic snitch
+| `export DISABLE_DYNAMIC_SNITCH=true`
 
 |`--disable-mbean-registration`
 | `DISABLE_MBEAN_REGISTRATION`
 | unset, or false
-| If set bind the web services to the listen address only.
-| `export BIND_TO_LISTEN_ADDRESS=true`
+| If set disable MBean registration
+| `export DISABLE_MBEAN_REGISTRATION=true`
 
 |`--disable-bundles-watch`
 | `DISABLE_BUNDLES_WATCH`
 | unset, or false
-| If set bind the web services to the listen address only.
-| `export BIND_TO_LISTEN_ADDRESS=true`
+| If set disable bundles watch
+| `export DISABLE_BUNDLES_WATCH=true`
 
 |`--host-id`
 | `HOST_ID`
-| unset, or false
-| If set bind the web services to the listen address only.
+| 
+| Sets the Host ID
 | `export BIND_TO_LISTEN_ADDRESS=true`
+|===
+
+.starctl-service-rest options
+|===
+| Option | Environment Variable | Default | Description | Example
+
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.host="$STARGATE_BRIDGE_HOST")`
+| `STARGATE_BRIDGE_HOST`
+| localhost
+| Bridge host that all services are listening to
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.host=localhost)`
+
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.port="$STARGATE_BRIDGE_PORT")`
+| `STARGATE_BRIDGE_PORT`
+| 8091
+| Port on which bridge host listens
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.port=8091)`
+
+| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_REST_PORT")`
+| `STARGATE_REST_PORT`
+| 8082
+| Port on which REST service is listening
+| `JAVA_OPTS+=(-Ddw.server.connector.port=8082)`
+
+|===
+
+.starctl-service-graphql options
+|===
+| Option | Environment Variable | Default | Description | Example
+
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.host="$STARGATE_BRIDGE_HOST")`
+| `STARGATE_BRIDGE_HOST`
+| localhost
+| Bridge host that all services are listening to
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.host=localhost)`
+
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.port="$STARGATE_BRIDGE_PORT")`
+| `STARGATE_BRIDGE_PORT`
+| 8091
+| Port on which bridge host listens
+| `JAVA_OPTS+=(-Ddw.stargate.bridge.port=8091)`
+
+| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_GRAPHQL_PORT")`
+| `STARGATE_GRAPHQL_PORT`
+| 9080
+| Port on which GRAPHWL service is listening
+| `JAVA_OPTS+=(-Ddw.server.connector.port=9080)`
 |===
 =====
 
-== starctl v1.0
+=== starctl v1.0
 .starctl v1.0
 [%collapsible]
 =====
 The `starctl` command controls and configures Stargate nodes.
-
-=== Starting Stargate using starctl
 
 [source, shell, subs="attributes+"]
 ----
@@ -255,8 +242,6 @@ starctl --cluster-name stargate \
 ----
 
 CAUTION: When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host's network. To run Stargate in a containerized environment, see the xref:install:install_cass_40.adoc#starting-stargate-with-existing-cassandra-cluster[Installing Stargate with an existing Cassandra cluster] documentation.
-
-=== starctl options
 
 .starctl options
 |===
