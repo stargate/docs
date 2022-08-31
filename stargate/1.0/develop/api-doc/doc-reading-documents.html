@@ -863,7 +863,7 @@ You can specify the fields that you wish returned in the REST query:</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/{bookdocid}?fields=["book.title","book.genre"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -2207,7 +2207,7 @@ Send a <code>GET</code> request to <code>/v2/namespaces/{namespace_name}/collect
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8082/v2/namespaces/test/collections/library/{docid}' \
+-X GET 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -2256,7 +2256,7 @@ to retrieve a book title:</p>
 <div class="tab-pane" aria-labelledby="tabset20_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/{bookdocid}/book/title' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/title' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -2296,7 +2296,7 @@ to find the book-title of the second book a reader reviewed:</p>
 <div class="tab-pane" aria-labelledby="tabset21_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/{readerdocid}/reader/reviews/[1]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/John-Smith/reader/reviews/[1]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -2340,7 +2340,7 @@ to find the book-title of the second book a reader reviewed:</p>
 <div class="tab-pane" aria-labelledby="tabset22_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/{readerdocid}/reader/reviews?WHERE={"reader.reviews.rating":{"$eq":5}' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/John-Smith/reader/reviews?WHERE={"reader.reviews.rating":{"$eq":5}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>

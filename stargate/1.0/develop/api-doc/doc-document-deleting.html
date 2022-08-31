@@ -390,7 +390,7 @@ In this example, the secondary address for the user John Smith is deleted from t
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request DELETE 'https://localhost:8082/v2/namespaces/test/collections/library/{readerdocid}/reader/address/secondary' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request DELETE 'https://localhost:8082/v2/namespaces/test/collections/library/John-Smith/reader/address/secondary' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -407,7 +407,7 @@ In this example, the secondary address for the user John Smith is deleted from t
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L \
--X DELETE 'https://localhost:8082/v2/namespaces/test/collections/library/{docid}' \
+-X DELETE 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -435,7 +435,7 @@ Deletions do not return any data.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request DELETE 'https://localhost:8082/v2/namespaces/test/collections/library/{docid}?where={ "id":{"$eq":"some stuff"}}' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request DELETE 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?where={ "id":{"$eq":"some stuff"}}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>

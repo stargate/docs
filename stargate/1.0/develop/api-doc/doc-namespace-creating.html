@@ -572,7 +572,7 @@ where <code>dc1</code> defaults to 3 replicas and <code>dc2</code> is set to 5 r
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
-    "name": "{dcnamespace}",
+    "name": "test-dcs",
     "datacenters": [ {"name": "dc1"}, {"name": "dc2", "replicas": 5} ]
 }'</code></pre>
 </div>
