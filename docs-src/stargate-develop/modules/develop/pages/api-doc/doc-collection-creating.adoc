@@ -35,9 +35,15 @@ include::example$result/docapi/library/curl-collection-post-empty.result[]
 --
 ====
 
-The xref:secure:auth.adoc[generated authorization token] and the content type are passed with  `--header`. The
-token must be identified as `X-Cassandra-Token` so that cluster recognizes the token
-and its value.
+ifeval::["{database}" == "Astra DB"]
+The xref:secure:authnz.html#_generate_an_auth_token[generated authorization token] and the content type are passed with  `--header`. 
+The token must be identified as `X-Cassandra-Token` so that cluster recognizes the token and its value.
+endif::[]
+
+ifeval::["{database}" == "Stargate"]
+The xref:secure:auth.adoc[generated authorization token] and the content type are passed with  `--header`. 
+The token must be identified as `X-Cassandra-Token` so that cluster recognizes the token and its value.
+endif::[]
 The specified name for the namespace is passed as JSON data using `--data`.
 
 include::partial$curl-flags.adoc[]
