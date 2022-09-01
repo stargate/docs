@@ -3,7 +3,7 @@ name: Generate Antora site
 on:
   push:
     branches:
-      - test-new-website
+      - main
 
 env:
   SITE_DIR: 'stargate'
