@@ -40,16 +40,10 @@ using direct schema manipulation.
 The querying and mutating endpoint is constructed using a particular keyspace name.
 
 Each request must have a valid 
-ifeval::["{product}" == "Astra DB"]
+ifeval::["{database}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
 endif::[]
-ifeval::["{product}" == "Astra DB Serverless"]
-xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
-endif::[]
-ifeval::["{product}" == "Astra DB for DSE"]
-xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
-endif::[]
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 xref:secure:authnz.adoc#table-based-authenticationauthorization[application token].
 endif::[]
 Each request can also have an optional unique request id.
@@ -111,13 +105,13 @@ include::develop:page$using-graphql-playground.adoc[]
 
 include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-graphql-cql-first/gql-creating-keyspace.adoc[Creating keyspace schema]
 endif::[]
 
 include::develop:page$api-graphql-cql-first/gql-checking-keyspace.adoc[Checking keyspace schema]
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-graphql-cql-first/gql-deleting-keyspace.adoc[Dropping keyspace schema]
 endif::[]
 

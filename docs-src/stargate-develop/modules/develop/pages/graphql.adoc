@@ -23,7 +23,7 @@ follow the full instructions: xref:dev-with-graphql-schema-first.adoc[(schema-fi
 
 We'll show you you how to:
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 . Create a keyspace
 xref:dev-with-graphql-schema-first#_create_a_keyspace.adoc[(schema-first)]
 xref:dev-with-graphql-cql-first#_create_a_keyspace.adoc[(cql-first)]
@@ -83,10 +83,10 @@ which will indirectly modify underlying CQL schema.
 The querying endpoint is constructed in the same manner for both graphql-first and cql-first.
 
 Each request must have a valid 
-ifeval::["{product}" == "Astra DB for DSE"]
+ifeval::["{database}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
 endif::[]
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 xref:secure:authnz.adoc#table-based-authenticationauthorization[application token].
 endif::[]
 Each request can also have an optional unique request id.

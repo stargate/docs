@@ -15,7 +15,7 @@ Popular Cassandra drivers are:
 * https://github.com/gocql/gocql[Go]
 * https://spring.io/projects/spring-data-cassandra[Spring Data Cassandra]
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 [NOTE]
 ====
 When using Cassandra drivers with Stargate you must:
@@ -162,7 +162,7 @@ DELETE FROM users_keyspace.users WHERE firstname = 'Mookie' AND lastname = 'Bett
 == Using the CQL API with Cassandra drivers
 
 {product} can be used with any of the Cassandra drivers. 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 Use the Stargate node as the contact point when connecting using Cassandra drivers, and use the https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Round Robin load balancing policy].
 endif::[]
 

@@ -1,43 +1,23 @@
 == Using the GraphQL Playground
 
 The easiest way to get started with GraphQL is to use the built-in GraphQL playground.
-ifeval::["{product}" == "Astra DB"]
+ifeval::["{database}" == "Astra DB"]
 In {database}, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 The GraphQL playground launches the url:
 `{base_graphql_url}/api/playground`
 in your browser.
 endif::[]
-ifeval::["{product}" == "Astra DB Serverless"]
-In {database}, go to the Connect tab for your database, choose GraphQL under the
-`Connect using an API` and you'll see instructions for accessing the playground.
-The GraphQL playground launches the url:
-`{base_graphql_url}/api/playground`
-in your browser.
-endif::[]
-ifeval::["{product}" == "Astra DB for DSE"]
-In {database}, go to the Connect tab for your database, choose GraphQL under the
-`Connect using an API` and you'll see instructions for accessing the playground.
-The GraphQL playground launches the url:
-`{base_graphql_url}/api/playground`
-in your browser.
-endif::[]
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 In {database}, go to your browser and launch the url:
 `{base_graphql_url}/playground`
 endif::[]
 
 Add your 
-ifeval::["{product}" == "Astra DB"]
+ifeval::["{database}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token]
 endif::[]
-ifeval::["{product}" == "Astra DB Serverless"]
-xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token]
-endif::[]
-ifeval::["{product}" == "Astra DB for DSE"]
-xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token]
-endif::[]
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 xref:secure:authnz.adoc#table-based-authenticationauthorization[application token]
 endif::[] 
 to the HTTP HEADERS

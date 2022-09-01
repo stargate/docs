@@ -19,7 +19,7 @@ tables that will store the data. A keyspace is a container for which a
 Tables consist of columns that have a defined data type. Multiple tables are contained
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 // create keyspace
 include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace,tag=CreateKS]
 endif::[]

@@ -31,7 +31,7 @@ Tables consist of columns that have a defined data type. Multiple tables are con
 in a keyspace, but a table cannot be contained in multiple keyspaces.
 
 // create keyspace
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-graphql-cql-first/gql-creating-keyspace.adoc[Creating keyspace schema,tag=CreateKS]
 endif::[]
 

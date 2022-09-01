@@ -9,7 +9,7 @@ Check out the following choices:
 * xref:qs-graphql-cql-first.adoc[GraphQL API]
 //* xref:develop:dev-with-grpc.adoc[gRPC API]
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 If you haven't installed Stargate yet, go check out
  xref:install:install-overview.adoc[methods].
 endif::[]

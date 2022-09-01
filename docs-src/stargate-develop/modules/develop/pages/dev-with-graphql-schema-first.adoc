@@ -38,16 +38,10 @@ The admin endpoint is used to deploy GraphQL schema in the graphql-first GraphQL
 The querying endpoint is constructed in the same manner for both graphql-first and schema-first.
 
 Each request must have a valid 
-ifeval::["{product}" == "Astra DB"]
+ifeval::["{database}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
 endif::[]
-ifeval::["{product}" == "Astra DB Serverless"]
-xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
-endif::[]
-ifeval::["{product}" == "Astra DB for DSE"]
-xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token].
-endif::[]
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 xref:secure:authnz.adoc#table-based-authenticationauthorization[application token].
 endif::[]
 Each request can also have an optional unique request id.
@@ -67,13 +61,13 @@ include::develop:page$using-graphql-playground.adoc[]
 
 include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-graphql-schema-first/gqlsf-creating-keyspace.adoc[Creating keyspace schema]
 endif::[]
 
 //include::develop:page$api-graphql-schema-first/gql-checking-keyspace.adoc[Checking keyspace schema]
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-graphql-schema-first/gqlsf-deleting-keyspace.adoc[Dropping keyspace schema]
 endif::[]
 

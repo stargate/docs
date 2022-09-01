@@ -14,10 +14,10 @@ Currently, those indexes can be created with REST,
 https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL],
 or xref:develop:api-graphql-cql-first/gql-creating-index.adoc[GraphQL].
 To use the REST API to create indexes, you'll need the 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 xref:secure:auth.adoc[application token]
 endif::[]
-ifeval::["{product}" == "Astra DB"]
+ifeval::["{database}" == "Astra DB"]
 xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token]
 endif::[]
 you generated to create other schema in your keyspace.

@@ -22,7 +22,7 @@ include::example$bash/rust-build2.sh[]
 For your convenience, this project contains a bunch of examples located in the
 examples directory, which demonstrate connecting, creating schemas,
 inserting data and querying.
-ifeval::["{product}== "Stargate"]
+ifeval::["{database}== "Stargate"]
 You'll need a working instance of a Stargate cluster to run the examples.
 
 Refer to the official link: xref:install:install-overview.adoc[Stargate Installation documentation]
@@ -38,7 +38,7 @@ include::example$rust/rust-run-example.rs[]
 
 The authentication token value can be also defined in the SG_TOKEN environment variable.
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 You'll need to start a Stargate instance.
 
 include::manage:page$start-stargate.adoc[]

@@ -42,14 +42,14 @@ To view the API Reference, see xref:develop:attachment$docv2.html[{database} Doc
 
 // NAMESPACES
 // STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-doc/doc-namespace-creating.adoc[Creating a namespace, leveloffset=+1]
 endif::[]
 
 include::develop:page$api-doc/doc-namespace-checking.adoc[Checking namespaces, leveloffset=+1]
 
 // STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-doc/doc-namespace-deleting.adoc[Deleting a namespace, leveloffset=+1]
 endif::[]
 

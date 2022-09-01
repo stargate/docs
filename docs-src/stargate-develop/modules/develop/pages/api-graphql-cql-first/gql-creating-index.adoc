@@ -14,13 +14,13 @@ Currently, those indexes can be created with
 https://cassandra.apache.org/doc/latest/cql/indexes.html#create-index[CQL]
 or GraphQL.
 
-ifeval::["{product}" == "Stargate"]
-Use the xref:secure:auth.adoc[application token] you generated
-to create schema in your keyspace using the GraphQL playground.
-endif::[]
-ifeval::["{product}" == "Astra DB for DSE"]
+ifeval::["{database}" == "Astra DB"]
 Use the xref:manage:org/manage-tokens.adoc#manage-application-tokens[application token] you 
 generated to create schema in your keyspace using the GraphQL playground.
+endif::[]
+ifeval::["{database}" == "Stargate"]
+Use the xref:secure:auth.adoc[application token] you generated
+to create schema in your keyspace using the GraphQL playground.
 endif::[]
 
 You can create an index using a mutation in `/graphql-schema`.

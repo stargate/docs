@@ -1,4 +1,4 @@
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 
 include::develop:partial$astra_tip.adoc[]
 include::develop:partial$prereqs-curl.adoc[]

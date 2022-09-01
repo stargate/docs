@@ -15,14 +15,14 @@ If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-rest.a
 To view the API Reference, see xref:develop:attachment$restv2.html[{database} REST API, window="_blank"].
 
 // STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace]
 endif::[]
 
 include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace]
 
 // STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace]
 endif::[]
 

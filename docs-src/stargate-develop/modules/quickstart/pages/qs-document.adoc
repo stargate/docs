@@ -21,7 +21,7 @@ Collections consist of unstructured JSON documents. Documents can themselves
 hold multiple documents. Multiple collections are contained
 in a namespace, but a collection cannot be contained in multiple namespaces.
 
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 // create namespace
 include::develop:page$api-doc/doc-namespace-creating.adoc[Creating a namespace,tag=CreateNS,leveloffset=+1]
 endif::[]
@@ -34,7 +34,7 @@ include::develop:page$api-doc/doc-collection-creating.adoc[Creating a collection
 include::develop:page$api-doc/doc-namespace-checking.adoc[Checking for namespace,tag=CheckNS,leveloffset=+1]
 
 // STARGATE ONLY
-ifeval::["{product}" == "Stargate"]
+ifeval::["{database}" == "Stargate"]
 include::develop:page$api-doc/doc-namespace-deleting.adoc[Dropping a namespace,tag=DeleteNS,leveloffset=+1]
 endif::[]
 
