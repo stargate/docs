@@ -22,7 +22,7 @@ with Postman.
 
 === Prerequisites
 
-* Install http://www.postman.com[Postman] to run postman testing
+* Install http://www.postman.com[Postman] to run postman testing.
 
 === Postman collections
 
@@ -149,7 +149,7 @@ Using this third-party tool, you can easily test gRPC proto files with environme
 for your test platforms.
 
 For instance, the proto files can be
-https://github.com/stargate/stargate/tree/main/grpc-proto/proto[imported into BloomRPC].
+https://github.com/stargate/stargate/tree/master/grpc-proto/proto[imported into BloomRPC].
 Select `ExecuteQuery` from the imported files.
 Set the environment to `localhost:8090` if running a Stargate docker container.
 In the metadata, add an authentication token with `{"x-cassandra-token": "<auth_token>"}`.

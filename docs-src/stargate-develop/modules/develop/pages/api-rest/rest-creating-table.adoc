@@ -5,26 +5,7 @@ Create tables in your database using the {company} {database} REST API.
 Use the application token you generated to create a table in your keyspace.
 A keyspace is like a bucket that holds your tables.
 You can create different keyspaces for groups of tables.
-
-. After generating an authorization token, run the following request to get all available keyspaces
-and verify that the keyspace you wish to use is listed in the results:
-
-include::develop:page$api-rest/rest-checking-keyspace.adoc[]
-
 For example, we'll use `{rkeyspace}` as the keyspace.
-// ASTRA If the keyspace is not listed, go to your {astra_db} dashboard and add the keyspace.
-
-* Optional: A header line using a `{unique-UUID}`, a randomly-generated UUID that
-is unique for the authorization request, can be included in the previous command
-by adding the following line:
-
-[source, shell, subs="attributes+"]
-----
- --header 'x-cassandra-request-id: {unique-UUID}'
-----
-
-// tag::CreateTable[]
-=== Create a table
 
 Send a `POST` request to `{base_rest_schema}/{keyspace-name}/tables` to create a table.
 Set the table name and column definitions in the JSON body in the `--data` field.
@@ -95,4 +76,12 @@ are clustering keys. `ASC` is the default.
     }
 ----
 
+// * Optional: A header line using a `{unique-UUID}`, a randomly-generated UUID that
+// is unique for the authorization request, can be included in the previous command
+// by adding the following line:
+
+// [source, shell, subs="attributes+"]
+// ----
+//  --header 'x-cassandra-request-id: {unique-UUID}'
+// ----
 // end::CreateTable[]
