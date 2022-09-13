@@ -1,7 +1,7 @@
 = Building Stargate from source
 :page-tag: stargate,dev,develop,install
 
-In order to build Stargate, you'll need to have https://adoptopenjdk.net/[Java 8 (jdk8)] installed.
+In order to build Stargate, you'll need to have https://adoptopenjdk.net/[Java 8 (jdk8),window="_blank"] installed.
 
 In a terminal:
 

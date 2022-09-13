@@ -5,11 +5,11 @@
 == What should I do if I find a bug?
 
 - If you've found an issue while using Stargate, please file a bug in the
-https://github.com/stargate/stargate[Stargate repo] and use the bug label.
+https://github.com/stargate/stargate[Stargate repo,window="_blank"] and use the bug label.
 It's also helpful to include the full stack trace and the Stargate and database
 version that you are using so that we can efficiently debug.
 - If you've found an issue with the documentation, please file an issue in the
-https://github.com/stargate/docs[Stargate docs repo]. Pull requests are also
+https://github.com/stargate/docs[Stargate docs repo,window="_blank"]. Pull requests are also
 accepted!
 
 == Why should I use Stargate when I already have an existing database?
@@ -27,13 +27,13 @@ which has shown latency improvements in preliminary testing (results coming soon
 == How can I get involved?
 
 To get started building a new API extension, have a look at the existing
-https://github.com/stargate/stargate/tree/master/restapi[REST API implementation]
-or the https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API implementation]
+https://github.com/stargate/stargate/tree/master/restapi[REST API implementation,window="_blank"]
+or the https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API implementation,window="_blank"]
 in the Stargate repo first. To get started building a new storage extension,
 check out the
-https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11[persistence-cassandra-3.11 implementation].
+https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11[persistence-cassandra-3.11 implementation,window="_blank"].
 Once you have an idea of what you want to build, shoot us a note on the
-https://github.com/stargate/stargate/discussions[Github discussion page] to discuss.
+https://github.com/stargate/stargate/discussions[Github discussion page,window="_blank"] to discuss.
 
 **Note** that the internal APIs are under active development and they are
 likely to change before the first version is released.

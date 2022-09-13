@@ -6,12 +6,12 @@ include::develop:partial$stargate-intro-intro.adoc[]
 The Stargate Document API modifies and queries data stored as unstructured JSON documents in collections.
 Because the Document API uses schemaless data, no data modeling is required!
 
-If the Document API is used with Apache Cassandra, document indexing is accomplished with https://cassandra.apache.org/doc/trunk/cassandra/cql/indexes.html[Cassandra secondary indexes].
+If the Document API is used with Apache Cassandra, document indexing is accomplished with https://cassandra.apache.org/doc/trunk/cassandra/cql/indexes.html[Cassandra secondary indexes,window="_blank"].
 
 // LLP 07.25.2022 Add a link to SAI when it is added and published in the CQL doc. 
 
 If the Document API is used with DataStax Enterprise, SAI indexing is used. 
-The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API] describes the underlying structure used to store collections.
+The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API,window="_blank"] describes the underlying structure used to store collections.
 
 == Information about namespaces and collections.
 

@@ -2,7 +2,7 @@
 :slug: grpc-using
 
 Stargate is a data gateway deployed between client applications and a database.
-https://grpc.io/docs/what-is-grpc/introduction/[gRPC] is a modern, open source remote procedure call (RPC) framework.
+https://grpc.io/docs/what-is-grpc/introduction/[gRPC,window="_blank"] is a modern, open source remote procedure call (RPC) framework.
 It enables client and server applications to communicate transparently, and makes it easier to build connected systems.
 The Stargate gRPC API is implemented to create language-specific queries
 using CQL with any Cassandra deployment.

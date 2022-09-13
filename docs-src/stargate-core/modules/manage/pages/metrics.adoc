@@ -4,7 +4,7 @@
 Stargate is a data gateway deployed between client applications and a database.
 Metrics can be monitored using Prometheus and Grafana. A
 https://github.com/stargate/docker-images/[`docker-compose`
-script] is available to run Apache Cassandra^(TM)^, Stargate, Prometheus, and Grafana
+script,window="_blank"] is available to run Apache Cassandra^(TM)^, Stargate, Prometheus, and Grafana
 together to explore the metrics available.
 
 == Prerequisites
@@ -13,7 +13,7 @@ include::develop:partial$prereqs-astra.adoc[]
 include::develop:partial$prereqs-stargate.adoc[]
 
 == Access Prometheus
-Once all the images are running, you can access https://prometheus.io/[Prometheus] in the browser at
+Once all the images are running, you can access https://prometheus.io/[Prometheus,window="_blank"] in the browser at
 https://localhost:9090/[https://localhost:9090].
 
 Note that the default file `/etc/prometheus/prometheus.yml` is replaced with a
@@ -23,10 +23,10 @@ The default target of `localhost:9090` (the Prometheus node) has been replaced w
 'stargate:8085' (the stargate node's metrics port).
 
 The Stargate metrics are grouped by API, and can accessed as any other metrics are
-accessed in https://prometheus.io[Prometheus].
+accessed in https://prometheus.io[Prometheus,window="_blank"].
 
 == Access Grafana
-Once all the images are running, you can access https://grafana.com/oss/grafana[Grafana] in the browser at
+Once all the images are running, you can access https://grafana.com/oss/grafana[Grafana,window="_blank"] in the browser at
 https://localhost:3000/[https://localhost:3000].
 You'll need to login with the default username and password, `admin/admin`.
 Grafana will require you to create a new password to proceed.
@@ -41,4 +41,4 @@ Press "Save & Test" to check that the data source is added.
 Add a new dashboard and choose Prometheus as the data source.
 The Stargate metrics can be selected as a metric to display.
 
-For more information on using Grafana, access the https://grafana.com/docs/[Grafana docs].
+For more information on using Grafana, access the https://grafana.com/docs/[Grafana docs,window="_blank"].
