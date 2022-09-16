@@ -126,7 +126,7 @@ The Swagger UI allows you to interact with the REST and Document APIs in a web b
 ifeval::["{database}" == "Astra DB"]
 In Astra, go to the Connect tab for your database, choose GraphQL under the
 `Connect using an API` and you'll see instructions for accessing the playground.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
+In a browser, you can connect at `\{base_rest_url}/api/rest/swagger-ui/`
 endif::[]
 ifeval::["{database}" == "Stargate"]
 Once you have started Stargate using Docker, you can access the REST and Document APIs
