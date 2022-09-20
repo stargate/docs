@@ -69,12 +69,12 @@ one for deploying schema in the graphql-first, and the third for querying or mut
 The URLS are:
 
 Schema::
-`\{base_graphql_url}{base_gql_schema}`
+`{base_graphql_url}{base_gql_schema}`
 
 Admin::
-`\{base_graphql_url}{base_gql_admin}`
+`{base_graphql_url}{base_gql_admin}`
 Querying::
-`\{base_graphql_url}{base_gql_api}/{keyspace}`
+`{base_graphql_url}{base_gql_api}/{keyspace}`
 
 The schema endpoint is used to create or alter CQL schema in the cql-first GraphQL
 using direct schema manipulation.
