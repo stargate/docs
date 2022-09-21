@@ -30,10 +30,10 @@ for querying or mutating a keyspace.
 The URLS are:
 
 Schema::
-`{base_graphql_url}{base_gql_schema}`
+`pass:a[{base_graphql_url}{base_gql_schema}]`
 
 Querying::
-`{base_graphql_url}{base_gql_api}/{keyspace_name}`
+`pass:a[{base_graphql_url}{base_gql_api}/{keyspace_name}]`
 
 The schema endpoint is used to create or alter CQL schema in GraphQL cql-first
 using direct schema manipulation.
