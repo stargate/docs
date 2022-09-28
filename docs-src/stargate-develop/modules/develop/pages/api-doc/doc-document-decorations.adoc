@@ -12,7 +12,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-6.sh[]
+include::example$docapi/library/v2/curl-document-get-6.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-6.sh[]
 ----
 --
 
@@ -50,7 +59,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-all-docs-with-paging.sh[]
+include::example$docapi/library/v2/curl-document-get-all-docs-with-paging.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-all-docs-with-paging.sh[]
 ----
 --
 
@@ -76,7 +94,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one-with-fields.sh[]
+include::example$docapi/library/v2/curl-document-get-one-with-fields.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one-with-fields.sh[]
 ----
 --
 

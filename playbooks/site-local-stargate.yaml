@@ -56,6 +56,7 @@ asciidoc:
     base_url: 'https://localhost:8080'
     base_rest_url: 'https://localhost:8082'
     base_doc_url: 'https://localhost:8082'
+    base_doc_url_v2: 'https://localhost:8180'
     base_graphql_url: 'https://localhost:8080'
 
     base_rest_schema: '/v2/schemas/keyspaces'

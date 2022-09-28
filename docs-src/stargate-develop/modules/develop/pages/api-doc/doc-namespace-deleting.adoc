@@ -5,10 +5,26 @@ Send a `DELETE` request to `{base_doc_schema}/{namespace_name}` to delete
 a namespace. All collections and documents will be deleted along with the
 namespace.
 
-[source, shell, subs="attributes+"]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-ns-delete.sh[]
+include::example$docapi/library/v2/curl-ns-delete.sh[]
 ----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-ns-delete.sh[]
+----
+--
+====
 
 include::develop:partial$deletion-no-return-data.adoc[]
 // end::DeleteNS[]

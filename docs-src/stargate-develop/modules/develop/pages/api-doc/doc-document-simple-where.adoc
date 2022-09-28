@@ -13,7 +13,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-name.sh[]
 ----
 --
 
@@ -43,7 +52,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-eq.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-eq.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-name-eq.sh[]
 ----
 --
 

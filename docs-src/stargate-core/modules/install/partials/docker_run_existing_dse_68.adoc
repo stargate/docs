@@ -55,7 +55,7 @@ Use the `SIMPLE_SNITCH` option if the
   topology of the node.
 ====
 
-include::install:partial$ports.adoc[]
+include::install:page$ports.adoc[leveloffset=+3]
 
 [NOTE]
 ====

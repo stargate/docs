@@ -21,7 +21,7 @@
     "@antora/cli": "^3.0.1",
     "@antora/site-generator-default": "^3.0.1",
     "@redocly/cli": "1.0.0-beta.102",
-    "antora": "^3.1.0",
+    "antora": "^3.1.1",
     "linkinator": "^3.0.3",
     "mobx": "^6.3.12",
     "react": "^16.8.4",

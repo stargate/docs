@@ -18,7 +18,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-all.sh[]
+include::example$docapi/library/v2/curl-document-get-all.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-all.sh[]
 ----
 --
 
@@ -52,7 +61,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-address-city.sh[]
+include::example$docapi/library/v2/curl-document-get-where-address-city.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-address-city.sh[]
 ----
 --
 
@@ -85,7 +103,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-book-eq.sh[]
+include::example$docapi/library/v2/curl-document-get-where-book-eq.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-book-eq.sh[]
 ----
 --
 
@@ -117,7 +144,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh[]
+include::example$docapi/library/v2/curl-document-get-one.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one.sh[]
 ----
 --
 
@@ -147,7 +183,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-data-get-path-in-document.sh[]
+include::example$docapi/library/v2/curl-data-get-path-in-document.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-data-get-path-in-document.sh[]
 ----
 --
 
@@ -173,7 +218,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-data-get-path-array-in-document.sh[]
+include::example$docapi/library/v2/curl-data-get-path-array-in-document.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-data-get-path-array-in-document.sh[]
 ----
 --
 
@@ -198,7 +252,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-data-where-with-document-path.sh[]
+include::example$docapi/library/v2/curl-data-where-with-document-path.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-data-where-with-document-path.sh[]
 ----
 --
 
