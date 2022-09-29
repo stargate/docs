@@ -5,10 +5,10 @@ include::develop:partial$astra_tip.adoc[]
 
 There are several ways that Stargate can be used with Apache Cassandra.
 
-* If you are a developer who just needs a simple platform to test out ideas,
-starting Stargate as a xref:#standalone_3x.adoc[standalone container with Docker] is a good choice.
-* If you already have Cassandra running in a xref:#docker_compose_3x[docker-compose application], or want
-to start Stargate with multiple nodes of Cassandra, installing with `docker-compose`
+* If you are a developer who just needs a simple platform to test out ideas, you can:
+** For v1, start Stargate as a xref:#standalone_docker_3x.adoc[developer mode with Docker].
+** For v2, start Stargate with `docker-compose` in xref:#standalone_docker_3x.adoc[developer mode with Docker], that will start a Stargate coordinator that runs Cassandra, gRPC and CQL, plus the three APIs, each in its own container.
+* If you already have Cassandra running in a xref:#docker_compose_3x[docker-compose application], or want to start Stargate with multiple nodes of Cassandra, installing with `docker-compose`
 is a simple method.
 * If you need to install Stargate with a running Cassandra cluster in either
 xref:#vm_cass_3x.adoc[virtual machines or bare metal], use the method that downloads a zip file of

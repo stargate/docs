@@ -1,7 +1,41 @@
 = Building Stargate from source
 :page-tag: stargate,dev,develop,install
 
-In order to build Stargate, you'll need to have https://adoptopenjdk.net/[Java 8 (jdk8)] installed.
+This page covers the basics of building Stargate v1 or v2 from source. If you want further details, see
+the Developer Guide READMES:
+
+* https://github.com/stargate/stargate/blob/v2.0.0/DEV_GUIDE.md[v2 Developer Guide]
+* https://github.com/stargate/stargate/blob/master/DEV_GUIDE.md[v1 Developer Guide]
+
+== Prerequisites
+
+In order to build Stargate, you'll need to have https://adoptopenjdk.net/[Java 8 (jdk8)] installed for v1 or the v2 coordinator. For v2 APIs, you'll need to have Java 17 installed.
+
+Download JDK 8 from https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot[this link]
+and install the JDK and add it to your path.
+
+[NOTE]
+.For JDK 8
+====
+For example: if you are using a newer version of MacOS, then you are likely using Z-Shell (zsh) by default. So open your ~/.zshrc file and add the path there:
+
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
+====
+
+Download JDK 17 from https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_macos-x64_bin.tar.gz[this link]
+and install the JDK and add it to your path.
+
+[NOTE]
+.For JDK 17
+====
+For example: if you are using a newer version of MacOS, then you are likely using Z-Shell (zsh) by default. So open your ~/.zshrc file and add the path there:
+
+export JAVA_HOME="<install_location>/jdk-17.0.2.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
+====
+
+== Procedure
 
 In a terminal:
 
@@ -23,3 +57,7 @@ cd stargate
 ----
 ./mvnw clean package
 ----
++
+This will install the monolithic Stargate package for v1. The same command can be run in the `v2.0.0` branch to install the Stargate coordinator for v2.
+
+To run the v2 APIs, see the instructions in the Developer Guide linked above.
