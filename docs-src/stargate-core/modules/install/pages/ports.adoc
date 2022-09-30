@@ -15,7 +15,6 @@ The default ports assignments align to the following services and interfaces:
 | 8080 | GraphQL interface for CRUD
 | 8081 | REST authorization service for generating authorization tokens
 | 8082 | REST interface for CRUD 
-| 8083 |  ??? 
 | 8084 | Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)
 | 8180 | Document API interface for CRUD
 | 8090 | gRPC interface for CRUD
