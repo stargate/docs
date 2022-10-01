@@ -9,16 +9,10 @@
 =====
 
 The `starctl` command controls and configures Stargate nodes.
-In Stargate v2, the `starctl` command runs three commands:
+The command starts the Coordinator service.
+The `starctl` command includes most of the options that pertained to the `starctl` command in Stargate v1.0, plus new options.
 
-* starctl-service-rest
-* starctl-service-graphql
-* starctl-coordinator
-
-The first two commands listed start the REST API and GraphQL API services, respectively.
-The last command starts the Coordinator service.
-The `starctl-coordinator` command includes most of the options that pertained to the `starctl` command in Stargate v1.0.
-Thus, the command can be run:
+The command can be run:
 
 [source, shell, subs="attributes+"]
 ----
