@@ -7,6 +7,7 @@
 .starctl v2.0
 [%collapsible%open,asciidoc]
 =====
+
 The `starctl` command controls and configures Stargate nodes.
 In Stargate v2, the `starctl` command runs three commands:
 
@@ -117,7 +118,6 @@ The following tables detail the options available for each service.
 | `export USE_PROXY_PROTOCOL=true`
 
 | `--proxy-dns-name`
-| `| `--use-proxy-protocol`
 | `PROXY_DNS_NAME`
 | 
 | Use proxy DNS name to determine the public DNS name for CQL requests.
@@ -176,53 +176,6 @@ The following tables detail the options available for each service.
 | 
 | Sets the Host ID
 | `export BIND_TO_LISTEN_ADDRESS=true`
-|===
-
-.starctl-service-rest options
-|===
-| Option | Environment Variable | Default | Description | Example
-
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.host="$STARGATE_BRIDGE_HOST")`
-| `STARGATE_BRIDGE_HOST`
-| localhost
-| Bridge host that all services are listening to
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.host=localhost)`
-
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.port="$STARGATE_BRIDGE_PORT")`
-| `STARGATE_BRIDGE_PORT`
-| 8091
-| Port on which bridge host listens
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.port=8091)`
-
-| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_REST_PORT")`
-| `STARGATE_REST_PORT`
-| 8082
-| Port on which REST service is listening
-| `JAVA_OPTS+=(-Ddw.server.connector.port=8082)`
-
-|===
-
-.starctl-service-graphql options
-|===
-| Option | Environment Variable | Default | Description | Example
-
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.host="$STARGATE_BRIDGE_HOST")`
-| `STARGATE_BRIDGE_HOST`
-| localhost
-| Bridge host that all services are listening to
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.host=localhost)`
-
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.port="$STARGATE_BRIDGE_PORT")`
-| `STARGATE_BRIDGE_PORT`
-| 8091
-| Port on which bridge host listens
-| `JAVA_OPTS+=(-Ddw.stargate.bridge.port=8091)`
-
-| `JAVA_OPTS+=(-Ddw.server.connector.port="$STARGATE_GRAPHQL_PORT")`
-| `STARGATE_GRAPHQL_PORT`
-| 9080
-| Port on which GRAPHWL service is listening
-| `JAVA_OPTS+=(-Ddw.server.connector.port=9080)`
 |===
 =====
 
