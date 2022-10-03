@@ -22,7 +22,6 @@ delays between node startup that prevents timing issues.
 ===== 
 Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-3.11/start_cass_311.sh[shell script] to start the coordinator and APIs in developer mode.
 The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
-Currently, Stargate v2 is in beta.
 You will want to run, for example:
 
 [source,bash,subs="attributes+"]
@@ -30,7 +29,7 @@ You will want to run, for example:
 ./start_cass_{cass-alt-tag-3x}.sh -t {stargate2-docker-tag}
 ----
 
-The latest available beta image can be found https://hub.docker.com/r/stargateio/coordinator-3_11/tags[here].
+The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-3_11/tags[here].
 =====
 
 .v1
@@ -79,7 +78,6 @@ delays between node startup that prevents timing issues.
 ===== 
 Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-4.0/start_cass_40.sh[shell script] to start the coordinator and APIs in developer mode.
 The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
-Currently, Stargate v2 is in beta.
 You will want to run, for example:
 
 [source,bash,subs="attributes+"]
@@ -87,7 +85,7 @@ You will want to run, for example:
 ./start_cass_{cass-alt-tag-40}.sh -t {stargate2-docker-tag}
 ----
 
-The latest available beta image can be found https://hub.docker.com/r/stargateio/coordinator-4_0/tags[here].
+The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-4_0/tags[here].
 =====
 
 .v1
@@ -135,7 +133,6 @@ delays between node startup that prevents timing issues.
 ===== 
 Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_dse_68.sh[shell script] to start the coordinator and APIs in developer mode.
 The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
-Currently, Stargate v2 is in beta.
 You will want to run, for example:
 
 [source,bash,subs="attributes+"]
@@ -143,7 +140,7 @@ You will want to run, for example:
 ./start_cass_{dse-alt-tag-68}.sh -t {stargate2-docker-tag}
 ----
 
-The latest available beta image can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
+The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
 =====
 
 .v1
