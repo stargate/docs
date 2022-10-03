@@ -158,12 +158,16 @@ Run the script after downloading the files:
 ----
 ./start_stargate-dse68.sh
 ----
-====
-CAUTION: When Stargate is launched within a container on Mac OS X as shown above,
+=====
+
+[CAUTION]
+==== 
+When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to DSE clusters running within the same Docker
-environment. To run Stargate so that it can connect to a cluster running outside
-of a containerized environment,
+environment. 
+To run Stargate so that it can connect to a cluster running outside of a containerized environment,
 see the xref:install:install_vm_dse_68.adoc[Installing on VMs or bare metal] documentation.
+====
 
 // end::dse_68[]
 
