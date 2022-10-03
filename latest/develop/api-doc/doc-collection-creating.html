@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -408,12 +411,28 @@ In this example we use <code>library</code> for the <code>name</code>.</p>
 <p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset1_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset1_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request POST 'https://localhost:8180/v2/namespaces/test/collections' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "name": "library"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
@@ -509,12 +528,44 @@ In this example, a collection is created to store a Person object that has three
 <p><a id="tabset2_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset2_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset2_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library2/json-schema' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "The person'\''s first name."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "The person'\''s last name."
+    },
+    "age": {
+      "description": "Age in years which must be equal to or greater than zero.",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
+'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library2/json-schema' \

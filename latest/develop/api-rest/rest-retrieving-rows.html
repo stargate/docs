@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1017,13 +1020,8 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:docs-src/stargate-develop/modules/develop/examples/rest/curl_get_list_data.sh
-curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-=======
-curl -s -L -G https://localhost:8082/v2/keyspaces/users_keyspace/users \
-   -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; main:modules/developers-guide/examples/rest/curl_get_list_data.sh
    -H  "Content-Type: application/json" \
    -H "Accept: application/json" \
    --data-urlencode 'where={
@@ -1121,13 +1119,8 @@ curl -s -L -G https://localhost:8082/v2/keyspaces/users_keyspace/users \
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:docs-src/stargate-develop/modules/develop/examples/rest/curl_get_map_data.sh
-curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
    -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-=======
-curl -s -L -G https://localhost:8082/v2/keyspaces/users_keyspace/users \
-   -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; main:modules/developers-guide/examples/rest/curl_get_map_data.sh
    -H  "Content-Type: application/json" \
     -H "Accept: application/json" \
    --data-urlencode 'where={

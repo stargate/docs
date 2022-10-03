@@ -192,6 +192,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -383,16 +386,224 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">The starctl command</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <code>starctl</code> command controls and configures Stargate nodes.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="starting-stargate-using-starctl"><a class="anchor" href="#starting-stargate-using-starctl"></a><a class="link" href="#starting-stargate-using-starctl">Starting Stargate using starctl</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="starctl-v2-0"><a class="anchor" href="#starctl-v2-0"></a><a class="link" href="#starctl-v2-0">starctl v2.0</a></h3>
+<details open>
+<summary class="title">starctl v2.0</summary>
+<div class="content">
+<div class="paragraph">
+<p>The <code>starctl</code> command controls and configures Stargate nodes.
+The command starts the coordinator service.
+The <code>starctl</code> command includes most of the options that pertained to the <code>starctl</code> command in Stargate v1.0, plus new options.</p>
+</div>
+<div class="paragraph">
+<p>The command can be run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">starctl --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and the options are passed to the <code>starctl</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The following tables detail the options available for each service.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. starctl options</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Environment Variable</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name <em>cluster name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLUSTER_NAME</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of database cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-name stargate</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed <em>seed node IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEED</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address of the seed node of the cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-seed 192.168.0.1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version <em>Cassandra version</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CLUSTER_VERSION</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The major version of the database cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cluster-version 3.11</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen <em>listen IP address</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LISTEN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">127.0.0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address Stargate services should listen on. This options value must match the regular expression
+<code>^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$</code>. Must be a valid IP address.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--listen-address 192.168.0.1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port <em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEED_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--seed-port 7001</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc <em>datacenter name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATACENTER_NAME</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datacenter name of this node. This must match the database backend.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dc dc1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack <em>rack name</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RACK_NAME</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rack name of this node. This must match the database backend.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--rack rack1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--simple-snitch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SIMPLE_SNITCH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set this option if the backend cluster uses <code>SimpleSnitch</code> as the <code>endpoint_snitch</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export SIMPLE_SNITCH=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--dse</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set if the backend is DSE. Do not set this option if the backend is Cassandra.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DSE=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port <em>port number</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CQL_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--cql-port 9043</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--enable-auth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENABLE_AUTH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to enable <code>PasswordAuthenticator</code> in the cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export ENABLE_AUTH=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--use-proxy-protocol</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>USE_PROXY_PROTOCOL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use proxy protocol to determine the public address and port of CQL requests.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export USE_PROXY_PROTOCOL=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--proxy-dns-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROXY_DNS_NAME</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use proxy DNS name to determine the public DNS name for CQL requests.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export PROXY_DNS_NAME=proxy</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--proxy-port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROXY_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use proxy port to determine the public port of CQL requests.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export PROXY_PORT=9000</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--developer-mode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DEVELOPER_MODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DEVELOPER_MODE=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--emulate-dbaas-defaults</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EMULATE_DBAAS_DEFAULTS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set bind the web services to the listen address only.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export BIND_TO_LISTEN_ADDRESS=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--bind-to-listen-address</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BIND_TO_LISTEN_ADDRESS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set bind the web services to the listen address only.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export BIND_TO_LISTEN_ADDRESS=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--jmx-port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>JMX_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port to which JMX is bound</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export JMX_PORT=10000</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--disable-dynamic-snitch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DISABLE_DYNAMIC_SNITCH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set disable the dynamic snitch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DISABLE_DYNAMIC_SNITCH=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--disable-mbean-registration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DISABLE_MBEAN_REGISTRATION</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set disable MBean registration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DISABLE_MBEAN_REGISTRATION=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--disable-bundles-watch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DISABLE_BUNDLES_WATCH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unset, or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set disable bundles watch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export DISABLE_BUNDLES_WATCH=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--host-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HOST_ID</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the Host ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export BIND_TO_LISTEN_ADDRESS=true</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="starctl-v1-0"><a class="anchor" href="#starctl-v1-0"></a><a class="link" href="#starctl-v1-0">starctl v1.0</a></h3>
+<details>
+<summary class="title">starctl v1.0</summary>
+<div class="content">
+<div class="paragraph">
+<p>The <code>starctl</code> command controls and configures Stargate nodes.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">starctl --cluster-name stargate \
@@ -414,13 +625,8 @@ When Stargate is launched on a host as shown above, it will connect only to Cass
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="starctl-options"><a class="anchor" href="#starctl-options"></a><a class="link" href="#starctl-options">starctl options</a></h2>
-<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. starctl options</caption>
+<caption class="title">Table 2. starctl options</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -539,6 +745,9 @@ When Stargate is launched on a host as shown above, it will connect only to Cass
 </tr>
 </tbody>
 </table>
+</div>
+</details>
+</div>
 </div>
 </div>
 <nav class="pagination">

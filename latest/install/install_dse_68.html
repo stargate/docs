@@ -192,6 +192,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -406,17 +409,25 @@ can get you started with no install steps.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>If you are a developer who just needs a simple platform to test out ideas,
-starting Stargate as a <a href="#standalone_docker_dse_68">standalone container with Docker</a> is a good choice.</p>
+<p>If you are a developer who just needs a simple platform to test out ideas, you can:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For v1, start Stargate as a <a href="#standalone_docker_dse_68.adoc">developer mode with Docker</a>.</p>
 </li>
 <li>
-<p>If you already have DSE running in a <a href="#docker_compose_dse_68">docker-compose application</a>, or want
-to start Stargate with multiple nodes of DSE, installing with <code>docker-compose</code>
+<p>For v2, start Stargate with <code>docker-compose</code> in <a href="#standalone_docker_dse_68.adoc">developer mode with Docker</a>, that will start a Stargate coordinator that runs Cassandra, gRPC and CQL, plus the three APIs, each in its own container.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you already have Cassandra running in a <a href="#docker_compose_dse_68">docker-compose application</a>, or want to start Stargate with multiple nodes of Cassandra, installing with <code>docker-compose</code>
 is a simple method.</p>
 </li>
 <li>
-<p>If you need to install Stargate with a running DSE cluster in either
-<a href="#vm_dse_68">virtual machines or bare metal</a>, use the method that downloads a zip file of
+<p>If you need to install Stargate with a running Cassandra cluster in either
+<a href="#vm_dse_68.adoc">virtual machines or bare metal</a>, use the method that downloads a zip file of
 Stargate jar files and install.</p>
 </li>
 </ul>
@@ -428,9 +439,10 @@ Stargate jar files and install.</p>
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-At this time Stargate does not support advanced workloads such as Graph and Search. If you are
-using any sort of search index in the keyspace you plan to use with Stargate they will need to be removed
-before Stargate deployment.
+<div class="paragraph">
+<p>At this time Stargate does not support advanced workloads such as Graph and Search.
+If you are using any sort of search index in the keyspace you plan to use with Stargate they will need to be removed before Stargate deployment.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -443,15 +455,61 @@ before Stargate deployment.
 <div class="sect1">
 <h2 id="standalone_docker_dse_68"><a class="anchor" href="#standalone_docker_dse_68"></a><a class="link" href="#standalone_docker_dse_68">Stargate Standalone with Docker</a></h2>
 <div class="sectionbody">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>For Stargate v2, you&#8217;ll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi.
+The coordinator image contains a Apache Cassandra<sup>&#8482;</sup> backend, the Cassandra Query Language (CQL), and the gRPC API.</p>
+</div>
+<div class="paragraph">
+<p>The following are the commands for each of those images:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/coordinator-68:v2.0.0-BETA-3
+docker pull stargateio/restapi:v2.0.0-BETA-3
+docker pull stargateio/docsapi:v2.0.0-BETA-3
+docker pull stargateio/graphqlapi:v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with a DataStax Enterprise<sup>&#8482;</sup>  6.8 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.57</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_cass_40_dev_mode.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_dse_68_dev_mode.sh -t v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-6.8/tags">here</a>.</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>Start the Stargate container in <a href="starctl.html" class="xref page">developer mode</a>.
 Developer mode removes the need to set up a separate DSE instance and is
@@ -468,9 +526,84 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=6.8 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-dse-68:v1.0.57</code></pre>
+  stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
+<div class="sect2">
+<h3 id="ports-for-using-stargate"><a class="anchor" href="#ports-for-using-stargate"></a><a class="link" href="#ports-for-using-stargate">Ports for using Stargate</a></h3>
+<div class="paragraph">
+<p>Stargate uses a number of ports, to allow users to interact with the APIs.</p>
+</div>
+<div class="sect3">
+<h4 id="stargate-v2-0"><a class="anchor" href="#stargate-v2-0"></a><a class="link" href="#stargate-v2-0">Stargate v2.0</a></h4>
+<details open>
+<summary class="title">Stargate v2.0 ports</summary>
+<div class="content">
+<div class="paragraph">
+<p>The default ports assignments align to the following services and interfaces:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service/Interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating authorization tokens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8082</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8084</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8180</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document API interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8090</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The port for the Document API has changed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+<div class="sect3">
+<h4 id="stargate-v1-0"><a class="anchor" href="#stargate-v1-0"></a><a class="link" href="#stargate-v1-0">Stargate v1.0</a></h4>
+<details>
+<summary class="title">Stargate v1.0 ports</summary>
+<div class="content">
 <div class="paragraph">
 <p>The default ports assignments align to the following services and interfaces:</p>
 </div>
@@ -511,6 +644,10 @@ meant for development and testing only.</p>
 </tbody>
 </table>
 </div>
+</details>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
 <h2 id="docker_compose_dse_68"><a class="anchor" href="#docker_compose_dse_68"></a><a class="link" href="#docker_compose_dse_68">Stargate with Docker compose</a></h2>
@@ -531,29 +668,51 @@ meant for development and testing only.</p>
 <div class="sect2">
 <h3 id="new-dse-and-stargate-using-docker-compose"><a class="anchor" href="#new-dse-and-stargate-using-docker-compose"></a><a class="link" href="#new-dse-and-stargate-using-docker-compose">New DSE and Stargate using docker-compose</a></h3>
 <div class="paragraph">
+<p>Using <code>docker-compose</code>, you can also start an Apache Cassandra<sup>&#8482;</sup> cluster or use one that is running in Docker already, to create a Cassandra plus Stargate environment.
+This method is different from the standalone environment, in that a separate Cassandra cluster is used for the backend storage, and is more like a production environment.</p>
+</div>
+<div class="paragraph">
 <p>The <code>docker-compose</code> YAML file contains the configuration for pulling the
 required docker images and configuration required for installing:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>1-3 DataStax Enterprise<sup>&#8482;</sup> dse-tag-68 nodes as a cluster (backend-1, backend-2, backend-3)</p>
+<p>1-3 DataStax Enterprise 6.8 nodes as a cluster (backend-1, backend-2, backend-3)</p>
 </li>
 <li>
-<p>1 Stargate node (stargate)</p>
+<p>v2: 1 Stargate coordinator, plus desired APIs (by default, all are installed)</p>
+</li>
+<li>
+<p>v1: 1 Stargate node (stargate) The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs, and GraphQL Playground.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
-and GraphQL Playground.</p>
+<p>There is a shell script to run the docker-compose file with
+delays between node startup that prevents timing issues.</p>
+</div>
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_dse_68.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_cass_68.sh -t v2.0.0-BETA-3</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Two companion files are helpful: a script to run the docker-compose file with
-delays between node startup that prevents timing issues, and a text file that
-has the <code>docker run</code> commands for running a CQLSH Docker container to query against
-either one of the DSE nodes or the Stargate node, respectively.</p>
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-dse-68/tags">here</a>.</p>
 </div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>The files are found at the
 <a href="https://github.com/stargate/docker-images/tree/master/examples/dse-6.8">Stargate docker-images repository</a>.</p>
@@ -566,6 +725,8 @@ either one of the DSE nodes or the Stargate node, respectively.</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stargate-dse68.sh</code></pre>
 </div>
 </div>
+</div>
+</details>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -573,11 +734,13 @@ either one of the DSE nodes or the Stargate node, respectively.</p>
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-When Stargate is launched within a container on Mac OS X as shown above,
+<div class="paragraph">
+<p>When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to DSE clusters running within the same Docker
-environment. To run Stargate so that it can connect to a cluster running outside
-of a containerized environment,
-see the <a href="install_vm_dse_68.html" class="xref page">Installing on VMs or bare metal</a> documentation.
+environment.
+To run Stargate so that it can connect to a cluster running outside of a containerized environment,
+see the <a href="install_vm_dse_68.html" class="xref page">Installing on VMs or bare metal</a> documentation.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -621,7 +784,7 @@ containerized environment with the following command:</p>
   -e SEED=cass1 \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  -d stargateio/stargate-dse-68:v1.0.57</code></pre>
+  -d stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -661,15 +824,88 @@ containerized environment with the following command:</p>
 <td class="content">
 <div class="paragraph">
 <p>Use the <code>SIMPLE_SNITCH</code> option if the
-  <a href="https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962">endpoint_snitch</a>
-  setting in the cluster is set to <strong>SimpleSnitch</strong>. If the cluster uses a
-  different <code>endpoint_snitch</code> use the <code>--dc</code> and <code>--rack</code> options to define the
-  topology of the node.</p>
+<a href="https://github.com/apache/cassandra/blob/cassandra-3.11/conf/cassandra.yaml#L962">endpoint_snitch</a>
+setting in the cluster is set to <strong>SimpleSnitch</strong>. If the cluster uses a
+different <code>endpoint_snitch</code> use the <code>--dc</code> and <code>--rack</code> options to define the
+topology of the node.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<div class="sect3">
+<h4 id="ports-for-using-stargate-2"><a class="anchor" href="#ports-for-using-stargate-2"></a><a class="link" href="#ports-for-using-stargate-2">Ports for using Stargate</a></h4>
+<div class="paragraph">
+<p>Stargate uses a number of ports, to allow users to interact with the APIs.</p>
+</div>
+<div class="sect4">
+<h5 id="stargate-v2-0-2"><a class="anchor" href="#stargate-v2-0-2"></a><a class="link" href="#stargate-v2-0-2">Stargate v2.0</a></h5>
+<details open>
+<summary class="title">Stargate v2.0 ports</summary>
+<div class="content">
+<div class="paragraph">
+<p>The default ports assignments align to the following services and interfaces:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service/Interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating authorization tokens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8082</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8084</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8180</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document API interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8090</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The port for the Document API has changed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+<div class="sect4">
+<h5 id="stargate-v1-0-2"><a class="anchor" href="#stargate-v1-0-2"></a><a class="link" href="#stargate-v1-0-2">Stargate v1.0</a></h5>
+<details>
+<summary class="title">Stargate v1.0 ports</summary>
+<div class="content">
 <div class="paragraph">
 <p>The default ports assignments align to the following services and interfaces:</p>
 </div>
@@ -709,6 +945,8 @@ containerized environment with the following command:</p>
 </tr>
 </tbody>
 </table>
+</div>
+</details>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -724,6 +962,8 @@ be set if standard ports are used.</p>
 </td>
 </tr>
 </table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -748,13 +988,13 @@ Java 8 is installed.</p>
 </div>
 <div class="paragraph">
 <p>Once you have a machine ready,
-download the <a href="https://github.com/stargate/stargate/releases/download/v1.0.57/stargate-jars.zip">Stargate zip file</a>.
+download the <a href="https://github.com/stargate/stargate/releases/download/v1.0.65/stargate-jars.zip">Stargate zip file</a>.
 This file will provide the jar files that are required to run Stargate.
 A typical method is using wget:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">wget https://github.com/stargate/stargate/releases/download/v1.0.57/stargate-jars.zip </code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">wget https://github.com/stargate/stargate/releases/download/v1.0.65/stargate-jars.zip </code></pre>
 </div>
 </div>
 <div class="paragraph">

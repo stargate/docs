@@ -192,6 +192,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -383,9 +386,81 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">Building Stargate from source</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>In order to build Stargate, you&#8217;ll need to have <a href="https://adoptopenjdk.net/">Java 8 (jdk8)</a> installed.</p>
+<p>This page covers the basics of building Stargate v1 or v2 from source. If you want further details, see
+the Developer Guide READMES:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/stargate/stargate/blob/v2.0.0/DEV_GUIDE.md">v2 Developer Guide</a></p>
+</li>
+<li>
+<p><a href="https://github.com/stargate/stargate/blob/master/DEV_GUIDE.md">v1 Developer Guide</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a><a class="link" href="#prerequisites">Prerequisites</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to build Stargate, you&#8217;ll need to have <a href="https://adoptopenjdk.net/">Java 8 (jdk8)</a> installed for v1 or the v2 coordinator. For v2 APIs, you&#8217;ll need to have Java 17 installed.</p>
+</div>
+<div class="paragraph">
+<p>Download JDK 8 from <a href="https://adoptopenjdk.net/?variant=openjdk8&amp;jvmVariant=hotspot">this link</a>
+and install the JDK and add it to your path.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">For JDK 8</div>
+<div class="paragraph">
+<p>For example: if you are using a newer version of MacOS, then you are likely using Z-Shell (zsh) by default. So open your ~/.zshrc file and add the path there:</p>
+</div>
+<div class="paragraph">
+<p>export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Download JDK 17 from <a href="https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_macos-x64_bin.tar.gz">this link</a>
+and install the JDK and add it to your path.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">For JDK 17</div>
+<div class="paragraph">
+<p>For example: if you are using a newer version of MacOS, then you are likely using Z-Shell (zsh) by default. So open your ~/.zshrc file and add the path there:</p>
+</div>
+<div class="paragraph">
+<p>export JAVA_HOME="&lt;install_location&gt;/jdk-17.0.2.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="procedure"><a class="anchor" href="#procedure"></a><a class="link" href="#procedure">Procedure</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>In a terminal:</p>
 </div>
@@ -414,8 +489,16 @@
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">./mvnw clean package</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>This will install the monolithic Stargate package for v1. The same command can be run in the <code>v2.0.0</code> branch to install the Stargate coordinator for v2.</p>
+</div>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>To run the v2 APIs, see the instructions in the Developer Guide linked above.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="starctl.html">The starctl command</a></span>

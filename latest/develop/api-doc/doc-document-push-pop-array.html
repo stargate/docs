@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -400,6 +403,9 @@
 <p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset1_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset1_result"></a>Result</p>
 </li>
 </ul>
@@ -408,9 +414,26 @@
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -X GET 'https://localhost:8082/v2/schemas/namespaces/test/functions' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -X GET 'https://localhost:8180/v2/schemas/namespaces/test/functions' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>curl -X GET 'https://localhost:8082/v2/schemas/namespaces/test/functions' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
 </div>
 </div>
 </div>
@@ -449,6 +472,9 @@
 <p><a id="tabset2_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset2_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset2_result"></a>Result</p>
 </li>
 </ul>
@@ -457,9 +483,26 @@
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id/book/genre' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
 </div>
 </div>
 </div>
@@ -494,6 +537,9 @@ document-path. Notice that structure of the data passed:</p>
 <p><a id="tabset3_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset3_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset3_result"></a>Result</p>
 </li>
 </ul>
@@ -502,12 +548,32 @@ document-path. Notice that structure of the data passed:</p>
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
  "operation": "$push", "value": "culture" 
 }'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+ "operation": "$push", "value": "culture" 
+}'</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
 </div>
 </div>
 </div>
@@ -551,6 +617,9 @@ document-path. Notice that structure of the data passed:</p>
 <p><a id="tabset4_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset4_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset4_result"></a>Result</p>
 </li>
 </ul>
@@ -559,12 +628,32 @@ document-path. Notice that structure of the data passed:</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
  "operation": "$pop"
 }'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_curl-command-v1">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre/function' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+ "operation": "$pop"
+}'</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
 </div>
 </div>
 </div>
@@ -590,6 +679,9 @@ document-path. Notice that structure of the data passed:</p>
 <p><a id="tabset5_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset5_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset5_result"></a>Result</p>
 </li>
 </ul>
@@ -598,9 +690,26 @@ document-path. Notice that structure of the data passed:</p>
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id/book/genre' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_curl-command-v1">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id/book/genre' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
 </div>
 </div>
 </div>

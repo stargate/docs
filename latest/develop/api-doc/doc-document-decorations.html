@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -394,12 +397,25 @@ You can set the value in the REST query:</p>
 <p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset1_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset1_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request GET 'https://localhost:8180/v2/namespaces/test/collections/library?page-size=5' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
@@ -561,12 +577,23 @@ parameter set to the first page&#8217;s pageState:</p>
 <p><a id="tabset2_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset2_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset2_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
+--header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
@@ -698,12 +725,24 @@ You can specify the fields that you wish returned in the REST query:</p>
 <p><a id="tabset3_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset3_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset3_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \

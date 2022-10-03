@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -440,12 +443,29 @@ The data is passed in the JSON body.</p>
 <p><a id="tabset1_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset1_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset1_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "stuff": "2545331a-aaad-45d2-b084-9da3d8f4c311",
+  "other": "I need a document with a set value for a test."
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
@@ -491,12 +511,29 @@ The data is passed in the JSON body.</p>
 <p><a id="tabset2_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset2_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset2_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
+--request POST 'https://localhost:8180/v2/namespaces/test/collections/library' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "id": "some-stuff",
+  "other": "This is nonsensical stuff."
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
@@ -540,12 +577,63 @@ Send a <code>POST</code> request to <code>/v2/namespaces/{namespace_name}/collec
 <p><a id="tabset3_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset3_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset3_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+    "reader": {
+       "name": "Amy Smith",
+       "user_id": "12345",
+       "birthdate": "10-01-1980",
+       "email": {
+           "primary": "asmith@gmail.com",
+           "secondary": "amyispolite@aol.com"
+       },
+       "address": {
+           "primary": {
+               "street": "200 Antigone St",
+               "city": "Nevertown",
+               "state": "MA",
+               "zip-code": 55555
+           },
+           "secondary": {
+               "street": "850 2nd St",
+               "city": "Evertown",
+               "state": "MA",
+               "zip-code": 55556
+           }
+       },
+       "reviews": [
+           {
+               "book-title": "Moby Dick", 
+               "rating": 4, 
+               "review-date": "04-25-2002",
+               "comment": "It was better than I thought."
+           },
+           {
+               "book-title": "Pride and Prejudice", 
+               "rating": 2, 
+               "review-date": "12-02-2002",
+               "comment": "It was just like the movie."
+           }
+       ]
+    }
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library' \
@@ -635,12 +723,49 @@ It is a <code>PUT</code> request:</p>
 <p><a id="tabset4_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset4_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset4_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '     {
+        "book": {
+            "title": "Native Son",
+            "isbn": "12322",
+            "author": [
+                "Richard Wright"
+            ],
+            "pub-year": 1930,
+            "genre": [
+                "poverty",
+                "action"
+            ],
+            "format": [
+                "hardback",
+                "paperback",
+                "epub"
+            ],
+            "languages": [
+                "English",
+                "German",
+                "French"
+            ]
+        }
+    }
+'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id' \
@@ -703,12 +828,25 @@ Let&#8217;s read the data from the last example with a <code>GET</code> request:
 <p><a id="tabset5_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset5_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset5_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
+-X GET 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
@@ -788,12 +926,97 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <p><a id="tabset6_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset6_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset6_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library/batch' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' [{
+     "reader": {
+        "name": "Jane Doe",
+        "user_id": "12345",
+        "birthdate": "10-01-1980",
+        "email": {
+            "primary": "jdoe@gmail.com",
+            "secondary": "jane.doe@aol.com"
+        },
+        "address": {
+            "primary": {
+                "street": "100 Main St",
+                "city": "Evertown",
+                "state": "MA",
+                "zip-code": 55555
+            },
+            "secondary": {
+                "street": "850 2nd St",
+                "city": "Evertown",
+                "state": "MA",
+                "zip-code": 55556
+            }
+        },
+        "reviews": [
+            {
+                "book-title": "Moby Dick", 
+                "rating": 3, 
+                "review-date": "02-02-2002",
+                "comment": "It was okay."
+            },
+            {
+                "book-title": "Pride and Prejudice", 
+                "rating": 5, 
+                "review-date": "03-02-2002",
+                "comment": "It was a wonderful book! I loved reading it."
+            }
+        ]
+     }
+  },
+  {
+    "reader": {
+       "name": "John Jones",
+       "user_id": "54321",
+       "birthdate": "06-11-2000",
+       "email": {
+           "primary": "jjones@gmail.com",
+           "secondary": "johnnyj@aol.com"
+       },
+       "address": {
+           "primary": {
+               "street": "4593 Webster Ave",
+               "city": "Paradise",
+               "state": "CA",
+               "zip-code": 95534
+           }
+       },
+       "reviews": [
+           {
+               "book-title": "Moby Dick", 
+               "rating": 2, 
+               "review-date": "03-15-2020",
+               "comment": "Boring book that I had to read for class."
+           },
+           {
+               "book-title": "Pride and Prejudice", 
+               "rating": 2, 
+               "review-date": "0-02-2020",
+               "comment": "Another boring book."
+           }
+       ]
+    }
+}
+ ]'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/batch' \
@@ -906,12 +1129,102 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <p><a id="tabset7_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset7_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset7_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library/batch' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' [{
+     "book": {
+         "title": "Moby Dick",
+         "isbn": "12345",
+         "author": [
+             "Herman Melville"
+         ],
+         "pub-year": 1899,
+         "genre": [
+             "adventure",
+             "ocean",
+             "action"
+         ],
+         "format": [
+             "hardback",
+             "paperback",
+             "epub"
+         ],
+         "languages": [
+             "English",
+             "German",
+             "French"
+         ]
+     }
+    },
+ {
+     "book": {
+         "title": "Pride and Prejudice",
+         "isbn": "45674",
+         "author": [
+             "Jane Austen"
+         ],
+         "pub-year": 1890,
+         "genre": [
+             "romance",
+             "England",
+             "regency"
+         ],
+         "format": [
+             "hardback",
+             "paperback",
+             "epub"
+         ],
+         "languages": [
+             "English",
+             "Japanese",
+             "French"
+         ]
+     }
+ },
+     {
+        "book": {
+            "title": "The Art of French Cooking",
+            "isbn": "19922",
+            "author": [
+                "Julia Child",
+                "Simone Beck",
+                "Louisette Bertholle"
+            ],
+            "pub-year": 1960,
+            "genre": [
+                "cooking",
+                "French cuisine"
+            ],
+            "format": [
+                "hardback",
+                "paperback",
+                "epub"
+            ],
+            "languages": [
+                "English",
+                "German",
+                "French",
+                "Belgian"
+            ]
+        }
+    }
+]'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/batch' \
@@ -1027,12 +1340,64 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <p><a id="tabset8_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset8_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset8_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/John-Smith' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw '     {
+     "reader": {
+        "name": "John Smith",
+        "user_id": "12346",
+        "birthdate": "11-01-1992",
+        "email": {
+            "primary": "jsmith@gmail.com",
+            "secondary": "john.smith@aol.com"
+        },
+        "address": {
+            "primary": {
+                "street": "200 Z St",
+                "city": "Evertown",
+                "state": "MA",
+                "zip-code": 55555
+            },
+            "secondary": {
+                "street": "850 2nd St",
+                "city": "Evertown",
+                "state": "MA",
+                "zip-code": 55556
+            }
+        },
+        "reviews": [
+            {
+                "book-title": "Moby Dick", 
+                "rating": 3, 
+                "review-date": "02-02-2002",
+                "comment": "It was okay."
+            },
+            {
+                "book-title": "Pride and Prejudice", 
+                "rating": 5, 
+                "review-date": "03-02-2002",
+                "comment": "It was a wonderful book! I loved reading it."
+            }
+        ]
+     }
+ }
+'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset8_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/John-Smith' \
@@ -1116,12 +1481,33 @@ TTL will add a time-to-live value in the database, so that the entry will be mar
 <p><a id="tabset9_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset9_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset9_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PATCH 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?profile=true' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+  "yet-another-field": "Hopefully, I haven'\''t lost my other two fields!",
+  "choices": [
+     "eeny",
+     "meeny",
+     "meiny",
+     "mo"
+  ]
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset9_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PATCH 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?profile=true' \
@@ -1207,12 +1593,25 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <p><a id="tabset10_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset10_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset10_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
+-X GET 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset10_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
@@ -1259,12 +1658,27 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <p><a id="tabset11_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset11_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset11_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+  "okaydokie": "Now I have done it! We have a TTL at last!"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset11_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
@@ -1297,12 +1711,25 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <p><a id="tabset12_curl-command-v2"></a>cURL command (/v2)</p>
 </li>
 <li>
+<p><a id="tabset12_curl-command-v1"></a>cURL command (/v1)</p>
+</li>
+<li>
 <p><a id="tabset12_result"></a>Result</p>
 </li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
+-X GET 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+--header "X-Cassandra-Token: $AUTH_TOKEN" \
+--header 'Content-Type: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset12_curl-command-v1">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \

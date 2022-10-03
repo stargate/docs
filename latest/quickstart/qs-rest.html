@@ -192,6 +192,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -458,37 +461,112 @@ can get you started with no install steps.</p>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_cassandra-4-0">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>For Stargate v2, you&#8217;ll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi.
+The coordinator image contains a Apache Cassandra<sup>&#8482;</sup> backend, the Cassandra Query Language (CQL), and the gRPC API.</p>
+</div>
+<div class="paragraph">
+<p>The following are the commands for each of those images:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/coordinator-4_0:v2.0.0-BETA-3
+docker pull stargateio/restapi:v2.0.0-BETA-3
+docker pull stargateio/docsapi:v2.0.0-BETA-3
+docker pull stargateio/graphqlapi:v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 4.0 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-4_0:v1.0.57</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-4_0:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_cassandra-3-x">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>For Stargate v2, you&#8217;ll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi.
+The coordinator image contains a Apache Cassandra<sup>&#8482;</sup> backend, the Cassandra Query Language (CQL), and the gRPC API.</p>
+</div>
+<div class="paragraph">
+<p>The following are the commands for each of those images:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/coordinator-3_11:v2.0.0-BETA-3
+docker pull stargateio/restapi:v2.0.0-BETA-3
+docker pull stargateio/docsapi:v2.0.0-BETA-3
+docker pull stargateio/graphqlapi:v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with an Apache Cassandra<sup>&#8482;</sup> 3.11 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.57</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-3_11:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_dse-6-8">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>For Stargate v2, you&#8217;ll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi.
+The coordinator image contains a Apache Cassandra<sup>&#8482;</sup> backend, the Cassandra Query Language (CQL), and the gRPC API.</p>
+</div>
+<div class="paragraph">
+<p>The following are the commands for each of those images:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/coordinator-68:v2.0.0-BETA-3
+docker pull stargateio/restapi:v2.0.0-BETA-3
+docker pull stargateio/docsapi:v2.0.0-BETA-3
+docker pull stargateio/graphqlapi:v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with a DataStax Enterprise<sup>&#8482;</sup>  6.8 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.57</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>
@@ -515,6 +593,27 @@ and GraphQL Playground, along with a DataStax Enterprise<sup>&#8482;</sup>  6.8 
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset2_cassandra-4-0">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-4.0/start_cass_40_dev_mode.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_cass_4_0_dev_mode.sh -t v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-4_0/tags">here</a>.</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>Start the Stargate container in <a href="../install/starctl.html" class="xref page">developer mode</a>.
 Developer mode removes the need to set up a separate Cassandra instance and is
@@ -531,11 +630,34 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=4.0 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-4_0:v1.0.57</code></pre>
+  stargateio/stargate-4_0:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_cassandra-3-x">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-3.11/start_cass_311_dev_mode.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_cass_3_11_dev_mode.sh -t v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-3_11/tags">here</a>.</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>Start the Stargate container in <a href="../install/starctl.html" class="xref page">developer mode</a>.
 Developer mode removes the need to set up a separate Cassandra instance and is
@@ -552,11 +674,34 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=3.11 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-3_11:v1.0.57</code></pre>
+  stargateio/stargate-3_11:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_dse-6-8">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_cass_40_dev_mode.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_dse_68_dev_mode.sh -t v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-6.8/tags">here</a>.</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>Start the Stargate container in <a href="../install/starctl.html" class="xref page">developer mode</a>.
 Developer mode removes the need to set up a separate DSE instance and is
@@ -573,9 +718,11 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=6.8 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-dse-68:v1.0.57</code></pre>
+  stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>

@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -378,15 +381,61 @@
 <div class="sect1">
 <h2 id="standalone_docker_dse_68"><a class="anchor" href="#standalone_docker_dse_68"></a><a class="link" href="#standalone_docker_dse_68">Stargate Standalone with Docker</a></h2>
 <div class="sectionbody">
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>For Stargate v2, you&#8217;ll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi.
+The coordinator image contains a Apache Cassandra<sup>&#8482;</sup> backend, the Cassandra Query Language (CQL), and the gRPC API.</p>
+</div>
+<div class="paragraph">
+<p>The following are the commands for each of those images:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/coordinator-68:v2.0.0-BETA-3
+docker pull stargateio/restapi:v2.0.0-BETA-3
+docker pull stargateio/docsapi:v2.0.0-BETA-3
+docker pull stargateio/graphqlapi:v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with a DataStax Enterprise<sup>&#8482;</sup>  6.8 backend.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.57</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker pull stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_cass_40_dev_mode.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_dse_68_dev_mode.sh -t v2.0.0-BETA-3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-6.8/tags">here</a>.</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>Start the Stargate container in <a href="starctl.html" class="xref page">developer mode</a>.
 Developer mode removes the need to set up a separate DSE instance and is
@@ -403,9 +452,84 @@ meant for development and testing only.</p>
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=6.8 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-dse-68:v1.0.57</code></pre>
+  stargateio/stargate-dse-68:v1.0.65</code></pre>
 </div>
 </div>
+</div>
+</details>
+<div class="sect2">
+<h3 id="ports-for-using-stargate"><a class="anchor" href="#ports-for-using-stargate"></a><a class="link" href="#ports-for-using-stargate">Ports for using Stargate</a></h3>
+<div class="paragraph">
+<p>Stargate uses a number of ports, to allow users to interact with the APIs.</p>
+</div>
+<div class="sect3">
+<h4 id="stargate-v2-0"><a class="anchor" href="#stargate-v2-0"></a><a class="link" href="#stargate-v2-0">Stargate v2.0</a></h4>
+<details open>
+<summary class="title">Stargate v2.0 ports</summary>
+<div class="content">
+<div class="paragraph">
+<p>The default ports assignments align to the following services and interfaces:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service/Interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating authorization tokens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8082</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8084</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8180</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document API interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8090</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The port for the Document API has changed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+<div class="sect3">
+<h4 id="stargate-v1-0"><a class="anchor" href="#stargate-v1-0"></a><a class="link" href="#stargate-v1-0">Stargate v1.0</a></h4>
+<details>
+<summary class="title">Stargate v1.0 ports</summary>
+<div class="content">
 <div class="paragraph">
 <p>The default ports assignments align to the following services and interfaces:</p>
 </div>
@@ -445,6 +569,10 @@ meant for development and testing only.</p>
 </tr>
 </tbody>
 </table>
+</div>
+</details>
+</div>
+</div>
 </div>
 </div>
 </article>

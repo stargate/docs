@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -424,7 +427,8 @@ the authentication token and the keyspace name:</p>
 <h2 id="start-stargate"><a class="anchor" href="#start-stargate"></a><a class="link" href="#start-stargate">Start Stargate</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you don&#8217;t already have access to a Stargate deployment, one can be started
+<p>This method is not required for Stargate v2, but you need these instructions for Stargate v1.
+If you don&#8217;t already have access to a Stargate deployment, one can be started
 quickly for testing in <a href="../../../install/starctl.html" class="xref page">developer mode</a>.
 Developer mode removes the need to set up a separate Cassandra instance and is
 meant for development and testing only.
@@ -442,7 +446,7 @@ This <code>docker run</code> command also exposes port 8090 for gRPC connections
   -e CLUSTER_NAME=stargate \
   -e CLUSTER_VERSION=4.0 \
   -e DEVELOPER_MODE=true \
-  stargateio/stargate-4_0:v1.0.57</code></pre>
+  stargateio/stargate-4_0:v1.0.65</code></pre>
 </div>
 </div>
 <div class="paragraph">

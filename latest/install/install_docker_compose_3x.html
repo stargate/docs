@@ -190,6 +190,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -394,6 +397,10 @@
 <div class="sect2">
 <h3 id="new-cassandra-and-stargate-using-docker-compose"><a class="anchor" href="#new-cassandra-and-stargate-using-docker-compose"></a><a class="link" href="#new-cassandra-and-stargate-using-docker-compose">New Cassandra and Stargate using docker-compose</a></h3>
 <div class="paragraph">
+<p>Using <code>docker-compose</code>, you can also start an Apache Cassandra<sup>&#8482;</sup> cluster or use one that is running in Docker already, to create a Cassandra plus Stargate environment.
+This method is different from the standalone environment, in that a separate Cassandra cluster is used for the backend storage, and is more like a production environment.</p>
+</div>
+<div class="paragraph">
 <p>The <code>docker-compose</code> YAML file contains the configuration for pulling the
 required docker images and configuration required for installing:</p>
 </div>
@@ -403,20 +410,38 @@ required docker images and configuration required for installing:</p>
 <p>1-3 Apache Cassandra<sup>&#8482;</sup> 3.11 nodes as a cluster (backend-1, backend-2, backend-3)</p>
 </li>
 <li>
-<p>1 Stargate node (stargate)</p>
+<p>v2: 1 Stargate coordinator, plus desired APIs (by default, all are installed)</p>
+</li>
+<li>
+<p>v1: 1 Stargate node (stargate) The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs, and GraphQL Playground.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
-and GraphQL Playground.</p>
+<p>There is a shell script to run the docker-compose file with
+delays between node startup that prevents timing issues.</p>
+</div>
+<details open>
+<summary class="title">v2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-3.11/start_cass_311.sh">shell script</a> to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+You will want to run, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_cass_3_11.sh -t v2.0.0-BETA-3</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Two companion files are helpful: a script to run the docker-compose file with
-delays between node startup that prevents timing issues, and a text file that
-has the <code>docker run</code> commands for running a CQLSH Docker container to query against
-either one of the Cassandra nodes or the Stargate node, respectively.</p>
+<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-3_11/tags">here</a>.</p>
 </div>
+</div>
+</details>
+<details>
+<summary class="title">v1</summary>
+<div class="content">
 <div class="paragraph">
 <p>The files are found at the
 <a href="https://github.com/stargate/docker-images/tree/master/examples/cassandra-3.11">Stargate docker-images repository</a>.</p>
@@ -429,6 +454,8 @@ either one of the Cassandra nodes or the Stargate node, respectively.</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stargate-cass311.sh</code></pre>
 </div>
 </div>
+</div>
+</details>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -489,7 +516,7 @@ with the following command:</p>
   -e SEED=cass1 \
   -e SIMPLE_SNITCH=true \
   -e ENABLE_AUTH=true \
-  -d stargateio/stargate-3_11:v1.0.57</code></pre>
+  -d stargateio/stargate-3_11:v1.0.65</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -538,6 +565,79 @@ with the following command:</p>
 </tr>
 </table>
 </div>
+<div class="sect3">
+<h4 id="ports-for-using-stargate"><a class="anchor" href="#ports-for-using-stargate"></a><a class="link" href="#ports-for-using-stargate">Ports for using Stargate</a></h4>
+<div class="paragraph">
+<p>Stargate uses a number of ports, to allow users to interact with the APIs.</p>
+</div>
+<div class="sect4">
+<h5 id="stargate-v2-0"><a class="anchor" href="#stargate-v2-0"></a><a class="link" href="#stargate-v2-0">Stargate v2.0</a></h5>
+<details open>
+<summary class="title">Stargate v2.0 ports</summary>
+<div class="content">
+<div class="paragraph">
+<p>The default ports assignments align to the following services and interfaces:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service/Interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST authorization service for generating authorization tokens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8082</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8084</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8180</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document API interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8090</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gRPC interface for CRUD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9042</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CQL service</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The port for the Document API has changed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+<div class="sect4">
+<h5 id="stargate-v1-0"><a class="anchor" href="#stargate-v1-0"></a><a class="link" href="#stargate-v1-0">Stargate v1.0</a></h5>
+<details>
+<summary class="title">Stargate v1.0 ports</summary>
+<div class="content">
 <div class="paragraph">
 <p>The default ports assignments align to the following services and interfaces:</p>
 </div>
@@ -577,6 +677,8 @@ with the following command:</p>
 </tr>
 </tbody>
 </table>
+</div>
+</details>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -592,6 +694,8 @@ be set if standard ports are used.</p>
 </td>
 </tr>
 </table>
+</div>
+</div>
 </div>
 </div>
 </div>

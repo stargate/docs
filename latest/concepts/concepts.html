@@ -192,6 +192,9 @@
     </button>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../install/ports.html">Stargate Ports</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../install/install_astra.html">Astra</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -393,7 +396,7 @@ It is deployed between client applications and a database to provide an abstract
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="https://github.com/stargate/stargate/blob/master/assets/stargate-arch-high-level.png?raw=true" alt="Stargate High-Level Architecture">
+<img src="_images/stargate-arch.svg" alt="Stargate High-Level Architecture">
 </div>
 </div>
 </div>
@@ -401,6 +404,85 @@ It is deployed between client applications and a database to provide an abstract
 <div class="sect1">
 <h2 id="project-architecture"><a class="anchor" href="#project-architecture"></a><a class="link" href="#project-architecture">Project architecture</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="stargate-v2-0"><a class="anchor" href="#stargate-v2-0"></a><a class="link" href="#stargate-v2-0">Stargate v2.0</a></h3>
+<details open>
+<summary class="title">Stargate v2.0 architecture</summary>
+<div class="content">
+<div class="paragraph">
+<p>Stargate contains the following components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API Services: Responsible for defining the API, handling and converting requests to db queries, dispatching to persistence, returning and serving response</p>
+<div class="ulist">
+<ul>
+<li>
+<p>cql: API implementation for the Cassandra Query Language</p>
+</li>
+<li>
+<p>restapi: API implementation for exposing Cassandra data over REST</p>
+</li>
+<li>
+<p>graphql API: API implementation for exposing Cassandra data over GraphQL</p>
+</li>
+<li>
+<p>gRPC API: API implement for explosing Cassandra data over gRPC</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Persistence Services: Responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>persistence-api: Interface for working with persistence services</p>
+</li>
+<li>
+<p>persistence-common: Utilities shared by the persistence services</p>
+</li>
+<li>
+<p>persistence-cassandra-3.11: Joins C* 3.11 cluster as coordinator-only node (does not store data), mocks C* system tables for native driver integration, executes requests with C* storage nodes using C* QueryHandler/QueryProcessor, converts internal C* objects and ResultSets to Stargate Datastore objects.</p>
+</li>
+<li>
+<p>persistence-cassandra-4.0: (same as above but for Cassandra 4.0)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Authentication Services: Responsible for authentication to Stargate</p>
+<div class="ulist">
+<ul>
+<li>
+<p>auth-api: REST service for generating auth tokens</p>
+</li>
+<li>
+<p>auth-table-based-service: Service to store tokens in the database</p>
+</li>
+<li>
+<p>authentication: Interface for working with auth providers</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://github.com/stargate/stargate/blob/v2.0.0/assets/stargate-modules-preview-version.png?raw=true" alt="Stargate services">
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="stargate-v1-0"><a class="anchor" href="#stargate-v1-0"></a><a class="link" href="#stargate-v1-0">Stargate v1.0</a></h3>
+<details>
+<summary class="title">Stargate v1.0 architecture</summary>
+<div class="content">
 <div class="paragraph">
 <p>Stargate is broken up into modules that fit into three broad categories:</p>
 </div>
@@ -422,11 +504,12 @@ It is deployed between client applications and a database to provide an abstract
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true" alt="Stargate High-Level Architecture">
+<img src="https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true" alt="Stargate modules">
 </div>
 </div>
-<div class="sect2">
-<h3 id="api-extensions"><a class="anchor" href="#api-extensions"></a><a class="link" href="#api-extensions">API extensions</a></h3>
+<div class="paragraph">
+<p>=== API extensions</p>
+</div>
 <div class="paragraph">
 <p>API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.</p>
 </div>
@@ -440,9 +523,9 @@ the GrahpQL http header request to access the endpoints.
 The <a href="https://github.com/stargate/stargate/tree/master/persistence-api">persistence-api</a> is used to dispatch converted requests to the underlying storage engine.
 In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java">RowsResource</a>.</p>
 </div>
+<div class="paragraph">
+<p>=== Persistence extensions</p>
 </div>
-<div class="sect2">
-<h3 id="persistence-extensions"><a class="anchor" href="#persistence-extensions"></a><a class="link" href="#persistence-extensions">Persistence extensions</a></h3>
 <div class="paragraph">
 <p>Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.</p>
 </div>
@@ -469,9 +552,9 @@ The extensions for Cassandra 3.11 and 4.0 use Cassandra&#8217;s coordinator conc
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>=== Authentication extensions</p>
 </div>
-<div class="sect2">
-<h3 id="authentication-extensions"><a class="anchor" href="#authentication-extensions"></a><a class="link" href="#authentication-extensions">Authentication extensions</a></h3>
 <div class="paragraph">
 <p>Authentication extensions are responsible for access control to Stargate&#8217;s APIs.</p>
 </div>
@@ -482,6 +565,8 @@ The extensions for Cassandra 3.11 and 4.0 use Cassandra&#8217;s coordinator conc
 <p>These extensions are used by the API Extensions to federate access.
 You can see an example of this in the <a href="https://github.com/stargate/stargate/tree/master/restapi">REST API</a> which requires a token to be passed to requests using the <code>X-Cassandra-Token</code> header. The <a href="https://github.com/stargate/stargate/tree/master/graphqlapi">GraphQL API</a> and the <a href="https://github.com/stargate/stargate/tree/master//restapi/src/main/java/io/stargate/web/docsapi">Document API</a> use the same token.</p>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>
