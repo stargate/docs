@@ -30,7 +30,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-put-withDocId.sh[]
+include::example$docapi/library/v2/curl-document-put-withDocId.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-put-withDocId.sh[]
 ----
 --
 
@@ -60,7 +69,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-post-noDocId.sh[]
+include::example$docapi/library/v2/curl-document-post-noDocId.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-post-noDocId.sh[]
 ----
 --
 
@@ -88,9 +106,17 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-post-one-reader.sh[]
+include::example$docapi/library/v2/curl-document-post-one-reader.sh[]
 ----
+--
 
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-post-one-reader.sh[]
+----
 --
 
 Result::
@@ -132,7 +158,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-put-one-book.sh[]
+include::example$docapi/library/v2/curl-document-put-one-book.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-put-one-book.sh[]
 ----
 --
 
@@ -159,7 +194,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one-book.sh[]
+include::example$docapi/library/v2/curl-document-get-one-book.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one-book.sh[]
 ----
 --
 
@@ -202,7 +246,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-post-mult-readers.sh[]
+include::example$docapi/library/v2/curl-document-post-mult-readers.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-post-mult-readers.sh[]
 ----
 --
 
@@ -229,7 +282,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-post-mult-books.sh[]
+include::example$docapi/library/v2/curl-document-post-mult-books.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-post-mult-books.sh[]
 ----
 --
 
@@ -253,7 +315,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-put-one-reader-with-id.sh[]
+include::example$docapi/library/v2/curl-document-put-one-reader-with-id.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-put-one-reader-with-id.sh[]
 ----
 --
 
@@ -285,7 +356,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-patch3-profiling.sh[]
+include::example$docapi/library/v2/curl-document-patch3-profiling.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-patch3-profiling.sh[]
 ----
 --
 
@@ -308,7 +388,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh[]
+include::example$docapi/library/v2/curl-document-get-one.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one.sh[]
 ----
 --
 
@@ -331,7 +420,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-put-ttl.sh[]
+include::example$docapi/library/v2/curl-document-put-ttl.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-put-ttl.sh[]
 ----
 --
 
@@ -354,7 +452,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh[]
+include::example$docapi/library/v2/curl-document-get-one.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one.sh[]
 ----
 --
 

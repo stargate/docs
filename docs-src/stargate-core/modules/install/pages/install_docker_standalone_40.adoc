@@ -5,4 +5,4 @@ include::install:partial$docker_pull.adoc[tag=40]
 
 include::install:partial$docker_run.adoc[tag=40]
 
-include::install:partial$ports.adoc[]
+include::install:page$ports.adoc[leveloffset=+2]

@@ -4,10 +4,26 @@
 Send a `DELETE` request to `{base_doc_schema}/{namespace}/collections/{collection}` to delete a namespace. 
 All documents will be deleted along with the collection: 
 
+[tabs]
+====
+cURL command (/v2)::
++
+--
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-collection-delete.sh[]
+include::example$docapi/library/v2/curl-collection-delete.sh[]
 ----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-collection-delete.sh[]
+----
+--
+====
 
 include::develop:partial$deletion-no-return-data.adoc[]
 // end::DeleteColl[]

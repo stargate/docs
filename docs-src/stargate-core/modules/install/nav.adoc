@@ -1,4 +1,5 @@
 * xref:install:install-overview.adoc[Installing Stargate]
+** xref:install:ports.adoc[Stargate Ports]
 ** xref:install:install_astra.adoc[Astra]
 ** xref:install:install_cass_3x.adoc[Cassandra 3.x]
 ** xref:install:install_cass_40.adoc[Cassandra 4.0]

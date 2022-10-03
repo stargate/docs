@@ -7,33 +7,79 @@ To delete a document path in a document, send a `DELETE` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/{document-path}`.
 In this example, the secondary address for the user John Smith is deleted from the document.
 
+[tabs]
+====
+cURL command (/v2)::
++
+--
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-delete-path.sh[]
+include::example$docapi/library/v2/curl-document-delete-path.sh[]
 ----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-delete-path.sh[]
+----
+--
+====
 
 == Delete full document using a document-id
 
 To delete a document, send a `DELETE` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}`.
 
-[source,bash, subs="attributes+"]
+[tabs]
+====
+cURL command (/v2)::
++
+--
+[source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-delete.sh[]
+include::example$docapi/library/v2/curl-document-delete.sh[]
 ----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-delete.sh[]
+----
+--
+====
 
 include::develop:partial$deletion-no-return-data.adoc[]
-
-
 
 == Delete a full document using a WHERE clause
 
 To delete a document, based on a WHERE clause, send a `DELETE` request to
 `{base_doc_api}/{namespace_name}/collections/{collections_name}/{document-id}/?{where-clause}`.
 
+[tabs]
+====
+cURL command (/v2)::
++
+--
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-delete-where.sh[]
+include::example$docapi/library/v2/curl-document-delete-where.sh[]
 ----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-delete-where.sh[]
+----
+--
+====
 
 // end::DeleteBasicData[]

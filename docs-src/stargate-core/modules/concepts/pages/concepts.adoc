@@ -6,10 +6,44 @@ It is deployed between client applications and a database to provide an abstract
 
 To understand the vision of this project, see the high-level architecture diagram below.
 
-image::https://github.com/stargate/stargate/blob/master/assets/stargate-arch-high-level.png?raw=true[Stargate High-Level Architecture]
+image::stargate-arch.svg[Stargate High-Level Architecture]
 
 == Project architecture
 
+=== Stargate v2.0
+
+.Stargate v2.0 architecture
+[%collapsible%open]
+=====
+Stargate contains the following components:
+
+* API Services: Responsible for defining the API, handling and converting requests to db queries, dispatching to persistence, returning and serving response
+** cql: API implementation for the Cassandra Query Language
+** restapi: API implementation for exposing Cassandra data over REST
+** graphql API: API implementation for exposing Cassandra data over GraphQL
+** gRPC API: API implement for explosing Cassandra data over gRPC
+
+* Persistence Services: Responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.
+** persistence-api: Interface for working with persistence services
+** persistence-common: Utilities shared by the persistence services
+** persistence-cassandra-3.11: Joins C* 3.11 cluster as coordinator-only node (does not store data), mocks C* system tables for native driver integration, executes requests with C* storage nodes using C* QueryHandler/QueryProcessor, converts internal C* objects and ResultSets to Stargate Datastore objects.
+** persistence-cassandra-4.0: (same as above but for Cassandra 4.0)
+
+* Authentication Services: Responsible for authentication to Stargate
+** auth-api: REST service for generating auth tokens
+** auth-table-based-service: Service to store tokens in the database
+** authentication: Interface for working with auth providers
+
+image::https://github.com/stargate/stargate/blob/v2.0.0/assets/stargate-modules-preview-version.png?raw=true[Stargate services]
+
+
+=====
+
+=== Stargate v1.0
+
+.Stargate v1.0 architecture
+[%collapsible]
+=====
 Stargate is broken up into modules that fit into three broad categories:
 
 * API extensions
@@ -18,7 +52,7 @@ Stargate is broken up into modules that fit into three broad categories:
 
 The diagram below shows how these modules fit together.
 
-image::https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true[Stargate High-Level Architecture]
+image::https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true[Stargate modules]
 
 === API extensions
 
@@ -55,3 +89,4 @@ Currently there's only an https://github.com/stargate/stargate/tree/master/auth-
 
 These extensions are used by the API Extensions to federate access.
 You can see an example of this in the https://github.com/stargate/stargate/tree/master/restapi[REST API] which requires a token to be passed to requests using the `X-Cassandra-Token` header. The https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API] and the https://github.com/stargate/stargate/tree/master//restapi/src/main/java/io/stargate/web/docsapi[Document API] use the same token.
+=====

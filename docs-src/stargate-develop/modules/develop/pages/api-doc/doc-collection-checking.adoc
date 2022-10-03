@@ -10,7 +10,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-collection-get-all.sh[]
+include::example$docapi/library/v2/curl-collection-get-all.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-collection-get-all.sh[]
 ----
 --
 

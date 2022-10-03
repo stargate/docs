@@ -11,7 +11,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-ns-get-all.sh[]
+include::example$docapi/library/v2/curl-ns-get-all.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-ns-get-all.sh[]
 ----
 --
 
@@ -34,7 +43,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-ns-get-particular.sh[]
+include::example$docapi/library/v2/curl-ns-get-particular.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-ns-get-particular.sh[]
 ----
 --
 

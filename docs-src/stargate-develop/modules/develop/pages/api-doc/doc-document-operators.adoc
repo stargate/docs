@@ -33,7 +33,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-eq.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-eq.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-name-eq.sh[]
 ----
 --
 
@@ -58,7 +67,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-ne-and.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-ne-and.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-name-ne-and.sh[]
 ----
 --
 
@@ -85,7 +103,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-ne-mult.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-ne-mult.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-name-ne-mult.sh[]
 ----
 --
 
@@ -114,7 +141,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-ne-and.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-ne-and.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-name-ne-and.sh[]
 ----
 --
 
@@ -140,7 +176,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-names-or.sh[]
+include::example$docapi/library/v2/curl-document-get-where-names-or.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-names-or.sh[]
 ----
 --
 
@@ -166,7 +211,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-books-not.sh[]
+include::example$docapi/library/v2/curl-document-get-where-books-not.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-books-not.sh[]
 ----
 --
 
@@ -195,7 +249,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-rating-gt3-lte5.sh[]
+include::example$docapi/library/v2/curl-document-get-where-rating-gt3-lte5.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-where-rating-gt3-lte5.sh[]
 ----
 --
 
@@ -220,7 +283,17 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-in.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-in.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+----
+include::example$docapi/library/v1/curl-document-get-where-name-in.sh[]
 ----
 --
 
@@ -243,7 +316,17 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-in-1fail.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-in-1fail.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+----
+include::example$docapi/library/v1/curl-document-get-where-name-in-1fail.sh[]
 ----
 --
 
@@ -269,7 +352,17 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-where-name-nin.sh[]
+include::example$docapi/library/v2/curl-document-get-where-name-nin.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+----
+include::example$docapi/library/v2/curl-document-get-where-name-nin.sh[]
 ----
 --
 

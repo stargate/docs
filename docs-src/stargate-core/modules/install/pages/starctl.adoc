@@ -1,9 +1,183 @@
 = The starctl command
 :page-tag: stargate,dev,develop
 
-The `starctl` command controls and configures Stargate nodes.
-
 == Starting Stargate using starctl
+
+=== starctl v2.0
+.starctl v2.0
+[%collapsible%open,asciidoc]
+=====
+
+The `starctl` command controls and configures Stargate nodes.
+The command starts the coordinator service.
+The `starctl` command includes most of the options that pertained to the `starctl` command in Stargate v1.0, plus new options.
+
+The command can be run:
+
+[source, shell, subs="attributes+"]
+----
+starctl --cluster-name stargate \
+  --cluster-seed 127.0.0.1 \
+  --cluster-version 3.11 \
+  --listen 127.0.0.2 \
+  --simple-snitch
+----
+
+and the options are passed to the `starctl` command.
+
+// [CAUTION]
+// ====
+// When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host's network. 
+// // LLP 08.26.2022 Change the xref in the next line to match the V2
+// To run Stargate in a containerized environment, see the xref:install:install_cass_40.adoc#starting-stargate-with-existing-cassandra-cluster[Installing Stargate with an existing Cassandra cluster] documentation.
+// ====
+
+The following tables detail the options available for each service.
+
+.starctl options
+|===
+| Option | Environment Variable | Default | Description | Example
+
+| `--cluster-name _cluster name_`
+| `CLUSTER_NAME`
+|
+| Name of database cluster.
+| `--cluster-name stargate`
+
+| `--cluster-seed _seed node IP address_`
+| `SEED`
+|
+| The IP address of the seed node of the cluster.
+| `--cluster-seed 192.168.0.1`
+
+| `--cluster-version _Cassandra version_`
+| `CLUSTER_VERSION`
+|
+| The major version of the database cluster.
+| `--cluster-version 3.11`
+
+| `--listen _listen IP address_`
+| `LISTEN`
+| 127.0.0.1
+| IP address Stargate services should listen on. This options value must match the regular expression
+`^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$`. Must be a valid IP address.
+| `--listen-address 192.168.0.1`
+
+| `--seed-port _port number_`
+| `SEED_PORT`
+| 7000
+| Port that seed nodes are listening on. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| `--seed-port 7001`
+
+| `--dc _datacenter name_`
+| `DATACENTER_NAME`
+|
+| Datacenter name of this node. This must match the database backend.
+| `--dc dc1`
+
+| `--rack _rack name_`
+| `RACK_NAME`
+|
+| Rack name of this node. This must match the database backend.
+| `--rack rack1`
+
+| `--simple-snitch`
+| `SIMPLE_SNITCH`
+| unset, or false
+| Set this option if the backend cluster uses `SimpleSnitch` as the `endpoint_snitch`.
+| `export SIMPLE_SNITCH=true`
+
+| `--dse`
+| `DSE`
+| unset, or false
+| Set if the backend is DSE. Do not set this option if the backend is Cassandra.
+| `export DSE=true`
+
+| `--cql-port _port number_`
+| `CQL_PORT`
+| 9042
+| Port on which the CQL API service listens. This options value represents a port and must fall in one of the following port ranges: 0, 1024-49151, 49152-65535
+| `--cql-port 9043`
+
+| `--enable-auth`
+| `ENABLE_AUTH`
+| unset, or false
+| Set to enable `PasswordAuthenticator` in the cluster.
+| `export ENABLE_AUTH=true`
+
+| `--use-proxy-protocol`
+| `USE_PROXY_PROTOCOL`
+| unset, or false
+| Use proxy protocol to determine the public address and port of CQL requests.
+| `export USE_PROXY_PROTOCOL=true`
+
+| `--proxy-dns-name`
+| `PROXY_DNS_NAME`
+| 
+| Use proxy DNS name to determine the public DNS name for CQL requests.
+| `export PROXY_DNS_NAME=proxy`
+
+| `--proxy-port`
+| `PROXY_PORT`
+| 
+| Use proxy port to determine the public port of CQL requests.
+| `export PROXY_PORT=9000`
+
+| `--developer-mode`
+| `DEVELOPER_MODE`
+| unset, or false
+| Enables developer mode, where the Stargate node behaves as a regular Cassandra node, joining the ring with tokens assigned in order to facilitate getting started quickly and not requiring additional nodes or an existing cluster.
+| `export DEVELOPER_MODE=true`
+
+|`--emulate-dbaas-defaults`
+| `EMULATE_DBAAS_DEFAULTS`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--bind-to-listen-address`
+| `BIND_TO_LISTEN_ADDRESS`
+| unset, or false
+| If set bind the web services to the listen address only.
+| `export BIND_TO_LISTEN_ADDRESS=true`
+
+|`--jmx-port`
+| `JMX_PORT`
+| 
+| Port to which JMX is bound
+| `export JMX_PORT=10000`
+
+|`--disable-dynamic-snitch`
+| `DISABLE_DYNAMIC_SNITCH`
+| unset, or false
+| If set disable the dynamic snitch
+| `export DISABLE_DYNAMIC_SNITCH=true`
+
+|`--disable-mbean-registration`
+| `DISABLE_MBEAN_REGISTRATION`
+| unset, or false
+| If set disable MBean registration
+| `export DISABLE_MBEAN_REGISTRATION=true`
+
+|`--disable-bundles-watch`
+| `DISABLE_BUNDLES_WATCH`
+| unset, or false
+| If set disable bundles watch
+| `export DISABLE_BUNDLES_WATCH=true`
+
+|`--host-id`
+| `HOST_ID`
+| 
+| Sets the Host ID
+| `export BIND_TO_LISTEN_ADDRESS=true`
+|===
+=====
+
+=== starctl v1.0
+.starctl v1.0
+[%collapsible]
+=====
+The `starctl` command controls and configures Stargate nodes.
 
 [source, shell, subs="attributes+"]
 ----
@@ -15,8 +189,6 @@ starctl --cluster-name stargate \
 ----
 
 CAUTION: When Stargate is launched on a host as shown above, it will connect only to Cassandra clusters accessible on the host's network. To run Stargate in a containerized environment, see the xref:install:install_cass_40.adoc#starting-stargate-with-existing-cassandra-cluster[Installing Stargate with an existing Cassandra cluster] documentation.
-
-== starctl options
 
 .starctl options
 |===
@@ -108,3 +280,4 @@ CAUTION: When Stargate is launched on a host as shown above, it will connect onl
 | If set bind the web services to the listen address only.
 | `export BIND_TO_LISTEN_ADDRESS=true`
 |===
+=====

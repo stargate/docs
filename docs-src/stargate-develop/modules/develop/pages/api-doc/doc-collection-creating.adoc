@@ -21,7 +21,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-collection-post-empty.sh[]
+include::example$docapi/library/v2/curl-collection-post-empty.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-collection-post-empty.sh[]
 ----
 --
 
@@ -57,7 +66,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-collection-put-json-schema.sh[]
+include::example$docapi/library/v2/curl-collection-put-json-schema.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-collection-put-json-schema.sh[]
 ----
 --
 

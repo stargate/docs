@@ -1,0 +1,43 @@
+
+= Ports for using Stargate
+
+Stargate uses a number of ports, to allow users to interact with the APIs. 
+
+== Stargate v2.0
+
+.Stargate v2.0 ports
+[%collapsible%open]
+=====
+The default ports assignments align to the following services and interfaces:
+
+|===
+| Port | Service/Interface
+| 8080 | GraphQL interface for CRUD
+| 8081 | REST authorization service for generating authorization tokens
+| 8082 | REST interface for CRUD 
+| 8084 | Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)
+| 8180 | Document API interface for CRUD
+| 8090 | gRPC interface for CRUD
+| 9042 | CQL service
+|===
+
+IMPORTANT: The port for the Document API has changed.
+=====
+
+== Stargate v1.0
+
+.Stargate v1.0 ports
+[%collapsible%]
+=====
+The default ports assignments align to the following services and interfaces:
+
+|===
+| Port | Service/Interface
+| 8080 | GraphQL interface for CRUD
+| 8081 | REST authorization service for generating tokens
+| 8082 | REST interface for CRUD and Document API
+| 8084 | Health check (/healthcheck, /checker/liveness, /checker/readiness) and metrics (/metrics)
+| 8090 | gRPC interface for CRUD
+| 9042 | CQL service
+|===
+=====

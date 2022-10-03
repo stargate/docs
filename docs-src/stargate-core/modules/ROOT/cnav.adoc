@@ -1,6 +1,4 @@
 * xref:core-index.adoc[Stargate Overview]
 // * xref:release-notes.adoc[Release notes]
 * xref:FAQ.adoc[FAQ]
-// * xref:sg-glossary.adoc[{product} glossary]
-// * xref:get-support.adoc[Get support]
 

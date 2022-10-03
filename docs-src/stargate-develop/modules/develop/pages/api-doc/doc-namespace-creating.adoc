@@ -26,7 +26,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-ns-simple.sh[]
+include::example$docapi/library/v2/curl-ns-simple.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-ns-simple.sh[]
 ----
 --
 
@@ -62,7 +71,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-ns-set-replicas.sh[]
+include::example$docapi/library/v2/curl-ns-set-replicas.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-ns-set-replicas.sh[]
 ----
 --
 
@@ -90,7 +108,16 @@ cURL command (/v2)::
 --
 [source,shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-ns-dcs.sh[]
+include::example$docapi/library/v2/curl-ns-dcs.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source,shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-ns-dcs.sh[]
 ----
 --
 

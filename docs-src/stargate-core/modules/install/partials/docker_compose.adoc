@@ -1,20 +1,40 @@
 // tag::3x[]
-=== New Cassandra and Stargate using docker-compose
+=== New Cassandra and Stargate using docker-compose 
+
+Using `docker-compose`, you can also start an Apache Cassandra^(TM)^ cluster or use one that is running in Docker already, to create a Cassandra plus Stargate environment. 
+This method is different from the standalone environment, in that a separate Cassandra cluster is used for the backend storage, and is more like a production environment.
 
 The `docker-compose` YAML file contains the configuration for pulling the
 required docker images and configuration required for installing:
 
 * 1-3 Apache Cassandra^(TM)^ {cass-tag-3x} nodes as a cluster (backend-1, backend-2, backend-3)
-* 1 Stargate node (stargate)
+* v2: 1 Stargate coordinator, plus desired APIs (by default, all are installed)
+* v1: 1 Stargate node (stargate) The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs, and GraphQL Playground.
 
-The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
-and GraphQL Playground.
+There is a shell script to run the docker-compose file with
+delays between node startup that prevents timing issues.
 
-Two companion files are helpful: a script to run the docker-compose file with
-delays between node startup that prevents timing issues, and a text file that
-has the `docker run` commands for running a CQLSH Docker container to query against
-either one of the Cassandra nodes or the Stargate node, respectively.
+// LLP 09.28.2022 NEED TO ADD BACK IN A SEPARATE SECTION FOR THIS IN THE DOCKER-COMPOSE directory
+//  and a text file that has the `docker run` commands for running a CQLSH Docker container to query against either one of the Cassandra nodes or the Stargate node, respectively.
 
+.v2
+[%collapsible%open]
+===== 
+Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-3.11/start_cass_311.sh[shell script] to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
+You will want to run, for example:
+
+[source,bash,subs="attributes+"]
+----
+./start_cass_{cass-alt-tag-3x}.sh -t {stargate2-docker-tag}
+----
+
+The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-3_11/tags[here].
+=====
+
+.v1
+[%collapsible%]
+=====
 The files are found at the
 https://github.com/stargate/docker-images/tree/master/examples/cassandra-{cass-tag-3x}[Stargate docker-images repository].
 
@@ -24,6 +44,7 @@ Run the script after downloading the files:
 ----
 ./start_stargate-cass311.sh
 ----
+=====
 
 CAUTION: When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to Cassandra clusters running within the same Docker
@@ -36,20 +57,40 @@ see the xref:install:install_vm_cass_3x.adoc[Installing on VMs or bare metal] do
 // tag::40[]
 === New Cassandra and Stargate using docker-compose
 
+Using `docker-compose`, you can also start an Apache Cassandra^(TM)^ cluster or use one that is running in Docker already, to create a Cassandra plus Stargate environment. 
+This method is different from the standalone environment, in that a separate Cassandra cluster is used for the backend storage, and is more like a production environment.
+
 The `docker-compose` YAML file contains the configuration for pulling the
 required docker images and configuration required for installing:
 
-* 1-3 Apache Cassandra^(TM)^ {cass-tag-40} nodes as a cluster (backend-1, backend-2, backend-3)
-* 1 Stargate node (stargate)
+* 1-3 Apache Cassandra^(TM)^ {cass-tag-3x} nodes as a cluster (backend-1, backend-2, backend-3)
+* v2: 1 Stargate coordinator, plus desired APIs (by default, all are installed)
+* v1: 1 Stargate node (stargate) The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs, and GraphQL Playground.
 
-The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
-and GraphQL Playground.
+There is a shell script to run the docker-compose file with
+delays between node startup that prevents timing issues.
 
-Two companion files are helpful: a script to run the docker-compose file with
-delays between node startup that prevents timing issues, and a text file that
-has the `docker run` commands for running a CQLSH Docker container to query against
-either one of the Cassandra nodes or the Stargate node, respectively.
+// LLP 09.28.2022 NEED TO ADD BACK IN A SEPARATE SECTION FOR THIS IN THE DOCKER-COMPOSE directory
+//  and a text file that has the `docker run` commands for running a CQLSH Docker container to query against either one of the Cassandra nodes or the Stargate node, respectively.
 
+.v2
+[%collapsible%open]
+===== 
+Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-4.0/start_cass_40.sh[shell script] to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
+You will want to run, for example:
+
+[source,bash,subs="attributes+"]
+----
+./start_cass_{cass-alt-tag-40}.sh -t {stargate2-docker-tag}
+----
+
+The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-4_0/tags[here].
+=====
+
+.v1
+[%collapsible%]
+=====
 The files are found at the
 https://github.com/stargate/docker-images/tree/master/examples/cassandra-{cass-tag-40}[Stargate docker-images repository].
 
@@ -59,7 +100,7 @@ Run the script after downloading the files:
 ----
 ./start_stargate-cass40.sh
 ----
-
+=====
 CAUTION: When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to Cassandra clusters running within the same Docker
 environment. To run Stargate so that it can connect to a cluster running outside
@@ -71,20 +112,40 @@ see the xref:install:install_vm_cass_40.adoc[Installing on VMs or bare metal] do
 // tag::dse_68[]
 === New DSE and Stargate using docker-compose
 
+Using `docker-compose`, you can also start an Apache Cassandra^(TM)^ cluster or use one that is running in Docker already, to create a Cassandra plus Stargate environment. 
+This method is different from the standalone environment, in that a separate Cassandra cluster is used for the backend storage, and is more like a production environment.
+
 The `docker-compose` YAML file contains the configuration for pulling the
 required docker images and configuration required for installing:
 
-* 1-3 DataStax Enterprise^(TM)^ dse-tag-68 nodes as a cluster (backend-1, backend-2, backend-3)
-* 1 Stargate node (stargate)
+* 1-3 DataStax Enterprise {dse-tag-68} nodes as a cluster (backend-1, backend-2, backend-3)
+* v2: 1 Stargate coordinator, plus desired APIs (by default, all are installed)
+* v1: 1 Stargate node (stargate) The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs, and GraphQL Playground.
 
-The Stargate image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
-and GraphQL Playground.
+There is a shell script to run the docker-compose file with
+delays between node startup that prevents timing issues.
 
-Two companion files are helpful: a script to run the docker-compose file with
-delays between node startup that prevents timing issues, and a text file that
-has the `docker run` commands for running a CQLSH Docker container to query against
-either one of the DSE nodes or the Stargate node, respectively.
+// LLP 09.28.2022 NEED TO ADD BACK IN A SEPARATE SECTION FOR THIS IN THE DOCKER-COMPOSE directory
+//  and a text file that has the `docker run` commands for running a CQLSH Docker container to query against either one of the Cassandra nodes or the Stargate node, respectively.
 
+.v2
+[%collapsible%open]
+===== 
+Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_dse_68.sh[shell script] to start the coordinator and APIs in developer mode.
+The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
+You will want to run, for example:
+
+[source,bash,subs="attributes+"]
+----
+./start_cass_{dse-alt-tag-68}.sh -t {stargate2-docker-tag}
+----
+
+The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
+=====
+
+.v1
+[%collapsible%]
+=====
 The files are found at the
 https://github.com/stargate/docker-images/tree/master/examples/dse-6.8[Stargate docker-images repository].
 
@@ -94,17 +155,22 @@ Run the script after downloading the files:
 ----
 ./start_stargate-dse68.sh
 ----
+=====
 
-CAUTION: When Stargate is launched within a container on Mac OS X as shown above,
+[CAUTION]
+==== 
+When Stargate is launched within a container on Mac OS X as shown above,
 it will connect only to DSE clusters running within the same Docker
-environment. To run Stargate so that it can connect to a cluster running outside
-of a containerized environment,
+environment. 
+To run Stargate so that it can connect to a cluster running outside of a containerized environment,
 see the xref:install:install_vm_dse_68.adoc[Installing on VMs or bare metal] documentation.
+====
 
 // end::dse_68[]
 
 // tag::metrics[]
 === Get the docker-compose file
+For Stargate v1:
 
 The `docker-compose` YAML file contains the configuration for pulling the
 required docker images and configuration required for installing.

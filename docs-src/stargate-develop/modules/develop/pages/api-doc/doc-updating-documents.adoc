@@ -14,7 +14,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-put-replace.sh[]
+include::example$docapi/library/v2/curl-document-put-replace.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-put-replace.sh[]
 ----
 --
 
@@ -37,7 +46,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh[]
+include::example$docapi/library/v2/curl-document-get-one.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one.sh[]
 ----
 --
 
@@ -65,7 +83,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-patch.sh[]
+include::example$docapi/library/v2/curl-document-patch.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-patch.sh[]
 ----
 --
 
@@ -88,7 +115,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh[]
+include::example$docapi/library/v2/curl-document-get-one.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one.sh[]
 ----
 --
 
@@ -117,7 +153,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-patch2.sh[]
+include::example$docapi/library/v2/curl-document-patch2.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-patch2.sh[]
 ----
 --
 
@@ -140,7 +185,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-get-one.sh[]
+include::example$docapi/library/v2/curl-document-get-one.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-get-one.sh[]
 ----
 --
 
@@ -173,7 +227,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-put-book-with-path.sh[]
+include::example$docapi/library/v2/curl-document-put-book-with-path.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-put-book-with-path.sh[]
 ----
 --
 
@@ -201,7 +264,16 @@ cURL command (/v2)::
 --
 [source, shell, subs="attributes+"]
 ----
-include::example$docapi/library/curl-document-patch-book-with-path.sh[]
+include::example$docapi/library/v2/curl-document-patch-book-with-path.sh[]
+----
+--
+
+cURL command (/v1)::
++
+--
+[source, shell, subs="attributes+"]
+----
+include::example$docapi/library/v1/curl-document-patch-book-with-path.sh[]
 ----
 --
 
