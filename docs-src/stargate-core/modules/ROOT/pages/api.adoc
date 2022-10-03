@@ -11,4 +11,4 @@ Stargate provides multiple APIs to interact with your databases.
 
 === Prior Stargate version
 
-* xref:develop:attachments/restv1.html[Stargate REST API v1, window="_blank"]
+* xref:develop:attachment$restv1.html[Stargate REST API v1, window="_blank"]
