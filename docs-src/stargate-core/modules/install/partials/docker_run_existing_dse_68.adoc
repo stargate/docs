@@ -55,7 +55,7 @@ different `endpoint_snitch` use the `--dc` and `--rack` options to define the
 topology of the node.
 ====
 
-// include::install:page$ports.adoc[leveloffset=+2]
+include::install:page$ports.adoc[leveloffset=+3]
 
 [NOTE]
 ====
