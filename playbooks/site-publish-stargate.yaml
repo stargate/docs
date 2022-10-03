@@ -39,6 +39,7 @@ asciidoc:
     stargate-docker-tag-3x: v1.0.57
     stargate-docker-tag-40: v1.0.57
     stargate-docker-tag-68: v1.0.57
+    stargate2-docker-tag: v2.0.0-BETA-3
     cass-tag-3x: '3.11'
     cass-alt-tag-3x: '3_11'
     cass-tag-40: '4.0'
@@ -56,6 +57,7 @@ asciidoc:
     base_url: 'https://localhost:8080'
     base_rest_url: 'https://localhost:8082'
     base_doc_url: 'https://localhost:8082'
+    base_doc_url_v2: 'https://localhost:8180'
     base_graphql_url: 'https://localhost:8080'
 
     base_rest_schema: '/v2/schemas/keyspaces'

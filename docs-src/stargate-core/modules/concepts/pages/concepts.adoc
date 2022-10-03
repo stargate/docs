@@ -20,7 +20,8 @@ Stargate contains the following components:
 * API Services: Responsible for defining the API, handling and converting requests to db queries, dispatching to persistence, returning and serving response
 ** cql: API implementation for the Cassandra Query Language
 ** restapi: API implementation for exposing Cassandra data over REST
-** graphqlapi: API implementation for exposing Cassandra data over GraphQL
+** graphql API: API implementation for exposing Cassandra data over GraphQL
+** gRPC API: API implement for explosing Cassandra data over gRPC
 
 * Persistence Services: Responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.
 ** persistence-api: Interface for working with persistence services

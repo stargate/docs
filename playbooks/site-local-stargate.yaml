@@ -39,7 +39,7 @@ asciidoc:
     stargate-docker-tag-3x: v1.0.65
     stargate-docker-tag-40: v1.0.65
     stargate-docker-tag-68: v1.0.65
-    stargate2-docker-tag: v2.0.0-BETA-2
+    stargate2-docker-tag: v2.0.0-BETA-3
     cass-tag-3x: '3.11'
     cass-alt-tag-3x: '3_11'
     cass-tag-40: '4.0'

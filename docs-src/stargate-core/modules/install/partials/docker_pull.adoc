@@ -14,7 +14,7 @@ The following are the commands for each of those images:
 docker pull stargateio/coordinator-{cass-alt-tag-3x}:{stargate2-docker-tag}
 docker pull stargateio/restapi:{stargate2-docker-tag}
 docker pull stargateio/docsapi:{stargate2-docker-tag}
-docker pull stargateio/graphql:{stargate2-docker-tag}
+docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 ----
 =====
 
@@ -45,7 +45,7 @@ The following are the commands for each of those images:
 docker pull stargateio/coordinator-{cass-alt-tag-40}:{stargate2-docker-tag}
 docker pull stargateio/restapi:{stargate2-docker-tag}
 docker pull stargateio/docsapi:{stargate2-docker-tag}
-docker pull stargateio/graphql:{stargate2-docker-tag}
+docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 ----
 =====
 
@@ -76,7 +76,7 @@ The following are the commands for each of those images:
 docker pull stargateio/coordinator-{dse-alt-tag-68}:{stargate2-docker-tag}
 docker pull stargateio/restapi:{stargate2-docker-tag}
 docker pull stargateio/docsapi:{stargate2-docker-tag}
-docker pull stargateio/graphql:{stargate2-docker-tag}
+docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 ----
 =====
 
