@@ -9,9 +9,8 @@
 *** xref:develop:api-grpc/gRPC-go-client.adoc[gRPC Go client]
 *** xref:develop:api-grpc/gRPC-node-client.adoc[gRPC Node.js client]
 *** xref:develop:api-grpc/gRPC-java-client.adoc[gRPC Java client]
-//*** xref:develop:gRPC-client-creation.adoc[Creating new Stargate gRPC clients]
 ** xref:develop:dev-with-cql.adoc[Develop with CQL]
 ** xref:develop:tooling.adoc[Tooling Resources]
-// * xref:develop:api.adoc[API references]
-// ** xref:develop:attachment$docv2.html[Document v2 API]
-// ** xref:develop:attachment$restv2.html[REST v2 API]
+** xref:develop:sdks/rest-nodejs-client.adoc[REST Node.js client]
+** xref:develop:sdks/doc-nodejs-collection-client.adoc[Document Node.js client]
+
