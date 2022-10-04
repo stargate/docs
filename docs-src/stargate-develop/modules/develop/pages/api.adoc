@@ -4,11 +4,12 @@ Stargate provides multiple APIs to interact with your databases.
 
 == Stargate APIs
 
-* xref:attachment$docv2.html[Stargate Document API v2, window="_blank"]: The Stargate Document API allows you to use schemaless storage of free-form JSON Documents in your Astra database. Get examples of using the Document API in the xref:develop:dev-with-doc.adoc[Developing with the Document API] section.
-* xref:attachment$restv2.html[Stargate REST API v2, window="_blank"]: This Stargate REST API allows you to perform standard CRUD operations on your {astra_db} data using a simple, cross-language interface. Get examples of using the REST API v2 in the xref:develop:dev-with-rest.adoc[Developing with the REST API] section.
-* xref:develop:graphql.adoc[Stargate GraphQL API]: The GraphQL playground allows you to easily interact with your data using GraphQL types, queries, and mutations. For every table in your keyspace, a series of GraphQL objects are generated, along with queries and mutations that allow you to search and modify the table data. Get examples of using the GraphQL API in the xref:develop:graphql.adoc[Developing with the GraphQL API] section.
+* link:attachments/docv2.html[Stargate Document API v2, window="_blank"]: The Stargate Document API allows you to use schemaless storage of free-form JSON Documents in your Astra database. Get examples of using the Document API in the xref:develop:dev-with-doc.adoc[Developing with the Document API] section.
+* link:attachments/restv2.html[Stargate REST API v2, window="_blank"]: This Stargate REST API allows you to perform standard CRUD operations on your {astra_db} data using a simple, cross-language interface. Get examples of using the REST API v2 in the xref:develop:dev-with-rest.adoc[Developing with the REST API] section.
+* xref:graphql.adoc[Stargate GraphQL API]: The GraphQL playground allows you to easily interact with your data using GraphQL types, queries, and mutations. For every table in your keyspace, a series of GraphQL objects are generated, along with queries and mutations that allow you to search and modify the table data. Get examples of using the GraphQL API in the xref:develop:graphql.adoc[Developing with the GraphQL API] section.
 * xref:dev-with-grpc.adoc[Stargate gRPC API]: link:https://grpc.io/docs/what-is-grpc/introduction[gRPC] is a modern, open source remote procedure call (RPC) framework. It enables client and server applications to communicate transparently, and makes it easier to build connected systems. Get examples of using the gRPC API in the xref:develop:dev-with-grpc.adoc[Developing with the gRPC API] section.
 
 === Prior Stargate version
 
-* xref:attachment$restv1.html[Stargate REST API v1, window="_blank"]
+//* xref:attachment$restv1.html[Stargate REST API v1, window="_blank"]
+link:attachments/restv1.html[Stargate REST API v1, window="_blank"]
