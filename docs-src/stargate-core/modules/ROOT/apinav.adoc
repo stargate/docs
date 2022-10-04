@@ -1,4 +1,4 @@
-* https://stargate.io/docs/latest/develop/api.adoc[API References]
+* https://stargate.io/docs/latest/develop/api.html[API References]
 // ** xref:attachment$devopsv2.html[DevOps REST API v2]
 ** https://stargate.io/docs/latest/develop/attachments/docv2.html[Stargate Document API v2]
 ** https://stargate.io/docs/latest/develop/attachments/restv2.html[Stargate REST API v2]
