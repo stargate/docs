@@ -500,13 +500,8 @@ It is deployed between client applications and a database to provide an abstract
 </div>
 </div>
 <div class="paragraph">
-<p>=== API extensions</p>
-</div>
-<div class="paragraph">
-<p>API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.</p>
-</div>
-<div class="paragraph">
-<p>There are currently extensions for the Cassandra Query Language (CQL), and REST and GraphQL APIs for CRUD access to data in tables with many more coming soon.
+<p>API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.
+There are currently extensions for the Cassandra Query Language (CQL), and REST and GraphQL APIs for CRUD access to data in tables with many more coming soon.
 These extensions use both the Authentication Extensions and the Persistence Extensions.</p>
 </div>
 <div class="paragraph">
@@ -516,13 +511,8 @@ The <a href="https://github.com/stargate/stargate/tree/master/persistence-api">p
 In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java">RowsResource</a>.</p>
 </div>
 <div class="paragraph">
-<p>=== Persistence extensions</p>
-</div>
-<div class="paragraph">
-<p>Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.</p>
-</div>
-<div class="paragraph">
-<p>The Persistence extensions are currently Cassandra-centric as Cassandra is the first database we chose to implement.
+<p>Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.
+The Persistence extensions are currently Cassandra-centric as Cassandra is the first database we chose to implement.
 The extensions for Cassandra 3.11 and 4.0 use Cassandra&#8217;s coordinator concept and code to do the majority of the work.</p>
 </div>
 <div class="paragraph">
@@ -545,13 +535,8 @@ The extensions for Cassandra 3.11 and 4.0 use Cassandra&#8217;s coordinator conc
 </ul>
 </div>
 <div class="paragraph">
-<p>=== Authentication extensions</p>
-</div>
-<div class="paragraph">
-<p>Authentication extensions are responsible for access control to Stargate&#8217;s APIs.</p>
-</div>
-<div class="paragraph">
-<p>Currently there&#8217;s only an <a href="https://github.com/stargate/stargate/tree/master/auth-table-based-service">auth table-based service</a> which stores generated access tokens in the database.</p>
+<p>Authentication extensions are responsible for access control to Stargate&#8217;s APIs.
+Currently there&#8217;s only an <a href="https://github.com/stargate/stargate/tree/master/auth-table-based-service">auth table-based service</a> which stores generated access tokens in the database.</p>
 </div>
 <div class="paragraph">
 <p>These extensions are used by the API Extensions to federate access.
