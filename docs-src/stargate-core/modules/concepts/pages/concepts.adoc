@@ -50,10 +50,7 @@ The diagram below shows how these modules fit together.
 
 image::https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true[Stargate modules]
 
-=== API extensions
-
 API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.
-
 There are currently extensions for the Cassandra Query Language (CQL), and REST and GraphQL APIs for CRUD access to data in tables with many more coming soon.
 These extensions use both the Authentication Extensions and the Persistence Extensions.
 
@@ -62,11 +59,7 @@ the GrahpQL http header request to access the endpoints.
 The https://github.com/stargate/stargate/tree/master/persistence-api[persistence-api] is used to dispatch converted requests to the underlying storage engine.
 In the case of the REST API, you can see what this looks like in the https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java[RowsResource].
 
-
-=== Persistence extensions
-
 Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.
-
 The Persistence extensions are currently Cassandra-centric as Cassandra is the first database we chose to implement.
 The extensions for Cassandra 3.11 and 4.0 use Cassandra's coordinator concept and code to do the majority of the work.
 
@@ -77,10 +70,7 @@ Specifically, when using Stargate with one of Cassandra extensions Stargate node
 * execute requests with Cassandra storage instances using Cassandra's internal `QueryHandler` and `QueryProcessor`.
 * convert internal Cassandra objects and `ResultSets` to Stargate Datastore objects.
 
-=== Authentication extensions
-
 Authentication extensions are responsible for access control to Stargate's APIs.
-
 Currently there's only an https://github.com/stargate/stargate/tree/master/auth-table-based-service[auth table-based service] which stores generated access tokens in the database.
 
 These extensions are used by the API Extensions to federate access.
