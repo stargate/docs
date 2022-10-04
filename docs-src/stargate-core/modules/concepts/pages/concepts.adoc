@@ -4,10 +4,6 @@
 Stargate is a framework used to customize all aspects of data access.
 It is deployed between client applications and a database to provide an abstraction layer that can be used to shape your data access to fit your application's needs.
 
-To understand the vision of this project, see the high-level architecture diagram below.
-
-image::stargate-arch.svg[Stargate High-Level Architecture]
-
 == Project architecture
 
 === Stargate v2.0
@@ -34,7 +30,7 @@ Stargate contains the following components:
 ** auth-table-based-service: Service to store tokens in the database
 ** authentication: Interface for working with auth providers
 
-image::https://github.com/stargate/stargate/blob/v2.0.0/assets/stargate-modules-preview-version.png?raw=true[Stargate services]
+image::https://github.com/stargate/stargate/blob/v2.0.0/assets/stargate-arch-high-level.png?raw=true[Stargate services]
 
 
 =====
