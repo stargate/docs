@@ -26,10 +26,12 @@ You will want to run, for example:
 
 [source,bash,subs="attributes+"]
 ----
-./start_cass_{cass-alt-tag-3x}.sh -t {stargate2-docker-tag}
+./start_cass_{cass-alt-tag-3x}.sh
 ----
 
-The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-3_11/tags[here].
+This command will start using the latest available coordinator and API images with the `v2` tag.
+
+You may also select a specific image tag using the `-t <image_tag>` option. A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-3_11/tags[here].
 =====
 
 .v1
@@ -82,10 +84,12 @@ You will want to run, for example:
 
 [source,bash,subs="attributes+"]
 ----
-./start_cass_{cass-alt-tag-40}.sh -t {stargate2-docker-tag}
+./start_cass_{cass-alt-tag-40}.sh
 ----
 
-The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-4_0/tags[here].
+This command will start using the latest available coordinator and API images with the `v2` tag.
+
+You may also select a specific image tag using the `-t <image_tag>` option. A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-4_0/tags[here].
 =====
 
 .v1
@@ -137,10 +141,12 @@ You will want to run, for example:
 
 [source,bash,subs="attributes+"]
 ----
-./start_cass_{dse-alt-tag-68}.sh -t {stargate2-docker-tag}
+./start_cass_{dse-alt-tag-68}.sh
 ----
 
-The latest available image can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
+This command will start using the latest available coordinator and API images with the `v2` tag.
+
+You may also select a specific image tag using the `-t <image_tag>` option. A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
 =====
 
 .v1
