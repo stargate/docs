@@ -16,8 +16,6 @@ docker pull stargateio/restapi:{stargate2-docker-tag}
 docker pull stargateio/docsapi:{stargate2-docker-tag}
 docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 ----
-
-A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-3_11/tags[here].
 =====
 
 .v1
@@ -49,8 +47,6 @@ docker pull stargateio/restapi:{stargate2-docker-tag}
 docker pull stargateio/docsapi:{stargate2-docker-tag}
 docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 ----
-
-A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-4_0/tags[here].
 =====
 
 .v1
@@ -82,8 +78,6 @@ docker pull stargateio/restapi:{stargate2-docker-tag}
 docker pull stargateio/docsapi:{stargate2-docker-tag}
 docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 ----
-
-A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
 =====
 
 .v1
