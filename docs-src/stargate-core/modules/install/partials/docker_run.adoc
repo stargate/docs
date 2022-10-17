@@ -5,7 +5,7 @@
 [%collapsible%open]
 ===== 
 Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-3.11/start_cass_311_dev_mode.sh[shell script] to start the coordinator and APIs in developer mode.
-The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
+The easiest way to do that is to navigate to the `<install_location>/stargate/docker-compose` directory, and run the script.
 You will want to run, for example:
 
 [source,bash,subs="attributes+"]
@@ -44,7 +44,7 @@ docker run --name stargate \
 [%collapsible%open]
 ===== 
 Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/cassandra-4.0/start_cass_40_dev_mode.sh[shell script] to start the coordinator and APIs in developer mode.
-The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
+The easiest way to do that is to navigate to the `<install_location>/stargate/docker-compose` directory, and run the script.
 You will want to run, for example:
 
 [source,bash,subs="attributes+"]
@@ -83,7 +83,7 @@ docker run --name stargate \
 [%collapsible%open]
 ===== 
 Use this docker-compose https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_cass_40_dev_mode.sh[shell script] to start the coordinator and APIs in developer mode.
-The easiest way to do that is to navigate to the `<install_location>/stargate/stargate/docker-compose` directory, and run the script.
+The easiest way to do that is to navigate to the `<install_location>/stargate/docker-compose` directory, and run the script.
 You will want to run, for example:
 
 [source,bash,subs="attributes+"]
