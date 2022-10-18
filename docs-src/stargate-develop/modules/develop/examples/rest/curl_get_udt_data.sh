@@ -5,5 +5,5 @@ curl -s -L -G {base_rest_url}{base_rest_schema}/{rkeyspace}/{rtable} \
    --data-urlencode 'where={
      "firstname": {"$eq": "Janesha"},
      "lastname": {"$eq": "Doesha"},
-     "address": {\"$eq\": { \"street\": \"1, Main St\", \"zip\": 12345 }}
+     "address": {"$eq": { "street": "1, Main St", "zip": 12345 }}
    }'
