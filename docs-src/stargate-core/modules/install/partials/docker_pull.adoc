@@ -7,7 +7,7 @@
 For Stargate v2, you'll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi. 
 The coordinator image contains a Apache Cassandra^(TM)^ backend, the Cassandra Query Language (CQL), and the gRPC API.
 
-The following are the commands for each of those images:
+The following are the commands for each of those images using the tag `{stargate2-docker-tag}`:
 
 [source,bash,subs="attributes+"]
 ----
@@ -38,7 +38,7 @@ docker pull stargateio/stargate-{cass-alt-tag-3x}:{stargate-docker-tag-3x}
 For Stargate v2, you'll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi. 
 The coordinator image contains a Apache Cassandra^(TM)^ backend, the Cassandra Query Language (CQL), and the gRPC API.
 
-The following are the commands for each of those images:
+The following are the commands for each of those images using the tag `{stargate2-docker-tag}`:
 
 [source,bash,subs="attributes+"]
 ----
@@ -69,7 +69,7 @@ docker pull stargateio/stargate-{cass-alt-tag-40}:{stargate-docker-tag-40}
 For Stargate v2, you'll need to pull an image for coordinator, plus an image for each API that you wish to run: restapi, graphql, and docsapi. 
 The coordinator image contains a Apache Cassandra^(TM)^ backend, the Cassandra Query Language (CQL), and the gRPC API.
 
-The following are the commands for each of those images:
+The following are the commands for each of those images using the tag `{stargate2-docker-tag}`:
 
 [source,bash,subs="attributes+"]
 ----
