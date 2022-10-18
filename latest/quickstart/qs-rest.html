@@ -1473,9 +1473,13 @@ that were entered:</p>
 <div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'https://localhost:8082/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$in":\["Janesha","Mookie"\]\}\}' \
--H "X-Cassandra-Token: $AUTH_TOKEN" \
--H "Content-Type: application/json"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
+   --data-urlencode 'where={
+     "firstname": {"in": ["Janesha","Mookie"]}
+   }'</code></pre>
 </div>
 </div>
 </div>

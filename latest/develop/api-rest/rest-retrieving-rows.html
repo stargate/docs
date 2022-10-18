@@ -400,9 +400,13 @@ that were entered:</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'https://localhost:8082/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$in":\["Janesha","Mookie"\]\}\}' \
--H "X-Cassandra-Token: $AUTH_TOKEN" \
--H "Content-Type: application/json"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
+   --data-urlencode 'where={
+     "firstname": {"in": ["Janesha","Mookie"]}
+   }'</code></pre>
 </div>
 </div>
 </div>
@@ -511,9 +515,13 @@ to retrieve the row for <code>Mookie</code> using <code>$eq</code>:</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'https://localhost:8082/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$eq":"Mookie"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header "Content-Type: application/json"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
+   --data-urlencode 'where={
+     "firstname": {"$eq": "Mookie"}
+   }'</code></pre>
 </div>
 </div>
 </div>
@@ -562,9 +570,14 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'https://localhost:8082/v2/keyspaces/users_keyspace/users?where=\{"firstname":\{"$eq":"Janesha"\},"favorite_books":\{"$contains":"Emma"\}\}' \
---header "X-Cassandra-Token: $AUTH_TOKEN" \
---header "Content-Type: application/json"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
+   --data-urlencode 'where={
+      "firstname": {"$eq": "Janesha"},
+      "favorite_books": {"$contains": "Emma"}
+   }'</code></pre>
 </div>
 </div>
 </div>
@@ -1021,8 +1034,8 @@ CREATE CUSTOM INDEX eval_idx
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
-   -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-   -H  "Content-Type: application/json" \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
    -H "Accept: application/json" \
    --data-urlencode 'where={
      "firstname": {"$eq": "Janesha"},
@@ -1120,9 +1133,9 @@ CREATE CUSTOM INDEX eval_idx
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
-   -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-   -H  "Content-Type: application/json" \
-    -H "Accept: application/json" \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
    --data-urlencode 'where={
      "firstname": {"$eq": "Janesha"},
      "lastname": {"$eq": "Doesha"},
@@ -1218,9 +1231,10 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -G -L https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
-   -H  "X-Cassandra-Token: $AUTH_TOKEN" \
-   -H  "Content-Type: application/json" \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+   -H "X-Cassandra-Token: $AUTH_TOKEN" \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
    --data-urlencode 'where={
      "firstname": {"$eq": "Janesha"},
      "lastname": {"$eq": "Doesha"},
@@ -1323,7 +1337,7 @@ CREATE CUSTOM INDEX eval_idx
    --data-urlencode 'where={
      "firstname": {"$eq": "Janesha"},
      "lastname": {"$eq": "Doesha"},
-     "address": {\"$eq\": { \"street\": \"1, Main St\", \"zip\": 12345 }}
+     "address": {"$eq": { "street": "1, Main St", "zip": 12345 }}
    }'</code></pre>
 </div>
 </div>
