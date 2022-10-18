@@ -426,16 +426,19 @@ delays between node startup that prevents timing issues.</p>
 <div class="content">
 <div class="paragraph">
 <p>Use this docker-compose <a href="https://github.com/stargate/stargate/blob/v2.0.0/docker-compose/dse-6.8/start_dse_68.sh">shell script</a> to start the coordinator and APIs in developer mode.
-The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/stargate/docker-compose</code> directory, and run the script.
+The easiest way to do that is to navigate to the <code>&lt;install_location&gt;/stargate/docker-compose</code> directory, and run the script.
 You will want to run, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_cass_68.sh -t v2.0.0-BETA-3</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_cass_68.sh</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The latest available image can be found <a href="https://hub.docker.com/r/stargateio/coordinator-dse-68/tags">here</a>.</p>
+<p>This command will start using the latest available coordinator and API images with the <code>v2</code> tag.</p>
+</div>
+<div class="paragraph">
+<p>You may also select a specific image tag using the <code>-t &lt;image_tag&gt;</code> option. A list of the available tags for the coordinator can be found <a href="https://hub.docker.com/r/stargateio/coordinator-dse-68/tags">here</a>.</p>
 </div>
 </div>
 </details>
