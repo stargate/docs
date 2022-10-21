@@ -49,16 +49,16 @@ asciidoc:
     dse-alt-tag-68: '68'
 
     auth_token: '$AUTH_TOKEN'
-    base_auth_url: 'https://localhost:8081'
+    base_auth_url: 'http://localhost:8081'
     base_auth_api_path: '/v1/auth'
     cass_user: 'cassandra' # switch to auth_username
     cass_passwd: 'cassandra' # switch to auth_password
 
-    base_url: 'https://localhost:8080'
-    base_rest_url: 'https://localhost:8082'
-    base_doc_url: 'https://localhost:8082'
-    base_doc_url_v2: 'https://localhost:8180'
-    base_graphql_url: 'https://localhost:8080'
+    base_url: 'http://localhost:8080'
+    base_rest_url: 'http://localhost:8082'
+    base_doc_url: 'http://localhost:8082'
+    base_doc_url_v2: 'http://localhost:8180'
+    base_graphql_url: 'http://localhost:8080'
 
     base_rest_schema: '/v2/schemas/keyspaces'
     base_doc_schema: '/v2/schemas/namespaces'
