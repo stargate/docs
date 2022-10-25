@@ -800,7 +800,7 @@ In this example we use <code>users_keyspace</code> for the <code>name</code>, an
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'https://localhost:8082/v2/schemas/keyspaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'http://localhost:8082/v2/schemas/keyspaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -849,7 +849,7 @@ REST API query with <code>cURL</code> to find all the keyspaces:</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -916,7 +916,7 @@ REST API query with <code>cURL</code> to find all the keyspaces:</p>
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -971,7 +971,7 @@ REST API query with <code>cURL</code> to find all the keyspaces:</p>
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -1038,7 +1038,7 @@ REST API query with <code>cURL</code> to find all the keyspaces:</p>
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -1094,7 +1094,7 @@ Set the table name and column definitions in the JSON body in the <code>--data</
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
---request POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
+--request POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json" \
 --header "Accept: application/json" \
@@ -1216,7 +1216,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" </code></pre>
@@ -1300,7 +1300,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
--X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users \
+-X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -1413,7 +1413,7 @@ The column name/value pairs are passed in the JSON body.</p>
 <div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -1422,7 +1422,7 @@ The column name/value pairs are passed in the JSON body.</p>
     "email": "mookie.betts@gmail.com",
     "favorite color": "blue"
 }'
-curl -s --location --request POST 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+curl -s --location --request POST 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -1482,7 +1482,7 @@ that were entered:</p>
 <div class="tab-pane" aria-labelledby="tabset12_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -1604,7 +1604,7 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 <div class="tab-pane" aria-labelledby="tabset13_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PUT 'https://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PUT 'http://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
@@ -1648,7 +1648,7 @@ clustering column <code>lastname</code>, so we delete all data with <code>Mookie
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X DELETE https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users/Mookie/Betts \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X DELETE http://localhost:8082/v2/schemas/keyspaces/users_keyspace/users/Mookie/Betts \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json"</code></pre>
 </div>

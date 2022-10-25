@@ -403,7 +403,7 @@ namespace.</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X DELETE 'https://localhost:8180/v2/schemas/namespaces/test' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X DELETE 'http://localhost:8180/v2/schemas/namespaces/test' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -412,7 +412,7 @@ namespace.</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X DELETE 'https://localhost:8082/v2/schemas/namespaces/test' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X DELETE 'http://localhost:8082/v2/schemas/namespaces/test' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>

@@ -785,11 +785,11 @@ The URLS are:</p>
 <dl>
 <dt class="hdlist1">Schema</dt>
 <dd>
-<p><code><a href="https://localhost:8080/graphql-schema" class="bare">https://localhost:8080/graphql-schema</a></code></p>
+<p><code><a href="http://localhost:8080/graphql-schema" class="bare">http://localhost:8080/graphql-schema</a></code></p>
 </dd>
 <dt class="hdlist1">Querying</dt>
 <dd>
-<p><code><a href="https://localhost:8080/graphql/{keyspace_name}" class="bare">https://localhost:8080/graphql/{keyspace_name}</a></code></p>
+<p><code><a href="http://localhost:8080/graphql/{keyspace_name}" class="bare">http://localhost:8080/graphql/{keyspace_name}</a></code></p>
 </dd>
 </dl>
 </div>
@@ -970,7 +970,7 @@ query and mutation types to handle queries and mutations for the new tables.</p>
 <div class="paragraph">
 <p>The easiest way to get started with GraphQL is to use the built-in GraphQL playground.
 In Stargate, go to your browser and launch the url:
-<code><a href="https://localhost:8080/playground" class="bare">https://localhost:8080/playground</a></code></p>
+<code><a href="http://localhost:8080/playground" class="bare">http://localhost:8080/playground</a></code></p>
 </div>
 <div class="paragraph">
 <p>Add your
@@ -1940,7 +1940,7 @@ An additional option, <code>indexType</code> can be defined to use SAI indexes i
 <div class="tab-pane" aria-labelledby="tabset12_curl-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST https://localhost:8080/graphql-schema \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST http://localhost:8080/graphql-schema \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation createIndexes {\n  book: createIndex(\n    keyspaceName:\"library\",\n    tableName:\"book\",\n    columnName:\"author\",\n    indexName:\"author_idx\"\n  )\n  reader: createIndex(\n      keyspaceName:\"library\",\n      tableName:\"reader\",\n      columnName:\"birthdate\",\n      indexName:\"reader_bdate_idx\"\n  )\n  reader2: createIndex(\n      keyspaceName:\"library\",\n      tableName:\"reader\",\n      columnName:\"email\",\n      indexName:\"reader_email_idx\"\n  )\n}","variables":{}}'</code></pre>
@@ -1978,7 +1978,7 @@ REST API examples:</p>
 <div class="tab-pane" aria-labelledby="tabset13_curl-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/api/graphql-schema' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8082/api/graphql-schema' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation createIndexes {\n  user1: createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"favorite_books\",\n    indexName:\"fav_books_idx\",\n    indexKind: VALUES\n  )\n  user2:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"top_three_tv_shows\",\n    indexName:\"tv_idx\",\n    indexKind: VALUES\n  )\n  user3:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"evaluations\",\n    indexName:\"evalv_idx\",\n    indexKind: VALUES\n  )\n   user4:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"evaluations\",\n    indexName:\"evalk_idx\",\n    indexKind: KEYS\n  )\n   user5:createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"evaluations\",\n    indexName:\"evale_idx\",\n    indexKind: ENTRIES\n  )\n    users6: createIndex(\n    keyspaceName:\"'$KEYSPACE_NAME'\",\n    tableName:\"'$TABLE_NAME'\",\n    columnName:\"current_country\",\n    indexName:\"country_idx\"\n  )\n}","variables":{}}'</code></pre>
@@ -2049,7 +2049,7 @@ All index data will be deleted along with the index schema.</p>
 <div class="tab-pane" aria-labelledby="tabset14_curl-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST https://localhost:8080/graphql-schema \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST http://localhost:8080/graphql-schema \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation dropIndexBdate {\n\n  reader: dropIndex(\n      keyspaceName:\"library\",\n      indexName:\"reader_bdate_idx\"\n  )\n}","variables":{}}'</code></pre>

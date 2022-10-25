@@ -416,7 +416,7 @@ All index data will be deleted along with the index schema.</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST https://localhost:8080/graphql-schema \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST http://localhost:8080/graphql-schema \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{"query":"mutation dropIndexBdate {\n\n  reader: dropIndex(\n      keyspaceName:\"library\",\n      indexName:\"reader_bdate_idx\"\n  )\n}","variables":{}}'</code></pre>

@@ -400,7 +400,7 @@ that were entered:</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -515,7 +515,7 @@ to retrieve the row for <code>Mookie</code> using <code>$eq</code>:</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -570,7 +570,7 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -668,7 +668,7 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -730,7 +730,7 @@ The <code>pageState</code> is useful for pagination of the results in queries.
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users/rows \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace/users/rows \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>
@@ -843,7 +843,7 @@ Note that the inclusion of clustering keys may return a range of rows.</p>
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/keyspaces/users_keyspace/users/Janesha/Doesha?fields=firstname,lastname,top_three_tv_shows \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/keyspaces/users_keyspace/users/Janesha/Doesha?fields=firstname,lastname,top_three_tv_shows \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json"</code></pre>
 </div>
@@ -934,7 +934,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/keyspaces/users_keyspace/users \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -1033,7 +1033,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -1132,7 +1132,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -1231,7 +1231,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
@@ -1330,7 +1330,7 @@ CREATE CUSTOM INDEX eval_idx
 <div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G https://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -G http://localhost:8082/v2/schemas/keyspaces/users_keyspace/users \
    -H "X-Cassandra-Token: $AUTH_TOKEN" \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \

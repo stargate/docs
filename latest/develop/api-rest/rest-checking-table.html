@@ -399,7 +399,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" </code></pre>
@@ -483,7 +483,7 @@ REST API query with <code>cURL</code> to find all the tables:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
--X GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users \
+-X GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json"</code></pre>

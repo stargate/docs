@@ -455,7 +455,7 @@ The data is passed in the JSON body.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+--request PUT 'http://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -469,7 +469,7 @@ The data is passed in the JSON body.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+--request PUT 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -523,7 +523,7 @@ The data is passed in the JSON body.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request POST 'https://localhost:8180/v2/namespaces/test/collections/library' \
+--request POST 'http://localhost:8180/v2/namespaces/test/collections/library' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -537,7 +537,7 @@ The data is passed in the JSON body.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request POST 'https://localhost:8082/v2/namespaces/test/collections/library' \
+--request POST 'http://localhost:8082/v2/namespaces/test/collections/library' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -588,7 +588,7 @@ Send a <code>POST</code> request to <code>/v2/namespaces/{namespace_name}/collec
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8180/v2/namespaces/test/collections/library' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
@@ -636,7 +636,7 @@ Send a <code>POST</code> request to <code>/v2/namespaces/{namespace_name}/collec
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8082/v2/namespaces/test/collections/library' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
@@ -734,7 +734,7 @@ It is a <code>PUT</code> request:</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '     {
@@ -768,7 +768,7 @@ It is a <code>PUT</code> request:</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '     {
@@ -840,7 +840,7 @@ Let&#8217;s read the data from the last example with a <code>GET</code> request:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id' \
+-X GET 'http://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -850,7 +850,7 @@ Let&#8217;s read the data from the last example with a <code>GET</code> request:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id' \
+-X GET 'http://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -937,7 +937,7 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library/batch' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8180/v2/namespaces/test/collections/library/batch' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' [{
@@ -1019,7 +1019,7 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/batch' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8082/v2/namespaces/test/collections/library/batch' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' [{
@@ -1140,7 +1140,7 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/namespaces/test/collections/library/batch' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8180/v2/namespaces/test/collections/library/batch' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' [{
@@ -1227,7 +1227,7 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/namespaces/test/collections/library/batch' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8082/v2/namespaces/test/collections/library/batch' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' [{
@@ -1351,7 +1351,7 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/John-Smith' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8180/v2/namespaces/test/collections/library/John-Smith' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '     {
@@ -1400,7 +1400,7 @@ You can also use any valid path syntax (globs not allowed), e.g. <code>id-path=u
 <div class="tab-pane" aria-labelledby="tabset8_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/John-Smith' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8082/v2/namespaces/test/collections/library/John-Smith' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '     {
@@ -1492,7 +1492,7 @@ TTL will add a time-to-live value in the database, so that the entry will be mar
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PATCH 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?profile=true' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PATCH 'http://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?profile=true' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
@@ -1510,7 +1510,7 @@ TTL will add a time-to-live value in the database, so that the entry will be mar
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PATCH 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?profile=true' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PATCH 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?profile=true' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
@@ -1605,7 +1605,7 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+-X GET 'http://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -1615,7 +1615,7 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+-X GET 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -1669,7 +1669,7 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <div class="tab-pane" aria-labelledby="tabset11_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
@@ -1681,7 +1681,7 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <div class="tab-pane" aria-labelledby="tabset11_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311?ttl=10000' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw ' {
@@ -1723,7 +1723,7 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+-X GET 'http://localhost:8180/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -1733,7 +1733,7 @@ ND p27 = ? AND p28 = ? AND p29 = ? AND p30 = ? AND p31 = ? AND p32 = ? AND p33 =
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L \
--X GET 'https://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
+-X GET 'http://localhost:8082/v2/namespaces/test/collections/library/2545331a-aaad-45d2-b084-9da3d8f4c311' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>

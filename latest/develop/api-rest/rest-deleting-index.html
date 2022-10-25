@@ -399,7 +399,7 @@
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
---request GET https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
+--request GET http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/indexes \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json" \
 --header "Accept: application/json" \</code></pre>
@@ -496,7 +496,7 @@ to delete an index. All index data will be deleted along with the index schema.<
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -s --location \
---request DELETE https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/indexes/fav_books_idx \
+--request DELETE http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/indexes/fav_books_idx \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json" \
 --header "Accept: application/json"</code></pre>

@@ -401,7 +401,7 @@ The column name/value pairs are passed in the JSON body.</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -410,7 +410,7 @@ The column name/value pairs are passed in the JSON body.</p>
     "email": "mookie.betts@gmail.com",
     "favorite color": "blue"
 }'
-curl -s --location --request POST 'https://localhost:8082/v2/keyspaces/users_keyspace/users' \
+curl -s --location --request POST 'http://localhost:8082/v2/keyspaces/users_keyspace/users' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -472,7 +472,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
@@ -511,7 +511,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \
@@ -550,7 +550,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
 -H  "Accept: application/json" \
@@ -590,7 +590,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \
@@ -629,7 +629,7 @@ schema created earlier.</p>
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST https://localhost:8082/v2/keyspaces/users_keyspace/users \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -X POST http://localhost:8082/v2/keyspaces/users_keyspace/users \
 -H  "accept: application/json" \
 -H  "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Content-Type: application/json" \

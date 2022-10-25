@@ -460,7 +460,7 @@
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -469,7 +469,7 @@
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -552,7 +552,7 @@
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -561,7 +561,7 @@
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -626,7 +626,7 @@ accomplish the same thing as the <code>and</code> operator in the last example:<
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$ne":"Amy%20Smith","$exists":true}}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$ne":"Amy%20Smith","$exists":true}}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -635,7 +635,7 @@ accomplish the same thing as the <code>and</code> operator in the last example:<
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$ne":"Amy%20Smith","$exists":true}}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$ne":"Amy%20Smith","$exists":true}}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -705,7 +705,7 @@ Both matches must exist in order for a document to be returned.</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -714,7 +714,7 @@ Both matches must exist in order for a document to be returned.</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"$and":[{"reader.name":{"$ne":"Amy%20Smith"}},{"reader.name":{"$exists":true}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -780,7 +780,7 @@ Either match must exist in order for a document to be returned.</p>
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"$or":[{"reader.name":{"$eq":"Amy%20Smith"}},{"reader.name":{"$eq":"Jane%20Doe"}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"$or":[{"reader.name":{"$eq":"Amy%20Smith"}},{"reader.name":{"$eq":"Jane%20Doe"}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -789,7 +789,7 @@ Either match must exist in order for a document to be returned.</p>
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"$or":[{"reader.name":{"$eq":"Amy%20Smith"}},{"reader.name":{"$eq":"Jane%20Doe"}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"$or":[{"reader.name":{"$eq":"Amy%20Smith"}},{"reader.name":{"$eq":"Jane%20Doe"}}]}&amp;fields=["reader.name","reader.user_id","reader.birthdate"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -848,7 +848,7 @@ The results also include documents that do not contain the field.</p>
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"$not":{"book.title":{"$eq":"Moby%20Dick"}}}&amp;fields=["book.title","book.authors"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"$not":{"book.title":{"$eq":"Moby%20Dick"}}}&amp;fields=["book.title","book.authors"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -857,7 +857,7 @@ The results also include documents that do not contain the field.</p>
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"$not":{"book.title":{"$eq":"Moby%20Dick"}}}&amp;fields=["book.title","book.authors"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"$not":{"book.title":{"$eq":"Moby%20Dick"}}}&amp;fields=["book.title","book.authors"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -917,7 +917,7 @@ less than or equal to 5 (all values that are 4 or 5):</p>
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.reviews.[*].rating":{"$gt":3,"$lte":5}}&amp;fields=["reader.name","reader.reviews.rating","reader.reviews"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.reviews.[*].rating":{"$gt":3,"$lte":5}}&amp;fields=["reader.name","reader.reviews.rating","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -926,7 +926,7 @@ less than or equal to 5 (all values that are 4 or 5):</p>
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.reviews.[*].rating":{"$gt":3,"$lte":5}}&amp;fields=["reader.name","reader.reviews.rating","reader.reviews"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.reviews.[*].rating":{"$gt":3,"$lte":5}}&amp;fields=["reader.name","reader.reviews.rating","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -1027,7 +1027,7 @@ less than or equal to 5 (all values that are 4 or 5):</p>
 <div class="tab-pane" aria-labelledby="tabset8_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$in":["Jane%20Doe","Amy%20Smith"]}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$in":["Jane%20Doe","Amy%20Smith"]}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -1040,7 +1040,7 @@ less than or equal to 5 (all values that are 4 or 5):</p>
 </div>
 </div>
 <div class="paragraph">
-<p>curl --location -g --request GET '<a href="https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$in":">"Jane%20Doe","Amy%20Smith"</a>}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
+<p>curl --location -g --request GET '<a href="http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$in":">"Jane%20Doe","Amy%20Smith"</a>}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</p>
 </div>
@@ -1123,7 +1123,7 @@ less than or equal to 5 (all values that are 4 or 5):</p>
 <div class="tab-pane" aria-labelledby="tabset9_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$in":["Jane%20Doe","John%20Smith"]}}&amp;fields=["reader.name","reader.address","reader.reviews"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$in":["Jane%20Doe","John%20Smith"]}}&amp;fields=["reader.name","reader.address","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -1136,7 +1136,7 @@ less than or equal to 5 (all values that are 4 or 5):</p>
 </div>
 </div>
 <div class="paragraph">
-<p>curl --location -g --request GET '<a href="https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$in":">"Jane%20Doe","John%20Smith"</a>}}&amp;fields=["reader.name","reader.address","reader.reviews"]&amp;page-size=6' \
+<p>curl --location -g --request GET '<a href="http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$in":">"Jane%20Doe","John%20Smith"</a>}}&amp;fields=["reader.name","reader.address","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</p>
 </div>
@@ -1251,7 +1251,7 @@ or the fields does not exist.</p>
 <div class="tab-pane" aria-labelledby="tabset10_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$nin":["Jane%20Doe","Amy%20Smith"]}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$nin":["Jane%20Doe","Amy%20Smith"]}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -1264,7 +1264,7 @@ or the fields does not exist.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>curl --location -g --request GET '<a href="https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$nin":">"Jane%20Doe","Amy%20Smith"</a>}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
+<p>curl --location -g --request GET '<a href="http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$nin":">"Jane%20Doe","Amy%20Smith"</a>}}&amp;fields=["reader.name","reader.birthdate","reader.reviews"]&amp;page-size=6' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</p>
 </div>

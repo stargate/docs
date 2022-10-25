@@ -403,7 +403,7 @@ thus, we use <code>/Mookie/Betts</code> as the <code>{path}</code> in our reques
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PUT 'https://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PUT 'http://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
@@ -457,7 +457,7 @@ we want to only change that one column:</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PATCH 'https://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X PATCH 'http://localhost:8082/v2/keyspaces/users_keyspace/users/Mookie/Betts' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{

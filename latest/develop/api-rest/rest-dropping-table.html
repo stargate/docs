@@ -387,7 +387,7 @@ to delete a table. All data will be deleted along with the table schema.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location \
---request DELETE https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users \
+--request DELETE http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header "Content-Type: application/json"</code></pre>
 </div>

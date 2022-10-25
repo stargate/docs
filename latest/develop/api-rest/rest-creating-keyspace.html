@@ -422,7 +422,7 @@ In this example we use <code>users_keyspace</code> for the <code>name</code>, an
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'https://localhost:8082/v2/schemas/keyspaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s --location --request POST 'http://localhost:8082/v2/schemas/keyspaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -471,7 +471,7 @@ and <code>1</code> for the number of data <code>replicas</code>.</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H "Content-Type: application/json" \
 -d '{
@@ -514,7 +514,7 @@ where <code>dc1</code> defaults to 3 replicas and <code>dc2</code> is set to 5 r
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST 'https://localhost:8082/v2/schemas/keyspaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST 'http://localhost:8082/v2/schemas/keyspaces' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{

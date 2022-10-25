@@ -423,7 +423,7 @@ In this example we use <code>library</code> for the <code>name</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request POST 'https://localhost:8180/v2/namespaces/test/collections' \
+--request POST 'http://localhost:8180/v2/namespaces/test/collections' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -436,7 +436,7 @@ In this example we use <code>library</code> for the <code>name</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request POST 'https://localhost:8082/v2/namespaces/test/collections' \
+--request POST 'http://localhost:8082/v2/namespaces/test/collections' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -482,7 +482,7 @@ The specified name for the namespace is passed as JSON data using <code>--data</
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>-L</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--location</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-L <a href="https://localhost:8082" class="bare">https://localhost:8082</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-L <a href="http://localhost:8082" class="bare">http://localhost:8082</a></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieves the URL listed, even if it has moved</p></td>
 </tr>
 <tr>
@@ -539,7 +539,7 @@ In this example, a collection is created to store a Person object that has three
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8180/v2/namespaces/test/collections/library2/json-schema' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8180/v2/namespaces/test/collections/library2/json-schema' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -568,7 +568,7 @@ In this example, a collection is created to store a Person object that has three
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'https://localhost:8082/v2/namespaces/test/collections/library2/json-schema' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request PUT 'http://localhost:8082/v2/namespaces/test/collections/library2/json-schema' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{

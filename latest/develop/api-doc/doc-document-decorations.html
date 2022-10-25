@@ -409,7 +409,7 @@ You can set the value in the REST query:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request GET 'https://localhost:8180/v2/namespaces/test/collections/library?page-size=5' \
+--request GET 'http://localhost:8180/v2/namespaces/test/collections/library?page-size=5' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -419,7 +419,7 @@ You can set the value in the REST query:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location \
---request GET 'https://localhost:8082/v2/namespaces/test/collections/library?page-size=5' \
+--request GET 'http://localhost:8082/v2/namespaces/test/collections/library?page-size=5' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -588,7 +588,7 @@ parameter set to the first page&#8217;s pageState:</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
 --header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
 </div>
 </div>
@@ -596,7 +596,7 @@ parameter set to the first page&#8217;s pageState:</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?page-state=JGQwODFlYmIyLTQ4OWUtNDI1ZS04NTI1LWEyNTU4NGY0N2JjZADwf_____B_____' \
 --header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
 </div>
 </div>
@@ -736,7 +736,7 @@ You can specify the fields that you wish returned in the REST query:</p>
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
@@ -745,7 +745,7 @@ You can specify the fields that you wish returned in the REST query:</p>
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library/native-son-doc-id?fields=["book.title","book.genre"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>

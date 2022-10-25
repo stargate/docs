@@ -788,15 +788,15 @@ The URLS are:</p>
 <dl>
 <dt class="hdlist1">Schema</dt>
 <dd>
-<p><code><a href="https://localhost:8080/graphql-schema" class="bare">https://localhost:8080/graphql-schema</a></code></p>
+<p><code><a href="http://localhost:8080/graphql-schema" class="bare">http://localhost:8080/graphql-schema</a></code></p>
 </dd>
 <dt class="hdlist1">Admin</dt>
 <dd>
-<p><code><a href="https://localhost:8080/graphql-admin" class="bare">https://localhost:8080/graphql-admin</a></code></p>
+<p><code><a href="http://localhost:8080/graphql-admin" class="bare">http://localhost:8080/graphql-admin</a></code></p>
 </dd>
 <dt class="hdlist1">Querying</dt>
 <dd>
-<p><code><a href="https://localhost:8080/graphql/{keyspace_name}" class="bare">https://localhost:8080/graphql/{keyspace_name}</a></code></p>
+<p><code><a href="http://localhost:8080/graphql/{keyspace_name}" class="bare">http://localhost:8080/graphql/{keyspace_name}</a></code></p>
 </dd>
 </dl>
 </div>
@@ -892,7 +892,7 @@ results that the table already exists.</p>
 <div class="paragraph">
 <p>The easiest way to get started with GraphQL is to use the built-in GraphQL playground.
 In Stargate, go to your browser and launch the url:
-<code><a href="https://localhost:8080/playground" class="bare">https://localhost:8080/playground</a></code></p>
+<code><a href="http://localhost:8080/playground" class="bare">http://localhost:8080/playground</a></code></p>
 </div>
 <div class="paragraph">
 <p>Add your
@@ -1988,7 +1988,7 @@ with a cURL command:</p>
 <div class="tab-pane" aria-labelledby="tabset11_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl https://localhost:8080/graphql-admin \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-admin \
   -H "X-Cassandra-Token: $AUTH_TOKEN" \
   -F operations='
 {
@@ -2039,7 +2039,7 @@ to get the current version.</p>
 <div class="tab-pane" aria-labelledby="tabset12_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl https://localhost:8080/graphql-admin \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl http://localhost:8080/graphql-admin \
   -H "X-Cassandra-Token: $AUTH_TOKEN" \
   -F operations='
 {
@@ -2093,7 +2093,7 @@ Either the GraphQL Playground or the cURL command can be used to update the sche
 <div class="tab-pane" aria-labelledby="tabset13_graphql-command">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Works in https://localhost:8080/graphql-admin
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Works in http://localhost:8080/graphql-admin
 {
   schemas(keyspace: "library") {
     version
@@ -3597,7 +3597,7 @@ run the following cURL command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl  https://localhost:8080/graphql-files/cql_directives.graphql \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl  http://localhost:8080/graphql-files/cql_directives.graphql \
   --header "X-Cassandra-Token: $AUTH_TOKEN"</code></pre>
 </div>
 </div>

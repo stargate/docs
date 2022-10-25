@@ -399,7 +399,7 @@ can add a column by sending a <code>POST</code> request to add the column.</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -439,7 +439,7 @@ sent a <code>PUT</code> request instead:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L \
--X PUT https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname \
+-X PUT http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns/firstname \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -477,7 +477,7 @@ set contents, such as <code>text</code>:</p>
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -523,7 +523,7 @@ is ordered:</p>
 <div class="tab-pane" aria-labelledby="tabset4_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -562,7 +562,7 @@ map key and the may value:</p>
 <div class="tab-pane" aria-labelledby="tabset5_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -602,7 +602,7 @@ A tuple can consist of two or more values that can be retrieved together.</p>
 <div class="tab-pane" aria-labelledby="tabset6_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \
@@ -657,7 +657,7 @@ For instance, for a UDT created with the following CQL statement:</p>
 <div class="tab-pane" aria-labelledby="tabset7_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST https://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -s -L -X POST http://localhost:8082/v2/schemas/keyspaces/users_keyspace/tables/users/columns \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H  "Accept: application/json" \
 -H "Content-Type: application/json" \

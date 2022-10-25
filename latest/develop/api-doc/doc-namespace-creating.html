@@ -428,7 +428,7 @@ docs/build/stargate/stargate/develop/api-doc/doc-creating-namespace.html</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/schemas/namespaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8180/v2/schemas/namespaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -440,7 +440,7 @@ docs/build/stargate/stargate/develop/api-doc/doc-creating-namespace.html</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/schemas/namespaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8082/v2/schemas/namespaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -486,7 +486,7 @@ The specified name for the namespace is passed as JSON data using <code>--data</
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>-L</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>--location</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-L <a href="https://localhost:8082" class="bare">https://localhost:8082</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-L <a href="http://localhost:8082" class="bare">http://localhost:8082</a></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieves the URL listed, even if it has moved</p></td>
 </tr>
 <tr>
@@ -544,7 +544,7 @@ and <code>2</code> for the number of data <code>replicas</code>.</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8180/v2/schemas/namespaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8180/v2/schemas/namespaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -557,7 +557,7 @@ and <code>2</code> for the number of data <code>replicas</code>.</p>
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'https://localhost:8082/v2/schemas/namespaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request POST 'http://localhost:8082/v2/schemas/namespaces' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \
 --data '{
@@ -605,7 +605,7 @@ where <code>dc1</code> defaults to 3 replicas and <code>dc2</code> is set to 5 r
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X POST 'https://localhost:8180/v2/schemas/namespaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X POST 'http://localhost:8180/v2/schemas/namespaces' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
@@ -618,7 +618,7 @@ where <code>dc1</code> defaults to 3 replicas and <code>dc2</code> is set to 5 r
 <div class="tab-pane" aria-labelledby="tabset3_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X POST 'https://localhost:8082/v2/schemas/namespaces' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -L -X POST 'http://localhost:8082/v2/schemas/namespaces' \
 -H "X-Cassandra-Token: $AUTH_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{

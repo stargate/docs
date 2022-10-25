@@ -406,7 +406,7 @@ For one of the simplest <code>WHERE</code> clasues, get all documents where a na
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -415,7 +415,7 @@ For one of the simplest <code>WHERE</code> clasues, get all documents where a na
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -504,7 +504,7 @@ Get all documents where name eq a particular reader with the fields reader name 
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8180/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>
@@ -513,7 +513,7 @@ Get all documents where name eq a particular reader with the fields reader name 
 <div class="tab-pane" aria-labelledby="tabset2_curl-command-v1">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'https://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location -g --request GET 'http://localhost:8082/v2/namespaces/test/collections/library?where={"reader.name":{"$eq":"Amy%20Smith"}}&amp;fields=["reader.name","reader.birthdate"]' \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json' \</code></pre>
 </div>

@@ -396,7 +396,7 @@ All UDT schema will be deleted along with the UDT data.</p>
 <div class="tab-pane" aria-labelledby="tabset1_curl-command-v2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request DELETE https://localhost:8082/v2/schemas/keyspaces/users_keyspace/types/address_type \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl --location --request DELETE http://localhost:8082/v2/schemas/keyspaces/users_keyspace/types/address_type \
 --header "X-Cassandra-Token: $AUTH_TOKEN" \
 --header 'Content-Type: application/json'</code></pre>
 </div>
