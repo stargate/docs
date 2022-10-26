@@ -84,7 +84,7 @@ parameters before use.
 * {sgv2-astra-env-postman-url}[Stargate v2 Astra environment]
 * {astra-env-postman-url}[Astra environment]
 * {oss-env-postman-url}[Stargate OSS environment]
-* {oss-docs-env-postman-url}[Stargate OSS environment for current Document API examples]
+* {oss-docs-env-postman-url}[Stargate OSS environment for Document API examples]
 
 ==== Stargate OSS
 
