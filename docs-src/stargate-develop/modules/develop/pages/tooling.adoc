@@ -55,8 +55,8 @@ For Stargate development, four collections that correspond to the documentation 
 ** image:https://run.pstmn.io/button.svg[link={docapi-oss-run-postman}] with Stargate environment
 * GraphQL API
 ** Postman Workspace: {graphql-postman-url}[GraphQL API collection]
-** image:https://run.pstmn.io/button.svg[link={graphqlapi-astra-run-postman}] with Astra environment
-** image:https://run.pstmn.io/button.svg[link={graphqlapi-oss-run-postman}] with Stargate environment
+** image:https://run.pstmn.io/button.svg[link={graphql-astra-run-postman}] with Astra environment
+** image:https://run.pstmn.io/button.svg[link={graphql-oss-run-postman}] with Stargate environment
 * gRPC API
 ** Postman Workspace: {grpc-postman-url}[gRPC API collection]
 
