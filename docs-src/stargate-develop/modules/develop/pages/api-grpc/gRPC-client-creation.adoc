@@ -31,10 +31,10 @@ The `batch` service executes a batch of CQL queries.
 
 === Proto files
 
-The https://github.com/stargate/stargate/blob/master/grpc-proto/proto/stargate.proto[`stargate.proto`]
+The https://github.com/stargate/stargate/blob/main/grpc-proto/proto/stargate.proto[`stargate.proto`]
 file provides these services that interact with a Stargate coordinator to execute
 CQL queries.
-The https://github.com/stargate/stargate/blob/master/grpc-proto/proto/query.proto[`query.proto`]
+The https://github.com/stargate/stargate/blob/main/grpc-proto/proto/query.proto[`query.proto`]
 file identifies the relevant messages required to interact with CQL.
 These include:
 

@@ -48,7 +48,7 @@ Stargate is broken up into modules that fit into three broad categories:
 
 The diagram below shows how these modules fit together.
 
-image::https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true[Stargate modules]
+image::https://github.com/stargate/stargate/blob/v1/assets/stargate-modules.png?raw=true[Stargate modules]
 
 API extensions are responsible for defining the API, handling and converting requests to database queries, dispatching requests to persistence services, and returning and serving response to clients.
 There are currently extensions for the Cassandra Query Language (CQL), and REST and GraphQL APIs for CRUD access to data in tables with many more coming soon.
@@ -57,7 +57,7 @@ These extensions use both the Authentication Extensions and the Persistence Exte
 The REST API uses the https://github.com/stargate/stargate/tree/master/auth-api[auth-api] to handle token access to the endpoints that are exposed by the Jetty-based Web Server. The GraphQL API also uses the token created with REST in
 the GrahpQL http header request to access the endpoints.
 The https://github.com/stargate/stargate/tree/master/persistence-api[persistence-api] is used to dispatch converted requests to the underlying storage engine.
-In the case of the REST API, you can see what this looks like in the https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java[RowsResource].
+In the case of the REST API, you can see what this looks like in the https://github.com/stargate/stargate/blob/v1/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java[RowsResource].
 
 Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.
 The Persistence extensions are currently Cassandra-centric as Cassandra is the first database we chose to implement.
