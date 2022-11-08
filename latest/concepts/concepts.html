@@ -496,7 +496,7 @@ It is deployed between client applications and a database to provide an abstract
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="https://github.com/stargate/stargate/blob/master/assets/stargate-modules.png?raw=true" alt="Stargate modules">
+<img src="https://github.com/stargate/stargate/blob/v1/assets/stargate-modules.png?raw=true" alt="Stargate modules">
 </div>
 </div>
 <div class="paragraph">
@@ -508,7 +508,7 @@ These extensions use both the Authentication Extensions and the Persistence Exte
 <p>The REST API uses the <a href="https://github.com/stargate/stargate/tree/master/auth-api">auth-api</a> to handle token access to the endpoints that are exposed by the Jetty-based Web Server. The GraphQL API also uses the token created with REST in
 the GrahpQL http header request to access the endpoints.
 The <a href="https://github.com/stargate/stargate/tree/master/persistence-api">persistence-api</a> is used to dispatch converted requests to the underlying storage engine.
-In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/master/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java">RowsResource</a>.</p>
+In the case of the REST API, you can see what this looks like in the <a href="https://github.com/stargate/stargate/blob/v1/restapi/src/main/java/io/stargate/web/restapi/resources/v2/RowsResource.java">RowsResource</a>.</p>
 </div>
 <div class="paragraph">
 <p>Persistence extensions are responsible for implementing the coordination layer to execute requests passed by API services to underlying data storage instances.
