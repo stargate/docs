@@ -4,8 +4,8 @@
 This page covers the basics of building Stargate v1 or v2 from source. If you want further details, see
 the Developer Guide READMES:
 
-* https://github.com/stargate/stargate/blob/v2.0.0/DEV_GUIDE.md[v2 Developer Guide]
-* https://github.com/stargate/stargate/blob/master/DEV_GUIDE.md[v1 Developer Guide]
+* https://github.com/stargate/stargate/blob/main/DEV_GUIDE.md[v2 Developer Guide]
+* https://github.com/stargate/stargate/blob/v1/DEV_GUIDE.md[v1 Developer Guide]
 
 == Prerequisites
 
