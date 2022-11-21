@@ -13,7 +13,7 @@ If the Document API is used with Apache Cassandra, document indexing is accompli
 If the Document API is used with DataStax Enterprise, SAI indexing is used. 
 The blog https://stargate.io/2020/10/19/the-stargate-cassandra-documents-api.html[The Stargate Cassandra Documents API] describes the underlying structure used to store collections.
 
-== Information about namespaces and collections.
+== Information about namespaces and collections
 
 To use the Document API, you must define a namespace that will store  collections.
 Collections can store either unstructured JSON documents or documents with a defined JSON schema.
