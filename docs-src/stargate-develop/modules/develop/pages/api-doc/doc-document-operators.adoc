@@ -166,7 +166,7 @@ include::example$result/docapi/library/curl-document-get-where-name-ne-and.resul
 
 == or
 
-The `and` operator is used when two or more fields are matched to obtain the returned documents.
+The `or` operator is used when two or more fields are matched to obtain the returned documents.
 Either match must exist in order for a document to be returned.
 
 [tabs]
