@@ -16,14 +16,14 @@ To view the API Reference, see xref:develop:attachment$restv2.html[{database} RE
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace]
+include::develop:page$api-rest/rest-creating-keyspace.adoc[Creating a keyspace, leveloffset=+1]
 endif::[]
 
-include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace]
+include::develop:page$api-rest/rest-checking-keyspace.adoc[Checking a keyspace, leveloffset=+1]
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace]
+include::develop:page$api-rest/rest-dropping-keyspace.adoc[Dropping a keyspace, leveloffset=+1]
 endif::[]
 
 include::develop:page$api-rest/rest-creating-table.adoc[Creating a table in your keyspace]
