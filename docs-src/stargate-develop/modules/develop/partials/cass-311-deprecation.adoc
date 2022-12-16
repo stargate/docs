@@ -1,0 +1,7 @@
+[NOTE]
+.Notification of deprecation and schedule to remove
+====
+Cassandra 3.11 Persistence Backend - According to the Cassandra documentation, the 3.11 release is currently the "Previous Stable Version" scheduled for maintenance until 5.0 is released in mid-2023. 
+Since Cassandra 3.11 has a dependency on Java 8, removal of the 3.11 persistence backend would allow the build of the coordinator modules to be updated to Java 11 (for Cassandra 4.x) and to use a Java 11 base Docker image.
+Thus, the Cassandra 3.11 persistence module as being deprecated and scheduled for removal in Stargate v3.
+====

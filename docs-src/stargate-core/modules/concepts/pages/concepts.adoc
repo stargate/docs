@@ -4,6 +4,8 @@
 Stargate is a framework used to customize all aspects of data access.
 It is deployed between client applications and a database to provide an abstraction layer that can be used to shape your data access to fit your application's needs.
 
+include::develop:partial$cass-311-deprecation.adoc[]
+
 == Project architecture
 
 === Stargate v2.0
