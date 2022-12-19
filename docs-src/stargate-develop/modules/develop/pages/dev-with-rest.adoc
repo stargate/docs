@@ -4,6 +4,8 @@
 include::develop:partial$stargate-intro-intro.adoc[]
 The REST API exposes CRUD access to data stored in Cassandra tables.
 
+include::develop:partial$lwt-unsupported.adoc[]
+
 == Prerequisites
 
 include::develop:partial$prereqs-astra.adoc[]
