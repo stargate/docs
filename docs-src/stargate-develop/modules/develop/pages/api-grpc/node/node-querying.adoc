@@ -35,8 +35,8 @@ include::example$javascript/node-batch.js[]
 === Promise support
 
 The Node gRPC implementation uses callbacks by default.
-If you'd prefer promises, this library provides a utility function to create a
-promisified version of the Stargate gRPC client.
+If you'd prefer promises, this https://github.com/stargate/stargate-grpc-node-client/tree/main/src/util[library] provides 
+a utility function to create a promisified version of the Stargate gRPC client.
 The promise will reject if an error occurs:
 
 [source, javascript]
