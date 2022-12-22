@@ -168,23 +168,24 @@ The Swagger UI allows you to interact with the REST and Document APIs in a web b
 === Using the Swagger UI
 
 ifeval::["{product}" == "Astra DB"]
-In Astra, go to the Connect tab for your database, choose GraphQL under the
+In Astra, go to the Connect tab for your database, choose REST API or Document API under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
 endif::[]
 ifeval::["{product}" == "Astra DB Serverless"]
-In Astra, go to the Connect tab for your database, choose GraphQL under the
+In Astra, go to the Connect tab for your database, choose REST API or Document API under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
 endif::[]
 ifeval::["{product}" == "Astra DB for DSE"]
-In Astra, go to the Connect tab for your database, choose GraphQL under the
+In Astra, go to the Connect tab for your database, choose REST API or Document API under the
 `Connect using an API` and you'll see instructions for accessing the playground.
 In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
 endif::[]
 ifeval::["{product}" == "Stargate"]
-Once you have started Stargate using Docker, you can access the REST and Document APIs
-in a browser at `http:localhost:8082/swagger-ui`.
+Once you have started Stargate using Docker, you can access the REST API
+in a browser at `http://localhost:8082/swagger-ui`.
+For the Document API, use `http://localhost:8180/swagger-ui`.
 You can use the "Try It" function to execute and display results.
 You can also use this function generate `cURL` commands to execute on the command line.
 endif::[]
