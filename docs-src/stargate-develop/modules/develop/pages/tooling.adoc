@@ -161,7 +161,7 @@ such as `createTable`, or `dropTable`.
 * `/graphql/<keyspace>`
 ** An API for querying and modifying data in your tables using GraphQL fields.
 
-== Swagger resources
+== REST and Document API resources
 
 The Swagger UI allows you to interact with the REST and Document APIs in a web browser.
  
@@ -169,18 +169,18 @@ The Swagger UI allows you to interact with the REST and Document APIs in a web b
 
 ifeval::["{product}" == "Astra DB"]
 In Astra, go to the Connect tab for your database, choose REST API or Document API under the
-`Connect using an API` and you'll see instructions for accessing the playground.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
+`Connect using an API` and you'll see instructions for accessing the Swagger UI.
+In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`.
 endif::[]
 ifeval::["{product}" == "Astra DB Serverless"]
 In Astra, go to the Connect tab for your database, choose REST API or Document API under the
-`Connect using an API` and you'll see instructions for accessing the playground.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
+`Connect using an API` and you'll see instructions for accessing the Swagger UI.
+In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`.
 endif::[]
 ifeval::["{product}" == "Astra DB for DSE"]
 In Astra, go to the Connect tab for your database, choose REST API or Document API under the
-`Connect using an API` and you'll see instructions for accessing the playground.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`
+`Connect using an API` and you'll see instructions for accessing the Swagger UI.
+In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`.
 endif::[]
 ifeval::["{product}" == "Stargate"]
 Once you have started Stargate using Docker, you can access the REST API
@@ -190,7 +190,7 @@ You can use the "Try It" function to execute and display results.
 You can also use this function generate `cURL` commands to execute on the command line.
 endif::[]
 
-== BloomRPC resources
+== BloomRPC gRPC resources
 
 === Prerequisites
 
