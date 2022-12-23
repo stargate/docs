@@ -56,5 +56,5 @@ include::develop:page$api-doc/doc-document-deleting.adoc[Deleting documents and 
 
 Voila! For more information on the Document API, see the
 xref:develop:dev-with-doc.adoc[Using the Document API]
-or the https://stargate.io/docs/stargate/1.0/attachments/docv2.html[Document API] in the
+or the https://stargate.io/docs/latest/develop/attachments/docv2.html[Document API] in the
 API references section.
