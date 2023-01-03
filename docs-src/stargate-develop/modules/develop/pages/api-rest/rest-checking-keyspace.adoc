@@ -1,5 +1,5 @@
 // tag::CheckKS[]
-=== Check keyspace existence
+= Check keyspace existence
 
 To check if a keyspaces exist, execute a
 REST API query with `cURL` to find all the keyspaces:
@@ -9,7 +9,7 @@ REST API query with `cURL` to find all the keyspaces:
 cURL command (/v2)::
 +
 --
-[source,shell, subs="attributes+"]
+[source, bash, subs="attributes+"]
 ----
 include::example$rest/curl_check_ks_exists.sh[]
 ----
@@ -18,7 +18,7 @@ include::example$rest/curl_check_ks_exists.sh[]
 Result::
 +
 --
-[source,plaintext, subs="attributes+"]
+[source, console, subs="attributes+"]
 ----
 include::example$result/rest_curl_check_ks_exists.result[]
 ----
@@ -32,7 +32,7 @@ To get a particular keyspace, specify the keyspace in the URL:
 cURL command (/v2)::
 +
 --
-[source,shell, subs="attributes+"]
+[source, bash, subs="attributes+"]
 ----
 include::example$rest/curl_get_particular_ks.sh[]
 ----
@@ -41,7 +41,7 @@ include::example$rest/curl_get_particular_ks.sh[]
 Result::
 +
 --
-[source,plaintext, subs="attributes+"]
+[source, console, subs="attributes+"]
 ----
 include::example$result/rest_curl_get_particular_ks.result[]
 ----

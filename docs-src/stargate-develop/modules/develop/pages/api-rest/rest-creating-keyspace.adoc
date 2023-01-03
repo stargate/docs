@@ -1,5 +1,6 @@
 // tag::CreateKS[]
-== Create or delete keyspace and table schema
+= Creating a keyspace
+:navtitle: Creating a keyspace
 
 In order to use the REST API, you must create schema that defines at least one
 keyspace and one table that will store the data.
@@ -17,9 +18,7 @@ If no replica is defined, then for a keyspace in a single datacenter cluster,
 the default is 1, and for a multiple-datacenter cluster, the default is 3 for each
 datacenter.
 
-=== Create a keyspace
-
-==== Simple keyspace
+== Simple keyspace
 
 Send a `POST` request to `{base_rest_schema}`.
 In this example we use `{rkeyspace}` for the `name`, and no `replicas` setting, to default to 1.
@@ -29,7 +28,7 @@ In this example we use `{rkeyspace}` for the `name`, and no `replicas` setting, 
 cURL command (/v2)::
 +
 --
-[source,shell, subs="attributes+"]
+[source, bash, subs="attributes+"]
 ----
 include::example$rest/curl_simple_ks.sh[]
 ----
@@ -38,7 +37,7 @@ include::example$rest/curl_simple_ks.sh[]
 Result::
 +
 --
-[source,plaintext, subs="attributes+"]
+[source, console, subs="attributes+"]
 ----
 include::example$result/rest_curl_create_ks.result[]
 ----
@@ -54,7 +53,7 @@ for `--header`, and `-d` for `--data`.
 // end::CreateKS[]
 
 //tag::CreateKSextra[]
-==== Set replicas in simple keyspace
+== Set replicas in simple keyspace
 
 Send a `POST` request to `{base_rest_schema}`.
 In this example we use `{rkeyspace}` for the `name`,
@@ -65,7 +64,7 @@ and `1` for the number of data `replicas`.
 cURL command (/v2)::
 +
 --
-[source,shell, subs="attributes+"]
+[source, bash, subs="attributes+"]
 ----
 include::example$rest/curl_create_ks.sh[]
 ----
@@ -74,14 +73,14 @@ include::example$rest/curl_create_ks.sh[]
 Result::
 +
 --
-[source,plaintext, subs="attributes+"]
+[source, console, subs="attributes+"]
 ----
 include::example$result/rest_curl_create_ks.result[]
 ----
 --
 ====
 
-==== Keyspace for multiple datacenters
+== Keyspace for multiple datacenters
 
 For a multiple-datacenter cluster, a keyspace is defined `datacenters`.
 Send a `POST` request to `{base_rest_schema}`.
@@ -93,7 +92,7 @@ where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 cURL command (/v2)::
 +
 --
-[source,shell, subs="attributes+"]
+[source, bash, subs="attributes+"]
 ----
 include::example$rest/curl_ks_dcs.sh[]
 ----
@@ -102,7 +101,7 @@ include::example$rest/curl_ks_dcs.sh[]
 Result::
 +
 --
-[source,plaintext, subs="attributes+"]
+[source, console, subs="attributes+"]
 ----
 include::example$result/rest_curl_ks_dcs.result[]
 ----
