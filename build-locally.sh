@@ -20,14 +20,13 @@ version_greater_equal()
     printf '%s\n%s\n' "$2" "$1" | sort --check=quiet --version-sort
 }
 
-echo "Checking prerequisites are up-to-date"
+# echo "Checking prerequisites are up-to-date"
 
 # Look for profile information in these three files
-
-. ~/.nvm/nvm.sh
-. ~/.profile
-. ~/.bashrc
-. ~/.zshrc
+# . ~/.nvm/nvm.sh
+# . ~/.profile
+# . ~/.bashrc
+# . ~/.zshrc
 
 # check if nvm is running and up-to-date
 # If the version is not up-to-date, do the install/update
@@ -37,21 +36,18 @@ echo "nvm version: ${nvmversion}"
 version_greater_equal "${nvmversion}" 0.39.1 || echo "Updating - please wait"; brew upgrade nvm;
 
 # check if node is running and the version
-
 nodeversion=$(node -v)
 ${nodeversion} ||  echo "Installing node - please be patient, this takes time"; brew update; brew install node; nvm install 16; nvm use 16;
 echo "node version: ${nodeversion}"
 version_greater_equal "${nodeversion}" 'v16.13.1' || echo "Updating node"; nvm install 16; nvm use 16;
 
 # check if npm is running and the version
-
 npmversion=$(npm -v)
 ${npmversion} || echo "Installing npm"; npm install;
 echo "npm version: ${npmversion}"
 version_greater_equal "${npmversion}" 8.5.5 || echo "Updating npm"; npm install;
 
 # check the antora version
-
 antoraversion=$(npm info antora version)
 ${antoraversion} || echo "Installin antora"; npm install antora; npm update antora;
 echo "antora version: ${antoraversion}"

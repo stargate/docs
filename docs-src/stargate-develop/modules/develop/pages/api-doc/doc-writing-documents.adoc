@@ -58,7 +58,7 @@ Notice that the `document-id` is returned.
 == Add a document without a document-id
 
 Suppose you want each document to be assigned a random UUID. 
-Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}`
+Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}`
 to add data to the collection `{collection}`.
 The data is passed in the JSON body.
 
@@ -97,7 +97,7 @@ Notice that the `document-id` returned is a UUID if not specified, by default.
 == Add a document with data
 
 Documents can be added with varying JSON data, unless a xref:develop:dev-with-doc.adoc#add-JSON-schema-to-a-collection[JSON schema is specified].
-Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collections_name}` similar to the last example, but add more JSON data to the body of the request:
+Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}` similar to the last example, but add more JSON data to the body of the request:
 
 [tabs]
 ====
