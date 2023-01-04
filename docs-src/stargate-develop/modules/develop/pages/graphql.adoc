@@ -104,5 +104,4 @@ include::partial$GQLNaming.adoc[]
 
 include::develop:page$using-graphql-playground.adoc[]
 
-include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
-// tag::UsingPostman[]
+include::develop:page$tooling.adoc[Using Postman as a tool,tag=using-postman]
