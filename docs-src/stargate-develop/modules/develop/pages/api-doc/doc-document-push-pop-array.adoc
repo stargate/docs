@@ -57,7 +57,6 @@ cURL command (/v1)::
 --
 [source, shell, subs="attributes+"]
 ----
-----
 include::example$docapi/library/v1/curl-document-get-array-change.sh[]
 ----
 --

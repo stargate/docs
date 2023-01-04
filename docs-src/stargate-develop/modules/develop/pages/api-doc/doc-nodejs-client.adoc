@@ -1,3 +1,5 @@
+// LLP, 01.04.2023 - Either rewrite this page for both OSS Stargate, or use only for Astra and block OSS
+
 == Node.js Collection Client
 :slug: astra-collection-client
 
