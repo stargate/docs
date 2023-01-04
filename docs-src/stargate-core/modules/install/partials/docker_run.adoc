@@ -19,7 +19,7 @@ You may also select a specific image tag using the `-t <image_tag>` option. A li
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate Cassandra instance and is
@@ -60,7 +60,7 @@ You may also select a specific image tag using the `-t <image_tag>` option. A li
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate Cassandra instance and is
@@ -101,7 +101,7 @@ You may also select a specific image tag using the `-t <image_tag>` option. A li
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 Start the Stargate container in xref:install:starctl.adoc[developer mode].
 Developer mode removes the need to set up a separate DSE instance and is

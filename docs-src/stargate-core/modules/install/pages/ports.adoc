@@ -27,7 +27,7 @@ IMPORTANT: The port for the Document API has changed.
 == Stargate v1.0
 
 .Stargate v1.0 ports
-[%collapsible%]
+[%collapsible]
 =====
 The default ports assignments align to the following services and interfaces:
 

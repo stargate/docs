@@ -35,7 +35,7 @@ You may also select a specific image tag using the `-t <image_tag>` option. A li
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 The files are found at the
 https://github.com/stargate/docker-images/tree/master/examples/cassandra-{cass-tag-3x}[Stargate docker-images repository].
@@ -93,7 +93,7 @@ You may also select a specific image tag using the `-t <image_tag>` option. A li
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 The files are found at the
 https://github.com/stargate/docker-images/tree/master/examples/cassandra-{cass-tag-40}[Stargate docker-images repository].
@@ -150,7 +150,7 @@ You may also select a specific image tag using the `-t <image_tag>` option. A li
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 The files are found at the
 https://github.com/stargate/docker-images/tree/master/examples/dse-6.8[Stargate docker-images repository].

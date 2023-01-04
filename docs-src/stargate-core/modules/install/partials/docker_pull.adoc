@@ -19,7 +19,7 @@ docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with an Apache Cassandra^(TM)^ {cass-tag-3x} backend.
@@ -50,7 +50,7 @@ docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with an Apache Cassandra^(TM)^ {cass-tag-40} backend.
@@ -81,7 +81,7 @@ docker pull stargateio/graphqlapi:{stargate2-docker-tag}
 =====
 
 .v1
-[%collapsible%]
+[%collapsible]
 =====
 This image contains the Cassandra Query Language (CQL), REST, Document, GraphQL APIs,
 and GraphQL Playground, along with a DataStax Enterprise^(TM)^  {dse-tag-68} backend.
