@@ -1,7 +1,7 @@
 // tag::CreateColl[]
 = Creating a collection
 
-In the Document API, collections are created in a {glossary_url}gloss_namespace.html[namespace]. 
+In the Document API, collections are created in a {glossary-url}gloss_namespace.html[namespace]. 
 Collections store documents.
 Multiple collections are contained in a namespace, but a collection cannot be
 contained in multiple namespaces.

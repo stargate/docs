@@ -292,7 +292,6 @@ cURL command (/v1)::
 --
 [source, shell, subs="attributes+"]
 ----
-----
 include::example$docapi/library/v1/curl-document-get-where-name-in.sh[]
 ----
 --
@@ -324,7 +323,6 @@ cURL command (/v1)::
 +
 --
 [source, shell, subs="attributes+"]
-----
 ----
 include::example$docapi/library/v1/curl-document-get-where-name-in-1fail.sh[]
 ----
@@ -360,7 +358,6 @@ cURL command (/v1)::
 +
 --
 [source, shell, subs="attributes+"]
-----
 ----
 include::example$docapi/library/v2/curl-document-get-where-name-nin.sh[]
 ----

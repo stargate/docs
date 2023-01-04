@@ -23,7 +23,6 @@ cURL command (/v1)::
 --
 [source, shell, subs="attributes+"]
 ----
-----
 include::example$docapi/library/v1/curl-ns-get-functions.sh[]
 ----
 --
@@ -96,7 +95,6 @@ cURL command (/v1)::
 --
 [source, shell, subs="attributes+"]
 ----
-----
 include::example$docapi/library/v1/curl-document-post-push-book.sh[]
 ----
 --
@@ -137,7 +135,6 @@ cURL command (/v1)::
 +
 --
 [source, shell, subs="attributes+"]
-----
 ----
 include::example$docapi/library/v1/curl-document-post-pop-book.sh[]
 ----

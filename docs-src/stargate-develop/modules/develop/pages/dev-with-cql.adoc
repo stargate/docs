@@ -166,7 +166,7 @@ ifeval::["{product}" == "Stargate"]
 Use the Stargate node as the contact point when connecting using Cassandra drivers, and use the https://docs.datastax.com/en/devapp/doc/devapp/driversLoadBalancing.html[Round Robin load balancing policy].
 endif::[]
 
-For example, to connect to {datastax} running on your local machine using the Python driver, replacing the IP address with an appropriate address:
+For example, to connect to \{datastax} running on your local machine using the Python driver, replacing the IP address with an appropriate address:
 
 [source,python]
 ----
