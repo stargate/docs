@@ -1,8 +1,9 @@
 :namespace_name: \{namespace_name}
 :collection_name: \{collection_name}
-:document-id: \{document-id}
-:document-path: \{document-path}
-:keyspace_name: \{keyspace_name}
-:table_name: \{table_name}
-:path: \{path}
+// The following won't work, because the same text is used in other contexts than syntax
+// :document-id: \{document-id}
+// :document-path: \{document-path}
+// :keyspace_name: \{keyspace_name}
+// :table_name: \{table_name}
+// :path: \{path}
 :where-clause: \{where-clause}
