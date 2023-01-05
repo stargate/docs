@@ -26,7 +26,7 @@ by adding the following line:
 // tag::CreateTable[]
 === Create a table
 
-Send a `POST` request to `{base_rest_schema}\/{keyspace-name}/tables` to create a table.
+Send a `POST` request to `{base_rest_schema}/\{keyspace-name}/tables` to create a table.
 Set the table name and column definitions in the JSON body in the `--data` field.
 
 [tabs]
@@ -56,7 +56,7 @@ This table column definition includes:
 Partition key::
 One or more columns required. `\{rpartitionkey}` is the partition key.
 Clustering key::
-Optional, but zero, one or more columns can be defined. `{rclusteringkey}` is the clustering key.
+Optional, but zero, one or more columns can be defined. `\{rclusteringkey}` is the clustering key.
 Non-primary key::
 Optional, but zero, one or more columns that are not a partition key or clustering key can be defined.
 `favorite_color` is the non-primary key column.

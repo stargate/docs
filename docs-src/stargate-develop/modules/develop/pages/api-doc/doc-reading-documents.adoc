@@ -276,5 +276,7 @@ include::example$result/docapi/library/curl-data-where-with-document-path.result
 --
 ====
 
+// end::ReadBasicData[]
+
 // tag::ReadAdvData[
 // end::ReadAdvData[]

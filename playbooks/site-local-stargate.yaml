@@ -1,6 +1,6 @@
 site:
   title: Stargate documentation
-  start_page: stargate-core::core-index.adoc
+  start_page: ROOT::core-index.adoc
 
 output: 
   dir: ./../build/stargate
@@ -34,6 +34,7 @@ asciidoc:
     product: 'Stargate'
     stargate: 'Yes'
     database: 'Stargate'
+    astra_db: 'Astra DB'
 
     stargate-docker-tag: v1.0.65
     stargate-docker-tag-3x: v1.0.65

@@ -30,7 +30,7 @@ include::example$result/rest_curl_write_users.result[]
 [NOTE]
 ====
 Notice that, unlike schema creation, data queries do not require `tables` in the
-URI, only the `{tableName}`.
+URI, only the `\{tableName}`.
 ====
 
 // end::WriteData[]

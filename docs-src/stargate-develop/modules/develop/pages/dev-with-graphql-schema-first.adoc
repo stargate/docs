@@ -61,7 +61,7 @@ to quickly create a random UUID to pass with your requests if you are submitting
 the queries manually using a tool like cURL.
 ====
 
-include::develop:partial$GQLNaming.adoc[]
+include::develop:partial$GQLNaming.adoc[leveloffset=+1]
 
 // include::develop:page$using-graphql-playground.adoc[]
 

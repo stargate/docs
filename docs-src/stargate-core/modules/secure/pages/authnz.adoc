@@ -59,7 +59,7 @@ REST or Document API(/v2)::
 --
 Store the auth token in an environment variable to make it easy to use with `cURL`.
 
-[source, shell, subs="attributes+"]
+[source, shell]
 ----
 export AUTH_TOKEN={auth-token}
 ----
@@ -141,7 +141,7 @@ To start the demo, run the startup script:
 
 The script includes the following commands:
 
-[source, shell, subs="attributes+"]
+[source, shell]
 ----
  #!/bin/sh
 
@@ -186,7 +186,7 @@ and create a role and grant permissions.
 If you have limited memory on the platform where you run this script, you can
 comment out the second and third Cassandra nodes to reduce the payload.
 
-The docker-compose.yml file identifies each node, run as a service, as well as
+The `docker-compose.yml` file identifies each node, run as a service, as well as
 the network that all nodes are attached to.
 
 [source, yaml]
@@ -327,7 +327,7 @@ GRANT SELECT ON TABLE library.authors TO web_user;
 Create a keycloak user, so that the user's JWT can be used to verify authentication and authorization later when a query is made.
 If you used the docker-compose https://github.com/stargate/docker-images/blob/master/examples/stargate-jwt-auth/start_jwt.sh[startup script], this step has already completed.
 
-[source, shell, subs="attributes+"]
+[source, shell]
 ----
 TOKEN=$(curl -s --data "username=admin&password=admin&grant_type=password&client_id=admin-cli" https://localhost:4444/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token') //<1>
 
