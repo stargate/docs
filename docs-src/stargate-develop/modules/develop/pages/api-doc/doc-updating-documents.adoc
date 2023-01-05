@@ -217,7 +217,7 @@ include::example$result/docapi/library/curl-document-get-one-4.result[]
 It is also possible to update only part of a document.
 Using a `PUT` request, you can replace current data in a document. 
 To partially update, send a `PUT` request to
-`{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}/{document-path}`.
+`{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}/\{document-path}`.
 This example will change the book title from `Native Son` to `Native Daughter`:
 
 [tabs]
@@ -254,7 +254,7 @@ include::example$result/docapi/library/curl-document-put-book-with-path.result[]
 
 Using a `PATCH` request, you can overwrite current data in a document. 
 To partially update, send a `PATCH` request to
-`{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}/{document-path}`.
+`{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}/\{document-path}`.
 This example overwrites a book's information:
 
 [tabs]

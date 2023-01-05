@@ -33,7 +33,7 @@ include::example$result/rest_curl_get_indexes.result[]
 ====
 
 Send a `DELETE` request to
-`{base_rest_schema}/{rkeyspace}/tables/{rtable}/indexes/{index_name}`
+`{base_rest_schema}/{rkeyspace}/tables/{rtable}/indexes/\{index_name}`
 to delete an index. All index data will be deleted along with the index schema.
 
 [source, bash, subs="attributes+"]

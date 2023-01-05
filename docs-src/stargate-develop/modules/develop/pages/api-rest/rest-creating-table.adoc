@@ -14,7 +14,7 @@ include::develop:page$api-rest/rest-checking-keyspace.adoc[]
 For example, we'll use `{rkeyspace}` as the keyspace.
 // ASTRA If the keyspace is not listed, go to your {astra_db} dashboard and add the keyspace.
 
-* Optional: A header line using a `{unique-UUID}`, a randomly-generated UUID that
+* Optional: A header line using a `\{unique-UUID}`, a randomly-generated UUID that
 is unique for the authorization request, can be included in the previous command
 by adding the following line:
 
@@ -26,7 +26,7 @@ by adding the following line:
 // tag::CreateTable[]
 === Create a table
 
-Send a `POST` request to `{base_rest_schema}/{keyspace-name}/tables` to create a table.
+Send a `POST` request to `{base_rest_schema}\/{keyspace-name}/tables` to create a table.
 Set the table name and column definitions in the JSON body in the `--data` field.
 
 [tabs]
@@ -54,7 +54,7 @@ The name of our example table is `{rtable}`.
 This table column definition includes:
 
 Partition key::
-One or more columns required. `{rpartitionkey}` is the partition key.
+One or more columns required. `\{rpartitionkey}` is the partition key.
 Clustering key::
 Optional, but zero, one or more columns can be defined. `{rclusteringkey}` is the clustering key.
 Non-primary key::

@@ -1,5 +1,6 @@
 // tag::WriteBasicData[]
 = Writing documents
+include:develop:escaped-attributes.adoc[]
 
 All data written with the Document API is stored as JSON documents stored in
 collections.
@@ -20,7 +21,7 @@ include::partial$DocAPIBlogPost.adoc[]
 First, let's add a document to a specified collection using a document-id.
 If a document-id is specified, a `PUT` request is required, rather than a `POST` request.
 The document-id can be any string.
-Send a `PUT` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}` to add data to the collection `{collection}`.
+Send a `PUT` request to `{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}` to add data to the collection `\{collection_name}`.
 The data is passed in the JSON body.
 
 [tabs]
@@ -58,7 +59,7 @@ Notice that the `document-id` is returned.
 == Add a document without a document-id
 
 Suppose you want each document to be assigned a random UUID. 
-Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}`
+Send a `POST` request to `{base_doc_api}/\{namespace_name}/collections/\{collection_name}`
 to add data to the collection `{collection}`.
 The data is passed in the JSON body.
 
@@ -97,7 +98,7 @@ Notice that the `document-id` returned is a UUID if not specified, by default.
 == Add a document with data
 
 Documents can be added with varying JSON data, unless a xref:develop:dev-with-doc.adoc#add-JSON-schema-to-a-collection[JSON schema is specified].
-Send a `POST` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}` similar to the last example, but add more JSON data to the body of the request:
+Send a `POST` request to `{base_doc_api}/{\namespace_name}/collections/\{collection_name}` similar to the last example, but add more JSON data to the body of the request:
 
 [tabs]
 ====
@@ -222,7 +223,7 @@ include::example$result/docapi/library/curl-document-get-one-book.result[]
 It is often convenient to insert several documents into a collection with one request.
 The Document API has an endpoint that allows for batches of JSON documents to be inserted
 into the same collection.
-Data sent to the endpoint `{base_doc_api}/{namespace_name}/collections/{collection_name}/batch` is expected to be in JSON lines format (1 document per line).
+Data sent to the endpoint `{base_doc_api}/\{namespace_name}/collections/\{collection_name}/batch` is expected to be in JSON lines format (1 document per line).
 This feature was added with https://github.com/stargate/stargate/pull/1043[https://github.com/stargate/stargate/pull/1043].
 
 

@@ -1,5 +1,6 @@
 // tag::CreateNS[]
 = Creating a namespace
+include:develop:escaped-attributes.adoc[]
 
 In order to use the Document API, you must create the {glossary-url}gloss_namespace.html[namespace,window="_blank"] as a container
 that will store collections, which in turn store documents.
@@ -17,7 +18,7 @@ datacenter.
 == Simple namespace
 
 Send a `POST` request to `{base_doc_schema}`.
-In this example we use `{namespace}` for the `name`, and no `replicas` setting, to default to 1.
+In this example we use `\{namespace_name}` for the `name`, and no `replicas` setting, to default to 1.
 docs/build/stargate/stargate/develop/api-doc/doc-creating-namespace.html
 [tabs]
 ====

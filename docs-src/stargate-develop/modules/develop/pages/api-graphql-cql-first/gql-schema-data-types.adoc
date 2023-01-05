@@ -1,4 +1,4 @@
-=== A note about what schema is
+= A note about what schema is
 
 A full GraphQL table schema can include user-defined types (UDTs) and indexes.
 Queries and mutations are automatically generated based on the schema.

@@ -1,5 +1,5 @@
 // tag::DeleteKS[]
-=== Delete a keyspace
+= Drop keyspace schema
 
 You can delete a keyspace. All tables and table data will be deleted along with
 the keyspace schema.

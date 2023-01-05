@@ -1,4 +1,5 @@
 = Reading documents
+include:develop:escaped-attributes.adoc[]
 
 You can either search in collections for documents, or you can search within documents.
 
@@ -135,7 +136,7 @@ include::example$result/docapi/library/curl-document-get-where-book-eq.result[]
 === Retrieving a specified document
 
 Let's check that some data was inserted for a particular document.
-Send a `GET` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}` to retrieve the document:
+Send a `GET` request to `{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}` to retrieve the document:
 
 [tabs]
 ====
@@ -173,7 +174,7 @@ include::example$result/docapi/library/curl-document-get-one.result[]
 
 A document-path uses a document's structure to drill down and get information from within a document.
 To find particular values, send a `GET` request to
-`{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}/{document-path}`
+`{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}/\{document-path}`
 to retrieve a book title:
 
 [tabs]

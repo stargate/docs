@@ -2,11 +2,11 @@
 === Update data
 
 Data changes, so often it is necessary to update an entire row.
-To update a row, send a `PUT` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+To update a row, send a `PUT` request to `/v2/keyspaces/\{keyspace_name}/\{table_name}/\{path}`.
 The `{path}` is comprised of the primary key values.
 In this example, the partition key is `firstname` "Mookie" and the
 clustering key is `lastname` "Betts";
-thus, we use `/Mookie/Betts` as the `{path}` in our request.
+thus, we use `/Mookie/Betts` as the `\{path}` in our request.
 
 [tabs]
 ====
@@ -39,7 +39,7 @@ If it does exist, it will be updated with the new row data.
 // LLP: The update PUT and the PATCH do the same thing. I need to figure out
 // the difference.
 It is also possible to update only part of a row. To partially update, send
-a `PATCH` request to `/v2/keyspaces/{keyspace_name}/{table_name}/{path}`.
+a `PATCH` request to `/v2/keyspaces/\{keyspace_name}/\{table_name}/\{path}`.
 In this example, we realize we should not have changed the email address, and
 we want to only change that one column:
 

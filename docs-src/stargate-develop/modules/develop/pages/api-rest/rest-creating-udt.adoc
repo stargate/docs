@@ -8,7 +8,7 @@ or a review (item reviewed, rating, date reviewed).
 UDTs are stored in a defined keyspace and can be used in other UDT definitions or
 table columns.
 
-Send a `POST` request to `{base_rest_schema}{keyspace_name}/types`.
+Send a `POST` request to `{base_rest_schema}\{keyspace_name}/types`.
 In this example we use `address_type` for the `name`. The defined `fields` describe
 the included items and their data type.
 

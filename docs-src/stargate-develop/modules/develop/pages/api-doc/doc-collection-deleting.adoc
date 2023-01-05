@@ -1,7 +1,8 @@
 // tag::DeleteColl[]
 = Deleting a collection
+include:develop:escaped-attributes.adoc[]
 
-Send a `DELETE` request to `{base_doc_schema}/{namespace}/collections/{collection}` to delete a namespace. 
+Send a `DELETE` request to `{base_doc_schema}/\{namespace}/collections\/{collection}` to delete a namespace. 
 All documents will be deleted along with the collection: 
 
 [tabs]

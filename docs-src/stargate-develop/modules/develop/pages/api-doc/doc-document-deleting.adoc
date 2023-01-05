@@ -1,10 +1,11 @@
 // tag::DeleteBasicData[]
 = Delete a document or part of a document
+include:develop:escaped-attributes.adoc[]
 
 == Delete data in a document
 
 To delete a document path in a document, send a `DELETE` request to
-`{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}/{document-path}`.
+`{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}/\{document-path}`.
 In this example, the secondary address for the user John Smith is deleted from the document.
 
 [tabs]
@@ -31,7 +32,7 @@ include::example$docapi/library/v1/curl-document-delete-path.sh[]
 == Delete full document using a document-id
 
 To delete a document, send a `DELETE` request to
-`{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}`.
+`{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}`.
 
 [tabs]
 ====
@@ -59,7 +60,7 @@ include::develop:partial$deletion-no-return-data.adoc[]
 == Delete a full document using a WHERE clause
 
 To delete a document, based on a WHERE clause, send a `DELETE` request to
-`{base_doc_api}/{namespace_name}/collections/{collection_name}/{document-id}/?{where-clause}`.
+`{base_doc_api}/\{namespace_name}/collections/\{collection_name}/\{document-id}/?\{where-clause}`.
 
 [tabs]
 ====

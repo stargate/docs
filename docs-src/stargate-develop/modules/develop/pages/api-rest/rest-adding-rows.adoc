@@ -2,7 +2,7 @@
 === Write data
 
 First, let's add some data to the `{rtable}` table that you created.
-Send a `POST` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+Send a `POST` request to `/v2/keyspaces/\{keyspace_name}/\{table_name}`
 to add data to the table.
 The column name/value pairs are passed in the JSON body.
 

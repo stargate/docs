@@ -63,7 +63,7 @@ to quickly create a random UUID to pass with your requests if you are submitting
 the queries manually using a tool like cURL.
 ====
 
-include::develop:partial$GQLNaming.adoc[]
+include::develop:partial$GQLNaming.adoc[leveloffset=1]
 
 == Mapping {database} tables to GraphQL fields and types in CQL-first
 
@@ -76,7 +76,7 @@ are generated.
 include::develop:example$graphql/cql-first/generatedApi.graphql[]
 ----
 
-==== Generated query types
+=== Generated query types
 
 The following query types are generated:
 
@@ -87,7 +87,7 @@ For example `gt` (greater than), `lt` (less than), `in` (in a list of values).
 The `book()` equality style query is preferable if your queries don't require
 non-equality operators.
 
-==== Generated mutation types
+=== Generated mutation types
 
 The following mutations are generated:
 
@@ -107,21 +107,21 @@ transactions (LWTs).
 As more tables are added to your keyspace, additional fields are added to the
 query and mutation types to handle queries and mutations for the new tables.
 
-include::develop:page$using-graphql-playground.adoc[]
+// include::develop:page$using-graphql-playground.adoc[]
 
-include::develop:page$tooling.adoc[Using Postman as a tool,tag=using-postman]
-
-ifeval::["{product}" == "Stargate"]
-include::develop:page$api-graphql-cql-first/gql-creating-keyspace.adoc[Creating keyspace schema]
-endif::[]
-
-include::develop:page$api-graphql-cql-first/gql-checking-keyspace.adoc[Checking keyspace schema]
+// include::develop:page$tooling.adoc[Using Postman as a tool,tag=using-postman]
 
 ifeval::["{product}" == "Stargate"]
-include::develop:page$api-graphql-cql-first/gql-deleting-keyspace.adoc[Dropping keyspace schema]
+include::develop:page$api-graphql-cql-first/gql-creating-keyspace.adoc[leveloffset=+1]
 endif::[]
 
-include::develop:page$api-graphql-cql-first/gql-schema-data-types.adoc[Schema and data types]
+include::develop:page$api-graphql-cql-first/gql-checking-keyspace.adoc[leveloffset=+1]
+
+ifeval::["{product}" == "Stargate"]
+include::develop:page$api-graphql-cql-first/gql-deleting-keyspace.adoc[leveloffset=+1]
+endif::[]
+
+include::develop:page$api-graphql-cql-first/gql-schema-data-types.adoc[Schema and data types,leveloffset=+1]
 
 include::develop:page$api-graphql-cql-first/gql-creating-table.adoc[Creating table schema]
 

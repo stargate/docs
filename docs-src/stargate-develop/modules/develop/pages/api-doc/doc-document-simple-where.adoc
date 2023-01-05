@@ -1,8 +1,9 @@
 == Search collection for documents with a simple WHERE clause
+include:develop:escaped-attributes.adoc[]
 
 A `WHERE` clause is used to search for documents that have a particular value that
 matches the corresponding operator. 
-A `GET` request to `{base_doc_api}/{namespace_name}/collections/{collection_name}?{where-clause}`
+A `GET` request to `{base_doc_api}/\{namespace_name}/collections/\{collection_name}?\{where-clause}`
 is the basic form of the query.
 For one of the simplest `WHERE` clasues, get all documents where a name *equals* a particular reader's name:
 

@@ -1,5 +1,7 @@
 // tag::CreateColl[]
 = Creating a collection
+include:develop:escaped-attributes.adoc[]
+
 
 In the Document API, collections are created in a {glossary-url}gloss_namespace.html[namespace]. 
 Collections store documents.
@@ -12,7 +14,7 @@ Collections can be created either as an empty collection first, or created with 
 == Creating an empty collection
 
 Send a `POST` request to `{base_doc_api}`.
-In this example we use `{collection}` for the `name`.
+In this example we use `\{collection_name}` for the `name`.
 
 [tabs]
 ====
@@ -56,7 +58,7 @@ include::partial$curl-flags.adoc[]
 // tag::CreateCollextra[]
 == Add JSON schema to a collection
 
-To set JSON schema that a collection's documents will use, send a `PUT` request to `{base_doc_api}/{namespace}/collections/{collection}`.
+To set JSON schema that a collection's documents will use, send a `PUT` request to `{base_doc_api}/\{namespace_name}/collections/\{collection_name}`.
 In this example, a collection is created to store a Person object that has three properties: first name, last name, and age:
 
 [tabs]

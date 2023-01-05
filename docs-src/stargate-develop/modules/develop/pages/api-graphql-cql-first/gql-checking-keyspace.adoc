@@ -1,5 +1,5 @@
 // tag::CheckKS[]
-=== Check keyspace existence
+= Check keyspace schema
 
 To check if a keyspace exists, execute a GraphQL query:
 

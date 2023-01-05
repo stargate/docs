@@ -1,4 +1,4 @@
-== Naming conventions for GraphQL
+= Naming conventions for GraphQL
 
 The GraphQL API uses specific naming conventions to preserve capitalization and
 special characters. Note that if typical GraphQL naming conventions are used,

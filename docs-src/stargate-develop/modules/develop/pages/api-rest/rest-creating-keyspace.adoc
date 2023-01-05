@@ -85,7 +85,7 @@ include::example$result/rest_curl_create_ks.result[]
 
 For a multiple-datacenter cluster, a keyspace is defined `datacenters`.
 Send a `POST` request to `{base_rest_schema}`.
-In this example we use `{rkeyspace-dcs}` for the `name`, the datacenters are `dc1` and `dc2`,
+In this example we use `\{rkeyspace-dcs}` for the `name`, the datacenters are `dc1` and `dc2`,
 where `dc1` defaults to 3 replicas and `dc2` is set to 5 replicas.
 
 [tabs]

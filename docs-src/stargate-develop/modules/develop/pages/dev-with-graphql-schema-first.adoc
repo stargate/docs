@@ -63,9 +63,9 @@ the queries manually using a tool like cURL.
 
 include::develop:partial$GQLNaming.adoc[]
 
-include::develop:page$using-graphql-playground.adoc[]
+// include::develop:page$using-graphql-playground.adoc[]
 
-include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
+// include::develop:page$tooling.adoc[Using Postman as a tool, tag=using-postman]
 
 ifeval::["{product}" == "Stargate"]
 include::develop:page$api-graphql-schema-first/gqlsf-creating-keyspace.adoc[Creating keyspace schema]

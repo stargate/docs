@@ -2,7 +2,7 @@
 === Check UDT existence
 
 To check if your UDT exists as expected after creation, use a `GET` request
- to `/v2/schemas/keyspaces/{keyspace_name}/types`.
+ to `/v2/schemas/keyspaces/\{keyspace_name}/types`.
 
 
 [tabs]

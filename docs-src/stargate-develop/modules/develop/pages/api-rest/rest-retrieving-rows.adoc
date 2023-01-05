@@ -2,7 +2,7 @@
 === Read data
 
 Let's check that the data was inserted. Send a `GET` request to
-`/v2/keyspaces/{keyspace_name}/{table_name}?where={searchPath}` to retrieve the two users
+`/v2/keyspaces/\{keyspace_name}/\{table_name}?where=\{searchPath}` to retrieve the two users
 that were entered:
 
 [tabs]
@@ -35,7 +35,7 @@ key columns cannot be used unless indexed.
 // end::ReadData[]
 
 // tag::ReadAdvData[]
-Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+Send a `GET` request to `/v2/keyspaces/\{keyspace_name}/\{table_name}`
 to retrieve the row for `Mookie` using `$eq`:
 
 [tabs]
@@ -61,7 +61,7 @@ include::example$result/rest_curl_get_users_where.result[]
 
 If the CQL indexes exist, a multiple `WHERE` can be used:
 
-Send a `GET` request to `/v2/keyspaces/{keyspace_name}/{table_name}`
+Send a `GET` request to `/v2/keyspaces/\{keyspace_name}/{\table_name}`
 to retrieve the row for `Janesha` using `$eq`, and `Emma` using `$contains`:
 
 [tabs]
