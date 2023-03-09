@@ -97,7 +97,7 @@ Once these steps are completed, queries to Stargate can use the generated token 
 `X-Cassandra-Token` for either cURL commands using the REST or Document API, or
 for GraphQL mutations.
 
-TIP: If you are using Stargate as part of DataStax's Astra DB cloud-native database, you can define roles and permissions using the https://astra.datastax.com/[Astra console].
+TIP: If you are using Stargate as part of DataStax's Astra DB cloud-native database, you can define roles and permissions using the https://astra.datastax.com/[Astra Portal^].
 
 You can use your own Keycloak server, but for the purposes of a quickstart,
 here are instructions for setting up a demonstration using docker-compose.
