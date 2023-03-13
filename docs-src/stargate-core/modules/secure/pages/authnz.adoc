@@ -1,7 +1,7 @@
 = Authentication and Authorization
-:page-tag: stargate,dev,develop,security,secure
+:page-tag: stargate,dev,develop,security,secure, authorization, authentictation
 
-Systems establish authentication first, with authorization following if implemented.
+Systems establish authentication first. If implemented, authorization follows.
 
 == What is authentication?
 
