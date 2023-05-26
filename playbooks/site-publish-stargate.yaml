@@ -1,8 +1,8 @@
 site:
   title: Stargate documentation
-  start_page: stargate-core::core-index.adoc
+  start_page: stargate-core::index.adoc
 
-output: 
+output:
   dir: ~/work/docs/build/site
 
 content:
@@ -85,7 +85,7 @@ asciidoc:
     collection: 'library'
     collection2: 'library2'
     user1: 'Jane'
-    user2: 'Amy'  
+    user2: 'Amy'
     docid: '2545331a-aaad-45d2-b084-9da3d8f4c311'
     bookdocid: 'native-son-doc-id'
     readerdocid: 'John-Smith'
