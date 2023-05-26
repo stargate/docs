@@ -3,16 +3,11 @@
   "data": [
     {
       "firstname": "Janesha",
-      "evaluations": [
+      "evaluations": 
         {
-          "key": 2019,
-          "value": "okay"
+          "2019" : "okay",
+          "2020" : "good"
         },
-        {
-          "key": 2020,
-          "value": "good"
-        }
-      ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
