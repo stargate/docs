@@ -1,7 +1,7 @@
 site:
   title: Stargate documentation
   url: https://stargate.io/docs
-  start_page: docs:ROOT:index.adoc
+  start_page: latest:ROOT:index.adoc
 
 output:
   dir: ./../build/stargate

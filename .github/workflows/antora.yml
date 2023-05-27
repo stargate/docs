@@ -1,4 +1,5 @@
-name: Generate Antora site
+name: Publish preview
+# This workflow updates the stargate/docs gh-pages branch, available for preview at: https://stargate.github.io/docs
 
 on:
   push:
@@ -15,13 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: "Render redoc with cli"
+      - name: "Generate API docs with Redocly CLI"
         run: |
-          npm install --location=global redoc-cli
-          redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
-          redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
-          redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
+          npx @redocly/cli build-docs api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
+          npx @redocly/cli build-docs api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
+          npx @redocly/cli build-docs api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
       - name: "Switch antora.yml"
         run: |
           FILE=antora.yml
@@ -32,19 +31,18 @@ jobs:
           fi
           ln -s antora-stargate.yml antora.yml
           echo "symlink created"
-
           cd $GITHUB_WORKSPACE/docs-src/stargate-develop
             if [  -f "$FILE" ]; then
             rm antora.yml;
             echo "antora.yml removed"
-          fi          
+          fi
           ln -s antora-stargate.yml antora.yml
           echo "symlink created"
           cd $GITHUB_WORKSPACE
       - name: "Generate site using antora site action"
         uses: riptano/antora-site-action@main
         with:
-         antora_playbook: playbooks/site-local-stargate.yaml 
+         antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
       - name: "List folder"
         run: |
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop
