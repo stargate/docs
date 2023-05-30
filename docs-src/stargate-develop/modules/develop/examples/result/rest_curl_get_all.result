@@ -3,7 +3,7 @@
   "data": [
     {
       "firstname": "Mookie",
-      "evaluations": [],
+      "evaluations": {},
       "top_three_tv_shows": [],
       "favorite color": "blue",
       "current_country": null,
@@ -13,16 +13,11 @@
     }, 
     {
       "firstname": "Janesha",
-      "evaluations": [
+      "evaluations": 
         {
-          "key": 2019,
-          "value": "okay"
+          "2019" : "okay",
+          "2020" : "good"
         },
-        {
-          "key": 2020,
-          "value": "good"
-        }
-      ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -30,35 +25,9 @@
       ],
       "favorite color": "grey",
       "current_country": [
-        "France",
-        {
-          "year": 2016,
-          "month": "JANUARY",
-          "dayOfMonth": 1,
-          "dayOfWeek": "FRIDAY",
-          "era": "CE",
-          "dayOfYear": 1,
-          "leapYear": true,
-          "monthValue": 1,
-          "chronology": {
-            "calendarType": "iso8601",
-            "id": "ISO"
-          }
-        },
-        {
-          "year": 2020,
-          "month": "FEBRUARY",
-          "dayOfMonth": 2,
-          "dayOfWeek": "SUNDAY",
-          "era": "CE",
-          "dayOfYear": 33,
-          "leapYear": true,
-          "monthValue": 2,
-          "chronology": {
-            "calendarType": "iso8601",
-            "id": "ISO"
-          }
-        }
+        "France", 
+        "2023-05-22T10:21:00.000Z",
+        "2023-05-23T10:21:00.000Z"
       ],
       "email": "janesha.doesha@gmail.com",
       "lastname": "Doesha",
