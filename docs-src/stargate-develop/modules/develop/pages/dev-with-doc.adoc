@@ -32,7 +32,9 @@ include::develop:partial$prereqs-stargate.adoc[]
 == API reference
 
 If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-document.adoc[Stargate Document QuickStart, window="_blank"].
-To view the API Reference, see xref:develop:attachment$docv2.html[{database} Document API, window="_blank"].
+To view the API Reference, see the link:https://stargate.io/docs/latest/develop/attachments/docv2.html[Stargate Document API^].
+
+// xref:develop:attachment$docv2.html[{database} Document API, window="_blank"].
 
 // You may wish to run the following examples in https://postman.com[Postman]. 
 // The button below allows you to fork a copy of the collection and environment that will allow you to execute all the commands shown, if 
