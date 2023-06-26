@@ -1,3 +1,7 @@
+antora:
+  extensions:
+  - ./lib/inject-collector-config.js
+  - '@antora/collector-extension'
 site:
   title: Stargate documentation
   url: https://stargate.io/
