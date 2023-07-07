@@ -23,7 +23,7 @@ jobs:
 
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
-      - name: Execture gradle build to run antora
+      - name: Execute gradle build to run antora
         run: ./gradlew antora
       - name: "Switch antora.yml"
         run: |
@@ -48,16 +48,16 @@ jobs:
       - name: "List folder"
         run: |
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop
-      - name: "Fix attachments"
-        run: |
-          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
-      - name: "Copy index.html required for website"
-        run: |
-          sudo mv $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/build/$SITE_DIR
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+      # - name: "Fix attachments"
+      #   run: |
+      #     sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/attachments
+      #     sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
+      #     ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+      #     grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
+      # - name: "Copy index.html required for website"
+      #   run: |
+      #     sudo mv $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/build/$SITE_DIR
+      #     ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
       - name: "Upload generated site"
         uses: actions/upload-artifact@v3
         with:
