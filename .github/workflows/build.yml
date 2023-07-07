@@ -1,11 +1,9 @@
-name: Publish docs
+name: Build docs with Antora
 
 on:
   push:
-    branches:    
-      - collector-extension
-    tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branches:
+      - main
 
 env:
   SITE_DIR: 'stargate'
@@ -17,17 +15,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Java
+      - name: Use Java for gradle
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 11
-
-      - name: Setup gradle
-        uses: gradle/gradle-build-action@v2
-      - name: Execute gradle build to run antora
-        run: ./gradlew antora
-      - name: "Switch antora.yml"
+      - name: Switch antora.yml symlink
         run: |
           FILE=antora.yml
           cd $GITHUB_WORKSPACE/docs-src/stargate-core
@@ -42,25 +35,11 @@ jobs:
             echo "antora.yml removed"
           fi          
           ln -s antora-stargate.yml antora.yml
-          cd $GITHUB_WORKSPACE      
-      # - name: "Generate site using antora site action"
-      #   uses: riptano/antora-site-action@main
-      #   with:
-      #    antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
-      # - name: "List folder"
-      #   run: |
-      #     ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop
-      # - name: "Fix attachments"
-      #   run: |
-      #     sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/attachments
-      #     sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
-      #     ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
-      #     grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
-      # - name: "Copy index.html required for website"
-      #   run: |
-      #     sudo mv $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/build/$SITE_DIR
-      #     ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
-      - name: "Upload generated site"
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Execute gradle build to run antora
+        run: ./gradlew antora      
+      - name: Upload generated site
         uses: actions/upload-artifact@v3
         with:
           name: site
@@ -84,11 +63,11 @@ jobs:
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
          
      - name: Deploy to GitHub Pages
-       uses: peaceiris/actions-gh-pages@v3
+       uses: JamesIves/github-pages-deploy-action@v4.3.3
        with:
-          personal_token: "${{ secrets.PUBLISH_STARGATE_DOCS }}"
-          external_repository: stargate/website
-          publish_branch: 'gh-pages'
-          publish_dir: "${{ env.SITE_DIR }}"
-          destination_dir: docs
-          disable_nojekyll: true
+        # ACCESS_TOKEN: # optional
+        token: "${{ github.token}}"
+        folder: "${{ env.SITE_DIR }}"
+        branch: 'gh-pages'
+        commit-message: "[CI] Publish documentation for ${{ github.sha }}"
+
