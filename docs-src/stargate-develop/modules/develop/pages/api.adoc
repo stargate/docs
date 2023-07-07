@@ -4,7 +4,7 @@ Stargate provides multiple APIs to interact with your databases.
 
 == Stargate APIs
 
-* xref:develop:attachment$docv2.adoc[Stargate Document API v2, window="_blank"]: The
+* xref:develop:attachment$docv2.html[Stargate Document API v2, window="_blank"]: The
 // http://stargate.io/docs/latest/develop/attachments/docv2.html[Stargate Document API v2, window="_blank"]: The
  Stargate Document API allows you to use schemaless storage of free-form JSON Documents in your Astra database. Get examples of using the Document API in the xref:develop:dev-with-doc.adoc[Developing with the Document API] section.
 * http://stargate.io/docs/latest/develop/attachments/restv2.html[Stargate REST API v2, window="_blank"]: This Stargate REST API allows you to perform standard CRUD operations on your {astra_db} data using a simple, cross-language interface. Get examples of using the REST API v2 in the xref:develop:dev-with-rest.adoc[Developing with the REST API] section.
