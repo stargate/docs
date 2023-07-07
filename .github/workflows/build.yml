@@ -2,6 +2,8 @@ name: Publish docs
 
 on:
   push:
+  branches:    
+      - collector-extension
     tags:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
@@ -41,13 +43,13 @@ jobs:
           fi          
           ln -s antora-stargate.yml antora.yml
           cd $GITHUB_WORKSPACE      
-      - name: "Generate site using antora site action"
-        uses: riptano/antora-site-action@main
-        with:
-         antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
-      - name: "List folder"
-        run: |
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop
+      # - name: "Generate site using antora site action"
+      #   uses: riptano/antora-site-action@main
+      #   with:
+      #    antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
+      # - name: "List folder"
+      #   run: |
+      #     ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop
       # - name: "Fix attachments"
       #   run: |
       #     sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/attachments
