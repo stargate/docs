@@ -3,7 +3,7 @@
   "data": [
     {
       "firstname": "Mookie",
-      "evaluations": {},
+      "evaluations": [],
       "top_three_tv_shows": [],
       "favorite color": "blue",
       "current_country": null,
@@ -13,15 +13,15 @@
     }, 
     {
       "firstname": "Janesha",
-      "evaluations": 
+      "evaluations": [
         {
-          "2019" : "okay",
-          "2020" : "good"
+          "key": 2019,
+          "value": "okay"
         },
-      "top_three_tv_shows": [
-        "The Magicians",
-        "The Librarians",
-        "Agents of SHIELD"
+        {
+          "key": 2020,
+          "value": "good"
+        }
       ],
       "favorite color": "grey",
       "current_country": [
