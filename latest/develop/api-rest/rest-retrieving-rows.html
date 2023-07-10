@@ -418,11 +418,15 @@ that were entered:</p>
   "data": [
     {
       "firstname": "Janesha",
-      "evaluations": 
-        {
-          "2019" : "okay",
-          "2020" : "good"
+      "evaluations": [
+        { "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }        
+        ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -443,7 +447,7 @@ that were entered:</p>
     },
     {
       "firstname": "Mookie",
-      "evaluations": {},
+      "evaluations": [],
       "top_three_tv_shows": [],
       "favorite color": "blue",
       "current_country": null,
@@ -502,7 +506,7 @@ to retrieve the row for <code>Mookie</code> using <code>$eq</code>:</p>
   "data": [
     {
       "firstname": "Mookie",
-      "evaluations": {},
+      "evaluations": [],
       "top_three_tv_shows": [],
       "favorite color": "blue",
       "current_country": null,
@@ -558,11 +562,15 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
   "data": [
     {
       "firstname": "Janesha",
-      "evaluations": 
-        {
-          "2019" : "okay",
-          "2020" : "good"
+      "evaluations": [
+        { "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }        
+        ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -621,7 +629,7 @@ to retrieve the row for <code>Janesha</code> using <code>$eq</code>, and <code>E
   "data": [
     {
       "firstname": "Mookie",
-      "evaluations": {},
+      "evaluations": [],
       "top_three_tv_shows": [],
       "favorite color": "blue",
       "current_country": null,
@@ -683,7 +691,7 @@ The <code>pageState</code> is useful for pagination of the results in queries.
   "data": [
     {
       "firstname": "Mookie",
-      "evaluations": {},
+      "evaluations": [],
       "top_three_tv_shows": [],
       "favorite color": "blue",
       "current_country": null,
@@ -693,11 +701,16 @@ The <code>pageState</code> is useful for pagination of the results in queries.
     }, 
     {
       "firstname": "Janesha",
-      "evaluations": 
+      "evaluations": [
         {
-          "2019" : "okay",
-          "2020" : "good"
+          "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }
+      ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -861,11 +874,15 @@ CREATE CUSTOM INDEX eval_idx
   "data": [
     {
       "firstname": "Janesha",
-      "evaluations": 
-        {
-          "2019" : "okay",
-          "2020" : "good"
+      "evaluations": [
+        { "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }        
+        ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -929,11 +946,15 @@ CREATE CUSTOM INDEX eval_idx
   "data": [
     {
       "firstname": "Janesha",
-      "evaluations": 
-        {
-          "2019" : "okay",
-          "2020" : "good"
+      "evaluations": [
+        { "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }        
+        ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -998,10 +1019,15 @@ CREATE CUSTOM INDEX eval_idx
     {
       "firstname": "Janesha",
       "evaluations": 
-        {
-          "2019" : "okay",
-          "2020" : "good"
+        [
+        { "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }        
+        ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
@@ -1065,11 +1091,15 @@ CREATE CUSTOM INDEX eval_idx
   "data": [
     {
       "firstname": "Janesha",
-      "evaluations": 
-        {
-          "2019" : "okay",
-          "2020" : "good"
+      "evaluations": [
+        { "key": 2019,
+          "value": "okay"
         },
+        {
+          "key": 2020,
+          "value": "good"
+        }        
+        ],
       "top_three_tv_shows": [
         "The Magicians",
         "The Librarians",
