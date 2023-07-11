@@ -70,6 +70,9 @@ asciidoc:
     base_doc_api: '/v2/namespaces'
     base_gql_api: '/graphql'
 
+    astra_ui: 'Astra Portal'
+    astra_db: 'Astra DB'
+
     rkeyspace: 'users_keyspace'
     rkeyspace-dcs: 'users_keyspace-dcs'
     rpartitionkey: 'firstname'

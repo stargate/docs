@@ -4,6 +4,11 @@
 All data written with the Document API is stored as JSON documents stored in
 collections.
 
+[NOTE]
+====
+The maximum size of a document is 1 MB. 
+====
+
 A few terms will help your understanding as you prepare to write and read documents:
 
 document-id:: An ID that you can either assign as a string when creating a document, or a random

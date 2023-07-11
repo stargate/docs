@@ -16,24 +16,25 @@ accepted!
 
 Stargate provides APIs, data types and access methods that bring new capabilities
 to existing databases.
-Currently Stargate adds both REST and GraphQL APIs for CRUD access to data stored
-in Apache Cassandra(R) and there are many more APIs coming soon.
+Currently Stargate adds REST, Document, and GraphQL APIs for CRUD access to data stored
+in Apache Cassandra&reg;, DataStax Enterprise (DSE), and Astra DB databases. 
 Separating compute and storage also has benefits for maximizing resource
 consumption in cloud environments.
-When using Stargate with Cassandra, you can offload the request coordination
-overhead from your storage instances onto Stargate instances
-which has shown latency improvements in preliminary testing (results coming soon).
+When using Stargate with Cassandra, DSE, and Astra DB, you can offload the request coordination
+overhead from your storage instances onto Stargate instances. 
 
 == How can I get involved?
 
-To get started building a new API extension, have a look at the existing
-https://github.com/stargate/stargate/tree/master/restapi[REST API implementation]
-or the https://github.com/stargate/stargate/tree/master/graphqlapi[GraphQL API implementation]
-in the Stargate repo first. To get started building a new storage extension,
-check out the
-https://github.com/stargate/stargate/tree/master/persistence-cassandra-3.11[persistence-cassandra-3.11 implementation].
-Once you have an idea of what you want to build, shoot us a note on the
-https://github.com/stargate/stargate/discussions[Github discussion page] to discuss.
+To get started building a new API extension, have a look at the v2 implementations in the Stargate repo.
 
-**Note** that the internal APIs are under active development and they are
-likely to change before the first version is released.
+* https://github.com/stargate/stargate/tree/main/apis/sgv2-restapi[REST API]
+* https://github.com/stargate/stargate/tree/main/apis/sgv2-docsapi[Document API]
+* https://github.com/stargate/stargate/tree/main/apis/sgv2-graphqlapi[GraphQL API]
+
+Once you have an idea of what you want to build, shoot us a note on the
+https://github.com/stargate/stargate/discussions[Github discussion page], and let's talk.
+
+[NOTE]
+====
+The Stargate APIs are under active development and they are likely to change. 
+====

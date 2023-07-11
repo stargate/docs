@@ -35,7 +35,7 @@ with Postman.
 
 === Prerequisites
 
-* Install http://www.postman.com[Postman] to run postman testing
+Install http://www.postman.com[Postman] to run postman testing.
 
 === Postman collections
 
@@ -92,10 +92,10 @@ If you are using non-standard ports, you'll need to
 https://learning.postman.com/docs/sending-requests/managing-environments/[change them in the Postman environment].
 You can also edit the JSON file directly, if you prefer.
 
-==== Astra
+==== Astra DB
 
 There are three items that must be
-https://docs.datastax.com/en/astra/docs/manage-application-tokens.html[retrieved from the Astra dashboard] and configured in the Postman environment:
+https://docs.datastax.com/en/astra/docs/manage-application-tokens.html[retrieved from Astra Portal] and configured in the Postman environment:
 
 * ASTRA_DB_ID
 * ASTRA_DB_REGION
@@ -113,17 +113,17 @@ The easiest way to get started with GraphQL is to use the built-in GraphQL playg
 === Prerequisites
 
 ifeval::["{product}" == "Astra DB"]
-In Astra, go to the Connect tab for your database, choose GraphQL under the
-`Connect using an API` and you'll see instructions for accessing the playground.
+In {astra_ui}, go to the **Connect** tab for your database. In the **Select a Method** section, on the **APIs** tab, choose **GraphQL**. Follow the steps to create a table in the GraphQL Playground, write data, and read data. 
 endif::[]
+
 ifeval::["{product}" == "Astra DB Serverless"]
-In Astra, go to the Connect tab for your database, choose GraphQL under the
-`Connect using an API` and you'll see instructions for accessing the playground.
+In {astra_ui}, go to the **Connect** tab for your database. In the **Select a Method** section, on the **APIs** tab, choose **GraphQL**. Follow the steps to create a table in the GraphQL Playground, write data, and read data. 
 endif::[]
+
 ifeval::["{product}" == "Astra DB for DSE"]
-In Astra, go to the Connect tab for your database, choose GraphQL under the
-`Connect using an API` and you'll see instructions for accessing the playground.
+In {astra_ui}, go to the **Connect** tab for your database. In the **Select a Method** section, on the **APIs** tab, choose **GraphQL**. Follow the steps to create a table in the GraphQL Playground, write data, and read data. 
 endif::[]
+
 ifeval::["{product}" == "Stargate"]
 The GraphQL playground launches the url `http://localhost:8080/playground` in your browser.
 endif::[]
@@ -168,27 +168,48 @@ The Swagger UI allows you to interact with the REST and Document APIs in a web b
 === Using the Swagger UI
 
 ifeval::["{product}" == "Astra DB"]
-In Astra, go to the Connect tab for your database, choose REST API or Document API under the
-`Connect using an API` and you'll see instructions for accessing the Swagger UI.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`.
+In {astra_ui}, go to the **Connect** tab for your database. In the **Select a Method** section, on the **APIs** tab, choose **REST API** or **Document API**. In the steps, you'll find a link to the launch the Swagger UI. 
+
+For example, with the REST API:
+
+{base_rest_url}/api/rest/swagger-ui/
+
+With the Document API:
+
+{base_rest_url}/api/docs/swagger-ui/
 endif::[]
+
 ifeval::["{product}" == "Astra DB Serverless"]
-In Astra, go to the Connect tab for your database, choose REST API or Document API under the
-`Connect using an API` and you'll see instructions for accessing the Swagger UI.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`.
+In {astra_ui}, go to the **Connect** tab for your database. In the **Select a Method** section, on the **APIs** tab, choose **REST API** or **Document API**. In the steps, you'll find a link to the launch the Swagger UI. 
+
+For example, with the REST API:
+
+{base_rest_url}/api/rest/swagger-ui/
+
+With the Document API:
+
+{base_rest_url}/api/docs/swagger-ui/
 endif::[]
+
 ifeval::["{product}" == "Astra DB for DSE"]
-In Astra, go to the Connect tab for your database, choose REST API or Document API under the
-`Connect using an API` and you'll see instructions for accessing the Swagger UI.
-In a browser, you can connect at `{base_rest_url}/api/rest/swagger-ui/`.
+In {astra_ui}, go to the **Connect** tab for your database. In the **Select a Method** section, on the **APIs** tab, choose **REST API** or **Document API**. In the steps, you'll find a link to the launch the Swagger UI. 
+
+For example, with the REST API:
+
+{base_rest_url}/api/rest/swagger-ui/
+
+With the Document API:
+
+{base_rest_url}/api/docs/swagger-ui/
 endif::[]
+
 ifeval::["{product}" == "Stargate"]
-Once you have started Stargate using Docker, you can access the REST API
-in a browser at `http://localhost:8082/swagger-ui`.
-For the Document API, use `http://localhost:8180/swagger-ui`.
-You can use the "Try It" function to execute and display results.
-You can also use this function generate `cURL` commands to execute on the command line.
+Once you have started Stargate using Docker, you can access the REST API in a browser at http://localhost:8082/swagger-ui. 
+For the Document API, use http://localhost:8180/swagger-ui. 
+You can use the "Try It" function to execute and display results. 
+You can also use this function to generate cURL commands to execute on the command line.
 endif::[]
+
 
 == BloomRPC gRPC resources
 
