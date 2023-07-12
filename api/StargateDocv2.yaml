@@ -1,920 +1,2100 @@
-openapi: 3.0.1
+---
+openapi: 3.0.3
 info:
- title: Stargate Document API reference
- description: "The Stargate Document API provides CRUD operations on document data managed by Stargate."
- license:
-   name: Apache 2.0
-   url: http://www.apache.org/licenses/LICENSE-2.0.html
- version: 2.0.0
+  title: Stargate Document API
+  description: "The Stargate Document API provides CRUD operations on document data managed by Stargate."
+  termsOfService: https://www.datastax.com/legal
+  contact:
+    name: DataStax
+    url: https://www.datastax.com/contact-us
+  version: 2.0.13
 servers:
- - url: https://localhost:8082
-   description: Replace the port if necessary.
+- url: /api/rest
 tags:
- - name: Auth
-   description: auth
- - name: Schemas
-   description: storage configuration
- - name: Documents
-   description: document data
+- name: Documents
+  description: Document related operations.
+- name: Json Schemas
+  description: Json schema management operations.
+- name: Collections
+  description: Collection management operations.
+- name: Namespaces
+  description: Namespace management operations.
 paths:
- /v1/auth:
-    servers:
-      - url: https://localhost:8081
+  /v2/namespaces/{namespace}/collections:
+    get:
+      tags:
+      - Collections
+      summary: List collections
+      description: List all available collections in a namespace.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/raw'
+      responses:
+        "200":
+          description: "Call successful. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: Response data returned by the request.
+                    minItems: 0
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: The name of the collection.
+                          pattern: \w+
+                          type: string
+                          example: cycling
+                        upgradeAvailable:
+                          description: Whether an upgrade is available. Use the 'upgrade
+                            a collection' endpoint with the upgrade type to perform
+                            the upgrade.
+                          type: boolean
+                          example: false
+                        upgradeType:
+                          description: "The upgrade type, if an upgrade is available."
+                          enum:
+                          - SAI_INDEX_UPGRADE
+                          type: object
+                          example: "null"
+                          nullable: true
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
     post:
-     tags:
-       - Auth
-     summary: Create an auth token
-     description: Create an authorization token.
-     operationId: createToken
-     requestBody:
-       content:
-         application/json:
-           schema:
-             $ref: "#/components/schemas/Credentials"
-       required: true
-     responses:
-       201:
-         description: Created
-         content:
-           application/json:
-             examples:
-               default:
-                 value: { "authToken": "string" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
- /v2/namespaces/{namespace-id}/collections:
-   post:
-     tags:
-       - Documents
-     summary: Create a collection
-     operationId: createCollection
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-     requestBody:
-       description: ""
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value:
-                 {
-                   "name": "users",
-                   "fields": { "name": { "type": "String", "index": true } },
-                   "validationAction": "warn",
-                 }
-     responses:
-       201:
-         description: resource created
-         content:
-           application/json:
-             examples:
-               default:
-                 value: { "name": "killrvideo" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       409:
-         $ref: "#/components/responses/409"
-       500:
-         $ref: "#/components/responses/500"
-   get:
-     tags:
-       - Documents
-     summary: List collections in a namespace
-     operationId: listCollections
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "data":
-                       [
-                         {
-                           "name": "users",
-                           "fields":
-                             { "name": { "type": "String", "index": true } },
-                           "validationAction": "warn",
-                         },
-                       ],
-                   }
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
- /v2/schemas/namespaces/{namespace-id}/collections/{collection-id}:
-   get:
-     tags:
-       - Documents
-     summary: Get a collection
-     operationId: getCollection
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "data":
-                       [
-                         {
-                           "name": "users",
-                           "fields":
-                             { "name": { "type": "String", "index": true } },
-                           "validationAction": "warn",
-                         },
-                       ],
-                   }
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
-#    put:
-#      tags:
-#        - Documents
-#      summary: Update a collection
-#      parameters:
-#        - $ref: "#/components/parameters/databaseId"
-#        - $ref: "#/components/parameters/region"
-#        - $ref: "#/components/parameters/X-Cassandra-Token"
-#        - $ref: "#/components/parameters/namespace-id"
-#        - $ref: "#/components/parameters/collection-id"
-#      requestBody:
-#        description: ""
-#        required: true
-#        content:
-#          application/json:
-#            schema:
-#              type: object
-#            examples:
-#              default:
-#                value:
-#                  {
-#                    "name": "users",
-#                    "fields": { "name": { "type": "String", "index": true } },
-#                    "validationAction": "warn",
-#                  }
-#      responses:
-#        200:
-#          description: resource updated
-#          content:
-#            application/json:
-#              examples:
-#                default:
-#                  value: { "name": "users" }
-#        400:
-#          $ref: "#/components/responses/400"
-#        401:
-#          $ref: "#/components/responses/401"
-#        409:
-#          $ref: "#/components/responses/409"
-#        500:
-#          $ref: "#/components/responses/500"
-   delete:
-     tags:
-       - Documents
-     summary: Delete a collection
-     operationId: deleteCollectionSchema
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-     responses:
-       204:
-         description: resource deleted
-         content:
-           application/json:
-             examples:
-               default:
-                 value: {}
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
- /v2/namespaces/{namespace-id}/collections/{collection-id}:
-   get:
-     tags:
-       - Documents
-     summary: Search for documents in {collection-id}
-     operationId: searchDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/where"
-       - $ref: "#/components/parameters/fields"
-       - $ref: "#/components/parameters/page-size"
-       - $ref: "#/components/parameters/page-state"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "count": 1,
-                     "pageState": "2f4acd34",
-                     "data":
-                       [
-                         {
-                           "documentId": "my-first-post-a6h54",
-                           "title": "Hello World",
-                           "author": { "name": "Cliff Wicklow" }
-                         }
-                       ]
-                   }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
-   post:
-     tags:
-       - Documents
-     summary: Add a new document to {collection-id}
-     operationId: addDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-     requestBody:
-       description: document
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value:
-                 {
-                   "title": "Hello World",
-                   "author":
-                     {
-                       "name": "CRW",
-                       "social":
-                         { "foo-bar-789": { "followers": 1, "likes": 7 } },
-                     },
-                 }
-     responses:
-       201:
-         description: resource created
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   { "documentId": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       409:
-         $ref: "#/components/responses/409"
-       500:
-         $ref: "#/components/responses/500"
- /v2/namespaces/{namespace-id}/collections/{collection-id}/batch:
-   post:
-     tags:
-       - Documents
-     summary: Write multiple new documents in one request
-     operationId: addManyDocs
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/id-path"
-     requestBody:
-       description: document
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value:
-                 [
-                   {
-                     "id": "A",
-                     "title": "Hello World",
-                     "author":
-                        {
-                          "name": "CRW",
-                          "social":
-                            { "foo-bar-789": { "followers": 1, "likes": 7 } },
-                        }
-                   },
-                   {
-                      "id": "B",
-                      "title": "Hello World 2: The Sequel",
-                      "author":
-                        {
-                          "name": "CRW",
-                          "social":
-                            { "foo-bar-789": { "followers": 1, "likes": 7 } },
-                        }
-                   }
-                 ]
-     responses:
-       202:
-         description: batch accepted for create
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   { "documentIds": ["A", "B"] }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"                  
- /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}:
-   get:
-     tags:
-       - Documents
-     summary: Get a document by {document-id}
-     operationId: getDocById
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-       - $ref: "#/components/parameters/fields"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "data":
-                       {
-                         "documentId": "my-first-post-a6h54",
-                         "title": "Hello World",
-                         "author": { "name": "Cliff Wicklow" }
-                       }
-                   }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       404:
-         $ref: "#/components/responses/404"
-       500:
-         $ref: "#/components/responses/500"
-   put:
-     tags:
-       - Documents
-     summary: Replace a document by {document-id}
-     operationId: replaceDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-     requestBody:
-       description: document
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value: { "title": "Hello World", "author": { "name": "DKG" } }
-     responses:
-       200:
-         description: resource updated
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   { "documentId": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
-   patch:
-     tags:
-       - Documents
-     summary: Update part of a document
-     operationId: updatePartOfDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-     requestBody:
-       description: document
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value: { "title": "Hello World" }
-     responses:
-       200:
-         description: resource updated
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   { "documentId": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       404:
-         $ref: "#/components/responses/404"
-       500:
-         $ref: "#/components/responses/500"
-   delete:
-     tags:
-       - Documents
-     summary: Delete a  document
-     operationId: deleteDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-     responses:
-       204:
-         description: resource deleted
-         content:
-           application/json:
-             examples:
-               default:
-                 value: {}
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
- /v2/namespaces/{namespace-id}/collections/{collection-id}/{document-id}/{document-path}:
-   get:
-     tags:
-       - Documents
-     summary: Get a sub document by {document-path}
-     operationId: GetSubDocByPath
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-       - $ref: "#/components/parameters/document-path"
-       - $ref: "#/components/parameters/fields"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "documentPath": "author",
-                     "data": { "name": "Cliff Wicklow" }
-                   }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       404:
-         $ref: "#/components/responses/404"
-       500:
-         $ref: "#/components/responses/500"
-   put:
-     tags:
-       - Documents
-     summary: Replace a sub document by {document-path}
-     operationId: replaceSubDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-       - $ref: "#/components/parameters/document-path"
-     requestBody:
-       description: document
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value: { "foo-bar-789": { "followers": 1, "likes": 7 } }
+      tags:
+      - Collections
+      summary: Create a collection
+      description: Create a new empty collection in a namespace.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectionDto'
+      responses:
+        "201":
+          description: Collection created.
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid collection name:
+                  value:
+                    code: 400
+                    description: "Could not create collection events-collection, it\
+                      \ has invalid characters. Valid characters are alphanumeric\
+                      \ and underscores."
+                Generic bad request:
+                  $ref: '#/components/examples/Generic bad request'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "409":
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  description:
+                    description: A human readable description of the error state.
+                    type: string
+                    example: "Could not create collection `custom-users`, it has invalid\
+                      \ characters. Valid characters are alphanumeric and underscores."
+                  code:
+                    format: int32
+                    description: The internal number referencing the error state.
+                    type: integer
+                    example: 22000
+                  grpcStatus:
+                    description: The gRPC response status in case a gRPC request to
+                      the datastore failed.
+                    type: string
+                    example: ABORTED
+                    nullable: true
+                example:
+                  code: 409
+                  description: "Create failed: collection events already exists."
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}:
+    get:
+      tags:
+      - Documents
+      summary: Search documents in a collection
+      description: " Page over documents in a collection, with optional search parameters."
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/where'
+      - $ref: '#/components/parameters/fields'
+      - name: page-size
+        in: query
+        description: The max number of results to return.
+        schema:
+          format: int32
+          default: 3
+          maximum: 20
+          minimum: 1
+          type: integer
+      - $ref: '#/components/parameters/page-state'
+      - $ref: '#/components/parameters/profile'
+      - $ref: '#/components/parameters/raw'
+      responses:
+        "200":
+          description: "Call successful. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    minItems: 0
+                    type: array
+                    example: []
+                  pageState:
+                    type: string
+                    example: c29tZS1leGFtcGxlLXN0YXRl
+                  profile:
+                    $ref: '#/components/schemas/ExecutionProfile'
+              examples:
+                Search documents result:
+                  $ref: '#/components/examples/Search documents result'
+                Search documents result unwrapped:
+                  $ref: '#/components/examples/Search documents result unwrapped'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    post:
+      tags:
+      - Documents
+      summary: Create a document
+      description: "Create a new document with the generated ID. If the collection\
+        \ does not exist, it will be created."
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/ttl'
+      - $ref: '#/components/parameters/profile'
+      requestBody:
+        $ref: '#/components/requestBodies/WRITE'
+      responses:
+        "201":
+          description: Document created. The ID will be returned.
+          headers:
+            Location:
+              description: The URL of a newly created document.
+              style: simple
+          content:
+            application/json:
+              schema:
+                properties:
+                  documentId:
+                    description: The ID of the written document.
+                    type: string
+                  profile:
+                    description: Profiling information related to the execution of
+                      the request. Only set if the endpoint supports profiling and
+                      `profile` query parameter is set to `true`.
+                    type: object
+                    properties:
+                      description:
+                        description: Brief information about this execution step.
+                        type: string
+                      queries:
+                        description: A set of CQL queries performed under this execution
+                          step.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/QueryInfo'
+                      nested:
+                        description: Nested execution steps.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ExecutionProfile'
+                        nullable: true
+                    example:
+                      description: root
+                      queries: []
+                      nested:
+                      - description: "FILTER: speed LT 1000"
+                        queries:
+                        - cql: "SELECT key, leaf, WRITETIME(leaf) FROM cycling.events\
+                            \ WHERE p0 = ? AND leaf = ? AND p1 = ? AND dbl_value <\
+                            \ ? ALLOW FILTERING"
+                          executionCount: 1
+                          rowCount: 1
+                        nested: []
+                      - description: LoadProperties
+                        queries:
+                        - cql: "SELECT key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9,\
+                            \ p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,\
+                            \ p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31,\
+                            \ p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42,\
+                            \ p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53,\
+                            \ p54, p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf,\
+                            \ text_value, dbl_value, bool_value, WRITETIME(leaf) FROM\
+                            \ cycling.events WHERE key = ?"
+                          executionCount: 1
+                          rowCount: 21
+                        nested: []
+                    nullable: true
+              examples:
+                Document write:
+                  $ref: '#/components/examples/Document write'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    delete:
+      tags:
+      - Collections
+      summary: Delete a collection
+      description: Delete a collection in a namespace.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      responses:
+        "204":
+          description: Collection deleted.
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/batch:
+    post:
+      tags:
+      - Documents
+      summary: Create documents
+      description: |
+        Create multiple new documents. If the collection does not exist, it will be created.
 
-     responses:
-       201:
-         description: resource created
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   { "documentId": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
-   patch:
-     tags:
-       - Documents
-     summary: Update part of a sub document by {document-path}
-     operationId: updatePartOfSubDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-       - $ref: "#/components/parameters/document-path"
-     requestBody:
-       description: document
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             default:
-               value: { "title": "Hello World" }
-     responses:
-       200:
-         description: resource updated
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   { "documentId": "e73c77ec-002d-457a-8b65-8ce7cfb15fc7" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       404:
-         $ref: "#/components/responses/404"
-       500:
-         $ref: "#/components/responses/500"
-   delete:
-     tags:
-       - Documents
-     summary: Delete a sub document by {document-path}
-     operationId: deleteSubDoc
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/collection-id"
-       - $ref: "#/components/parameters/document-id"
-       - $ref: "#/components/parameters/document-path"
-     responses:
-       204:
-         description: resource deleted
-         content:
-           application/json:
-             examples:
-               default:
-                 value: {}
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
- /v2/schemas/namespaces:
-   post:
-     tags:
-       - Schemas
-     summary: Create a namespace
-     operationId: createNamespace
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-     requestBody:
-       description: "A map representing a namespace with SimpleStrategy or NetworkTopologyStrategy\
-         \ with default replicas of 1 and 3 respectively \nSimple:\n```json\n{ \"\
-         name\": \"killrvideo\", \"replicas\": 1 }\n````\nNetwork Topology:\n```json\n\
-         {\n  \"name\": \"killrvideo\",\n   \"datacenters\":\n      [\n         {\
-         \ \"name\": \"dc1\", \"replicas\": 3 },\n         { \"name\": \"dc2\", \"\
-         replicas\": 3 },\n      ],\n}\n```"
-       required: true
-       content:
-         application/json:
-           schema:
-             type: object
-           examples:
-             simple strategy:
-               value: { "name": "killrvideo" }
-             datacenters:
-               value:
-                 {
-                   "name": "killrvideo",
-                   "datacenters":
-                     [
-                       { "name": "dc1", "replicas": 3 },
-                       { "name": "dc2", "replicas": 3 },
-                     ]
-                 }
-     responses:
-       201:
-         description: resource created
-         content:
-           application/json:
-             examples:
-               default:
-                 value: { "name": "killrvideo" }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       409:
-         $ref: "#/components/responses/409"
-       500:
-         $ref: "#/components/responses/500"
-   get:
-     tags:
-       - Schemas
-     summary: Get all namespaces
-     description: Retrieve all available namespaces.
-     operationId: getAllNamespaces
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "data":
-                       [
-                         {
-                           "name": "killrvideo",
-                           "datacenters":
-                             [
-                               { "name": "dc1", "replicas": 3 },
-                               { "name": "dc2", "replicas": 3 },
-                             ],
-                         },
-                       ],
-                   }
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
- /v2/schemas/namespaces/{namespace-id}:
-   get:
-     tags:
-       - Schemas
-     summary: Get a namespace
-     operationId: getNamespace
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-       - $ref: "#/components/parameters/raw"
-     responses:
-       200:
-         description: ""
-         content:
-           application/json:
-             examples:
-               default:
-                 value:
-                   {
-                     "data":
-                       {
-                         "name": "killrvideo",
-                         "datacenters":
-                           [
-                             { "name": "dc1", "replicas": 3 },
-                             { "name": "dc2", "replicas": 3 },
-                           ],
-                       },
-                   }
-       400:
-         $ref: "#/components/responses/400"
-       401:
-         $ref: "#/components/responses/401"
-       404:
-         $ref: "#/components/responses/404"
-       500:
-         $ref: "#/components/responses/500"
-   delete:
-     tags:
-       - Schemas
-     summary: Delete a namespace
-     operationId: deleteNamespace
-     parameters:
-       - $ref: "#/components/parameters/X-Cassandra-Token"
-       - $ref: "#/components/parameters/namespace-id"
-     responses:
-       204:
-         description: resource deleted
-         content:
-           application/json:
-             examples:
-               default:
-                 value: {}
-       401:
-         $ref: "#/components/responses/401"
-       500:
-         $ref: "#/components/responses/500"
+        > Include the `id-path` parameter to extract the ID for each document from the document itself.
+        The `id-path` should be given as path to the document property containing the id, for example `a.b.c.[0]`.
+        Note that document IDs will be auto-generated     in case there is no `id-path` parameter defined.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - name: id-path
+        in: query
+        description: "The optional path of the ID in each document whose value will\
+          \ be used as the ID of the created document, if present."
+        schema:
+          type: string
+      - $ref: '#/components/parameters/ttl'
+      - $ref: '#/components/parameters/profile'
+      requestBody:
+        $ref: '#/components/requestBodies/WRITE_BATCH'
+      responses:
+        "202":
+          description: "Accepted. Writes will be processed, and ID's will be returned."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiDocsResponse'
+              examples:
+                Batch documents write:
+                  $ref: '#/components/examples/Batch documents write'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/json-schema:
+    get:
+      tags:
+      - Json Schemas
+      summary: Get a JSON schema
+      description: Get a JSON schema from a collection.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      responses:
+        "200":
+          description: Fetch successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    description: The JSON Schema
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/JsonNode'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    put:
+      tags:
+      - Json Schemas
+      summary: Attach a JSON schema
+      description: Assign a JSON schema to a collection. This will erase any schema
+        that already exists.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      requestBody:
+        description: The JSON schema to attach
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonNode'
+            examples:
+              Schema:
+                value:
+                  $schema: https://json-schema.org/draft/2019-09/schema
+        required: true
+      responses:
+        "200":
+          description: Call successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    description: The JSON Schema
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/JsonNode'
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid JSON schema.:
+                  $ref: '#/components/examples/Invalid JSON schema.'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/upgrade:
+    post:
+      tags:
+      - Collections
+      summary: Upgrade a collection
+      description: |
+        Upgrade a collection in a namespace.
+
+        > **WARNING**: This endpoint is expected to cause some down-time for the collection you choose.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/raw'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeCollectionDto'
+      responses:
+        "200":
+          description: "Upgrade successful, returns upgraded collection data. Note\
+            \ that in case of unwrapping (`raw=true`), the response contains only\
+            \ the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CollectionDto'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/{document-id}:
+    get:
+      tags:
+      - Documents
+      summary: Get a document
+      description: |
+        Retrieve the JSON representation of a single document.
+
+        > Note that in case when conditions are given using the `where` query parameter  or the `page-size` query parameter is defined, the response will contain an array of sub-documents where the condition is matched.
+        The structure of returned sub-documents will only contain the path to the field which was included in the condition.
+        Other fields of the matched sub-document can be included using the `fields` parameter.
+        Only single field conditions are possible at the moment. Multiple conditions targeting the same field are allowed.
+        The page size and page state parameters are only used together with `where` and enable paging through matched sub-documents.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/where'
+      - $ref: '#/components/parameters/fields'
+      - name: page-size
+        in: query
+        description: The max number of results to return.
+        schema:
+          format: int32
+          minimum: 1
+          type: integer
+      - $ref: '#/components/parameters/page-state'
+      - $ref: '#/components/parameters/profile'
+      - $ref: '#/components/parameters/raw'
+      responses:
+        "200":
+          description: "Call successful. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documentId:
+                    description: The id of the document.
+                    type: string
+                    example: 822dc277-9121-4791-8b01-da8154e67d5d
+                  pageState:
+                    description: A string representing the paging state to be used
+                      on future paging requests. Can be missing in case page state
+                      is exhausted.
+                    type: string
+                    example: c29tZS1leGFtcGxlLXN0YXRl
+                    nullable: true
+                  data:
+                    description: The data returned by the request.
+                    type: object
+                  profile:
+                    $ref: '#/components/schemas/ExecutionProfile'
+              examples:
+                Single document:
+                  $ref: '#/components/examples/Single document'
+                Single document unwrapped:
+                  $ref: '#/components/examples/Single document unwrapped'
+                Single document with where condition:
+                  $ref: '#/components/examples/Single document with where condition'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+                Document does not exist:
+                  $ref: '#/components/examples/Document does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    put:
+      tags:
+      - Documents
+      summary: Create or update a document
+      description: "Create or update a document with a given ID. If the collection\
+        \ does not exist, it will be created. If the document already exists, it will\
+        \ be overwritten."
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/ttl'
+      - $ref: '#/components/parameters/profile'
+      requestBody:
+        $ref: '#/components/requestBodies/WRITE'
+      responses:
+        "200":
+          description: Document updated or created with the provided document-id.
+            The document-id will be returned.
+          content:
+            application/json:
+              schema:
+                properties:
+                  documentId:
+                    description: The ID of the updated document.
+                    type: string
+                  profile:
+                    description: Profiling information related to the execution of
+                      the request. Only set if the endpoint supports profiling and
+                      `profile` query parameter is set to `true`.
+                    type: object
+                    properties:
+                      description:
+                        description: Brief information about this execution step.
+                        type: string
+                      queries:
+                        description: A set of CQL queries performed under this execution
+                          step.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/QueryInfo'
+                      nested:
+                        description: Nested execution steps.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ExecutionProfile'
+                        nullable: true
+                    example:
+                      description: root
+                      queries: []
+                      nested:
+                      - description: "FILTER: speed LT 1000"
+                        queries:
+                        - cql: "SELECT key, leaf, WRITETIME(leaf) FROM cycling.events\
+                            \ WHERE p0 = ? AND leaf = ? AND p1 = ? AND dbl_value <\
+                            \ ? ALLOW FILTERING"
+                          executionCount: 1
+                          rowCount: 1
+                        nested: []
+                      - description: LoadProperties
+                        queries:
+                        - cql: "SELECT key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9,\
+                            \ p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,\
+                            \ p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31,\
+                            \ p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42,\
+                            \ p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53,\
+                            \ p54, p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf,\
+                            \ text_value, dbl_value, bool_value, WRITETIME(leaf) FROM\
+                            \ cycling.events WHERE key = ?"
+                          executionCount: 1
+                          rowCount: 21
+                        nested: []
+                    nullable: true
+              examples:
+                Document write:
+                  $ref: '#/components/examples/Document write'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    delete:
+      tags:
+      - Documents
+      summary: Delete a document
+      description: Delete a document with a given ID.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/profile'
+      responses:
+        "204":
+          description: "Document deleted successfully, or was never present."
+        "404":
+          description: Namespace or collection not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    patch:
+      tags:
+      - Documents
+      summary: Patch a document
+      description: Patch a document with a given ID. Merges data at the root with
+        requested data. Note that operation is not allowed if a JSON schema exist
+        for a target collection.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/ttl-auto'
+      - $ref: '#/components/parameters/profile'
+      requestBody:
+        $ref: '#/components/requestBodies/PATCH'
+      responses:
+        "200":
+          description: Document patched. The document-id will be returned.
+          content:
+            application/json:
+              schema:
+                properties:
+                  documentId:
+                    description: The ID of the patched document.
+                    type: string
+                  profile:
+                    description: Profiling information related to the execution of
+                      the request. Only set if the endpoint supports profiling and
+                      `profile` query parameter is set to `true`.
+                    type: object
+                    properties:
+                      description:
+                        description: Brief information about this execution step.
+                        type: string
+                      queries:
+                        description: A set of CQL queries performed under this execution
+                          step.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/QueryInfo'
+                      nested:
+                        description: Nested execution steps.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ExecutionProfile'
+                        nullable: true
+                    example:
+                      description: root
+                      queries: []
+                      nested:
+                      - description: "FILTER: speed LT 1000"
+                        queries:
+                        - cql: "SELECT key, leaf, WRITETIME(leaf) FROM cycling.events\
+                            \ WHERE p0 = ? AND leaf = ? AND p1 = ? AND dbl_value <\
+                            \ ? ALLOW FILTERING"
+                          executionCount: 1
+                          rowCount: 1
+                        nested: []
+                      - description: LoadProperties
+                        queries:
+                        - cql: "SELECT key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9,\
+                            \ p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,\
+                            \ p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31,\
+                            \ p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42,\
+                            \ p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53,\
+                            \ p54, p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf,\
+                            \ text_value, dbl_value, bool_value, WRITETIME(leaf) FROM\
+                            \ cycling.events WHERE key = ?"
+                          executionCount: 1
+                          rowCount: 21
+                        nested: []
+                    nullable: true
+              examples:
+                Document write:
+                  $ref: '#/components/examples/Document write'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/{document-id}/function:
+    post:
+      tags:
+      - Documents
+      summary: Executes a a built-in function
+      description: Execute a built-in function (e.g. `$push` and `$pop`) against the
+        root of this document. Performance may vary.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/profile'
+      - $ref: '#/components/parameters/raw'
+      requestBody:
+        $ref: '#/components/requestBodies/FUNCTION'
+      responses:
+        "200":
+          description: "Function is executed. Certain functions will return a value\
+            \ in the `data` property. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponseWrapper'
+              examples:
+                Function execution result:
+                  $ref: '#/components/examples/Function execution result'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/{document-id}/{document-path}:
+    get:
+      tags:
+      - Documents
+      summary: Get a path in a document
+      description: |
+        Retrieve the JSON representation of the document at a provided path.
+
+        > Note that in case when conditions are given using the `where` query parameter or the `page-size` query parameter is defined, the response will contain an array of sub-documents where the condition is matched.
+        The structure of returned sub-documents will only contain the path to the field which was included in the condition.
+        Other fields of the matched sub-document can be included using the `fields` parameter.
+        Only single field conditions are possible at the moment. Multiple conditions targeting the same field are allowed.
+        The page size and page state parameters are only used together with `where` and enable paging through matched sub-documents.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/document-path'
+      - $ref: '#/components/parameters/where'
+      - $ref: '#/components/parameters/fields'
+      - name: page-size
+        in: query
+        description: The max number of results to return.
+        schema:
+          format: int32
+          minimum: 1
+          type: integer
+      - $ref: '#/components/parameters/page-state'
+      - $ref: '#/components/parameters/profile'
+      - $ref: '#/components/parameters/raw'
+      responses:
+        "200":
+          description: "Call successful. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documentId:
+                    description: The id of the document.
+                    type: string
+                    example: 822dc277-9121-4791-8b01-da8154e67d5d
+                  pageState:
+                    description: A string representing the paging state to be used
+                      on future paging requests. Can be missing in case page state
+                      is exhausted.
+                    type: string
+                    example: c29tZS1leGFtcGxlLXN0YXRl
+                    nullable: true
+                  data:
+                    description: The data returned by the request.
+                    type: object
+                  profile:
+                    $ref: '#/components/schemas/ExecutionProfile'
+              examples:
+                Sub-document:
+                  $ref: '#/components/examples/Sub-document'
+                Sub-document unwrapped:
+                  $ref: '#/components/examples/Sub-document unwrapped'
+                Sub-document with where condition:
+                  $ref: '#/components/examples/Sub-document with where condition'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+                Document does not exist:
+                  $ref: '#/components/examples/Document does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    put:
+      tags:
+      - Documents
+      summary: Create or update a path in a document
+      description: "Create or update a path in a document by ID. If the collection\
+        \ does not exist, it will be created. If data exists at the path, it will\
+        \ be overwritten."
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/document-path'
+      - $ref: '#/components/parameters/ttl-auto'
+      - $ref: '#/components/parameters/profile'
+      requestBody:
+        $ref: '#/components/requestBodies/WRITE_SUB_DOCUMENT'
+      responses:
+        "200":
+          description: Document updated or created with the provided document-id.
+            The document-id will be returned.
+          content:
+            application/json:
+              schema:
+                properties:
+                  documentId:
+                    description: The ID of the updated document.
+                    type: string
+                  profile:
+                    description: Profiling information related to the execution of
+                      the request. Only set if the endpoint supports profiling and
+                      `profile` query parameter is set to `true`.
+                    type: object
+                    properties:
+                      description:
+                        description: Brief information about this execution step.
+                        type: string
+                      queries:
+                        description: A set of CQL queries performed under this execution
+                          step.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/QueryInfo'
+                      nested:
+                        description: Nested execution steps.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ExecutionProfile'
+                        nullable: true
+                    example:
+                      description: root
+                      queries: []
+                      nested:
+                      - description: "FILTER: speed LT 1000"
+                        queries:
+                        - cql: "SELECT key, leaf, WRITETIME(leaf) FROM cycling.events\
+                            \ WHERE p0 = ? AND leaf = ? AND p1 = ? AND dbl_value <\
+                            \ ? ALLOW FILTERING"
+                          executionCount: 1
+                          rowCount: 1
+                        nested: []
+                      - description: LoadProperties
+                        queries:
+                        - cql: "SELECT key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9,\
+                            \ p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,\
+                            \ p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31,\
+                            \ p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42,\
+                            \ p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53,\
+                            \ p54, p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf,\
+                            \ text_value, dbl_value, bool_value, WRITETIME(leaf) FROM\
+                            \ cycling.events WHERE key = ?"
+                          executionCount: 1
+                          rowCount: 21
+                        nested: []
+                    nullable: true
+              examples:
+                Document write:
+                  $ref: '#/components/examples/Document write'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    delete:
+      tags:
+      - Documents
+      summary: Delete a path in a document
+      description: Delete the data at a path in a document by ID.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/document-path'
+      - $ref: '#/components/parameters/profile'
+      responses:
+        "204":
+          description: Document updated or created with the provided document-id.
+            The document-id will be returned.
+        "404":
+          description: Namespace or collection not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    patch:
+      tags:
+      - Documents
+      summary: Patch a path in a document
+      description: "Patch data at a path in a document by ID. Merges data at the path\
+        \ with requested data, assumes that the data at the path is already an object.\
+        \ Note that operation is not allowed if a JSON schema exist for a target collection."
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/document-path'
+      - $ref: '#/components/parameters/ttl-auto'
+      - $ref: '#/components/parameters/profile'
+      requestBody:
+        $ref: '#/components/requestBodies/PATCH'
+      responses:
+        "200":
+          description: Document path patched. The document-id will be returned.
+          content:
+            application/json:
+              schema:
+                properties:
+                  documentId:
+                    description: The ID of the patched document.
+                    type: string
+                  profile:
+                    description: Profiling information related to the execution of
+                      the request. Only set if the endpoint supports profiling and
+                      `profile` query parameter is set to `true`.
+                    type: object
+                    properties:
+                      description:
+                        description: Brief information about this execution step.
+                        type: string
+                      queries:
+                        description: A set of CQL queries performed under this execution
+                          step.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/QueryInfo'
+                      nested:
+                        description: Nested execution steps.
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ExecutionProfile'
+                        nullable: true
+                    example:
+                      description: root
+                      queries: []
+                      nested:
+                      - description: "FILTER: speed LT 1000"
+                        queries:
+                        - cql: "SELECT key, leaf, WRITETIME(leaf) FROM cycling.events\
+                            \ WHERE p0 = ? AND leaf = ? AND p1 = ? AND dbl_value <\
+                            \ ? ALLOW FILTERING"
+                          executionCount: 1
+                          rowCount: 1
+                        nested: []
+                      - description: LoadProperties
+                        queries:
+                        - cql: "SELECT key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9,\
+                            \ p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,\
+                            \ p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31,\
+                            \ p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42,\
+                            \ p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53,\
+                            \ p54, p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf,\
+                            \ text_value, dbl_value, bool_value, WRITETIME(leaf) FROM\
+                            \ cycling.events WHERE key = ?"
+                          executionCount: 1
+                          rowCount: 21
+                        nested: []
+                    nullable: true
+              examples:
+                Document write:
+                  $ref: '#/components/examples/Document write'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/namespaces/{namespace}/collections/{collection}/{document-id}/{document-path}/function:
+    post:
+      tags:
+      - Documents
+      summary: Executes a a built-in function against a path in a document
+      description: Execute a built-in function (e.g. `$push` and `$pop`) against a
+        value in this document. Performance may vary.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/collection'
+      - $ref: '#/components/parameters/document-id'
+      - $ref: '#/components/parameters/document-path'
+      - $ref: '#/components/parameters/profile'
+      - $ref: '#/components/parameters/raw'
+      requestBody:
+        $ref: '#/components/requestBodies/FUNCTION'
+      responses:
+        "200":
+          description: "Function is executed. Certain functions will return a value\
+            \ in the `data` property. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponseWrapper'
+              examples:
+                Function execution result:
+                  $ref: '#/components/examples/Function execution result'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+                Collection does not exist:
+                  $ref: '#/components/examples/Collection does not exist'
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/schemas/namespaces:
+    get:
+      tags:
+      - Namespaces
+      summary: List namespaces
+      description: List all available namespaces. Note that a namespace is an equivalent
+        to the Cassandra keyspace.
+      parameters:
+      - $ref: '#/components/parameters/raw'
+      responses:
+        "200":
+          description: "Call successful. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: Response data returned by the request.
+                    minItems: 0
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - name
+                      type: object
+                      properties:
+                        name:
+                          description: The name of the namespace.
+                          pattern: \w+
+                          type: string
+                          example: cycling
+                        replicas:
+                          format: int32
+                          description: The amount of replicas to use with the `SimpleStrategy`.
+                            Ignored if `datacenters` is set.
+                          default: 1
+                          minimum: 1
+                          type: integer
+                          example: 1
+                          nullable: true
+                        datacenters:
+                          description: The datacenters within a namespace. Only applies
+                            for those namespaces created with `NetworkTopologyStrategy`.
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Datacenter'
+                          nullable: true
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    post:
+      tags:
+      - Namespaces
+      summary: Create a namespace
+      description: Create a new namespace using given replication strategy. Note that
+        a namespace is an equivalent to the Cassandra keyspace.
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NamespaceDto'
+            examples:
+              With SimpleStrategy:
+                value:
+                  name: cycling
+                  replicas: 1
+              With NetworkTopologyStrategy:
+                value:
+                  name: cycling
+                  datacenters:
+                  - name: dc1
+                    replicas: "3"
+                  - name: dc2
+                    replicas: "3"
+      responses:
+        "201":
+          description: Namespace created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamespaceDto'
+        "409":
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  description:
+                    description: A human readable description of the error state.
+                    type: string
+                    example: "Could not create collection `custom-users`, it has invalid\
+                      \ characters. Valid characters are alphanumeric and underscores."
+                  code:
+                    format: int32
+                    description: The internal number referencing the error state.
+                    type: integer
+                    example: 22000
+                  grpcStatus:
+                    description: The gRPC response status in case a gRPC request to
+                      the datastore failed.
+                    type: string
+                    example: ABORTED
+                    nullable: true
+                example:
+                  code: 409
+                  description: "Create failed: namespace cycling already exists."
+        "400":
+          $ref: '#/components/responses/GENERAL_400'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+  /v2/schemas/namespaces/{namespace}:
+    get:
+      tags:
+      - Namespaces
+      summary: Get a namespace
+      description: Retrieve a single namespace specification. Note that a namespace
+        is an equivalent to the Cassandra keyspace.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/raw'
+      responses:
+        "200":
+          description: "Call successful. Note that in case of unwrapping (`raw=true`),\
+            \ the response contains only the contents of the `data` property."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NamespaceDto'
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
+    delete:
+      tags:
+      - Namespaces
+      summary: Delete a namespace
+      description: Delete a namespace if exists. Note that a namespace is an equivalent
+        to the Cassandra keyspace.
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      responses:
+        "204":
+          description: Namespace deleted.
+        "404":
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Namespace does not exist:
+                  $ref: '#/components/examples/Namespace does not exist'
+        "401":
+          $ref: '#/components/responses/GENERAL_401'
+        "500":
+          $ref: '#/components/responses/GENERAL_500'
+        "503":
+          $ref: '#/components/responses/GENERAL_503'
+      security:
+      - Token: []
 components:
- parameters:
-   X-Cassandra-Token:
-     name: X-Cassandra-Token
-     in: header
-     required: true
-     description: "The token returned from the authorization endpoint for classic databases. Use this token in each request."
-     schema:
-       type: string
-   raw:
-     name: raw
-     in: query
-     description: unwrap results
-     schema:
-       type: boolean
-   id-path:
-     name: id-path
-     in: query
-     description: when adding many docs, an optional path to the ID in each document
-     schema:
-       type: string
-   namespace-id:
-     name: namespace-id
-     in: path
-     description: namespace name
-     required: true
-     schema:
-       type: string
-   collection-id:
-     name: collection-id
-     in: path
-     description: name of the document collection
-     required: true
-     schema:
-       type: string
-   document-id:
-     name: document-id
-     in: path
-     description: the id of the document
-     required: true
-     schema:
-       type: string
-   document-path:
-     name: document-path
-     in: path
-     description: a JSON path
-     required: true
-     schema:
-       type: string
-   fields:
-     name: fields
-     in: query
-     description: URL escaped, comma delimited list of keys to include
-     schema:
-       type: string
-     examples:
-       default:
-         value: "name, email"
-   page-state:
-     name: page-state
-     in: query
-     description: move the cursor to a particular result
-     schema:
-       type: string
-     examples:
-       default:
-         value: ""
-   page-size:
-     name: page-size
-     description: restrict the number of returned items (max 20)
-     in: query
-     schema:
-       type: integer
-       format: int32
-     examples:
-       default:
-         value: 10
-   where:
-     name: where
-     in: query
-     description: |
-       URL escaped JSON query using the following keys:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        description:
+          description: A human readable description of the error state.
+          type: string
+          example: "Could not create collection `custom-users`, it has invalid characters.\
+            \ Valid characters are alphanumeric and underscores."
+        code:
+          format: int32
+          description: The internal number referencing the error state.
+          type: integer
+          example: 22000
+        grpcStatus:
+          description: The gRPC response status in case a gRPC request to the datastore
+            failed.
+          type: string
+          example: ABORTED
+          nullable: true
+    BuiltInFunctionDto:
+      required:
+      - operation
+      type: object
+      properties:
+        operation:
+          description: The operation to execute
+          pattern: \$pop|\$push|\$set
+          type: string
+          example: $push
+        value:
+          description: The value to use for the operation
+          type: array
+          allOf:
+          - $ref: '#/components/schemas/JsonNode'
+          example: some_value
+          nullable: true
+    CollectionDto:
+      type: object
+      properties:
+        name:
+          description: The name of the collection.
+          pattern: \w+
+          type: string
+          example: cycling
+        upgradeAvailable:
+          description: Whether an upgrade is available. Use the 'upgrade a collection'
+            endpoint with the upgrade type to perform the upgrade.
+          type: boolean
+          example: false
+        upgradeType:
+          description: "The upgrade type, if an upgrade is available."
+          enum:
+          - SAI_INDEX_UPGRADE
+          type: object
+          example: "null"
+          nullable: true
+    CreateCollectionDto:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          description: The name of the collection.
+          pattern: \w+
+          type: string
+          example: events
+    Datacenter:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          description: The name of the datacenter.
+          pattern: \S
+          type: string
+          example: dc1
+        replicas:
+          format: int32
+          description: "The number of replicas in the datacenter. In other words,\
+            \ the number of copies of each row in the datacenter."
+          default: 3
+          minimum: 1
+          type: integer
+          example: 3
+    DocumentResponseWrapper:
+      type: object
+      properties:
+        documentId:
+          description: The id of the document.
+          type: string
+          example: 822dc277-9121-4791-8b01-da8154e67d5d
+        pageState:
+          description: A string representing the paging state to be used on future
+            paging requests. Can be missing in case page state is exhausted.
+          type: string
+          example: c29tZS1leGFtcGxlLXN0YXRl
+          nullable: true
+        data:
+          description: The data returned by the request.
+          type: object
+        profile:
+          $ref: '#/components/schemas/ExecutionProfile'
+    ExecutionProfile:
+      description: Profiling information related to the execution of the request.
+        Only set if the endpoint supports profiling and `profile` query parameter
+        is set to `true`.
+      type: object
+      properties:
+        description:
+          description: Brief information about this execution step.
+          type: string
+        queries:
+          description: A set of CQL queries performed under this execution step.
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryInfo'
+        nested:
+          description: Nested execution steps.
+          type: array
+          items:
+            $ref: '#/components/schemas/ExecutionProfile'
+          nullable: true
+      example:
+        description: root
+        queries: []
+        nested:
+        - description: "FILTER: speed LT 1000"
+          queries:
+          - cql: "SELECT key, leaf, WRITETIME(leaf) FROM cycling.events WHERE p0 =\
+              \ ? AND leaf = ? AND p1 = ? AND dbl_value < ? ALLOW FILTERING"
+            executionCount: 1
+            rowCount: 1
+          nested: []
+        - description: LoadProperties
+          queries:
+          - cql: "SELECT key, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12,\
+              \ p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26,\
+              \ p27, p28, p29, p30, p31, p32, p33, p34, p35, p36, p37, p38, p39, p40,\
+              \ p41, p42, p43, p44, p45, p46, p47, p48, p49, p50, p51, p52, p53, p54,\
+              \ p55, p56, p57, p58, p59, p60, p61, p62, p63, leaf, text_value, dbl_value,\
+              \ bool_value, WRITETIME(leaf) FROM cycling.events WHERE key = ?"
+            executionCount: 1
+            rowCount: 21
+          nested: []
+      nullable: true
+    JsonNode:
+      type: array
+    MultiDocsResponse:
+      type: object
+      properties:
+        documentIds:
+          description: The ids of the documents.
+          type: array
+          items:
+            type: string
+          example: "[822dc277-9121-4791-8b01-da8154e67d5d, 6334dft4-9153-3642-4f32-da8154e67d5d]"
+        profile:
+          $ref: '#/components/schemas/ExecutionProfile'
+    MultivaluedMapStringString:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+    NamespaceDto:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          description: The name of the namespace.
+          pattern: \w+
+          type: string
+          example: cycling
+        replicas:
+          format: int32
+          description: The amount of replicas to use with the `SimpleStrategy`. Ignored
+            if `datacenters` is set.
+          default: 1
+          minimum: 1
+          type: integer
+          example: 1
+          nullable: true
+        datacenters:
+          description: The datacenters within a namespace. Only applies for those
+            namespaces created with `NetworkTopologyStrategy`.
+          type: array
+          items:
+            $ref: '#/components/schemas/Datacenter'
+          nullable: true
+    PathSegment:
+      type: object
+      properties:
+        path:
+          type: string
+        matrixParameters:
+          $ref: '#/components/schemas/MultivaluedMapStringString'
+    QueryInfo:
+      type: object
+      properties:
+        cql:
+          description: CQL query text
+          type: string
+        executionCount:
+          format: int32
+          description: The number of times this query was executed
+          type: integer
+        rowCount:
+          format: int32
+          description: "The total number of rows fetched or modified by this query.\
+            \ Note that this is underestimated when the query involves deletions:\
+            \ there is no efficient way (without a read-before-write) to count how\
+            \ many rows a CQL DELETE will remove, so it's always counted as 1."
+          type: integer
+    UpgradeCollectionDto:
+      required:
+      - upgradeType
+      type: object
+      properties:
+        upgradeType:
+          description: The upgrade type to perform.
+          enum:
+          - SAI_INDEX_UPGRADE
+          type: object
+  responses:
+    GENERAL_400:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+          examples:
+            Generic bad request:
+              $ref: '#/components/examples/Generic bad request'
+    GENERAL_401:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+          examples:
+            Unauthorized:
+              $ref: '#/components/examples/Unauthorized'
+            Token missing:
+              $ref: '#/components/examples/Token missing'
+    GENERAL_500:
+      description: Unexpected server-side error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+          examples:
+            Server-side error:
+              $ref: '#/components/examples/Server-side error'
+    GENERAL_503:
+      description: Data store service is not available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+          examples:
+            Service unavailable:
+              $ref: '#/components/examples/Service unavailable'
+  parameters:
+    collection:
+      name: collection
+      in: path
+      description: The name of the collection.
+      required: true
+      schema:
+        pattern: \w+
+        type: string
+      example: events
+    document-id:
+      name: document-id
+      in: path
+      description: The ID of the document.
+      required: true
+      schema:
+        type: string
+    document-path:
+      name: document-path
+      in: path
+      description: "The path in the JSON that you want to target. Use path delimiter\
+        \ `/` to target sub-paths, for example to get a JSON object under `$.account.user`\
+        \ use `account/user`. Use `\\` to escape periods, commas, and asterisks."
+      required: true
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      description: A JSON array representing the field names that you want to restrict
+        the results to.
+      examples:
+        fields.empty:
+          summary: No fields
+        fields.notEmpty:
+          summary: Fields example
+          value:
+          - race
+          - location
+    namespace:
+      name: namespace
+      in: path
+      description: The namespace where the collection is located.
+      required: true
+      schema:
+        pattern: \w+
+        type: string
+      example: cycling
+    page-size:
+      name: page-size
+      in: query
+      description: The max number of results to return.
+      schema:
+        format: int32
+        type: integer
+    page-state:
+      name: page-state
+      in: query
+      description: "Cassandra page state, used for pagination on consecutive requests."
+      schema:
+        type: boolean
+    profile:
+      name: profile
+      in: query
+      description: Whether to include query profiling information in the response
+        (advanced).
+      schema:
+        type: boolean
+    raw:
+      name: raw
+      in: query
+      description: Unwrap results.
+      schema:
+        type: boolean
+    ttl:
+      name: ttl
+      in: query
+      description: The time-to-live (in seconds) of the document.
+      schema:
+        format: int32
+        type: integer
+    ttl-auto:
+      name: ttl-auto
+      in: query
+      description: "If set to `true` on document update or patch, ensures that the\
+        \ time-to-live for the updated portion of the document will match the parent\
+        \ document. Requires a read-before-write if set to `true`."
+      schema:
+        type: boolean
+    where:
+      name: where
+      in: query
+      description: |
+        A JSON blob with search filters:
+        * allowed predicates: `$eq`, `$ne`, `$in`, `$nin`, `$gt`, `$lt`, `$gte`, `$lte`, `$exists`
+        * allowed boolean operators: `$and`, `$or`, `$not`
+        * allowed hints: `$selectivity` (a number between 0.0 and 1.0, less is better), defines conditions that should be search for first
+        * Use `\` to escape periods, commas, and asterisks
+      examples:
+        where.empty:
+          summary: No condition
+        where.single:
+          summary: Single condition
+          value:
+            location:
+              $eq: London
+        where.multi:
+          summary: Multiple conditions (implicit $and)
+          value:
+            location:
+              $eq: London
+            race.competitors:
+              $gt: 10
+        where.and:
+          summary: And conditions
+          value:
+            $and:
+            - location:
+                $in:
+                - London
+                - Barcelona
+            - race.competitors:
+                $gt: 10
+        where.or:
+          summary: Or conditions
+          value:
+            $or:
+            - location:
+                $eq: London
+            - location:
+                $eq: Barcelona
+        where.not:
+          summary: Using negation
+          value:
+            $not:
+              $and:
+              - location:
+                  $eq: London
+              - race.competitors:
+                  $gt: 10
+        where.selectivity:
+          summary: With selectivity
+          value:
+            $and:
+            - location:
+                $eq: London
+            - race.competitors:
+                $gt: 10
+                $selectivity: 0
+  examples:
+    Batch documents write:
+      value:
+        documentIds:
+        - "822dc277-9121-4791-8b01-da8154e67d5d, 6334dft4-9153-3642-4f32-da8154e67d5d"
+    Collection does not exist:
+      value:
+        code: 404
+        description: Collection 'events' not found.
+    Document does not exist:
+      value:
+        code: 404
+        description: A document with the id 822dc277-9121-4791-8b01-da8154e67d5d does
+          not exist.
+    Document write:
+      value:
+        documentId: 822dc277-9121-4791-8b01-da8154e67d5d
+    Function `$pop`:
+      value:
+        operation: $pop
+    Function `$push`:
+      value:
+        operation: $push
+        value: 123
+    Function `$set`:
+      value:
+        operation: $set
+        value:
+          a.b.c: d
+          d.e.[2].f:
+            g: true
+    Function execution result:
+      description: |
+        Note that `data` property content depends on the executed function:
 
-       | Key | Operation |
-       |-|-|
-       | $lt | Less Than |
-       | $lte | Less Than Or Equal To |
-       | $gt | Greater Than |
-       | $gte | Greater Than Or Equal To |
-       | $eq | Equal To |
-       | $ne | Not Equal To |
-       | $in | Contained In |
-       | $nin | Not Contained In |
-       | $exists | A value is set for the key |
+        * `$pop` - returns the item that was popped from the array
+        * `$push` - returns the complete array, including the item that was pushed
+      value:
+        documentId: 822dc277-9121-4791-8b01-da8154e67d5d
+        data: 123
+    Generic bad request:
+      value:
+        code: 400
+        description: "Request invalid: payload not provided."
+    Namespace does not exist:
+      value:
+        code: 404
+        description: "Unknown namespace cycling, you must create it first."
+    Search documents result:
+      value:
+        data:
+        - location: London
+          race:
+            competitors: 100
+            start_date: 2022-08-15
+        - location: Barcelona
+          race:
+            competitors: 30
+            start_date: 2022-09-26
+        pageState: c29tZS1leGFtcGxlLXN0YXRl
+    Search documents result unwrapped:
+      value:
+      - location: London
+        race:
+          competitors: 100
+          start_date: 2022-08-15
+      - location: Barcelona
+        race:
+          competitors: 30
+          start_date: 2022-09-26
+    Server-side error:
+      value:
+        code: 500
+        description: Internal server error.
+    Service unavailable:
+      value:
+        code: 503
+        description: "gRPC service unavailable (UNAVAILABLE->Service Unavailable):\
+          \ UNAVAILABLE: io exception"
+        grpcStatus: UNAVAILABLE
+    Single document:
+      value:
+        documentId: 822dc277-9121-4791-8b01-da8154e67d5d
+        data:
+          location: London
+          race:
+            competitors: 100
+            start_date: 2022-08-15
+    Single document unwrapped:
+      value:
+        location: London
+        race:
+          competitors: 100
+          start_date: 2022-08-15
+    Single document with where condition:
+      description: |
+        Response example when using a condition like `where={"race.competitors": {"$gt": 0} }` on a document. Selects only path to the matched field.
+      value:
+        documentId: 822dc277-9121-4791-8b01-da8154e67d5d
+        data:
+        - race:
+            competitors: 100
+    Sub-document:
+      description: |
+        Response example when using a sub-document path `/race` on a document like:
 
-     schema:
-       type: object
-     examples:
-       search with or:
-         value:
-           {
-             "author.name": "Cliff Wicklow",
-             "createTime": { "$gte": 0 },
-             "$or":
-               [{ "name": "Cliff" }, { "documentId": "my-first-post-a6h54" }]
-           }
- examples: {}
- responses:
-   404:
-     description: Not Found
-     content:
-       application/json:
-         examples:
-           default:
-             value: { "code": 404, "description": "Not Found" }
-   400:
-     description: Invalid input
-     content:
-       application/json:
-         examples:
-           default:
-             value: { "code": 400, "description": "Invalid input" }
-   401:
-     description: Unauthorized
-     content:
-       application/json:
-         examples:
-           default:
-             value: { "code": 401, "description": "Unauthorized" }
-   409:
-     description: Conflict
-     content:
-       application/json:
-         examples:
-           default:
-             value: { "code": 409, "description": "resource already exists." }
-   500:
-     description: Internal server error
-     content:
-       application/json:
-         examples:
-           default:
-             value: { "code": 500, "description": "Internal server error" }
- schemas:
-   Credentials:
-     type: object
-     required:
-       - username
-       - password
-     description: User credentials for authenticating
-     properties:
-       username:
-         type: string
-         description: Username
-       password:
-         type: string
-         description: Password
+        `
+        {
+            "location": "London",
+            "race": {
+                "competitors": 100,
+                "start_date": "2022-08-15"
+            }
+        }
+        `
+      value:
+        documentId: 822dc277-9121-4791-8b01-da8154e67d5d
+        data:
+          race:
+            competitors: 100
+            start_date: 2022-08-15
+    Sub-document unwrapped:
+      description: |
+        Response example when using a sub-document path `/race` and unwrapping results (`raw=true`) on a document like:
+
+        `
+        {
+            "location": "London",
+            "race": {
+                "competitors": 100,
+                "start_date": "2022-08-15"
+            }
+        }
+        `
+      value:
+        race:
+          competitors: 100
+          start_date: 2022-08-15
+    Sub-document with where condition:
+      description: |
+        Response example when using a sub-document path `/race` and a condition like `where={"competitors": {"$gt": 0} }` on a document like:
+
+        `
+        {
+            "location": "London",
+            "race": {
+                "competitors": 100,
+                "start_date": "2022-08-15"
+            }
+        }
+        `
+      value:
+        race:
+          competitors: 100
+    Token missing:
+      value:
+        code: 401
+        description: Missing token.
+    Unauthorized:
+      value:
+        code: 401
+        description: Unauthorized operation.
+        grpcStatus: PERMISSION_DENIED
+  requestBodies:
+    FUNCTION:
+      description: The request body for executing a built-in function.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BuiltInFunctionDto'
+          examples:
+            Function `$pop`:
+              $ref: '#/components/examples/Function `$pop`'
+            Function `$push`:
+              $ref: '#/components/examples/Function `$push`'
+    PATCH:
+      description: The JSON of a patch.
+      content:
+        application/json:
+          schema:
+            type: object
+          example:
+            location: Berlin
+    WRITE:
+      description: The JSON of a document.
+      content:
+        application/json:
+          schema:
+            type: object
+          example:
+            location: London
+            race:
+              competitors: 100
+              start_date: 2022-08-15
+    WRITE_BATCH:
+      description: The JSON array of a documents for batch write.
+      content:
+        application/json:
+          schema:
+            type: array
+          example:
+          - location: London
+            race:
+              competitors: 100
+              start_date: 2022-08-15
+          - location: Barcelona
+            race:
+              competitors: 30
+              start_date: 2022-09-26
+    WRITE_SUB_DOCUMENT:
+      description: The JSON of a sub-document.
+      content:
+        application/json:
+          schema:
+            type: object
+          example:
+            competitors: 100
+            start_date: 2022-08-15
+  securitySchemes:
+    Token:
+      type: apiKey
+      name: X-Cassandra-Token
+      in: header
