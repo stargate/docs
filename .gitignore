@@ -2,6 +2,7 @@ build
 .DS_store
 *~
 package-lock.json
+docs-src/.DS_Store
 
 # Logs
 logs

@@ -4,11 +4,12 @@
 
 == What should I do if I find a bug?
 
-- If you've found an issue while using Stargate, please file a bug in the
-https://github.com/stargate/stargate[Stargate repo] and use the bug label.
+* If you've found an issue while using Stargate, please file a bug in the
+https://github.com/stargate/stargate[Stargate repo, window="_blank"] and use the bug label.
 It's also helpful to include the full stack trace and the Stargate and database
 version that you are using so that we can efficiently debug.
-- If you've found an issue with the documentation, please file an issue in the
+
+* If you've found an issue with the documentation, please file an issue in the
 https://github.com/stargate/docs[Stargate docs repo, window="_blank"]. Pull requests are also
 accepted!
 

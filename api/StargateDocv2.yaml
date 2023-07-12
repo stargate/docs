@@ -9,7 +9,7 @@ info:
     url: https://www.datastax.com/contact-us
   version: 2.0.13
 servers:
-- url: /api/docs
+- url: /api/rest
 tags:
 - name: Documents
   description: Document related operations.
