@@ -1,0 +1,15 @@
+plugins {
+  id 'org.antora' version '1.0.0-alpha.3'
+}
+
+antora {
+  playbook = project.hasProperty('profile')
+    ? file("playbooks/antora-playbook-${project.property('profile')}.yml")
+    : file('playbooks/site-publish-stargate-ghaction.yaml')
+  options = ['--clean', '--stacktrace']
+}
+
+task npmRun(type: NpmTask) {
+  dependsOn npmCiOrInstall
+  args = ['run', project.findProperty('command')]
+}

@@ -13,3 +13,5 @@ nav:
 - modules/secure/nav.adoc
 - modules/migrate/nav.adoc
 - modules/ROOT/apinav.adoc
+ext:
+  collector: ~

@@ -1,2 +1,4 @@
 name: latest
 version: ~
+ext:
+  collector: ~

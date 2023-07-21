@@ -1,2 +1,4 @@
 name: docs
 version: ~
+ext:
+  collector: ~

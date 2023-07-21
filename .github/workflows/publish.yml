@@ -1,4 +1,4 @@
-name: Publish docs
+name: Publish docs with Antora
 
 on:
   push:
@@ -15,13 +15,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: "Render redoc"
-        run: |
-          npm install -g redoc-cli
-
-          redoc-cli build api/StargateRESTv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv2.html
-          redoc-cli build api/StargateRESTv1.yaml --output docs-src/stargate-develop/modules/develop/attachments/restv1.html
-          redoc-cli build api/StargateDocv2.yaml --output docs-src/stargate-develop/modules/develop/attachments/docv2.html
+      - name: Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
       - name: "Switch antora.yml"
         run: |
           FILE=antora.yml
@@ -37,24 +35,10 @@ jobs:
             echo "antora.yml removed"
           fi          
           ln -s antora-stargate.yml antora.yml
-          cd $GITHUB_WORKSPACE      
-      - name: "Generate site using antora site action"
-        uses: riptano/antora-site-action@main
-        with:
-         antora_playbook: playbooks/site-publish-stargate-ghaction.yaml
-      - name: "List folder"
-        run: |
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop
-      - name: "Fix attachments"
-        run: |
-          sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/attachments
-          sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
-      - name: "Copy index.html required for website"
-        run: |
-          sudo mv $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/build/$SITE_DIR
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Execute gradle build to run antora
+        run: ./gradlew antora      
       - name: "Upload generated site"
         uses: actions/upload-artifact@v3
         with:

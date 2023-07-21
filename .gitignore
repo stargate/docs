@@ -112,3 +112,5 @@ dist
 # IDE
 .idea/
 
+# GRADLE
+/.gradle/
