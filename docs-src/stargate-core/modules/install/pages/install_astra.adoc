@@ -1,6 +1,4 @@
-= Astra
+= Astra DB
 :page-tag: stargate,astra-db,dev,install
 
-If you are looking to just get started,
-https://astra.datastax.com[DataStax Astra Database-as-a-Service]
-can get you started with no install steps.
+If you are looking to just get started, https://astra.datastax.com[DataStax Astra Portal^] can get you started with no install steps.

@@ -25,7 +25,6 @@
     "@antora/collector-extension": "1.0.0-alpha.3",
     "linkinator": "^4.1.2",
     "redoc": "^2.0.0",
-    "redoc-cli": "^0.13.14",
-    "@redocly/cli": "1.0.0-beta.117"
+    "redoc-cli": "^0.13.14"
   }
 }

@@ -22,7 +22,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/stargate/antora-ui-stargate/releases/download/v0.9/ui-bundle.zip
+    url: https://github.com/stargate/antora-ui-stargate/releases/latest/download/ui-bundle.zip
   supplemental_files: ./supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
@@ -74,6 +74,9 @@ asciidoc:
     base_rest_api: '/v2/keyspaces'
     base_doc_api: '/v2/namespaces'
     base_gql_api: '/graphql'
+
+    astra_ui: 'Astra Portal'
+    astra_db: 'Astra DB'    
 
     rkeyspace: 'users_keyspace'
     rkeyspace-dcs: 'users_keyspace-dcs'

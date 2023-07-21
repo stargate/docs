@@ -1,7 +1,7 @@
 // tag::CheckNS[]
 = Checking namespace existence
 
-To check if a namespaces exist, execute a
+To check if namespaces exist, execute a
 Document API query with `cURL` to find all the namespaces:
 
 [tabs]
