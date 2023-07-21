@@ -38,7 +38,11 @@ jobs:
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
       - name: Execute gradle build to run antora
-        run: ./gradlew antora      
+        run: ./gradlew antora   
+      - name: "Copy index.html required for website"
+        run: |
+          sudo mv $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/build/$SITE_DIR
+          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
       - name: "Upload generated site"
         uses: actions/upload-artifact@v3
         with:
