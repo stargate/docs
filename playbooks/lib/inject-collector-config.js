@@ -13,7 +13,7 @@ module.exports.register = function () {
               local: true,
             },
             scan: {
-              dir: 'build/stargate/api',
+              dir: 'build/api',
               base: 'modules/develop/attachments',
             },
           },
