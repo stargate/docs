@@ -8,9 +8,9 @@
     "build:dev:stargate": "npm run build:restapi && npm run build:restapiv1 && npm run build:docapi && npm run build:local:stargate",
 
     "collector": "npm run collector:restapi && npm run collector:restapiv1 && npm run collector:docapi",
-    "collector:restapi": "redoc-cli build api/StargateRESTv2.yaml --output build/stargate/api/restv2.html",
-    "collector:restapiv1": "redoc-cli build api/StargateRESTv1.yaml --output build/stargate/api/restv1.html",
-    "collector:docapi": "redoc-cli build api/StargateDocv2.yaml --output build/stargate/api/docv2.html",
+    "collector:restapi": "redoc-cli build api/StargateRESTv2.yaml --output build/api/restv2.html",
+    "collector:restapiv1": "redoc-cli build api/StargateRESTv1.yaml --output build/api/restv1.html",
+    "collector:docapi": "redoc-cli build api/StargateDocv2.yaml --output build/api/docv2.html",
 
     "build:oaslinter": "npx @redocly/cli lint api/StargateRESTv2.yaml && npx @redocly/cli lint api/StargateRESTv1.yaml && npx @redocly/cli lint api/StargateDocv2.yaml && npx @redocly/cli lint api/DevOpsv2.yaml",
     "build:linkinator": "npx linkinator https://stargate.io/docs --recurse --skip ' http://localhost?'",
