@@ -1,4 +1,5 @@
 = The Stargate API Documentation
+:page-aliases: core-index.adoc
 
 * xref:concepts:concepts.adoc[Stargate concepts]
 //* xref:quickstart:quickstart-overview.adoc[Stargate QuickStarts]

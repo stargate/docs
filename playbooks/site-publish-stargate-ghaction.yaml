@@ -4,10 +4,10 @@ antora:
   - '@antora/collector-extension'
 site:
   title: Stargate documentation
-  url: https://stargate.io/
-  start_page: stargate-core::core-index.adoc
-  
-output: 
+  url: https://stargate.io/docs
+  start_page: latest::index.adoc
+
+output:
   dir: ./../build/stargate
 
 content:
@@ -26,6 +26,9 @@ ui:
   supplemental_files: ./supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
+
+urls:
+  redirect_facility: static
 
 asciidoc:
   attributes:
@@ -75,8 +78,8 @@ asciidoc:
     base_doc_api: '/v2/namespaces'
     base_gql_api: '/graphql'
 
-    astra_ui: 'Astra Portal'  
-    astra_db: 'Astra DB'      
+    astra_ui: 'Astra Portal'
+    astra_db: 'Astra DB'
 
     rkeyspace: 'users_keyspace'
     rkeyspace-dcs: 'users_keyspace-dcs'
@@ -93,7 +96,7 @@ asciidoc:
     collection: 'library'
     collection2: 'library2'
     user1: 'Jane'
-    user2: 'Amy'  
+    user2: 'Amy'
     docid: '2545331a-aaad-45d2-b084-9da3d8f4c311'
     bookdocid: 'native-son-doc-id'
     readerdocid: 'John-Smith'
@@ -107,5 +110,4 @@ asciidoc:
     glossary-url: 'https://docs.datastax.com/en/glossary/docs/'
 
   extensions:
-      - ./lib/tabs-block.js
-  
+  - ./lib/tabs-block.js
