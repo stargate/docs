@@ -1,4 +1,4 @@
 * xref:develop:api.adoc[API References]
-** https://stargate.io/docs/latest/develop/attachments/docv2.html[{database} Document API v2, window="_blank"]
-** https://stargate.io/docs/latest/develop/attachments/restv2.html[{database} REST API v2, window="_blank"]
-** https://stargate.io/docs/latest/develop/attachments/restv1.html[{database} REST API v1, window="_blank"]
+** xref:develop:attachment$docv2.html[{database} Document API v2]
+** xref:develop:attachment$restv2.html[{database} REST API v2]
+** xref:develop:attachment$restv1.html[{database} REST API v1]

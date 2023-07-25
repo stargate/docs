@@ -50,5 +50,5 @@ include::develop:page$api-rest/rest-deleting-rows.adoc[Deleting rows in your tab
 
 Voila! For more information on the REST API, see the see the
 xref:develop:dev-with-rest.adoc[Using the REST API]
-or the https://stargate.io/docs/latest/develop/attachments/restv2.html[REST API] in the
+or the xref:develop:attachment$restv2.html[REST API] in the
 API references section.

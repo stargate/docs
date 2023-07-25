@@ -4,9 +4,9 @@ Stargate provides multiple APIs to interact with your databases.
 
 == Stargate APIs
 
-* https://stargate.io/docs/latest/develop/attachments/docv2.html[{database} Document API v2, window="_blank"]: The Stargate Document API allows you to use schemaless storage of free-form JSON Documents in your {astra_db} database. Get examples of using the Document API in the xref:develop:dev-with-doc.adoc[Developing with the Document API] section.
+* xref:develop:attachment$docv2.html[{database} Document API v2, window="_blank"]: The Stargate Document API allows you to use schemaless storage of free-form JSON Documents in your {astra_db} database. Get examples of using the Document API in the xref:develop:dev-with-doc.adoc[Developing with the Document API] section.
 
-* https://stargate.io/docs/latest/develop/attachments/restv2.html[{database} REST API v2, window="_blank"]: The Stargate REST API allows you to perform standard CRUD operations on your {astra_db} data using a simple, cross-language interface. Get examples of using the REST API v2 in the xref:develop:dev-with-rest.adoc[Developing with the REST API] section.
+* xref:develop:attachment$restv2.html[{database} REST API v2, window="_blank"]: The Stargate REST API allows you to perform standard CRUD operations on your {astra_db} data using a simple, cross-language interface. Get examples of using the REST API v2 in the xref:develop:dev-with-rest.adoc[Developing with the REST API] section.
 
 * xref:graphql.adoc[Stargate GraphQL API, window="_blank"]: The GraphQL playground allows you to easily interact with your data using GraphQL types, queries, and mutations. For every table in your keyspace, a series of GraphQL objects are generated, along with queries and mutations that allow you to search and modify the table data. Get examples of using the GraphQL API in the xref:develop:graphql.adoc[Developing with the GraphQL API] section.
 
@@ -14,5 +14,5 @@ Stargate provides multiple APIs to interact with your databases.
 
 === Prior Stargate version
 
-* https://stargate.io/docs/latest/develop/attachments/restv1.html[Stargate REST API v1, window="_blank"]
+* xref:develop:attachment$restv1.html[Stargate REST API v1, window="_blank"]
 
