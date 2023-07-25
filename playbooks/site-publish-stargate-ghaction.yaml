@@ -28,6 +28,11 @@ ui:
   output_dir: assets
 
 urls:
+  # `static` is already Antora's default value for `redirect_facility`. However,
+  # including it here is meant to signal to others that it shouldn't be changed.
+  # GitHub Pages doesn't currently accept or provide access to URL redirection
+  # configuration files, therefore setting this to anything other than `static`
+  # will break redirection within the Stargate docs.
   redirect_facility: static
 
 asciidoc:
