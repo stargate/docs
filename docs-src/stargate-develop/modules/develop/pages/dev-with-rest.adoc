@@ -14,7 +14,7 @@ include::develop:partial$prereqs-stargate.adoc[]
 == API reference
 
 If you prefer to learn using a QuickStart, try out the xref:quickstart:qs-rest.adoc[Stargate REST QuickStart, window="_blank"].
-To view the API Reference, see xref:develop:attachment$restv2.html[{database} REST API, window="_blank"].
+To view the API Reference, see https://stargate.io/docs/latest/develop/attachments/restv2.html[{database} REST API, window="_blank"].
 
 // STARGATE ONLY
 ifeval::["{product}" == "Stargate"]
