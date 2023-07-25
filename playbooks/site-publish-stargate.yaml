@@ -1,8 +1,9 @@
 site:
   title: Stargate documentation
-  start_page: stargate-core::core-index.adoc
+  url: https://stargate.io/docs
+  start_page: latest::index.adoc
 
-output: 
+output:
   dir: ~/work/docs/build/site
 
 content:
@@ -21,6 +22,14 @@ ui:
   supplemental_files: ~/work/docs/playbooks/supplemental-ui
   # override the default _ dir for assets, as Jekyll will delete them
   output_dir: assets
+
+urls:
+  # `static` is already Antora's default value for `redirect_facility`. However,
+  # including it here is meant to signal to others that it shouldn't be changed.
+  # GitHub Pages doesn't currently accept or provide access to URL redirection
+  # configuration files, therefore setting this to anything other than `static`
+  # will break redirection within the Stargate docs.
+  redirect_facility: static
 
 asciidoc:
   attributes:
@@ -88,7 +97,7 @@ asciidoc:
     collection: 'library'
     collection2: 'library2'
     user1: 'Jane'
-    user2: 'Amy'  
+    user2: 'Amy'
     docid: '2545331a-aaad-45d2-b084-9da3d8f4c311'
     bookdocid: 'native-son-doc-id'
     readerdocid: 'John-Smith'
@@ -102,4 +111,4 @@ asciidoc:
     glossary-url: 'https://docs.datastax.com/en/glossary/docs/'
 
   extensions:
-     - ~/work/docs/playbooks/lib/tabs-block.js
+  - ~/work/docs/playbooks/lib/tabs-block.js

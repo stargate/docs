@@ -33,22 +33,18 @@ jobs:
             if [  -f "$FILE" ]; then
             rm antora.yml;
             echo "antora.yml removed"
-          fi          
+          fi
           ln -s antora-stargate.yml antora.yml
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
       - name: Execute gradle build to run antora
-        run: ./gradlew antora   
+        run: ./gradlew antora
       - name: "Fix attachments"
         run: |
           sudo mv $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/_attachments $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/attachments
           sudo sed -i 's/_attachments/attachments/g' $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
-          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html    
-      - name: "Copy index.html required for website"
-        run: |
-          sudo mv $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/build/$SITE_DIR
-          ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
+          grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
       - name: "Upload generated site"
         uses: actions/upload-artifact@v3
         with:
@@ -71,7 +67,7 @@ jobs:
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
-         
+
      - name: Deploy to GitHub Pages
        uses: peaceiris/actions-gh-pages@v3
        with:
