@@ -1,14 +1,18 @@
 ---
 openapi: 3.0.3
 info:
-  title: Stargate REST API
-  description: "The Stargate REST API provides CRUD operations on table data managed by Stargate.\
-    \ Keep in mind that you will need information for the server ({databaseId} and {region}) for all of these operations."
+  title: Stargate REST API (2.0.18)
+  description: "The Stargate REST API exposes CRUD access to data stored in Cassandra\
+    \ tables. See the [documentation site](https://stargate.io/docs/latest/develop/dev-with-rest.html)\
+    \ for additional information."
   termsOfService: https://www.datastax.com/legal
   contact:
-    name: DataStax
-    url: https://www.datastax.com/contact-us
-  version: 2.0.13
+    name: Stargate
+    url: https://stargate.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.18
 servers:
 - url: /api/rest
 tags:
@@ -31,6 +35,7 @@ paths:
       summary: CQL Query
       description: Execute a cql query directly
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/keyspaceQP'
       - $ref: '#/components/parameters/page-size'
       - $ref: '#/components/parameters/page-state'
@@ -65,8 +70,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        type: object
+                      additionalProperties: {}
         "400":
           $ref: '#/components/responses/GENERAL_400'
         "401":
@@ -96,6 +100,7 @@ paths:
         required: true
         schema:
           type: object
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/fields'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/page-size'
@@ -128,6 +133,7 @@ paths:
         \ same primary key as that of an existing row, the database processes it as\
         \ an update to the existing row."
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/tableName'
       requestBody:
@@ -159,6 +165,7 @@ paths:
       summary: Retrieve all rows
       description: Get all rows from a table.
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/fields'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/page-size'
@@ -196,6 +203,7 @@ paths:
       summary: Get row(s)
       description: Get rows from a table based on the primary key.
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/fields'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/page-size'
@@ -227,6 +235,7 @@ paths:
       summary: Replace row(s)
       description: Update existing rows in a table.
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/primaryKey'
       - $ref: '#/components/parameters/raw'
@@ -279,6 +288,7 @@ paths:
       summary: Update part of a row(s)
       description: Perform a partial update of one or more rows in a table
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/primaryKey'
       - $ref: '#/components/parameters/raw'
@@ -684,6 +694,7 @@ paths:
       summary: Get all indexes for a given table
       description: Get all indexes for a given table
       parameters:
+      - $ref: '#/components/parameters/compactMapData'
       - $ref: '#/components/parameters/keyspaceName'
       - $ref: '#/components/parameters/tableName'
       responses:
@@ -1037,7 +1048,6 @@ components:
       properties:
         data:
           description: Response data returned by the request.
-          type: object
           nullable: false
     RowsResponse:
       type: object
@@ -1056,8 +1066,7 @@ components:
           type: array
           items:
             type: object
-            additionalProperties:
-              type: object
+            additionalProperties: {}
     Sgv2Keyspace:
       required:
       - name

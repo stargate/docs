@@ -1,13 +1,18 @@
 ---
 openapi: 3.0.3
 info:
-  title: Stargate Document API
-  description: "The Stargate Document API provides CRUD operations on document data managed by Stargate."
+  title: Stargate Document API (2.0.18)
+  description: "The Stargate Document API modifies and queries data stored as unstructured\
+    \ JSON documents in collections. See the [documentation site](https://stargate.io/docs/latest/develop/dev-with-doc.html)\
+    \ for additional information."
   termsOfService: https://www.datastax.com/legal
   contact:
-    name: DataStax
-    url: https://www.datastax.com/contact-us
-  version: 2.0.13
+    name: Stargate
+    url: https://stargate.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.18
 servers:
 - url: /api/rest
 tags:
@@ -605,7 +610,6 @@ paths:
                     nullable: true
                   data:
                     description: The data returned by the request.
-                    type: object
                   profile:
                     $ref: '#/components/schemas/ExecutionProfile'
               examples:
@@ -961,7 +965,6 @@ paths:
                     nullable: true
                   data:
                     description: The data returned by the request.
-                    type: object
                   profile:
                     $ref: '#/components/schemas/ExecutionProfile'
               examples:
@@ -1562,7 +1565,6 @@ components:
           nullable: true
         data:
           description: The data returned by the request.
-          type: object
         profile:
           $ref: '#/components/schemas/ExecutionProfile'
     ExecutionProfile:
@@ -1609,7 +1611,64 @@ components:
           nested: []
       nullable: true
     JsonNode:
-      type: array
+      type: object
+      properties:
+        empty:
+          type: boolean
+        valueNode:
+          type: boolean
+        containerNode:
+          type: boolean
+        missingNode:
+          type: boolean
+        array:
+          type: boolean
+        object:
+          type: boolean
+        nodeType:
+          $ref: '#/components/schemas/JsonNodeType'
+        pojo:
+          type: boolean
+        number:
+          type: boolean
+        integralNumber:
+          type: boolean
+        floatingPointNumber:
+          type: boolean
+        short:
+          type: boolean
+        int:
+          type: boolean
+        long:
+          type: boolean
+        float:
+          type: boolean
+        double:
+          type: boolean
+        bigDecimal:
+          type: boolean
+        bigInteger:
+          type: boolean
+        textual:
+          type: boolean
+        boolean:
+          type: boolean
+        "null":
+          type: boolean
+        binary:
+          type: boolean
+    JsonNodeType:
+      enum:
+      - ARRAY
+      - BINARY
+      - BOOLEAN
+      - MISSING
+      - "NULL"
+      - NUMBER
+      - OBJECT
+      - POJO
+      - STRING
+      type: string
     MultiDocsResponse:
       type: object
       properties:
