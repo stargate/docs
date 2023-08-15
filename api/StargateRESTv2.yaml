@@ -1,7 +1,7 @@
 ---
 openapi: 3.0.3
 info:
-  title: Stargate REST API (2.0.18)
+  title: Stargate REST API
   description: "The Stargate REST API exposes CRUD access to data stored in Cassandra\
     \ tables. See the [documentation site](https://stargate.io/docs/latest/develop/dev-with-rest.html)\
     \ for additional information."
