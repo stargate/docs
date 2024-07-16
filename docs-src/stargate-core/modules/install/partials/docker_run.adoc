@@ -97,7 +97,7 @@ You will want to run, for example:
 
 This command will start using the latest available coordinator and API images with the `v2` tag.
 
-You may also select a specific image tag using the `-t <image_tag>` option. A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-6.8/tags[here].
+You may also select a specific image tag using the `-t <image_tag>` option. A list of the available tags for the coordinator can be found https://hub.docker.com/r/stargateio/coordinator-dse-68/tags[here].
 =====
 
 .v1
