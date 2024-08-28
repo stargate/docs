@@ -46,7 +46,7 @@ jobs:
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
           grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: site
           path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
