@@ -36,7 +36,7 @@ jobs:
           fi
           ln -s antora-stargate.yml antora.yml
       - name: Setup gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
       - name: Execute gradle build to run antora
         run: ./gradlew antora
       - name: "Fix attachments"
