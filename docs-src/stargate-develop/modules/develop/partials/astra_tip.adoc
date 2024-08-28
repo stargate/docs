@@ -1,10 +1,8 @@
 
 [TIP]
 ====
-If you are looking to just get started, https://astra.datastax.com[DataStax Astra Database-as-a-Service]
-can get you started with no install steps.
+If you're looking to just get started, you can try https://astra.datastax.com[DataStax Astra DB] and skip the installation steps.
 
-The base URL will be `https://${ASTRA_DB_ID}-${ASTRA_DB_REGION}.apps.astra.datastax.com/api/rest/v2`.
-Checkout the https://docs.datastax.com/en/astra-db-serverless/faqs.html#where-do-i-find-the-organization-id-database-id-or-region-id[FAQ]
-to find the cluster details.
+The base URL will be `https://**DATABASE_ID**-**REGION**.apps.astra.datastax.com/api/rest/v2`.
+See the https://docs.datastax.com/en/astra-db-serverless/faqs.html#where-do-i-find-the-organization-id-database-id-or-region-id[FAQ] to learn where to find your `*DATABASE_ID*` and `*REGION*`.
 ====
