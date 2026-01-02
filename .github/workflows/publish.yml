@@ -14,9 +14,9 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 11
@@ -46,7 +46,7 @@ jobs:
           ls -ltra $GITHUB_WORKSPACE/build/$SITE_DIR
           grep attachment $GITHUB_WORKSPACE/build/$SITE_DIR/$SUB_DIR/develop/api.html
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: site
           path: "${{ github.workspace }}/build/${{ env.SITE_DIR }}"
@@ -61,9 +61,9 @@ jobs:
        with:
          node-version: 16
      - name: Checkout
-       uses: actions/checkout@v4
+       uses: actions/checkout@v5
      - name: Download generated site
-       uses: actions/download-artifact@v4
+       uses: actions/download-artifact@v6
        with:
          name: site
          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
